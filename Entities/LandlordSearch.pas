@@ -1,0 +1,84 @@
+unit LandlordSearch;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, BaseSearch, Data.DB, Vcl.StdCtrls,
+  Vcl.Grids, Vcl.DBGrids, RzDBGrid, Vcl.Mask, RzEdit, RzLabel,
+  Vcl.Imaging.pngimage, Vcl.ExtCtrls, RzPanel;
+
+type
+  TfrmLandlordSearch = class(TfrmBaseSearch)
+    procedure FormCreate(Sender: TObject);
+  private
+    { Private declarations }
+  protected
+    procedure SearchList; override;
+    procedure SetReturn; override;
+    procedure Add; override;
+  public
+    { Public declarations }
+  end;
+
+var
+  frmLandlordSearch: TfrmLandlordSearch;
+
+implementation
+
+{$R *.dfm}
+
+uses
+  Landlord, EntitiesData, LandlordDetail;
+
+{ TfrmLandlordSearch }
+
+procedure TfrmLandlordSearch.Add;
+begin
+  inherited;
+  with TfrmLandlordDetail.Create(self) do
+  begin
+    llord.Add;
+
+    ShowModal;
+
+    if ModalResult = mrOK then
+    begin
+      // refresh the grid
+      grSearch.DataSource.DataSet.Close;
+      grSearch.DataSource.DataSet.Open;
+    end;
+  end;
+end;
+
+procedure TfrmLandlordSearch.FormCreate(Sender: TObject);
+begin
+  dmEntities := TdmEntities.Create(self);
+  inherited;
+end;
+
+procedure TfrmLandlordSearch.SearchList;
+var
+  filter: string;
+begin
+  inherited;
+  if Trim(edSearchKey.Text) <> '' then
+    filter := 'name like ''' + edSearchKey.Text + '*'''
+  else
+    filter := '';
+
+  grSearch.DataSource.DataSet.Filter := filter;
+end;
+
+procedure TfrmLandlordSearch.SetReturn;
+begin
+  with grSearch.DataSource.DataSet do
+  begin
+    llord.Id := FieldByName('entity_id').AsString;
+    llord.Name := FieldByName('name').AsString;;
+    llord.Mobile := FieldByName('mobile_no').AsString;
+    llord.Telephone := FieldByName('home_phone').AsString;
+  end;
+end;
+
+end.
