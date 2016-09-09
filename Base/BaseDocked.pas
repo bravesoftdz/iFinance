@@ -11,6 +11,7 @@ type
   TfrmBaseDocked = class(TfrmBase)
     pnlTitle: TRzPanel;
     lblTitle: TRzLabel;
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
     { Private declarations }
   public
@@ -23,5 +24,11 @@ var
 implementation
 
 {$R *.dfm}
+
+procedure TfrmBaseDocked.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  inherited;
+  Action := caFree;
+end;
 
 end.

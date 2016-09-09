@@ -23,12 +23,11 @@ type
     procedure FormCreate(Sender: TObject);
   private
     { Private declarations }
-  protected
+  public
+    { Public declarations }
     procedure SearchList; virtual; abstract;
     procedure SetReturn; virtual; abstract;
     procedure Add; virtual; abstract;
-  public
-    { Public declarations }
   end;
 
 var

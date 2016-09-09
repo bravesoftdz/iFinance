@@ -47,6 +47,7 @@ contains
   ClientData in 'ClientData.pas' {dmClient: TDataModule},
   Client in 'Client.pas',
   BaseForm in '..\Base\BaseForm.pas' {frmBase},
+  ClientList in 'ClientList.pas' {frmClientList},
   BaseDocked in '..\Base\BaseDocked.pas' {frmBaseDocked};
 
 end.

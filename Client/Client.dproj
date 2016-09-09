@@ -110,8 +110,13 @@
         <DCCReference Include="..\Base\BaseForm.pas">
             <Form>frmBase</Form>
         </DCCReference>
+        <DCCReference Include="ClientList.pas">
+            <Form>frmClientList</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <DCCReference Include="..\Base\BaseDocked.pas">
             <Form>frmBaseDocked</Form>
+            <FormType>dfm</FormType>
         </DCCReference>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>

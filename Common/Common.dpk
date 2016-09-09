@@ -52,6 +52,7 @@ contains
   DBUtil in 'DBUtil.pas',
   IFinanceGlobal in 'IFinanceGlobal.pas',
   User in 'User.pas',
-  ConnUtil in 'ConnUtil.pas';
+  ConnUtil in 'ConnUtil.pas',
+  StatusIntf in 'StatusIntf.pas';
 
 end.

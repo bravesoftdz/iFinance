@@ -24,6 +24,9 @@ inherited frmBaseSearch: TfrmBaseSearch
     Height = 321
     ExplicitWidth = 314
     ExplicitHeight = 321
+    DesignSize = (
+      314
+      321)
     object RzLabel2: TRzLabel
       Left = 8
       Top = 14
@@ -44,7 +47,8 @@ inherited frmBaseSearch: TfrmBaseSearch
       Left = 8
       Top = 35
       Width = 296
-      Height = 238
+      Height = 245
+      Anchors = [akLeft, akTop, akRight, akBottom]
       Options = [dgIndicator, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
       TabOrder = 1
       TitleFont.Charset = DEFAULT_CHARSET
@@ -54,12 +58,14 @@ inherited frmBaseSearch: TfrmBaseSearch
       TitleFont.Style = []
       OnDblClick = grSearchDblClick
       AltRowShading = True
+      AltRowShadingColor = 16053492
     end
     object btnSelect: TButton
       Left = 8
       Top = 288
       Width = 75
       Height = 25
+      Anchors = [akLeft, akTop, akRight, akBottom]
       Caption = 'Select'
       ModalResult = 1
       TabOrder = 2
@@ -69,6 +75,7 @@ inherited frmBaseSearch: TfrmBaseSearch
       Top = 288
       Width = 75
       Height = 25
+      Anchors = [akLeft, akTop, akRight, akBottom]
       Caption = 'New'
       ModalResult = 1
       TabOrder = 3
@@ -79,6 +86,7 @@ inherited frmBaseSearch: TfrmBaseSearch
       Top = 288
       Width = 75
       Height = 25
+      Anchors = [akLeft, akTop, akRight, akBottom]
       Caption = 'Cancel'
       ModalResult = 2
       TabOrder = 4

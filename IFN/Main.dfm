@@ -78,8 +78,7 @@ object frmMain: TfrmMain
         Background.Tile = False
         Background.Transparent = False
         Caption = 'Clients'
-        ExplicitHeight = 420
-        object RzURLLabel1: TRzURLLabel
+        object lblRecentlyAdded: TRzURLLabel
           Left = 15
           Top = 40
           Width = 75
@@ -91,6 +90,7 @@ object frmMain: TfrmMain
           Font.Name = 'Tahoma'
           Font.Style = [fsUnderline]
           ParentFont = False
+          OnClick = lblRecentlyAddedClick
         end
         object RzURLLabel2: TRzURLLabel
           Left = 15
@@ -118,7 +118,6 @@ object frmMain: TfrmMain
         Background.Tile = False
         Background.Transparent = False
         Caption = 'Loans Management'
-        ExplicitHeight = 420
       end
       object nppExpense: TJvNavPanelPage
         Left = 0
@@ -132,7 +131,6 @@ object frmMain: TfrmMain
         Background.Tile = False
         Background.Transparent = False
         Caption = 'Expense Managment'
-        ExplicitHeight = 420
       end
       object nppInventory: TJvNavPanelPage
         Left = 0
@@ -146,7 +144,6 @@ object frmMain: TfrmMain
         Background.Tile = False
         Background.Transparent = False
         Caption = 'Inventory'
-        ExplicitHeight = 392
       end
       object nppReports: TJvNavPanelPage
         Left = 0
@@ -188,7 +185,11 @@ object frmMain: TfrmMain
       Top = 0
       Width = 553
       Height = 19
+      FillColor = clMenu
+      ParentFillColor = False
       Align = alLeft
+      Color = clHighlight
+      ParentColor = False
       Caption = ''
     end
     object RzVersionInfoStatus1: TRzVersionInfoStatus
@@ -265,7 +266,7 @@ object frmMain: TfrmMain
     Left = 257
     Top = 504
     Bitmap = {
-      494C010103000800240010001000FFFFFFFF2110FFFFFFFFFFFFFFFF424D3600
+      494C0101030008002C0010001000FFFFFFFF2110FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000001000000001002000000000000010
       00000000000000000000000000000000000000000009000000160000001A0000
       001A0000001A0000001A0000001A0000001A0000001A0000001A0000001A0000

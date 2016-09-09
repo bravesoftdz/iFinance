@@ -111,9 +111,6 @@
         <DCCReference Include="..\Base\BasePopup.pas">
             <Form>frmBasePopup</Form>
         </DCCReference>
-        <DCCReference Include="..\Base\BaseSearch.pas">
-            <Form>frmBaseSearch</Form>
-        </DCCReference>
         <DCCReference Include="LandlordDetail.pas">
             <Form>frmLandlordDetail</Form>
             <FormType>dfm</FormType>
@@ -125,6 +122,20 @@
         <DCCReference Include="..\Base\BasePopupDetail.pas">
             <Form>frmBasePopupDetail</Form>
             <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Referee.pas"/>
+        <DCCReference Include="RefereeSearch.pas">
+            <Form>frmRefereeSearch</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\Base\BaseSearch.pas">
+            <Form>frmBaseSearch</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="AuxData.pas">
+            <Form>dmAux</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TDataModule</DesignClass>
         </DCCReference>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>

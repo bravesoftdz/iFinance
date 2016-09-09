@@ -24,7 +24,7 @@ inherited frmClientMain: TfrmClientMain
       Height = 14
       Alignment = taRightJustify
       Font.Charset = DEFAULT_CHARSET
-      Font.Color = 33023
+      Font.Color = 4235263
       Font.Height = -12
       Font.Name = 'Tahoma'
       Font.Style = [fsBold]
@@ -47,8 +47,6 @@ inherited frmClientMain: TfrmClientMain
     FixedDimension = 19
     object tsClientInfo: TRzTabSheet
       Caption = 'Client information'
-      ExplicitLeft = 2
-      ExplicitTop = -1
       object JvLabel1: TJvLabel
         Left = 35
         Top = 40
@@ -85,6 +83,7 @@ inherited frmClientMain: TfrmClientMain
         Font.Name = 'Tahoma'
         Font.Style = []
         ParentFont = False
+        Transparent = True
       end
       object JvLabel7: TJvLabel
         Left = 35
@@ -126,19 +125,6 @@ inherited frmClientMain: TfrmClientMain
         Caption = 'Referred by'
         Transparent = True
       end
-      object JvGroupHeader1: TJvGroupHeader
-        Left = 19
-        Top = 20
-        Width = 302
-        Height = 12
-        Caption = 'Client Name'
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = 9134911
-        Font.Height = -11
-        Font.Name = 'Tahoma'
-        Font.Style = []
-        ParentFont = False
-      end
       object JvGroupHeader2: TJvGroupHeader
         Left = 19
         Top = 290
@@ -151,6 +137,7 @@ inherited frmClientMain: TfrmClientMain
         Font.Name = 'Tahoma'
         Font.Style = []
         ParentFont = False
+        Transparent = True
       end
       object JvLabel4: TJvLabel
         Left = 35
@@ -225,6 +212,7 @@ inherited frmClientMain: TfrmClientMain
         Font.Name = 'Tahoma'
         Font.Style = []
         ParentFont = False
+        Transparent = True
       end
       object JvLabel9: TJvLabel
         Left = 363
@@ -286,6 +274,7 @@ inherited frmClientMain: TfrmClientMain
         Font.Name = 'Tahoma'
         Font.Style = []
         ParentFont = False
+        Transparent = True
       end
       object JvLabel20: TJvLabel
         Left = 35
@@ -323,6 +312,7 @@ inherited frmClientMain: TfrmClientMain
         Font.Name = 'Tahoma'
         Font.Style = []
         ParentFont = False
+        Transparent = True
       end
       object JvLabel23: TJvLabel
         Left = 363
@@ -441,7 +431,21 @@ inherited frmClientMain: TfrmClientMain
         Font.Style = [fsUnderline]
         ParentFont = False
       end
-      object RzDBEdit1: TRzDBEdit
+      object JvGroupHeader1: TJvGroupHeader
+        Left = 19
+        Top = 20
+        Width = 302
+        Height = 12
+        Caption = 'Client Name'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = 9134911
+        Font.Height = -11
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ParentFont = False
+        Transparent = True
+      end
+      object edLastname: TRzDBEdit
         Left = 114
         Top = 34
         Width = 207
@@ -452,7 +456,7 @@ inherited frmClientMain: TfrmClientMain
         ParentCtl3D = False
         TabOrder = 0
       end
-      object RzDBEdit2: TRzDBEdit
+      object edFirstname: TRzDBEdit
         Left = 114
         Top = 58
         Width = 207
@@ -461,7 +465,7 @@ inherited frmClientMain: TfrmClientMain
         DataField = 'firstname'
         TabOrder = 1
       end
-      object RzDBEdit3: TRzDBEdit
+      object edMiddlename: TRzDBEdit
         Left = 114
         Top = 82
         Width = 207
@@ -480,7 +484,7 @@ inherited frmClientMain: TfrmClientMain
         KeyField = 'value'
         ListField = 'display'
         ListSource = dmClient.dscCivilStatus
-        TabOrder = 3
+        TabOrder = 4
         AllowNull = True
         FrameColor = clBlack
         FrameHotColor = clBlack
@@ -495,7 +499,7 @@ inherited frmClientMain: TfrmClientMain
         KeyField = 'value'
         ListField = 'display'
         ListSource = dmClient.dscGender
-        TabOrder = 4
+        TabOrder = 5
       end
       object RzDateTimePicker1: TRzDateTimePicker
         Left = 114
@@ -505,14 +509,14 @@ inherited frmClientMain: TfrmClientMain
         Date = 42617.982762002310000000
         Format = ''
         Time = 42617.982762002310000000
-        TabOrder = 5
+        TabOrder = 3
       end
       object RzGroupBox1: TRzGroupBox
         Left = 664
         Top = 18
         Width = 185
         Height = 161
-        TabOrder = 6
+        TabOrder = 7
       end
       object RzEdit1: TRzEdit
         Left = 255
@@ -520,17 +524,31 @@ inherited frmClientMain: TfrmClientMain
         Width = 66
         Height = 21
         Text = ''
-        TabOrder = 7
+        TabOrder = 8
       end
-      object RzButtonEdit1: TRzButtonEdit
+      object bteReferee: TRzButtonEdit
         Left = 114
         Top = 172
         Width = 207
         Height = 21
         Text = ''
-        TabOrder = 8
+        Color = clInfoBk
+        ParentShowHint = False
+        ReadOnly = True
+        ShowHint = True
+        TabOrder = 6
+        AllowKeyEdit = False
+        AltBtnHint = 'Clear referee'
+        ButtonHint = 'Find referee'
+        AltBtnKind = bkReject
+        ButtonKind = bkFind
+        AltBtnVisible = True
         AltBtnWidth = 15
         ButtonWidth = 15
+        FlatButtons = True
+        HideButtonsOnReadOnly = False
+        OnAltBtnClick = bteRefereeAltBtnClick
+        OnButtonClick = bteRefereeButtonClick
       end
       object RzDBEdit4: TRzDBEdit
         Left = 114
@@ -559,11 +577,11 @@ inherited frmClientMain: TfrmClientMain
         Top = 352
         Width = 207
         Height = 21
-        DataField = 'town_id'
+        DataField = 'post_code'
         DataSource = dmClient.dscAddressInfo
-        KeyField = 'value'
-        ListField = 'display'
-        ListSource = dmClient.dscCivilStatus
+        KeyField = 'post_code'
+        ListField = 'town'
+        ListSource = dmAux.dscTowns
         TabOrder = 11
         AllowNull = True
         FrameColor = clBlack
@@ -590,11 +608,21 @@ inherited frmClientMain: TfrmClientMain
         Width = 207
         Height = 21
         Text = ''
+        Color = clInfoBk
+        ParentShowHint = False
+        ReadOnly = True
+        ShowHint = True
         TabOrder = 13
         AllowKeyEdit = False
+        AltBtnHint = 'Clear landlord'
+        ButtonHint = 'Find landlord'
+        AltBtnKind = bkReject
+        ButtonKind = bkFind
+        AltBtnVisible = True
         AltBtnWidth = 15
         ButtonWidth = 15
         FlatButtons = True
+        HideButtonsOnReadOnly = False
         OnButtonClick = bteLandlordButtonClick
       end
       object edLandlordContact: TRzEdit
@@ -612,8 +640,8 @@ inherited frmClientMain: TfrmClientMain
         Top = 34
         Width = 187
         Height = 21
-        DataSource = dmClient.dscPersonalInfo
-        DataField = 'lastname'
+        DataSource = dmClient.dscAddressInfo2
+        DataField = 'st'
         Ctl3D = True
         ParentCtl3D = False
         TabOrder = 15
@@ -623,8 +651,8 @@ inherited frmClientMain: TfrmClientMain
         Top = 58
         Width = 187
         Height = 21
-        DataSource = dmClient.dscPersonalInfo
-        DataField = 'lastname'
+        DataSource = dmClient.dscAddressInfo2
+        DataField = 'brgy'
         Ctl3D = True
         ParentCtl3D = False
         TabOrder = 16
@@ -634,11 +662,11 @@ inherited frmClientMain: TfrmClientMain
         Top = 82
         Width = 187
         Height = 21
-        DataField = 'civil_status'
-        DataSource = dmClient.dscPersonalInfo
-        KeyField = 'value'
-        ListField = 'display'
-        ListSource = dmClient.dscCivilStatus
+        DataField = 'post_code'
+        DataSource = dmClient.dscAddressInfo2
+        KeyField = 'post_code'
+        ListField = 'town'
+        ListSource = dmAux.dscTowns
         TabOrder = 17
         AllowNull = True
         FrameColor = clBlack
@@ -649,27 +677,38 @@ inherited frmClientMain: TfrmClientMain
         Top = 106
         Width = 187
         Height = 21
-        DataField = 'civil_status'
-        DataSource = dmClient.dscPersonalInfo
+        DataField = 'res_status'
+        DataSource = dmClient.dscAddressInfo2
         KeyField = 'value'
         ListField = 'display'
-        ListSource = dmClient.dscCivilStatus
+        ListSource = dmClient.dscResStatus
         TabOrder = 18
         AllowNull = True
         FrameColor = clBlack
         FrameHotColor = clBlack
       end
-      object edLandlord2: TRzButtonEdit
+      object bteLandlord2: TRzButtonEdit
         Left = 438
         Top = 130
         Width = 187
         Height = 21
         Text = ''
+        Color = clInfoBk
+        ParentShowHint = False
+        ReadOnly = True
+        ShowHint = True
         TabOrder = 19
         AllowKeyEdit = False
+        AltBtnHint = 'Clear landlord'
+        ButtonHint = 'Find landlord'
+        AltBtnKind = bkReject
+        ButtonKind = bkFind
+        AltBtnVisible = True
         AltBtnWidth = 15
         ButtonWidth = 15
         FlatButtons = True
+        HideButtonsOnReadOnly = False
+        OnButtonClick = bteLandlord2ButtonClick
       end
       object edLandlordContact2: TRzEdit
         Left = 438
@@ -731,20 +770,32 @@ inherited frmClientMain: TfrmClientMain
         Width = 187
         Height = 21
         Text = ''
+        Color = clInfoBk
+        ParentShowHint = False
+        ReadOnly = True
+        ShowHint = True
         TabOrder = 25
+        AllowKeyEdit = False
+        AltBtnHint = 'Clear employer'
+        ButtonHint = 'Find employer'
+        AltBtnKind = bkReject
+        ButtonKind = bkFind
+        AltBtnVisible = True
         AltBtnWidth = 15
         ButtonWidth = 15
+        FlatButtons = True
+        HideButtonsOnReadOnly = False
       end
       object RzDBLookupComboBox7: TRzDBLookupComboBox
         Left = 438
         Top = 281
         Width = 187
         Height = 21
-        DataField = 'civil_status'
-        DataSource = dmClient.dscPersonalInfo
+        DataField = 'emp_status'
+        DataSource = dmClient.dscEmplInfo
         KeyField = 'value'
         ListField = 'display'
-        ListSource = dmClient.dscCivilStatus
+        ListSource = dmClient.dscEmpStatus
         TabOrder = 26
         AllowNull = True
         FrameColor = clBlack
@@ -755,6 +806,8 @@ inherited frmClientMain: TfrmClientMain
         Top = 238
         Width = 187
         Height = 40
+        Color = clInfoBk
+        ReadOnly = True
         TabOrder = 27
       end
       object RzDBCheckBox1: TRzDBCheckBox
@@ -762,20 +815,13 @@ inherited frmClientMain: TfrmClientMain
         Top = 308
         Width = 127
         Height = 15
-        ValueChecked = 'True'
-        ValueUnchecked = 'False'
+        DataField = 'is_gov'
+        DataSource = dmClient.dscEmplInfo
+        NullAsUnchecked = False
+        ValueChecked = '1'
+        ValueUnchecked = '0'
         Caption = 'Government employee'
         TabOrder = 28
-      end
-      object RzButtonEdit5: TRzButtonEdit
-        Left = 438
-        Top = 328
-        Width = 187
-        Height = 21
-        Text = ''
-        TabOrder = 29
-        AltBtnWidth = 15
-        ButtonWidth = 15
       end
       object RzButtonEdit6: TRzButtonEdit
         Left = 438
@@ -783,91 +829,130 @@ inherited frmClientMain: TfrmClientMain
         Width = 187
         Height = 21
         Text = ''
-        TabOrder = 30
+        Color = clInfoBk
+        ParentShowHint = False
+        ReadOnly = True
+        ShowHint = True
+        TabOrder = 29
+        AltBtnHint = 'Clear immediate head'
+        ButtonHint = 'Find immediate head'
+        AltBtnKind = bkReject
+        ButtonKind = bkFind
+        AltBtnVisible = True
         AltBtnWidth = 15
         ButtonWidth = 15
+        FlatButtons = True
+        HideButtonsOnReadOnly = False
       end
       object RzDBEdit12: TRzDBEdit
         Left = 438
         Top = 376
         Width = 59
         Height = 21
-        DataSource = dmClient.dscPersonalInfo
-        DataField = 'lastname'
+        DataSource = dmClient.dscEmplInfo
+        DataField = 'serv_len'
         Ctl3D = True
         ParentCtl3D = False
-        TabOrder = 31
+        TabOrder = 30
       end
       object RzDBEdit13: TRzDBEdit
         Left = 438
         Top = 400
         Width = 59
         Height = 21
-        DataSource = dmClient.dscPersonalInfo
-        DataField = 'lastname'
+        DataSource = dmClient.dscEmplInfo
+        DataField = 'gross_pay'
         Ctl3D = True
         ParentCtl3D = False
-        TabOrder = 32
+        TabOrder = 31
       end
       object RzDBEdit14: TRzDBEdit
         Left = 566
         Top = 400
         Width = 59
         Height = 21
-        DataSource = dmClient.dscPersonalInfo
-        DataField = 'lastname'
+        DataSource = dmClient.dscEmplInfo
+        DataField = 'net_pay'
         Ctl3D = True
         ParentCtl3D = False
-        TabOrder = 33
-      end
-      object RzButtonEdit7: TRzButtonEdit
-        Left = 438
-        Top = 424
-        Width = 187
-        Height = 21
-        Text = ''
-        TabOrder = 34
-        AltBtnWidth = 15
-        ButtonWidth = 15
+        TabOrder = 32
       end
       object RzDBEdit15: TRzDBEdit
         Left = 694
         Top = 281
         Width = 155
         Height = 21
-        DataSource = dmClient.dscPersonalInfo
-        DataField = 'lastname'
+        DataSource = dmClient.dscAcctInfo
+        DataField = 'acct_no'
         Ctl3D = True
         ParentCtl3D = False
-        TabOrder = 35
+        TabOrder = 33
       end
       object RzDBEdit16: TRzDBEdit
         Left = 694
         Top = 305
         Width = 155
         Height = 21
-        DataSource = dmClient.dscPersonalInfo
-        DataField = 'lastname'
+        DataSource = dmClient.dscAcctInfo
+        DataField = 'card_no'
         Ctl3D = True
         ParentCtl3D = False
+        TabOrder = 34
+      end
+      object RzDBLookupComboBox8: TRzDBLookupComboBox
+        Left = 438
+        Top = 328
+        Width = 187
+        Height = 21
+        DataField = 'res_status'
+        DataSource = dmClient.dscAddressInfo2
+        KeyField = 'value'
+        ListField = 'display'
+        ListSource = dmClient.dscResStatus
+        TabOrder = 35
+        AllowNull = True
+        FrameColor = clBlack
+        FrameHotColor = clBlack
+      end
+      object RzDBLookupComboBox9: TRzDBLookupComboBox
+        Left = 438
+        Top = 424
+        Width = 187
+        Height = 21
+        DataSource = dmClient.dscEmplInfo
+        KeyField = 'value'
+        ListField = 'display'
+        ListSource = dmClient.dscResStatus
         TabOrder = 36
+        AllowNull = True
+        FrameColor = clBlack
+        FrameHotColor = clBlack
       end
-      object RzMemo2: TRzMemo
-        Left = 694
-        Top = 238
-        Width = 155
-        Height = 40
-        TabOrder = 37
-      end
-      object RzButtonEdit8: TRzButtonEdit
+      object RzDBLookupComboBox10: TRzDBLookupComboBox
         Left = 694
         Top = 214
         Width = 155
         Height = 21
-        Text = ''
+        DataField = 'bank_id'
+        DataSource = dmClient.dscAcctInfo
+        KeyField = 'bank_id'
+        ListField = 'bank_name'
+        ListSource = dmAux.dscBanks
+        TabOrder = 37
+        AllowNull = True
+        FrameColor = clBlack
+        FrameHotColor = clBlack
+      end
+      object RzDBMemo1: TRzDBMemo
+        Left = 694
+        Top = 238
+        Width = 155
+        Height = 40
+        Color = clInfoBk
+        DataField = 'branch'
+        DataSource = dmAux.dscBanks
+        ReadOnly = True
         TabOrder = 38
-        AltBtnWidth = 15
-        ButtonWidth = 15
       end
     end
     object TabSheet4: TRzTabSheet

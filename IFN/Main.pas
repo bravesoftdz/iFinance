@@ -7,10 +7,10 @@ uses
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Menus, Vcl.ExtCtrls, RzPanel,
   JvPageList, JvNavigationPane, JvExControls, RzButton, System.ImageList,
   Vcl.ImgList, Vcl.ComCtrls, Vcl.ToolWin, AppConstants, Vcl.StdCtrls, RzLabel,
-  JvImageList, RzStatus;
+  JvImageList, RzStatus, StatusIntf;
 
 type
-  TfrmMain = class(TForm)
+  TfrmMain = class(TForm,IStatus)
     mmMain: TMainMenu;
     pnlNavbar: TPanel;
     File1: TMenuItem;
@@ -26,7 +26,7 @@ type
     ToolButton2: TToolButton;
     ToolButton3: TToolButton;
     tbSave: TToolButton;
-    RzURLLabel1: TRzURLLabel;
+    lblRecentlyAdded: TRzURLLabel;
     RzURLLabel2: TRzURLLabel;
     imlToolbar: TJvImageList;
     spMain: TRzStatusPane;
@@ -35,11 +35,14 @@ type
     nppReports: TJvNavPanelPage;
     procedure tbAddClientClick(Sender: TObject);
     procedure tbSaveClick(Sender: TObject);
+    procedure lblRecentlyAddedClick(Sender: TObject);
   private
     { Private declarations }
     procedure DockForm(const fm: TForms);
   public
     { Public declarations }
+    procedure ShowError(const error: string);
+    procedure ShowConfirmation(const conf: string = 'Record saved successfully.');
   end;
 
 var
@@ -50,13 +53,16 @@ implementation
 {$R *.dfm}
 
 uses
-  ClientMain, Client, SaveIntf;
+  ClientMain, SaveIntf, ClientList;
+
+procedure TfrmMain.lblRecentlyAddedClick(Sender: TObject);
+begin
+  DockForm(fmClientList);
+end;
 
 procedure TfrmMain.tbAddClientClick(Sender: TObject);
 begin
   DockForm(fmClientMain);
-  cln := TClient.Create;
-  cln.Add;
 end;
 
 procedure TfrmMain.tbSaveClick(Sender: TObject);
@@ -67,17 +73,12 @@ begin
     if pnlDockMain.ControlCount > 0 then
       if Supports(pnlDockMain.Controls[0] as TForm,ISave,intf) then
       begin
-        intf.Save;
-        spMain.Font.Color := clGreen;
-        spMain.Caption := 'Record saved successfully.'
+        if intf.Save then
+          ShowConfirmation;
       end;
   except
     on e:Exception do
-    begin
-      spMain.Font.Color := clRed;
-      spMain.Caption := e.Message;
-    end;
-
+      ShowError(e.Message);
   end;
 end;
 
@@ -89,6 +90,7 @@ begin
   // instantiate form
   case fm of
     fmClientMain: frm := TfrmClientMain.Create(Application);
+    fmClientList: frm := TfrmClientList.Create(Application);
     else
       frm := TForm.Create(Application);
   end;
@@ -109,6 +111,21 @@ begin
     frm.ManualDock(pnlDockMain);
     frm.Show;
   end;
+
+  // clear the status bar message
+  spMain.Caption := '';
+end;
+
+procedure TfrmMain.ShowError(const error: string);
+begin
+  spMain.Font.Color := clRed;
+  spMain.Caption := error;
+end;
+
+procedure TfrmMain.ShowConfirmation(const conf: string);
+begin
+  spMain.Font.Color := clGreen;
+  spMain.Caption := conf;
 end;
 
 end.

@@ -45,3 +45,12 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
+*.dcu
+*.exe
+*.bpl
+_dcp/Base.bpi
+*.dcp
+_dcp/Base.lib
+*.bpi
+_dcp/Client.lib
+*.lib

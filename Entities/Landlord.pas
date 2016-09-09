@@ -7,7 +7,7 @@ uses
 
 type
   TLandlord = class(TEntity)
-  protected
+  private
     FName: string;
     FMobile: string;
     FTelephone: string;

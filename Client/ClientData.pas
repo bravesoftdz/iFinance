@@ -27,6 +27,10 @@ type
     dscEmplInfo: TDataSource;
     dstIdentInfo: TADODataSet;
     dscIdentInfo: TDataSource;
+    dstAddressInfo2: TADODataSet;
+    dscAddressInfo2: TDataSource;
+    dstAcctInfo: TADODataSet;
+    dscAcctInfo: TDataSource;
     procedure dstPersonalInfoBeforeOpen(DataSet: TDataSet);
     procedure dstEntityBeforeOpen(DataSet: TDataSet);
     procedure dstContactInfoBeforeOpen(DataSet: TDataSet);
@@ -40,6 +44,12 @@ type
     procedure dstEmplInfoBeforePost(DataSet: TDataSet);
     procedure dstIdentInfoBeforeOpen(DataSet: TDataSet);
     procedure dstIdentInfoBeforePost(DataSet: TDataSet);
+    procedure dstAddressInfo2AfterPost(DataSet: TDataSet);
+    procedure dstAddressInfo2BeforeOpen(DataSet: TDataSet);
+    procedure dstAddressInfo2BeforePost(DataSet: TDataSet);
+    procedure dstEmplInfoNewRecord(DataSet: TDataSet);
+    procedure dstAcctInfoBeforeOpen(DataSet: TDataSet);
+    procedure dstAcctInfoBeforePost(DataSet: TDataSet);
   private
     { Private declarations }
   public
@@ -58,6 +68,41 @@ uses
 
 {$R *.dfm}
 
+procedure TdmClient.dstAcctInfoBeforeOpen(DataSet: TDataSet);
+begin
+  (DataSet as TADODataSet).Parameters.ParamByName('@entity_id').Value := cln.Id;
+end;
+
+procedure TdmClient.dstAcctInfoBeforePost(DataSet: TDataSet);
+begin
+  if DataSet.State = dsInsert then
+    DataSet.FieldByName('entity_id').AsString := cln.Id;
+end;
+
+procedure TdmClient.dstAddressInfo2AfterPost(DataSet: TDataSet);
+begin
+  DataSet.Edit;
+end;
+
+procedure TdmClient.dstAddressInfo2BeforeOpen(DataSet: TDataSet);
+begin
+  (DataSet as TADODataSet).Parameters.ParamByName('@entity_id').Value := cln.Id;
+end;
+
+procedure TdmClient.dstAddressInfo2BeforePost(DataSet: TDataSet);
+begin
+  if DataSet.State = dsInsert then
+  begin
+    DataSet.FieldByName('entity_id').AsString := cln.Id;
+    DataSet.FieldByName('is_prov').AsInteger := 1;
+  end;
+
+  if Assigned(cln.LandlordPres) then
+    DataSet.FieldByName('landlord').AsString := cln.LandlordProv.Id
+  else
+    DataSet.FieldByName('landlord').Value := null;
+end;
+
 procedure TdmClient.dstAddressInfoAfterPost(DataSet: TDataSet);
 begin
   DataSet.Edit;
@@ -71,10 +116,13 @@ end;
 procedure TdmClient.dstAddressInfoBeforePost(DataSet: TDataSet);
 begin
   if DataSet.State = dsInsert then
+  begin
     DataSet.FieldByName('entity_id').AsString := cln.Id;
+    DataSet.FieldByName('is_prov').AsInteger := 0;
+  end;
 
-  if Assigned(cln.Landlord) then
-    DataSet.FieldByName('landlord').AsString := cln.Landlord.Id
+  if Assigned(cln.LandlordPres) then
+    DataSet.FieldByName('landlord').AsString := cln.LandlordPres.Id
   else
     DataSet.FieldByName('landlord').Value := null;
 end;
@@ -106,6 +154,13 @@ begin
     DataSet.FieldByName('imm_head').Value := null;
 end;
 
+procedure TdmClient.dstEmplInfoNewRecord(DataSet: TDataSet);
+begin
+  // set default value of is_gov field
+  // set to 1 as most of the clients are public employees
+  DataSet.FieldByName('is_gov').AsInteger := 1;
+end;
+
 procedure TdmClient.dstEntityBeforeOpen(DataSet: TDataSet);
 begin
   (DataSet as TADODataSet).Parameters.ParamByName('@entity_id').Value := cln.Id;
@@ -117,6 +172,10 @@ var
 begin
   id := GetEntityId;
   DataSet.FieldByName('entity_id').AsString := id;
+
+  if Assigned(cln.Referee) then
+    DataSet.FieldByName('ref_entity_id').AsString := cln.Referee.Id;
+
   cln.Id := id;
 end;
 

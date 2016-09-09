@@ -132,7 +132,7 @@ object dmClient: TdmClient
     BeforeOpen = dstAddressInfoBeforeOpen
     BeforePost = dstAddressInfoBeforePost
     AfterPost = dstAddressInfoAfterPost
-    CommandText = 'sp_cl_get_address_info;1'
+    CommandText = 'sp_cl_get_address_info_pres;1'
     CommandType = cmdStoredProc
     Parameters = <
       item
@@ -193,6 +193,7 @@ object dmClient: TdmClient
     CursorType = ctStatic
     BeforeOpen = dstEmplInfoBeforeOpen
     BeforePost = dstEmplInfoBeforePost
+    OnNewRecord = dstEmplInfoNewRecord
     CommandText = 'sp_cl_get_empl_info;1'
     CommandType = cmdStoredProc
     Parameters = <
@@ -219,7 +220,6 @@ object dmClient: TdmClient
     Top = 128
   end
   object dstIdentInfo: TADODataSet
-    Tag = 1
     Connection = dmApplication.acMain
     CursorType = ctStatic
     BeforeOpen = dstIdentInfoBeforeOpen
@@ -248,5 +248,68 @@ object dmClient: TdmClient
     DataSet = dstIdentInfo
     Left = 280
     Top = 184
+  end
+  object dstAddressInfo2: TADODataSet
+    Tag = 1
+    Connection = dmApplication.acMain
+    CursorType = ctStatic
+    BeforeOpen = dstAddressInfo2BeforeOpen
+    BeforePost = dstAddressInfo2BeforePost
+    AfterPost = dstAddressInfo2AfterPost
+    CommandText = 'sp_cl_get_address_info_prov;1'
+    CommandType = cmdStoredProc
+    Parameters = <
+      item
+        Name = '@RETURN_VALUE'
+        DataType = ftInteger
+        Direction = pdReturnValue
+        Precision = 10
+        Value = 0
+      end
+      item
+        Name = '@entity_id'
+        Attributes = [paNullable]
+        DataType = ftString
+        Size = 9
+        Value = ''
+      end>
+    Left = 32
+    Top = 240
+  end
+  object dscAddressInfo2: TDataSource
+    DataSet = dstAddressInfo2
+    Left = 120
+    Top = 240
+  end
+  object dstAcctInfo: TADODataSet
+    Tag = 1
+    Connection = dmApplication.acMain
+    CursorType = ctStatic
+    BeforeOpen = dstAcctInfoBeforeOpen
+    BeforePost = dstAcctInfoBeforePost
+    CommandText = 'sp_cl_get_acct_info;1'
+    CommandType = cmdStoredProc
+    Parameters = <
+      item
+        Name = '@RETURN_VALUE'
+        DataType = ftInteger
+        Direction = pdReturnValue
+        Precision = 10
+        Value = 0
+      end
+      item
+        Name = '@entity_id'
+        Attributes = [paNullable]
+        DataType = ftString
+        Size = 9
+        Value = ''
+      end>
+    Left = 208
+    Top = 240
+  end
+  object dscAcctInfo: TDataSource
+    DataSet = dstAcctInfo
+    Left = 280
+    Top = 240
   end
 end

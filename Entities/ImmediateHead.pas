@@ -7,7 +7,7 @@ uses
 
 type
   TImmediateHead = class(TEntity)
-  protected
+  private
     FName: string;
   public
     procedure Add; override;

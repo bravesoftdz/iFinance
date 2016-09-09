@@ -3,7 +3,7 @@ unit AppConstants;
 interface
 
 type
-  TForms = (fmClientMain);
+  TForms = (fmClientMain, fmClientList);
 
 implementation
 

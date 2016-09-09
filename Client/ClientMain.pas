@@ -24,17 +24,16 @@ type
     JvLabel13: TJvLabel;
     JvLabel8: TJvLabel;
     JvLabel35: TJvLabel;
-    RzDBEdit1: TRzDBEdit;
-    RzDBEdit2: TRzDBEdit;
-    RzDBEdit3: TRzDBEdit;
+    edLastname: TRzDBEdit;
+    edFirstname: TRzDBEdit;
+    edMiddlename: TRzDBEdit;
     RzDBLookupComboBox1: TRzDBLookupComboBox;
     RzDBLookupComboBox2: TRzDBLookupComboBox;
     RzDateTimePicker1: TRzDateTimePicker;
     RzGroupBox1: TRzGroupBox;
     TabSheet4: TRzTabSheet;
-    JvGroupHeader1: TJvGroupHeader;
     RzEdit1: TRzEdit;
-    RzButtonEdit1: TRzButtonEdit;
+    bteReferee: TRzButtonEdit;
     JvGroupHeader2: TJvGroupHeader;
     JvLabel4: TJvLabel;
     RzDBEdit4: TRzDBEdit;
@@ -59,7 +58,7 @@ type
     JvLabel17: TJvLabel;
     RzDBLookupComboBox6: TRzDBLookupComboBox;
     JvLabel18: TJvLabel;
-    edLandlord2: TRzButtonEdit;
+    bteLandlord2: TRzButtonEdit;
     JvLabel19: TJvLabel;
     edLandlordContact2: TRzEdit;
     JvGroupHeader5: TJvGroupHeader;
@@ -79,7 +78,6 @@ type
     RzMemo1: TRzMemo;
     RzDBCheckBox1: TRzDBCheckBox;
     JvLabel26: TJvLabel;
-    RzButtonEdit5: TRzButtonEdit;
     JvLabel27: TJvLabel;
     RzButtonEdit6: TRzButtonEdit;
     JvLabel28: TJvLabel;
@@ -89,29 +87,32 @@ type
     JvLabel30: TJvLabel;
     RzDBEdit14: TRzDBEdit;
     JvLabel31: TJvLabel;
-    RzButtonEdit7: TRzButtonEdit;
     JvLabel32: TJvLabel;
     RzDBEdit15: TRzDBEdit;
     JvLabel33: TJvLabel;
     RzDBEdit16: TRzDBEdit;
     JvLabel34: TJvLabel;
     JvLabel36: TJvLabel;
-    RzMemo2: TRzMemo;
-    RzButtonEdit8: TRzButtonEdit;
     RzURLLabel2: TRzURLLabel;
+    RzDBLookupComboBox8: TRzDBLookupComboBox;
+    RzDBLookupComboBox9: TRzDBLookupComboBox;
+    RzDBLookupComboBox10: TRzDBLookupComboBox;
+    RzDBMemo1: TRzDBMemo;
+    JvGroupHeader1: TJvGroupHeader;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure FormCreate(Sender: TObject);
-    procedure btnLandlordClick(Sender: TObject);
     procedure btnImmHeadClick(Sender: TObject);
-    procedure btnCameraClick(Sender: TObject);
     procedure bteLandlordButtonClick(Sender: TObject);
+    procedure bteLandlord2ButtonClick(Sender: TObject);
+    procedure bteRefereeAltBtnClick(Sender: TObject);
+    procedure bteRefereeButtonClick(Sender: TObject);
   private
     { Private declarations }
     procedure SetClientName;
   public
     { Public declarations }
-    procedure Save;
+    function Save: boolean;
   end;
 
 var
@@ -121,11 +122,35 @@ implementation
 
 uses
   Client, ClientData, FormsUtil, LandlordSearch, ImmHeadSearch, Landlord,
-  ImmediateHead;
+  ImmediateHead, RefereeSearch, Referee, AuxData, StatusIntf;
 
 {$R *.dfm}
 
 { TfrmClientMain }
+
+procedure TfrmClientMain.bteLandlord2ButtonClick(Sender: TObject);
+begin
+  with TfrmLandlordSearch.Create(nil) do
+  begin
+    try
+      llord := TLandLord.Create;
+
+      ShowModal;
+
+      if ModalResult = mrOK then
+      begin
+        bteLandlord2.Text := llord.Name;
+        edLandLordContact2.Text := llord.Contact;
+        cln.LandlordProv := llord;
+      end;
+
+      Free;
+    except
+      on e: Exception do
+        ShowMessage(e.Message);
+    end;
+  end;
+end;
 
 procedure TfrmClientMain.bteLandlordButtonClick(Sender: TObject);
 begin
@@ -140,7 +165,7 @@ begin
       begin
         bteLandlord.Text := llord.Name;
         edLandLordContact.Text := llord.Contact;
-        cln.Landlord := llord;
+        cln.LandlordPres := llord;
       end;
 
       Free;
@@ -151,10 +176,37 @@ begin
   end;
 end;
 
-procedure TfrmClientMain.btnCameraClick(Sender: TObject);
+procedure TfrmClientMain.bteRefereeAltBtnClick(Sender: TObject);
 begin
   inherited;
-  ShowMessage('Get photo');
+  cln.Referee := nil;
+  bteReferee.Clear;
+end;
+
+procedure TfrmClientMain.bteRefereeButtonClick(Sender: TObject);
+begin
+  with TfrmRefereeSearch.Create(self) do
+  begin
+    try
+      try
+        ref := TReferee.Create;
+
+        ShowModal;
+
+        if ModalResult = mrOK then
+        begin
+          bteReferee.Text := ref.Name;
+          cln.Referee := ref;
+        end;
+      except
+        on e: Exception do
+          ShowMessage(e.Message);
+      end;
+    finally
+      Free;
+    end;
+  end;
+
 end;
 
 procedure TfrmClientMain.btnImmHeadClick(Sender: TObject);
@@ -180,54 +232,69 @@ with TfrmImmHeadSearch.Create(nil) do
   end;
 end;
 
-procedure TfrmClientMain.btnLandlordClick(Sender: TObject);
-begin
-  with TfrmLandlordSearch.Create(nil) do
-  begin
-    try
-      llord := TLandLord.Create;
-
-      ShowModal;
-
-      if ModalResult = mrOK then
-      begin
-        //edLandlord.Text := llord.Name;
-        //edLandLordContact.Text := llord.Contact;
-        cln.Landlord := llord;
-      end;
-
-      Free;
-    except
-      on e: Exception do
-        ShowMessage(e.Message);
-    end;
-  end;
-end;
-
 procedure TfrmClientMain.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
-  inherited;
   cln.Destroy;
   dmClient.Free;
+  inherited;
 end;
 
 procedure TfrmClientMain.FormCreate(Sender: TObject);
 begin
   inherited;
-  dmClient := TdmClient.Create(nil);
+  dmClient := TdmClient.Create(self);
+  dmAux := TdmAux.Create(self);
+
+  if not Assigned(cln) then
+  begin
+    cln := TClient.Create;
+    cln.Add;
+  end;
 end;
 
 procedure TfrmClientMain.FormShow(Sender: TObject);
 begin
   inherited;
+
+  // the 2 lines below are a hack to refresh the display
+  // controls are not displayed properly initially
+  pcClient.Repaint;
+
   OpenDropdownDataSources(tsClientInfo);
 end;
 
-procedure TfrmClientMain.Save;
+function TfrmClientMain.Save: boolean;
+var
+  st: IStatus;
+  error: string;
 begin
   try
-    cln.Save;
-    SetClientName;
+    if Supports(Application.MainForm,IStatus,st) then
+    begin
+      error := '';
+
+      if Trim(edLastname.Text) = '' then
+      begin
+        error := 'Please enter client''s lastname.';
+        st.ShowError(error);
+        Exit;
+      end;
+
+      if Trim(edFirstname.Text) = '' then
+      begin
+        error := 'Please enter client''s firstname.';
+        st.ShowError(error);
+        Exit;
+      end;
+
+      Result := error = '';
+
+      if Result then
+      begin
+        cln.Save;
+        SetClientName;
+      end;
+    end;
   finally
 
   end;

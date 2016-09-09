@@ -3,20 +3,29 @@ unit Client;
 interface
 
 uses
-  SysUtils, ClientData, Dialogs, DB, Entity, ADODB, LandLord, ImmediateHead;
+  SysUtils, ClientData, Dialogs, DB, Entity, ADODB, LandLord, ImmediateHead,
+  Referee;
 
 type
   TClient = class(TEntity)
   private
-    FLandlord: TLandLord;
+    FReferee: TReferee;
+    FLandlordPres: TLandLord;
+    FLandLordProv: TLandLord;
     FImmediateHead: TImmediateHead;
   public
     procedure Add; override;
     procedure Save; override;
     procedure Edit; override;
     procedure Cancel; override;
-    property Landlord: TLandLord read FLandlord write FLandlord;
+
+    property Referee: TReferee read FReferee write FReferee;
+    property LandlordPres: TLandLord read FLandlordPres write FLandlordPres;
+    property LandLordProv: TLandLord read FLandLordProv write FLandLordProv;
     property ImmediateHead: TImmediateHead read FImmediateHead write FImmediateHead;
+
+    constructor Create;
+    destructor Destroy;
   end;
 
 var
@@ -25,6 +34,20 @@ var
 implementation
 
 { TClient }
+
+constructor TClient.Create;
+begin
+  if cln <> nil then
+    Abort
+  else
+    cln := self;
+end;
+
+destructor TClient.Destroy;
+begin
+  if cln = self then
+    cln := nil;
+end;
 
 procedure TClient.Add;
 var

@@ -1,6 +1,7 @@
 inherited frmBaseDocked: TfrmBaseDocked
   Align = alClient
   Caption = 'frmBaseDocked'
+  OnClose = FormClose
   PixelsPerInch = 96
   TextHeight = 13
   object pnlTitle: TRzPanel
