@@ -9,20 +9,25 @@ uses
 type
   TClient = class(TEntity)
   private
+    FName: string;
     FReferee: TReferee;
     FLandlordPres: TLandLord;
     FLandLordProv: TLandLord;
     FImmediateHead: TImmediateHead;
+    function CheckId: boolean;
   public
     procedure Add; override;
     procedure Save; override;
     procedure Edit; override;
     procedure Cancel; override;
+    procedure Retrieve;
 
+    property Name: string read FName write FName;
     property Referee: TReferee read FReferee write FReferee;
     property LandlordPres: TLandLord read FLandlordPres write FLandlordPres;
     property LandLordProv: TLandLord read FLandLordProv write FLandLordProv;
     property ImmediateHead: TImmediateHead read FImmediateHead write FImmediateHead;
+    property HasId: boolean read CheckId;
 
     constructor Create;
     destructor Destroy;
@@ -105,6 +110,28 @@ begin
         if (Components[i] as TADODataSet).State in [dsInsert,dsEdit] then
           (Components[i] as TADODataSet).Post;
   end;
+end;
+
+procedure TClient.Retrieve;
+var
+  i: integer;
+begin
+  with dmClient do
+  begin
+    for i:=0 to ComponentCount - 1 do
+    begin
+      if Components[i] is TADODataSet then
+      begin
+        if (Components[i] as TADODataSet).Tag <> 0 then
+          (Components[i] as TADODataSet).Open;
+      end;
+    end;
+  end;
+end;
+
+function TClient.CheckId: boolean;
+begin
+  Result := FId <> '';
 end;
 
 end.

@@ -266,6 +266,7 @@ begin
 
   with dmApplication.dstUser do
   begin
+    ifn.User.UserId := FieldByName('id_num').AsString;
     while not Eof do
     begin
       right := FieldbyName('privilege_code').AsString;

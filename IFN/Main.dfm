@@ -81,9 +81,9 @@ object frmMain: TfrmMain
         object lblRecentlyAdded: TRzURLLabel
           Left = 15
           Top = 40
-          Width = 75
+          Width = 84
           Height = 13
-          Caption = 'Recently added'
+          Caption = 'Newly-add clients'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clHighlight
           Font.Height = -11
@@ -104,6 +104,42 @@ object frmMain: TfrmMain
           Font.Name = 'Tahoma'
           Font.Style = [fsUnderline]
           ParentFont = False
+        end
+        object RzURLLabel1: TRzURLLabel
+          Left = 15
+          Top = 78
+          Width = 42
+          Height = 13
+          Caption = 'All clents'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clHighlight
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsUnderline]
+          ParentFont = False
+        end
+        object RzLabel1: TRzLabel
+          Left = 15
+          Top = 112
+          Width = 40
+          Height = 13
+          Caption = 'Recent'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object lbxRecent: TRzListBox
+          Left = 15
+          Top = 131
+          Width = 146
+          Height = 222
+          BorderStyle = bsNone
+          ItemHeight = 13
+          TabOrder = 1
+          OnDblClick = lbxRecentDblClick
         end
       end
       object nppLoans: TJvNavPanelPage
@@ -175,30 +211,36 @@ object frmMain: TfrmMain
     Top = 573
     Width = 1074
     Height = 19
+    AutoStyle = False
     BorderInner = fsNone
-    BorderOuter = fsNone
+    BorderOuter = fsFlat
     BorderSides = [sdLeft, sdTop, sdRight, sdBottom]
     BorderWidth = 0
     TabOrder = 2
     object spMain: TRzStatusPane
-      Left = 0
-      Top = 0
+      Left = 1
+      Top = 1
       Width = 553
-      Height = 19
+      Height = 17
       FillColor = clMenu
       ParentFillColor = False
+      Transparent = False
       Align = alLeft
       Color = clHighlight
       ParentColor = False
       Caption = ''
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitHeight = 19
     end
     object RzVersionInfoStatus1: TRzVersionInfoStatus
-      Left = 553
-      Top = 0
-      Height = 19
+      Left = 554
+      Top = 1
+      Height = 17
       Align = alLeft
       Field = vifProductVersion
       ExplicitLeft = 1074
+      ExplicitTop = 0
       ExplicitHeight = 20
     end
   end
@@ -210,6 +252,7 @@ object frmMain: TfrmMain
     BorderWidth = 1
     Caption = 'ToolBar1'
     EdgeBorders = [ebTop, ebBottom]
+    Flat = False
     Images = imlToolbar
     TabOrder = 3
     object tbAddClient: TToolButton
@@ -266,7 +309,7 @@ object frmMain: TfrmMain
     Left = 257
     Top = 504
     Bitmap = {
-      494C0101030008002C0010001000FFFFFFFF2110FFFFFFFFFFFFFFFF424D3600
+      494C010103000800300010001000FFFFFFFF2110FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000001000000001002000000000000010
       00000000000000000000000000000000000000000009000000160000001A0000
       001A0000001A0000001A0000001A0000001A0000001A0000001A0000001A0000

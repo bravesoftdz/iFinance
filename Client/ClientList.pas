@@ -10,11 +10,14 @@ uses
 
 type
   TfrmClientList = class(TfrmBaseDocked, IDockedForm)
-    RzPanel1: TRzPanel;
-    RzPanel2: TRzPanel;
-    RzDBGrid1: TRzDBGrid;
+    pnlSearch: TRzPanel;
+    pnlList: TRzPanel;
+    grList: TRzDBGrid;
     Label1: TLabel;
-    RzEdit1: TRzEdit;
+    edSearchKey: TRzEdit;
+    procedure FormCreate(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure grListDblClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -28,6 +31,35 @@ var
 implementation
 
 {$R *.dfm}
+
+uses
+  AppData, FormsUtil, DockIntf, Client, AppConstants;
+
+procedure TfrmClientList.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  OpenGridDataSources(pnlList,false);
+  inherited;
+end;
+
+procedure TfrmClientList.FormCreate(Sender: TObject);
+begin
+  inherited;
+  OpenGridDataSources(pnlList);
+end;
+
+procedure TfrmClientList.grListDblClick(Sender: TObject);
+var
+  id: string;
+  intf: IDock;
+begin
+  id := grList.DataSource.DataSet.FieldByName('entity_id').AsString;
+
+  cln := TClient.Create;
+  cln.Id := id;
+
+  if Supports(Application.MainForm,IDock,intf) then
+    intf.DockForm(fmClientMain);
+end;
 
 procedure TfrmClientList.SetTitle(const title: string);
 begin

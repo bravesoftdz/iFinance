@@ -53,6 +53,7 @@ contains
   IFinanceGlobal in 'IFinanceGlobal.pas',
   User in 'User.pas',
   ConnUtil in 'ConnUtil.pas',
-  StatusIntf in 'StatusIntf.pas';
+  StatusIntf in 'StatusIntf.pas',
+  DockIntf in 'DockIntf.pas';
 
 end.

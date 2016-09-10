@@ -122,7 +122,7 @@ implementation
 
 uses
   Client, ClientData, FormsUtil, LandlordSearch, ImmHeadSearch, Landlord,
-  ImmediateHead, RefereeSearch, Referee, AuxData, StatusIntf;
+  ImmediateHead, RefereeSearch, Referee, AuxData, StatusIntf, DockIntf;
 
 {$R *.dfm}
 
@@ -233,9 +233,17 @@ with TfrmImmHeadSearch.Create(nil) do
 end;
 
 procedure TfrmClientMain.FormClose(Sender: TObject; var Action: TCloseAction);
+var
+  intf: IDock;
 begin
+  if cln.HasId then
+    if Supports(Application.MainForm,IDock,intf) then
+      intf.AddRecentClient(cln);
+
+  dmClient.Destroy;
+  dmAux.Destroy;
+
   cln.Destroy;
-  dmClient.Free;
   inherited;
 end;
 
@@ -249,6 +257,11 @@ begin
   begin
     cln := TClient.Create;
     cln.Add;
+  end
+  else
+  begin
+    cln.Retrieve;
+    SetClientName;
   end;
 end;
 

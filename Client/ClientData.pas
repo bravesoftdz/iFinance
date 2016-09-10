@@ -50,6 +50,8 @@ type
     procedure dstEmplInfoNewRecord(DataSet: TDataSet);
     procedure dstAcctInfoBeforeOpen(DataSet: TDataSet);
     procedure dstAcctInfoBeforePost(DataSet: TDataSet);
+    procedure dstPersonalInfoAfterOpen(DataSet: TDataSet);
+    procedure dstPersonalInfoAfterPost(DataSet: TDataSet);
   private
     { Private declarations }
   public
@@ -62,7 +64,7 @@ var
 implementation
 
 uses
-  AppData, DBUtil, Client;
+  AppData, DBUtil, Client, IFinanceGlobal;
 
 {%CLASSGROUP 'Vcl.Controls.TControl'}
 
@@ -176,6 +178,9 @@ begin
   if Assigned(cln.Referee) then
     DataSet.FieldByName('ref_entity_id').AsString := cln.Referee.Id;
 
+  DataSet.FieldByName('created_date').AsDateTime := Date;
+  DataSet.FieldByName('created_by').AsString := ifn.User.UserId;
+
   cln.Id := id;
 end;
 
@@ -188,6 +193,23 @@ procedure TdmClient.dstIdentInfoBeforePost(DataSet: TDataSet);
 begin
   if DataSet.State = dsInsert then
     DataSet.FieldByName('entity_id').AsString := cln.Id;
+end;
+
+procedure TdmClient.dstPersonalInfoAfterOpen(DataSet: TDataSet);
+begin
+  with DataSet do
+  begin
+    if cln.HasId then
+      cln.Name := FieldByName('lastname').AsString + ', ' +
+        FieldByName('firstname').AsString;
+  end;
+end;
+
+procedure TdmClient.dstPersonalInfoAfterPost(DataSet: TDataSet);
+begin
+  with DataSet do
+    cln.Name := FieldByName('lastname').AsString + ', ' +
+      FieldByName('firstname').AsString;
 end;
 
 procedure TdmClient.dstPersonalInfoBeforeOpen(DataSet: TDataSet);

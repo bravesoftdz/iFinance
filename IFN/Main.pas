@@ -7,10 +7,10 @@ uses
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Menus, Vcl.ExtCtrls, RzPanel,
   JvPageList, JvNavigationPane, JvExControls, RzButton, System.ImageList,
   Vcl.ImgList, Vcl.ComCtrls, Vcl.ToolWin, AppConstants, Vcl.StdCtrls, RzLabel,
-  JvImageList, RzStatus, StatusIntf;
+  JvImageList, RzStatus, StatusIntf, DockIntf, RzLstBox, Client;
 
 type
-  TfrmMain = class(TForm,IStatus)
+  TfrmMain = class(TForm,IStatus,IDock)
     mmMain: TMainMenu;
     pnlNavbar: TPanel;
     File1: TMenuItem;
@@ -33,14 +33,19 @@ type
     RzVersionInfoStatus1: TRzVersionInfoStatus;
     nppInventory: TJvNavPanelPage;
     nppReports: TJvNavPanelPage;
+    RzURLLabel1: TRzURLLabel;
+    RzLabel1: TRzLabel;
+    lbxRecent: TRzListBox;
     procedure tbAddClientClick(Sender: TObject);
     procedure tbSaveClick(Sender: TObject);
     procedure lblRecentlyAddedClick(Sender: TObject);
+    procedure lbxRecentDblClick(Sender: TObject);
   private
     { Private declarations }
-    procedure DockForm(const fm: TForms);
   public
     { Public declarations }
+    procedure DockForm(const fm: TForms; const title: string = '');
+    procedure AddRecentClient(ct: TClient);
     procedure ShowError(const error: string);
     procedure ShowConfirmation(const conf: string = 'Record saved successfully.');
   end;
@@ -53,11 +58,21 @@ implementation
 {$R *.dfm}
 
 uses
-  ClientMain, SaveIntf, ClientList;
+  ClientMain, SaveIntf, ClientList, DockedFormIntf;
 
 procedure TfrmMain.lblRecentlyAddedClick(Sender: TObject);
 begin
-  DockForm(fmClientList);
+  DockForm(fmClientList,'Recently added clients');
+end;
+
+procedure TfrmMain.lbxRecentDblClick(Sender: TObject);
+var
+  c: TClient;
+begin
+  c := TClient.Create;
+  c := lbxRecent.Items.Objects[lbxRecent.IndexOf(lbxRecent.SelectedItem)] as TClient;
+
+  DockForm(fmClientMain);
 end;
 
 procedure TfrmMain.tbAddClientClick(Sender: TObject);
@@ -82,21 +97,16 @@ begin
   end;
 end;
 
-procedure TfrmMain.DockForm(const fm: TForms);
+procedure TfrmMain.DockForm(const fm: TForms; const title: string);
 var
   frm: TForm;
   control: integer;
+  intf: IDockedForm;
 begin
-  // instantiate form
-  case fm of
-    fmClientMain: frm := TfrmClientMain.Create(Application);
-    fmClientList: frm := TfrmClientList.Create(Application);
-    else
-      frm := TForm.Create(Application);
-  end;
 
-  if (pnlDockMain.ControlCount = 0) or ((pnlDockMain.ControlCount > 0) and
-    ((pnlDockMain.Controls[0].ClassType <> frm.ClassType))) then
+
+  // if (pnlDockMain.ControlCount = 0) or ((pnlDockMain.ControlCount > 0) and
+  //  ((pnlDockMain.Controls[0].ClassType <> frm.ClassType))) then
   begin
     control := 0;
 
@@ -108,8 +118,19 @@ begin
       Inc(control);
     end;
 
+    // instantiate form
+    case fm of
+      fmClientMain: frm := TfrmClientMain.Create(Application);
+      fmClientList: frm := TfrmClientList.Create(Application);
+      else
+        frm := TForm.Create(Application);
+    end;
+
     frm.ManualDock(pnlDockMain);
     frm.Show;
+
+    if Supports(frm,IDockedForm,intf) then
+      intf.SetTitle(title);
   end;
 
   // clear the status bar message
@@ -126,6 +147,11 @@ procedure TfrmMain.ShowConfirmation(const conf: string);
 begin
   spMain.Font.Color := clGreen;
   spMain.Caption := conf;
+end;
+
+procedure TfrmMain.AddRecentClient(ct: TClient);
+begin
+  lbxRecent.Items.AddObject(ct.Name,ct);
 end;
 
 end.

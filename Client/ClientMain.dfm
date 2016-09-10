@@ -2,7 +2,6 @@ inherited frmClientMain: TfrmClientMain
   Caption = 'frmClientMain'
   ClientHeight = 520
   ClientWidth = 923
-  OnClose = FormClose
   OnCreate = FormCreate
   OnShow = FormShow
   ExplicitWidth = 939
@@ -452,6 +451,7 @@ inherited frmClientMain: TfrmClientMain
         Height = 21
         DataSource = dmClient.dscPersonalInfo
         DataField = 'lastname'
+        CharCase = ecUpperCase
         Ctl3D = True
         ParentCtl3D = False
         TabOrder = 0
@@ -463,6 +463,7 @@ inherited frmClientMain: TfrmClientMain
         Height = 21
         DataSource = dmClient.dscPersonalInfo
         DataField = 'firstname'
+        CharCase = ecUpperCase
         TabOrder = 1
       end
       object edMiddlename: TRzDBEdit
@@ -472,6 +473,7 @@ inherited frmClientMain: TfrmClientMain
         Height = 21
         DataSource = dmClient.dscPersonalInfo
         DataField = 'middlename'
+        CharCase = ecUpperCase
         TabOrder = 2
       end
       object RzDBLookupComboBox1: TRzDBLookupComboBox
@@ -904,11 +906,8 @@ inherited frmClientMain: TfrmClientMain
         Top = 328
         Width = 187
         Height = 21
-        DataField = 'res_status'
-        DataSource = dmClient.dscAddressInfo2
         KeyField = 'value'
         ListField = 'display'
-        ListSource = dmClient.dscResStatus
         TabOrder = 35
         AllowNull = True
         FrameColor = clBlack

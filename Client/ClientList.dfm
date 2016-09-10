@@ -1,30 +1,30 @@
 inherited frmClientList: TfrmClientList
   Caption = 'frmClientList'
+  OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 13
-  object RzPanel1: TRzPanel
+  object pnlSearch: TRzPanel
     Left = 0
     Top = 28
     Width = 527
-    Height = 41
+    Height = 33
     Align = alTop
     BorderOuter = fsNone
     BorderSides = [sdLeft, sdTop, sdRight]
     TabOrder = 1
-    ExplicitTop = 27
     DesignSize = (
       527
-      41)
+      33)
     object Label1: TLabel
       Left = 8
-      Top = 22
+      Top = 15
       Width = 33
       Height = 13
       Caption = 'Search'
     end
-    object RzEdit1: TRzEdit
+    object edSearchKey: TRzEdit
       Left = 47
-      Top = 16
+      Top = 9
       Width = 475
       Height = 21
       Text = ''
@@ -32,29 +32,63 @@ inherited frmClientList: TfrmClientList
       TabOrder = 0
     end
   end
-  object RzPanel2: TRzPanel
+  object pnlList: TRzPanel
     Left = 0
-    Top = 69
+    Top = 61
     Width = 527
-    Height = 173
+    Height = 181
     Align = alClient
     BorderOuter = fsNone
     BorderWidth = 5
     TabOrder = 2
-    ExplicitTop = 36
-    ExplicitHeight = 41
-    object RzDBGrid1: TRzDBGrid
+    ExplicitTop = 69
+    ExplicitHeight = 173
+    object grList: TRzDBGrid
       Left = 5
       Top = 5
       Width = 517
-      Height = 163
+      Height = 171
       Align = alClient
+      DataSource = dmApplication.dscEntities
+      Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
       TabOrder = 0
       TitleFont.Charset = DEFAULT_CHARSET
       TitleFont.Color = clWindowText
       TitleFont.Height = -11
       TitleFont.Name = 'Tahoma'
       TitleFont.Style = []
+      OnDblClick = grListDblClick
+      AltRowShading = True
+      AltRowShadingColor = 14536641
+      Columns = <
+        item
+          Expanded = False
+          FieldName = 'entity_id'
+          Title.Caption = 'Client ID'
+          Width = 80
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'lastname'
+          Title.Caption = 'Lastname'
+          Width = 150
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'firstname'
+          Title.Caption = 'Firstname'
+          Width = 150
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'middlename'
+          Title.Caption = 'Middlename'
+          Width = 150
+          Visible = True
+        end>
     end
   end
 end

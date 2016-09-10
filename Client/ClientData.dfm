@@ -32,7 +32,9 @@ object dmClient: TdmClient
     Connection = dmApplication.acMain
     CursorType = ctStatic
     BeforeOpen = dstPersonalInfoBeforeOpen
+    AfterOpen = dstPersonalInfoAfterOpen
     BeforePost = dstPersonalInfoBeforePost
+    AfterPost = dstPersonalInfoAfterPost
     CommandText = 'sp_cl_get_personal_info'
     CommandType = cmdStoredProc
     Parameters = <
