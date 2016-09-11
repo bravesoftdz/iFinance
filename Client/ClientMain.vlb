@@ -73,9 +73,6 @@ Coordinates=1143,221,66,36
 [dmAux.dstTowns]
 Coordinates=759,309,113,58
 
-[RzButtonEdit4]
-Coordinates=1143,276,97,36
-
 [JvLabel22]
 Coordinates=1143,331,73,36
 
@@ -126,9 +123,6 @@ Coordinates=759,155,149,58
 
 [dmClient.dstEmplInfo]
 Coordinates=556,1,137,58
-
-[RzButtonEdit6]
-Coordinates=254,535,97,36
 
 [JvLabel1]
 Coordinates=185,535,66,36
@@ -313,9 +307,6 @@ Coordinates=1520,606,77,36
 [dmClient.dstIdentInfo]
 Coordinates=163,365,137,58
 
-[RzDateTimePicker1]
-Coordinates=461,365,129,58
-
 [RzDBEdit13]
 Coordinates=1520,661,84,36
 
@@ -335,7 +326,7 @@ Coordinates=724,683,136,36
 Coordinates=1421,683,90,36
 
 []
-Coordinates=432,535,112,36
+Coordinates=461,365,129,58
 
 [edLastname]
 Coordinates=353,535,77,36
@@ -345,4 +336,10 @@ Coordinates=946,210,77,36
 
 [edMiddlename]
 Coordinates=1143,111,77,36
+
+[bteEmployer]
+Coordinates=1143,276,97,36
+
+[bteImmHead]
+Coordinates=254,535,97,36
 

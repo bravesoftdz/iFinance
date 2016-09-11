@@ -29,7 +29,6 @@ type
     edMiddlename: TRzDBEdit;
     RzDBLookupComboBox1: TRzDBLookupComboBox;
     RzDBLookupComboBox2: TRzDBLookupComboBox;
-    RzDateTimePicker1: TRzDateTimePicker;
     RzGroupBox1: TRzGroupBox;
     TabSheet4: TRzTabSheet;
     RzEdit1: TRzEdit;
@@ -72,14 +71,14 @@ type
     JvGroupHeader6: TJvGroupHeader;
     JvLabel23: TJvLabel;
     JvLabel24: TJvLabel;
-    RzButtonEdit4: TRzButtonEdit;
+    bteEmployer: TRzButtonEdit;
     JvLabel25: TJvLabel;
     RzDBLookupComboBox7: TRzDBLookupComboBox;
     RzMemo1: TRzMemo;
     RzDBCheckBox1: TRzDBCheckBox;
     JvLabel26: TJvLabel;
     JvLabel27: TJvLabel;
-    RzButtonEdit6: TRzButtonEdit;
+    bteImmHead: TRzButtonEdit;
     JvLabel28: TJvLabel;
     RzDBEdit12: TRzDBEdit;
     JvLabel29: TJvLabel;
@@ -99,6 +98,8 @@ type
     RzDBLookupComboBox10: TRzDBLookupComboBox;
     RzDBMemo1: TRzDBMemo;
     JvGroupHeader1: TJvGroupHeader;
+    TabSheet1: TRzTabSheet;
+    dtpBirthdate: TRzDateTimePicker;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -110,6 +111,7 @@ type
   private
     { Private declarations }
     procedure SetClientName;
+    procedure SetUnboundControls;
   public
     { Public declarations }
     function Save: boolean;
@@ -263,16 +265,13 @@ begin
     cln.Retrieve;
     SetClientName;
   end;
+
+  SetUnBoundControls;
 end;
 
 procedure TfrmClientMain.FormShow(Sender: TObject);
 begin
   inherited;
-
-  // the 2 lines below are a hack to refresh the display
-  // controls are not displayed properly initially
-  pcClient.Repaint;
-
   OpenDropdownDataSources(tsClientInfo);
 end;
 
@@ -321,6 +320,11 @@ begin
         FieldByName('firstname').AsString + '   ' +
         FieldByName('entity_id').AsString);
   end;
+end;
+
+procedure TfrmClientMain.SetUnboundControls;
+begin
+  dtpBirthdate.Date := StrToDate(cln.Birthdate);
 end;
 
 end.

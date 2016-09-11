@@ -12,8 +12,8 @@ type
     pcDetail: TRzPageControl;
     tsDetail: TRzTabSheet;
     btnSave: TRzButton;
-    lblStatus: TLabel;
     btnCancel: TRzButton;
+    lblStatus: TLabel;
     procedure btnSaveClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private

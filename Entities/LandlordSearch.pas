@@ -46,6 +46,7 @@ begin
     begin
       // refresh the grid
       grSearch.DataSource.DataSet.Close;
+      (grSearch.DataSource.DataSet as TADODataSet).
       grSearch.DataSource.DataSet.Open;
     end;
   end;

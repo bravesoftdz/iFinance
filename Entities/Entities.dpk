@@ -50,12 +50,12 @@ contains
   ImmediateHead in 'ImmediateHead.pas',
   ImmHeadSearch in 'ImmHeadSearch.pas' {frmImmHeadSearch},
   BasePopup in '..\Base\BasePopup.pas' {frmBasePopup},
-  LandlordDetail in 'LandlordDetail.pas' {frmLandlordDetail},
   ImmHeadDetail in 'ImmHeadDetail.pas' {frmImmHeadDetail},
-  BasePopupDetail in '..\Base\BasePopupDetail.pas' {frmBasePopupDetail},
   Referee in 'Referee.pas',
   RefereeSearch in 'RefereeSearch.pas' {frmRefereeSearch},
   BaseSearch in '..\Base\BaseSearch.pas' {frmBaseSearch},
-  AuxData in 'AuxData.pas' {dmAux: TDataModule};
+  AuxData in 'AuxData.pas' {dmAux: TDataModule},
+  BasePopupDetail in '..\Base\BasePopupDetail.pas' {frmBasePopupDetail},
+  LandlordDetail in 'LandlordDetail.pas' {frmLandlordDetail};
 
 end.

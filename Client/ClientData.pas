@@ -64,7 +64,7 @@ var
 implementation
 
 uses
-  AppData, DBUtil, Client, IFinanceGlobal;
+  AppData, DBUtil, Client, IFinanceGlobal, AppConstants;
 
 {%CLASSGROUP 'Vcl.Controls.TControl'}
 
@@ -200,8 +200,11 @@ begin
   with DataSet do
   begin
     if cln.HasId then
+    begin
       cln.Name := FieldByName('lastname').AsString + ', ' +
         FieldByName('firstname').AsString;
+      cln.Birthdate := FieldByName('birth_date').AsString;
+    end;
   end;
 end;
 
@@ -222,10 +225,8 @@ begin
   if DataSet.State = dsInsert then
     DataSet.FieldByName('entity_id').AsString := cln.Id;
 
-  // reformat birthdate to get around exception
-  if not DataSet.FieldByName('birth_date').IsNull then
-    DataSet.FieldByName('birth_date').AsString :=
-      FormatDateTime('yyyy-mm-dd',DataSet.FieldByName('birth_date').AsDateTime);
+  if DataSet.FieldByName('birth_date').OldValue <> StrToDate(cln.Birthdate) then
+    DataSet.FieldByName('birth_date').AsDateTime := StrToDate(cln.Birthdate);
 end;
 
 end.

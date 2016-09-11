@@ -10,11 +10,13 @@ type
   TClient = class(TEntity)
   private
     FName: string;
+    FBirthdate: string;
     FReferee: TReferee;
     FLandlordPres: TLandLord;
     FLandLordProv: TLandLord;
     FImmediateHead: TImmediateHead;
     function CheckId: boolean;
+    function GetBirthdate: string;
   public
     procedure Add; override;
     procedure Save; override;
@@ -23,6 +25,7 @@ type
     procedure Retrieve;
 
     property Name: string read FName write FName;
+    property Birthdate: string read GetBirthdate write FBirthdate;
     property Referee: TReferee read FReferee write FReferee;
     property LandlordPres: TLandLord read FLandlordPres write FLandlordPres;
     property LandLordProv: TLandLord read FLandLordProv write FLandLordProv;
@@ -132,6 +135,14 @@ end;
 function TClient.CheckId: boolean;
 begin
   Result := FId <> '';
+end;
+
+function TClient.GetBirthdate: string;
+begin
+  if FBirthdate = '' then
+    Result := DateToStr(Date)
+  else
+    Result := FBirthdate;
 end;
 
 end.

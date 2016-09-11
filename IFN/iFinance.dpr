@@ -3,7 +3,7 @@ program iFinance;
 uses
   Vcl.Forms,
   AppUtil,
-  Main in 'Main.pas' {Form1},
+  Main in 'Main.pas' {frmMain},
   Login in 'Login.pas' {frmLogin};
 
 {$R *.res}
@@ -16,7 +16,7 @@ begin
       Application.Initialize;
       Application.MainFormOnTaskbar := True;
       Application.CreateForm(TfrmMain, frmMain);
-      Application.Run;
+  Application.Run;
     end;
   end;
 end.

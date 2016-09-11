@@ -58,7 +58,7 @@ inherited frmBaseSearch: TfrmBaseSearch
       TitleFont.Style = []
       OnDblClick = grSearchDblClick
       AltRowShading = True
-      AltRowShadingColor = 16053492
+      AltRowShadingColor = 15854564
     end
     object btnSelect: TButton
       Left = 8
@@ -77,7 +77,6 @@ inherited frmBaseSearch: TfrmBaseSearch
       Height = 25
       Anchors = [akLeft, akTop, akRight, akBottom]
       Caption = 'New'
-      ModalResult = 1
       TabOrder = 3
       OnClick = btnNewClick
     end

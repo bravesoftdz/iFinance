@@ -1,15 +1,17 @@
 inherited frmLandlordDetail: TfrmLandlordDetail
   Caption = 'frmLandlordDetail'
-  ClientHeight = 233
-  ClientWidth = 350
-  ExplicitWidth = 350
-  ExplicitHeight = 233
+  ClientHeight = 227
+  ClientWidth = 370
+  ExplicitWidth = 370
+  ExplicitHeight = 227
   PixelsPerInch = 96
   TextHeight = 13
   inherited pnlTitle: TRzPanel
-    Width = 350
+    Width = 370
+    ExplicitWidth = 370
     inherited imgClose: TImage
-      Left = 329
+      Left = 349
+      ExplicitLeft = 349
     end
     inherited lblCaption: TRzLabel
       Width = 49
@@ -18,17 +20,26 @@ inherited frmLandlordDetail: TfrmLandlordDetail
     end
   end
   inherited pnlMain: TRzPanel
-    Width = 350
-    Height = 212
+    Width = 370
+    Height = 206
+    ExplicitWidth = 370
+    ExplicitHeight = 206
     inherited lblStatus: TLabel
-      Top = 149
+      Top = 183
+      ExplicitTop = 183
     end
     inherited pcDetail: TRzPageControl
-      Width = 333
-      Height = 130
+      Width = 353
+      Height = 152
+      ExplicitWidth = 353
+      ExplicitHeight = 152
       FixedDimension = 19
       inherited tsDetail: TRzTabSheet
         Caption = 'Landlord details'
+        ExplicitLeft = 1
+        ExplicitTop = 20
+        ExplicitWidth = 349
+        ExplicitHeight = 129
         object JvLabel1: TJvLabel
           Left = 19
           Top = 23
@@ -53,38 +64,77 @@ inherited frmLandlordDetail: TfrmLandlordDetail
           Caption = 'Middle'
           Transparent = True
         end
+        object JvLabel22: TJvLabel
+          Left = 19
+          Top = 95
+          Width = 71
+          Height = 13
+          Caption = 'Mobile/tel. no.'
+          Transparent = True
+        end
         object edMiddle: TRzDBEdit
           Left = 114
           Top = 65
-          Width = 187
+          Width = 207
           Height = 21
+          CharCase = ecUpperCase
           TabOrder = 2
         end
         object edFirstname: TRzDBEdit
           Left = 114
           Top = 41
-          Width = 187
+          Width = 207
           Height = 21
           DataSource = dmEntities.dscLlPersonal
           DataField = 'firstname'
+          CharCase = ecUpperCase
           TabOrder = 1
         end
         object edLastname: TRzDBEdit
           Left = 114
           Top = 17
-          Width = 187
+          Width = 207
           Height = 21
           DataSource = dmEntities.dscLlPersonal
           DataField = 'lastname'
+          CharCase = ecUpperCase
           TabOrder = 0
+        end
+        object RzDBEdit11: TRzDBEdit
+          Left = 114
+          Top = 89
+          Width = 102
+          Height = 21
+          DataSource = dmEntities.dscLlContact
+          DataField = 'mobile_no'
+          Ctl3D = True
+          ParentCtl3D = False
+          TabOrder = 3
+        end
+        object RzDBEdit10: TRzDBEdit
+          Left = 219
+          Top = 89
+          Width = 102
+          Height = 21
+          DataSource = dmEntities.dscLlContact
+          DataField = 'home_phone'
+          Ctl3D = True
+          ParentCtl3D = False
+          TabOrder = 4
         end
       end
     end
     inherited btnSave: TRzButton
-      Top = 179
+      Left = 204
+      Top = 171
+      ExplicitLeft = 204
+      ExplicitTop = 171
     end
     inherited btnCancel: TRzButton
-      Top = 179
+      Left = 285
+      Top = 171
+      ExplicitLeft = 285
+      ExplicitTop = 171
     end
   end
 end

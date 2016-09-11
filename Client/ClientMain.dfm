@@ -486,7 +486,7 @@ inherited frmClientMain: TfrmClientMain
         KeyField = 'value'
         ListField = 'display'
         ListSource = dmClient.dscCivilStatus
-        TabOrder = 4
+        TabOrder = 5
         AllowNull = True
         FrameColor = clBlack
         FrameHotColor = clBlack
@@ -501,32 +501,25 @@ inherited frmClientMain: TfrmClientMain
         KeyField = 'value'
         ListField = 'display'
         ListSource = dmClient.dscGender
-        TabOrder = 5
-      end
-      object RzDateTimePicker1: TRzDateTimePicker
-        Left = 114
-        Top = 124
-        Width = 95
-        Height = 21
-        Date = 42617.982762002310000000
-        Format = ''
-        Time = 42617.982762002310000000
-        TabOrder = 3
+        TabOrder = 6
       end
       object RzGroupBox1: TRzGroupBox
         Left = 664
         Top = 18
         Width = 185
         Height = 161
-        TabOrder = 7
+        TabOrder = 18
       end
       object RzEdit1: TRzEdit
         Left = 255
         Top = 124
         Width = 66
         Height = 21
+        TabStop = False
         Text = ''
-        TabOrder = 8
+        Color = clInfoBk
+        ReadOnly = True
+        TabOrder = 4
       end
       object bteReferee: TRzButtonEdit
         Left = 114
@@ -538,7 +531,7 @@ inherited frmClientMain: TfrmClientMain
         ParentShowHint = False
         ReadOnly = True
         ShowHint = True
-        TabOrder = 6
+        TabOrder = 7
         AllowKeyEdit = False
         AltBtnHint = 'Clear referee'
         ButtonHint = 'Find referee'
@@ -561,7 +554,7 @@ inherited frmClientMain: TfrmClientMain
         DataField = 'st'
         Ctl3D = True
         ParentCtl3D = False
-        TabOrder = 9
+        TabOrder = 12
       end
       object RzDBEdit5: TRzDBEdit
         Left = 114
@@ -572,7 +565,7 @@ inherited frmClientMain: TfrmClientMain
         DataField = 'brgy'
         Ctl3D = True
         ParentCtl3D = False
-        TabOrder = 10
+        TabOrder = 13
       end
       object RzDBLookupComboBox3: TRzDBLookupComboBox
         Left = 114
@@ -584,7 +577,7 @@ inherited frmClientMain: TfrmClientMain
         KeyField = 'post_code'
         ListField = 'town'
         ListSource = dmAux.dscTowns
-        TabOrder = 11
+        TabOrder = 14
         AllowNull = True
         FrameColor = clBlack
         FrameHotColor = clBlack
@@ -599,7 +592,7 @@ inherited frmClientMain: TfrmClientMain
         KeyField = 'value'
         ListField = 'display'
         ListSource = dmClient.dscResStatus
-        TabOrder = 12
+        TabOrder = 15
         AllowNull = True
         FrameColor = clBlack
         FrameHotColor = clBlack
@@ -614,7 +607,7 @@ inherited frmClientMain: TfrmClientMain
         ParentShowHint = False
         ReadOnly = True
         ShowHint = True
-        TabOrder = 13
+        TabOrder = 16
         AllowKeyEdit = False
         AltBtnHint = 'Clear landlord'
         ButtonHint = 'Find landlord'
@@ -635,7 +628,7 @@ inherited frmClientMain: TfrmClientMain
         Text = ''
         Color = clInfoBk
         ReadOnly = True
-        TabOrder = 14
+        TabOrder = 17
       end
       object RzDBEdit6: TRzDBEdit
         Left = 438
@@ -646,7 +639,7 @@ inherited frmClientMain: TfrmClientMain
         DataField = 'st'
         Ctl3D = True
         ParentCtl3D = False
-        TabOrder = 15
+        TabOrder = 19
       end
       object RzDBEdit7: TRzDBEdit
         Left = 438
@@ -657,7 +650,7 @@ inherited frmClientMain: TfrmClientMain
         DataField = 'brgy'
         Ctl3D = True
         ParentCtl3D = False
-        TabOrder = 16
+        TabOrder = 20
       end
       object RzDBLookupComboBox4: TRzDBLookupComboBox
         Left = 438
@@ -669,7 +662,7 @@ inherited frmClientMain: TfrmClientMain
         KeyField = 'post_code'
         ListField = 'town'
         ListSource = dmAux.dscTowns
-        TabOrder = 17
+        TabOrder = 21
         AllowNull = True
         FrameColor = clBlack
         FrameHotColor = clBlack
@@ -684,7 +677,7 @@ inherited frmClientMain: TfrmClientMain
         KeyField = 'value'
         ListField = 'display'
         ListSource = dmClient.dscResStatus
-        TabOrder = 18
+        TabOrder = 22
         AllowNull = True
         FrameColor = clBlack
         FrameHotColor = clBlack
@@ -699,7 +692,7 @@ inherited frmClientMain: TfrmClientMain
         ParentShowHint = False
         ReadOnly = True
         ShowHint = True
-        TabOrder = 19
+        TabOrder = 23
         AllowKeyEdit = False
         AltBtnHint = 'Clear landlord'
         ButtonHint = 'Find landlord'
@@ -720,7 +713,7 @@ inherited frmClientMain: TfrmClientMain
         Text = ''
         Color = clInfoBk
         ReadOnly = True
-        TabOrder = 20
+        TabOrder = 24
       end
       object RzDBEdit8: TRzDBEdit
         Left = 114
@@ -731,7 +724,7 @@ inherited frmClientMain: TfrmClientMain
         DataField = 'fb_acct'
         Ctl3D = True
         ParentCtl3D = False
-        TabOrder = 21
+        TabOrder = 9
       end
       object RzDBEdit9: TRzDBEdit
         Left = 114
@@ -742,7 +735,7 @@ inherited frmClientMain: TfrmClientMain
         DataField = 'email_add'
         Ctl3D = True
         ParentCtl3D = False
-        TabOrder = 22
+        TabOrder = 8
       end
       object RzDBEdit11: TRzDBEdit
         Left = 114
@@ -753,7 +746,7 @@ inherited frmClientMain: TfrmClientMain
         DataField = 'mobile_no'
         Ctl3D = True
         ParentCtl3D = False
-        TabOrder = 23
+        TabOrder = 10
       end
       object RzDBEdit10: TRzDBEdit
         Left = 219
@@ -764,9 +757,9 @@ inherited frmClientMain: TfrmClientMain
         DataField = 'home_phone'
         Ctl3D = True
         ParentCtl3D = False
-        TabOrder = 24
+        TabOrder = 11
       end
-      object RzButtonEdit4: TRzButtonEdit
+      object bteEmployer: TRzButtonEdit
         Left = 438
         Top = 214
         Width = 187
@@ -798,7 +791,7 @@ inherited frmClientMain: TfrmClientMain
         KeyField = 'value'
         ListField = 'display'
         ListSource = dmClient.dscEmpStatus
-        TabOrder = 26
+        TabOrder = 27
         AllowNull = True
         FrameColor = clBlack
         FrameHotColor = clBlack
@@ -810,7 +803,7 @@ inherited frmClientMain: TfrmClientMain
         Height = 40
         Color = clInfoBk
         ReadOnly = True
-        TabOrder = 27
+        TabOrder = 26
       end
       object RzDBCheckBox1: TRzDBCheckBox
         Left = 438
@@ -825,7 +818,7 @@ inherited frmClientMain: TfrmClientMain
         Caption = 'Government employee'
         TabOrder = 28
       end
-      object RzButtonEdit6: TRzButtonEdit
+      object bteImmHead: TRzButtonEdit
         Left = 438
         Top = 352
         Width = 187
@@ -835,7 +828,7 @@ inherited frmClientMain: TfrmClientMain
         ParentShowHint = False
         ReadOnly = True
         ShowHint = True
-        TabOrder = 29
+        TabOrder = 30
         AltBtnHint = 'Clear immediate head'
         ButtonHint = 'Find immediate head'
         AltBtnKind = bkReject
@@ -855,7 +848,7 @@ inherited frmClientMain: TfrmClientMain
         DataField = 'serv_len'
         Ctl3D = True
         ParentCtl3D = False
-        TabOrder = 30
+        TabOrder = 31
       end
       object RzDBEdit13: TRzDBEdit
         Left = 438
@@ -866,7 +859,7 @@ inherited frmClientMain: TfrmClientMain
         DataField = 'gross_pay'
         Ctl3D = True
         ParentCtl3D = False
-        TabOrder = 31
+        TabOrder = 32
       end
       object RzDBEdit14: TRzDBEdit
         Left = 566
@@ -877,7 +870,7 @@ inherited frmClientMain: TfrmClientMain
         DataField = 'net_pay'
         Ctl3D = True
         ParentCtl3D = False
-        TabOrder = 32
+        TabOrder = 33
       end
       object RzDBEdit15: TRzDBEdit
         Left = 694
@@ -888,7 +881,7 @@ inherited frmClientMain: TfrmClientMain
         DataField = 'acct_no'
         Ctl3D = True
         ParentCtl3D = False
-        TabOrder = 33
+        TabOrder = 37
       end
       object RzDBEdit16: TRzDBEdit
         Left = 694
@@ -899,7 +892,7 @@ inherited frmClientMain: TfrmClientMain
         DataField = 'card_no'
         Ctl3D = True
         ParentCtl3D = False
-        TabOrder = 34
+        TabOrder = 38
       end
       object RzDBLookupComboBox8: TRzDBLookupComboBox
         Left = 438
@@ -908,7 +901,7 @@ inherited frmClientMain: TfrmClientMain
         Height = 21
         KeyField = 'value'
         ListField = 'display'
-        TabOrder = 35
+        TabOrder = 29
         AllowNull = True
         FrameColor = clBlack
         FrameHotColor = clBlack
@@ -922,7 +915,7 @@ inherited frmClientMain: TfrmClientMain
         KeyField = 'value'
         ListField = 'display'
         ListSource = dmClient.dscResStatus
-        TabOrder = 36
+        TabOrder = 34
         AllowNull = True
         FrameColor = clBlack
         FrameHotColor = clBlack
@@ -937,7 +930,7 @@ inherited frmClientMain: TfrmClientMain
         KeyField = 'bank_id'
         ListField = 'bank_name'
         ListSource = dmAux.dscBanks
-        TabOrder = 37
+        TabOrder = 35
         AllowNull = True
         FrameColor = clBlack
         FrameHotColor = clBlack
@@ -947,15 +940,33 @@ inherited frmClientMain: TfrmClientMain
         Top = 238
         Width = 155
         Height = 40
+        TabStop = False
         Color = clInfoBk
         DataField = 'branch'
         DataSource = dmAux.dscBanks
         ReadOnly = True
-        TabOrder = 38
+        TabOrder = 36
+      end
+      object dtpBirthdate: TRzDateTimePicker
+        Left = 114
+        Top = 124
+        Width = 95
+        Height = 21
+        Date = 42624.922021979170000000
+        Format = ''
+        Time = 42624.922021979170000000
+        TabOrder = 3
       end
     end
     object TabSheet4: TRzTabSheet
-      Caption = 'Loans history'
+      Caption = 'Family and personal references'
+    end
+    object TabSheet1: TRzTabSheet
+      Caption = 'Loan history'
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
     end
   end
 end

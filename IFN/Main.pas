@@ -66,11 +66,8 @@ begin
 end;
 
 procedure TfrmMain.lbxRecentDblClick(Sender: TObject);
-var
-  c: TClient;
 begin
-  c := TClient.Create;
-  c := lbxRecent.Items.Objects[lbxRecent.IndexOf(lbxRecent.SelectedItem)] as TClient;
+  cln := lbxRecent.Items.Objects[lbxRecent.IndexOf(lbxRecent.SelectedItem)] as TClient;
 
   DockForm(fmClientMain);
 end;
@@ -151,7 +148,8 @@ end;
 
 procedure TfrmMain.AddRecentClient(ct: TClient);
 begin
-  lbxRecent.Items.AddObject(ct.Name,ct);
+  if not lbxRecent.FindItem(ct.Name) then
+    lbxRecent.Items.AddObject(ct.Name,ct);
 end;
 
 end.

@@ -3,7 +3,7 @@ unit EntitiesData;
 interface
 
 uses
-  System.SysUtils, System.Classes, Data.DB, Data.Win.ADODB;
+  System.SysUtils, System.Classes, Data.DB, Data.Win.ADODB, System.Rtti;
 
 type
   TdmEntities = class(TDataModule)
@@ -43,7 +43,7 @@ var
 implementation
 
 uses
-  AppData, Landlord, DBUtil, ImmediateHead;
+  AppData, Landlord, DBUtil, ImmediateHead, AppConstants;
 
 {%CLASSGROUP 'Vcl.Controls.TControl'}
 
@@ -93,6 +93,8 @@ var
 begin
   id := GetEntityId;
   DataSet.FieldByName('entity_id').AsString := id;
+  DataSet.FieldByName('entity_type').AsString :=
+    TRttiEnumerationType.GetName<TEntityTypes>(TEntityTypes.IH);
   immHead.Id := id;
 end;
 
@@ -107,6 +109,8 @@ var
 begin
   id := GetEntityId;
   DataSet.FieldByName('entity_id').AsString := id;
+  DataSet.FieldByName('entity_type').AsString :=
+    TRttiEnumerationType.GetName<TEntityTypes>(TEntityTypes.LL);
   llord.Id := id;
 end;
 

@@ -9,6 +9,7 @@ inherited frmClientList: TfrmClientList
     Width = 527
     Height = 33
     Align = alTop
+    BorderInner = fsFlat
     BorderOuter = fsNone
     BorderSides = [sdLeft, sdTop, sdRight]
     TabOrder = 1
@@ -38,16 +39,15 @@ inherited frmClientList: TfrmClientList
     Width = 527
     Height = 181
     Align = alClient
-    BorderOuter = fsNone
+    BorderOuter = fsFlat
+    BorderSides = [sdLeft, sdRight, sdBottom]
     BorderWidth = 5
     TabOrder = 2
-    ExplicitTop = 69
-    ExplicitHeight = 173
     object grList: TRzDBGrid
-      Left = 5
+      Left = 6
       Top = 5
-      Width = 517
-      Height = 171
+      Width = 515
+      Height = 170
       Align = alClient
       DataSource = dmApplication.dscEntities
       Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
@@ -59,7 +59,7 @@ inherited frmClientList: TfrmClientList
       TitleFont.Style = []
       OnDblClick = grListDblClick
       AltRowShading = True
-      AltRowShadingColor = 14536641
+      AltRowShadingColor = 15854564
       Columns = <
         item
           Expanded = False
