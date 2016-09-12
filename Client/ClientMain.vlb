@@ -235,9 +235,6 @@ Coordinates=244,609,73,36
 [dmClient.dscIdentInfo]
 Coordinates=759,78,139,36
 
-[RzEdit1]
-Coordinates=175,609,60,36
-
 [JvLabel21]
 Coordinates=96,609,73,36
 
@@ -264,9 +261,6 @@ Coordinates=14,77,52,58
 
 [RzDBCheckBox1]
 Coordinates=1520,111,113,36
-
-[RzURLLabel1]
-Coordinates=159,269,94,58
 
 [RzDBLookupComboBox8]
 Coordinates=1520,166,160,36
@@ -342,4 +336,10 @@ Coordinates=1143,276,97,36
 
 [bteImmHead]
 Coordinates=254,535,97,36
+
+[urlCopyAddress]
+Coordinates=159,269,94,58
+
+[edAge]
+Coordinates=175,609,60,36
 

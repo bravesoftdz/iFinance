@@ -6,6 +6,7 @@ object dmClient: TdmClient
     Tag = 2
     Connection = dmApplication.acMain
     BeforeOpen = dstEntityBeforeOpen
+    AfterOpen = dstEntityAfterOpen
     BeforePost = dstEntityBeforePost
     CommandText = 'sp_cl_get_entity'
     CommandType = cmdStoredProc
@@ -132,6 +133,7 @@ object dmClient: TdmClient
     Connection = dmApplication.acMain
     CursorType = ctStatic
     BeforeOpen = dstAddressInfoBeforeOpen
+    AfterOpen = dstAddressInfoAfterOpen
     BeforePost = dstAddressInfoBeforePost
     AfterPost = dstAddressInfoAfterPost
     CommandText = 'sp_cl_get_address_info_pres;1'
@@ -256,6 +258,7 @@ object dmClient: TdmClient
     Connection = dmApplication.acMain
     CursorType = ctStatic
     BeforeOpen = dstAddressInfo2BeforeOpen
+    AfterOpen = dstAddressInfo2AfterOpen
     BeforePost = dstAddressInfo2BeforePost
     AfterPost = dstAddressInfo2AfterPost
     CommandText = 'sp_cl_get_address_info_prov;1'

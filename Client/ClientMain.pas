@@ -31,7 +31,7 @@ type
     RzDBLookupComboBox2: TRzDBLookupComboBox;
     RzGroupBox1: TRzGroupBox;
     TabSheet4: TRzTabSheet;
-    RzEdit1: TRzEdit;
+    edAge: TRzEdit;
     bteReferee: TRzButtonEdit;
     JvGroupHeader2: TJvGroupHeader;
     JvLabel4: TJvLabel;
@@ -40,7 +40,7 @@ type
     RzDBEdit5: TRzDBEdit;
     JvLabel6: TJvLabel;
     RzDBLookupComboBox3: TRzDBLookupComboBox;
-    RzURLLabel1: TRzURLLabel;
+    urlCopyAddress: TRzURLLabel;
     JvLabel14: TJvLabel;
     RzDBLookupComboBox5: TRzDBLookupComboBox;
     JvLabel15: TJvLabel;
@@ -108,10 +108,16 @@ type
     procedure bteLandlord2ButtonClick(Sender: TObject);
     procedure bteRefereeAltBtnClick(Sender: TObject);
     procedure bteRefereeButtonClick(Sender: TObject);
+    procedure urlCopyAddressClick(Sender: TObject);
+    procedure bteLandlordAltBtnClick(Sender: TObject);
+    procedure bteLandlord2AltBtnClick(Sender: TObject);
+    procedure dtpBirthdateChange(Sender: TObject);
   private
     { Private declarations }
     procedure SetClientName;
     procedure SetUnboundControls;
+    procedure CopyAddress;
+    procedure GetAge;
   public
     { Public declarations }
     function Save: boolean;
@@ -129,6 +135,14 @@ uses
 {$R *.dfm}
 
 { TfrmClientMain }
+
+procedure TfrmClientMain.bteLandlord2AltBtnClick(Sender: TObject);
+begin
+  inherited;
+  cln.LandlordProv := nil;
+  bteLandlord2.Clear;
+  edLandlordContact2.Clear;
+end;
 
 procedure TfrmClientMain.bteLandlord2ButtonClick(Sender: TObject);
 begin
@@ -152,6 +166,14 @@ begin
         ShowMessage(e.Message);
     end;
   end;
+end;
+
+procedure TfrmClientMain.bteLandlordAltBtnClick(Sender: TObject);
+begin
+  inherited;
+  cln.LandlordPres := nil;
+  bteLandlord.Clear;
+  edLandlordContact.Clear;
 end;
 
 procedure TfrmClientMain.bteLandlordButtonClick(Sender: TObject);
@@ -303,6 +325,7 @@ begin
 
       if Result then
       begin
+        cln.Birthdate := dtpBirthdate.Date;
         cln.Save;
         SetClientName;
       end;
@@ -323,8 +346,104 @@ begin
 end;
 
 procedure TfrmClientMain.SetUnboundControls;
+
+  function ParseBirthdate(const dateStr: string): TDate;
+  var
+    sl: TStringList;
+  begin
+    sl := TStringList.Create;
+    sl.Delimiter := '-';
+    sl.DelimitedText := dateStr;
+
+    Result := EncodeDate(StrToInt(sl[0]),StrToInt(sl[1]),StrToInt(sl[2]));
+  end;
+
 begin
-  dtpBirthdate.Date := StrToDate(cln.Birthdate);
+  // birthdate
+  if cln.BirthdateStr <> '' then
+    dtpBirthdate.Date := ParseBirthdate(cln.BirthdateStr)
+  else
+    dtpBirthdate.Date := Date;
+
+  GetAge;
+
+  // referee
+  if Assigned(cln.Referee) then
+    bteReferee.Text := cln.Referee.Name;
+
+  // landlord present address
+  if Assigned(cln.LandlordPres) then
+  begin
+    bteLandlord.Text := cln.LandlordPres.Name;
+    edLandlordContact.Text := cln.LandlordPres.Contact;
+  end;
+
+  // landlord provincial address
+  if Assigned(cln.LandlordProv) then
+  begin
+    bteLandlord2.Text := cln.LandlordProv.Name;
+    edLandlordContact2.Text := cln.LandlordProv.Contact;
+  end;
+
+end;
+
+procedure TfrmClientMain.urlCopyAddressClick(Sender: TObject);
+begin
+  inherited;
+  CopyAddress;
+end;
+
+procedure TfrmClientMain.CopyAddress;
+begin
+  cln.CopyAddress;
+
+  // set unbound controls
+  if Assigned(cln.LandlordPres) then
+  begin
+    cln.LandLordProv := cln.LandlordPres;
+    bteLandlord2.Text := cln.LandlordPres.Name;
+    edLandlordContact2.Text := cln.LandlordPres.Contact;
+  end
+  else
+  begin
+    cln.LandLordProv := nil;
+    bteLandlord2.Clear;
+    edLandlordContact2.Clear;
+  end;
+end;
+
+procedure TfrmClientMain.dtpBirthdateChange(Sender: TObject);
+begin
+  inherited;
+  GetAge;
+end;
+
+procedure TfrmClientMain.GetAge;
+var
+  Month, Day, Year, CurrentYear, CurrentMonth, CurrentDay: Word;
+  age: integer;
+begin
+  DecodeDate(dtpBirthdate.Date, Year, Month, Day);
+  DecodeDate(Date, CurrentYear, CurrentMonth, CurrentDay);
+
+  if (Year = CurrentYear) and (Month = CurrentMonth) and (Day = CurrentDay) then
+  begin
+    age := 0;
+  end
+  else
+  begin
+    age := CurrentYear - Year;
+    if (Month > CurrentMonth) then
+      Dec(age)
+    else
+    begin
+      if Month = CurrentMonth then
+        if (Day > CurrentDay) then
+          Dec(age);
+    end;
+  end;
+
+  edAge.Text := IntToStr(age);
 end;
 
 end.

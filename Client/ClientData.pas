@@ -52,6 +52,9 @@ type
     procedure dstAcctInfoBeforePost(DataSet: TDataSet);
     procedure dstPersonalInfoAfterOpen(DataSet: TDataSet);
     procedure dstPersonalInfoAfterPost(DataSet: TDataSet);
+    procedure dstEntityAfterOpen(DataSet: TDataSet);
+    procedure dstAddressInfoAfterOpen(DataSet: TDataSet);
+    procedure dstAddressInfo2AfterOpen(DataSet: TDataSet);
   private
     { Private declarations }
   public
@@ -64,7 +67,7 @@ var
 implementation
 
 uses
-  AppData, DBUtil, Client, IFinanceGlobal, AppConstants;
+  AppData, DBUtil, Client, IFinanceGlobal, AppConstants, Referee, Landlord;
 
 {%CLASSGROUP 'Vcl.Controls.TControl'}
 
@@ -81,6 +84,18 @@ begin
     DataSet.FieldByName('entity_id').AsString := cln.Id;
 end;
 
+procedure TdmClient.dstAddressInfo2AfterOpen(DataSet: TDataSet);
+begin
+  if (cln.HasId) and (DataSet.FieldByName('landlord').AsString <> '') then
+  begin
+    cln.LandlordProv := TLandlord.Create;
+    cln.LandlordProv.Id := DataSet.FieldByName('landlord').AsString;
+    cln.LandlordProv.Name := DataSet.FieldByName('landlord_name').AsString;
+    cln.LandlordProv.Mobile := DataSet.FieldByName('landlord_mobile').AsString;
+    cln.LandlordProv.Mobile := DataSet.FieldByName('landlord_homephone').AsString;
+  end
+end;
+
 procedure TdmClient.dstAddressInfo2AfterPost(DataSet: TDataSet);
 begin
   DataSet.Edit;
@@ -94,15 +109,26 @@ end;
 procedure TdmClient.dstAddressInfo2BeforePost(DataSet: TDataSet);
 begin
   if DataSet.State = dsInsert then
-  begin
     DataSet.FieldByName('entity_id').AsString := cln.Id;
-    DataSet.FieldByName('is_prov').AsInteger := 1;
-  end;
 
-  if Assigned(cln.LandlordPres) then
+  DataSet.FieldByName('is_prov').AsInteger := 1;
+
+  if Assigned(cln.LandlordProv) then
     DataSet.FieldByName('landlord').AsString := cln.LandlordProv.Id
   else
     DataSet.FieldByName('landlord').Value := null;
+end;
+
+procedure TdmClient.dstAddressInfoAfterOpen(DataSet: TDataSet);
+begin
+  if (cln.HasId) and (DataSet.FieldByName('landlord').AsString <> '') then
+  begin
+    cln.LandlordPres := TLandlord.Create;
+    cln.LandlordPres.Id := DataSet.FieldByName('landlord').AsString;
+    cln.LandlordPres.Name := DataSet.FieldByName('landlord_name').AsString;
+    cln.LandlordPres.Mobile := DataSet.FieldByName('landlord_mobile').AsString;
+    cln.LandlordPres.Mobile := DataSet.FieldByName('landlord_homephone').AsString;
+  end
 end;
 
 procedure TdmClient.dstAddressInfoAfterPost(DataSet: TDataSet);
@@ -118,10 +144,9 @@ end;
 procedure TdmClient.dstAddressInfoBeforePost(DataSet: TDataSet);
 begin
   if DataSet.State = dsInsert then
-  begin
     DataSet.FieldByName('entity_id').AsString := cln.Id;
-    DataSet.FieldByName('is_prov').AsInteger := 0;
-  end;
+
+  DataSet.FieldByName('is_prov').AsInteger := 0;
 
   if Assigned(cln.LandlordPres) then
     DataSet.FieldByName('landlord').AsString := cln.LandlordPres.Id
@@ -163,6 +188,16 @@ begin
   DataSet.FieldByName('is_gov').AsInteger := 1;
 end;
 
+procedure TdmClient.dstEntityAfterOpen(DataSet: TDataSet);
+begin
+  if not DataSet.FieldByName('ref_entity_id').IsNull then
+  begin
+    cln.Referee := TReferee.Create;
+    cln.Referee.Id := DataSet.FieldByName('ref_entity_id').AsString;
+    cln.Referee.Name := DataSet.FieldByName('referee').AsString;
+  end;
+end;
+
 procedure TdmClient.dstEntityBeforeOpen(DataSet: TDataSet);
 begin
   (DataSet as TADODataSet).Parameters.ParamByName('@entity_id').Value := cln.Id;
@@ -172,16 +207,21 @@ procedure TdmClient.dstEntityBeforePost(DataSet: TDataSet);
 var
   id: string;
 begin
-  id := GetEntityId;
-  DataSet.FieldByName('entity_id').AsString := id;
+  if DataSet.State = dsInsert then
+  begin
+    id := GetEntityId;
+    DataSet.FieldByName('entity_id').AsString := id;
+
+    DataSet.FieldByName('created_date').AsDateTime := Date;
+    DataSet.FieldByName('created_by').AsString := ifn.User.UserId;
+
+    cln.Id := id;
+  end;
 
   if Assigned(cln.Referee) then
-    DataSet.FieldByName('ref_entity_id').AsString := cln.Referee.Id;
-
-  DataSet.FieldByName('created_date').AsDateTime := Date;
-  DataSet.FieldByName('created_by').AsString := ifn.User.UserId;
-
-  cln.Id := id;
+    DataSet.FieldByName('ref_entity_id').AsString := cln.Referee.Id
+  else
+    DataSet.FieldByName('ref_entity_id').Value := null;
 end;
 
 procedure TdmClient.dstIdentInfoBeforeOpen(DataSet: TDataSet);
@@ -203,7 +243,7 @@ begin
     begin
       cln.Name := FieldByName('lastname').AsString + ', ' +
         FieldByName('firstname').AsString;
-      cln.Birthdate := FieldByName('birth_date').AsString;
+      cln.BirthdateStr := FieldByName('birth_date').AsString;
     end;
   end;
 end;
@@ -225,8 +265,8 @@ begin
   if DataSet.State = dsInsert then
     DataSet.FieldByName('entity_id').AsString := cln.Id;
 
-  if DataSet.FieldByName('birth_date').OldValue <> StrToDate(cln.Birthdate) then
-    DataSet.FieldByName('birth_date').AsDateTime := StrToDate(cln.Birthdate);
+  DataSet.FieldByName('birth_date').AsString :=
+        FormatDateTime('yyyy-mm-dd',cln.Birthdate);
 end;
 
 end.

@@ -81,9 +81,9 @@ object frmMain: TfrmMain
         object lblRecentlyAdded: TRzURLLabel
           Left = 15
           Top = 40
-          Width = 84
+          Width = 96
           Height = 13
-          Caption = 'Newly-add clients'
+          Caption = 'Newly-added clients'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clHighlight
           Font.Height = -11
@@ -137,7 +137,13 @@ object frmMain: TfrmMain
           Width = 146
           Height = 222
           BorderStyle = bsNone
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clGray
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsItalic]
           ItemHeight = 13
+          ParentFont = False
           TabOrder = 1
           OnDblClick = lbxRecentDblClick
         end
@@ -309,7 +315,7 @@ object frmMain: TfrmMain
     Left = 257
     Top = 504
     Bitmap = {
-      494C010103000800380010001000FFFFFFFF2110FFFFFFFFFFFFFFFF424D3600
+      494C010103000800400010001000FFFFFFFF2110FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000001000000001002000000000000010
       00000000000000000000000000000000000000000009000000160000001A0000
       001A0000001A0000001A0000001A0000001A0000001A0000001A0000001A0000

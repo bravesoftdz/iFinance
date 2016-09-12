@@ -42,7 +42,7 @@ uses
 procedure TfrmLandlordDetail.Cancel;
 begin
   inherited;
-
+  llord.Cancel;
 end;
 
 procedure TfrmLandlordDetail.Save;

@@ -58,7 +58,7 @@ inherited frmBaseSearch: TfrmBaseSearch
       TitleFont.Style = []
       OnDblClick = grSearchDblClick
       AltRowShading = True
-      AltRowShadingColor = 15854564
+      AltRowShadingColor = 16249582
     end
     object btnSelect: TButton
       Left = 8

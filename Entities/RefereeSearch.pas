@@ -6,7 +6,7 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, BaseSearch, Data.DB, Vcl.StdCtrls,
   Vcl.Grids, Vcl.DBGrids, RzDBGrid, Vcl.Mask, RzEdit, RzLabel,
-  Vcl.Imaging.pngimage, Vcl.ExtCtrls, RzPanel;
+  Vcl.Imaging.pngimage, Vcl.ExtCtrls, RzPanel, System.Rtti, ADODB;
 
 type
   TfrmRefereeSearch = class(TfrmBaseSearch)
@@ -26,13 +26,15 @@ var
 implementation
 
 uses
-  EntitiesData, Referee;
+  EntitiesData, Referee, AppConstants;
 
 {$R *.dfm}
 
 procedure TfrmRefereeSearch.FormCreate(Sender: TObject);
 begin
   dmEntities := TdmEntities.Create(self);
+  (grSearch.DataSource.DataSet as TADODataSet).Parameters.ParamByName('@entity_type').Value :=
+        TRttiEnumerationType.GetName<TEntityTypes>(TEntityTypes.CL);
   inherited;
 end;
 

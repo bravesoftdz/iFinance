@@ -84,11 +84,11 @@ end;
 
 function TLandlord.GetContact: string;
 begin
-  if (FMobile <> '') and (FTelephone <> '') then
+  if (Trim(FMobile) <> '') and (Trim(FTelephone) <> '') then
     Result := FMobile + ' | ' + FTelephone
-  else if FMobile <> '' then
+  else if Trim(FMobile) <> '' then
     Result := FMobile
-  else if FTelephone <> '' then
+  else if Trim(FTelephone) <> '' then
     Result := FTelephone
   else
     Result := '';

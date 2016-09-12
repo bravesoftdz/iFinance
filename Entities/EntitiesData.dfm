@@ -15,7 +15,13 @@ object dmEntities: TdmEntities
         DataType = ftInteger
         Direction = pdReturnValue
         Precision = 10
-        Value = 0
+      end
+      item
+        Name = '@entity_type'
+        Attributes = [paNullable]
+        DataType = ftString
+        Size = 2
+        Value = ''
       end>
     Left = 31
     Top = 22

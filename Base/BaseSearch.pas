@@ -28,6 +28,7 @@ type
     procedure SearchList; virtual; abstract;
     procedure SetReturn; virtual; abstract;
     procedure Add; virtual; abstract;
+    procedure Cancel; virtual; abstract;
   end;
 
 var

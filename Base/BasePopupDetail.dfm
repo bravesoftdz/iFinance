@@ -9,7 +9,7 @@ inherited frmBasePopupDetail: TfrmBasePopupDetail
   TextHeight = 13
   inherited pnlTitle: TRzPanel
     Width = 533
-    ExplicitWidth = 550
+    ExplicitWidth = 533
     DesignSize = (
       533
       21)
@@ -21,8 +21,8 @@ inherited frmBasePopupDetail: TfrmBasePopupDetail
   inherited pnlMain: TRzPanel
     Width = 533
     Height = 232
-    ExplicitWidth = 550
-    ExplicitHeight = 225
+    ExplicitWidth = 533
+    ExplicitHeight = 232
     DesignSize = (
       533
       232)
@@ -51,14 +51,10 @@ inherited frmBasePopupDetail: TfrmBasePopupDetail
       UseColoredTabs = True
       TabIndex = 0
       TabOrder = 0
-      ExplicitWidth = 533
-      ExplicitHeight = 171
       FixedDimension = 19
       object tsDetail: TRzTabSheet
         Color = 15263976
         Caption = 'Change caption here'
-        ExplicitWidth = 529
-        ExplicitHeight = 148
       end
     end
     object btnSave: TRzButton
@@ -69,8 +65,6 @@ inherited frmBasePopupDetail: TfrmBasePopupDetail
       Caption = 'Save'
       TabOrder = 1
       OnClick = btnSaveClick
-      ExplicitLeft = 384
-      ExplicitTop = 190
     end
     object btnCancel: TRzButton
       Left = 448
@@ -80,8 +74,6 @@ inherited frmBasePopupDetail: TfrmBasePopupDetail
       Anchors = [akRight, akBottom]
       Caption = 'Cancel'
       TabOrder = 2
-      ExplicitLeft = 465
-      ExplicitTop = 190
     end
   end
 end

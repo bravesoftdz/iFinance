@@ -36,8 +36,6 @@ inherited frmLandlordDetail: TfrmLandlordDetail
       FixedDimension = 19
       inherited tsDetail: TRzTabSheet
         Caption = 'Landlord details'
-        ExplicitLeft = 1
-        ExplicitTop = 20
         ExplicitWidth = 349
         ExplicitHeight = 129
         object JvLabel1: TJvLabel

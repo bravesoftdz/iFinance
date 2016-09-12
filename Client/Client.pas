@@ -3,29 +3,31 @@ unit Client;
 interface
 
 uses
-  SysUtils, ClientData, Dialogs, DB, Entity, ADODB, LandLord, ImmediateHead,
+  SysUtils, ClientData, DB, Entity, ADODB, LandLord, ImmediateHead,
   Referee;
 
 type
   TClient = class(TEntity)
   private
     FName: string;
-    FBirthdate: string;
+    FBirthdate: TDate;
+    FBirthdateStr: string;
     FReferee: TReferee;
     FLandlordPres: TLandLord;
     FLandLordProv: TLandLord;
     FImmediateHead: TImmediateHead;
     function CheckId: boolean;
-    function GetBirthdate: string;
   public
     procedure Add; override;
     procedure Save; override;
     procedure Edit; override;
     procedure Cancel; override;
     procedure Retrieve;
+    procedure CopyAddress;
 
     property Name: string read FName write FName;
-    property Birthdate: string read GetBirthdate write FBirthdate;
+    property Birthdate: TDate read FBirthdate write FBirthdate;
+    property BirthdateStr: string read FBirthdateStr write FBirthdateStr;
     property Referee: TReferee read FReferee write FReferee;
     property LandlordPres: TLandLord read FLandlordPres write FLandlordPres;
     property LandLordProv: TLandLord read FLandLordProv write FLandLordProv;
@@ -94,8 +96,8 @@ begin
       if Components[i] is TADODataSet then
       begin
         (Components[i] as TADODataSet).Open;
-        if (Components[i] as TADODataSet).Tag = 1 then
-          if (Components[i] as TADODataSet).RecordCount = 0 then
+        if (Components[i] as TADODataSet).Tag in [1,2] then
+          if (Components[i] as TADODataSet).RecordCount > 0 then
             (Components[i] as TADODataSet).Edit;
       end;
     end;
@@ -116,20 +118,8 @@ begin
 end;
 
 procedure TClient.Retrieve;
-var
-  i: integer;
 begin
-  with dmClient do
-  begin
-    for i:=0 to ComponentCount - 1 do
-    begin
-      if Components[i] is TADODataSet then
-      begin
-        if (Components[i] as TADODataSet).Tag <> 0 then
-          (Components[i] as TADODataSet).Open;
-      end;
-    end;
-  end;
+  Edit;
 end;
 
 function TClient.CheckId: boolean;
@@ -137,12 +127,17 @@ begin
   Result := FId <> '';
 end;
 
-function TClient.GetBirthdate: string;
+procedure TClient.CopyAddress;
+var
+  i: integer;
 begin
-  if FBirthdate = '' then
-    Result := DateToStr(Date)
-  else
-    Result := FBirthdate;
+  with dmClient, dmClient.dstAddressInfo do
+  begin
+    for i := 0 to FieldCount - 1 do
+      if not dstAddressInfo2.Fields[i].ReadOnly then
+        dstAddressInfo2.Fields[i].Value := Fields[i].Value;
+  end;
+
 end;
 
 end.

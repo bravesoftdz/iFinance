@@ -6,7 +6,7 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, BaseSearch, Data.DB, Vcl.StdCtrls,
   Vcl.Grids, Vcl.DBGrids, RzDBGrid, Vcl.Mask, RzEdit, RzLabel,
-  Vcl.Imaging.pngimage, Vcl.ExtCtrls, RzPanel;
+  Vcl.Imaging.pngimage, Vcl.ExtCtrls, RzPanel, ADODB, System.Rtti;
 
 type
   TfrmLandlordSearch = class(TfrmBaseSearch)
@@ -29,7 +29,7 @@ implementation
 {$R *.dfm}
 
 uses
-  Landlord, EntitiesData, LandlordDetail;
+  Landlord, EntitiesData, LandlordDetail, AppConstants;
 
 { TfrmLandlordSearch }
 
@@ -46,7 +46,6 @@ begin
     begin
       // refresh the grid
       grSearch.DataSource.DataSet.Close;
-      (grSearch.DataSource.DataSet as TADODataSet).
       grSearch.DataSource.DataSet.Open;
     end;
   end;
@@ -55,6 +54,8 @@ end;
 procedure TfrmLandlordSearch.FormCreate(Sender: TObject);
 begin
   dmEntities := TdmEntities.Create(self);
+  (grSearch.DataSource.DataSet as TADODataSet).Parameters.ParamByName('@entity_type').Value :=
+        TRttiEnumerationType.GetName<TEntityTypes>(TEntityTypes.LL);
   inherited;
 end;
 

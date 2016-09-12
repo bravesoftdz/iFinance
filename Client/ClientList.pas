@@ -6,7 +6,7 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, BaseDocked, Vcl.StdCtrls, RzLabel,
   Vcl.ExtCtrls, RzPanel, DockedFormIntf, Data.DB, Vcl.Mask, RzEdit, Vcl.Grids,
-  Vcl.DBGrids, RzDBGrid;
+  Vcl.DBGrids, RzDBGrid, System.Rtti, ADODB;
 
 type
   TfrmClientList = class(TfrmBaseDocked, IDockedForm)
@@ -15,6 +15,7 @@ type
     grList: TRzDBGrid;
     Label1: TLabel;
     edSearchKey: TRzEdit;
+    CheckBox1: TCheckBox;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure grListDblClick(Sender: TObject);
@@ -44,6 +45,8 @@ end;
 procedure TfrmClientList.FormCreate(Sender: TObject);
 begin
   inherited;
+  (grList.DataSource.DataSet as TADODataSet).Parameters.ParamByName('@entity_type').Value :=
+        TRttiEnumerationType.GetName<TEntityTypes>(TEntityTypes.CL);
   OpenGridDataSources(pnlList);
 end;
 

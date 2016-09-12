@@ -40,7 +40,8 @@ requires
   JvStdCtrls,
   JvDB,
   RaizeComponentsVcl,
-  RaizeComponentsVclDb;
+  RaizeComponentsVclDb,
+  RESTComponents;
 
 contains
   SaveIntf in 'SaveIntf.pas',

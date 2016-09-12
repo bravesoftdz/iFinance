@@ -17,11 +17,12 @@ inherited frmClientMain: TfrmClientMain
       ExplicitWidth = 78
     end
     object lblClientName: TRzLabel
-      Left = 868
+      Left = 790
       Top = 6
-      Width = 4
+      Width = 82
       Height = 14
       Alignment = taRightJustify
+      Caption = 'NEW RECORD'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = 4235263
       Font.Height = -12
@@ -162,7 +163,7 @@ inherited frmClientMain: TfrmClientMain
         Caption = 'City or town'
         Transparent = True
       end
-      object RzURLLabel1: TRzURLLabel
+      object urlCopyAddress: TRzURLLabel
         Left = 114
         Top = 449
         Width = 208
@@ -174,6 +175,7 @@ inherited frmClientMain: TfrmClientMain
         Font.Name = 'Tahoma'
         Font.Style = [fsUnderline]
         ParentFont = False
+        OnClick = urlCopyAddressClick
       end
       object JvLabel14: TJvLabel
         Left = 35
@@ -510,7 +512,7 @@ inherited frmClientMain: TfrmClientMain
         Height = 161
         TabOrder = 18
       end
-      object RzEdit1: TRzEdit
+      object edAge: TRzEdit
         Left = 255
         Top = 124
         Width = 66
@@ -523,7 +525,7 @@ inherited frmClientMain: TfrmClientMain
       end
       object bteReferee: TRzButtonEdit
         Left = 114
-        Top = 172
+        Top = 173
         Width = 207
         Height = 21
         Text = ''
@@ -618,6 +620,7 @@ inherited frmClientMain: TfrmClientMain
         ButtonWidth = 15
         FlatButtons = True
         HideButtonsOnReadOnly = False
+        OnAltBtnClick = bteLandlordAltBtnClick
         OnButtonClick = bteLandlordButtonClick
       end
       object edLandlordContact: TRzEdit
@@ -703,6 +706,7 @@ inherited frmClientMain: TfrmClientMain
         ButtonWidth = 15
         FlatButtons = True
         HideButtonsOnReadOnly = False
+        OnAltBtnClick = bteLandlord2AltBtnClick
         OnButtonClick = bteLandlord2ButtonClick
       end
       object edLandlordContact2: TRzEdit
@@ -956,6 +960,7 @@ inherited frmClientMain: TfrmClientMain
         Format = ''
         Time = 42624.922021979170000000
         TabOrder = 3
+        OnChange = dtpBirthdateChange
       end
     end
     object TabSheet4: TRzTabSheet
@@ -963,10 +968,6 @@ inherited frmClientMain: TfrmClientMain
     end
     object TabSheet1: TRzTabSheet
       Caption = 'Loan history'
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
     end
   end
 end
