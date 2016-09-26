@@ -9,6 +9,7 @@ inherited frmClientList: TfrmClientList
   TextHeight = 13
   inherited pnlTitle: TRzPanel
     Width = 569
+    ExplicitWidth = 569
   end
   object pnlSearch: TRzPanel
     Left = 0
@@ -20,7 +21,6 @@ inherited frmClientList: TfrmClientList
     BorderOuter = fsNone
     BorderSides = [sdLeft, sdTop, sdRight]
     TabOrder = 1
-    ExplicitWidth = 527
     DesignSize = (
       569
       33)
@@ -39,7 +39,6 @@ inherited frmClientList: TfrmClientList
       Text = ''
       Anchors = [akLeft, akTop, akRight]
       TabOrder = 0
-      ExplicitWidth = 474
     end
   end
   object pnlList: TRzPanel
@@ -52,8 +51,6 @@ inherited frmClientList: TfrmClientList
     BorderSides = [sdLeft, sdRight, sdBottom]
     BorderWidth = 5
     TabOrder = 2
-    ExplicitWidth = 527
-    ExplicitHeight = 181
     DesignSize = (
       569
       226)

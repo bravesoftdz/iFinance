@@ -4,9 +4,6 @@ Coordinates=946,155,73,36
 [JvLabel31]
 Coordinates=946,265,73,36
 
-[RzMemo1]
-Coordinates=73,77,73,58
-
 [RzDBEdit6]
 Coordinates=946,320,77,36
 
@@ -259,9 +256,6 @@ Coordinates=1520,56,77,36
 [lblTitle]
 Coordinates=14,77,52,58
 
-[RzDBCheckBox1]
-Coordinates=1520,111,113,36
-
 [RzDBLookupComboBox8]
 Coordinates=1520,166,160,36
 
@@ -320,7 +314,7 @@ Coordinates=724,683,136,36
 Coordinates=1421,683,90,36
 
 []
-Coordinates=461,365,129,58
+Coordinates=1520,111,113,36
 
 [edLastname]
 Coordinates=353,535,77,36
@@ -342,4 +336,7 @@ Coordinates=159,269,94,58
 
 [edAge]
 Coordinates=175,609,60,36
+
+[mmEmployerAddress]
+Coordinates=73,77,73,58
 

@@ -55,13 +55,16 @@ var
   id: string;
   intf: IDock;
 begin
-  id := grList.DataSource.DataSet.FieldByName('entity_id').AsString;
+  if grList.DataSource.DataSet.RecordCount > 0 then
+  begin
+    id := grList.DataSource.DataSet.FieldByName('entity_id').AsString;
 
-  cln := TClient.Create;
-  cln.Id := id;
+    cln := TClient.Create;
+    cln.Id := id;
 
-  if Supports(Application.MainForm,IDock,intf) then
-    intf.DockForm(fmClientMain);
+    if Supports(Application.MainForm,IDock,intf) then
+      intf.DockForm(fmClientMain);
+  end;
 end;
 
 procedure TfrmClientList.SetTitle(const title: string);

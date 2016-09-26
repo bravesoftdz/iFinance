@@ -9,3 +9,4 @@ delete personalinfo
 delete refinfo
 delete sequence
 delete entity
+delete employer

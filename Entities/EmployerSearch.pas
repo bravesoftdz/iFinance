@@ -1,4 +1,4 @@
-unit RefereeSearch;
+unit EmployerSearch;
 
 interface
 
@@ -6,39 +6,38 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, BaseSearch, Data.DB, Vcl.StdCtrls,
   Vcl.Grids, Vcl.DBGrids, RzDBGrid, Vcl.Mask, RzEdit, RzLabel,
-  Vcl.Imaging.pngimage, Vcl.ExtCtrls, RzPanel, System.Rtti, ADODB;
+  Vcl.Imaging.pngimage, Vcl.ExtCtrls, RzPanel;
 
 type
-  TfrmRefereeSearch = class(TfrmBaseSearch)
+  TfrmEmployerSearch = class(TfrmBaseSearch)
     procedure FormCreate(Sender: TObject);
   private
     { Private declarations }
   public
     { Public declarations }
+  protected
     procedure SearchList; override;
     procedure SetReturn; override;
     procedure Add; override;
   end;
 
 var
-  frmRefereeSearch: TfrmRefereeSearch;
+  frmEmployerSearch: TfrmEmployerSearch;
 
 implementation
 
-uses
-  EntitiesData, Referee, AppConstants;
-
 {$R *.dfm}
 
-procedure TfrmRefereeSearch.FormCreate(Sender: TObject);
+uses
+  EntitiesData, Employer;
+
+procedure TfrmEmployerSearch.FormCreate(Sender: TObject);
 begin
   dmEntities := TdmEntities.Create(self);
-  (grSearch.DataSource.DataSet as TADODataSet).Parameters.ParamByName('@entity_type').Value :=
-        TRttiEnumerationType.GetName<TEntityTypes>(TEntityTypes.CL);
   inherited;
 end;
 
-procedure TfrmRefereeSearch.SearchList;
+procedure TfrmEmployerSearch.SearchList;
 var
   filter: string;
 begin
@@ -51,18 +50,20 @@ begin
   grSearch.DataSource.DataSet.Filter := filter;
 end;
 
-procedure TfrmRefereeSearch.SetReturn;
+procedure TfrmEmployerSearch.SetReturn;
 begin
-  with grSearch.DataSource.DataSet do
+  with dmEntities.dstEmployers do
   begin
-    ref.Id := FieldByName('entity_id').AsString;
-    ref.Name := FieldByName('name').AsString;;
+    emp.Id := FieldByName('emp_id').AsInteger;
+    emp.Name := FieldByName('emp_name').AsString;
+    emp.Address := FieldByName('emp_add').AsString;
+    emp.GroupId := FieldByName('grp_id').AsInteger;
   end;
 end;
 
-procedure TfrmRefereeSearch.Add;
+procedure TfrmEmployerSearch.Add;
 begin
-
+  // no need to implement.. this is implemented in a different window
 end;
 
 end.

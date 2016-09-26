@@ -19,6 +19,12 @@ type
     dscIHPersonal: TDataSource;
     dstIHContact: TADODataSet;
     dscIHContact: TDataSource;
+    dstGroups: TADODataSet;
+    dscGroups: TDataSource;
+    dstParGroup: TADODataSet;
+    dscParGroup: TDataSource;
+    dstEmployers: TADODataSet;
+    dscEmployers: TDataSource;
     procedure dstLandlordBeforeOpen(DataSet: TDataSet);
     procedure dstLandlordBeforePost(DataSet: TDataSet);
     procedure dstLlPersonalBeforeOpen(DataSet: TDataSet);
@@ -31,6 +37,9 @@ type
     procedure dstIHPersonalBeforePost(DataSet: TDataSet);
     procedure dstIHContactBeforeOpen(DataSet: TDataSet);
     procedure dstIHContactBeforePost(DataSet: TDataSet);
+    procedure dstGroupsBeforePost(DataSet: TDataSet);
+    procedure dstGroupsNewRecord(DataSet: TDataSet);
+    procedure dstEmployersBeforePost(DataSet: TDataSet);
   private
     { Private declarations }
   public
@@ -58,6 +67,34 @@ procedure TdmEntities.dstLlContactBeforePost(DataSet: TDataSet);
 begin
   if DataSet.State = dsInsert then
     DataSet.FieldByName('entity_id').AsString := llord.Id;
+end;
+
+procedure TdmEntities.dstEmployersBeforePost(DataSet: TDataSet);
+var
+  id: integer;
+begin
+  if DataSet.State = dsInsert then
+  begin
+    id := GetEmployerId;
+    DataSet.FieldByName('emp_id').AsInteger := id;
+  end;
+end;
+
+procedure TdmEntities.dstGroupsBeforePost(DataSet: TDataSet);
+var
+  id: integer;
+begin
+  if DataSet.State = dsInsert then
+  begin
+    id := GetGroupId;
+    DataSet.FieldByName('grp_id').AsInteger := id;
+  end;
+end;
+
+procedure TdmEntities.dstGroupsNewRecord(DataSet: TDataSet);
+begin
+  DataSet.FieldByName('is_gov').AsInteger := 1;
+  DataSet.FieldByName('is_active').AsInteger := 1;
 end;
 
 procedure TdmEntities.dstIHContactBeforeOpen(DataSet: TDataSet);

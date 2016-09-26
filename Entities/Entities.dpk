@@ -53,9 +53,15 @@ contains
   ImmHeadDetail in 'ImmHeadDetail.pas' {frmImmHeadDetail},
   Referee in 'Referee.pas',
   RefereeSearch in 'RefereeSearch.pas' {frmRefereeSearch},
-  BaseSearch in '..\Base\BaseSearch.pas' {frmBaseSearch},
   AuxData in 'AuxData.pas' {dmAux: TDataModule},
   BasePopupDetail in '..\Base\BasePopupDetail.pas' {frmBasePopupDetail},
-  LandlordDetail in 'LandlordDetail.pas' {frmLandlordDetail};
+  LandlordDetail in 'LandlordDetail.pas' {frmLandlordDetail},
+  BaseDocked in '..\Base\BaseDocked.pas' {frmBaseDocked},
+  GroupList in 'GroupList.pas' {frmGroupList},
+  EmployerList in 'EmployerList.pas' {frmEmployerList},
+  BaseGridDetail in '..\Base\BaseGridDetail.pas' {frmBaseGridDetail},
+  EmployerSearch in 'EmployerSearch.pas' {frmEmployerSearch},
+  BaseSearch in '..\Base\BaseSearch.pas' {frmBaseSearch},
+  Employer in 'Employer.pas';
 
 end.

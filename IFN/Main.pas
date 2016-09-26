@@ -36,10 +36,17 @@ type
     RzURLLabel1: TRzURLLabel;
     RzLabel1: TRzLabel;
     lbxRecent: TRzListBox;
+    ToolButton1: TToolButton;
+    tbGroups: TToolButton;
+    tbEmployer: TToolButton;
+    tbCancel: TToolButton;
     procedure tbAddClientClick(Sender: TObject);
     procedure tbSaveClick(Sender: TObject);
     procedure lblRecentlyAddedClick(Sender: TObject);
     procedure lbxRecentDblClick(Sender: TObject);
+    procedure tbGroupsClick(Sender: TObject);
+    procedure tbCancelClick(Sender: TObject);
+    procedure tbEmployerClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -58,7 +65,7 @@ implementation
 {$R *.dfm}
 
 uses
-  ClientMain, SaveIntf, ClientList, DockedFormIntf;
+  ClientMain, SaveIntf, ClientList, DockedFormIntf, GroupList, EmployerList;
 
 procedure TfrmMain.lblRecentlyAddedClick(Sender: TObject);
 begin
@@ -75,6 +82,33 @@ end;
 procedure TfrmMain.tbAddClientClick(Sender: TObject);
 begin
   DockForm(fmClientMain);
+end;
+
+procedure TfrmMain.tbCancelClick(Sender: TObject);
+var
+  intf: ISave;
+begin
+  try
+    if pnlDockMain.ControlCount > 0 then
+      if Supports(pnlDockMain.Controls[0] as TForm,ISave,intf) then
+      begin
+        intf.Cancel;
+        ShowConfirmation('Changes have been cancelled.');
+      end;
+  except
+    on e:Exception do
+      ShowError(e.Message);
+  end;
+end;
+
+procedure TfrmMain.tbEmployerClick(Sender: TObject);
+begin
+  DockForm(fmEmployerList);
+end;
+
+procedure TfrmMain.tbGroupsClick(Sender: TObject);
+begin
+  DockForm(fmGroupList);
 end;
 
 procedure TfrmMain.tbSaveClick(Sender: TObject);
@@ -119,6 +153,8 @@ begin
     case fm of
       fmClientMain: frm := TfrmClientMain.Create(Application);
       fmClientList: frm := TfrmClientList.Create(Application);
+      fmGroupList : frm := TfrmGroupList.Create(Application);
+      fmEmployerList: frm := TfrmEmployerList.Create(Application);
       else
         frm := TForm.Create(Application);
     end;

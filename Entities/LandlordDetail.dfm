@@ -25,8 +25,8 @@ inherited frmLandlordDetail: TfrmLandlordDetail
     ExplicitWidth = 370
     ExplicitHeight = 206
     inherited lblStatus: TLabel
-      Top = 183
-      ExplicitTop = 183
+      Top = 177
+      ExplicitTop = 177
     end
     inherited pcDetail: TRzPageControl
       Width = 353
@@ -36,6 +36,8 @@ inherited frmLandlordDetail: TfrmLandlordDetail
       FixedDimension = 19
       inherited tsDetail: TRzTabSheet
         Caption = 'Landlord details'
+        ExplicitLeft = 1
+        ExplicitTop = 20
         ExplicitWidth = 349
         ExplicitHeight = 129
         object JvLabel1: TJvLabel

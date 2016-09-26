@@ -35,13 +35,17 @@ requires
   RaizeComponentsVcl,
   dbrtl,
   vcldb,
-  RaizeComponentsVclDb;
+  RaizeComponentsVclDb,
+  Jcl,
+  JvCore,
+  JvStdCtrls;
 
 contains
   BaseForm in 'BaseForm.pas' {frmBase},
   BasePopup in 'BasePopup.pas' {frmBasePopup},
-  BaseDocked in 'BaseDocked.pas' {frmBaseDocked},
   BaseSearch in 'BaseSearch.pas' {frmBaseSearch},
-  BasePopupDetail in 'BasePopupDetail.pas' {frmBasePopupDetail};
+  BasePopupDetail in 'BasePopupDetail.pas' {frmBasePopupDetail},
+  BaseGridDetail in 'BaseGridDetail.pas' {frmBaseGridDetail},
+  BaseDocked in 'BaseDocked.pas' {frmBaseDocked};
 
 end.

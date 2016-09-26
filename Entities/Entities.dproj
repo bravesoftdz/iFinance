@@ -120,10 +120,6 @@
             <Form>frmRefereeSearch</Form>
             <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="..\Base\BaseSearch.pas">
-            <Form>frmBaseSearch</Form>
-            <FormType>dfm</FormType>
-        </DCCReference>
         <DCCReference Include="AuxData.pas">
             <Form>dmAux</Form>
             <FormType>dfm</FormType>
@@ -137,6 +133,31 @@
             <Form>frmLandlordDetail</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="..\Base\BaseDocked.pas">
+            <Form>frmBaseDocked</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="GroupList.pas">
+            <Form>frmGroupList</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="EmployerList.pas">
+            <Form>frmEmployerList</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\Base\BaseGridDetail.pas">
+            <Form>frmBaseGridDetail</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="EmployerSearch.pas">
+            <Form>frmEmployerSearch</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\Base\BaseSearch.pas">
+            <Form>frmBaseSearch</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Employer.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

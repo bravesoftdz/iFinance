@@ -74,8 +74,7 @@ type
     bteEmployer: TRzButtonEdit;
     JvLabel25: TJvLabel;
     RzDBLookupComboBox7: TRzDBLookupComboBox;
-    RzMemo1: TRzMemo;
-    RzDBCheckBox1: TRzDBCheckBox;
+    mmEmployerAddress: TRzMemo;
     JvLabel26: TJvLabel;
     JvLabel27: TJvLabel;
     bteImmHead: TRzButtonEdit;
@@ -100,6 +99,10 @@ type
     JvGroupHeader1: TJvGroupHeader;
     TabSheet1: TRzTabSheet;
     dtpBirthdate: TRzDateTimePicker;
+    pnlList: TRzPanel;
+    grList: TRzDBGrid;
+    pcDetail: TRzPageControl;
+    tsDetail: TRzTabSheet;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -112,6 +115,8 @@ type
     procedure bteLandlordAltBtnClick(Sender: TObject);
     procedure bteLandlord2AltBtnClick(Sender: TObject);
     procedure dtpBirthdateChange(Sender: TObject);
+    procedure bteEmployerButtonClick(Sender: TObject);
+    procedure bteEmployerAltBtnClick(Sender: TObject);
   private
     { Private declarations }
     procedure SetClientName;
@@ -121,6 +126,7 @@ type
   public
     { Public declarations }
     function Save: boolean;
+    procedure Cancel;
   end;
 
 var
@@ -130,11 +136,44 @@ implementation
 
 uses
   Client, ClientData, FormsUtil, LandlordSearch, ImmHeadSearch, Landlord,
-  ImmediateHead, RefereeSearch, Referee, AuxData, StatusIntf, DockIntf;
+  ImmediateHead, RefereeSearch, Referee, AuxData, StatusIntf, DockIntf,
+  EmployerSearch, Employer;
 
 {$R *.dfm}
 
 { TfrmClientMain }
+
+procedure TfrmClientMain.bteEmployerAltBtnClick(Sender: TObject);
+begin
+  inherited;
+  cln.Employer := nil;
+  bteEmployer.Clear;
+  mmEmployerAddress.Clear;
+end;
+
+procedure TfrmClientMain.bteEmployerButtonClick(Sender: TObject);
+begin
+  with TfrmEmployerSearch.Create(nil) do
+  begin
+    try
+      emp := TEmployer.Create;
+
+      ShowModal;
+
+      if ModalResult = mrOK then
+      begin
+        bteEmployer.Text := emp.Name;
+        mmEmployerAddress.Text := emp.Address;
+        cln.Employer := emp;
+      end;
+
+      Free;
+    except
+      on e: Exception do
+        ShowMessage(e.Message);
+    end;
+  end;
+end;
 
 procedure TfrmClientMain.bteLandlord2AltBtnClick(Sender: TObject);
 begin
@@ -302,6 +341,8 @@ var
   st: IStatus;
   error: string;
 begin
+  Result := false;
+
   try
     if Supports(Application.MainForm,IStatus,st) then
     begin
@@ -333,6 +374,12 @@ begin
   finally
 
   end;
+end;
+
+procedure TfrmClientMain.Cancel;
+begin
+  cln.Cancel;
+  SetUnboundControls;
 end;
 
 procedure TfrmClientMain.SetClientName;
@@ -384,6 +431,13 @@ begin
     bteLandlord2.Text := cln.LandlordProv.Name;
     edLandlordContact2.Text := cln.LandlordProv.Contact;
   end;
+
+  // employer
+  if Assigned(cln.Employer) then
+  begin
+    bteEmployer.Text := cln.Employer.Name;
+    mmEmployerAddress.Text := cln.Employer.Address;
+  end
 
 end;
 

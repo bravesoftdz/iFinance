@@ -65,7 +65,7 @@ var
 begin
   inherited;
   if Trim(edSearchKey.Text) <> '' then
-    filter := 'name like ''' + edSearchKey.Text + '*'''
+    filter := 'name like ''*' + edSearchKey.Text + '*'''
   else
     filter := '';
 

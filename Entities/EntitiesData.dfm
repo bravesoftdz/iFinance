@@ -1,7 +1,7 @@
 object dmEntities: TdmEntities
   OldCreateOrder = False
-  Height = 257
-  Width = 382
+  Height = 379
+  Width = 606
   object dstEntities: TADODataSet
     Connection = dmApplication.acMain
     CursorType = ctStatic
@@ -15,6 +15,7 @@ object dmEntities: TdmEntities
         DataType = ftInteger
         Direction = pdReturnValue
         Precision = 10
+        Value = Null
       end
       item
         Name = '@entity_type'
@@ -202,5 +203,54 @@ object dmEntities: TdmEntities
     DataSet = dstIHContact
     Left = 296
     Top = 192
+  end
+  object dstGroups: TADODataSet
+    Tag = 2
+    Connection = dmApplication.acMain
+    CursorType = ctStatic
+    BeforePost = dstGroupsBeforePost
+    OnNewRecord = dstGroupsNewRecord
+    CommandText = 'sp_get_groups;1'
+    CommandType = cmdStoredProc
+    Parameters = <>
+    Left = 32
+    Top = 248
+  end
+  object dscGroups: TDataSource
+    DataSet = dstGroups
+    Left = 120
+    Top = 248
+  end
+  object dstParGroup: TADODataSet
+    Tag = 2
+    Connection = dmApplication.acMain
+    CursorType = ctStatic
+    LockType = ltReadOnly
+    CommandText = 'sp_get_groups;1'
+    CommandType = cmdStoredProc
+    Parameters = <>
+    Left = 32
+    Top = 304
+  end
+  object dscParGroup: TDataSource
+    DataSet = dstParGroup
+    Left = 120
+    Top = 304
+  end
+  object dstEmployers: TADODataSet
+    Tag = 2
+    Connection = dmApplication.acMain
+    CursorType = ctStatic
+    BeforePost = dstEmployersBeforePost
+    CommandText = 'sp_get_employers;1'
+    CommandType = cmdStoredProc
+    Parameters = <>
+    Left = 208
+    Top = 248
+  end
+  object dscEmployers: TDataSource
+    DataSet = dstEmployers
+    Left = 296
+    Top = 248
   end
 end

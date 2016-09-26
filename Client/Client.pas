@@ -4,7 +4,7 @@ interface
 
 uses
   SysUtils, ClientData, DB, Entity, ADODB, LandLord, ImmediateHead,
-  Referee;
+  Referee, Employer;
 
 type
   TClient = class(TEntity)
@@ -16,6 +16,7 @@ type
     FLandlordPres: TLandLord;
     FLandLordProv: TLandLord;
     FImmediateHead: TImmediateHead;
+    FEmployer: TEmployer;
     function CheckId: boolean;
   public
     procedure Add; override;
@@ -32,6 +33,7 @@ type
     property LandlordPres: TLandLord read FLandlordPres write FLandlordPres;
     property LandLordProv: TLandLord read FLandLordProv write FLandLordProv;
     property ImmediateHead: TImmediateHead read FImmediateHead write FImmediateHead;
+    property Employer: TEmployer read FEmployer write FEmployer;
     property HasId: boolean read CheckId;
 
     constructor Create;
@@ -80,9 +82,16 @@ begin
 end;
 
 procedure TClient.Cancel;
+var
+  i: integer;
 begin
-  inherited;
-
+  with dmClient do
+  begin
+    for i:=0 to ComponentCount - 1 do
+      if Components[i] is TADODataSet then
+        if (Components[i] as TADODataSet).State in [dsInsert,dsEdit] then
+          (Components[i] as TADODataSet).Cancel;
+  end;
 end;
 
 procedure TClient.Edit;

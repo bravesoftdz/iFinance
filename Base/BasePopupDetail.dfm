@@ -28,7 +28,7 @@ inherited frmBasePopupDetail: TfrmBasePopupDetail
       232)
     object lblStatus: TLabel
       Left = 9
-      Top = 209
+      Top = 203
       Width = 3
       Height = 13
       Anchors = [akLeft, akBottom]
@@ -38,7 +38,6 @@ inherited frmBasePopupDetail: TfrmBasePopupDetail
       Font.Name = 'Tahoma'
       Font.Style = []
       ParentFont = False
-      ExplicitTop = 184
     end
     object pcDetail: TRzPageControl
       Left = 8

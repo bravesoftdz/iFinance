@@ -38,15 +38,17 @@ inherited frmClientMain: TfrmClientMain
     Width = 923
     Height = 492
     Hint = ''
-    ActivePage = tsClientInfo
+    ActivePage = TabSheet4
     Align = alClient
-    TabIndex = 0
+    TabIndex = 1
     TabOrder = 1
     TabOrientation = toBottom
     TabStyle = tsRoundCorners
     FixedDimension = 19
     object tsClientInfo: TRzTabSheet
       Caption = 'Client information'
+      ExplicitLeft = 2
+      ExplicitTop = -1
       object JvLabel1: TJvLabel
         Left = 35
         Top = 40
@@ -333,7 +335,7 @@ inherited frmClientMain: TfrmClientMain
       end
       object JvLabel25: TJvLabel
         Left = 363
-        Top = 287
+        Top = 286
         Width = 59
         Height = 13
         Caption = 'Emp. status'
@@ -341,7 +343,7 @@ inherited frmClientMain: TfrmClientMain
       end
       object JvLabel26: TJvLabel
         Left = 363
-        Top = 334
+        Top = 310
         Width = 58
         Height = 13
         Caption = 'Designation'
@@ -349,7 +351,7 @@ inherited frmClientMain: TfrmClientMain
       end
       object JvLabel27: TJvLabel
         Left = 363
-        Top = 358
+        Top = 334
         Width = 53
         Height = 13
         Caption = 'Imm. head'
@@ -357,7 +359,7 @@ inherited frmClientMain: TfrmClientMain
       end
       object JvLabel28: TJvLabel
         Left = 363
-        Top = 382
+        Top = 358
         Width = 67
         Height = 13
         Caption = 'Service years'
@@ -365,14 +367,14 @@ inherited frmClientMain: TfrmClientMain
       end
       object JvLabel29: TJvLabel
         Left = 363
-        Top = 406
+        Top = 382
         Width = 65
         Height = 13
         Caption = 'Gross income'
         Transparent = True
       end
       object JvLabel30: TJvLabel
-        Left = 512
+        Left = 363
         Top = 406
         Width = 40
         Height = 13
@@ -389,7 +391,7 @@ inherited frmClientMain: TfrmClientMain
       end
       object JvLabel32: TJvLabel
         Left = 643
-        Top = 287
+        Top = 286
         Width = 46
         Height = 13
         Caption = 'Acct. no.'
@@ -397,7 +399,7 @@ inherited frmClientMain: TfrmClientMain
       end
       object JvLabel33: TJvLabel
         Left = 643
-        Top = 311
+        Top = 310
         Width = 44
         Height = 13
         Caption = 'Card no.'
@@ -784,10 +786,12 @@ inherited frmClientMain: TfrmClientMain
         ButtonWidth = 15
         FlatButtons = True
         HideButtonsOnReadOnly = False
+        OnAltBtnClick = bteEmployerAltBtnClick
+        OnButtonClick = bteEmployerButtonClick
       end
       object RzDBLookupComboBox7: TRzDBLookupComboBox
         Left = 438
-        Top = 281
+        Top = 280
         Width = 187
         Height = 21
         DataField = 'emp_status'
@@ -800,31 +804,18 @@ inherited frmClientMain: TfrmClientMain
         FrameColor = clBlack
         FrameHotColor = clBlack
       end
-      object RzMemo1: TRzMemo
+      object mmEmployerAddress: TRzMemo
         Left = 438
         Top = 238
         Width = 187
-        Height = 40
+        Height = 39
         Color = clInfoBk
         ReadOnly = True
         TabOrder = 26
       end
-      object RzDBCheckBox1: TRzDBCheckBox
-        Left = 438
-        Top = 308
-        Width = 127
-        Height = 15
-        DataField = 'is_gov'
-        DataSource = dmClient.dscEmplInfo
-        NullAsUnchecked = False
-        ValueChecked = '1'
-        ValueUnchecked = '0'
-        Caption = 'Government employee'
-        TabOrder = 28
-      end
       object bteImmHead: TRzButtonEdit
         Left = 438
-        Top = 352
+        Top = 328
         Width = 187
         Height = 21
         Text = ''
@@ -832,7 +823,7 @@ inherited frmClientMain: TfrmClientMain
         ParentShowHint = False
         ReadOnly = True
         ShowHint = True
-        TabOrder = 30
+        TabOrder = 29
         AltBtnHint = 'Clear immediate head'
         ButtonHint = 'Find immediate head'
         AltBtnKind = bkReject
@@ -845,28 +836,28 @@ inherited frmClientMain: TfrmClientMain
       end
       object RzDBEdit12: TRzDBEdit
         Left = 438
-        Top = 376
+        Top = 352
         Width = 59
         Height = 21
         DataSource = dmClient.dscEmplInfo
         DataField = 'serv_len'
         Ctl3D = True
         ParentCtl3D = False
-        TabOrder = 31
+        TabOrder = 30
       end
       object RzDBEdit13: TRzDBEdit
         Left = 438
-        Top = 400
+        Top = 376
         Width = 59
         Height = 21
         DataSource = dmClient.dscEmplInfo
         DataField = 'gross_pay'
         Ctl3D = True
         ParentCtl3D = False
-        TabOrder = 32
+        TabOrder = 31
       end
       object RzDBEdit14: TRzDBEdit
-        Left = 566
+        Left = 438
         Top = 400
         Width = 59
         Height = 21
@@ -874,38 +865,38 @@ inherited frmClientMain: TfrmClientMain
         DataField = 'net_pay'
         Ctl3D = True
         ParentCtl3D = False
-        TabOrder = 33
+        TabOrder = 32
       end
       object RzDBEdit15: TRzDBEdit
         Left = 694
-        Top = 281
+        Top = 280
         Width = 155
         Height = 21
         DataSource = dmClient.dscAcctInfo
         DataField = 'acct_no'
         Ctl3D = True
         ParentCtl3D = False
-        TabOrder = 37
+        TabOrder = 36
       end
       object RzDBEdit16: TRzDBEdit
         Left = 694
-        Top = 305
+        Top = 304
         Width = 155
         Height = 21
         DataSource = dmClient.dscAcctInfo
         DataField = 'card_no'
         Ctl3D = True
         ParentCtl3D = False
-        TabOrder = 38
+        TabOrder = 37
       end
       object RzDBLookupComboBox8: TRzDBLookupComboBox
         Left = 438
-        Top = 328
+        Top = 304
         Width = 187
         Height = 21
         KeyField = 'value'
         ListField = 'display'
-        TabOrder = 29
+        TabOrder = 28
         AllowNull = True
         FrameColor = clBlack
         FrameHotColor = clBlack
@@ -919,7 +910,7 @@ inherited frmClientMain: TfrmClientMain
         KeyField = 'value'
         ListField = 'display'
         ListSource = dmClient.dscResStatus
-        TabOrder = 34
+        TabOrder = 33
         AllowNull = True
         FrameColor = clBlack
         FrameHotColor = clBlack
@@ -934,7 +925,7 @@ inherited frmClientMain: TfrmClientMain
         KeyField = 'bank_id'
         ListField = 'bank_name'
         ListSource = dmAux.dscBanks
-        TabOrder = 35
+        TabOrder = 34
         AllowNull = True
         FrameColor = clBlack
         FrameHotColor = clBlack
@@ -943,13 +934,13 @@ inherited frmClientMain: TfrmClientMain
         Left = 694
         Top = 238
         Width = 155
-        Height = 40
+        Height = 39
         TabStop = False
         Color = clInfoBk
         DataField = 'branch'
         DataSource = dmAux.dscBanks
         ReadOnly = True
-        TabOrder = 36
+        TabOrder = 35
       end
       object dtpBirthdate: TRzDateTimePicker
         Left = 114
@@ -965,6 +956,59 @@ inherited frmClientMain: TfrmClientMain
     end
     object TabSheet4: TRzTabSheet
       Caption = 'Family and personal references'
+      object pnlList: TRzPanel
+        Left = 0
+        Top = 0
+        Width = 921
+        Height = 468
+        Align = alClient
+        BorderOuter = fsFlat
+        BorderSides = [sdLeft, sdRight]
+        BorderWidth = 5
+        TabOrder = 0
+        ExplicitTop = 61
+        ExplicitWidth = 745
+        ExplicitHeight = 396
+        DesignSize = (
+          921
+          468)
+        object grList: TRzDBGrid
+          Left = 6
+          Top = 5
+          Width = 909
+          Height = 228
+          Align = alTop
+          DataSource = dmEntities.dscGroups
+          Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
+          TabOrder = 0
+          TitleFont.Charset = DEFAULT_CHARSET
+          TitleFont.Color = clWindowText
+          TitleFont.Height = -11
+          TitleFont.Name = 'Tahoma'
+          TitleFont.Style = []
+          AltRowShading = True
+          AltRowShadingColor = 15854564
+        end
+        object pcDetail: TRzPageControl
+          Left = 6
+          Top = 239
+          Width = 911
+          Height = 224
+          Hint = ''
+          ActivePage = tsDetail
+          Anchors = [akLeft, akTop, akRight, akBottom]
+          UseColoredTabs = True
+          TabIndex = 0
+          TabOrder = 1
+          FixedDimension = 19
+          object tsDetail: TRzTabSheet
+            Color = 15263976
+            Caption = 'Change caption here'
+            ExplicitWidth = 731
+            ExplicitHeight = 128
+          end
+        end
+      end
     end
     object TabSheet1: TRzTabSheet
       Caption = 'Loan history'

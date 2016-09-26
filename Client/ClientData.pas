@@ -47,7 +47,6 @@ type
     procedure dstAddressInfo2AfterPost(DataSet: TDataSet);
     procedure dstAddressInfo2BeforeOpen(DataSet: TDataSet);
     procedure dstAddressInfo2BeforePost(DataSet: TDataSet);
-    procedure dstEmplInfoNewRecord(DataSet: TDataSet);
     procedure dstAcctInfoBeforeOpen(DataSet: TDataSet);
     procedure dstAcctInfoBeforePost(DataSet: TDataSet);
     procedure dstPersonalInfoAfterOpen(DataSet: TDataSet);
@@ -55,6 +54,8 @@ type
     procedure dstEntityAfterOpen(DataSet: TDataSet);
     procedure dstAddressInfoAfterOpen(DataSet: TDataSet);
     procedure dstAddressInfo2AfterOpen(DataSet: TDataSet);
+    procedure dstEmplInfoAfterOpen(DataSet: TDataSet);
+    procedure dstEmplInfoAfterPost(DataSet: TDataSet);
   private
     { Private declarations }
   public
@@ -67,7 +68,8 @@ var
 implementation
 
 uses
-  AppData, DBUtil, Client, IFinanceGlobal, AppConstants, Referee, Landlord;
+  AppData, DBUtil, Client, IFinanceGlobal, AppConstants, Referee, Landlord,
+  Employer;
 
 {%CLASSGROUP 'Vcl.Controls.TControl'}
 
@@ -165,6 +167,23 @@ begin
     DataSet.FieldByName('entity_id').AsString := cln.Id;
 end;
 
+procedure TdmClient.dstEmplInfoAfterOpen(DataSet: TDataSet);
+begin
+  if (cln.HasId) and (DataSet.FieldByName('emp_id').AsInteger <> 0) then
+  begin
+    cln.Employer := TEmployer.Create;
+    cln.Employer.Id := DataSet.FieldByName('emp_id').AsInteger;
+    cln.Employer.Name := DataSet.FieldByName('emp_name').AsString;
+    cln.Employer.Address := DataSet.FieldByName('emp_add').AsString;
+    cln.Employer.GroupId := DataSet.FieldByName('grp_id').AsInteger;
+  end
+end;
+
+procedure TdmClient.dstEmplInfoAfterPost(DataSet: TDataSet);
+begin
+  DataSet.Edit;
+end;
+
 procedure TdmClient.dstEmplInfoBeforeOpen(DataSet: TDataSet);
 begin
   (DataSet as TADODataSet).Parameters.ParamByName('@entity_id').Value := cln.Id;
@@ -179,13 +198,11 @@ begin
     DataSet.FieldByName('imm_head').AsString := cln.ImmediateHead.Id
   else
     DataSet.FieldByName('imm_head').Value := null;
-end;
 
-procedure TdmClient.dstEmplInfoNewRecord(DataSet: TDataSet);
-begin
-  // set default value of is_gov field
-  // set to 1 as most of the clients are public employees
-  DataSet.FieldByName('is_gov').AsInteger := 1;
+  if Assigned(cln.Employer) then
+    DataSet.FieldByName('emp_id').AsInteger := cln.Employer.Id
+  else
+    DataSet.FieldByName('emp_id').Value := null;
 end;
 
 procedure TdmClient.dstEntityAfterOpen(DataSet: TDataSet);
@@ -212,7 +229,8 @@ begin
     id := GetEntityId;
     DataSet.FieldByName('entity_id').AsString := id;
 
-    DataSet.FieldByName('created_date').AsDateTime := Date;
+    DataSet.FieldByName('created_date').AsString :=
+        FormatDateTime('yyyy-mm-dd',Date);;
     DataSet.FieldByName('created_by').AsString := ifn.User.UserId;
 
     cln.Id := id;

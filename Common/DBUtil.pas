@@ -6,9 +6,11 @@ uses
   AppData, IFinanceGlobal, SysUtils, Vcl.ExtCtrls, DB;
 
 type
-  TSequenceObject = (soEntity);
+  TSequenceObject = (soEntity,soGroup,soEmployer);
 
 function GetEntityId: string;
+function GetGroupId: integer;
+function GetEmployerId: integer;
 
 implementation
 
@@ -18,6 +20,8 @@ var
 begin
   case seqObj of
     soEntity: parm := 'ENT';
+    soGroup: parm := 'GRP';
+    soEmployer: parm := 'EML';
     else parm := '';
   end;
 
@@ -36,6 +40,14 @@ begin
   Result := ifn.LocationPrefix + '-' + IntToStr(GetSequenceID(soEntity));
 end;
 
+function GetGroupId: integer;
+begin
+  Result := GetSequenceId(soGroup);
+end;
 
+function GetEmployerId: integer;
+begin
+  Result := GetSequenceId(soEmployer);
+end;
 
 end.

@@ -196,8 +196,9 @@ object dmClient: TdmClient
     Connection = dmApplication.acMain
     CursorType = ctStatic
     BeforeOpen = dstEmplInfoBeforeOpen
+    AfterOpen = dstEmplInfoAfterOpen
     BeforePost = dstEmplInfoBeforePost
-    OnNewRecord = dstEmplInfoNewRecord
+    AfterPost = dstEmplInfoAfterPost
     CommandText = 'sp_cl_get_empl_info;1'
     CommandType = cmdStoredProc
     Parameters = <
