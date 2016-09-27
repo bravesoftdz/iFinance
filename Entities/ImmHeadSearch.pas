@@ -6,10 +6,11 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, BaseSearch, Vcl.ExtCtrls, Vcl.Grids, Vcl.DBGrids,
   RzDBGrid, Vcl.Mask, RzEdit, RzLabel, Vcl.Imaging.pngimage, RzPanel, Data.DB,
-  Vcl.StdCtrls;
+  Vcl.StdCtrls, ADODB, System.Rtti;
 
 type
   TfrmImmHeadSearch = class(TfrmBaseSearch)
+    procedure FormCreate(Sender: TObject);
   private
     { Private declarations }
   protected
@@ -30,7 +31,7 @@ implementation
 { TfrmImmHeadSearch }
 
 uses
-  EntitiesData, ImmediateHead, ImmHeadDetail;
+  EntitiesData, ImmediateHead, ImmHeadDetail, AppConstants;
 
 procedure TfrmImmHeadSearch.Add;
 begin
@@ -47,6 +48,14 @@ begin
       grSearch.DataSource.DataSet.Open;
     end;
   end;
+end;
+
+procedure TfrmImmHeadSearch.FormCreate(Sender: TObject);
+begin
+  dmEntities := TdmEntities.Create(self);
+  (grSearch.DataSource.DataSet as TADODataSet).Parameters.ParamByName('@entity_type').Value :=
+        TRttiEnumerationType.GetName<TEntityTypes>(TEntityTypes.IH);
+  inherited;
 end;
 
 procedure TfrmImmHeadSearch.SearchList;

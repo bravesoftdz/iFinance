@@ -54,3 +54,4 @@ _dcp/Base.lib
 *.bpi
 _dcp/Client.lib
 *.lib
+*.bmp

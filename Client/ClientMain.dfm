@@ -4,6 +4,7 @@ inherited frmClientMain: TfrmClientMain
   ClientWidth = 923
   OnCreate = FormCreate
   OnShow = FormShow
+  ExplicitLeft = -179
   ExplicitWidth = 939
   ExplicitHeight = 559
   PixelsPerInch = 96
@@ -38,9 +39,9 @@ inherited frmClientMain: TfrmClientMain
     Width = 923
     Height = 492
     Hint = ''
-    ActivePage = TabSheet4
+    ActivePage = tsClientInfo
     Align = alClient
-    TabIndex = 1
+    TabIndex = 0
     TabOrder = 1
     TabOrientation = toBottom
     TabStyle = tsRoundCorners
@@ -421,7 +422,7 @@ inherited frmClientMain: TfrmClientMain
         Caption = 'Branch'
         Transparent = True
       end
-      object RzURLLabel2: TRzURLLabel
+      object urlTakePhoto: TRzURLLabel
         Left = 664
         Top = 181
         Width = 82
@@ -433,6 +434,7 @@ inherited frmClientMain: TfrmClientMain
         Font.Name = 'Tahoma'
         Font.Style = [fsUnderline]
         ParentFont = False
+        OnClick = urlTakePhotoClick
       end
       object JvGroupHeader1: TJvGroupHeader
         Left = 19
@@ -513,6 +515,15 @@ inherited frmClientMain: TfrmClientMain
         Width = 185
         Height = 161
         TabOrder = 18
+        object imgClient: TImage
+          Left = 1
+          Top = 14
+          Width = 183
+          Height = 146
+          Align = alClient
+          Proportional = True
+          ExplicitTop = 13
+        end
       end
       object edAge: TRzEdit
         Left = 255
@@ -833,6 +844,8 @@ inherited frmClientMain: TfrmClientMain
         ButtonWidth = 15
         FlatButtons = True
         HideButtonsOnReadOnly = False
+        OnAltBtnClick = bteImmHeadAltBtnClick
+        OnButtonClick = bteImmHeadButtonClick
       end
       object RzDBEdit12: TRzDBEdit
         Left = 438
@@ -901,47 +914,6 @@ inherited frmClientMain: TfrmClientMain
         FrameColor = clBlack
         FrameHotColor = clBlack
       end
-      object RzDBLookupComboBox9: TRzDBLookupComboBox
-        Left = 438
-        Top = 424
-        Width = 187
-        Height = 21
-        DataSource = dmClient.dscEmplInfo
-        KeyField = 'value'
-        ListField = 'display'
-        ListSource = dmClient.dscResStatus
-        TabOrder = 33
-        AllowNull = True
-        FrameColor = clBlack
-        FrameHotColor = clBlack
-      end
-      object RzDBLookupComboBox10: TRzDBLookupComboBox
-        Left = 694
-        Top = 214
-        Width = 155
-        Height = 21
-        DataField = 'bank_id'
-        DataSource = dmClient.dscAcctInfo
-        KeyField = 'bank_id'
-        ListField = 'bank_name'
-        ListSource = dmAux.dscBanks
-        TabOrder = 34
-        AllowNull = True
-        FrameColor = clBlack
-        FrameHotColor = clBlack
-      end
-      object RzDBMemo1: TRzDBMemo
-        Left = 694
-        Top = 238
-        Width = 155
-        Height = 39
-        TabStop = False
-        Color = clInfoBk
-        DataField = 'branch'
-        DataSource = dmAux.dscBanks
-        ReadOnly = True
-        TabOrder = 35
-      end
       object dtpBirthdate: TRzDateTimePicker
         Left = 114
         Top = 124
@@ -953,8 +925,65 @@ inherited frmClientMain: TfrmClientMain
         TabOrder = 3
         OnChange = dtpBirthdateChange
       end
+      object bteBank: TRzButtonEdit
+        Left = 694
+        Top = 214
+        Width = 155
+        Height = 21
+        Text = ''
+        Color = clInfoBk
+        ParentShowHint = False
+        ReadOnly = True
+        ShowHint = True
+        TabOrder = 34
+        AllowKeyEdit = False
+        AltBtnHint = 'Clear bank'
+        ButtonHint = 'Find bank'
+        AltBtnKind = bkReject
+        ButtonKind = bkFind
+        AltBtnVisible = True
+        AltBtnWidth = 15
+        ButtonWidth = 15
+        FlatButtons = True
+        HideButtonsOnReadOnly = False
+        OnAltBtnClick = bteEmployerAltBtnClick
+        OnButtonClick = bteEmployerButtonClick
+      end
+      object bteOtherIncome: TRzButtonEdit
+        Left = 438
+        Top = 424
+        Width = 187
+        Height = 21
+        Text = ''
+        Color = clInfoBk
+        ParentShowHint = False
+        ReadOnly = True
+        ShowHint = True
+        TabOrder = 33
+        AllowKeyEdit = False
+        AltBtnHint = 'Clear other income'
+        ButtonHint = 'Find other income'
+        AltBtnKind = bkReject
+        ButtonKind = bkFind
+        AltBtnVisible = True
+        AltBtnWidth = 15
+        ButtonWidth = 15
+        FlatButtons = True
+        HideButtonsOnReadOnly = False
+        OnAltBtnClick = bteEmployerAltBtnClick
+        OnButtonClick = bteEmployerButtonClick
+      end
+      object mmBranch: TRzMemo
+        Left = 694
+        Top = 238
+        Width = 155
+        Height = 39
+        Color = clInfoBk
+        ReadOnly = True
+        TabOrder = 35
+      end
     end
-    object TabSheet4: TRzTabSheet
+    object tsReferences: TRzTabSheet
       Caption = 'Family and personal references'
       object pnlList: TRzPanel
         Left = 0
@@ -966,9 +995,6 @@ inherited frmClientMain: TfrmClientMain
         BorderSides = [sdLeft, sdRight]
         BorderWidth = 5
         TabOrder = 0
-        ExplicitTop = 61
-        ExplicitWidth = 745
-        ExplicitHeight = 396
         DesignSize = (
           921
           468)
@@ -1004,14 +1030,123 @@ inherited frmClientMain: TfrmClientMain
           object tsDetail: TRzTabSheet
             Color = 15263976
             Caption = 'Change caption here'
-            ExplicitWidth = 731
-            ExplicitHeight = 128
           end
         end
       end
     end
-    object TabSheet1: TRzTabSheet
-      Caption = 'Loan history'
+    object tsIdentityInfo: TRzTabSheet
+      Caption = 'Identity information'
+      ExplicitLeft = 2
+      ExplicitTop = -1
+      object RzPanel1: TRzPanel
+        Left = 0
+        Top = 0
+        Width = 921
+        Height = 468
+        Align = alClient
+        BorderOuter = fsFlat
+        BorderSides = [sdLeft, sdRight]
+        BorderWidth = 5
+        TabOrder = 0
+        DesignSize = (
+          921
+          468)
+        object RzDBGrid1: TRzDBGrid
+          Left = 6
+          Top = 5
+          Width = 909
+          Height = 228
+          Align = alTop
+          DataSource = dmEntities.dscGroups
+          Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
+          TabOrder = 0
+          TitleFont.Charset = DEFAULT_CHARSET
+          TitleFont.Color = clWindowText
+          TitleFont.Height = -11
+          TitleFont.Name = 'Tahoma'
+          TitleFont.Style = []
+          AltRowShading = True
+          AltRowShadingColor = 15854564
+        end
+        object RzPageControl1: TRzPageControl
+          Left = 6
+          Top = 239
+          Width = 911
+          Height = 224
+          Hint = ''
+          ActivePage = RzTabSheet1
+          Anchors = [akLeft, akTop, akRight, akBottom]
+          UseColoredTabs = True
+          TabIndex = 0
+          TabOrder = 1
+          FixedDimension = 19
+          object RzTabSheet1: TRzTabSheet
+            Color = 15263976
+            Caption = 'Change caption here'
+          end
+        end
+      end
     end
+    object tsLoansHistory: TRzTabSheet
+      Caption = 'Loans history'
+      ExplicitLeft = 2
+      ExplicitTop = 6
+      object RzPanel2: TRzPanel
+        Left = 0
+        Top = 0
+        Width = 921
+        Height = 468
+        Align = alClient
+        BorderOuter = fsFlat
+        BorderSides = [sdLeft, sdRight]
+        BorderWidth = 5
+        TabOrder = 0
+        DesignSize = (
+          921
+          468)
+        object RzDBGrid2: TRzDBGrid
+          Left = 6
+          Top = 5
+          Width = 909
+          Height = 228
+          Align = alTop
+          DataSource = dmEntities.dscGroups
+          Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
+          TabOrder = 0
+          TitleFont.Charset = DEFAULT_CHARSET
+          TitleFont.Color = clWindowText
+          TitleFont.Height = -11
+          TitleFont.Name = 'Tahoma'
+          TitleFont.Style = []
+          AltRowShading = True
+          AltRowShadingColor = 15854564
+        end
+        object RzPageControl2: TRzPageControl
+          Left = 6
+          Top = 239
+          Width = 911
+          Height = 224
+          Hint = ''
+          ActivePage = RzTabSheet2
+          Anchors = [akLeft, akTop, akRight, akBottom]
+          UseColoredTabs = True
+          TabIndex = 0
+          TabOrder = 1
+          FixedDimension = 19
+          object RzTabSheet2: TRzTabSheet
+            Color = 15263976
+            Caption = 'Change caption here'
+          end
+        end
+      end
+    end
+  end
+  object PhotoLauncher: TRzLauncher
+    Action = 'Open'
+    FileName = 'PhotoUtil.exe'
+    Timeout = -1
+    OnFinished = PhotoLauncherFinished
+    Left = 785
+    Top = 61
   end
 end

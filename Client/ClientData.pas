@@ -94,7 +94,7 @@ begin
     cln.LandlordProv.Id := DataSet.FieldByName('landlord').AsString;
     cln.LandlordProv.Name := DataSet.FieldByName('landlord_name').AsString;
     cln.LandlordProv.Mobile := DataSet.FieldByName('landlord_mobile').AsString;
-    cln.LandlordProv.Mobile := DataSet.FieldByName('landlord_homephone').AsString;
+    cln.LandlordProv.Telephone := DataSet.FieldByName('landlord_homephone').AsString;
   end
 end;
 
@@ -129,7 +129,7 @@ begin
     cln.LandlordPres.Id := DataSet.FieldByName('landlord').AsString;
     cln.LandlordPres.Name := DataSet.FieldByName('landlord_name').AsString;
     cln.LandlordPres.Mobile := DataSet.FieldByName('landlord_mobile').AsString;
-    cln.LandlordPres.Mobile := DataSet.FieldByName('landlord_homephone').AsString;
+    cln.LandlordPres.Telephone := DataSet.FieldByName('landlord_homephone').AsString;
   end
 end;
 

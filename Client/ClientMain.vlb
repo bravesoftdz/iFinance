@@ -19,9 +19,6 @@ Coordinates=867,461,73,36
 [dmClient.dscContactInfo]
 Coordinates=556,78,155,36
 
-[RzDBLookupComboBox10]
-Coordinates=698,461,167,36
-
 [dmClient.dscAddressInfo]
 Coordinates=600,365,158,36
 
@@ -33,9 +30,6 @@ Coordinates=540,461,73,36
 
 [JvLabel15]
 Coordinates=461,461,73,36
-
-[RzURLLabel2]
-Coordinates=152,77,94,58
 
 [JvLabel12]
 Coordinates=382,461,73,36
@@ -175,9 +169,6 @@ Coordinates=1322,551,130,36
 [dmClient.dstGender]
 Coordinates=258,269,129,58
 
-[RzDBLookupComboBox9]
-Coordinates=1322,606,160,36
-
 [JvLabel27]
 Coordinates=1243,609,73,36
 
@@ -250,9 +241,6 @@ Coordinates=357,78,146,58
 [dmClient.dscEmplInfo]
 Coordinates=759,232,140,36
 
-[TabSheet4]
-Coordinates=1520,56,77,36
-
 [lblTitle]
 Coordinates=14,77,52,58
 
@@ -310,11 +298,8 @@ Coordinates=863,683,111,124
 [dmClient.dscAcctInfo]
 Coordinates=724,683,136,36
 
-[RzDBMemo1]
-Coordinates=1421,683,90,36
-
 []
-Coordinates=1520,111,113,36
+Coordinates=1421,683,90,36
 
 [edLastname]
 Coordinates=353,535,77,36
@@ -339,4 +324,10 @@ Coordinates=175,609,60,36
 
 [mmEmployerAddress]
 Coordinates=73,77,73,58
+
+[tsReferences]
+Coordinates=1520,56,77,36
+
+[urlTakePhoto]
+Coordinates=152,77,94,58
 

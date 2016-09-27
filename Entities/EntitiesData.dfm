@@ -15,7 +15,7 @@ object dmEntities: TdmEntities
         DataType = ftInteger
         Direction = pdReturnValue
         Precision = 10
-        Value = Null
+        Value = 0
       end
       item
         Name = '@entity_type'
@@ -205,7 +205,7 @@ object dmEntities: TdmEntities
     Top = 192
   end
   object dstGroups: TADODataSet
-    Tag = 2
+    Tag = 5
     Connection = dmApplication.acMain
     CursorType = ctStatic
     BeforePost = dstGroupsBeforePost
@@ -222,7 +222,7 @@ object dmEntities: TdmEntities
     Top = 248
   end
   object dstParGroup: TADODataSet
-    Tag = 2
+    Tag = 5
     Connection = dmApplication.acMain
     CursorType = ctStatic
     LockType = ltReadOnly
@@ -238,7 +238,7 @@ object dmEntities: TdmEntities
     Top = 304
   end
   object dstEmployers: TADODataSet
-    Tag = 2
+    Tag = 6
     Connection = dmApplication.acMain
     CursorType = ctStatic
     BeforePost = dstEmployersBeforePost

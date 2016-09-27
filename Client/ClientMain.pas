@@ -8,7 +8,7 @@ uses
   Vcl.ExtCtrls, SaveIntf, RzLabel, RzPanel, RzTabs, Vcl.Mask,
   RzEdit, RzDBEdit, JvLabel, JvExControls, JvGroupHeader, Vcl.DBCtrls, RzDBCmbo,
   Vcl.ComCtrls, RzDTP, RzDBDTP, RzButton, RzRadChk, RzDBChk, Data.DB, Vcl.Grids,
-  Vcl.DBGrids, RzDBGrid, RzBtnEdt;
+  Vcl.DBGrids, RzDBGrid, RzBtnEdt, RzLaunch;
 
 type
   TfrmClientMain = class(TfrmBaseDocked, ISave)
@@ -30,7 +30,7 @@ type
     RzDBLookupComboBox1: TRzDBLookupComboBox;
     RzDBLookupComboBox2: TRzDBLookupComboBox;
     RzGroupBox1: TRzGroupBox;
-    TabSheet4: TRzTabSheet;
+    tsReferences: TRzTabSheet;
     edAge: TRzEdit;
     bteReferee: TRzButtonEdit;
     JvGroupHeader2: TJvGroupHeader;
@@ -91,18 +91,29 @@ type
     RzDBEdit16: TRzDBEdit;
     JvLabel34: TJvLabel;
     JvLabel36: TJvLabel;
-    RzURLLabel2: TRzURLLabel;
+    urlTakePhoto: TRzURLLabel;
     RzDBLookupComboBox8: TRzDBLookupComboBox;
-    RzDBLookupComboBox9: TRzDBLookupComboBox;
-    RzDBLookupComboBox10: TRzDBLookupComboBox;
-    RzDBMemo1: TRzDBMemo;
     JvGroupHeader1: TJvGroupHeader;
-    TabSheet1: TRzTabSheet;
+    tsIdentityInfo: TRzTabSheet;
     dtpBirthdate: TRzDateTimePicker;
     pnlList: TRzPanel;
     grList: TRzDBGrid;
     pcDetail: TRzPageControl;
     tsDetail: TRzTabSheet;
+    tsLoansHistory: TRzTabSheet;
+    RzPanel1: TRzPanel;
+    RzDBGrid1: TRzDBGrid;
+    RzPageControl1: TRzPageControl;
+    RzTabSheet1: TRzTabSheet;
+    RzPanel2: TRzPanel;
+    RzDBGrid2: TRzDBGrid;
+    RzPageControl2: TRzPageControl;
+    RzTabSheet2: TRzTabSheet;
+    PhotoLauncher: TRzLauncher;
+    imgClient: TImage;
+    bteBank: TRzButtonEdit;
+    bteOtherIncome: TRzButtonEdit;
+    mmBranch: TRzMemo;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -117,12 +128,17 @@ type
     procedure dtpBirthdateChange(Sender: TObject);
     procedure bteEmployerButtonClick(Sender: TObject);
     procedure bteEmployerAltBtnClick(Sender: TObject);
+    procedure urlTakePhotoClick(Sender: TObject);
+    procedure PhotoLauncherFinished(Sender: TObject);
+    procedure bteImmHeadButtonClick(Sender: TObject);
+    procedure bteImmHeadAltBtnClick(Sender: TObject);
   private
     { Private declarations }
     procedure SetClientName;
     procedure SetUnboundControls;
     procedure CopyAddress;
     procedure GetAge;
+    procedure LoadPhoto;
   public
     { Public declarations }
     function Save: boolean;
@@ -165,6 +181,36 @@ begin
         bteEmployer.Text := emp.Name;
         mmEmployerAddress.Text := emp.Address;
         cln.Employer := emp;
+      end;
+
+      Free;
+    except
+      on e: Exception do
+        ShowMessage(e.Message);
+    end;
+  end;
+end;
+
+procedure TfrmClientMain.bteImmHeadAltBtnClick(Sender: TObject);
+begin
+  inherited;
+  cln.ImmediateHead := nil;
+  bteImmHead.Clear;
+end;
+
+procedure TfrmClientMain.bteImmHeadButtonClick(Sender: TObject);
+begin
+  with TfrmImmHeadSearch.Create(nil) do
+  begin
+    try
+      immHead := TImmediateHead.Create;
+
+      ShowModal;
+
+      if ModalResult = mrOK then
+      begin
+        bteImmHead.Text := immHead.Name;
+        cln.ImmediateHead := immHead;
       end;
 
       Free;
@@ -334,6 +380,7 @@ procedure TfrmClientMain.FormShow(Sender: TObject);
 begin
   inherited;
   OpenDropdownDataSources(tsClientInfo);
+  LoadPhoto;
 end;
 
 function TfrmClientMain.Save: boolean;
@@ -447,6 +494,13 @@ begin
   CopyAddress;
 end;
 
+procedure TfrmClientMain.urlTakePhotoClick(Sender: TObject);
+begin
+  inherited;
+  PhotoLauncher.Parameters := '_photo\ ' + cln.Id;
+  PhotoLauncher.Launch;
+end;
+
 procedure TfrmClientMain.CopyAddress;
 begin
   cln.CopyAddress;
@@ -498,6 +552,22 @@ begin
   end;
 
   edAge.Text := IntToStr(age);
+end;
+
+procedure TfrmClientMain.PhotoLauncherFinished(Sender: TObject);
+begin
+  inherited;
+  LoadPhoto;
+end;
+
+procedure TfrmClientMain.LoadPhoto;
+var
+  filename: string;
+begin
+  filename := '_photo\' + cln.Id + '.bmp';
+
+  if FileExists(fileName) then
+    imgClient.Picture.LoadFromFile(fileName);
 end;
 
 end.

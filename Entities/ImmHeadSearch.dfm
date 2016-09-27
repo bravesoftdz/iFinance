@@ -9,4 +9,9 @@ inherited frmImmHeadSearch: TfrmImmHeadSearch
       ExplicitWidth = 135
     end
   end
+  inherited pnlMain: TRzPanel
+    inherited grSearch: TRzDBGrid
+      DataSource = dmEntities.dscEntities
+    end
+  end
 end
