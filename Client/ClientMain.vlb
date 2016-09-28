@@ -10,9 +10,6 @@ Coordinates=946,320,77,36
 [JvLabel7]
 Coordinates=946,375,66,36
 
-[RzDBEdit14]
-Coordinates=946,430,84,36
-
 [JvLabel19]
 Coordinates=867,461,73,36
 
@@ -283,9 +280,6 @@ Coordinates=1520,606,77,36
 [dmClient.dstIdentInfo]
 Coordinates=163,365,137,58
 
-[RzDBEdit13]
-Coordinates=1520,661,84,36
-
 [dmClient.dstAcctInfo]
 Coordinates=978,664,133,146
 
@@ -299,7 +293,7 @@ Coordinates=863,683,111,124
 Coordinates=724,683,136,36
 
 []
-Coordinates=1421,683,90,36
+Coordinates=946,430,84,36
 
 [edLastname]
 Coordinates=353,535,77,36

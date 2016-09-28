@@ -8,12 +8,12 @@ uses
 type
   TEmployer = class(TObject)
   protected
-    FId: integer;
+    FId: string;
     FName: string;
     FGroupId: integer;
     FAddress: string;
   public
-    property Id: integer read FId write FId;
+    property Id: string read FId write FId;
     property Name: string read FName write FName;
     property GroupId: integer read FGroupId write FGroupId;
     property Address: string read FAddress write FAddress;

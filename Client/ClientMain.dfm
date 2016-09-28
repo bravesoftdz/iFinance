@@ -4,7 +4,6 @@ inherited frmClientMain: TfrmClientMain
   ClientWidth = 923
   OnCreate = FormCreate
   OnShow = FormShow
-  ExplicitLeft = -179
   ExplicitWidth = 939
   ExplicitHeight = 559
   PixelsPerInch = 96
@@ -48,8 +47,6 @@ inherited frmClientMain: TfrmClientMain
     FixedDimension = 19
     object tsClientInfo: TRzTabSheet
       Caption = 'Client information'
-      ExplicitLeft = 2
-      ExplicitTop = -1
       object JvLabel1: TJvLabel
         Left = 35
         Top = 40
@@ -858,28 +855,6 @@ inherited frmClientMain: TfrmClientMain
         ParentCtl3D = False
         TabOrder = 30
       end
-      object RzDBEdit13: TRzDBEdit
-        Left = 438
-        Top = 376
-        Width = 59
-        Height = 21
-        DataSource = dmClient.dscEmplInfo
-        DataField = 'gross_pay'
-        Ctl3D = True
-        ParentCtl3D = False
-        TabOrder = 31
-      end
-      object RzDBEdit14: TRzDBEdit
-        Left = 438
-        Top = 400
-        Width = 59
-        Height = 21
-        DataSource = dmClient.dscEmplInfo
-        DataField = 'net_pay'
-        Ctl3D = True
-        ParentCtl3D = False
-        TabOrder = 32
-      end
       object RzDBEdit15: TRzDBEdit
         Left = 694
         Top = 280
@@ -982,6 +957,28 @@ inherited frmClientMain: TfrmClientMain
         ReadOnly = True
         TabOrder = 35
       end
+      object RzDBNumericEdit1: TRzDBNumericEdit
+        Left = 438
+        Top = 376
+        Width = 187
+        Height = 21
+        DataSource = dmClient.dscEmplInfo
+        DataField = 'gross_pay'
+        Alignment = taLeftJustify
+        TabOrder = 31
+        DisplayFormat = '###,##0.00'
+      end
+      object RzDBNumericEdit2: TRzDBNumericEdit
+        Left = 438
+        Top = 400
+        Width = 187
+        Height = 21
+        DataSource = dmClient.dscEmplInfo
+        DataField = 'net_pay'
+        Alignment = taLeftJustify
+        TabOrder = 32
+        DisplayFormat = '###,##0.00'
+      end
     end
     object tsReferences: TRzTabSheet
       Caption = 'Family and personal references'
@@ -1036,8 +1033,6 @@ inherited frmClientMain: TfrmClientMain
     end
     object tsIdentityInfo: TRzTabSheet
       Caption = 'Identity information'
-      ExplicitLeft = 2
-      ExplicitTop = -1
       object RzPanel1: TRzPanel
         Left = 0
         Top = 0
@@ -1089,8 +1084,6 @@ inherited frmClientMain: TfrmClientMain
     end
     object tsLoansHistory: TRzTabSheet
       Caption = 'Loans history'
-      ExplicitLeft = 2
-      ExplicitTop = 6
       object RzPanel2: TRzPanel
         Left = 0
         Top = 0

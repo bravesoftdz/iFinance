@@ -3,7 +3,7 @@ object frmMain: TfrmMain
   Top = 0
   BorderIcons = [biSystemMenu]
   BorderStyle = bsNone
-  Caption = 'frmMain'
+  Caption = 'PhotoUtil'
   ClientHeight = 322
   ClientWidth = 393
   Color = clBtnFace

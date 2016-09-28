@@ -69,7 +69,7 @@ implementation
 
 uses
   AppData, DBUtil, Client, IFinanceGlobal, AppConstants, Referee, Landlord,
-  Employer;
+  Employer, ImmediateHead;
 
 {%CLASSGROUP 'Vcl.Controls.TControl'}
 
@@ -169,13 +169,21 @@ end;
 
 procedure TdmClient.dstEmplInfoAfterOpen(DataSet: TDataSet);
 begin
-  if (cln.HasId) and (DataSet.FieldByName('emp_id').AsInteger <> 0) then
+  if (cln.HasId) and (DataSet.FieldByName('emp_id').AsString <> '') then
   begin
     cln.Employer := TEmployer.Create;
-    cln.Employer.Id := DataSet.FieldByName('emp_id').AsInteger;
+    cln.Employer.Id := DataSet.FieldByName('emp_id').AsString;
     cln.Employer.Name := DataSet.FieldByName('emp_name').AsString;
     cln.Employer.Address := DataSet.FieldByName('emp_add').AsString;
     cln.Employer.GroupId := DataSet.FieldByName('grp_id').AsInteger;
+
+    if DataSet.FieldByName('imm_head').AsString <> '' then
+    begin
+      cln.ImmediateHead := TImmediateHead.Create;
+      cln.ImmediateHead.Id := DataSet.FieldByName('imm_head').AsString;
+      cln.ImmediateHead.Name := DataSet.FieldByName('imm_head_name').AsString;
+    end;
+
   end
 end;
 
@@ -200,7 +208,7 @@ begin
     DataSet.FieldByName('imm_head').Value := null;
 
   if Assigned(cln.Employer) then
-    DataSet.FieldByName('emp_id').AsInteger := cln.Employer.Id
+    DataSet.FieldByName('emp_id').AsString := cln.Employer.Id
   else
     DataSet.FieldByName('emp_id').Value := null;
 end;

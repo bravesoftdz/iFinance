@@ -7,7 +7,7 @@ uses
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Menus, Vcl.ExtCtrls, RzPanel,
   JvPageList, JvNavigationPane, JvExControls, RzButton, System.ImageList,
   Vcl.ImgList, Vcl.ComCtrls, Vcl.ToolWin, AppConstants, Vcl.StdCtrls, RzLabel,
-  JvImageList, RzStatus, StatusIntf, DockIntf, RzLstBox, Client;
+  JvImageList, RzStatus, StatusIntf, DockIntf, RzLstBox, Client, Vcl.AppEvnts;
 
 type
   TfrmMain = class(TForm,IStatus,IDock)
@@ -40,6 +40,7 @@ type
     tbGroups: TToolButton;
     tbEmployer: TToolButton;
     tbCancel: TToolButton;
+    tbBanks: TToolButton;
     procedure tbAddClientClick(Sender: TObject);
     procedure tbSaveClick(Sender: TObject);
     procedure lblRecentlyAddedClick(Sender: TObject);
@@ -47,6 +48,7 @@ type
     procedure tbGroupsClick(Sender: TObject);
     procedure tbCancelClick(Sender: TObject);
     procedure tbEmployerClick(Sender: TObject);
+    procedure tbBanksClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -65,7 +67,8 @@ implementation
 {$R *.dfm}
 
 uses
-  ClientMain, SaveIntf, ClientList, DockedFormIntf, GroupList, EmployerList;
+  ClientMain, SaveIntf, ClientList, DockedFormIntf, GroupList, EmployerList,
+  BanksList;
 
 procedure TfrmMain.lblRecentlyAddedClick(Sender: TObject);
 begin
@@ -82,6 +85,11 @@ end;
 procedure TfrmMain.tbAddClientClick(Sender: TObject);
 begin
   DockForm(fmClientMain);
+end;
+
+procedure TfrmMain.tbBanksClick(Sender: TObject);
+begin
+  DockForm(fmBanksList);
 end;
 
 procedure TfrmMain.tbCancelClick(Sender: TObject);
@@ -155,6 +163,7 @@ begin
       fmClientList: frm := TfrmClientList.Create(Application);
       fmGroupList : frm := TfrmGroupList.Create(Application);
       fmEmployerList: frm := TfrmEmployerList.Create(Application);
+      fmBanksList: frm := TfrmBanksList.Create(Application);
       else
         frm := TForm.Create(Application);
     end;

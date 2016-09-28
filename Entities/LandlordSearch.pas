@@ -14,11 +14,11 @@ type
   private
     { Private declarations }
   protected
+    { Protected declarations }
     procedure SearchList; override;
     procedure SetReturn; override;
     procedure Add; override;
-  public
-    { Public declarations }
+    procedure Cancel; override;
   end;
 
 var
@@ -81,6 +81,11 @@ begin
     llord.Mobile := FieldByName('mobile_no').AsString;
     llord.Telephone := FieldByName('home_phone').AsString;
   end;
+end;
+
+procedure TfrmLandlordSearch.Cancel;
+begin
+
 end;
 
 end.

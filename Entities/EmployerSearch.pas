@@ -13,12 +13,11 @@ type
     procedure FormCreate(Sender: TObject);
   private
     { Private declarations }
-  public
-    { Public declarations }
   protected
     procedure SearchList; override;
     procedure SetReturn; override;
     procedure Add; override;
+    procedure Cancel; override;
   end;
 
 var
@@ -54,7 +53,7 @@ procedure TfrmEmployerSearch.SetReturn;
 begin
   with dmEntities.dstEmployers do
   begin
-    emp.Id := FieldByName('emp_id').AsInteger;
+    emp.Id := FieldByName('emp_id').AsString;
     emp.Name := FieldByName('emp_name').AsString;
     emp.Address := FieldByName('emp_add').AsString;
     emp.GroupId := FieldByName('grp_id').AsInteger;
@@ -64,6 +63,11 @@ end;
 procedure TfrmEmployerSearch.Add;
 begin
   // no need to implement.. this is implemented in a different window
+end;
+
+procedure TfrmEmployerSearch.Cancel;
+begin
+
 end;
 
 end.

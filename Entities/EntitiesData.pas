@@ -71,12 +71,12 @@ end;
 
 procedure TdmEntities.dstEmployersBeforePost(DataSet: TDataSet);
 var
-  id: integer;
+  id: string;
 begin
   if DataSet.State = dsInsert then
   begin
     id := GetEmployerId;
-    DataSet.FieldByName('emp_id').AsInteger := id;
+    DataSet.FieldByName('emp_id').AsString := id;
   end;
 end;
 

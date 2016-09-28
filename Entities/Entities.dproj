@@ -133,10 +133,6 @@
             <Form>frmLandlordDetail</Form>
             <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="..\Base\BaseDocked.pas">
-            <Form>frmBaseDocked</Form>
-            <FormType>dfm</FormType>
-        </DCCReference>
         <DCCReference Include="GroupList.pas">
             <Form>frmGroupList</Form>
             <FormType>dfm</FormType>
@@ -158,6 +154,14 @@
             <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="Employer.pas"/>
+        <DCCReference Include="BanksList.pas">
+            <Form>frmBanksList</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\Base\BaseDocked.pas">
+            <Form>frmBaseDocked</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

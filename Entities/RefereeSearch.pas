@@ -13,11 +13,12 @@ type
     procedure FormCreate(Sender: TObject);
   private
     { Private declarations }
-  public
-    { Public declarations }
+  protected
+    { Protected declarations }
     procedure SearchList; override;
     procedure SetReturn; override;
     procedure Add; override;
+    procedure Cancel; override;
   end;
 
 var
@@ -61,6 +62,11 @@ begin
 end;
 
 procedure TfrmRefereeSearch.Add;
+begin
+
+end;
+
+procedure TfrmRefereeSearch.Cancel;
 begin
 
 end;

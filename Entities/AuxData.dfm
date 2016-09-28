@@ -17,19 +17,37 @@ object dmAux: TdmAux
     Left = 48
     Top = 24
   end
+  object dscBranches: TDataSource
+    DataSet = dstBranches
+    Left = 112
+    Top = 88
+  end
+  object dstBranches: TADODataSet
+    Connection = dmApplication.acMain
+    CursorType = ctStatic
+    Filtered = True
+    BeforePost = dstBranchesBeforePost
+    OnNewRecord = dstBranchesNewRecord
+    CommandText = 'sp_get_bank_branches;1'
+    CommandType = cmdStoredProc
+    Parameters = <>
+    Left = 48
+    Top = 88
+  end
   object dscBanks: TDataSource
     DataSet = dstBanks
     Left = 112
-    Top = 88
+    Top = 152
   end
   object dstBanks: TADODataSet
     Connection = dmApplication.acMain
     CursorType = ctStatic
     LockType = ltReadOnly
-    CommandText = 'sp_dd_get_banks;1'
+    AfterScroll = dstBanksAfterScroll
+    CommandText = 'sp_get_banks;1'
     CommandType = cmdStoredProc
     Parameters = <>
     Left = 48
-    Top = 88
+    Top = 152
   end
 end

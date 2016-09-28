@@ -23,7 +23,8 @@ type
     procedure FormCreate(Sender: TObject);
   private
     { Private declarations }
-  public
+    procedure EnableControls;
+  protected
     { Public declarations }
     procedure SearchList; virtual; abstract;
     procedure SetReturn; virtual; abstract;
@@ -42,6 +43,7 @@ procedure TfrmBaseSearch.btnNewClick(Sender: TObject);
 begin
   inherited;
   Add;
+  EnableControls;
 end;
 
 procedure TfrmBaseSearch.edSearchKeyChange(Sender: TObject);
@@ -69,13 +71,22 @@ begin
   inherited;
   if grSearch.DataSource <> nil then
     if grSearch.DataSource.DataSet <> nil then
+    begin
       grSearch.DataSource.DataSet.Open;
+      EnableControls;
+    end;
 end;
 
 procedure TfrmBaseSearch.grSearchDblClick(Sender: TObject);
 begin
   inherited;
-  ModalResult := mrOK;
+  if grSearch.DataSource.DataSet.RecordCount > 0 then
+    ModalResult := mrOK;
+end;
+
+procedure TfrmBaseSearch.EnableControls;
+begin
+  btnSelect.Enabled := grSearch.DataSource.DataSet.RecordCount > 0;
 end;
 
 end.

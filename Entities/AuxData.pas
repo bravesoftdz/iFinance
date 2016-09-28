@@ -9,8 +9,13 @@ type
   TdmAux = class(TDataModule)
     dscTowns: TDataSource;
     dstTowns: TADODataSet;
+    dscBranches: TDataSource;
+    dstBranches: TADODataSet;
     dscBanks: TDataSource;
     dstBanks: TADODataSet;
+    procedure dstBranchesBeforePost(DataSet: TDataSet);
+    procedure dstBanksAfterScroll(DataSet: TDataSet);
+    procedure dstBranchesNewRecord(DataSet: TDataSet);
   private
     { Private declarations }
   public
@@ -23,10 +28,30 @@ var
 implementation
 
 uses
-  AppData;
+  AppData, DBUtil;
 
 {%CLASSGROUP 'Vcl.Controls.TControl'}
 
 {$R *.dfm}
+
+procedure TdmAux.dstBanksAfterScroll(DataSet: TDataSet);
+begin
+  dstBranches.Filter := 'bank_code = ' +
+        QuotedStr(DataSet.FieldByName('bank_code').AsString);
+end;
+
+procedure TdmAux.dstBranchesBeforePost(DataSet: TDataSet);
+var
+  id: string;
+begin
+  id := GetBankBranchId;
+  DataSet.FieldByName('bank_id').AsString := id;
+end;
+
+procedure TdmAux.dstBranchesNewRecord(DataSet: TDataSet);
+begin
+  DataSet.FieldByName('bank_code').AsString :=
+        dstBanks.FieldByName('bank_code').AsString;
+end;
 
 end.

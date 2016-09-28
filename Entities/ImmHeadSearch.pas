@@ -14,11 +14,11 @@ type
   private
     { Private declarations }
   protected
+    { Public declarations }
     procedure SearchList; override;
     procedure SetReturn; override;
     procedure Add; override;
-  public
-    { Public declarations }
+    procedure Cancel; override;
   end;
 
 var
@@ -78,6 +78,11 @@ begin
     immHead.Id := FieldByName('entity_id').AsString;
     immHead.Name := FieldByName('name').AsString;;
   end;
+end;
+
+procedure TfrmImmHeadSearch.Cancel;
+begin
+
 end;
 
 end.

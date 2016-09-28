@@ -81,9 +81,7 @@ type
     JvLabel28: TJvLabel;
     RzDBEdit12: TRzDBEdit;
     JvLabel29: TJvLabel;
-    RzDBEdit13: TRzDBEdit;
     JvLabel30: TJvLabel;
-    RzDBEdit14: TRzDBEdit;
     JvLabel31: TJvLabel;
     JvLabel32: TJvLabel;
     RzDBEdit15: TRzDBEdit;
@@ -114,6 +112,8 @@ type
     bteBank: TRzButtonEdit;
     bteOtherIncome: TRzButtonEdit;
     mmBranch: TRzMemo;
+    RzDBNumericEdit1: TRzDBNumericEdit;
+    RzDBNumericEdit2: TRzDBNumericEdit;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -353,6 +353,11 @@ begin
   dmAux.Destroy;
 
   cln.Destroy;
+
+  // close photo utility
+  if PhotoLauncher.Running then
+    SendMessage(FindWindow(nil,'PhotoUtil'),WM_CLOSE,0,0);
+
   inherited;
 end;
 
@@ -484,7 +489,13 @@ begin
   begin
     bteEmployer.Text := cln.Employer.Name;
     mmEmployerAddress.Text := cln.Employer.Address;
-  end
+  end;
+
+  // immediate head
+  if Assigned(cln.ImmediateHead) then
+  begin
+    bteImmHead.Text := cln.ImmediateHead.Name;
+  end;
 
 end;
 
