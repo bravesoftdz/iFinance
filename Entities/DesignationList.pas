@@ -1,4 +1,4 @@
-unit EmployerList;
+unit DesignationList;
 
 interface
 
@@ -7,17 +7,12 @@ uses
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, BaseGridDetail, Data.DB,
   System.ImageList, Vcl.ImgList, JvImageList, RzButton, Vcl.StdCtrls, Vcl.Mask,
   RzEdit, RzTabs, Vcl.Grids, Vcl.DBGrids, RzDBGrid, RzLabel, Vcl.ExtCtrls,
-  RzPanel, RzRadChk, RzDBChk, RzDBEdit, Vcl.DBCtrls, RzDBCmbo, JvExControls,
-  JvLabel;
+  RzPanel, RzDBEdit, JvExControls, JvLabel;
 
 type
-  TfrmEmployerList = class(TfrmBaseGridDetail)
+  TfrmDesignationList = class(TfrmBaseGridDetail)
+    edDesignation: TRzDBEdit;
     JvLabel1: TJvLabel;
-    JvLabel2: TJvLabel;
-    RzDBLookupComboBox7: TRzDBLookupComboBox;
-    edEmployerName: TRzDBEdit;
-    JvLabel3: TJvLabel;
-    RzDBMemo1: TRzDBMemo;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
@@ -30,37 +25,25 @@ type
   end;
 
 var
-  frmEmployerList: TfrmEmployerList;
+  frmDesignationList: TfrmDesignationList;
 
 implementation
 
 {$R *.dfm}
 
 uses
-  EntitiesData, StatusIntf;
+  AuxData, StatusIntf;
 
-procedure TfrmEmployerList.FormClose(Sender: TObject; var Action: TCloseAction);
-begin
-  dmEntities.Free;
-  inherited;
-end;
-
-procedure TfrmEmployerList.FormCreate(Sender: TObject);
-begin
-  dmEntities := TdmEntities.Create(self);
-  inherited;
-end;
-
-function TfrmEmployerList.EntryIsValid: boolean;
+function TfrmDesignationList.EntryIsValid: boolean;
 var
   st: IStatus;
   error: string;
 begin
   if Supports(Application.MainForm,IStatus,st) then
   begin
-    if Trim(edEmployerName.Text) = '' then
+    if Trim(edDesignation.Text) = '' then
     begin
-      error := 'Please enter an employee name.';
+      error := 'Please enter designation.';
       st.ShowError(error);
     end;
   end;
@@ -68,9 +51,23 @@ begin
   Result := error = '';
 end;
 
-procedure TfrmEmployerList.SearchList;
+procedure TfrmDesignationList.FormClose(Sender: TObject;
+  var Action: TCloseAction);
 begin
-  grList.DataSource.DataSet.Locate('emp_name',edSearchKey.Text,
+  dmAux.Free;
+
+  inherited;
+end;
+
+procedure TfrmDesignationList.FormCreate(Sender: TObject);
+begin
+  dmAux := TdmAux.Create(self);
+  inherited;
+end;
+
+procedure TfrmDesignationList.SearchList;
+begin
+  grList.DataSource.DataSet.Locate('designation',edSearchKey.Text,
         [loPartialKey,loCaseInsensitive]);
 end;
 

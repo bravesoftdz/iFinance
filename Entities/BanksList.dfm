@@ -9,6 +9,7 @@ inherited frmBanksList: TfrmBanksList
   TextHeight = 13
   inherited pnlTitle: TRzPanel
     Width = 877
+    ExplicitWidth = 877
     inherited lblTitle: TRzLabel
       Width = 58
       Caption = 'Banks list'
@@ -25,10 +26,6 @@ inherited frmBanksList: TfrmBanksList
     BorderSides = [sdLeft, sdRight, sdBottom]
     BorderWidth = 5
     TabOrder = 1
-    ExplicitLeft = -218
-    ExplicitTop = -154
-    ExplicitWidth = 745
-    ExplicitHeight = 396
     DesignSize = (
       877
       470)
@@ -78,7 +75,6 @@ inherited frmBanksList: TfrmBanksList
       object tsDetail: TRzTabSheet
         Color = 15263976
         Caption = 'Branch details'
-        ExplicitLeft = 2
         object JvLabel1: TJvLabel
           Left = 19
           Top = 23
@@ -90,9 +86,9 @@ inherited frmBanksList: TfrmBanksList
         object JvLabel3: TJvLabel
           Left = 19
           Top = 47
-          Width = 41
+          Width = 35
           Height = 13
-          Caption = 'Address'
+          Caption = 'Branch'
           Transparent = True
         end
         object edBankName: TRzDBEdit
@@ -107,7 +103,7 @@ inherited frmBanksList: TfrmBanksList
           Color = clInfoBk
           TabOrder = 0
         end
-        object mmAddress: TRzDBMemo
+        object mmBranch: TRzDBMemo
           Left = 105
           Top = 41
           Width = 207

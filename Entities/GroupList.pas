@@ -37,7 +37,7 @@ implementation
 {$R *.dfm}
 
 uses
-  EntitiesData, StatusIntf, FormsUtil;
+  EntitiesData, StatusIntf;
 
 procedure TfrmGroupList.FormClose(Sender: TObject; var Action: TCloseAction);
 begin

@@ -44,12 +44,10 @@ requires
 contains
   Entity in 'Entity.pas',
   LandlordSearch in 'LandlordSearch.pas',
-  BaseForm in '..\Base\BaseForm.pas' {frmBase},
   EntitiesData in 'EntitiesData.pas' {dmEntities: TDataModule},
   Landlord in 'Landlord.pas',
   ImmediateHead in 'ImmediateHead.pas',
   ImmHeadSearch in 'ImmHeadSearch.pas' {frmImmHeadSearch},
-  BasePopup in '..\Base\BasePopup.pas' {frmBasePopup},
   ImmHeadDetail in 'ImmHeadDetail.pas' {frmImmHeadDetail},
   Referee in 'Referee.pas',
   RefereeSearch in 'RefereeSearch.pas' {frmRefereeSearch},
@@ -58,11 +56,16 @@ contains
   LandlordDetail in 'LandlordDetail.pas' {frmLandlordDetail},
   GroupList in 'GroupList.pas' {frmGroupList},
   EmployerList in 'EmployerList.pas' {frmEmployerList},
-  BaseGridDetail in '..\Base\BaseGridDetail.pas' {frmBaseGridDetail},
   EmployerSearch in 'EmployerSearch.pas' {frmEmployerSearch},
-  BaseSearch in '..\Base\BaseSearch.pas' {frmBaseSearch},
   Employer in 'Employer.pas',
   BanksList in 'BanksList.pas' {frmBanksList},
-  BaseDocked in '..\Base\BaseDocked.pas' {frmBaseDocked};
+  BaseDocked in '..\Base\BaseDocked.pas' {frmBaseDocked},
+  Bank in 'Bank.pas',
+  BaseForm in '..\Base\BaseForm.pas' {frmBase},
+  BasePopup in '..\Base\BasePopup.pas' {frmBasePopup},
+  BanksSearch in 'BanksSearch.pas' {frmBankSearch},
+  BaseSearch in '..\Base\BaseSearch.pas' {frmBaseSearch},
+  DesignationList in 'DesignationList.pas' {frmDesignationList},
+  BaseGridDetail in '..\Base\BaseGridDetail.pas' {frmBaseGridDetail};
 
 end.

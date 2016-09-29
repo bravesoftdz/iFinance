@@ -41,6 +41,7 @@ type
     tbEmployer: TToolButton;
     tbCancel: TToolButton;
     tbBanks: TToolButton;
+    tbDesignationList: TToolButton;
     procedure tbAddClientClick(Sender: TObject);
     procedure tbSaveClick(Sender: TObject);
     procedure lblRecentlyAddedClick(Sender: TObject);
@@ -49,6 +50,7 @@ type
     procedure tbCancelClick(Sender: TObject);
     procedure tbEmployerClick(Sender: TObject);
     procedure tbBanksClick(Sender: TObject);
+    procedure tbDesignationListClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -68,7 +70,7 @@ implementation
 
 uses
   ClientMain, SaveIntf, ClientList, DockedFormIntf, GroupList, EmployerList,
-  BanksList;
+  BanksList, DesignationList;
 
 procedure TfrmMain.lblRecentlyAddedClick(Sender: TObject);
 begin
@@ -107,6 +109,11 @@ begin
     on e:Exception do
       ShowError(e.Message);
   end;
+end;
+
+procedure TfrmMain.tbDesignationListClick(Sender: TObject);
+begin
+  DockForm(fmDesignationList);
 end;
 
 procedure TfrmMain.tbEmployerClick(Sender: TObject);
@@ -164,6 +171,7 @@ begin
       fmGroupList : frm := TfrmGroupList.Create(Application);
       fmEmployerList: frm := TfrmEmployerList.Create(Application);
       fmBanksList: frm := TfrmBanksList.Create(Application);
+      fmDesignationList: frm := TfrmDesignationList.Create(Application);
       else
         frm := TForm.Create(Application);
     end;

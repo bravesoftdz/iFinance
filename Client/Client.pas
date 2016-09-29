@@ -4,7 +4,7 @@ interface
 
 uses
   SysUtils, ClientData, DB, Entity, ADODB, LandLord, ImmediateHead,
-  Referee, Employer;
+  Referee, Employer, Bank;
 
 type
   TClient = class(TEntity)
@@ -17,6 +17,7 @@ type
     FLandLordProv: TLandLord;
     FImmediateHead: TImmediateHead;
     FEmployer: TEmployer;
+    FBank: TBank;
     function CheckId: boolean;
   public
     procedure Add; override;
@@ -34,6 +35,7 @@ type
     property LandLordProv: TLandLord read FLandLordProv write FLandLordProv;
     property ImmediateHead: TImmediateHead read FImmediateHead write FImmediateHead;
     property Employer: TEmployer read FEmployer write FEmployer;
+    property Bank: TBank read FBank write FBank;
     property HasId: boolean read CheckId;
 
     constructor Create;

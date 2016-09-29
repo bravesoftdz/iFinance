@@ -6,12 +6,13 @@ uses
   AppData, IFinanceGlobal, SysUtils, Vcl.ExtCtrls, DB;
 
 type
-  TSequenceObject = (soEntity,soGroup,soEmployer,soBankBranch);
+  TSequenceObject = (soEntity,soGroup,soEmployer,soBankBranch,soDesignation);
 
 function GetEntityId: string;
 function GetGroupId: integer;
 function GetEmployerId: string;
 function GetBankBranchId: string;
+function GetDesignationId: integer;
 
 implementation
 
@@ -23,6 +24,8 @@ begin
     soEntity: parm := 'ENT';
     soGroup: parm := 'GRP';
     soEmployer: parm := 'EML';
+    soBankBranch: parm := 'BNK';
+    soDesignation: parm := 'DSG';
     else parm := '';
   end;
 
@@ -54,6 +57,11 @@ end;
 function GetBankBranchId: string;
 begin
   Result := ifn.LocationPrefix + '-' + IntToStr(GetSequenceID(soBankBranch));
+end;
+
+function GetDesignationId: integer;
+begin
+  Result := GetSequenceID(soDesignation);
 end;
 
 end.

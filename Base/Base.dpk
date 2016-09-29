@@ -43,9 +43,9 @@ requires
 contains
   BaseForm in 'BaseForm.pas' {frmBase},
   BasePopup in 'BasePopup.pas' {frmBasePopup},
-  BaseSearch in 'BaseSearch.pas' {frmBaseSearch},
   BasePopupDetail in 'BasePopupDetail.pas' {frmBasePopupDetail},
   BaseGridDetail in 'BaseGridDetail.pas' {frmBaseGridDetail},
-  BaseDocked in 'BaseDocked.pas' {frmBaseDocked};
+  BaseDocked in 'BaseDocked.pas' {frmBaseDocked},
+  BaseSearch in 'BaseSearch.pas' {frmBaseSearch};
 
 end.

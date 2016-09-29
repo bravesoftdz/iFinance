@@ -882,8 +882,11 @@ inherited frmClientMain: TfrmClientMain
         Top = 304
         Width = 187
         Height = 21
-        KeyField = 'value'
-        ListField = 'display'
+        DataField = 'des_id'
+        DataSource = dmClient.dscEmplInfo
+        KeyField = 'des_id'
+        ListField = 'designation'
+        ListSource = dmAux.dscDesignations
         TabOrder = 28
         AllowNull = True
         FrameColor = clBlack
@@ -921,8 +924,8 @@ inherited frmClientMain: TfrmClientMain
         ButtonWidth = 15
         FlatButtons = True
         HideButtonsOnReadOnly = False
-        OnAltBtnClick = bteEmployerAltBtnClick
-        OnButtonClick = bteEmployerButtonClick
+        OnAltBtnClick = bteBankAltBtnClick
+        OnButtonClick = bteBankButtonClick
       end
       object bteOtherIncome: TRzButtonEdit
         Left = 438

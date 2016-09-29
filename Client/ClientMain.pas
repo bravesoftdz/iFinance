@@ -132,6 +132,8 @@ type
     procedure PhotoLauncherFinished(Sender: TObject);
     procedure bteImmHeadButtonClick(Sender: TObject);
     procedure bteImmHeadAltBtnClick(Sender: TObject);
+    procedure bteBankButtonClick(Sender: TObject);
+    procedure bteBankAltBtnClick(Sender: TObject);
   private
     { Private declarations }
     procedure SetClientName;
@@ -153,11 +155,43 @@ implementation
 uses
   Client, ClientData, FormsUtil, LandlordSearch, ImmHeadSearch, Landlord,
   ImmediateHead, RefereeSearch, Referee, AuxData, StatusIntf, DockIntf,
-  EmployerSearch, Employer;
+  EmployerSearch, Employer, Bank, BanksSearch;
 
 {$R *.dfm}
 
 { TfrmClientMain }
+
+procedure TfrmClientMain.bteBankAltBtnClick(Sender: TObject);
+begin
+  inherited;
+  cln.Bank := nil;
+  bteBank.Clear;
+  mmBranch.Clear;
+end;
+
+procedure TfrmClientMain.bteBankButtonClick(Sender: TObject);
+begin
+  with TfrmBankSearch.Create(nil) do
+  begin
+    try
+      bnk := TBank.Create;
+
+      ShowModal;
+
+      if ModalResult = mrOK then
+      begin
+        bteBank.Text := bnk.BankName;
+        mmBranch.Text := bnk.Branch;
+        cln.Bank := bnk;
+      end;
+
+      Free;
+    except
+      on e: Exception do
+        ShowMessage(e.Message);
+    end;
+  end;
+end;
 
 procedure TfrmClientMain.bteEmployerAltBtnClick(Sender: TObject);
 begin
@@ -495,6 +529,13 @@ begin
   if Assigned(cln.ImmediateHead) then
   begin
     bteImmHead.Text := cln.ImmediateHead.Name;
+  end;
+
+  // bank
+  if Assigned(cln.Bank) then
+  begin
+    bteBank.Text := cln.Bank.BankName;
+    mmBranch.Text := cln.Bank.Branch;
   end;
 
 end;

@@ -50,4 +50,19 @@ object dmAux: TdmAux
     Left = 48
     Top = 152
   end
+  object dscDesignations: TDataSource
+    DataSet = dstDesignations
+    Left = 112
+    Top = 208
+  end
+  object dstDesignations: TADODataSet
+    Connection = dmApplication.acMain
+    CursorType = ctStatic
+    BeforePost = dstDesignationsBeforePost
+    CommandText = 'sp_get_designations;1'
+    CommandType = cmdStoredProc
+    Parameters = <>
+    Left = 48
+    Top = 208
+  end
 end

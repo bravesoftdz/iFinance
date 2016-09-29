@@ -292,6 +292,7 @@ object dmClient: TdmClient
     Connection = dmApplication.acMain
     CursorType = ctStatic
     BeforeOpen = dstAcctInfoBeforeOpen
+    AfterOpen = dstAcctInfoAfterOpen
     BeforePost = dstAcctInfoBeforePost
     CommandText = 'sp_cl_get_acct_info;1'
     CommandType = cmdStoredProc

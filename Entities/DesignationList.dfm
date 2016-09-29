@@ -1,122 +1,58 @@
-inherited frmBaseGridDetail: TfrmBaseGridDetail
-  Caption = 'frmBaseGridDetail'
-  ClientHeight = 457
-  ClientWidth = 745
-  OnCreate = FormCreate
-  OnShow = FormShow
-  ExplicitWidth = 761
-  ExplicitHeight = 496
+inherited frmDesignationList: TfrmDesignationList
+  Caption = 'frmDesignationList'
   PixelsPerInch = 96
   TextHeight = 13
   inherited pnlTitle: TRzPanel
-    Width = 745
-    ExplicitWidth = 745
-  end
-  object pnlList: TRzPanel
-    Left = 0
-    Top = 61
-    Width = 745
-    Height = 396
-    Align = alClient
-    BorderOuter = fsFlat
-    BorderSides = [sdLeft, sdRight, sdBottom]
-    BorderWidth = 5
-    TabOrder = 1
-    DesignSize = (
-      745
-      396)
-    object grList: TRzDBGrid
-      Left = 6
-      Top = 5
-      Width = 733
-      Height = 228
-      Align = alTop
-      DataSource = dmEntities.dscGroups
-      Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
-      TabOrder = 0
-      TitleFont.Charset = DEFAULT_CHARSET
-      TitleFont.Color = clWindowText
-      TitleFont.Height = -11
-      TitleFont.Name = 'Tahoma'
-      TitleFont.Style = []
-      AltRowShading = True
-      AltRowShadingColor = 15854564
+    inherited lblTitle: TRzLabel
+      Width = 95
+      Caption = 'Designation list'
+      ExplicitWidth = 95
     end
-    object pcDetail: TRzPageControl
-      Left = 6
-      Top = 239
-      Width = 735
-      Height = 151
-      Hint = ''
-      ActivePage = tsDetail
-      Anchors = [akLeft, akTop, akRight, akBottom]
-      UseColoredTabs = True
-      TabIndex = 0
-      TabOrder = 1
+  end
+  inherited pnlList: TRzPanel
+    inherited grList: TRzDBGrid
+      DataSource = dmAux.dscDesignations
+      Columns = <
+        item
+          Expanded = False
+          FieldName = 'designation'
+          Title.Caption = 'Designation'
+          Width = 300
+          Visible = True
+        end>
+    end
+    inherited pcDetail: TRzPageControl
       FixedDimension = 19
-      object tsDetail: TRzTabSheet
-        Color = 15263976
-        Caption = 'Change caption here'
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
+      inherited tsDetail: TRzTabSheet
+        Caption = 'Designation details'
+        ExplicitLeft = 2
+        ExplicitTop = 20
+        ExplicitWidth = 731
+        ExplicitHeight = 128
+        object JvLabel1: TJvLabel
+          Left = 19
+          Top = 23
+          Width = 58
+          Height = 13
+          Caption = 'Designation'
+          Transparent = True
+        end
+        object edDesignation: TRzDBEdit
+          Left = 105
+          Top = 17
+          Width = 207
+          Height = 21
+          DataSource = dmAux.dscDesignations
+          DataField = 'designation'
+          CharCase = ecUpperCase
+          TabOrder = 0
+        end
       end
     end
   end
-  object pnlSearch: TRzPanel
-    Left = 0
-    Top = 28
-    Width = 745
-    Height = 33
-    Align = alTop
-    BorderInner = fsFlat
-    BorderOuter = fsNone
-    BorderSides = [sdLeft, sdTop, sdRight]
-    TabOrder = 2
-    DesignSize = (
-      745
-      33)
-    object Label1: TLabel
-      Left = 8
-      Top = 15
-      Width = 33
-      Height = 13
-      Caption = 'Search'
-    end
-    object edSearchKey: TRzEdit
-      Left = 47
-      Top = 11
-      Width = 637
-      Height = 21
-      Text = ''
-      Anchors = [akLeft, akTop, akRight]
-      TabOrder = 0
-      OnChange = edSearchKeyChange
-    end
-    object btnNew: TRzButton
-      Left = 689
-      Top = 8
-      Width = 50
-      Hint = 'New'
-      Anchors = [akTop, akRight]
-      Caption = 'New'
-      ParentShowHint = False
-      ShowHint = True
-      TabOrder = 1
-      OnClick = btnNewClick
-    end
-  end
-  object imlMain: TJvImageList
-    ColorDepth = cd32Bit
-    PixelFormat = pf32bit
-    TransparentColor = clBlack
-    Items = <>
-    DrawingStyle = dsTransparent
-    Left = 693
-    Top = 229
+  inherited imlMain: TJvImageList
     Bitmap = {
-      494C010101000800700010001000FFFFFFFF2110FFFFFFFFFFFFFFFF424D3600
+      494C010101000800740010001000FFFFFFFF2110FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000001000000001002000000000000010
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000226

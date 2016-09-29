@@ -40,6 +40,7 @@ inherited frmBaseSearch: TfrmBaseSearch
       Width = 257
       Height = 21
       Text = ''
+      Anchors = [akLeft, akTop, akRight]
       TabOrder = 0
       OnChange = edSearchKeyChange
     end
@@ -65,7 +66,7 @@ inherited frmBaseSearch: TfrmBaseSearch
       Top = 288
       Width = 75
       Height = 25
-      Anchors = [akLeft, akTop, akRight, akBottom]
+      Anchors = [akLeft, akBottom]
       Caption = 'Select'
       ModalResult = 1
       TabOrder = 2
@@ -75,7 +76,7 @@ inherited frmBaseSearch: TfrmBaseSearch
       Top = 288
       Width = 75
       Height = 25
-      Anchors = [akLeft, akTop, akRight, akBottom]
+      Anchors = [akLeft, akBottom]
       Caption = 'New'
       TabOrder = 3
       OnClick = btnNewClick
@@ -85,7 +86,7 @@ inherited frmBaseSearch: TfrmBaseSearch
       Top = 288
       Width = 75
       Height = 25
-      Anchors = [akLeft, akTop, akRight, akBottom]
+      Anchors = [akRight, akBottom]
       Caption = 'Cancel'
       ModalResult = 2
       TabOrder = 4

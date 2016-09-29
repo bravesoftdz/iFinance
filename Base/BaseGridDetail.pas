@@ -80,13 +80,17 @@ end;
 
 function TfrmBaseGridDetail.Save: boolean;
 begin
-  if EntryIsValid then
+  with grList.DataSource.DataSet do
   begin
-    grList.DataSource.DataSet.Post;
-    Result := true;
-  end
-  else
-    Result := false;
+    if State in [dsInsert,dsEdit] then
+      if EntryIsValid then
+      begin
+        grList.DataSource.DataSet.Post;
+        Result := true;
+      end
+      else
+        Result := false;
+  end;
 end;
 
 procedure TfrmBaseGridDetail.Cancel;

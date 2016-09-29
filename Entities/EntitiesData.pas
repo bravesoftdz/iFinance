@@ -52,7 +52,7 @@ var
 implementation
 
 uses
-  AppData, Landlord, DBUtil, ImmediateHead, AppConstants;
+  AppData, Landlord, DBUtil, ImmediateHead, AppConstants,IFinanceGlobal;
 
 {%CLASSGROUP 'Vcl.Controls.TControl'}
 
@@ -128,11 +128,18 @@ procedure TdmEntities.dstImmHeadBeforePost(DataSet: TDataSet);
 var
   id: string;
 begin
-  id := GetEntityId;
-  DataSet.FieldByName('entity_id').AsString := id;
-  DataSet.FieldByName('entity_type').AsString :=
-    TRttiEnumerationType.GetName<TEntityTypes>(TEntityTypes.IH);
-  immHead.Id := id;
+  if DataSet.State = dsInsert then
+  begin
+    id := GetEntityId;
+    DataSet.FieldByName('entity_id').AsString := id;
+    DataSet.FieldByName('entity_type').AsString :=
+      TRttiEnumerationType.GetName<TEntityTypes>(TEntityTypes.IH);
+    DataSet.FieldByName('created_date').AsString :=
+        FormatDateTime('yyyy-mm-dd',Date);;
+    DataSet.FieldByName('created_by').AsString := ifn.User.UserId;
+
+    immHead.Id := id;
+  end;
 end;
 
 procedure TdmEntities.dstLandlordBeforeOpen(DataSet: TDataSet);
@@ -144,11 +151,18 @@ procedure TdmEntities.dstLandlordBeforePost(DataSet: TDataSet);
 var
   id: string;
 begin
-  id := GetEntityId;
-  DataSet.FieldByName('entity_id').AsString := id;
-  DataSet.FieldByName('entity_type').AsString :=
-    TRttiEnumerationType.GetName<TEntityTypes>(TEntityTypes.LL);
-  llord.Id := id;
+  if DataSet.State = dsInsert then
+  begin
+    id := GetEntityId;
+    DataSet.FieldByName('entity_id').AsString := id;
+    DataSet.FieldByName('entity_type').AsString :=
+      TRttiEnumerationType.GetName<TEntityTypes>(TEntityTypes.LL);
+    DataSet.FieldByName('created_date').AsString :=
+        FormatDateTime('yyyy-mm-dd',Date);;
+    DataSet.FieldByName('created_by').AsString := ifn.User.UserId;
+
+    llord.Id := id;
+  end;
 end;
 
 procedure TdmEntities.dstLlPersonalBeforeOpen(DataSet: TDataSet);

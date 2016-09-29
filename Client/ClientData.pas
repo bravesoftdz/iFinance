@@ -56,6 +56,7 @@ type
     procedure dstAddressInfo2AfterOpen(DataSet: TDataSet);
     procedure dstEmplInfoAfterOpen(DataSet: TDataSet);
     procedure dstEmplInfoAfterPost(DataSet: TDataSet);
+    procedure dstAcctInfoAfterOpen(DataSet: TDataSet);
   private
     { Private declarations }
   public
@@ -69,11 +70,23 @@ implementation
 
 uses
   AppData, DBUtil, Client, IFinanceGlobal, AppConstants, Referee, Landlord,
-  Employer, ImmediateHead;
+  Employer, ImmediateHead, Bank;
 
 {%CLASSGROUP 'Vcl.Controls.TControl'}
 
 {$R *.dfm}
+
+procedure TdmClient.dstAcctInfoAfterOpen(DataSet: TDataSet);
+begin
+  if (cln.HasId) and (DataSet.FieldByName('bank_id').AsString <> '') then
+  begin
+    cln.Bank := TBank.Create;
+    cln.Bank.Id := DataSet.FieldByName('bank_id').AsString;
+    cln.Bank.BankName := DataSet.FieldByName('bank_name').AsString;
+    cln.Bank.BankCode := DataSet.FieldByName('bank_code').AsString;
+    cln.Bank.Branch := DataSet.FieldByName('branch').AsString;
+  end
+end;
 
 procedure TdmClient.dstAcctInfoBeforeOpen(DataSet: TDataSet);
 begin
@@ -84,6 +97,11 @@ procedure TdmClient.dstAcctInfoBeforePost(DataSet: TDataSet);
 begin
   if DataSet.State = dsInsert then
     DataSet.FieldByName('entity_id').AsString := cln.Id;
+
+  if Assigned(cln.Bank) then
+    DataSet.FieldByName('bank_id').AsString := cln.Bank.Id
+  else
+    DataSet.FieldByName('bank_id').Value := null;
 end;
 
 procedure TdmClient.dstAddressInfo2AfterOpen(DataSet: TDataSet);

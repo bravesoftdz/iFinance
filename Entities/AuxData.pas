@@ -13,9 +13,12 @@ type
     dstBranches: TADODataSet;
     dscBanks: TDataSource;
     dstBanks: TADODataSet;
+    dscDesignations: TDataSource;
+    dstDesignations: TADODataSet;
     procedure dstBranchesBeforePost(DataSet: TDataSet);
     procedure dstBanksAfterScroll(DataSet: TDataSet);
     procedure dstBranchesNewRecord(DataSet: TDataSet);
+    procedure dstDesignationsBeforePost(DataSet: TDataSet);
   private
     { Private declarations }
   public
@@ -44,14 +47,28 @@ procedure TdmAux.dstBranchesBeforePost(DataSet: TDataSet);
 var
   id: string;
 begin
-  id := GetBankBranchId;
-  DataSet.FieldByName('bank_id').AsString := id;
+  if DataSet.State = dsInsert then
+  begin
+    id := GetBankBranchId;
+    DataSet.FieldByName('bank_id').AsString := id;
+  end;
 end;
 
 procedure TdmAux.dstBranchesNewRecord(DataSet: TDataSet);
 begin
   DataSet.FieldByName('bank_code').AsString :=
         dstBanks.FieldByName('bank_code').AsString;
+end;
+
+procedure TdmAux.dstDesignationsBeforePost(DataSet: TDataSet);
+var
+  id: integer;
+begin
+  if DataSet.State = dsInsert then
+  begin
+    id := GetDesignationId;
+    DataSet.FieldByName('des_id').AsInteger := id;
+  end;
 end;
 
 end.

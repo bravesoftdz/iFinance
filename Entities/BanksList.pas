@@ -18,7 +18,7 @@ type
     btnNew: TRzButton;
     JvLabel1: TJvLabel;
     edBankName: TRzDBEdit;
-    mmAddress: TRzDBMemo;
+    mmBranch: TRzDBMemo;
     JvLabel3: TJvLabel;
     procedure FormShow(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -69,6 +69,7 @@ end;
 
 function TfrmBanksList.Save: boolean;
 begin
+  Result := false;
   with grBranches.DataSource.DataSet do
   begin
     if EntryIsValid then
@@ -79,8 +80,6 @@ begin
         Result := true;
       end;
     end
-    else
-      Result := false;
   end;
 end;
 
@@ -100,9 +99,9 @@ var
 begin
   if Supports(Application.MainForm,IStatus,st) then
   begin
-    if Trim(mmAddress.Text) = '' then
+    if Trim(mmBranch.Text) = '' then
     begin
-      error := 'Please enter address.';
+      error := 'Please enter branch.';
       st.ShowError(error);
     end;
   end;
