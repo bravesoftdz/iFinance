@@ -66,6 +66,7 @@ contains
   BanksSearch in 'BanksSearch.pas' {frmBankSearch},
   BaseSearch in '..\Base\BaseSearch.pas' {frmBaseSearch},
   DesignationList in 'DesignationList.pas' {frmDesignationList},
-  BaseGridDetail in '..\Base\BaseGridDetail.pas' {frmBaseGridDetail};
+  BaseGridDetail in '..\Base\BaseGridDetail.pas' {frmBaseGridDetail},
+  IdentityDoc in 'IdentityDoc.pas';
 
 end.

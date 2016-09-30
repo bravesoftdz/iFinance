@@ -1,4 +1,4 @@
-package Client;
+package Tools;
 
 {$R *.res}
 {$IFDEF IMPLICITBUILDING This IFDEF should not be used by users}
@@ -31,24 +31,10 @@ package Client;
 requires
   rtl,
   vcl,
-  vclimg,
-  dbrtl,
-  vcldb,
-  adortl,
-  RaizeComponentsVcl,
-  RaizeComponentsVclDb,
-  Jcl,
-  JvCore,
-  JvStdCtrls,
-  JvControls;
+  RaizeComponentsVcl;
 
 contains
-  ClientMain in 'ClientMain.pas' {frmClientMain},
-  ClientData in 'ClientData.pas' {dmClient: TDataModule},
-  Client in 'Client.pas',
-  BaseForm in '..\Base\BaseForm.pas' {frmBase},
-  ClientList in 'ClientList.pas' {frmClientList},
-  BaseDocked in '..\Base\BaseDocked.pas' {frmBaseDocked},
-  ClientFilterIntf in 'ClientFilterIntf.pas';
+  AppSettings in 'AppSettings.pas' {frmAppSettings},
+  BaseDocked in '..\Base\BaseDocked.pas' {frmBaseDocked};
 
 end.

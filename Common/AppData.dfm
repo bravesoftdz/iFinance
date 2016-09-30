@@ -5,7 +5,6 @@ object dmApplication: TdmApplication
   Height = 276
   Width = 446
   object acMain: TADOConnection
-    Connected = True
     ConnectionString = 
       'Provider=SQLNCLI11.1;Integrated Security=SSPI;Persist Security I' +
       'nfo=False;User ID="";Initial Catalog=iFinance;Data Source=BRYAN\' +
@@ -80,11 +79,11 @@ object dmApplication: TdmApplication
     Left = 136
     Top = 136
   end
-  object dstEntities: TADODataSet
+  object dstClients: TADODataSet
     Connection = acMain
     CursorType = ctStatic
     LockType = ltReadOnly
-    CommandText = 'sp_get_entities;1'
+    CommandText = 'sp_get_clients;1'
     CommandType = cmdStoredProc
     Parameters = <
       item
@@ -92,20 +91,26 @@ object dmApplication: TdmApplication
         DataType = ftInteger
         Direction = pdReturnValue
         Precision = 10
-        Value = Null
       end
       item
-        Name = '@entity_type'
+        Name = '@filter_type'
         Attributes = [paNullable]
-        DataType = ftString
-        Size = 2
-        Value = ''
+        DataType = ftInteger
+        Precision = 10
+        Value = 0
+      end
+      item
+        Name = '@non_clients'
+        Attributes = [paNullable]
+        DataType = ftInteger
+        Precision = 10
+        Value = 0
       end>
     Left = 224
     Top = 24
   end
-  object dscEntities: TDataSource
-    DataSet = dstEntities
+  object dscClients: TDataSource
+    DataSet = dstClients
     Left = 296
     Top = 24
   end

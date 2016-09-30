@@ -6,17 +6,16 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, BaseDocked, Vcl.StdCtrls, RzLabel,
   Vcl.ExtCtrls, RzPanel, DockedFormIntf, Data.DB, Vcl.Mask, RzEdit, Vcl.Grids,
-  Vcl.DBGrids, RzDBGrid, System.Rtti, ADODB;
+  Vcl.DBGrids, RzDBGrid, System.Rtti, ADODB, ClientFilterIntf;
 
 type
-  TfrmClientList = class(TfrmBaseDocked, IDockedForm)
+  TfrmClientList = class(TfrmBaseDocked, IDockedForm, IClientFilter)
     pnlSearch: TRzPanel;
     pnlList: TRzPanel;
     grList: TRzDBGrid;
     Label1: TLabel;
     edSearchKey: TRzEdit;
     CheckBox1: TCheckBox;
-    procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure grListDblClick(Sender: TObject);
   private
@@ -24,6 +23,8 @@ type
   public
     { Public declarations }
     procedure SetTitle(const title: string);
+    procedure FilterList(const filterType: TClientFilterType;
+        const nonClients: boolean = false);
   end;
 
 var
@@ -40,14 +41,6 @@ procedure TfrmClientList.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
   OpenGridDataSources(pnlList,false);
   inherited;
-end;
-
-procedure TfrmClientList.FormCreate(Sender: TObject);
-begin
-  inherited;
-  (grList.DataSource.DataSet as TADODataSet).Parameters.ParamByName('@entity_type').Value :=
-        TRttiEnumerationType.GetName<TEntityTypes>(TEntityTypes.CL);
-  OpenGridDataSources(pnlList);
 end;
 
 procedure TfrmClientList.grListDblClick(Sender: TObject);
@@ -70,6 +63,21 @@ end;
 procedure TfrmClientList.SetTitle(const title: string);
 begin
   lblTitle.Caption := title;
+end;
+
+procedure TfrmClientList.FilterList(const filterType: TClientFilterType;
+        const nonClients: Boolean = False);
+begin
+  with dmApplication.dstClients.Parameters do
+  begin
+    case filterType of
+      cftAll: ParamByName('@filter_type').Value := 0;
+      cftActive: ParamByName('@filter_type').Value := 1;
+      cftRecent: ParamByName('@filter_type').Value := 2;
+    end;
+  end;
+
+  OpenGridDataSources(pnlList);
 end;
 
 end.

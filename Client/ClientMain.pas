@@ -5,7 +5,7 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, BaseDocked, Vcl.StdCtrls,
-  Vcl.ExtCtrls, SaveIntf, RzLabel, RzPanel, RzTabs, Vcl.Mask,
+  Vcl.ExtCtrls, SaveIntf, RzLabel, RzPanel, RzTabs, Vcl.Mask, StatusIntf,
   RzEdit, RzDBEdit, JvLabel, JvExControls, JvGroupHeader, Vcl.DBCtrls, RzDBCmbo,
   Vcl.ComCtrls, RzDTP, RzDBDTP, RzButton, RzRadChk, RzDBChk, Data.DB, Vcl.Grids,
   Vcl.DBGrids, RzDBGrid, RzBtnEdt, RzLaunch;
@@ -99,10 +99,10 @@ type
     pcDetail: TRzPageControl;
     tsDetail: TRzTabSheet;
     tsLoansHistory: TRzTabSheet;
-    RzPanel1: TRzPanel;
-    RzDBGrid1: TRzDBGrid;
+    pnlIdentity: TRzPanel;
+    grIdentityList: TRzDBGrid;
     RzPageControl1: TRzPageControl;
-    RzTabSheet1: TRzTabSheet;
+    tsIdentDetail: TRzTabSheet;
     RzPanel2: TRzPanel;
     RzDBGrid2: TRzDBGrid;
     RzPageControl2: TRzPageControl;
@@ -114,10 +114,17 @@ type
     mmBranch: TRzMemo;
     RzDBNumericEdit1: TRzDBNumericEdit;
     RzDBNumericEdit2: TRzDBNumericEdit;
+    JvLabel37: TJvLabel;
+    edIdNo: TRzDBEdit;
+    JvLabel38: TJvLabel;
+    JvLabel39: TJvLabel;
+    cmbIdType: TRzDBLookupComboBox;
+    dtpExpiry: TRzDateTimePicker;
+    chbNonExpiring: TRzCheckBox;
+    btnNew: TRzButton;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure FormCreate(Sender: TObject);
-    procedure btnImmHeadClick(Sender: TObject);
     procedure bteLandlordButtonClick(Sender: TObject);
     procedure bteLandlord2ButtonClick(Sender: TObject);
     procedure bteRefereeAltBtnClick(Sender: TObject);
@@ -134,6 +141,12 @@ type
     procedure bteImmHeadAltBtnClick(Sender: TObject);
     procedure bteBankButtonClick(Sender: TObject);
     procedure bteBankAltBtnClick(Sender: TObject);
+    procedure pcClientChange(Sender: TObject);
+    procedure btnNewClick(Sender: TObject);
+    procedure pcClientChanging(Sender: TObject; NewIndex: Integer;
+      var AllowChange: Boolean);
+    procedure edIdNoChange(Sender: TObject);
+    procedure dtpExpiryChange(Sender: TObject);
   private
     { Private declarations }
     procedure SetClientName;
@@ -141,6 +154,11 @@ type
     procedure CopyAddress;
     procedure GetAge;
     procedure LoadPhoto;
+    procedure ChangeControlState;
+    procedure ChangeIdentControlState;
+    procedure SetIdentUnboundControls;
+    function CheckClientInfo(st: IStatus): string;
+    function CheckIdentInfo(st: IStatus): string;
   public
     { Public declarations }
     function Save: boolean;
@@ -154,12 +172,71 @@ implementation
 
 uses
   Client, ClientData, FormsUtil, LandlordSearch, ImmHeadSearch, Landlord,
-  ImmediateHead, RefereeSearch, Referee, AuxData, StatusIntf, DockIntf,
-  EmployerSearch, Employer, Bank, BanksSearch;
+  ImmediateHead, RefereeSearch, Referee, AuxData, DockIntf,
+  EmployerSearch, Employer, Bank, BanksSearch, IdentityDoc;
 
 {$R *.dfm}
 
 { TfrmClientMain }
+
+const
+  CLIENT = 0;
+  FAMREF = 1;
+  IDENT  = 2;
+  LOANS  = 3;
+
+function Parsedate(const dateStr: string): TDate;
+var
+  sl: TStringList;
+begin
+  sl := TStringList.Create;
+  sl.Delimiter := '-';
+  sl.DelimitedText := dateStr;
+
+  Result := EncodeDate(StrToInt(sl[0]),StrToInt(sl[1]),StrToInt(sl[2]));
+end;
+
+function TfrmClientMain.CheckClientInfo(st: IStatus): string;
+var
+  error: string;
+begin
+  if Trim(edLastname.Text) = '' then
+  begin
+    error := 'Please enter client''s lastname.';
+    st.ShowError(error);
+  end
+  else if Trim(edFirstname.Text) = '' then
+  begin
+    error := 'Please enter client''s firstname.';
+    st.ShowError(error);
+  end;
+
+  Result := error;
+end;
+
+function TfrmClientMain.CheckIdentInfo(st: IStatus): string;
+var
+  error: string;
+  inserting: boolean;
+begin
+  inserting := grIdentityList.DataSource.DataSet.State = dsInsert;
+
+  if Trim(edIdNo.Text) = '' then
+  begin
+    error := 'Please enter ID number.';
+    st.ShowError(error);
+  end
+  else if inserting then
+  begin
+    if cln.IdentityDocExists(cmbIdType.GetKeyValue) then
+    begin
+      error := 'Identity type already exists.';
+      st.ShowError(error);
+    end;
+  end;
+
+  Result := error;
+end;
 
 procedure TfrmClientMain.bteBankAltBtnClick(Sender: TObject);
 begin
@@ -352,27 +429,11 @@ begin
 
 end;
 
-procedure TfrmClientMain.btnImmHeadClick(Sender: TObject);
+procedure TfrmClientMain.btnNewClick(Sender: TObject);
 begin
-with TfrmImmHeadSearch.Create(nil) do
-  begin
-    try
-      immHead := TImmediateHead.Create;
-
-      ShowModal;
-
-      if ModalResult = mrOK then
-      begin
-        //edImmHead.Text := immHead.Name;
-        cln.ImmediateHead := immHead;
-      end;
-
-      Free;
-    except
-      on e: Exception do
-        ShowMessage(e.Message);
-    end;
-  end;
+  inherited;
+  grIdentityList.DataSource.DataSet.Append;
+  ChangeIdentControlState;
 end;
 
 procedure TfrmClientMain.FormClose(Sender: TObject; var Action: TCloseAction);
@@ -413,6 +474,8 @@ begin
   end;
 
   SetUnBoundControls;
+
+  pcClient.ActivePageIndex := 0;
 end;
 
 procedure TfrmClientMain.FormShow(Sender: TObject);
@@ -434,18 +497,11 @@ begin
     begin
       error := '';
 
-      if Trim(edLastname.Text) = '' then
-      begin
-        error := 'Please enter client''s lastname.';
-        st.ShowError(error);
-        Exit;
-      end;
+      case pcClient.ActivePageIndex of
 
-      if Trim(edFirstname.Text) = '' then
-      begin
-        error := 'Please enter client''s firstname.';
-        st.ShowError(error);
-        Exit;
+        CLIENT: error := CheckClientInfo(st);
+        IDENT : error := CheckIdentInfo(st);
+
       end;
 
       Result := error = '';
@@ -475,26 +531,16 @@ begin
     lblClientName.Caption := UpperCase(FieldByName('lastname').AsString + ', ' +
         FieldByName('firstname').AsString + '   ' +
         FieldByName('entity_id').AsString);
+
+    ChangeControlState;
   end;
 end;
 
 procedure TfrmClientMain.SetUnboundControls;
-
-  function ParseBirthdate(const dateStr: string): TDate;
-  var
-    sl: TStringList;
-  begin
-    sl := TStringList.Create;
-    sl.Delimiter := '-';
-    sl.DelimitedText := dateStr;
-
-    Result := EncodeDate(StrToInt(sl[0]),StrToInt(sl[1]),StrToInt(sl[2]));
-  end;
-
 begin
   // birthdate
   if cln.BirthdateStr <> '' then
-    dtpBirthdate.Date := ParseBirthdate(cln.BirthdateStr)
+    dtpBirthdate.Date := Parsedate(cln.BirthdateStr)
   else
     dtpBirthdate.Date := Date;
 
@@ -578,6 +624,23 @@ begin
   GetAge;
 end;
 
+procedure TfrmClientMain.dtpExpiryChange(Sender: TObject);
+begin
+  inherited;
+  identDoc.Expiry := dtpExpiry.Date;
+end;
+
+procedure TfrmClientMain.edIdNoChange(Sender: TObject);
+var
+  inserting: boolean;
+begin
+  // this is a hack
+  inserting := grIdentityList.DataSource.DataSet.State = dsInsert;
+
+  if (not inserting) and Assigned(identDoc) then
+    SetIdentUnboundControls;
+end;
+
 procedure TfrmClientMain.GetAge;
 var
   Month, Day, Year, CurrentYear, CurrentMonth, CurrentDay: Word;
@@ -620,6 +683,52 @@ begin
 
   if FileExists(fileName) then
     imgClient.Picture.LoadFromFile(fileName);
+end;
+
+procedure TfrmClientMain.pcClientChange(Sender: TObject);
+begin
+  case pcClient.ActivePageIndex of
+    IDENT:
+      begin
+        OpenGridDataSources(pnlIdentity);
+        OpenDropdownDataSources(tsIdentDetail);
+        ChangeIdentControlState;
+        SetIdentUnboundControls;
+      end;
+  end;
+end;
+
+procedure TfrmClientMain.pcClientChanging(Sender: TObject; NewIndex: Integer;
+  var AllowChange: Boolean);
+begin
+  inherited;
+  AllowChange := cln.HasId;
+end;
+
+procedure TfrmClientMain.ChangeControlState;
+begin
+  edLastName.ReadOnly := cln.HasId;
+  edFirstName.ReadOnly := cln.HasId;
+  edMiddleName.ReadOnly := cln.HasId;
+end;
+
+procedure TfrmClientMain.ChangeIdentControlState;
+var
+  inserting: boolean;
+begin
+  inserting := grIdentityList.DataSource.DataSet.State = dsInsert;
+  cmbIdType.Enabled := inserting;
+end;
+
+procedure TfrmClientMain.SetIdentUnboundControls;
+begin
+  if Assigned(identDoc) and (identDoc.ExpiryStr <> '') then
+    dtpExpiry.Date := ParseDate(identDoc.ExpiryStr)
+  else
+    dtpExpiry.Date := Date;
+
+  dtpExpiry.Enabled := not identDoc.HasExpiry;
+  chbNonExpiring.Checked := not identDoc.HasExpiry;
 end;
 
 end.

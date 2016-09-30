@@ -93,7 +93,7 @@ object frmMain: TfrmMain
           ParentFont = False
           OnClick = lblRecentlyAddedClick
         end
-        object RzURLLabel2: TRzURLLabel
+        object lblActiveClients: TRzURLLabel
           Left = 15
           Top = 59
           Width = 63
@@ -105,8 +105,9 @@ object frmMain: TfrmMain
           Font.Name = 'Tahoma'
           Font.Style = [fsUnderline]
           ParentFont = False
+          OnClick = lblActiveClientsClick
         end
-        object RzURLLabel1: TRzURLLabel
+        object lblAllClients: TRzURLLabel
           Left = 15
           Top = 78
           Width = 42
@@ -118,6 +119,7 @@ object frmMain: TfrmMain
           Font.Name = 'Tahoma'
           Font.Style = [fsUnderline]
           ParentFont = False
+          OnClick = lblAllClientsClick
         end
         object RzLabel1: TRzLabel
           Left = 15
@@ -354,12 +356,26 @@ object frmMain: TfrmMain
       ShowHint = True
       OnClick = tbDesignationListClick
     end
+    object ToolButton4: TToolButton
+      Left = 200
+      Top = 0
+      Width = 8
+      Caption = 'ToolButton4'
+      ImageIndex = 8
+      Style = tbsSeparator
+    end
   end
   object mmMain: TMainMenu
     Left = 200
     Top = 504
     object File1: TMenuItem
       Caption = '&File'
+    end
+    object ools1: TMenuItem
+      Caption = '&Tools'
+      object Settings1: TMenuItem
+        Caption = 'Settings'
+      end
     end
     object About1: TMenuItem
       Caption = '&About'
@@ -374,7 +390,7 @@ object frmMain: TfrmMain
     Left = 201
     Top = 464
     Bitmap = {
-      494C010108000001880010001000FFFFFFFF2110FFFFFFFFFFFFFFFF424D3600
+      494C0101080000018C0010001000FFFFFFFF2110FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000003000000001002000000000000030
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

@@ -44,6 +44,9 @@ inherited frmClientMain: TfrmClientMain
     TabOrder = 1
     TabOrientation = toBottom
     TabStyle = tsRoundCorners
+    OnChange = pcClientChange
+    OnChanging = pcClientChanging
+    ExplicitTop = 27
     FixedDimension = 19
     object tsClientInfo: TRzTabSheet
       Caption = 'Client information'
@@ -898,7 +901,7 @@ inherited frmClientMain: TfrmClientMain
         Width = 95
         Height = 21
         Date = 42624.922021979170000000
-        Format = ''
+        Format = 'MM/dd/yyyy'
         Time = 42624.922021979170000000
         TabOrder = 3
         OnChange = dtpBirthdateChange
@@ -1036,7 +1039,7 @@ inherited frmClientMain: TfrmClientMain
     end
     object tsIdentityInfo: TRzTabSheet
       Caption = 'Identity information'
-      object RzPanel1: TRzPanel
+      object pnlIdentity: TRzPanel
         Left = 0
         Top = 0
         Width = 921
@@ -1049,13 +1052,13 @@ inherited frmClientMain: TfrmClientMain
         DesignSize = (
           921
           468)
-        object RzDBGrid1: TRzDBGrid
+        object grIdentityList: TRzDBGrid
           Left = 6
           Top = 5
           Width = 909
           Height = 228
           Align = alTop
-          DataSource = dmEntities.dscGroups
+          DataSource = dmClient.dscIdentInfo
           Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
           TabOrder = 0
           TitleFont.Charset = DEFAULT_CHARSET
@@ -1065,23 +1068,133 @@ inherited frmClientMain: TfrmClientMain
           TitleFont.Style = []
           AltRowShading = True
           AltRowShadingColor = 15854564
+          Columns = <
+            item
+              Expanded = False
+              FieldName = 'ident_name'
+              Title.Caption = 'Type'
+              Width = 100
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'ident_no'
+              Title.Caption = 'ID Number'
+              Width = 150
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'exp_date'
+              Title.Caption = 'Expiry '
+              Width = 150
+              Visible = True
+            end>
         end
         object RzPageControl1: TRzPageControl
           Left = 6
-          Top = 239
+          Top = 270
           Width = 911
-          Height = 224
+          Height = 193
           Hint = ''
-          ActivePage = RzTabSheet1
+          ActivePage = tsIdentDetail
           Anchors = [akLeft, akTop, akRight, akBottom]
           UseColoredTabs = True
           TabIndex = 0
           TabOrder = 1
           FixedDimension = 19
-          object RzTabSheet1: TRzTabSheet
+          object tsIdentDetail: TRzTabSheet
             Color = 15263976
-            Caption = 'Change caption here'
+            Caption = 'Identity document details'
+            ExplicitHeight = 201
+            object JvLabel37: TJvLabel
+              Left = 19
+              Top = 23
+              Width = 26
+              Height = 13
+              Caption = 'Type'
+              Transparent = True
+            end
+            object JvLabel38: TJvLabel
+              Left = 19
+              Top = 44
+              Width = 52
+              Height = 13
+              Caption = 'ID number'
+              Transparent = True
+            end
+            object JvLabel39: TJvLabel
+              Left = 19
+              Top = 68
+              Width = 32
+              Height = 13
+              Caption = 'Expiry'
+              Transparent = True
+            end
+            object edIdNo: TRzDBEdit
+              Left = 105
+              Top = 38
+              Width = 207
+              Height = 21
+              DataSource = dmClient.dscIdentInfo
+              DataField = 'ident_no'
+              CharCase = ecUpperCase
+              TabOrder = 0
+              OnChange = edIdNoChange
+            end
+            object cmbIdType: TRzDBLookupComboBox
+              Left = 105
+              Top = 14
+              Width = 207
+              Height = 21
+              DataField = 'ident_type'
+              DataSource = dmClient.dscIdentInfo
+              KeyField = 'ident_type'
+              ListField = 'ident_name'
+              ListSource = dmAux.dscIdentType
+              TabOrder = 1
+              AllowNull = True
+              FrameColor = clBlack
+              FrameHotColor = clBlack
+            end
+            object dtpExpiry: TRzDateTimePicker
+              Left = 105
+              Top = 62
+              Width = 95
+              Height = 21
+              Date = 42624.922021979170000000
+              Format = 'MM/dd/yyyy'
+              Time = 42624.922021979170000000
+              TabOrder = 2
+              OnChange = dtpExpiryChange
+            end
+            object chbNonExpiring: TRzCheckBox
+              Left = 206
+              Top = 65
+              Width = 80
+              Height = 15
+              Caption = 'Non-expiring'
+              ReadOnly = True
+              State = cbUnchecked
+              TabOrder = 3
+            end
           end
+        end
+        object btnNew: TRzButton
+          Left = 6
+          Top = 239
+          Width = 131
+          Hint = 'New branch'
+          FrameColor = clBlack
+          ShowFocusRect = False
+          Caption = 'New identity document'
+          Color = clMoneyGreen
+          HotTrackColor = clMoneyGreen
+          ParentShowHint = False
+          ShowHint = True
+          TabOrder = 2
+          TabStop = False
+          OnClick = btnNewClick
         end
       end
     end

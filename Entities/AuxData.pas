@@ -15,6 +15,8 @@ type
     dstBanks: TADODataSet;
     dscDesignations: TDataSource;
     dstDesignations: TADODataSet;
+    dscIdentType: TDataSource;
+    dstIdentType: TADODataSet;
     procedure dstBranchesBeforePost(DataSet: TDataSet);
     procedure dstBanksAfterScroll(DataSet: TDataSet);
     procedure dstBranchesNewRecord(DataSet: TDataSet);

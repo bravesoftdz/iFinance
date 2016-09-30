@@ -4,7 +4,7 @@ interface
 
 uses
   SysUtils, ClientData, DB, Entity, ADODB, LandLord, ImmediateHead,
-  Referee, Employer, Bank;
+  Referee, Employer, Bank, IdentityDoc;
 
 type
   TClient = class(TEntity)
@@ -18,7 +18,11 @@ type
     FImmediateHead: TImmediateHead;
     FEmployer: TEmployer;
     FBank: TBank;
+    FIdentityDocs: array of TIdentityDoc;
+
     function CheckId: boolean;
+    function GetIdentityDoc(const i: integer): TIdentityDoc;
+
   public
     procedure Add; override;
     procedure Save; override;
@@ -26,6 +30,9 @@ type
     procedure Cancel; override;
     procedure Retrieve;
     procedure CopyAddress;
+    procedure AddIdentityDoc(identDoc: TIdentityDoc);
+
+    function IdentityDocExists(const idType: string): boolean;
 
     property Name: string read FName write FName;
     property Birthdate: TDate read FBirthdate write FBirthdate;
@@ -36,6 +43,7 @@ type
     property ImmediateHead: TImmediateHead read FImmediateHead write FImmediateHead;
     property Employer: TEmployer read FEmployer write FEmployer;
     property Bank: TBank read FBank write FBank;
+    property IdentityDocs[const i: integer]: TIdentityDoc read GetIdentityDoc;
     property HasId: boolean read CheckId;
 
     constructor Create;
@@ -149,6 +157,37 @@ begin
         dstAddressInfo2.Fields[i].Value := Fields[i].Value;
   end;
 
+end;
+
+procedure TClient.AddIdentityDoc(identDoc: TIdentityDoc);
+begin
+  SetLength(FIdentityDocs,Length(FIdentityDocs) + 1);
+  FIdentityDocs[Length(FIdentityDocs) - 1] := identDoc;
+end;
+
+function TClient.GetIdentityDoc(const i: Integer): TIdentityDoc;
+begin
+  Result := FIdentityDocs[i];
+end;
+
+function TClient.IdentityDocExists(const idType: string): boolean;
+var
+  i, len: integer;
+  doc: TIdentityDoc;
+begin
+  Result := false;
+
+  len := Length(FIdentityDocs);
+
+  for i := 0 to len - 1 do
+  begin
+    doc := FIdentityDocs[i];
+    if doc.IdType = idType then
+    begin
+      Result := true;
+      Exit;
+    end;
+  end;
 end;
 
 end.

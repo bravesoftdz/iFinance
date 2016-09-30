@@ -7,7 +7,8 @@ uses
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Menus, Vcl.ExtCtrls, RzPanel,
   JvPageList, JvNavigationPane, JvExControls, RzButton, System.ImageList,
   Vcl.ImgList, Vcl.ComCtrls, Vcl.ToolWin, AppConstants, Vcl.StdCtrls, RzLabel,
-  JvImageList, RzStatus, StatusIntf, DockIntf, RzLstBox, Client, Vcl.AppEvnts;
+  JvImageList, RzStatus, StatusIntf, DockIntf, RzLstBox, Client, Vcl.AppEvnts,
+  ClientFilterIntf;
 
 type
   TfrmMain = class(TForm,IStatus,IDock)
@@ -27,13 +28,13 @@ type
     ToolButton3: TToolButton;
     tbSave: TToolButton;
     lblRecentlyAdded: TRzURLLabel;
-    RzURLLabel2: TRzURLLabel;
+    lblActiveClients: TRzURLLabel;
     imlToolbar: TJvImageList;
     spMain: TRzStatusPane;
     RzVersionInfoStatus1: TRzVersionInfoStatus;
     nppInventory: TJvNavPanelPage;
     nppReports: TJvNavPanelPage;
-    RzURLLabel1: TRzURLLabel;
+    lblAllClients: TRzURLLabel;
     RzLabel1: TRzLabel;
     lbxRecent: TRzListBox;
     ToolButton1: TToolButton;
@@ -42,6 +43,9 @@ type
     tbCancel: TToolButton;
     tbBanks: TToolButton;
     tbDesignationList: TToolButton;
+    ToolButton4: TToolButton;
+    ools1: TMenuItem;
+    Settings1: TMenuItem;
     procedure tbAddClientClick(Sender: TObject);
     procedure tbSaveClick(Sender: TObject);
     procedure lblRecentlyAddedClick(Sender: TObject);
@@ -51,8 +55,11 @@ type
     procedure tbEmployerClick(Sender: TObject);
     procedure tbBanksClick(Sender: TObject);
     procedure tbDesignationListClick(Sender: TObject);
+    procedure lblActiveClientsClick(Sender: TObject);
+    procedure lblAllClientsClick(Sender: TObject);
   private
     { Private declarations }
+    procedure OpenClientList(const filterType: TClientFilterType = cftAll);
   public
     { Public declarations }
     procedure DockForm(const fm: TForms; const title: string = '');
@@ -72,9 +79,36 @@ uses
   ClientMain, SaveIntf, ClientList, DockedFormIntf, GroupList, EmployerList,
   BanksList, DesignationList;
 
+procedure TfrmMain.OpenClientList(const filterType: TClientFilterType = cftAll);
+var
+  title: string;
+  intf: IClientFilter;
+begin
+  case filterType of
+    cftAll: title := 'All clients';
+    cftActive: title := 'Active clients';
+    cftRecent: title := 'Recently added clients';
+  end;
+
+  DockForm(fmClientList,title);
+
+  if Supports(pnlDockMain.Controls[0] as TForm,IClientFilter,intf) then
+    intf.FilterList(filterType);
+end;
+
+procedure TfrmMain.lblActiveClientsClick(Sender: TObject);
+begin
+  OpenClientList(cftActive);
+end;
+
+procedure TfrmMain.lblAllClientsClick(Sender: TObject);
+begin
+  OpenClientList;
+end;
+
 procedure TfrmMain.lblRecentlyAddedClick(Sender: TObject);
 begin
-  DockForm(fmClientList,'Recently added clients');
+  OpenClientList(cftRecent);
 end;
 
 procedure TfrmMain.lbxRecentDblClick(Sender: TObject);
@@ -159,7 +193,10 @@ begin
     while control < pnlDockMain.ControlCount do
     begin
       if pnlDockMain.Controls[control] is TForm then
+      begin
         (pnlDockMain.Controls[control] as TForm).Close;
+        (pnlDockMain.Controls[control] as TForm).Free;
+      end;
 
       Inc(control);
     end;

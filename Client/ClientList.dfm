@@ -2,7 +2,6 @@ inherited frmClientList: TfrmClientList
   Caption = 'frmClientList'
   ClientHeight = 287
   ClientWidth = 569
-  OnCreate = FormCreate
   ExplicitWidth = 585
   ExplicitHeight = 326
   PixelsPerInch = 96
@@ -61,7 +60,7 @@ inherited frmClientList: TfrmClientList
       Height = 190
       Align = alTop
       Anchors = [akLeft, akTop, akRight, akBottom]
-      DataSource = dmApplication.dscEntities
+      DataSource = dmApplication.dscClients
       Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
       TabOrder = 0
       TitleFont.Charset = DEFAULT_CHARSET

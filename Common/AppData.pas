@@ -12,8 +12,8 @@ type
     dstUser: TADODataSet;
     acCore: TADOConnection;
     dstConfig: TADODataSet;
-    dstEntities: TADODataSet;
-    dscEntities: TDataSource;
+    dstClients: TADODataSet;
+    dscClients: TDataSource;
     procedure DataModuleCreate(Sender: TObject);
     procedure acMainBeforeConnect(Sender: TObject);
     procedure DataModuleDestroy(Sender: TObject);

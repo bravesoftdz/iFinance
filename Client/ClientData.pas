@@ -57,6 +57,9 @@ type
     procedure dstEmplInfoAfterOpen(DataSet: TDataSet);
     procedure dstEmplInfoAfterPost(DataSet: TDataSet);
     procedure dstAcctInfoAfterOpen(DataSet: TDataSet);
+    procedure dstIdentInfoAfterOpen(DataSet: TDataSet);
+    procedure dstIdentInfoAfterPost(DataSet: TDataSet);
+    procedure dstIdentInfoAfterScroll(DataSet: TDataSet);
   private
     { Private declarations }
   public
@@ -70,7 +73,7 @@ implementation
 
 uses
   AppData, DBUtil, Client, IFinanceGlobal, AppConstants, Referee, Landlord,
-  Employer, ImmediateHead, Bank;
+  Employer, ImmediateHead, Bank, IdentityDoc;
 
 {%CLASSGROUP 'Vcl.Controls.TControl'}
 
@@ -187,13 +190,16 @@ end;
 
 procedure TdmClient.dstEmplInfoAfterOpen(DataSet: TDataSet);
 begin
-  if (cln.HasId) and (DataSet.FieldByName('emp_id').AsString <> '') then
+  if (cln.HasId) and (DataSet.RecordCount > 0) then
   begin
-    cln.Employer := TEmployer.Create;
-    cln.Employer.Id := DataSet.FieldByName('emp_id').AsString;
-    cln.Employer.Name := DataSet.FieldByName('emp_name').AsString;
-    cln.Employer.Address := DataSet.FieldByName('emp_add').AsString;
-    cln.Employer.GroupId := DataSet.FieldByName('grp_id').AsInteger;
+    if DataSet.FieldByName('emp_id').AsString <> '' then
+    begin
+      cln.Employer := TEmployer.Create;
+      cln.Employer.Id := DataSet.FieldByName('emp_id').AsString;
+      cln.Employer.Name := DataSet.FieldByName('emp_name').AsString;
+      cln.Employer.Address := DataSet.FieldByName('emp_add').AsString;
+      cln.Employer.GroupId := DataSet.FieldByName('grp_id').AsInteger;
+    end;
 
     if DataSet.FieldByName('imm_head').AsString <> '' then
     begin
@@ -268,6 +274,81 @@ begin
     DataSet.FieldByName('ref_entity_id').Value := null;
 end;
 
+procedure TdmClient.dstIdentInfoAfterOpen(DataSet: TDataSet);
+var
+  idType, idNo, expiryStr: string;
+  expiry: TDate;
+  hasExpiry: boolean;
+begin
+  with DataSet do
+  begin
+    if RecordCount > 0 then
+    begin
+      while not Eof do
+      begin
+        idType := FieldByName('ident_type').AsString;
+        idNo := FieldByName('ident_no').AsString;
+
+        expiryStr := FieldByName('exp_date').AsString;
+
+        hasExpiry := FieldByName('has_expiry').AsInteger = 1;
+
+        cln.AddIdentityDoc(TIdentityDoc.Create(idType,idNo,expiry,expiryStr, hasExpiry));
+
+        Next;
+      end;
+      First;
+    end;
+  end;
+end;
+
+procedure TdmClient.dstIdentInfoAfterPost(DataSet: TDataSet);
+var
+  idType, idNo, expiryStr: string;
+  expiry: TDate;
+  hasExpiry: boolean;
+begin
+  with DataSet do
+  begin
+    idType := FieldByName('ident_type').AsString;
+    idNo := FieldByName('ident_no').AsString;
+
+    expiryStr := FieldByName('exp_date').AsString;
+
+    hasExpiry := FieldByName('has_expiry').AsInteger = 1;
+
+    cln.AddIdentityDoc(TIdentityDoc.Create(idType,idNo,expiry,expiryStr,hasExpiry));
+  end;
+end;
+
+procedure TdmClient.dstIdentInfoAfterScroll(DataSet: TDataSet);
+var
+  idType, idNo,expiryStr: string;
+  expiry: TDate;
+  hasExpiry: boolean;
+begin
+  with DataSet do
+  begin
+    idType := FieldByName('ident_type').AsString;
+    idNo := FieldByName('ident_no').AsString;
+
+    expiryStr := FieldByName('exp_date').AsString;
+
+    hasExpiry := FieldByName('has_expiry').AsInteger = 1;
+
+    if not Assigned(identDoc) then
+      identDoc := TIdentityDoc.Create(idType,idNo,expiry,expiryStr,hasExpiry)
+    else
+    begin
+      identDoc.IdType := idType;
+      identDoc.IdNo := idNo;
+      identDoc.ExpiryStr := expiryStr;
+      identDoc.HasExpiry := hasExpiry;
+    end;
+    Edit;
+  end;
+end;
+
 procedure TdmClient.dstIdentInfoBeforeOpen(DataSet: TDataSet);
 begin
   (DataSet as TADODataSet).Parameters.ParamByName('@entity_id').Value := cln.Id;
@@ -277,6 +358,10 @@ procedure TdmClient.dstIdentInfoBeforePost(DataSet: TDataSet);
 begin
   if DataSet.State = dsInsert then
     DataSet.FieldByName('entity_id').AsString := cln.Id;
+
+  if DateToStr(identDoc.Expiry) <> '' then
+    DataSet.FieldByName('exp_date').AsString :=
+        FormatDateTime('yyyy-mm-dd',identDoc.Expiry);
 end;
 
 procedure TdmClient.dstPersonalInfoAfterOpen(DataSet: TDataSet);

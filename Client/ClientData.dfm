@@ -228,7 +228,10 @@ object dmClient: TdmClient
     Connection = dmApplication.acMain
     CursorType = ctStatic
     BeforeOpen = dstIdentInfoBeforeOpen
+    AfterOpen = dstIdentInfoAfterOpen
     BeforePost = dstIdentInfoBeforePost
+    AfterPost = dstIdentInfoAfterPost
+    AfterScroll = dstIdentInfoAfterScroll
     CommandText = 'sp_cl_get_ident_info;1'
     CommandType = cmdStoredProc
     Parameters = <

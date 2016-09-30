@@ -65,4 +65,19 @@ object dmAux: TdmAux
     Left = 48
     Top = 208
   end
+  object dscIdentType: TDataSource
+    DataSet = dstIdentType
+    Left = 272
+    Top = 24
+  end
+  object dstIdentType: TADODataSet
+    Connection = dmApplication.acMain
+    CursorType = ctStatic
+    LockType = ltReadOnly
+    CommandText = 'sp_dd_get_ident_type;1'
+    CommandType = cmdStoredProc
+    Parameters = <>
+    Left = 208
+    Top = 24
+  end
 end
