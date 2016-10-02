@@ -87,7 +87,7 @@ begin
   case filterType of
     cftAll: title := 'All clients';
     cftActive: title := 'Active clients';
-    cftRecent: title := 'Recently added clients';
+    cftRecent: title := 'Newly-added clients';
   end;
 
   DockForm(fmClientList,title);

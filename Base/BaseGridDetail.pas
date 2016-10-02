@@ -80,6 +80,7 @@ end;
 
 function TfrmBaseGridDetail.Save: boolean;
 begin
+  Result := false;
   with grList.DataSource.DataSet do
   begin
     if State in [dsInsert,dsEdit] then
@@ -88,8 +89,6 @@ begin
         grList.DataSource.DataSet.Post;
         Result := true;
       end
-      else
-        Result := false;
   end;
 end;
 

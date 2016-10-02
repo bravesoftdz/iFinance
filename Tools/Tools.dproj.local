@@ -2,14 +2,14 @@
 <BorlandProject>
 	<Transactions>
     <Transaction>2016/09/01 15:33:54.000.468,=rtl.dcp</Transaction>
-    <Transaction>2016/09/30 15:21:47.771,=rtl.dcp</Transaction>
-    <Transaction>2016/09/30 15:22:11.385,=C:\Users\BryanGarcia\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
-    <Transaction>2016/09/30 15:22:18.849,=C:\_Projects\iFinance\Base\BaseDocked.pas</Transaction>
-    <Transaction>2016/09/30 15:22:18.886,=C:\Users\BryanGarcia\Documents\Embarcadero\Studio\Projects\Unit2.pas</Transaction>
-    <Transaction>2016/09/30 15:22:55.314,C:\_Projects\iFinance\Tools\AppSettings.pas=C:\Users\BryanGarcia\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
-    <Transaction>2016/09/30 15:22:55.314,C:\_Projects\iFinance\Tools\AppSettings.dfm=C:\Users\BryanGarcia\Documents\Embarcadero\Studio\Projects\Unit1.dfm</Transaction>
-    <Transaction>2016/09/30 15:23:45.077,C:\_Projects\iFinance\Tools\Tools.dproj=C:\Users\BryanGarcia\Documents\Embarcadero\Studio\Projects\Package1.dproj</Transaction>
-    <Transaction>2016/09/30 15:25:46.877,=vcl.dcp</Transaction>
-    <Transaction>2016/09/30 15:25:46.888,=RaizeComponentsVcl.dcp</Transaction>
+    <Transaction>2016/09/30 15:21:47.000.771,=rtl.dcp</Transaction>
+    <Transaction>2016/09/30 15:22:11.000.385,=C:\Users\BryanGarcia\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2016/09/30 15:22:18.000.849,=C:\_Projects\iFinance\Base\BaseDocked.pas</Transaction>
+    <Transaction>2016/09/30 15:22:18.000.886,=C:\Users\BryanGarcia\Documents\Embarcadero\Studio\Projects\Unit2.pas</Transaction>
+    <Transaction>2016/09/30 15:22:55.000.314,C:\Users\BryanGarcia\Documents\Embarcadero\Studio\Projects\Unit1.dfm=C:\_Projects\iFinance\Tools\AppSettings.dfm</Transaction>
+    <Transaction>2016/09/30 15:22:55.000.314,C:\Users\BryanGarcia\Documents\Embarcadero\Studio\Projects\Unit1.pas=C:\_Projects\iFinance\Tools\AppSettings.pas</Transaction>
+    <Transaction>2016/09/30 15:23:45.000.077,C:\Users\BryanGarcia\Documents\Embarcadero\Studio\Projects\Package1.dproj=C:\_Projects\iFinance\Tools\Tools.dproj</Transaction>
+    <Transaction>2016/09/30 15:25:46.000.888,=RaizeComponentsVcl.dcp</Transaction>
+    <Transaction>2016/09/30 15:25:46.000.877,=vcl.dcp</Transaction>
   </Transactions>
 </BorlandProject>

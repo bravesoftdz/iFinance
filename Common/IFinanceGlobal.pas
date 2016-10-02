@@ -11,10 +11,12 @@ type
     FLocationCode: string;
     FLocationPrefix: string;
     FUser: TUser;
+    FPhotoPath: string;
   public
     property LocationCode: string read FLocationCode write FLocationCode;
     property LocationPrefix: string read FLocationPrefix write FLocationPrefix;
     property User: TUser read FUser write FUser;
+    property PhotoPath: string read FPhotoPath write FPhotoPath;
     constructor Create;
     destructor Destroy; override;
   end;

@@ -207,6 +207,11 @@ begin
     Locate('sysconfig_code','LOCATION_PREFIX',[]);
     ifn.LocationPrefix := FieldbyName('sysconfig_value').AsString;
 
+    // photo path
+    ifn.PhotoPath := ExtractFilePath(Application.ExeName) + 'photos\';
+    if not DirectoryExists(ifn.PhotoPath) then
+      CreateDir(ifn.PhotoPath);
+
     Close;
   end;
 

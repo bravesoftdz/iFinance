@@ -31,6 +31,14 @@ type
     dscAddressInfo2: TDataSource;
     dstAcctInfo: TADODataSet;
     dscAcctInfo: TDataSource;
+    dstIdentInfoentity_id: TStringField;
+    dstIdentInfoident_type: TStringField;
+    dstIdentInfoident_no: TStringField;
+    dstIdentInfoexp_date: TDateField;
+    dstIdentInfoident_name: TStringField;
+    dstIdentInfohas_expiry: TWordField;
+    dstRefInfo: TADODataSet;
+    dscRefInfo: TDataSource;
     procedure dstPersonalInfoBeforeOpen(DataSet: TDataSet);
     procedure dstEntityBeforeOpen(DataSet: TDataSet);
     procedure dstContactInfoBeforeOpen(DataSet: TDataSet);
@@ -59,7 +67,10 @@ type
     procedure dstAcctInfoAfterOpen(DataSet: TDataSet);
     procedure dstIdentInfoAfterOpen(DataSet: TDataSet);
     procedure dstIdentInfoAfterPost(DataSet: TDataSet);
-    procedure dstIdentInfoAfterScroll(DataSet: TDataSet);
+    procedure dstIdentInfoNewRecord(DataSet: TDataSet);
+    procedure dstRefInfoBeforeOpen(DataSet: TDataSet);
+    procedure dstRefInfoBeforePost(DataSet: TDataSet);
+    procedure dstRefInfoAfterOpen(DataSet: TDataSet);
   private
     { Private declarations }
   public
@@ -276,10 +287,11 @@ end;
 
 procedure TdmClient.dstIdentInfoAfterOpen(DataSet: TDataSet);
 var
-  idType, idNo, expiryStr: string;
+  idType, idNo: string;
   expiry: TDate;
   hasExpiry: boolean;
 begin
+  (DataSet as TADODataSet).Properties['Unique table'].Value := 'IdentityInfo';
   with DataSet do
   begin
     if RecordCount > 0 then
@@ -288,12 +300,10 @@ begin
       begin
         idType := FieldByName('ident_type').AsString;
         idNo := FieldByName('ident_no').AsString;
-
-        expiryStr := FieldByName('exp_date').AsString;
-
+        expiry := FieldByName('exp_date').AsDateTime;
         hasExpiry := FieldByName('has_expiry').AsInteger = 1;
 
-        cln.AddIdentityDoc(TIdentityDoc.Create(idType,idNo,expiry,expiryStr, hasExpiry));
+        cln.AddIdentityDoc(TIdentityDoc.Create(idType,idNo,expiry,hasExpiry));
 
         Next;
       end;
@@ -304,7 +314,7 @@ end;
 
 procedure TdmClient.dstIdentInfoAfterPost(DataSet: TDataSet);
 var
-  idType, idNo, expiryStr: string;
+  idType, idNo: string;
   expiry: TDate;
   hasExpiry: boolean;
 begin
@@ -312,40 +322,10 @@ begin
   begin
     idType := FieldByName('ident_type').AsString;
     idNo := FieldByName('ident_no').AsString;
-
-    expiryStr := FieldByName('exp_date').AsString;
-
+    expiry := FieldByName('exp_date').AsDateTime;
     hasExpiry := FieldByName('has_expiry').AsInteger = 1;
 
-    cln.AddIdentityDoc(TIdentityDoc.Create(idType,idNo,expiry,expiryStr,hasExpiry));
-  end;
-end;
-
-procedure TdmClient.dstIdentInfoAfterScroll(DataSet: TDataSet);
-var
-  idType, idNo,expiryStr: string;
-  expiry: TDate;
-  hasExpiry: boolean;
-begin
-  with DataSet do
-  begin
-    idType := FieldByName('ident_type').AsString;
-    idNo := FieldByName('ident_no').AsString;
-
-    expiryStr := FieldByName('exp_date').AsString;
-
-    hasExpiry := FieldByName('has_expiry').AsInteger = 1;
-
-    if not Assigned(identDoc) then
-      identDoc := TIdentityDoc.Create(idType,idNo,expiry,expiryStr,hasExpiry)
-    else
-    begin
-      identDoc.IdType := idType;
-      identDoc.IdNo := idNo;
-      identDoc.ExpiryStr := expiryStr;
-      identDoc.HasExpiry := hasExpiry;
-    end;
-    Edit;
+    cln.AddIdentityDoc(TIdentityDoc.Create(idType,idNo,expiry,hasExpiry));
   end;
 end;
 
@@ -358,10 +338,11 @@ procedure TdmClient.dstIdentInfoBeforePost(DataSet: TDataSet);
 begin
   if DataSet.State = dsInsert then
     DataSet.FieldByName('entity_id').AsString := cln.Id;
+end;
 
-  if DateToStr(identDoc.Expiry) <> '' then
-    DataSet.FieldByName('exp_date').AsString :=
-        FormatDateTime('yyyy-mm-dd',identDoc.Expiry);
+procedure TdmClient.dstIdentInfoNewRecord(DataSet: TDataSet);
+begin
+  DataSet.FieldByName('exp_date').AsDateTime := Date;
 end;
 
 procedure TdmClient.dstPersonalInfoAfterOpen(DataSet: TDataSet);
@@ -396,6 +377,22 @@ begin
 
   DataSet.FieldByName('birth_date').AsString :=
         FormatDateTime('yyyy-mm-dd',cln.Birthdate);
+end;
+
+procedure TdmClient.dstRefInfoAfterOpen(DataSet: TDataSet);
+begin
+  (DataSet as TADODataSet).Properties['Unique table'].Value := 'RefInfo';
+end;
+
+procedure TdmClient.dstRefInfoBeforeOpen(DataSet: TDataSet);
+begin
+  (DataSet as TADODataSet).Parameters.ParamByName('@entity_id').Value := cln.Id;
+end;
+
+procedure TdmClient.dstRefInfoBeforePost(DataSet: TDataSet);
+begin
+  if DataSet.State = dsInsert then
+    DataSet.FieldByName('entity_id').AsString := cln.Id;
 end;
 
 end.

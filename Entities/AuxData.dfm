@@ -80,4 +80,19 @@ object dmAux: TdmAux
     Left = 208
     Top = 24
   end
+  object dstRefType: TADODataSet
+    Connection = dmApplication.acMain
+    CursorType = ctStatic
+    LockType = ltReadOnly
+    CommandText = 'sp_dd_get_ref_type;1'
+    CommandType = cmdStoredProc
+    Parameters = <>
+    Left = 208
+    Top = 88
+  end
+  object dscRefType: TDataSource
+    DataSet = dstRefType
+    Left = 272
+    Top = 88
+  end
 end

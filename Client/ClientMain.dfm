@@ -38,15 +38,14 @@ inherited frmClientMain: TfrmClientMain
     Width = 923
     Height = 492
     Hint = ''
-    ActivePage = tsClientInfo
+    ActivePage = tsReferences
     Align = alClient
-    TabIndex = 0
+    TabIndex = 1
     TabOrder = 1
     TabOrientation = toBottom
     TabStyle = tsRoundCorners
     OnChange = pcClientChange
     OnChanging = pcClientChanging
-    ExplicitTop = 27
     FixedDimension = 19
     object tsClientInfo: TRzTabSheet
       Caption = 'Client information'
@@ -998,16 +997,35 @@ inherited frmClientMain: TfrmClientMain
         BorderSides = [sdLeft, sdRight]
         BorderWidth = 5
         TabOrder = 0
+        ExplicitTop = -2
         DesignSize = (
           921
           468)
-        object grList: TRzDBGrid
+        object urlRefreshRefList: TRzURLLabel
+          Left = 877
+          Top = 167
+          Width = 38
+          Height = 13
+          Hint = 'Refresh references list'
+          Anchors = [akTop, akRight]
+          Caption = 'Refresh'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = 16744448
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsUnderline]
+          ParentFont = False
+          ParentShowHint = False
+          ShowHint = True
+          OnClick = urlRefreshRefListClick
+        end
+        object grRefList: TRzDBGrid
           Left = 6
           Top = 5
           Width = 909
-          Height = 228
+          Height = 156
           Align = alTop
-          DataSource = dmEntities.dscGroups
+          DataSource = dmClient.dscRefInfo
           Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
           TabOrder = 0
           TitleFont.Charset = DEFAULT_CHARSET
@@ -1017,12 +1035,27 @@ inherited frmClientMain: TfrmClientMain
           TitleFont.Style = []
           AltRowShading = True
           AltRowShadingColor = 15854564
+          Columns = <
+            item
+              Expanded = False
+              FieldName = 'name'
+              Title.Caption = 'Name'
+              Width = 250
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'ref_name'
+              Title.Caption = 'Relation'
+              Width = 100
+              Visible = True
+            end>
         end
         object pcDetail: TRzPageControl
           Left = 6
-          Top = 239
+          Top = 198
           Width = 911
-          Height = 224
+          Height = 265
           Hint = ''
           ActivePage = tsDetail
           Anchors = [akLeft, akTop, akRight, akBottom]
@@ -1032,8 +1065,286 @@ inherited frmClientMain: TfrmClientMain
           FixedDimension = 19
           object tsDetail: TRzTabSheet
             Color = 15263976
-            Caption = 'Change caption here'
+            Caption = 'Reference details'
+            ExplicitHeight = 201
+            object JvLabel39: TJvLabel
+              Left = 35
+              Top = 100
+              Width = 41
+              Height = 13
+              Caption = 'Relation'
+              Transparent = True
+            end
+            object JvGroupHeader7: TJvGroupHeader
+              Left = 19
+              Top = 8
+              Width = 263
+              Height = 12
+              Caption = 'Name'
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = 9134911
+              Font.Height = -11
+              Font.Name = 'Tahoma'
+              Font.Style = []
+              ParentFont = False
+              Transparent = True
+            end
+            object JvLabel40: TJvLabel
+              Left = 35
+              Top = 28
+              Width = 48
+              Height = 13
+              Caption = 'Lastname'
+              Transparent = True
+            end
+            object JvLabel41: TJvLabel
+              Left = 35
+              Top = 52
+              Width = 49
+              Height = 13
+              Caption = 'Firstname'
+              Transparent = True
+            end
+            object JvLabel42: TJvLabel
+              Left = 35
+              Top = 76
+              Width = 32
+              Height = 13
+              Caption = 'Middle'
+              Transparent = True
+            end
+            object JvGroupHeader8: TJvGroupHeader
+              Left = 307
+              Top = 8
+              Width = 278
+              Height = 12
+              Caption = 'Address info'
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = 9134911
+              Font.Height = -11
+              Font.Name = 'Tahoma'
+              Font.Style = []
+              ParentFont = False
+              Transparent = True
+            end
+            object JvLabel43: TJvLabel
+              Left = 323
+              Top = 28
+              Width = 32
+              Height = 13
+              Caption = 'Street'
+              Transparent = True
+            end
+            object JvLabel44: TJvLabel
+              Left = 323
+              Top = 52
+              Width = 48
+              Height = 13
+              Caption = 'Barangay'
+              Transparent = True
+            end
+            object JvLabel45: TJvLabel
+              Left = 323
+              Top = 76
+              Width = 61
+              Height = 13
+              Caption = 'City or town'
+              Transparent = True
+            end
+            object JvGroupHeader9: TJvGroupHeader
+              Left = 19
+              Top = 149
+              Width = 263
+              Height = 12
+              Caption = 'Contact Info'
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = 9134911
+              Font.Height = -11
+              Font.Name = 'Tahoma'
+              Font.Style = []
+              ParentFont = False
+              Transparent = True
+            end
+            object JvLabel46: TJvLabel
+              Left = 35
+              Top = 169
+              Width = 52
+              Height = 13
+              Caption = 'Telephone'
+              Transparent = True
+            end
+            object JvLabel47: TJvLabel
+              Left = 35
+              Top = 193
+              Width = 32
+              Height = 13
+              Caption = 'Mobile'
+              Transparent = True
+            end
+            object RzDBLookupComboBox9: TRzDBLookupComboBox
+              Left = 114
+              Top = 94
+              Width = 168
+              Height = 21
+              DataField = 'ident_type'
+              DataSource = dmClient.dscIdentInfo
+              KeyField = 'ident_type'
+              ListField = 'ident_name'
+              ListSource = dmAux.dscIdentType
+              TabOrder = 0
+              OnClick = chbNoExpiryClick
+              AllowNull = True
+              FrameColor = clBlack
+              FrameHotColor = clBlack
+            end
+            object RzDBEdit1: TRzDBEdit
+              Left = 114
+              Top = 70
+              Width = 168
+              Height = 21
+              DataSource = dmClient.dscPersonalInfo
+              DataField = 'middlename'
+              CharCase = ecUpperCase
+              TabOrder = 1
+            end
+            object RzDBEdit2: TRzDBEdit
+              Left = 114
+              Top = 46
+              Width = 168
+              Height = 21
+              DataSource = dmClient.dscPersonalInfo
+              DataField = 'firstname'
+              CharCase = ecUpperCase
+              TabOrder = 2
+            end
+            object RzDBEdit3: TRzDBEdit
+              Left = 114
+              Top = 22
+              Width = 168
+              Height = 21
+              DataSource = dmClient.dscPersonalInfo
+              DataField = 'lastname'
+              CharCase = ecUpperCase
+              Ctl3D = True
+              ParentCtl3D = False
+              TabOrder = 3
+            end
+            object RzDBCheckBox1: TRzDBCheckBox
+              Left = 114
+              Top = 121
+              Width = 72
+              Height = 15
+              DataField = 'has_expiry'
+              DataSource = dmAux.dscIdentType
+              NullAsUnchecked = False
+              ValueChecked = '0'
+              ValueUnchecked = '1'
+              Caption = 'Dependent'
+              TabOrder = 4
+              OnClick = chbNoExpiryClick
+            end
+            object RzDBCheckBox2: TRzDBCheckBox
+              Left = 202
+              Top = 121
+              Width = 57
+              Height = 15
+              DataField = 'has_expiry'
+              DataSource = dmAux.dscIdentType
+              NullAsUnchecked = False
+              ValueChecked = '0'
+              ValueUnchecked = '1'
+              Caption = 'Student'
+              TabOrder = 5
+              OnClick = chbNoExpiryClick
+            end
+            object RzDBLookupComboBox10: TRzDBLookupComboBox
+              Left = 398
+              Top = 70
+              Width = 187
+              Height = 21
+              DataField = 'post_code'
+              DataSource = dmClient.dscAddressInfo2
+              KeyField = 'post_code'
+              ListField = 'town'
+              ListSource = dmAux.dscTowns
+              TabOrder = 6
+              AllowNull = True
+              FrameColor = clBlack
+              FrameHotColor = clBlack
+            end
+            object RzDBEdit13: TRzDBEdit
+              Left = 398
+              Top = 46
+              Width = 187
+              Height = 21
+              DataSource = dmClient.dscAddressInfo2
+              DataField = 'brgy'
+              Ctl3D = True
+              ParentCtl3D = False
+              TabOrder = 7
+            end
+            object RzDBEdit14: TRzDBEdit
+              Left = 398
+              Top = 22
+              Width = 187
+              Height = 21
+              DataSource = dmClient.dscAddressInfo2
+              DataField = 'st'
+              Ctl3D = True
+              ParentCtl3D = False
+              TabOrder = 8
+            end
+            object RzDBEdit19: TRzDBEdit
+              Left = 114
+              Top = 163
+              Width = 168
+              Height = 21
+              DataSource = dmClient.dscContactInfo
+              DataField = 'fb_acct'
+              Ctl3D = True
+              ParentCtl3D = False
+              TabOrder = 9
+            end
+            object RzDBEdit20: TRzDBEdit
+              Left = 114
+              Top = 187
+              Width = 168
+              Height = 21
+              DataSource = dmClient.dscContactInfo
+              DataField = 'email_add'
+              Ctl3D = True
+              ParentCtl3D = False
+              TabOrder = 10
+            end
           end
+        end
+        object btnNewRef: TRzButton
+          Left = 6
+          Top = 167
+          Width = 131
+          Hint = 'New reference'
+          FrameColor = clBlack
+          ShowFocusRect = False
+          Caption = 'New reference'
+          HotTrackColor = clMoneyGreen
+          ParentShowHint = False
+          ShowHint = True
+          TabOrder = 2
+          TabStop = False
+        end
+        object btnRemoveRef: TRzButton
+          Left = 143
+          Top = 167
+          Width = 146
+          Hint = 'Remove reference'
+          FrameColor = clBlack
+          ShowFocusRect = False
+          Caption = 'Remove reference'
+          HotTrackColor = clMoneyGreen
+          ParentShowHint = False
+          ShowHint = True
+          TabOrder = 3
+          TabStop = False
         end
       end
     end
@@ -1049,9 +1360,28 @@ inherited frmClientMain: TfrmClientMain
         BorderSides = [sdLeft, sdRight]
         BorderWidth = 5
         TabOrder = 0
+        ExplicitTop = -2
         DesignSize = (
           921
           468)
+        object urlRefreshIdentList: TRzURLLabel
+          Left = 877
+          Top = 239
+          Width = 38
+          Height = 13
+          Hint = 'Refresh identity document list'
+          Anchors = [akTop, akRight]
+          Caption = 'Refresh'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = 16744448
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsUnderline]
+          ParentFont = False
+          ParentShowHint = False
+          ShowHint = True
+          OnClick = urlRefreshIdentListClick
+        end
         object grIdentityList: TRzDBGrid
           Left = 6
           Top = 5
@@ -1066,6 +1396,11 @@ inherited frmClientMain: TfrmClientMain
           TitleFont.Height = -11
           TitleFont.Name = 'Tahoma'
           TitleFont.Style = []
+          QuickCompare.Active = True
+          QuickCompare.FieldName = 'exp_date'
+          QuickCompare.FieldValue = 42644d
+          QuickCompare.Color = 11184895
+          QuickCompare.FontColor = clRed
           AltRowShading = True
           AltRowShadingColor = 15854564
           Columns = <
@@ -1106,7 +1441,6 @@ inherited frmClientMain: TfrmClientMain
           object tsIdentDetail: TRzTabSheet
             Color = 15263976
             Caption = 'Identity document details'
-            ExplicitHeight = 201
             object JvLabel37: TJvLabel
               Left = 19
               Top = 23
@@ -1123,13 +1457,14 @@ inherited frmClientMain: TfrmClientMain
               Caption = 'ID number'
               Transparent = True
             end
-            object JvLabel39: TJvLabel
+            object lblExpiry: TJvLabel
               Left = 19
               Top = 68
               Width = 32
               Height = 13
               Caption = 'Expiry'
               Transparent = True
+              Visible = False
             end
             object edIdNo: TRzDBEdit
               Left = 105
@@ -1140,7 +1475,6 @@ inherited frmClientMain: TfrmClientMain
               DataField = 'ident_no'
               CharCase = ecUpperCase
               TabOrder = 0
-              OnChange = edIdNoChange
             end
             object cmbIdType: TRzDBLookupComboBox
               Left = 105
@@ -1153,30 +1487,37 @@ inherited frmClientMain: TfrmClientMain
               ListField = 'ident_name'
               ListSource = dmAux.dscIdentType
               TabOrder = 1
+              OnClick = chbNoExpiryClick
               AllowNull = True
               FrameColor = clBlack
               FrameHotColor = clBlack
             end
-            object dtpExpiry: TRzDateTimePicker
+            object chbNoExpiry: TRzDBCheckBox
+              Left = 318
+              Top = 16
+              Width = 65
+              Height = 15
+              DataField = 'has_expiry'
+              DataSource = dmAux.dscIdentType
+              NullAsUnchecked = False
+              ValueChecked = '0'
+              ValueUnchecked = '1'
+              Caption = 'No expiry'
+              TabOrder = 2
+              OnClick = chbNoExpiryClick
+            end
+            object dtpExpiry: TRzDBDateTimePicker
               Left = 105
               Top = 62
-              Width = 95
+              Width = 105
               Height = 21
-              Date = 42624.922021979170000000
+              Date = 42645.937719687500000000
               Format = 'MM/dd/yyyy'
-              Time = 42624.922021979170000000
-              TabOrder = 2
-              OnChange = dtpExpiryChange
-            end
-            object chbNonExpiring: TRzCheckBox
-              Left = 206
-              Top = 65
-              Width = 80
-              Height = 15
-              Caption = 'Non-expiring'
-              ReadOnly = True
-              State = cbUnchecked
+              Time = 42645.937719687500000000
               TabOrder = 3
+              Visible = False
+              DataField = 'exp_date'
+              DataSource = dmClient.dscIdentInfo
             end
           end
         end
@@ -1184,17 +1525,31 @@ inherited frmClientMain: TfrmClientMain
           Left = 6
           Top = 239
           Width = 131
-          Hint = 'New branch'
+          Hint = 'New identity document'
           FrameColor = clBlack
           ShowFocusRect = False
           Caption = 'New identity document'
-          Color = clMoneyGreen
           HotTrackColor = clMoneyGreen
           ParentShowHint = False
           ShowHint = True
           TabOrder = 2
           TabStop = False
           OnClick = btnNewClick
+        end
+        object btnRemove: TRzButton
+          Left = 143
+          Top = 239
+          Width = 146
+          Hint = 'Remove identity document'
+          FrameColor = clBlack
+          ShowFocusRect = False
+          Caption = 'Remove identity document'
+          HotTrackColor = clMoneyGreen
+          ParentShowHint = False
+          ShowHint = True
+          TabOrder = 3
+          TabStop = False
+          OnClick = btnRemoveClick
         end
       end
     end

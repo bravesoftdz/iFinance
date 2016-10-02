@@ -1,11 +1,11 @@
 inherited frmBaseGridDetail: TfrmBaseGridDetail
   Caption = 'frmBaseGridDetail'
-  ClientHeight = 457
+  ClientHeight = 509
   ClientWidth = 745
   OnCreate = FormCreate
   OnShow = FormShow
   ExplicitWidth = 761
-  ExplicitHeight = 496
+  ExplicitHeight = 548
   PixelsPerInch = 96
   TextHeight = 13
   inherited pnlTitle: TRzPanel
@@ -16,15 +16,16 @@ inherited frmBaseGridDetail: TfrmBaseGridDetail
     Left = 0
     Top = 61
     Width = 745
-    Height = 396
+    Height = 448
     Align = alClient
     BorderOuter = fsFlat
     BorderSides = [sdLeft, sdRight, sdBottom]
     BorderWidth = 5
     TabOrder = 1
+    ExplicitHeight = 396
     DesignSize = (
       745
-      396)
+      448)
     object grList: TRzDBGrid
       Left = 6
       Top = 5
@@ -44,9 +45,9 @@ inherited frmBaseGridDetail: TfrmBaseGridDetail
     end
     object pcDetail: TRzPageControl
       Left = 6
-      Top = 239
+      Top = 270
       Width = 735
-      Height = 151
+      Height = 172
       Hint = ''
       ActivePage = tsDetail
       Anchors = [akLeft, akTop, akRight, akBottom]
@@ -57,11 +58,19 @@ inherited frmBaseGridDetail: TfrmBaseGridDetail
       object tsDetail: TRzTabSheet
         Color = 15263976
         Caption = 'Change caption here'
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
+        ExplicitHeight = 128
       end
+    end
+    object btnNew: TRzButton
+      Left = 6
+      Top = 239
+      Width = 115
+      Hint = 'New'
+      Caption = 'New'
+      ParentShowHint = False
+      ShowHint = True
+      TabOrder = 2
+      OnClick = btnNewClick
     end
   end
   object pnlSearch: TRzPanel
@@ -87,24 +96,12 @@ inherited frmBaseGridDetail: TfrmBaseGridDetail
     object edSearchKey: TRzEdit
       Left = 47
       Top = 11
-      Width = 637
+      Width = 692
       Height = 21
       Text = ''
       Anchors = [akLeft, akTop, akRight]
       TabOrder = 0
       OnChange = edSearchKeyChange
-    end
-    object btnNew: TRzButton
-      Left = 689
-      Top = 8
-      Width = 50
-      Hint = 'New'
-      Anchors = [akTop, akRight]
-      Caption = 'New'
-      ParentShowHint = False
-      ShowHint = True
-      TabOrder = 1
-      OnClick = btnNewClick
     end
   end
   object imlMain: TJvImageList
@@ -116,7 +113,7 @@ inherited frmBaseGridDetail: TfrmBaseGridDetail
     Left = 693
     Top = 229
     Bitmap = {
-      494C010101000800700010001000FFFFFFFF2110FFFFFFFFFFFFFFFF424D3600
+      494C010101000800740010001000FFFFFFFF2110FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000001000000001002000000000000010
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000226

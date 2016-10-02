@@ -147,7 +147,6 @@ inherited frmBanksList: TfrmBanksList
       FrameColor = clBlack
       ShowFocusRect = False
       Caption = 'New branch'
-      Color = clMoneyGreen
       HotTrackColor = clMoneyGreen
       ParentShowHint = False
       ShowHint = True

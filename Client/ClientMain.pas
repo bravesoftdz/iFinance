@@ -95,7 +95,7 @@ type
     tsIdentityInfo: TRzTabSheet;
     dtpBirthdate: TRzDateTimePicker;
     pnlList: TRzPanel;
-    grList: TRzDBGrid;
+    grRefList: TRzDBGrid;
     pcDetail: TRzPageControl;
     tsDetail: TRzTabSheet;
     tsLoansHistory: TRzTabSheet;
@@ -117,11 +117,39 @@ type
     JvLabel37: TJvLabel;
     edIdNo: TRzDBEdit;
     JvLabel38: TJvLabel;
-    JvLabel39: TJvLabel;
+    lblExpiry: TJvLabel;
     cmbIdType: TRzDBLookupComboBox;
-    dtpExpiry: TRzDateTimePicker;
-    chbNonExpiring: TRzCheckBox;
     btnNew: TRzButton;
+    chbNoExpiry: TRzDBCheckBox;
+    dtpExpiry: TRzDBDateTimePicker;
+    btnRemove: TRzButton;
+    btnNewRef: TRzButton;
+    btnRemoveRef: TRzButton;
+    JvLabel39: TJvLabel;
+    RzDBLookupComboBox9: TRzDBLookupComboBox;
+    JvGroupHeader7: TJvGroupHeader;
+    JvLabel40: TJvLabel;
+    JvLabel41: TJvLabel;
+    JvLabel42: TJvLabel;
+    RzDBEdit1: TRzDBEdit;
+    RzDBEdit2: TRzDBEdit;
+    RzDBEdit3: TRzDBEdit;
+    RzDBCheckBox1: TRzDBCheckBox;
+    RzDBCheckBox2: TRzDBCheckBox;
+    JvGroupHeader8: TJvGroupHeader;
+    JvLabel43: TJvLabel;
+    JvLabel44: TJvLabel;
+    JvLabel45: TJvLabel;
+    RzDBLookupComboBox10: TRzDBLookupComboBox;
+    RzDBEdit13: TRzDBEdit;
+    RzDBEdit14: TRzDBEdit;
+    JvGroupHeader9: TJvGroupHeader;
+    JvLabel46: TJvLabel;
+    JvLabel47: TJvLabel;
+    RzDBEdit19: TRzDBEdit;
+    RzDBEdit20: TRzDBEdit;
+    urlRefreshIdentList: TRzURLLabel;
+    urlRefreshRefList: TRzURLLabel;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -145,8 +173,10 @@ type
     procedure btnNewClick(Sender: TObject);
     procedure pcClientChanging(Sender: TObject; NewIndex: Integer;
       var AllowChange: Boolean);
-    procedure edIdNoChange(Sender: TObject);
-    procedure dtpExpiryChange(Sender: TObject);
+    procedure chbNoExpiryClick(Sender: TObject);
+    procedure btnRemoveClick(Sender: TObject);
+    procedure urlRefreshIdentListClick(Sender: TObject);
+    procedure urlRefreshRefListClick(Sender: TObject);
   private
     { Private declarations }
     procedure SetClientName;
@@ -156,7 +186,6 @@ type
     procedure LoadPhoto;
     procedure ChangeControlState;
     procedure ChangeIdentControlState;
-    procedure SetIdentUnboundControls;
     function CheckClientInfo(st: IStatus): string;
     function CheckIdentInfo(st: IStatus): string;
   public
@@ -173,7 +202,7 @@ implementation
 uses
   Client, ClientData, FormsUtil, LandlordSearch, ImmHeadSearch, Landlord,
   ImmediateHead, RefereeSearch, Referee, AuxData, DockIntf,
-  EmployerSearch, Employer, Bank, BanksSearch, IdentityDoc;
+  EmployerSearch, Employer, Bank, BanksSearch, IdentityDoc, IFinanceGlobal;
 
 {$R *.dfm}
 
@@ -436,6 +465,14 @@ begin
   ChangeIdentControlState;
 end;
 
+procedure TfrmClientMain.btnRemoveClick(Sender: TObject);
+begin
+  inherited;
+  with grIdentityList.DataSource.DataSet do
+    if RecordCount > 1 then
+      Delete;
+end;
+
 procedure TfrmClientMain.FormClose(Sender: TObject; var Action: TCloseAction);
 var
   intf: IDock;
@@ -476,6 +513,8 @@ begin
   SetUnBoundControls;
 
   pcClient.ActivePageIndex := 0;
+
+  grRefList.QuickCompare.FieldValue := Date;
 end;
 
 procedure TfrmClientMain.FormShow(Sender: TObject);
@@ -511,6 +550,7 @@ begin
         cln.Birthdate := dtpBirthdate.Date;
         cln.Save;
         SetClientName;
+        ChangeIdentControlState;
       end;
     end;
   finally
@@ -522,6 +562,7 @@ procedure TfrmClientMain.Cancel;
 begin
   cln.Cancel;
   SetUnboundControls;
+  ChangeIdentControlState;
 end;
 
 procedure TfrmClientMain.SetClientName;
@@ -592,11 +633,36 @@ begin
   CopyAddress;
 end;
 
+procedure TfrmClientMain.urlRefreshIdentListClick(Sender: TObject);
+begin
+  inherited;
+  with grIdentityList.DataSource.DataSet do
+  begin
+    Close;
+    Open;
+  end;
+end;
+
+procedure TfrmClientMain.urlRefreshRefListClick(Sender: TObject);
+begin
+  inherited;
+  with grRefList.DataSource.DataSet do
+  begin
+    Close;
+    Open;
+  end;
+end;
+
 procedure TfrmClientMain.urlTakePhotoClick(Sender: TObject);
 begin
   inherited;
-  PhotoLauncher.Parameters := '_photo\ ' + cln.Id;
-  PhotoLauncher.Launch;
+  // close photo utility
+  if not PhotoLauncher.Running then
+  begin
+    PhotoLauncher.Parameters := ifn.PhotoPath + cln.Id;
+    PhotoLauncher.Launch;
+    Application.MainForm.Enabled := false;
+  end;
 end;
 
 procedure TfrmClientMain.CopyAddress;
@@ -622,23 +688,6 @@ procedure TfrmClientMain.dtpBirthdateChange(Sender: TObject);
 begin
   inherited;
   GetAge;
-end;
-
-procedure TfrmClientMain.dtpExpiryChange(Sender: TObject);
-begin
-  inherited;
-  identDoc.Expiry := dtpExpiry.Date;
-end;
-
-procedure TfrmClientMain.edIdNoChange(Sender: TObject);
-var
-  inserting: boolean;
-begin
-  // this is a hack
-  inserting := grIdentityList.DataSource.DataSet.State = dsInsert;
-
-  if (not inserting) and Assigned(identDoc) then
-    SetIdentUnboundControls;
 end;
 
 procedure TfrmClientMain.GetAge;
@@ -679,10 +728,12 @@ procedure TfrmClientMain.LoadPhoto;
 var
   filename: string;
 begin
-  filename := '_photo\' + cln.Id + '.bmp';
+  filename := ifn.PhotoPath + cln.Id + '.bmp';
 
   if FileExists(fileName) then
     imgClient.Picture.LoadFromFile(fileName);
+
+  Application.MainForm.Enabled := true;
 end;
 
 procedure TfrmClientMain.pcClientChange(Sender: TObject);
@@ -693,7 +744,6 @@ begin
         OpenGridDataSources(pnlIdentity);
         OpenDropdownDataSources(tsIdentDetail);
         ChangeIdentControlState;
-        SetIdentUnboundControls;
       end;
   end;
 end;
@@ -720,15 +770,11 @@ begin
   cmbIdType.Enabled := inserting;
 end;
 
-procedure TfrmClientMain.SetIdentUnboundControls;
+procedure TfrmClientMain.chbNoExpiryClick(Sender: TObject);
 begin
-  if Assigned(identDoc) and (identDoc.ExpiryStr <> '') then
-    dtpExpiry.Date := ParseDate(identDoc.ExpiryStr)
-  else
-    dtpExpiry.Date := Date;
-
-  dtpExpiry.Enabled := not identDoc.HasExpiry;
-  chbNonExpiring.Checked := not identDoc.HasExpiry;
+  inherited;
+  lblExpiry.Visible := not chbNoExpiry.Checked;
+  dtpExpiry.Visible := not chbNoExpiry.Checked;
 end;
 
 end.

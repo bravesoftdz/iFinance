@@ -1,7 +1,7 @@
 object dmClient: TdmClient
   OldCreateOrder = False
-  Height = 330
-  Width = 518
+  Height = 311
+  Width = 748
   object dstEntity: TADODataSet
     Tag = 2
     Connection = dmApplication.acMain
@@ -231,7 +231,7 @@ object dmClient: TdmClient
     AfterOpen = dstIdentInfoAfterOpen
     BeforePost = dstIdentInfoBeforePost
     AfterPost = dstIdentInfoAfterPost
-    AfterScroll = dstIdentInfoAfterScroll
+    OnNewRecord = dstIdentInfoNewRecord
     CommandText = 'sp_cl_get_ident_info;1'
     CommandType = cmdStoredProc
     Parameters = <
@@ -251,6 +251,32 @@ object dmClient: TdmClient
       end>
     Left = 208
     Top = 184
+    object dstIdentInfoentity_id: TStringField
+      FieldName = 'entity_id'
+      FixedChar = True
+      Size = 9
+    end
+    object dstIdentInfoident_type: TStringField
+      FieldName = 'ident_type'
+      FixedChar = True
+      Size = 2
+    end
+    object dstIdentInfoident_no: TStringField
+      FieldName = 'ident_no'
+      Size = 15
+    end
+    object dstIdentInfoexp_date: TDateField
+      FieldName = 'exp_date'
+      DisplayFormat = 'mm/dd/yyyy'
+      EditMask = 'mm/dd/yyyy'
+    end
+    object dstIdentInfoident_name: TStringField
+      FieldName = 'ident_name'
+      Size = 25
+    end
+    object dstIdentInfohas_expiry: TWordField
+      FieldName = 'has_expiry'
+    end
   end
   object dscIdentInfo: TDataSource
     DataSet = dstIdentInfo
@@ -321,5 +347,36 @@ object dmClient: TdmClient
     DataSet = dstAcctInfo
     Left = 280
     Top = 240
+  end
+  object dstRefInfo: TADODataSet
+    Connection = dmApplication.acMain
+    CursorType = ctStatic
+    BeforeOpen = dstRefInfoBeforeOpen
+    AfterOpen = dstRefInfoAfterOpen
+    BeforePost = dstRefInfoBeforePost
+    CommandText = 'sp_cl_get_ref_info;1'
+    CommandType = cmdStoredProc
+    Parameters = <
+      item
+        Name = '@RETURN_VALUE'
+        DataType = ftInteger
+        Direction = pdReturnValue
+        Precision = 10
+        Value = 0
+      end
+      item
+        Name = '@entity_id'
+        Attributes = [paNullable]
+        DataType = ftString
+        Size = 10
+        Value = ''
+      end>
+    Left = 360
+    Top = 128
+  end
+  object dscRefInfo: TDataSource
+    DataSet = dstRefInfo
+    Left = 432
+    Top = 128
   end
 end
