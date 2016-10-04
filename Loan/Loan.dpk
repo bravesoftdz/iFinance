@@ -1,4 +1,4 @@
-package Tools;
+package Loan;
 
 {$R *.res}
 {$IFDEF IMPLICITBUILDING This IFDEF should not be used by users}
@@ -30,19 +30,20 @@ package Tools;
 
 requires
   rtl,
-  vcl,
-  RaizeComponentsVcl,
   vclimg,
+  vcl,
   dbrtl,
   vcldb,
+  adortl,
+  RaizeComponentsVcl,
   RaizeComponentsVclDb,
   Jcl,
   JvCore,
-  JvStdCtrls,
-  JvControls;
+  JvStdCtrls;
 
 contains
-  AppSettings in 'AppSettings.pas' {frmAppSettings},
-  BaseDocked in '..\Base\BaseDocked.pas' {frmBaseDocked};
+  LoanClassList in 'LoanClassList.pas' {frmLoanClassList},
+  BaseDocked in '..\Base\BaseDocked.pas' {frmBaseDocked},
+  LoansAuxData in 'LoansAuxData.pas' {dmLoansAux: TDataModule};
 
 end.

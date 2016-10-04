@@ -46,6 +46,7 @@ type
     ToolButton4: TToolButton;
     ools1: TMenuItem;
     Settings1: TMenuItem;
+    tbLoanClass: TToolButton;
     procedure tbAddClientClick(Sender: TObject);
     procedure tbSaveClick(Sender: TObject);
     procedure lblRecentlyAddedClick(Sender: TObject);
@@ -57,6 +58,7 @@ type
     procedure tbDesignationListClick(Sender: TObject);
     procedure lblActiveClientsClick(Sender: TObject);
     procedure lblAllClientsClick(Sender: TObject);
+    procedure tbLoanClassClick(Sender: TObject);
   private
     { Private declarations }
     procedure OpenClientList(const filterType: TClientFilterType = cftAll);
@@ -77,7 +79,7 @@ implementation
 
 uses
   ClientMain, SaveIntf, ClientList, DockedFormIntf, GroupList, EmployerList,
-  BanksList, DesignationList;
+  BanksList, DesignationList, LoanClassList, ConfBox, ErrorBox;
 
 procedure TfrmMain.OpenClientList(const filterType: TClientFilterType = cftAll);
 var
@@ -160,6 +162,11 @@ begin
   DockForm(fmGroupList);
 end;
 
+procedure TfrmMain.tbLoanClassClick(Sender: TObject);
+begin
+  DockForm(fmLoanClassList);
+end;
+
 procedure TfrmMain.tbSaveClick(Sender: TObject);
 var
   intf: ISave;
@@ -209,6 +216,7 @@ begin
       fmEmployerList: frm := TfrmEmployerList.Create(Application);
       fmBanksList: frm := TfrmBanksList.Create(Application);
       fmDesignationList: frm := TfrmDesignationList.Create(Application);
+      fmLoanClassList: frm := TfrmLoanClassList.Create(Application);
       else
         frm := TForm.Create(Application);
     end;
@@ -221,19 +229,32 @@ begin
   end;
 
   // clear the status bar message
+  spMain.FillColor := clMenu;
   spMain.Caption := '';
 end;
 
 procedure TfrmMain.ShowError(const error: string);
 begin
-  spMain.Font.Color := clRed;
-  spMain.Caption := error;
+  // spMain.Font.Color := clRed;
+  // spMain.Caption := error;
+  with TfrmErrorBox.Create(self) do
+  try
+    ShowModal;
+  finally
+    Free;
+  end;
 end;
 
 procedure TfrmMain.ShowConfirmation(const conf: string);
 begin
-  spMain.Font.Color := clGreen;
-  spMain.Caption := conf;
+  // spMain.Font.Color := clGreen;
+  // spMain.Caption := conf;
+  with TfrmConfBox.Create(self) do
+  try
+    ShowModal;
+  finally
+    Free;
+  end;
 end;
 
 procedure TfrmMain.AddRecentClient(ct: TClient);

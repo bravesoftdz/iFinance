@@ -93,7 +93,6 @@ type
     RzDBLookupComboBox8: TRzDBLookupComboBox;
     JvGroupHeader1: TJvGroupHeader;
     tsIdentityInfo: TRzTabSheet;
-    dtpBirthdate: TRzDateTimePicker;
     pnlList: TRzPanel;
     grRefList: TRzDBGrid;
     pcDetail: TRzPageControl;
@@ -150,6 +149,8 @@ type
     RzDBEdit20: TRzDBEdit;
     urlRefreshIdentList: TRzURLLabel;
     urlRefreshRefList: TRzURLLabel;
+    urlCopyClientAddress: TRzURLLabel;
+    dteBirthdate: TRzDBDateTimeEdit;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -160,7 +161,6 @@ type
     procedure urlCopyAddressClick(Sender: TObject);
     procedure bteLandlordAltBtnClick(Sender: TObject);
     procedure bteLandlord2AltBtnClick(Sender: TObject);
-    procedure dtpBirthdateChange(Sender: TObject);
     procedure bteEmployerButtonClick(Sender: TObject);
     procedure bteEmployerAltBtnClick(Sender: TObject);
     procedure urlTakePhotoClick(Sender: TObject);
@@ -173,10 +173,11 @@ type
     procedure btnNewClick(Sender: TObject);
     procedure pcClientChanging(Sender: TObject; NewIndex: Integer;
       var AllowChange: Boolean);
-    procedure chbNoExpiryClick(Sender: TObject);
     procedure btnRemoveClick(Sender: TObject);
     procedure urlRefreshIdentListClick(Sender: TObject);
     procedure urlRefreshRefListClick(Sender: TObject);
+    procedure chbNoExpiryClick(Sender: TObject);
+    procedure dteBirthdateChange(Sender: TObject);
   private
     { Private declarations }
     procedure SetClientName;
@@ -201,7 +202,7 @@ implementation
 
 uses
   Client, ClientData, FormsUtil, LandlordSearch, ImmHeadSearch, Landlord,
-  ImmediateHead, RefereeSearch, Referee, AuxData, DockIntf,
+  ImmediateHead, RefereeSearch, Referee, AuxData, DockIntf, RefData,
   EmployerSearch, Employer, Bank, BanksSearch, IdentityDoc, IFinanceGlobal;
 
 {$R *.dfm}
@@ -483,6 +484,7 @@ begin
 
   dmClient.Destroy;
   dmAux.Destroy;
+  dmRef.Destroy;
 
   cln.Destroy;
 
@@ -498,6 +500,7 @@ begin
   inherited;
   dmClient := TdmClient.Create(self);
   dmAux := TdmAux.Create(self);
+  dmRef := TdmRef.Create(self);
 
   if not Assigned(cln) then
   begin
@@ -547,10 +550,16 @@ begin
 
       if Result then
       begin
-        cln.Birthdate := dtpBirthdate.Date;
         cln.Save;
         SetClientName;
-        ChangeIdentControlState;
+
+        case pcClient.ActivePageIndex of
+
+          CLIENT: Exit;
+          IDENT : ChangeIdentControlState;
+
+        end;
+
       end;
     end;
   finally
@@ -579,12 +588,6 @@ end;
 
 procedure TfrmClientMain.SetUnboundControls;
 begin
-  // birthdate
-  if cln.BirthdateStr <> '' then
-    dtpBirthdate.Date := Parsedate(cln.BirthdateStr)
-  else
-    dtpBirthdate.Date := Date;
-
   GetAge;
 
   // referee
@@ -684,34 +687,32 @@ begin
   end;
 end;
 
-procedure TfrmClientMain.dtpBirthdateChange(Sender: TObject);
-begin
-  inherited;
-  GetAge;
-end;
-
 procedure TfrmClientMain.GetAge;
 var
   Month, Day, Year, CurrentYear, CurrentMonth, CurrentDay: Word;
   age: integer;
 begin
-  DecodeDate(dtpBirthdate.Date, Year, Month, Day);
-  DecodeDate(Date, CurrentYear, CurrentMonth, CurrentDay);
+  age := 0;
+  if dteBirthdate.Text <> '' then
+  begin
+    DecodeDate(dteBirthdate.Date, Year, Month, Day);
+    DecodeDate(Date, CurrentYear, CurrentMonth, CurrentDay);
 
-  if (Year = CurrentYear) and (Month = CurrentMonth) and (Day = CurrentDay) then
-  begin
-    age := 0;
-  end
-  else
-  begin
-    age := CurrentYear - Year;
-    if (Month > CurrentMonth) then
-      Dec(age)
+    if (Year = CurrentYear) and (Month = CurrentMonth) and (Day = CurrentDay) then
+    begin
+      age := 0;
+    end
     else
     begin
-      if Month = CurrentMonth then
-        if (Day > CurrentDay) then
-          Dec(age);
+      age := CurrentYear - Year;
+      if (Month > CurrentMonth) then
+        Dec(age)
+      else
+      begin
+        if Month = CurrentMonth then
+          if (Day > CurrentDay) then
+            Dec(age);
+      end;
     end;
   end;
 
@@ -722,6 +723,12 @@ procedure TfrmClientMain.PhotoLauncherFinished(Sender: TObject);
 begin
   inherited;
   LoadPhoto;
+end;
+
+procedure TfrmClientMain.dteBirthdateChange(Sender: TObject);
+begin
+  inherited;
+  GetAge;
 end;
 
 procedure TfrmClientMain.LoadPhoto;
@@ -768,13 +775,18 @@ var
 begin
   inserting := grIdentityList.DataSource.DataSet.State = dsInsert;
   cmbIdType.Enabled := inserting;
+
+  chbNoExpiry.OnClick(self);
 end;
 
 procedure TfrmClientMain.chbNoExpiryClick(Sender: TObject);
+var
+  noExpiry: boolean;
 begin
-  inherited;
-  lblExpiry.Visible := not chbNoExpiry.Checked;
-  dtpExpiry.Visible := not chbNoExpiry.Checked;
+  noExpiry := cmbIdType.ListSource.DataSet.FieldByName('has_expiry').AsInteger = 0;
+
+  lblExpiry.Visible := noExpiry;
+  dtpExpiry.Visible := noExpiry;
 end;
 
 end.

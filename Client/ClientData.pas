@@ -31,14 +31,6 @@ type
     dscAddressInfo2: TDataSource;
     dstAcctInfo: TADODataSet;
     dscAcctInfo: TDataSource;
-    dstIdentInfoentity_id: TStringField;
-    dstIdentInfoident_type: TStringField;
-    dstIdentInfoident_no: TStringField;
-    dstIdentInfoexp_date: TDateField;
-    dstIdentInfoident_name: TStringField;
-    dstIdentInfohas_expiry: TWordField;
-    dstRefInfo: TADODataSet;
-    dscRefInfo: TDataSource;
     procedure dstPersonalInfoBeforeOpen(DataSet: TDataSet);
     procedure dstEntityBeforeOpen(DataSet: TDataSet);
     procedure dstContactInfoBeforeOpen(DataSet: TDataSet);
@@ -68,9 +60,6 @@ type
     procedure dstIdentInfoAfterOpen(DataSet: TDataSet);
     procedure dstIdentInfoAfterPost(DataSet: TDataSet);
     procedure dstIdentInfoNewRecord(DataSet: TDataSet);
-    procedure dstRefInfoBeforeOpen(DataSet: TDataSet);
-    procedure dstRefInfoBeforePost(DataSet: TDataSet);
-    procedure dstRefInfoAfterOpen(DataSet: TDataSet);
   private
     { Private declarations }
   public
@@ -353,7 +342,6 @@ begin
     begin
       cln.Name := FieldByName('lastname').AsString + ', ' +
         FieldByName('firstname').AsString;
-      cln.BirthdateStr := FieldByName('birth_date').AsString;
     end;
   end;
 end;
@@ -371,25 +359,6 @@ begin
 end;
 
 procedure TdmClient.dstPersonalInfoBeforePost(DataSet: TDataSet);
-begin
-  if DataSet.State = dsInsert then
-    DataSet.FieldByName('entity_id').AsString := cln.Id;
-
-  DataSet.FieldByName('birth_date').AsString :=
-        FormatDateTime('yyyy-mm-dd',cln.Birthdate);
-end;
-
-procedure TdmClient.dstRefInfoAfterOpen(DataSet: TDataSet);
-begin
-  (DataSet as TADODataSet).Properties['Unique table'].Value := 'RefInfo';
-end;
-
-procedure TdmClient.dstRefInfoBeforeOpen(DataSet: TDataSet);
-begin
-  (DataSet as TADODataSet).Parameters.ParamByName('@entity_id').Value := cln.Id;
-end;
-
-procedure TdmClient.dstRefInfoBeforePost(DataSet: TDataSet);
 begin
   if DataSet.State = dsInsert then
     DataSet.FieldByName('entity_id').AsString := cln.Id;

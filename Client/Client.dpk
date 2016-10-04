@@ -49,6 +49,7 @@ contains
   BaseForm in '..\Base\BaseForm.pas' {frmBase},
   ClientList in 'ClientList.pas' {frmClientList},
   BaseDocked in '..\Base\BaseDocked.pas' {frmBaseDocked},
-  ClientFilterIntf in 'ClientFilterIntf.pas';
+  ClientFilterIntf in 'ClientFilterIntf.pas',
+  RefData in 'RefData.pas' {dmRef: TDataModule};
 
 end.

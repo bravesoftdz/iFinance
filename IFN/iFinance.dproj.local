@@ -5,11 +5,20 @@
     <Transaction>2016/09/01 11:55:38.000.575,=C:\Users\BryanGarcia\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
     <Transaction>2016/09/01 13:37:44.000.761,=C:\Users\BryanGarcia\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
     <Transaction>2016/09/01 14:57:53.000.071,=C:\Users\BryanGarcia\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
-    <Transaction>2016/09/01 15:08:06.000.526,C:\Users\BryanGarcia\Documents\Embarcadero\Studio\Projects\Main.dfm=C:\Users\BryanGarcia\Documents\Embarcadero\Studio\Projects\Unit1.dfm</Transaction>
-    <Transaction>2016/09/01 15:08:06.000.526,C:\Users\BryanGarcia\Documents\Embarcadero\Studio\Projects\Main.pas=C:\Users\BryanGarcia\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
-    <Transaction>2016/09/01 15:10:24.000.547,C:\_Projects\iFinance\IFN\Main.pas=C:\Users\BryanGarcia\Documents\Embarcadero\Studio\Projects\Main.pas</Transaction>
-    <Transaction>2016/09/01 15:10:24.000.547,C:\_Projects\iFinance\IFN\Main.dfm=C:\Users\BryanGarcia\Documents\Embarcadero\Studio\Projects\Main.dfm</Transaction>
-    <Transaction>2016/09/01 15:10:54.000.661,C:\_Projects\iFinance\IFN\iFinance.dproj=C:\Users\BryanGarcia\Documents\Embarcadero\Studio\Projects\Project1.dproj</Transaction>
+    <Transaction>2016/09/01 15:08:06.000.526,C:\Users\BryanGarcia\Documents\Embarcadero\Studio\Projects\Unit1.dfm=C:\Users\BryanGarcia\Documents\Embarcadero\Studio\Projects\Main.dfm</Transaction>
+    <Transaction>2016/09/01 15:08:06.000.526,C:\Users\BryanGarcia\Documents\Embarcadero\Studio\Projects\Unit1.pas=C:\Users\BryanGarcia\Documents\Embarcadero\Studio\Projects\Main.pas</Transaction>
+    <Transaction>2016/09/01 15:10:24.000.547,C:\Users\BryanGarcia\Documents\Embarcadero\Studio\Projects\Main.dfm=C:\_Projects\iFinance\IFN\Main.dfm</Transaction>
+    <Transaction>2016/09/01 15:10:24.000.547,C:\Users\BryanGarcia\Documents\Embarcadero\Studio\Projects\Main.pas=C:\_Projects\iFinance\IFN\Main.pas</Transaction>
+    <Transaction>2016/09/01 15:10:54.000.661,C:\Users\BryanGarcia\Documents\Embarcadero\Studio\Projects\Project1.dproj=C:\_Projects\iFinance\IFN\iFinance.dproj</Transaction>
     <Transaction>2016/09/01 18:20:43.000.337,=C:\_Projects\iFinance\IFN\Login.pas</Transaction>
+    <Transaction>2016/10/05 00:19:11.516,=C:\_Projects\iFinance\IFN\Unit1.pas</Transaction>
+    <Transaction>2016/10/05 00:19:11.903,=C:\_Projects\iFinance\Base\BasePopup.pas</Transaction>
+    <Transaction>2016/10/05 00:19:11.940,=C:\_Projects\iFinance\IFN\Unit2.pas</Transaction>
+    <Transaction>2016/10/05 00:21:32.370,C:\_Projects\iFinance\IFN\ConfBox.pas=C:\_Projects\iFinance\IFN\Unit1.pas</Transaction>
+    <Transaction>2016/10/05 00:21:32.370,C:\_Projects\iFinance\IFN\ConfBox.dfm=C:\_Projects\iFinance\IFN\Unit1.dfm</Transaction>
+    <Transaction>2016/10/05 00:39:31.499,=C:\_Projects\iFinance\IFN\Unit1.pas</Transaction>
+    <Transaction>2016/10/05 00:39:31.726,=C:\_Projects\iFinance\IFN\Unit2.pas</Transaction>
+    <Transaction>2016/10/05 00:40:26.584,C:\_Projects\iFinance\IFN\ErrorBox.dfm=C:\_Projects\iFinance\IFN\Unit1.dfm</Transaction>
+    <Transaction>2016/10/05 00:40:26.584,C:\_Projects\iFinance\IFN\ErrorBox.pas=C:\_Projects\iFinance\IFN\Unit1.pas</Transaction>
   </Transactions>
 </BorlandProject>

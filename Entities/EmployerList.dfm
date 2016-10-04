@@ -10,6 +10,7 @@ inherited frmEmployerList: TfrmEmployerList
     end
   end
   inherited pnlList: TRzPanel
+    ExplicitHeight = 448
     inherited grList: TRzDBGrid
       DataSource = dmEntities.dscEmployers
       Columns = <
@@ -25,6 +26,10 @@ inherited frmEmployerList: TfrmEmployerList
       FixedDimension = 19
       inherited tsDetail: TRzTabSheet
         Caption = 'Employer details'
+        ExplicitLeft = 1
+        ExplicitTop = 20
+        ExplicitWidth = 731
+        ExplicitHeight = 149
         object JvLabel1: TJvLabel
           Left = 19
           Top = 23
@@ -85,10 +90,13 @@ inherited frmEmployerList: TfrmEmployerList
         end
       end
     end
+    inherited btnNew: TRzButton
+      Caption = 'New employer'
+    end
   end
   inherited imlMain: TJvImageList
     Bitmap = {
-      494C010101000800780010001000FFFFFFFF2110FFFFFFFFFFFFFFFF424D3600
+      494C0101010008007C0010001000FFFFFFFF2110FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000001000000001002000000000000010
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000226

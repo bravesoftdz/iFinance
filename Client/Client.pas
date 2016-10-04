@@ -4,14 +4,13 @@ interface
 
 uses
   SysUtils, ClientData, DB, Entity, ADODB, LandLord, ImmediateHead,
-  Referee, Employer, Bank, IdentityDoc;
+  Referee, Employer, Bank, IdentityDoc, Reference;
 
 type
   TClient = class(TEntity)
   private
     FName: string;
     FBirthdate: TDate;
-    FBirthdateStr: string;
     FReferee: TReferee;
     FLandlordPres: TLandLord;
     FLandLordProv: TLandLord;
@@ -19,9 +18,11 @@ type
     FEmployer: TEmployer;
     FBank: TBank;
     FIdentityDocs: array of TIdentityDoc;
+    FReferences: array of TReference;
 
     function CheckId: boolean;
     function GetIdentityDoc(const i: integer): TIdentityDoc;
+    function GetReference(const i: integer): TReference;
 
   public
     procedure Add; override;
@@ -31,12 +32,12 @@ type
     procedure Retrieve;
     procedure CopyAddress;
     procedure AddIdentityDoc(identDoc: TIdentityDoc);
+    procedure AddReference(reference: TReference);
 
     function IdentityDocExists(const idType: string): boolean;
 
     property Name: string read FName write FName;
     property Birthdate: TDate read FBirthdate write FBirthdate;
-    property BirthdateStr: string read FBirthdateStr write FBirthdateStr;
     property Referee: TReferee read FReferee write FReferee;
     property LandlordPres: TLandLord read FLandlordPres write FLandlordPres;
     property LandLordProv: TLandLord read FLandLordProv write FLandLordProv;
@@ -44,6 +45,7 @@ type
     property Employer: TEmployer read FEmployer write FEmployer;
     property Bank: TBank read FBank write FBank;
     property IdentityDocs[const i: integer]: TIdentityDoc read GetIdentityDoc;
+    property References[const i: integer]: TReference read GetReference;
     property HasId: boolean read CheckId;
 
     constructor Create;
@@ -188,6 +190,17 @@ begin
       Exit;
     end;
   end;
+end;
+
+procedure TClient.AddReference(reference: TReference);
+begin
+  SetLength(FReferences,Length(FReferences) + 1);
+  FReferences[Length(FReferences) - 1] := reference;
+end;
+
+function TClient.GetReference(const i: Integer): TReference;
+begin
+  Result := FReferences[i];
 end;
 
 end.

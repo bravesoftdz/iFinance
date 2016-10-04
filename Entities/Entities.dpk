@@ -67,6 +67,7 @@ contains
   BaseSearch in '..\Base\BaseSearch.pas' {frmBaseSearch},
   DesignationList in 'DesignationList.pas' {frmDesignationList},
   BaseGridDetail in '..\Base\BaseGridDetail.pas' {frmBaseGridDetail},
-  IdentityDoc in 'IdentityDoc.pas';
+  IdentityDoc in 'IdentityDoc.pas',
+  Reference in 'Reference.pas';
 
 end.

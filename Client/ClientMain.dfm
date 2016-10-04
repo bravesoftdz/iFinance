@@ -38,9 +38,9 @@ inherited frmClientMain: TfrmClientMain
     Width = 923
     Height = 492
     Hint = ''
-    ActivePage = tsReferences
+    ActivePage = tsClientInfo
     Align = alClient
-    TabIndex = 1
+    TabIndex = 0
     TabOrder = 1
     TabOrientation = toBottom
     TabStyle = tsRoundCorners
@@ -894,17 +894,6 @@ inherited frmClientMain: TfrmClientMain
         FrameColor = clBlack
         FrameHotColor = clBlack
       end
-      object dtpBirthdate: TRzDateTimePicker
-        Left = 114
-        Top = 124
-        Width = 95
-        Height = 21
-        Date = 42624.922021979170000000
-        Format = 'MM/dd/yyyy'
-        Time = 42624.922021979170000000
-        TabOrder = 3
-        OnChange = dtpBirthdateChange
-      end
       object bteBank: TRzButtonEdit
         Left = 694
         Top = 214
@@ -984,6 +973,17 @@ inherited frmClientMain: TfrmClientMain
         TabOrder = 32
         DisplayFormat = '###,##0.00'
       end
+      object dteBirthdate: TRzDBDateTimeEdit
+        Left = 113
+        Top = 124
+        Width = 96
+        Height = 21
+        DataSource = dmClient.dscPersonalInfo
+        DataField = 'birth_date'
+        TabOrder = 3
+        OnChange = dteBirthdateChange
+        EditType = etDate
+      end
     end
     object tsReferences: TRzTabSheet
       Caption = 'Family and personal references'
@@ -997,7 +997,6 @@ inherited frmClientMain: TfrmClientMain
         BorderSides = [sdLeft, sdRight]
         BorderWidth = 5
         TabOrder = 0
-        ExplicitTop = -2
         DesignSize = (
           921
           468)
@@ -1025,7 +1024,7 @@ inherited frmClientMain: TfrmClientMain
           Width = 909
           Height = 156
           Align = alTop
-          DataSource = dmClient.dscRefInfo
+          DataSource = dmRef.dscRefInfo
           Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
           TabOrder = 0
           TitleFont.Charset = DEFAULT_CHARSET
@@ -1066,7 +1065,6 @@ inherited frmClientMain: TfrmClientMain
           object tsDetail: TRzTabSheet
             Color = 15263976
             Caption = 'Reference details'
-            ExplicitHeight = 201
             object JvLabel39: TJvLabel
               Left = 35
               Top = 100
@@ -1181,18 +1179,30 @@ inherited frmClientMain: TfrmClientMain
               Caption = 'Mobile'
               Transparent = True
             end
+            object urlCopyClientAddress: TRzURLLabel
+              Left = 398
+              Top = 95
+              Width = 94
+              Height = 13
+              Caption = 'Copy client address'
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clGreen
+              Font.Height = -11
+              Font.Name = 'Tahoma'
+              Font.Style = [fsUnderline]
+              ParentFont = False
+            end
             object RzDBLookupComboBox9: TRzDBLookupComboBox
               Left = 114
               Top = 94
               Width = 168
               Height = 21
-              DataField = 'ident_type'
-              DataSource = dmClient.dscIdentInfo
-              KeyField = 'ident_type'
-              ListField = 'ident_name'
-              ListSource = dmAux.dscIdentType
-              TabOrder = 0
-              OnClick = chbNoExpiryClick
+              DataField = 'ref_type'
+              DataSource = dmRef.dscRefInfo
+              KeyField = 'ref_type'
+              ListField = 'ref_name'
+              ListSource = dmAux.dscRefType
+              TabOrder = 2
               AllowNull = True
               FrameColor = clBlack
               FrameHotColor = clBlack
@@ -1202,60 +1212,58 @@ inherited frmClientMain: TfrmClientMain
               Top = 70
               Width = 168
               Height = 21
-              DataSource = dmClient.dscPersonalInfo
+              DataSource = dmRef.dscPersonalInfo
               DataField = 'middlename'
               CharCase = ecUpperCase
-              TabOrder = 1
+              TabOrder = 3
             end
             object RzDBEdit2: TRzDBEdit
               Left = 114
               Top = 46
               Width = 168
               Height = 21
-              DataSource = dmClient.dscPersonalInfo
+              DataSource = dmRef.dscPersonalInfo
               DataField = 'firstname'
               CharCase = ecUpperCase
-              TabOrder = 2
+              TabOrder = 1
             end
             object RzDBEdit3: TRzDBEdit
               Left = 114
               Top = 22
               Width = 168
               Height = 21
-              DataSource = dmClient.dscPersonalInfo
+              DataSource = dmRef.dscPersonalInfo
               DataField = 'lastname'
               CharCase = ecUpperCase
               Ctl3D = True
               ParentCtl3D = False
-              TabOrder = 3
+              TabOrder = 0
             end
             object RzDBCheckBox1: TRzDBCheckBox
               Left = 114
               Top = 121
               Width = 72
               Height = 15
-              DataField = 'has_expiry'
-              DataSource = dmAux.dscIdentType
+              DataField = 'is_dependent'
+              DataSource = dmRef.dscRefInfo
               NullAsUnchecked = False
               ValueChecked = '0'
               ValueUnchecked = '1'
               Caption = 'Dependent'
               TabOrder = 4
-              OnClick = chbNoExpiryClick
             end
             object RzDBCheckBox2: TRzDBCheckBox
               Left = 202
               Top = 121
               Width = 57
               Height = 15
-              DataField = 'has_expiry'
-              DataSource = dmAux.dscIdentType
+              DataField = 'is_student'
+              DataSource = dmRef.dscRefInfo
               NullAsUnchecked = False
               ValueChecked = '0'
               ValueUnchecked = '1'
               Caption = 'Student'
               TabOrder = 5
-              OnClick = chbNoExpiryClick
             end
             object RzDBLookupComboBox10: TRzDBLookupComboBox
               Left = 398
@@ -1263,11 +1271,11 @@ inherited frmClientMain: TfrmClientMain
               Width = 187
               Height = 21
               DataField = 'post_code'
-              DataSource = dmClient.dscAddressInfo2
+              DataSource = dmRef.dscRefInfo
               KeyField = 'post_code'
               ListField = 'town'
               ListSource = dmAux.dscTowns
-              TabOrder = 6
+              TabOrder = 10
               AllowNull = True
               FrameColor = clBlack
               FrameHotColor = clBlack
@@ -1277,18 +1285,18 @@ inherited frmClientMain: TfrmClientMain
               Top = 46
               Width = 187
               Height = 21
-              DataSource = dmClient.dscAddressInfo2
+              DataSource = dmRef.dscRefInfo
               DataField = 'brgy'
               Ctl3D = True
               ParentCtl3D = False
-              TabOrder = 7
+              TabOrder = 9
             end
             object RzDBEdit14: TRzDBEdit
               Left = 398
               Top = 22
               Width = 187
               Height = 21
-              DataSource = dmClient.dscAddressInfo2
+              DataSource = dmRef.dscAddressInfo
               DataField = 'st'
               Ctl3D = True
               ParentCtl3D = False
@@ -1299,22 +1307,22 @@ inherited frmClientMain: TfrmClientMain
               Top = 163
               Width = 168
               Height = 21
-              DataSource = dmClient.dscContactInfo
-              DataField = 'fb_acct'
+              DataSource = dmRef.dscContactInfo
+              DataField = 'home_phone'
               Ctl3D = True
               ParentCtl3D = False
-              TabOrder = 9
+              TabOrder = 6
             end
             object RzDBEdit20: TRzDBEdit
               Left = 114
               Top = 187
               Width = 168
               Height = 21
-              DataSource = dmClient.dscContactInfo
-              DataField = 'email_add'
+              DataSource = dmRef.dscContactInfo
+              DataField = 'mobile_no'
               Ctl3D = True
               ParentCtl3D = False
-              TabOrder = 10
+              TabOrder = 7
             end
           end
         end
@@ -1360,7 +1368,6 @@ inherited frmClientMain: TfrmClientMain
         BorderSides = [sdLeft, sdRight]
         BorderWidth = 5
         TabOrder = 0
-        ExplicitTop = -2
         DesignSize = (
           921
           468)
@@ -1397,8 +1404,9 @@ inherited frmClientMain: TfrmClientMain
           TitleFont.Name = 'Tahoma'
           TitleFont.Style = []
           QuickCompare.Active = True
-          QuickCompare.FieldName = 'exp_date'
+          QuickCompare.FieldName = 'exp_date_computed'
           QuickCompare.FieldValue = 42644d
+          QuickCompare.Operation = qcoLessThan
           QuickCompare.Color = 11184895
           QuickCompare.FontColor = clRed
           AltRowShading = True
@@ -1487,7 +1495,6 @@ inherited frmClientMain: TfrmClientMain
               ListField = 'ident_name'
               ListSource = dmAux.dscIdentType
               TabOrder = 1
-              OnClick = chbNoExpiryClick
               AllowNull = True
               FrameColor = clBlack
               FrameHotColor = clBlack
@@ -1511,9 +1518,9 @@ inherited frmClientMain: TfrmClientMain
               Top = 62
               Width = 105
               Height = 21
-              Date = 42645.937719687500000000
+              Date = 42646.459479456020000000
               Format = 'MM/dd/yyyy'
-              Time = 42645.937719687500000000
+              Time = 42646.459479456020000000
               TabOrder = 3
               Visible = False
               DataField = 'exp_date'
