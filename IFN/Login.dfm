@@ -246,5 +246,12 @@ inherited frmLogin: TfrmLogin
       TabOrder = 3
       OnClick = btnCancelClick
     end
+    object Button1: TButton
+      Left = 392
+      Top = 132
+      Width = 28
+      Height = 25
+      TabOrder = 4
+    end
   end
 end

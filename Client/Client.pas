@@ -29,7 +29,7 @@ type
     procedure Save; override;
     procedure Edit; override;
     procedure Cancel; override;
-    procedure Retrieve;
+    procedure Retrieve(const closeDataSources: boolean = false);
     procedure CopyAddress;
     procedure AddIdentityDoc(identDoc: TIdentityDoc);
     procedure AddReference(reference: TReference);
@@ -49,7 +49,7 @@ type
     property HasId: boolean read CheckId;
 
     constructor Create;
-    destructor Destroy;
+    destructor Destroy; reintroduce;
   end;
 
 var
@@ -138,9 +138,23 @@ begin
   end;
 end;
 
-procedure TClient.Retrieve;
+procedure TClient.Retrieve(const closeDataSources: boolean = false);
+var
+  i: integer;
 begin
-  Edit;
+  with dmClient do
+  begin
+    for i:=0 to ComponentCount - 1 do
+    begin
+      if Components[i] is TADODataSet then
+      begin
+        if closeDataSources then
+          (Components[i] as TADODataSet).Close;
+
+        (Components[i] as TADODataSet).Open;
+      end;
+    end;
+  end;
 end;
 
 function TClient.CheckId: boolean;
@@ -154,6 +168,11 @@ var
 begin
   with dmClient, dmClient.dstAddressInfo do
   begin
+    if dstAddressInfo2.RecordCount > 0 then
+      dstAddressInfo2.Edit
+    else
+      dstAddressInfo2.Append;
+
     for i := 0 to FieldCount - 1 do
       if not dstAddressInfo2.Fields[i].ReadOnly then
         dstAddressInfo2.Fields[i].Value := Fields[i].Value;

@@ -1,4 +1,4 @@
-unit ClientFilterIntf;
+unit ClientListIntf;
 
 interface
 

@@ -231,7 +231,6 @@ object dmClient: TdmClient
     AfterOpen = dstIdentInfoAfterOpen
     BeforePost = dstIdentInfoBeforePost
     AfterPost = dstIdentInfoAfterPost
-    OnNewRecord = dstIdentInfoNewRecord
     CommandText = 'sp_cl_get_ident_info;1'
     CommandType = cmdStoredProc
     Parameters = <

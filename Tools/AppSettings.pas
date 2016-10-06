@@ -15,6 +15,11 @@ type
     edLastname: TRzDBEdit;
     JvLabel2: TJvLabel;
     RzDBEdit1: TRzDBEdit;
+    JvGroupHeader2: TJvGroupHeader;
+    JvLabel3: TJvLabel;
+    JvLabel4: TJvLabel;
+    RzDBEdit2: TRzDBEdit;
+    RzDBEdit3: TRzDBEdit;
   private
     { Private declarations }
   public

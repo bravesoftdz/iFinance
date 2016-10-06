@@ -59,7 +59,6 @@ type
     procedure dstAcctInfoAfterOpen(DataSet: TDataSet);
     procedure dstIdentInfoAfterOpen(DataSet: TDataSet);
     procedure dstIdentInfoAfterPost(DataSet: TDataSet);
-    procedure dstIdentInfoNewRecord(DataSet: TDataSet);
   private
     { Private declarations }
   public
@@ -327,11 +326,6 @@ procedure TdmClient.dstIdentInfoBeforePost(DataSet: TDataSet);
 begin
   if DataSet.State = dsInsert then
     DataSet.FieldByName('entity_id').AsString := cln.Id;
-end;
-
-procedure TdmClient.dstIdentInfoNewRecord(DataSet: TDataSet);
-begin
-  DataSet.FieldByName('exp_date').AsDateTime := Date;
 end;
 
 procedure TdmClient.dstPersonalInfoAfterOpen(DataSet: TDataSet);

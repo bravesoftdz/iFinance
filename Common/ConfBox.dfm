@@ -24,6 +24,9 @@ inherited frmConfBox: TfrmConfBox
   inherited pnlMain: TRzPanel
     Width = 357
     Height = 108
+    BorderSides = [sdLeft, sdRight, sdBottom]
+    BorderColor = clBlack
+    ExplicitTop = 23
     ExplicitWidth = 357
     ExplicitHeight = 108
     object lblMessage: TJvLabel

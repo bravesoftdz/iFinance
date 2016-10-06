@@ -8,7 +8,7 @@ uses
   JvPageList, JvNavigationPane, JvExControls, RzButton, System.ImageList,
   Vcl.ImgList, Vcl.ComCtrls, Vcl.ToolWin, AppConstants, Vcl.StdCtrls, RzLabel,
   JvImageList, RzStatus, StatusIntf, DockIntf, RzLstBox, Client, Vcl.AppEvnts,
-  ClientFilterIntf;
+  ClientListIntf;
 
 type
   TfrmMain = class(TForm,IStatus,IDock)
@@ -70,6 +70,18 @@ type
     procedure ShowConfirmation(const conf: string = 'Record saved successfully.');
   end;
 
+  type
+    TRecentClient = class
+    strict private
+      FId: string;
+      FName: string;
+    public
+      property Id: string read FId write FId;
+      property Name: string read FName write FName;
+
+      constructor Create(const id, name: string);
+    end;
+
 var
   frmMain: TfrmMain;
 
@@ -79,7 +91,13 @@ implementation
 
 uses
   ClientMain, SaveIntf, ClientList, DockedFormIntf, GroupList, EmployerList,
-  BanksList, DesignationList, LoanClassList, ConfBox, ErrorBox;
+  BanksList, DesignationList, LoanClassList, ConfBox, ErrorBox, ClientIntf;
+
+constructor TRecentClient.Create(const id: string; const name: string);
+begin
+  FId := id;
+  FName := name;
+end;
 
 procedure TfrmMain.OpenClientList(const filterType: TClientFilterType = cftAll);
 var
@@ -114,10 +132,35 @@ begin
 end;
 
 procedure TfrmMain.lbxRecentDblClick(Sender: TObject);
+var
+  obj: TObject;
+  intf: IClient;
 begin
-  cln := lbxRecent.Items.Objects[lbxRecent.IndexOf(lbxRecent.SelectedItem)] as TClient;
+  obj := lbxRecent.Items.Objects[lbxRecent.IndexOf(lbxRecent.SelectedItem)];
 
-  DockForm(fmClientMain);
+  if obj is TRecentClient then
+  begin
+    if Assigned(cln) then
+    begin
+      AddRecentClient(cln);
+
+      cln.Id := TRecentClient(obj).Id;
+      cln.Name := TRecentClient(obj).Name;
+      cln.Retrieve(true);
+
+      if Supports(pnlDockMain.Controls[0] as TForm,IClient,intf) then
+      begin
+        intf.SetClientName;
+        intf.SetUnboundControls;
+      end;
+    end
+    else
+    begin
+      cln := TClient.Create;
+      cln.Id := TRecentClient(obj).Id;
+      DockForm(fmClientMain);
+    end;
+  end;
 end;
 
 procedure TfrmMain.tbAddClientClick(Sender: TObject);
@@ -139,7 +182,7 @@ begin
       if Supports(pnlDockMain.Controls[0] as TForm,ISave,intf) then
       begin
         intf.Cancel;
-        ShowConfirmation('Changes have been cancelled.');
+        // ShowConfirmation('Changes have been cancelled.');
       end;
   except
     on e:Exception do
@@ -190,8 +233,6 @@ var
   control: integer;
   intf: IDockedForm;
 begin
-
-
   // if (pnlDockMain.ControlCount = 0) or ((pnlDockMain.ControlCount > 0) and
   //  ((pnlDockMain.Controls[0].ClassType <> frm.ClassType))) then
   begin
@@ -229,7 +270,6 @@ begin
   end;
 
   // clear the status bar message
-  spMain.FillColor := clMenu;
   spMain.Caption := '';
 end;
 
@@ -237,7 +277,7 @@ procedure TfrmMain.ShowError(const error: string);
 begin
   // spMain.Font.Color := clRed;
   // spMain.Caption := error;
-  with TfrmErrorBox.Create(self) do
+  with TfrmErrorBox.Create(self,error) do
   try
     ShowModal;
   finally
@@ -249,7 +289,7 @@ procedure TfrmMain.ShowConfirmation(const conf: string);
 begin
   // spMain.Font.Color := clGreen;
   // spMain.Caption := conf;
-  with TfrmConfBox.Create(self) do
+  with TfrmConfBox.Create(self,conf) do
   try
     ShowModal;
   finally
@@ -259,8 +299,9 @@ end;
 
 procedure TfrmMain.AddRecentClient(ct: TClient);
 begin
-  if not lbxRecent.FindItem(ct.Name) then
-    lbxRecent.Items.AddObject(ct.Name,ct);
+  if ct.HasId then
+    if not lbxRecent.FindItem(ct.Name) then
+      lbxRecent.Items.AddObject(ct.Name, TRecentClient.Create(ct.Id,ct.Name));
 end;
 
 end.

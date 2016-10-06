@@ -15,6 +15,8 @@ type
     { Private declarations }
   public
     { Public declarations }
+    constructor Create(AOwner: TComponent); overload; override;
+    constructor Create(AOwner: TComponent; const confMessage: string); reintroduce; overload;
   end;
 
 var
@@ -23,5 +25,16 @@ var
 implementation
 
 {$R *.dfm}
+
+constructor TfrmConfBox.Create(AOwner: TComponent);
+begin
+  inherited;
+end;
+
+constructor TfrmConfBox.Create(AOwner: TComponent; const confMessage: string);
+begin
+  inherited Create(AOwner);
+  lblMessage.Caption := confMessage;
+end;
 
 end.

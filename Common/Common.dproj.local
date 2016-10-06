@@ -14,8 +14,8 @@
     <Transaction>2016/08/15 23:05:15.000.603,=C:\_Projects\IFMIS\Common\Unit1.pas</Transaction>
     <Transaction>2016/08/15 23:05:35.000.485,C:\_Projects\IFMIS\Common\AppConstants.pas=C:\_Projects\IFMIS\Common\Unit1.pas</Transaction>
     <Transaction>2016/08/17 22:57:16.000.966,=C:\_Projects\IFMIS\Common\Unit1.pas</Transaction>
-    <Transaction>2016/08/17 22:57:40.000.273,C:\_Projects\IFMIS\Common\AppData.pas=C:\_Projects\IFMIS\Common\Unit1.pas</Transaction>
     <Transaction>2016/08/17 22:57:40.000.273,C:\_Projects\IFMIS\Common\AppData.dfm=C:\_Projects\IFMIS\Common\Unit1.dfm</Transaction>
+    <Transaction>2016/08/17 22:57:40.000.273,C:\_Projects\IFMIS\Common\AppData.pas=C:\_Projects\IFMIS\Common\Unit1.pas</Transaction>
     <Transaction>2016/08/17 23:31:51.000.614,=dbrtl.dcp</Transaction>
     <Transaction>2016/08/17 23:31:51.000.665,=adortl.dcp</Transaction>
     <Transaction>2016/08/17 23:47:44.000.275,=C:\_Projects\IFMIS\Common\Unit1.pas</Transaction>
@@ -30,19 +30,19 @@
     <Transaction>2016/08/19 11:46:14.000.064,C:\_Projects\IFMIS\Common\Unit1.pas=C:\_Projects\IFMIS\Common\ConnUtil.pas</Transaction>
     <Transaction>2016/08/19 13:44:39.000.793,C:\_Projects\iFinance\Common\IFinanceGlobal.pas=C:\_Projects\iFinance\Common\IFinance.pas</Transaction>
     <Transaction>2016/08/20 11:49:55.000.544,=cxDataRS18.dcp</Transaction>
-    <Transaction>2016/08/20 11:49:55.000.391,=cxLibraryRS18.dcp</Transaction>
+    <Transaction>2016/08/20 11:49:55.000.238,=vclimg.dcp</Transaction>
     <Transaction>2016/08/20 11:49:55.000.655,=cxPageControlRS18.dcp</Transaction>
+    <Transaction>2016/08/20 11:49:55.000.391,=cxLibraryRS18.dcp</Transaction>
     <Transaction>2016/08/20 11:49:55.000.491,=dxThemeRS18.dcp</Transaction>
     <Transaction>2016/08/20 11:49:55.000.336,=dxCoreRS18.dcp</Transaction>
     <Transaction>2016/08/20 11:49:55.000.441,=dxGDIPlusRS18.dcp</Transaction>
+    <Transaction>2016/08/20 11:49:55.000.598,=cxEditorsRS18.dcp</Transaction>
     <Transaction>2016/08/20 11:49:55.000.716,=cxGridRS18.dcp</Transaction>
     <Transaction>2016/08/20 11:49:55.000.287,=vcldb.dcp</Transaction>
-    <Transaction>2016/08/20 11:49:55.000.238,=vclimg.dcp</Transaction>
-    <Transaction>2016/08/20 11:49:55.000.598,=cxEditorsRS18.dcp</Transaction>
-    <Transaction>2016/08/21 21:30:48.000.804,=JvDB.dcp</Transaction>
-    <Transaction>2016/08/21 21:30:48.000.648,=JvCore.dcp</Transaction>
-    <Transaction>2016/08/21 21:30:48.000.733,=JvStdCtrls.dcp</Transaction>
     <Transaction>2016/08/21 21:30:48.000.561,=Jcl.dcp</Transaction>
+    <Transaction>2016/08/21 21:30:48.000.648,=JvCore.dcp</Transaction>
+    <Transaction>2016/08/21 21:30:48.000.804,=JvDB.dcp</Transaction>
+    <Transaction>2016/08/21 21:30:48.000.733,=JvStdCtrls.dcp</Transaction>
     <Transaction>2016/09/01 23:26:18.000.957,=RaizeComponentsVclDb.dcp</Transaction>
     <Transaction>2016/09/01 23:26:18.000.910,=RaizeComponentsVcl.dcp</Transaction>
     <Transaction>2016/09/09 22:27:05.000.439,=C:\_Projects\iFinance\Common\Unit1.pas</Transaction>
@@ -54,5 +54,7 @@
     <Transaction>2016/09/11 19:07:39.000.542,C:\_Projects\iFinance\Common\Unit1.pas=C:\_Projects\iFinance\Common\AppConstUtils.pas</Transaction>
     <Transaction>2016/09/11 19:09:34.000.337,C:\_Projects\iFinance\Common\AppConstUtils.pas=</Transaction>
     <Transaction>2016/09/12 11:30:42.000.030,=RESTComponents.dcp</Transaction>
+    <Transaction>2016/10/05 09:34:47.000.753,=C:\_Projects\iFinance\Common\ErrorBox.pas</Transaction>
+    <Transaction>2016/10/05 09:34:47.000.562,=C:\_Projects\iFinance\Common\ConfBox.pas</Transaction>
   </Transactions>
 </BorlandProject>

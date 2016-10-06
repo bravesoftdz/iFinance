@@ -55,7 +55,9 @@ contains
   User in 'User.pas',
   ConnUtil in 'ConnUtil.pas',
   StatusIntf in 'StatusIntf.pas',
-  DockIntf in 'DockIntf.pas';
+  DockIntf in 'DockIntf.pas',
+  ConfBox in 'ConfBox.pas' {frmConfBox},
+  ErrorBox in 'ErrorBox.pas' {frmErrorBox};
 
 end.
 

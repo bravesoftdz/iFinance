@@ -11,14 +11,17 @@
     <Transaction>2016/09/01 15:10:24.000.547,C:\Users\BryanGarcia\Documents\Embarcadero\Studio\Projects\Main.pas=C:\_Projects\iFinance\IFN\Main.pas</Transaction>
     <Transaction>2016/09/01 15:10:54.000.661,C:\Users\BryanGarcia\Documents\Embarcadero\Studio\Projects\Project1.dproj=C:\_Projects\iFinance\IFN\iFinance.dproj</Transaction>
     <Transaction>2016/09/01 18:20:43.000.337,=C:\_Projects\iFinance\IFN\Login.pas</Transaction>
-    <Transaction>2016/10/05 00:19:11.516,=C:\_Projects\iFinance\IFN\Unit1.pas</Transaction>
-    <Transaction>2016/10/05 00:19:11.903,=C:\_Projects\iFinance\Base\BasePopup.pas</Transaction>
-    <Transaction>2016/10/05 00:19:11.940,=C:\_Projects\iFinance\IFN\Unit2.pas</Transaction>
-    <Transaction>2016/10/05 00:21:32.370,C:\_Projects\iFinance\IFN\ConfBox.pas=C:\_Projects\iFinance\IFN\Unit1.pas</Transaction>
-    <Transaction>2016/10/05 00:21:32.370,C:\_Projects\iFinance\IFN\ConfBox.dfm=C:\_Projects\iFinance\IFN\Unit1.dfm</Transaction>
-    <Transaction>2016/10/05 00:39:31.499,=C:\_Projects\iFinance\IFN\Unit1.pas</Transaction>
-    <Transaction>2016/10/05 00:39:31.726,=C:\_Projects\iFinance\IFN\Unit2.pas</Transaction>
-    <Transaction>2016/10/05 00:40:26.584,C:\_Projects\iFinance\IFN\ErrorBox.dfm=C:\_Projects\iFinance\IFN\Unit1.dfm</Transaction>
-    <Transaction>2016/10/05 00:40:26.584,C:\_Projects\iFinance\IFN\ErrorBox.pas=C:\_Projects\iFinance\IFN\Unit1.pas</Transaction>
+    <Transaction>2016/10/05 00:19:11.000.940,=C:\_Projects\iFinance\IFN\Unit2.pas</Transaction>
+    <Transaction>2016/10/05 00:19:11.000.516,=C:\_Projects\iFinance\IFN\Unit1.pas</Transaction>
+    <Transaction>2016/10/05 00:19:11.000.903,=C:\_Projects\iFinance\Base\BasePopup.pas</Transaction>
+    <Transaction>2016/10/05 00:21:32.000.370,C:\_Projects\iFinance\IFN\ConfBox.pas=C:\_Projects\iFinance\IFN\Unit1.pas</Transaction>
+    <Transaction>2016/10/05 00:21:32.000.370,C:\_Projects\iFinance\IFN\ConfBox.dfm=C:\_Projects\iFinance\IFN\Unit1.dfm</Transaction>
+    <Transaction>2016/10/05 00:39:31.000.499,=C:\_Projects\iFinance\IFN\Unit1.pas</Transaction>
+    <Transaction>2016/10/05 00:39:31.000.726,=C:\_Projects\iFinance\IFN\Unit2.pas</Transaction>
+    <Transaction>2016/10/05 00:40:26.000.584,C:\_Projects\iFinance\IFN\ErrorBox.pas=C:\_Projects\iFinance\IFN\Unit1.pas</Transaction>
+    <Transaction>2016/10/05 00:40:26.000.584,C:\_Projects\iFinance\IFN\ErrorBox.dfm=C:\_Projects\iFinance\IFN\Unit1.dfm</Transaction>
+    <Transaction>2016/10/05 09:32:52.000.296,C:\_Projects\iFinance\IFN\ConfBox.pas=</Transaction>
+    <Transaction>2016/10/05 09:32:56.000.576,C:\_Projects\iFinance\IFN\ErrorBox.pas=</Transaction>
+    <Transaction>2016/10/05 09:33:02.000.792,C:\_Projects\iFinance\Base\BasePopup.pas=</Transaction>
   </Transactions>
 </BorlandProject>

@@ -29,6 +29,24 @@ inherited frmLoanClassList: TfrmLoanClassList
     DesignSize = (
       755
       487)
+    object urlLoanClassList: TRzURLLabel
+      Left = 711
+      Top = 239
+      Width = 38
+      Height = 13
+      Hint = 'Refresh loan class list'
+      Anchors = [akTop, akRight]
+      Caption = 'Refresh'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 16744448
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = [fsUnderline]
+      ParentFont = False
+      ParentShowHint = False
+      ShowHint = True
+      OnClick = urlLoanClassListClick
+    end
     object grList: TRzDBGrid
       Left = 6
       Top = 5
@@ -55,7 +73,7 @@ inherited frmLoanClassList: TfrmLoanClassList
         end
         item
           Expanded = False
-          FieldName = 'loan_type'
+          FieldName = 'loan_name'
           Title.Caption = 'Type'
           Width = 65
           Visible = True
@@ -64,14 +82,14 @@ inherited frmLoanClassList: TfrmLoanClassList
           Expanded = False
           FieldName = 'int_rate'
           Title.Caption = 'Interest'
-          Width = 65
+          Width = 45
           Visible = True
         end
         item
           Expanded = False
           FieldName = 'term'
           Title.Caption = 'Term'
-          Width = 65
+          Width = 30
           Visible = True
         end
         item
@@ -184,6 +202,14 @@ inherited frmLoanClassList: TfrmLoanClassList
           Font.Style = [fsUnderline]
           ParentFont = False
         end
+        object JvLabel7: TJvLabel
+          Left = 159
+          Top = 71
+          Width = 13
+          Height = 13
+          Caption = '%'
+          Transparent = True
+        end
         object edClassName: TRzDBEdit
           Left = 105
           Top = 17
@@ -194,7 +220,7 @@ inherited frmLoanClassList: TfrmLoanClassList
           CharCase = ecUpperCase
           TabOrder = 0
         end
-        object RzDBLookupComboBox7: TRzDBLookupComboBox
+        object dbluType: TRzDBLookupComboBox
           Left = 105
           Top = 41
           Width = 207
@@ -209,7 +235,7 @@ inherited frmLoanClassList: TfrmLoanClassList
           FrameColor = clBlack
           FrameHotColor = clBlack
         end
-        object RzListBox1: TRzListBox
+        object lbxGroups: TRzListBox
           Left = 318
           Top = 17
           Width = 195
@@ -218,27 +244,27 @@ inherited frmLoanClassList: TfrmLoanClassList
           ItemHeight = 13
           TabOrder = 2
         end
-        object RzDBEdit1: TRzDBEdit
+        object edInterest: TRzDBEdit
           Left = 105
           Top = 65
-          Width = 96
+          Width = 48
           Height = 21
           DataSource = dmLoansAux.dscLoanClass
           DataField = 'int_rate'
           CharCase = ecUpperCase
           TabOrder = 3
         end
-        object RzDBEdit2: TRzDBEdit
+        object edTerm: TRzDBEdit
           Left = 105
           Top = 89
-          Width = 96
+          Width = 48
           Height = 21
           DataSource = dmLoansAux.dscLoanClass
           DataField = 'term'
           CharCase = ecUpperCase
           TabOrder = 4
         end
-        object RzDBDateTimeEdit1: TRzDBDateTimeEdit
+        object dteValidFrom: TRzDBDateTimeEdit
           Left = 105
           Top = 113
           Width = 96
@@ -247,6 +273,7 @@ inherited frmLoanClassList: TfrmLoanClassList
           DataField = 'valid_from'
           TabOrder = 5
           EditType = etDate
+          Format = 'mm/dd/yyyy'
         end
         object RzDBDateTimeEdit2: TRzDBDateTimeEdit
           Left = 105
@@ -257,8 +284,9 @@ inherited frmLoanClassList: TfrmLoanClassList
           DataField = 'valid_until'
           TabOrder = 6
           EditType = etDate
+          Format = 'mm/dd/yyyy'
         end
-        object RzListBox2: TRzListBox
+        object lbxBranches: TRzListBox
           Left = 519
           Top = 17
           Width = 195

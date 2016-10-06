@@ -8,10 +8,12 @@ inherited frmErrorBox: TfrmErrorBox
   TextHeight = 13
   inherited pnlTitle: TRzPanel
     Width = 357
-    GradientColorStart = 4342527
-    GradientColorStop = 7434751
+    GradientColorStart = 2829311
+    GradientColorStop = 5329407
+    ExplicitWidth = 357
     inherited imgClose: TImage
       Left = 336
+      ExplicitLeft = 336
     end
     inherited lblCaption: TRzLabel
       Width = 28
@@ -22,21 +24,28 @@ inherited frmErrorBox: TfrmErrorBox
   inherited pnlMain: TRzPanel
     Width = 357
     Height = 108
+    BorderSides = [sdLeft, sdRight, sdBottom]
+    BorderColor = clBlack
+    ExplicitTop = 23
+    ExplicitWidth = 357
+    ExplicitHeight = 108
     object lblMessage: TJvLabel
-      Left = 24
-      Top = 24
-      Width = 233
-      Height = 13
+      Left = 29
+      Top = 16
+      Width = 321
+      Height = 46
+      AutoSize = False
       Caption = 'Errors have been found. Unable to save record.'
       Transparent = True
+      WordWrap = True
     end
-    object btnOk: TRzButton
+    object btnClose: TRzButton
       Left = 275
       Top = 76
       ModalResult = 8
       ShowDownPattern = False
       ShowFocusRect = False
-      Caption = 'OK'
+      Caption = 'Close'
       TabOrder = 0
     end
   end

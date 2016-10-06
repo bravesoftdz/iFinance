@@ -23,6 +23,7 @@ type
     btnLogin: TRzButton;
     btnCancel: TRzButton;
     lblStatus: TLabel;
+    Button1: TButton;
     procedure FormShow(Sender: TObject);
     procedure FormKeyPress(Sender: TObject; var Key: Char);
     procedure FormCreate(Sender: TObject);
@@ -198,6 +199,8 @@ begin
   with dmApplication.dstConfig do
   begin
     Open;
+
+    ifn.AppDate := Date;
 
     // location code
     Locate('sysconfig_code','LOCATION_CODE',[]);

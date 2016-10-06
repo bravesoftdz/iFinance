@@ -68,6 +68,7 @@ contains
   DesignationList in 'DesignationList.pas' {frmDesignationList},
   BaseGridDetail in '..\Base\BaseGridDetail.pas' {frmBaseGridDetail},
   IdentityDoc in 'IdentityDoc.pas',
-  Reference in 'Reference.pas';
+  Reference in 'Reference.pas',
+  Group in 'Group.pas';
 
 end.

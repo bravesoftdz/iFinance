@@ -4,10 +4,7 @@ uses
   Vcl.Forms,
   AppUtil,
   Main in 'Main.pas' {frmMain},
-  Login in 'Login.pas' {frmLogin},
-  ConfBox in 'ConfBox.pas' {frmConfBox},
-  ErrorBox in 'ErrorBox.pas' {frmErrorBox},
-  BasePopup in '..\Base\BasePopup.pas' {frmBasePopup};
+  Login in 'Login.pas' {frmLogin};
 
 {$R *.res}
 
@@ -19,8 +16,6 @@ begin
       Application.Initialize;
       Application.MainFormOnTaskbar := True;
       Application.CreateForm(TfrmMain, frmMain);
-  Application.CreateForm(TfrmConfBox, frmConfBox);
-  Application.CreateForm(TfrmErrorBox, frmErrorBox);
   Application.Run;
     end;
   end;

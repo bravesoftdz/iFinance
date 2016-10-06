@@ -9,12 +9,14 @@ uses
 
 type
   TfrmErrorBox = class(TfrmBasePopup)
-    btnOk: TRzButton;
+    btnClose: TRzButton;
     lblMessage: TJvLabel;
   private
     { Private declarations }
   public
     { Public declarations }
+    constructor Create(AOwner: TComponent); overload; override;
+    constructor Create(AOwner: TComponent; const errMessage: string); reintroduce; overload;
   end;
 
 var
@@ -23,5 +25,17 @@ var
 implementation
 
 {$R *.dfm}
+
+constructor TfrmErrorBox.Create(AOwner: TComponent);
+begin
+  inherited;
+end;
+
+constructor TfrmErrorBox.Create(AOwner: TComponent; const errMessage: string);
+begin
+  inherited Create(AOwner);
+  lblMessage.Caption := errMessage;
+end;
+
 
 end.

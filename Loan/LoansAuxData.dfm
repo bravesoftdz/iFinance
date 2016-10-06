@@ -8,8 +8,11 @@ object dmLoansAux: TdmLoansAux
     Top = 24
   end
   object dstLoanClass: TADODataSet
+    Tag = 1
     Connection = dmApplication.acMain
     CursorType = ctStatic
+    AfterOpen = dstLoanClassAfterOpen
+    BeforePost = dstLoanClassBeforePost
     CommandText = 'sp_get_loan_class;1'
     CommandType = cmdStoredProc
     Parameters = <>
@@ -31,5 +34,21 @@ object dmLoansAux: TdmLoansAux
     Parameters = <>
     Left = 48
     Top = 88
+  end
+  object dscLoanClassGroups: TDataSource
+    DataSet = dstLoanClassGroups
+    Left = 112
+    Top = 152
+  end
+  object dstLoanClassGroups: TADODataSet
+    Tag = 1
+    Connection = dmApplication.acMain
+    CursorType = ctStatic
+    BeforeOpen = dstLoanClassGroupsBeforeOpen
+    CommandText = 'sp_get_loan_class_groups;1'
+    CommandType = cmdStoredProc
+    Parameters = <>
+    Left = 48
+    Top = 152
   end
 end

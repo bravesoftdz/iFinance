@@ -44,6 +44,7 @@ requires
 contains
   LoanClassList in 'LoanClassList.pas' {frmLoanClassList},
   BaseDocked in '..\Base\BaseDocked.pas' {frmBaseDocked},
-  LoansAuxData in 'LoansAuxData.pas' {dmLoansAux: TDataModule};
+  LoansAuxData in 'LoansAuxData.pas' {dmLoansAux: TDataModule},
+  LoanClassification in 'LoanClassification.pas';
 
 end.

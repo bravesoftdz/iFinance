@@ -537,7 +537,7 @@ inherited frmClientMain: TfrmClientMain
       end
       object bteReferee: TRzButtonEdit
         Left = 114
-        Top = 173
+        Top = 172
         Width = 207
         Height = 21
         Text = ''
@@ -974,9 +974,9 @@ inherited frmClientMain: TfrmClientMain
         DisplayFormat = '###,##0.00'
       end
       object dteBirthdate: TRzDBDateTimeEdit
-        Left = 113
+        Left = 114
         Top = 124
-        Width = 96
+        Width = 95
         Height = 21
         DataSource = dmClient.dscPersonalInfo
         DataField = 'birth_date'
@@ -1404,7 +1404,7 @@ inherited frmClientMain: TfrmClientMain
           TitleFont.Name = 'Tahoma'
           TitleFont.Style = []
           QuickCompare.Active = True
-          QuickCompare.FieldName = 'exp_date_computed'
+          QuickCompare.FieldName = 'exp_date'
           QuickCompare.FieldValue = 42644d
           QuickCompare.Operation = qcoLessThan
           QuickCompare.Color = 11184895
@@ -1472,7 +1472,6 @@ inherited frmClientMain: TfrmClientMain
               Height = 13
               Caption = 'Expiry'
               Transparent = True
-              Visible = False
             end
             object edIdNo: TRzDBEdit
               Left = 105
@@ -1482,7 +1481,7 @@ inherited frmClientMain: TfrmClientMain
               DataSource = dmClient.dscIdentInfo
               DataField = 'ident_no'
               CharCase = ecUpperCase
-              TabOrder = 0
+              TabOrder = 2
             end
             object cmbIdType: TRzDBLookupComboBox
               Left = 105
@@ -1494,14 +1493,15 @@ inherited frmClientMain: TfrmClientMain
               KeyField = 'ident_type'
               ListField = 'ident_name'
               ListSource = dmAux.dscIdentType
-              TabOrder = 1
+              TabOrder = 0
+              OnClick = chbNoExpiryClick
               AllowNull = True
               FrameColor = clBlack
               FrameHotColor = clBlack
             end
             object chbNoExpiry: TRzDBCheckBox
-              Left = 318
-              Top = 16
+              Left = 223
+              Top = 65
               Width = 65
               Height = 15
               DataField = 'has_expiry'
@@ -1510,21 +1510,19 @@ inherited frmClientMain: TfrmClientMain
               ValueChecked = '0'
               ValueUnchecked = '1'
               Caption = 'No expiry'
-              TabOrder = 2
+              TabOrder = 1
               OnClick = chbNoExpiryClick
             end
-            object dtpExpiry: TRzDBDateTimePicker
+            object dteExpiry: TRzDBDateTimeEdit
               Left = 105
               Top = 62
-              Width = 105
+              Width = 112
               Height = 21
-              Date = 42646.459479456020000000
-              Format = 'MM/dd/yyyy'
-              Time = 42646.459479456020000000
-              TabOrder = 3
-              Visible = False
-              DataField = 'exp_date'
               DataSource = dmClient.dscIdentInfo
+              DataField = 'exp_date'
+              TabOrder = 3
+              OnChange = dteBirthdateChange
+              EditType = etDate
             end
           end
         end
@@ -1617,7 +1615,7 @@ inherited frmClientMain: TfrmClientMain
     FileName = 'PhotoUtil.exe'
     Timeout = -1
     OnFinished = PhotoLauncherFinished
-    Left = 785
-    Top = 61
+    Left = 881
+    Top = 461
   end
 end

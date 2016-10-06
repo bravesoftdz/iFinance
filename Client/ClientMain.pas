@@ -8,10 +8,10 @@ uses
   Vcl.ExtCtrls, SaveIntf, RzLabel, RzPanel, RzTabs, Vcl.Mask, StatusIntf,
   RzEdit, RzDBEdit, JvLabel, JvExControls, JvGroupHeader, Vcl.DBCtrls, RzDBCmbo,
   Vcl.ComCtrls, RzDTP, RzDBDTP, RzButton, RzRadChk, RzDBChk, Data.DB, Vcl.Grids,
-  Vcl.DBGrids, RzDBGrid, RzBtnEdt, RzLaunch;
+  Vcl.DBGrids, RzDBGrid, RzBtnEdt, RzLaunch, ClientIntf;
 
 type
-  TfrmClientMain = class(TfrmBaseDocked, ISave)
+  TfrmClientMain = class(TfrmBaseDocked, ISave, IClient)
     lblClientName: TRzLabel;
     pcClient: TRzPageControl;
     tsClientInfo: TRzTabSheet;
@@ -120,7 +120,6 @@ type
     cmbIdType: TRzDBLookupComboBox;
     btnNew: TRzButton;
     chbNoExpiry: TRzDBCheckBox;
-    dtpExpiry: TRzDBDateTimePicker;
     btnRemove: TRzButton;
     btnNewRef: TRzButton;
     btnRemoveRef: TRzButton;
@@ -151,6 +150,7 @@ type
     urlRefreshRefList: TRzURLLabel;
     urlCopyClientAddress: TRzURLLabel;
     dteBirthdate: TRzDBDateTimeEdit;
+    dteExpiry: TRzDBDateTimeEdit;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -180,8 +180,6 @@ type
     procedure dteBirthdateChange(Sender: TObject);
   private
     { Private declarations }
-    procedure SetClientName;
-    procedure SetUnboundControls;
     procedure CopyAddress;
     procedure GetAge;
     procedure LoadPhoto;
@@ -191,8 +189,11 @@ type
     function CheckIdentInfo(st: IStatus): string;
   public
     { Public declarations }
-    function Save: boolean;
     procedure Cancel;
+    procedure SetClientName;
+    procedure SetUnboundControls;
+
+    function Save: boolean;
   end;
 
 var
@@ -214,17 +215,6 @@ const
   FAMREF = 1;
   IDENT  = 2;
   LOANS  = 3;
-
-function Parsedate(const dateStr: string): TDate;
-var
-  sl: TStringList;
-begin
-  sl := TStringList.Create;
-  sl.Delimiter := '-';
-  sl.DelimitedText := dateStr;
-
-  Result := EncodeDate(StrToInt(sl[0]),StrToInt(sl[1]),StrToInt(sl[2]));
-end;
 
 function TfrmClientMain.CheckClientInfo(st: IStatus): string;
 var
@@ -251,7 +241,12 @@ var
 begin
   inserting := grIdentityList.DataSource.DataSet.State = dsInsert;
 
-  if Trim(edIdNo.Text) = '' then
+  if cmbIdType.Text = '' then
+  begin
+    error := 'Please select ID type.';
+    st.ShowError(error);
+  end
+  else if Trim(edIdNo.Text) = '' then
   begin
     error := 'Please enter ID number.';
     st.ShowError(error);
@@ -461,7 +456,6 @@ end;
 
 procedure TfrmClientMain.btnNewClick(Sender: TObject);
 begin
-  inherited;
   grIdentityList.DataSource.DataSet.Append;
   ChangeIdentControlState;
 end;
@@ -576,14 +570,8 @@ end;
 
 procedure TfrmClientMain.SetClientName;
 begin
-  with dmClient.dstPersonalInfo do
-  begin
-    lblClientName.Caption := UpperCase(FieldByName('lastname').AsString + ', ' +
-        FieldByName('firstname').AsString + '   ' +
-        FieldByName('entity_id').AsString);
-
-    ChangeControlState;
-  end;
+  lblClientName.Caption := UpperCase(cln.Name + '   ' + cln.Id);
+  ChangeControlState;
 end;
 
 procedure TfrmClientMain.SetUnboundControls;
@@ -662,7 +650,7 @@ begin
   // close photo utility
   if not PhotoLauncher.Running then
   begin
-    PhotoLauncher.Parameters := ifn.PhotoPath + cln.Id;
+    PhotoLauncher.Parameters := ifn.PhotoPath + ' ' + Trim(cln.Id);
     PhotoLauncher.Launch;
     Application.MainForm.Enabled := false;
   end;
@@ -735,12 +723,13 @@ procedure TfrmClientMain.LoadPhoto;
 var
   filename: string;
 begin
-  filename := ifn.PhotoPath + cln.Id + '.bmp';
+  filename := ifn.PhotoPath + Trim(cln.Id) + '.bmp';
 
   if FileExists(fileName) then
     imgClient.Picture.LoadFromFile(fileName);
 
-  Application.MainForm.Enabled := true;
+  if not Application.MainForm.Active then
+    Application.MainForm.Enabled := true;
 end;
 
 procedure TfrmClientMain.pcClientChange(Sender: TObject);
@@ -781,12 +770,20 @@ end;
 
 procedure TfrmClientMain.chbNoExpiryClick(Sender: TObject);
 var
-  noExpiry: boolean;
+  hasExpiry, inserting: boolean;
 begin
-  noExpiry := cmbIdType.ListSource.DataSet.FieldByName('has_expiry').AsInteger = 0;
+  hasExpiry := cmbIdType.ListSource.DataSet.FieldByName('has_expiry').AsInteger = 1;
+  inserting := grIdentityList.DataSource.DataSet.State = dsInsert;
 
-  lblExpiry.Visible := noExpiry;
-  dtpExpiry.Visible := noExpiry;
+  if inserting then
+  begin
+    if hasExpiry then
+      dteExpiry.Date := ifn.AppDate
+    else
+      dteExpiry.Clear
+  end;
+
+  dteExpiry.Enabled := hasExpiry;
 end;
 
 end.

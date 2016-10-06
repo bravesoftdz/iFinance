@@ -6,7 +6,7 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, BaseDocked, Vcl.StdCtrls, RzLabel,
   Vcl.ExtCtrls, RzPanel, DockedFormIntf, Data.DB, Vcl.Mask, RzEdit, Vcl.Grids,
-  Vcl.DBGrids, RzDBGrid, System.Rtti, ADODB, ClientFilterIntf;
+  Vcl.DBGrids, RzDBGrid, System.Rtti, ADODB, ClientListIntf;
 
 type
   TfrmClientList = class(TfrmBaseDocked, IDockedForm, IClientFilter)
