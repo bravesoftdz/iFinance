@@ -24,15 +24,12 @@ inherited frmErrorBox: TfrmErrorBox
   inherited pnlMain: TRzPanel
     Width = 357
     Height = 108
-    BorderSides = [sdLeft, sdRight, sdBottom]
-    BorderColor = clBlack
-    ExplicitTop = 23
     ExplicitWidth = 357
     ExplicitHeight = 108
     object lblMessage: TJvLabel
       Left = 29
       Top = 16
-      Width = 321
+      Width = 292
       Height = 46
       AutoSize = False
       Caption = 'Errors have been found. Unable to save record.'

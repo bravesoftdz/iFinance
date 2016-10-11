@@ -74,9 +74,10 @@ inherited frmBasePopup: TfrmBasePopup
     Height = 260
     Align = alClient
     BorderOuter = fsNone
-    BorderColor = 13224393
+    BorderSides = [sdLeft, sdRight, sdBottom]
+    BorderColor = clBlack
     BorderWidth = 1
-    Color = 14408667
+    Color = 13948116
     TabOrder = 1
   end
 end

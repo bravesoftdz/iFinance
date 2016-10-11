@@ -3,7 +3,8 @@ unit AppData;
 interface
 
 uses
-  System.SysUtils, System.Classes, Data.DB, Data.Win.ADODB, ConnUtil;
+  System.SysUtils, System.Classes, Data.DB, Data.Win.ADODB, ConnUtil,
+  uTPLb_Codec, uTPLb_BaseNonVisualComponent, uTPLb_CryptographicLibrary;
 
 type
   TdmApplication = class(TDataModule)
@@ -14,6 +15,8 @@ type
     dstConfig: TADODataSet;
     dstClients: TADODataSet;
     dscClients: TDataSource;
+    cglIFN: TCryptographicLibrary;
+    cdcIFN: TCodec;
     procedure DataModuleCreate(Sender: TObject);
     procedure acMainBeforeConnect(Sender: TObject);
     procedure DataModuleDestroy(Sender: TObject);

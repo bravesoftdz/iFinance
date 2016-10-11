@@ -40,7 +40,8 @@ requires
   Jcl,
   JvCore,
   JvStdCtrls,
-  JvControls;
+  JvControls,
+  LockBox3DR;
 
 contains
   ClientMain in 'ClientMain.pas' {frmClientMain},
@@ -51,6 +52,8 @@ contains
   BaseDocked in '..\Base\BaseDocked.pas' {frmBaseDocked},
   ClientListIntf in 'ClientListIntf.pas',
   RefData in 'RefData.pas' {dmRef: TDataModule},
-  ClientIntf in 'ClientIntf.pas';
+  ClientIntf in 'ClientIntf.pas',
+  ReferenceSearch in 'ReferenceSearch.pas' {frmReferenceSearch},
+  BaseSearch in '..\Base\BaseSearch.pas' {frmBaseSearch};
 
 end.

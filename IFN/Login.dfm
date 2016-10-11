@@ -1,9 +1,8 @@
 inherited frmLogin: TfrmLogin
   BorderIcons = [biSystemMenu]
-  BorderWidth = 1
   Caption = ''
-  ClientHeight = 202
-  ClientWidth = 432
+  ClientHeight = 204
+  ClientWidth = 434
   KeyPreview = True
   Position = poScreenCenter
   OnCreate = FormCreate
@@ -14,10 +13,10 @@ inherited frmLogin: TfrmLogin
   PixelsPerInch = 96
   TextHeight = 13
   inherited pnlTitle: TRzPanel
-    Width = 432
+    Width = 434
     ExplicitWidth = 432
     inherited imgClose: TImage
-      Left = 410
+      Left = 412
       ExplicitLeft = 410
     end
     inherited lblCaption: TRzLabel
@@ -43,8 +42,9 @@ inherited frmLogin: TfrmLogin
     end
   end
   inherited pnlMain: TRzPanel
-    Width = 432
-    Height = 181
+    Width = 434
+    Height = 183
+    BorderColor = 10329501
     ExplicitWidth = 432
     ExplicitHeight = 181
     object Label4: TLabel

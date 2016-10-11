@@ -1,5 +1,7 @@
 object dmLoansAux: TdmLoansAux
   OldCreateOrder = False
+  OnCreate = DataModuleCreate
+  OnDestroy = DataModuleDestroy
   Height = 316
   Width = 455
   object dscLoanClass: TDataSource
@@ -13,6 +15,8 @@ object dmLoansAux: TdmLoansAux
     CursorType = ctStatic
     AfterOpen = dstLoanClassAfterOpen
     BeforePost = dstLoanClassBeforePost
+    AfterPost = dstLoanClassAfterPost
+    AfterScroll = dstLoanClassAfterScroll
     CommandText = 'sp_get_loan_class;1'
     CommandType = cmdStoredProc
     Parameters = <>
@@ -25,7 +29,6 @@ object dmLoansAux: TdmLoansAux
     Top = 88
   end
   object dstLoanType: TADODataSet
-    Active = True
     Connection = dmApplication.acMain
     CursorType = ctStatic
     LockType = ltReadOnly
@@ -44,7 +47,7 @@ object dmLoansAux: TdmLoansAux
     Tag = 1
     Connection = dmApplication.acMain
     CursorType = ctStatic
-    BeforeOpen = dstLoanClassGroupsBeforeOpen
+    Filtered = True
     CommandText = 'sp_get_loan_class_groups;1'
     CommandType = cmdStoredProc
     Parameters = <>

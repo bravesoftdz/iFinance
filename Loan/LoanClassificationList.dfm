@@ -1,15 +1,14 @@
-inherited frmLoanClassList: TfrmLoanClassList
-  Caption = 'frmLoanClassList'
-  ClientHeight = 515
-  ClientWidth = 755
+inherited frmLoanClassificationList: TfrmLoanClassificationList
+  Caption = 'frmLoanClassificationList'
+  ClientHeight = 512
+  ClientWidth = 739
   OnCreate = FormCreate
-  ExplicitWidth = 771
-  ExplicitHeight = 554
+  ExplicitWidth = 755
+  ExplicitHeight = 551
   PixelsPerInch = 96
   TextHeight = 13
   inherited pnlTitle: TRzPanel
-    Width = 755
-    ExplicitWidth = 755
+    Width = 739
     inherited lblTitle: TRzLabel
       Width = 133
       Caption = 'Loan classification list'
@@ -19,22 +18,26 @@ inherited frmLoanClassList: TfrmLoanClassList
   object pnlList: TRzPanel
     Left = 0
     Top = 28
-    Width = 755
-    Height = 487
+    Width = 739
+    Height = 484
     Align = alClient
     BorderOuter = fsFlat
     BorderSides = [sdLeft, sdRight, sdBottom]
     BorderWidth = 5
     TabOrder = 1
+    ExplicitLeft = -218
+    ExplicitTop = -206
+    ExplicitWidth = 745
+    ExplicitHeight = 448
     DesignSize = (
-      755
-      487)
-    object urlLoanClassList: TRzURLLabel
-      Left = 711
+      739
+      484)
+    object urlRefreshList: TRzURLLabel
+      Left = 695
       Top = 239
       Width = 38
       Height = 13
-      Hint = 'Refresh loan class list'
+      Hint = 'Refresh identity document list'
       Anchors = [akTop, akRight]
       Caption = 'Refresh'
       Font.Charset = DEFAULT_CHARSET
@@ -45,12 +48,12 @@ inherited frmLoanClassList: TfrmLoanClassList
       ParentFont = False
       ParentShowHint = False
       ShowHint = True
-      OnClick = urlLoanClassListClick
+      OnClick = urlRefreshListClick
     end
     object grList: TRzDBGrid
       Left = 6
       Top = 5
-      Width = 743
+      Width = 727
       Height = 228
       Align = alTop
       DataSource = dmLoansAux.dscLoanClass
@@ -68,63 +71,62 @@ inherited frmLoanClassList: TfrmLoanClassList
           Expanded = False
           FieldName = 'class_name'
           Title.Caption = 'Class name'
-          Width = 200
+          Width = 250
           Visible = True
         end
         item
           Expanded = False
           FieldName = 'loan_name'
           Title.Caption = 'Type'
-          Width = 65
+          Width = 100
           Visible = True
         end
         item
           Expanded = False
           FieldName = 'int_rate'
-          Title.Caption = 'Interest'
-          Width = 45
+          Title.Caption = 'Interest %'
+          Width = 60
           Visible = True
         end
         item
           Expanded = False
           FieldName = 'term'
           Title.Caption = 'Term'
-          Width = 30
+          Width = 35
           Visible = True
         end
         item
           Expanded = False
-          FieldName = 'valid_from'
-          Title.Caption = 'Valid from'
-          Width = 65
-          Visible = True
-        end
-        item
-          Expanded = False
-          FieldName = 'valid_until'
-          Title.Caption = 'Valid until'
-          Width = 65
+          FieldName = 'comakers'
+          Title.Caption = 'Comakers'
+          Width = 55
           Visible = True
         end>
     end
     object pcDetail: TRzPageControl
       Left = 6
       Top = 270
-      Width = 745
-      Height = 211
+      Width = 729
+      Height = 208
       Hint = ''
       ActivePage = tsDetail
       Anchors = [akLeft, akTop, akRight, akBottom]
       UseColoredTabs = True
       TabIndex = 0
       TabOrder = 1
+      ExplicitWidth = 735
+      ExplicitHeight = 172
       FixedDimension = 19
       object tsDetail: TRzTabSheet
         Color = 15263976
-        Caption = 'Loan classification details'
+        Caption = 'Group details'
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
         DesignSize = (
-          741
-          188)
+          725
+          185)
         object JvLabel1: TJvLabel
           Left = 19
           Top = 23
@@ -141,27 +143,12 @@ inherited frmLoanClassList: TfrmLoanClassList
           Caption = 'Type'
           Transparent = True
         end
-        object urlCopyAddress: TRzURLLabel
-          Left = 318
-          Top = 164
-          Width = 55
-          Height = 13
-          Anchors = [akLeft, akBottom]
-          Caption = 'Add groups'
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clGreen
-          Font.Height = -11
-          Font.Name = 'Tahoma'
-          Font.Style = [fsUnderline]
-          ParentFont = False
-          ExplicitTop = 125
-        end
         object JvLabel3: TJvLabel
           Left = 19
           Top = 71
-          Width = 64
+          Width = 55
           Height = 13
-          Caption = 'Interest rate'
+          Caption = 'Interest %'
           Transparent = True
         end
         object JvLabel4: TJvLabel
@@ -177,37 +164,7 @@ inherited frmLoanClassList: TfrmLoanClassList
           Top = 119
           Width = 49
           Height = 13
-          Caption = 'Valid from'
-          Transparent = True
-        end
-        object JvLabel6: TJvLabel
-          Left = 19
-          Top = 143
-          Width = 47
-          Height = 13
-          Caption = 'Valid until'
-          Transparent = True
-        end
-        object RzURLLabel1: TRzURLLabel
-          Left = 519
-          Top = 164
-          Width = 66
-          Height = 13
-          Anchors = [akLeft, akBottom]
-          Caption = 'Add branches'
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clGreen
-          Font.Height = -11
-          Font.Name = 'Tahoma'
-          Font.Style = [fsUnderline]
-          ParentFont = False
-        end
-        object JvLabel7: TJvLabel
-          Left = 159
-          Top = 71
-          Width = 13
-          Height = 13
-          Caption = '%'
+          Caption = 'Comakers'
           Transparent = True
         end
         object edClassName: TRzDBEdit
@@ -235,72 +192,115 @@ inherited frmLoanClassList: TfrmLoanClassList
           FrameColor = clBlack
           FrameHotColor = clBlack
         end
-        object lbxGroups: TRzListBox
-          Left = 318
-          Top = 17
-          Width = 195
-          Height = 143
-          Anchors = [akLeft, akTop, akBottom]
-          ItemHeight = 13
-          TabOrder = 2
-        end
         object edInterest: TRzDBEdit
           Left = 105
           Top = 65
-          Width = 48
+          Width = 65
           Height = 21
           DataSource = dmLoansAux.dscLoanClass
           DataField = 'int_rate'
           CharCase = ecUpperCase
-          TabOrder = 3
+          TabOrder = 2
         end
         object edTerm: TRzDBEdit
           Left = 105
           Top = 89
-          Width = 48
+          Width = 65
           Height = 21
           DataSource = dmLoansAux.dscLoanClass
           DataField = 'term'
           CharCase = ecUpperCase
-          TabOrder = 4
+          TabOrder = 3
         end
-        object dteValidFrom: TRzDBDateTimeEdit
+        object edComakers: TRzDBEdit
           Left = 105
           Top = 113
-          Width = 96
+          Width = 65
           Height = 21
           DataSource = dmLoansAux.dscLoanClass
-          DataField = 'valid_from'
-          TabOrder = 5
-          EditType = etDate
-          Format = 'mm/dd/yyyy'
+          DataField = 'comakers'
+          CharCase = ecUpperCase
+          TabOrder = 4
         end
-        object RzDBDateTimeEdit2: TRzDBDateTimeEdit
-          Left = 105
-          Top = 137
-          Width = 96
-          Height = 21
-          DataSource = dmLoansAux.dscLoanClass
-          DataField = 'valid_until'
-          TabOrder = 6
-          EditType = etDate
-          Format = 'mm/dd/yyyy'
-        end
-        object lbxBranches: TRzListBox
-          Left = 519
+        object RzPageControl1: TRzPageControl
+          Left = 328
           Top = 17
-          Width = 195
-          Height = 143
-          Anchors = [akLeft, akTop, akBottom]
-          ItemHeight = 13
-          TabOrder = 7
+          Width = 388
+          Height = 159
+          Hint = ''
+          ActivePage = tsGroups
+          Anchors = [akLeft, akTop, akRight, akBottom]
+          ShowShadow = False
+          TabIndex = 0
+          TabOrder = 5
+          ExplicitWidth = 384
+          ExplicitHeight = 150
+          FixedDimension = 19
+          object tsGroups: TRzTabSheet
+            Color = 15263976
+            Caption = 'Groups'
+            ExplicitLeft = 0
+            ExplicitTop = 0
+            ExplicitWidth = 0
+            ExplicitHeight = 0
+            DesignSize = (
+              386
+              138)
+            object urlClassGroup: TRzURLLabel
+              Left = 15
+              Top = 119
+              Width = 101
+              Height = 13
+              Anchors = [akLeft, akBottom]
+              Caption = 'Add / remove groups'
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clGreen
+              Font.Height = -11
+              Font.Name = 'Tahoma'
+              Font.Style = [fsUnderline]
+              ParentFont = False
+              OnClick = urlClassGroupClick
+            end
+            object grGroups: TRzDBGrid
+              Left = 15
+              Top = 10
+              Width = 353
+              Height = 103
+              Anchors = [akLeft, akTop, akRight, akBottom]
+              DataSource = dmLoansAux.dscLoanClassGroups
+              Options = [dgColumnResize, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
+              TabOrder = 0
+              TitleFont.Charset = DEFAULT_CHARSET
+              TitleFont.Color = clWindowText
+              TitleFont.Height = -11
+              TitleFont.Name = 'Tahoma'
+              TitleFont.Style = []
+              AltRowShadingColor = 15854564
+              Columns = <
+                item
+                  Expanded = False
+                  FieldName = 'grp_name'
+                  Title.Caption = 'Comakers'
+                  Width = 200
+                  Visible = True
+                end>
+            end
+          end
+          object tsBranches: TRzTabSheet
+            Color = 15263976
+            Caption = 'Branches'
+            ExplicitLeft = 0
+            ExplicitTop = 0
+            ExplicitWidth = 0
+            ExplicitHeight = 0
+          end
         end
       end
     end
     object btnNew: TRzButton
       Left = 6
       Top = 239
-      Width = 179
+      Width = 171
       Hint = 'New'
       Caption = 'New loan classification'
       ParentShowHint = False

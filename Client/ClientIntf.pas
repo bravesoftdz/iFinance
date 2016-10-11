@@ -6,7 +6,8 @@ type
   IClient = interface(IInterface)
     ['{FB3C74FB-0E43-4CD4-9FD3-ED8860AAD6FB}']
   procedure SetClientName;
-  procedure SetUnboundControls;
+  procedure SetUnboundControls(const changeTab: boolean = true);
+  procedure LoadPhoto;
   end;
 
 implementation

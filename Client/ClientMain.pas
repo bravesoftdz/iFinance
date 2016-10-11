@@ -93,10 +93,10 @@ type
     RzDBLookupComboBox8: TRzDBLookupComboBox;
     JvGroupHeader1: TJvGroupHeader;
     tsIdentityInfo: TRzTabSheet;
-    pnlList: TRzPanel;
+    pnlFamRef: TRzPanel;
     grRefList: TRzDBGrid;
     pcDetail: TRzPageControl;
-    tsDetail: TRzTabSheet;
+    tsFamRefDetail: TRzTabSheet;
     tsLoansHistory: TRzTabSheet;
     pnlIdentity: TRzPanel;
     grIdentityList: TRzDBGrid;
@@ -118,9 +118,9 @@ type
     JvLabel38: TJvLabel;
     lblExpiry: TJvLabel;
     cmbIdType: TRzDBLookupComboBox;
-    btnNew: TRzButton;
+    btnNewId: TRzButton;
     chbNoExpiry: TRzDBCheckBox;
-    btnRemove: TRzButton;
+    btnRemoveId: TRzButton;
     btnNewRef: TRzButton;
     btnRemoveRef: TRzButton;
     JvLabel39: TJvLabel;
@@ -170,28 +170,32 @@ type
     procedure bteBankButtonClick(Sender: TObject);
     procedure bteBankAltBtnClick(Sender: TObject);
     procedure pcClientChange(Sender: TObject);
-    procedure btnNewClick(Sender: TObject);
+    procedure btnNewIdClick(Sender: TObject);
     procedure pcClientChanging(Sender: TObject; NewIndex: Integer;
       var AllowChange: Boolean);
-    procedure btnRemoveClick(Sender: TObject);
+    procedure btnRemoveIdClick(Sender: TObject);
     procedure urlRefreshIdentListClick(Sender: TObject);
     procedure urlRefreshRefListClick(Sender: TObject);
-    procedure chbNoExpiryClick(Sender: TObject);
     procedure dteBirthdateChange(Sender: TObject);
+    procedure btnNewRefClick(Sender: TObject);
+    procedure btnRemoveRefClick(Sender: TObject);
+    procedure cmbIdTypeClick(Sender: TObject);
   private
     { Private declarations }
     procedure CopyAddress;
     procedure GetAge;
-    procedure LoadPhoto;
     procedure ChangeControlState;
     procedure ChangeIdentControlState;
+    procedure ChangeFamRefControlState;
     function CheckClientInfo(st: IStatus): string;
     function CheckIdentInfo(st: IStatus): string;
+    function CheckFamRefInfo(st: IStatus): string;
   public
     { Public declarations }
     procedure Cancel;
     procedure SetClientName;
-    procedure SetUnboundControls;
+    procedure SetUnboundControls(const changeTab: boolean = true);
+    procedure LoadPhoto;
 
     function Save: boolean;
   end;
@@ -204,7 +208,8 @@ implementation
 uses
   Client, ClientData, FormsUtil, LandlordSearch, ImmHeadSearch, Landlord,
   ImmediateHead, RefereeSearch, Referee, AuxData, DockIntf, RefData,
-  EmployerSearch, Employer, Bank, BanksSearch, IdentityDoc, IFinanceGlobal;
+  EmployerSearch, Employer, Bank, BanksSearch, IdentityDoc, IFinanceGlobal,
+  ReferenceSearch, Reference, DecisionBox;
 
 {$R *.dfm}
 
@@ -261,6 +266,29 @@ begin
   end;
 
   Result := error;
+end;
+
+procedure TfrmClientMain.cmbIdTypeClick(Sender: TObject);
+var
+  hasExpiry, inserting: boolean;
+begin
+  hasExpiry := cmbIdType.ListSource.DataSet.FieldByName('has_expiry').AsInteger = 1;
+  inserting := grIdentityList.DataSource.DataSet.State = dsInsert;
+
+  if inserting then
+  begin
+    if hasExpiry then
+      dteExpiry.Date := ifn.AppDate
+    else
+      dteExpiry.Clear
+  end;
+
+  dteExpiry.Enabled := hasExpiry;
+end;
+
+function TfrmClientMain.CheckFamRefInfo(st: IStatus): string;
+begin
+  Result := '';
 end;
 
 procedure TfrmClientMain.bteBankAltBtnClick(Sender: TObject);
@@ -429,6 +457,8 @@ begin
 end;
 
 procedure TfrmClientMain.bteRefereeButtonClick(Sender: TObject);
+var
+  intf: IStatus;
 begin
   with TfrmRefereeSearch.Create(self) do
   begin
@@ -440,8 +470,16 @@ begin
 
         if ModalResult = mrOK then
         begin
-          bteReferee.Text := ref.Name;
-          cln.Referee := ref;
+          if cln.Id <> ref.Id then
+          begin
+            bteReferee.Text := ref.Name;
+            cln.Referee := ref;
+          end
+          else
+          begin
+            if Supports(Application.MainForm,IStatus,intf) then
+              intf.ShowError('Referred by cannot be the same as client.');
+          end;
         end;
       except
         on e: Exception do
@@ -454,18 +492,106 @@ begin
 
 end;
 
-procedure TfrmClientMain.btnNewClick(Sender: TObject);
+procedure TfrmClientMain.btnNewIdClick(Sender: TObject);
 begin
   grIdentityList.DataSource.DataSet.Append;
   ChangeIdentControlState;
 end;
 
-procedure TfrmClientMain.btnRemoveClick(Sender: TObject);
+procedure TfrmClientMain.btnNewRefClick(Sender: TObject);
+var
+  intf: IStatus;
 begin
-  inherited;
-  with grIdentityList.DataSource.DataSet do
-    if RecordCount > 1 then
-      Delete;
+  with TfrmReferenceSearch.Create(nil) do
+  begin
+    try
+      ShowModal;
+
+      if ModalResult = mrOK then
+      begin
+        with grRefList.DataSource.DataSet do
+        begin
+          if not cln.ReferenceExists(refc) then
+          begin
+            Append;
+            FieldByName('ref_entity_id').AsString := refc.Id;
+            Post;
+
+            ChangeFamRefControlState;
+          end
+          else
+          begin
+            if Supports(Application.MainForm,IStatus,intf) then
+              intf.ShowError('Reference already exists.');
+          end;
+        end;
+      end;
+
+      Free;
+      refc.Free;
+    except
+      on e: Exception do
+        ShowMessage(e.Message);
+    end;
+  end;
+end;
+
+procedure TfrmClientMain.btnRemoveIdClick(Sender: TObject);
+var
+  idType: string;
+begin
+  with TfrmDecisionBox.Create(nil) do
+  begin
+    try
+      if grIdentityList.DataSource.DataSet.RecordCount > 0 then
+      begin
+        idType := grIdentityList.DataSource.DataSet.FieldByName('ident_type').AsString;
+
+        ShowModal;
+
+        if ModalResult = mrYes then
+        begin
+          grIdentityList.DataSource.DataSet.Delete;
+          cln.RemoveIdentityDoc(idType);
+          ChangeIdentControlState;
+        end;
+
+        Free;
+      end;
+    except
+      on e: Exception do
+        ShowMessage(e.Message);
+    end;
+  end;
+end;
+
+procedure TfrmClientMain.btnRemoveRefClick(Sender: TObject);
+var
+  id: string;
+begin
+  with TfrmDecisionBox.Create(nil) do
+  begin
+    try
+      if grRefList.DataSource.DataSet.RecordCount > 0 then
+      begin
+        id := grRefList.DataSource.DataSet.FieldByName('ref_entity_id').AsString;
+
+        ShowModal;
+
+        if ModalResult = mrYes then
+        begin
+          grRefList.DataSource.DataSet.Delete;
+          cln.RemoveReference(id);
+          ChangeFamRefControlState;
+        end;
+
+        Free;
+      end;
+    except
+      on e: Exception do
+        ShowMessage(e.Message);
+    end;
+  end;
 end;
 
 procedure TfrmClientMain.FormClose(Sender: TObject; var Action: TCloseAction);
@@ -508,10 +634,6 @@ begin
   end;
 
   SetUnBoundControls;
-
-  pcClient.ActivePageIndex := 0;
-
-  grRefList.QuickCompare.FieldValue := Date;
 end;
 
 procedure TfrmClientMain.FormShow(Sender: TObject);
@@ -536,6 +658,7 @@ begin
       case pcClient.ActivePageIndex of
 
         CLIENT: error := CheckClientInfo(st);
+        FAMREF: error := CheckFamRefInfo(st);
         IDENT : error := CheckIdentInfo(st);
 
       end;
@@ -549,7 +672,7 @@ begin
 
         case pcClient.ActivePageIndex of
 
-          CLIENT: Exit;
+          CLIENT, FAMREF: Exit;
           IDENT : ChangeIdentControlState;
 
         end;
@@ -564,8 +687,9 @@ end;
 procedure TfrmClientMain.Cancel;
 begin
   cln.Cancel;
-  SetUnboundControls;
+  SetUnboundControls(false);
   ChangeIdentControlState;
+  ChangeFamRefControlState;
 end;
 
 procedure TfrmClientMain.SetClientName;
@@ -574,9 +698,34 @@ begin
   ChangeControlState;
 end;
 
-procedure TfrmClientMain.SetUnboundControls;
+procedure TfrmClientMain.SetUnboundControls(const changeTab: boolean = true);
+
+  procedure ClearUnboundControls;
+  var
+    i: integer;
+  begin
+    with tsClientInfo do
+    begin
+      for i := 0 to ControlCount - 1 do
+        if Controls[i].Tag = 1 then
+        begin
+          if Controls[i] is TRzButtonEdit then
+            (Controls[i] as TRzButtonEdit).Clear
+          else if Controls[i] is TRzEdit then
+            (Controls[i] as TRzEdit).Clear
+          else if Controls[i] is TRzMemo then
+            (Controls[i] as TRzMemo).Clear;
+        end;
+    end;
+  end;
+
 begin
+  if changeTab then
+    pcClient.ActivePageIndex := 0;
+
   GetAge;
+
+  ClearUnboundControls;
 
   // referee
   if Assigned(cln.Referee) then
@@ -726,7 +875,12 @@ begin
   filename := ifn.PhotoPath + Trim(cln.Id) + '.bmp';
 
   if FileExists(fileName) then
+  begin
     imgClient.Picture.LoadFromFile(fileName);
+    imgClient.Visible := true;
+  end
+  else
+    imgClient.Visible := false;
 
   if not Application.MainForm.Active then
     Application.MainForm.Enabled := true;
@@ -735,11 +889,20 @@ end;
 procedure TfrmClientMain.pcClientChange(Sender: TObject);
 begin
   case pcClient.ActivePageIndex of
+    FAMREF:
+      begin
+        OpenGridDataSources(pnlFamRef);
+        OpenDropdownDataSources(tsFamRefDetail);
+        ChangeFamRefControlState;
+      end;
     IDENT:
       begin
         OpenGridDataSources(pnlIdentity);
         OpenDropdownDataSources(tsIdentDetail);
         ChangeIdentControlState;
+
+        grIdentityList.QuickCompare.Active := grIdentityList.DataSource.DataSet.RecordCount > 0;
+        grIdentityList.QuickCompare.FieldValue := ifn.AppDate;
       end;
   end;
 end;
@@ -758,32 +921,27 @@ begin
   edMiddleName.ReadOnly := cln.HasId;
 end;
 
-procedure TfrmClientMain.ChangeIdentControlState;
+procedure TfrmClientMain.ChangeFamRefControlState;
 var
-  inserting: boolean;
+  i: integer;
 begin
-  inserting := grIdentityList.DataSource.DataSet.State = dsInsert;
-  cmbIdType.Enabled := inserting;
-
-  chbNoExpiry.OnClick(self);
+  with grRefList.DataSource.DataSet do
+  begin
+    for i := 0 to tsFamRefDetail.ControlCount - 1 do
+      if tsFamRefDetail.Controls[i].Tag = 1 then
+        tsFamRefDetail.Controls[i].Enabled := (State in [dsInsert,dsEdit]) or
+                (RecordCount > 0);
+  end;
 end;
 
-procedure TfrmClientMain.chbNoExpiryClick(Sender: TObject);
-var
-  hasExpiry, inserting: boolean;
+procedure TfrmClientMain.ChangeIdentControlState;
 begin
-  hasExpiry := cmbIdType.ListSource.DataSet.FieldByName('has_expiry').AsInteger = 1;
-  inserting := grIdentityList.DataSource.DataSet.State = dsInsert;
-
-  if inserting then
+  with grIdentityList.DataSource.DataSet do
   begin
-    if hasExpiry then
-      dteExpiry.Date := ifn.AppDate
-    else
-      dteExpiry.Clear
+    cmbIdType.Enabled := State in [dsInsert];
+    edIdNo.Enabled := (RecordCount > 0) or (State in [dsInsert]);
+    dteExpiry.Enabled := (RecordCount > 0) or (State in [dsInsert]);
   end;
-
-  dteExpiry.Enabled := hasExpiry;
 end;
 
 end.

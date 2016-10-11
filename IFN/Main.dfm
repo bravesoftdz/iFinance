@@ -110,9 +110,9 @@ object frmMain: TfrmMain
         object lblAllClients: TRzURLLabel
           Left = 15
           Top = 78
-          Width = 42
+          Width = 44
           Height = 13
-          Caption = 'All clents'
+          Caption = 'All clients'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clHighlight
           Font.Height = -11
@@ -400,7 +400,7 @@ object frmMain: TfrmMain
     Left = 201
     Top = 464
     Bitmap = {
-      494C010109000001AC0010001000FFFFFFFF2110FFFFFFFFFFFFFFFF424D3600
+      494C010109000001BC0010001000FFFFFFFF2110FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000003000000001002000000000000030
       000000000000000000000000000000000000000000130000002D010101720303
       0387030303870303038703030387030303870303038703030387030303870430

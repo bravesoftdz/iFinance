@@ -91,7 +91,7 @@ implementation
 
 uses
   ClientMain, SaveIntf, ClientList, DockedFormIntf, GroupList, EmployerList,
-  BanksList, DesignationList, LoanClassList, ConfBox, ErrorBox, ClientIntf;
+  BanksList, DesignationList, LoanClassificationList, ConfBox, ErrorBox, ClientIntf;
 
 constructor TRecentClient.Create(const id: string; const name: string);
 begin
@@ -144,6 +144,10 @@ begin
     begin
       AddRecentClient(cln);
 
+      cln.Destroy;
+
+      cln := TClient.Create;
+
       cln.Id := TRecentClient(obj).Id;
       cln.Name := TRecentClient(obj).Name;
       cln.Retrieve(true);
@@ -152,6 +156,7 @@ begin
       begin
         intf.SetClientName;
         intf.SetUnboundControls;
+        intf.LoadPhoto;
       end;
     end
     else
@@ -257,7 +262,7 @@ begin
       fmEmployerList: frm := TfrmEmployerList.Create(Application);
       fmBanksList: frm := TfrmBanksList.Create(Application);
       fmDesignationList: frm := TfrmDesignationList.Create(Application);
-      fmLoanClassList: frm := TfrmLoanClassList.Create(Application);
+      fmLoanClassList: frm := TfrmLoanClassificationList.Create(Application);
       else
         frm := TForm.Create(Application);
     end;

@@ -41,7 +41,8 @@ requires
   JvDB,
   RaizeComponentsVcl,
   RaizeComponentsVclDb,
-  RESTComponents;
+  RESTComponents,
+  LockBox3DR;
 
 contains
   SaveIntf in 'SaveIntf.pas',
@@ -57,7 +58,9 @@ contains
   StatusIntf in 'StatusIntf.pas',
   DockIntf in 'DockIntf.pas',
   ConfBox in 'ConfBox.pas' {frmConfBox},
-  ErrorBox in 'ErrorBox.pas' {frmErrorBox};
+  ErrorBox in 'ErrorBox.pas' {frmErrorBox},
+  DecisionBox in 'DecisionBox.pas' {frmDecisionBox},
+  BasePopup in '..\Base\BasePopup.pas' {frmBasePopup};
 
 end.
 

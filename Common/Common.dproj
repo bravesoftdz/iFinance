@@ -99,6 +99,7 @@
         <DCCReference Include="RaizeComponentsVcl.dcp"/>
         <DCCReference Include="RaizeComponentsVclDb.dcp"/>
         <DCCReference Include="RESTComponents.dcp"/>
+        <DCCReference Include="LockBox3DR.dcp"/>
         <DCCReference Include="SaveIntf.pas"/>
         <DCCReference Include="FormsUtil.pas"/>
         <DCCReference Include="DockedFormIntf.pas"/>
@@ -121,6 +122,14 @@
         </DCCReference>
         <DCCReference Include="ErrorBox.pas">
             <Form>frmErrorBox</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="DecisionBox.pas">
+            <Form>frmDecisionBox</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\Base\BasePopup.pas">
+            <Form>frmBasePopup</Form>
             <FormType>dfm</FormType>
         </DCCReference>
         <BuildConfiguration Include="Release">

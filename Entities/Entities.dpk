@@ -39,7 +39,8 @@ requires
   JvCore,
   JvStdCtrls,
   RaizeComponentsVcl,
-  RaizeComponentsVclDb;
+  RaizeComponentsVclDb,
+  LockBox3DR;
 
 contains
   Entity in 'Entity.pas',

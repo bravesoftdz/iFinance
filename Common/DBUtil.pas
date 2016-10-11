@@ -9,6 +9,9 @@ type
   TSequenceObject = (soEntity,soGroup,soEmployer,soBankBranch,soDesignation,
                         soLoanClass);
 
+procedure RefreshDataSet(const key: integer; const keyField: string; DataSet: TDataSet); overload;
+procedure RefreshDataSet(const key, keyField: string; DataSet: TDataSet); overload;
+
 function GetEntityId: string;
 function GetGroupId: integer;
 function GetEmployerId: string;
@@ -17,6 +20,30 @@ function GetDesignationId: integer;
 function GetLoanClassId: integer;
 
 implementation
+
+procedure RefreshDataSet(const key: integer; const keyField: string; DataSet: TDataSet);
+begin
+  with DataSet do
+  begin
+    DisableControls;
+    Close;
+    Open;
+    Locate(keyField,key,[]);
+    EnableControls;
+  end;
+end;
+
+procedure RefreshDataSet(const key, keyField: string; DataSet: TDataSet);
+begin
+  with DataSet do
+  begin
+    DisableControls;
+    Close;
+    Open;
+    Locate(keyField,key,[]);
+    EnableControls;
+  end;
+end;
 
 function GetSequenceID(const seqObj: TSequenceObject): integer;
 var

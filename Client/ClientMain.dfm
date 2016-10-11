@@ -17,14 +17,15 @@ inherited frmClientMain: TfrmClientMain
       ExplicitWidth = 78
     end
     object lblClientName: TRzLabel
-      Left = 790
-      Top = 6
+      Left = 830
+      Top = 7
       Width = 82
       Height = 14
       Alignment = taRightJustify
+      Anchors = [akTop, akRight]
       Caption = 'NEW RECORD'
       Font.Charset = DEFAULT_CHARSET
-      Font.Color = 4235263
+      Font.Color = clInfoBk
       Font.Height = -12
       Font.Name = 'Tahoma'
       Font.Style = [fsBold]
@@ -38,9 +39,9 @@ inherited frmClientMain: TfrmClientMain
     Width = 923
     Height = 492
     Hint = ''
-    ActivePage = tsClientInfo
+    ActivePage = tsIdentityInfo
     Align = alClient
-    TabIndex = 0
+    TabIndex = 2
     TabOrder = 1
     TabOrientation = toBottom
     TabStyle = tsRoundCorners
@@ -536,6 +537,7 @@ inherited frmClientMain: TfrmClientMain
         TabOrder = 4
       end
       object bteReferee: TRzButtonEdit
+        Tag = 1
         Left = 114
         Top = 172
         Width = 207
@@ -612,6 +614,7 @@ inherited frmClientMain: TfrmClientMain
         FrameHotColor = clBlack
       end
       object bteLandlord: TRzButtonEdit
+        Tag = 1
         Left = 114
         Top = 400
         Width = 207
@@ -636,6 +639,7 @@ inherited frmClientMain: TfrmClientMain
         OnButtonClick = bteLandlordButtonClick
       end
       object edLandlordContact: TRzEdit
+        Tag = 1
         Left = 114
         Top = 424
         Width = 207
@@ -698,6 +702,7 @@ inherited frmClientMain: TfrmClientMain
         FrameHotColor = clBlack
       end
       object bteLandlord2: TRzButtonEdit
+        Tag = 1
         Left = 438
         Top = 130
         Width = 187
@@ -722,6 +727,7 @@ inherited frmClientMain: TfrmClientMain
         OnButtonClick = bteLandlord2ButtonClick
       end
       object edLandlordContact2: TRzEdit
+        Tag = 1
         Left = 438
         Top = 154
         Width = 187
@@ -776,6 +782,7 @@ inherited frmClientMain: TfrmClientMain
         TabOrder = 11
       end
       object bteEmployer: TRzButtonEdit
+        Tag = 1
         Left = 438
         Top = 214
         Width = 187
@@ -815,6 +822,7 @@ inherited frmClientMain: TfrmClientMain
         FrameHotColor = clBlack
       end
       object mmEmployerAddress: TRzMemo
+        Tag = 1
         Left = 438
         Top = 238
         Width = 187
@@ -824,6 +832,7 @@ inherited frmClientMain: TfrmClientMain
         TabOrder = 26
       end
       object bteImmHead: TRzButtonEdit
+        Tag = 1
         Left = 438
         Top = 328
         Width = 187
@@ -895,6 +904,7 @@ inherited frmClientMain: TfrmClientMain
         FrameHotColor = clBlack
       end
       object bteBank: TRzButtonEdit
+        Tag = 1
         Left = 694
         Top = 214
         Width = 155
@@ -919,6 +929,7 @@ inherited frmClientMain: TfrmClientMain
         OnButtonClick = bteBankButtonClick
       end
       object bteOtherIncome: TRzButtonEdit
+        Tag = 1
         Left = 438
         Top = 424
         Width = 187
@@ -943,6 +954,7 @@ inherited frmClientMain: TfrmClientMain
         OnButtonClick = bteEmployerButtonClick
       end
       object mmBranch: TRzMemo
+        Tag = 1
         Left = 694
         Top = 238
         Width = 155
@@ -986,8 +998,8 @@ inherited frmClientMain: TfrmClientMain
       end
     end
     object tsReferences: TRzTabSheet
-      Caption = 'Family and personal references'
-      object pnlList: TRzPanel
+      Caption = 'Family and references'
+      object pnlFamRef: TRzPanel
         Left = 0
         Top = 0
         Width = 921
@@ -1056,13 +1068,13 @@ inherited frmClientMain: TfrmClientMain
           Width = 911
           Height = 265
           Hint = ''
-          ActivePage = tsDetail
+          ActivePage = tsFamRefDetail
           Anchors = [akLeft, akTop, akRight, akBottom]
           UseColoredTabs = True
           TabIndex = 0
           TabOrder = 1
           FixedDimension = 19
-          object tsDetail: TRzTabSheet
+          object tsFamRefDetail: TRzTabSheet
             Color = 15263976
             Caption = 'Reference details'
             object JvLabel39: TJvLabel
@@ -1078,7 +1090,7 @@ inherited frmClientMain: TfrmClientMain
               Top = 8
               Width = 263
               Height = 12
-              Caption = 'Name'
+              Caption = 'Name and relation'
               Font.Charset = DEFAULT_CHARSET
               Font.Color = 9134911
               Font.Height = -11
@@ -1180,6 +1192,7 @@ inherited frmClientMain: TfrmClientMain
               Transparent = True
             end
             object urlCopyClientAddress: TRzURLLabel
+              Tag = 1
               Left = 398
               Top = 95
               Width = 94
@@ -1193,6 +1206,7 @@ inherited frmClientMain: TfrmClientMain
               ParentFont = False
             end
             object RzDBLookupComboBox9: TRzDBLookupComboBox
+              Tag = 1
               Left = 114
               Top = 94
               Width = 168
@@ -1202,7 +1216,7 @@ inherited frmClientMain: TfrmClientMain
               KeyField = 'ref_type'
               ListField = 'ref_name'
               ListSource = dmAux.dscRefType
-              TabOrder = 2
+              TabOrder = 3
               AllowNull = True
               FrameColor = clBlack
               FrameHotColor = clBlack
@@ -1214,8 +1228,10 @@ inherited frmClientMain: TfrmClientMain
               Height = 21
               DataSource = dmRef.dscPersonalInfo
               DataField = 'middlename'
+              ReadOnly = True
               CharCase = ecUpperCase
-              TabOrder = 3
+              Color = clInfoBk
+              TabOrder = 2
             end
             object RzDBEdit2: TRzDBEdit
               Left = 114
@@ -1224,7 +1240,9 @@ inherited frmClientMain: TfrmClientMain
               Height = 21
               DataSource = dmRef.dscPersonalInfo
               DataField = 'firstname'
+              ReadOnly = True
               CharCase = ecUpperCase
+              Color = clInfoBk
               TabOrder = 1
             end
             object RzDBEdit3: TRzDBEdit
@@ -1234,44 +1252,47 @@ inherited frmClientMain: TfrmClientMain
               Height = 21
               DataSource = dmRef.dscPersonalInfo
               DataField = 'lastname'
+              ReadOnly = True
               CharCase = ecUpperCase
+              Color = clInfoBk
               Ctl3D = True
               ParentCtl3D = False
               TabOrder = 0
             end
             object RzDBCheckBox1: TRzDBCheckBox
+              Tag = 1
               Left = 114
               Top = 121
               Width = 72
               Height = 15
               DataField = 'is_dependent'
               DataSource = dmRef.dscRefInfo
-              NullAsUnchecked = False
-              ValueChecked = '0'
-              ValueUnchecked = '1'
+              ValueChecked = '1'
+              ValueUnchecked = '0'
               Caption = 'Dependent'
               TabOrder = 4
             end
             object RzDBCheckBox2: TRzDBCheckBox
+              Tag = 1
               Left = 202
               Top = 121
               Width = 57
               Height = 15
               DataField = 'is_student'
               DataSource = dmRef.dscRefInfo
-              NullAsUnchecked = False
-              ValueChecked = '0'
-              ValueUnchecked = '1'
+              ValueChecked = '1'
+              ValueUnchecked = '0'
               Caption = 'Student'
               TabOrder = 5
             end
             object RzDBLookupComboBox10: TRzDBLookupComboBox
+              Tag = 1
               Left = 398
               Top = 70
               Width = 187
               Height = 21
               DataField = 'post_code'
-              DataSource = dmRef.dscRefInfo
+              DataSource = dmRef.dscAddressInfo
               KeyField = 'post_code'
               ListField = 'town'
               ListSource = dmAux.dscTowns
@@ -1281,17 +1302,19 @@ inherited frmClientMain: TfrmClientMain
               FrameHotColor = clBlack
             end
             object RzDBEdit13: TRzDBEdit
+              Tag = 1
               Left = 398
               Top = 46
               Width = 187
               Height = 21
-              DataSource = dmRef.dscRefInfo
+              DataSource = dmRef.dscAddressInfo
               DataField = 'brgy'
               Ctl3D = True
               ParentCtl3D = False
               TabOrder = 9
             end
             object RzDBEdit14: TRzDBEdit
+              Tag = 1
               Left = 398
               Top = 22
               Width = 187
@@ -1303,6 +1326,7 @@ inherited frmClientMain: TfrmClientMain
               TabOrder = 8
             end
             object RzDBEdit19: TRzDBEdit
+              Tag = 1
               Left = 114
               Top = 163
               Width = 168
@@ -1314,6 +1338,7 @@ inherited frmClientMain: TfrmClientMain
               TabOrder = 6
             end
             object RzDBEdit20: TRzDBEdit
+              Tag = 1
               Left = 114
               Top = 187
               Width = 168
@@ -1339,6 +1364,7 @@ inherited frmClientMain: TfrmClientMain
           ShowHint = True
           TabOrder = 2
           TabStop = False
+          OnClick = btnNewRefClick
         end
         object btnRemoveRef: TRzButton
           Left = 143
@@ -1353,6 +1379,7 @@ inherited frmClientMain: TfrmClientMain
           ShowHint = True
           TabOrder = 3
           TabStop = False
+          OnClick = btnRemoveRefClick
         end
       end
     end
@@ -1403,8 +1430,7 @@ inherited frmClientMain: TfrmClientMain
           TitleFont.Height = -11
           TitleFont.Name = 'Tahoma'
           TitleFont.Style = []
-          QuickCompare.Active = True
-          QuickCompare.FieldName = 'exp_date'
+          QuickCompare.FieldName = 'expiry'
           QuickCompare.FieldValue = 42644d
           QuickCompare.Operation = qcoLessThan
           QuickCompare.Color = 11184895
@@ -1481,7 +1507,7 @@ inherited frmClientMain: TfrmClientMain
               DataSource = dmClient.dscIdentInfo
               DataField = 'ident_no'
               CharCase = ecUpperCase
-              TabOrder = 2
+              TabOrder = 1
             end
             object cmbIdType: TRzDBLookupComboBox
               Left = 105
@@ -1494,7 +1520,7 @@ inherited frmClientMain: TfrmClientMain
               ListField = 'ident_name'
               ListSource = dmAux.dscIdentType
               TabOrder = 0
-              OnClick = chbNoExpiryClick
+              OnClick = cmbIdTypeClick
               AllowNull = True
               FrameColor = clBlack
               FrameHotColor = clBlack
@@ -1510,8 +1536,7 @@ inherited frmClientMain: TfrmClientMain
               ValueChecked = '0'
               ValueUnchecked = '1'
               Caption = 'No expiry'
-              TabOrder = 1
-              OnClick = chbNoExpiryClick
+              TabOrder = 3
             end
             object dteExpiry: TRzDBDateTimeEdit
               Left = 105
@@ -1520,13 +1545,12 @@ inherited frmClientMain: TfrmClientMain
               Height = 21
               DataSource = dmClient.dscIdentInfo
               DataField = 'exp_date'
-              TabOrder = 3
-              OnChange = dteBirthdateChange
+              TabOrder = 2
               EditType = etDate
             end
           end
         end
-        object btnNew: TRzButton
+        object btnNewId: TRzButton
           Left = 6
           Top = 239
           Width = 131
@@ -1539,9 +1563,9 @@ inherited frmClientMain: TfrmClientMain
           ShowHint = True
           TabOrder = 2
           TabStop = False
-          OnClick = btnNewClick
+          OnClick = btnNewIdClick
         end
-        object btnRemove: TRzButton
+        object btnRemoveId: TRzButton
           Left = 143
           Top = 239
           Width = 146
@@ -1554,7 +1578,7 @@ inherited frmClientMain: TfrmClientMain
           ShowHint = True
           TabOrder = 3
           TabStop = False
-          OnClick = btnRemoveClick
+          OnClick = btnRemoveIdClick
         end
       end
     end
@@ -1615,7 +1639,7 @@ inherited frmClientMain: TfrmClientMain
     FileName = 'PhotoUtil.exe'
     Timeout = -1
     OnFinished = PhotoLauncherFinished
-    Left = 881
-    Top = 461
+    Left = 897
+    Top = 517
   end
 end

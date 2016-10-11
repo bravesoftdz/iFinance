@@ -4,7 +4,7 @@ interface
 
 uses
   SysUtils, ClientData, DB, Entity, ADODB, LandLord, ImmediateHead,
-  Referee, Employer, Bank, IdentityDoc, Reference;
+  Referee, Employer, Bank, IdentityDoc, Reference, RefData;
 
 type
   TClient = class(TEntity)
@@ -33,8 +33,11 @@ type
     procedure CopyAddress;
     procedure AddIdentityDoc(identDoc: TIdentityDoc);
     procedure AddReference(reference: TReference);
+    procedure RemoveIdentityDoc(const idType: string);
+    procedure RemoveReference(const id: string);
 
     function IdentityDocExists(const idType: string): boolean;
+    function ReferenceExists(const reference: TReference): boolean;
 
     property Name: string read FName write FName;
     property Birthdate: TDate read FBirthdate write FBirthdate;
@@ -104,6 +107,14 @@ begin
         if (Components[i] as TADODataSet).State in [dsInsert,dsEdit] then
           (Components[i] as TADODataSet).Cancel;
   end;
+
+  with dmRef do
+  begin
+    for i:=0 to ComponentCount - 1 do
+      if Components[i] is TADODataSet then
+        if (Components[i] as TADODataSet).State in [dsInsert,dsEdit] then
+          (Components[i] as TADODataSet).Cancel;
+  end;
 end;
 
 procedure TClient.Edit;
@@ -136,6 +147,14 @@ begin
         if (Components[i] as TADODataSet).State in [dsInsert,dsEdit] then
           (Components[i] as TADODataSet).Post;
   end;
+
+  with dmRef do
+  begin
+    for i:=0 to ComponentCount - 1 do
+      if Components[i] is TADODataSet then
+        if (Components[i] as TADODataSet).State in [dsInsert,dsEdit] then
+          (Components[i] as TADODataSet).Post;
+  end;
 end;
 
 procedure TClient.Retrieve(const closeDataSources: boolean = false);
@@ -152,6 +171,10 @@ begin
           (Components[i] as TADODataSet).Close;
 
         (Components[i] as TADODataSet).Open;
+
+        if (Components[i] as TADODataSet).Tag in [1,2] then
+          if (Components[i] as TADODataSet).RecordCount > 0 then
+            (Components[i] as TADODataSet).Edit;
       end;
     end;
   end;
@@ -182,8 +205,11 @@ end;
 
 procedure TClient.AddIdentityDoc(identDoc: TIdentityDoc);
 begin
-  SetLength(FIdentityDocs,Length(FIdentityDocs) + 1);
-  FIdentityDocs[Length(FIdentityDocs) - 1] := identDoc;
+  if not IdentityDocExists(identDoc.IdType) then
+  begin
+    SetLength(FIdentityDocs,Length(FIdentityDocs) + 1);
+    FIdentityDocs[Length(FIdentityDocs) - 1] := identDoc;
+  end;
 end;
 
 function TClient.GetIdentityDoc(const i: Integer): TIdentityDoc;
@@ -211,15 +237,72 @@ begin
   end;
 end;
 
+function TClient.ReferenceExists(const reference: TReference): boolean;
+var
+  i, len: integer;
+  rf: TReference;
+begin
+  Result := false;
+
+  len := Length(FReferences);
+
+  for i := 0 to len - 1 do
+  begin
+    rf := FReferences[i];
+    if rf.Id = reference.Id then
+    begin
+      Result := true;
+      Exit;
+    end;
+  end;
+end;
+
 procedure TClient.AddReference(reference: TReference);
 begin
-  SetLength(FReferences,Length(FReferences) + 1);
-  FReferences[Length(FReferences) - 1] := reference;
+  if not ReferenceExists(reference) then
+  begin
+    SetLength(FReferences,Length(FReferences) + 1);
+    FReferences[Length(FReferences) - 1] := reference;
+  end;
 end;
 
 function TClient.GetReference(const i: Integer): TReference;
 begin
   Result := FReferences[i];
+end;
+
+procedure TClient.RemoveIdentityDoc(const idType: string);
+var
+  i, len: integer;
+  idoc: TIdentityDoc;
+begin
+  len := Length(FIdentityDocs);
+
+  for i := 0 to len - 1 do
+  begin
+    idoc := FIdentityDocs[i];
+    if idoc.IdType <> idType then
+      FIdentityDocs[i] := idoc;
+  end;
+
+  SetLength(FIdentityDocs,Length(FIdentityDocs) - 1);
+end;
+
+procedure TClient.RemoveReference(const id: string);
+var
+  i, len: integer;
+  rf: TReference;
+begin
+  len := Length(FReferences);
+
+  for i := 0 to len - 1 do
+  begin
+    rf := FReferences[i];
+    if rf.Id <> id then
+      FReferences[i] := rf;
+  end;
+
+  SetLength(FReferences,Length(FReferences) - 1);
 end;
 
 end.

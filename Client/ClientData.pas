@@ -282,6 +282,7 @@ begin
   (DataSet as TADODataSet).Properties['Unique table'].Value := 'IdentityInfo';
   with DataSet do
   begin
+    DisableControls;
     if RecordCount > 0 then
     begin
       while not Eof do
@@ -297,6 +298,7 @@ begin
       end;
       First;
     end;
+    EnableControls;
   end;
 end;
 
@@ -315,6 +317,8 @@ begin
 
     cln.AddIdentityDoc(TIdentityDoc.Create(idType,idNo,expiry,hasExpiry));
   end;
+
+  RefreshDataSet(idType,'ident_type',DataSet);
 end;
 
 procedure TdmClient.dstIdentInfoBeforeOpen(DataSet: TDataSet);
