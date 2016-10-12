@@ -151,6 +151,8 @@ type
     urlCopyClientAddress: TRzURLLabel;
     dteBirthdate: TRzDBDateTimeEdit;
     dteExpiry: TRzDBDateTimeEdit;
+    JvLabel48: TJvLabel;
+    RzDBLookupComboBox11: TRzDBLookupComboBox;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -187,6 +189,8 @@ type
     procedure ChangeControlState;
     procedure ChangeIdentControlState;
     procedure ChangeFamRefControlState;
+    procedure CallErrorBox(const error: string);
+
     function CheckClientInfo(st: IStatus): string;
     function CheckIdentInfo(st: IStatus): string;
     function CheckFamRefInfo(st: IStatus): string;
@@ -266,6 +270,14 @@ begin
   end;
 
   Result := error;
+end;
+
+procedure TfrmClientMain.CallErrorBox(const error: string);
+var
+  intf: IStatus;
+begin
+  if Supports(Application.MainForm,IStatus,intf) then
+    intf.ShowError(error);
 end;
 
 procedure TfrmClientMain.cmbIdTypeClick(Sender: TObject);
@@ -457,8 +469,6 @@ begin
 end;
 
 procedure TfrmClientMain.bteRefereeButtonClick(Sender: TObject);
-var
-  intf: IStatus;
 begin
   with TfrmRefereeSearch.Create(self) do
   begin
@@ -470,16 +480,13 @@ begin
 
         if ModalResult = mrOK then
         begin
-          if cln.Id <> ref.Id then
+          if Trim(cln.Id) <> Trim(ref.Id) then
           begin
             bteReferee.Text := ref.Name;
             cln.Referee := ref;
           end
           else
-          begin
-            if Supports(Application.MainForm,IStatus,intf) then
-              intf.ShowError('Referred by cannot be the same as client.');
-          end;
+            CallErrorBox('Referred by cannot be the same as client.');
         end;
       except
         on e: Exception do
@@ -499,8 +506,6 @@ begin
 end;
 
 procedure TfrmClientMain.btnNewRefClick(Sender: TObject);
-var
-  intf: IStatus;
 begin
   with TfrmReferenceSearch.Create(nil) do
   begin
@@ -511,24 +516,24 @@ begin
       begin
         with grRefList.DataSource.DataSet do
         begin
-          if not cln.ReferenceExists(refc) then
+          if Trim(cln.Id) = Trim(refc.Id) then
+            CallErrorBox('Client cannot be declared as a reference.')
+          else if cln.ReferenceExists(refc) then
+            CallErrorBox('Reference already exists.')
+          else
           begin
             Append;
             FieldByName('ref_entity_id').AsString := refc.Id;
             Post;
 
             ChangeFamRefControlState;
-          end
-          else
-          begin
-            if Supports(Application.MainForm,IStatus,intf) then
-              intf.ShowError('Reference already exists.');
+
+            refc.Free;
           end;
         end;
       end;
 
       Free;
-      refc.Free;
     except
       on e: Exception do
         ShowMessage(e.Message);
@@ -537,10 +542,12 @@ begin
 end;
 
 procedure TfrmClientMain.btnRemoveIdClick(Sender: TObject);
+const
+  CONF = 'Are you sure you want to delete the selected identity document?';
 var
   idType: string;
 begin
-  with TfrmDecisionBox.Create(nil) do
+  with TfrmDecisionBox.Create(nil, CONF) do
   begin
     try
       if grIdentityList.DataSource.DataSet.RecordCount > 0 then
@@ -566,10 +573,12 @@ begin
 end;
 
 procedure TfrmClientMain.btnRemoveRefClick(Sender: TObject);
+const
+  CONF = 'Are you sure you want to delete the selected reference?';
 var
   id: string;
 begin
-  with TfrmDecisionBox.Create(nil) do
+  with TfrmDecisionBox.Create(nil,CONF) do
   begin
     try
       if grRefList.DataSource.DataSet.RecordCount > 0 then
@@ -688,8 +697,14 @@ procedure TfrmClientMain.Cancel;
 begin
   cln.Cancel;
   SetUnboundControls(false);
-  ChangeIdentControlState;
-  ChangeFamRefControlState;
+
+  case pcClient.ActivePageIndex of
+
+    CLIENT: Exit;
+    FAMREF: ChangeFamRefControlState;
+    IDENT : ChangeIdentControlState;
+
+  end;
 end;
 
 procedure TfrmClientMain.SetClientName;
@@ -911,7 +926,7 @@ procedure TfrmClientMain.pcClientChanging(Sender: TObject; NewIndex: Integer;
   var AllowChange: Boolean);
 begin
   inherited;
-  AllowChange := cln.HasId;
+  AllowChange := (cln.HasId) or (NewIndex = CLIENT);
 end;
 
 procedure TfrmClientMain.ChangeControlState;

@@ -3,21 +3,27 @@ unit RefData;
 interface
 
 uses
-  System.SysUtils, System.Classes, Data.DB, Data.Win.ADODB;
+  System.SysUtils, System.Classes, Data.DB, Data.Win.ADODB, System.Rtti;
 
 type
   TdmRef = class(TDataModule)
     dstRefInfo: TADODataSet;
     dscRefInfo: TDataSource;
-    dstEntity: TADODataSet;
     dstPersonalInfo: TADODataSet;
     dstContactInfo: TADODataSet;
     dstAddressInfo: TADODataSet;
     dscAddressInfo: TDataSource;
     dscContactInfo: TDataSource;
     dscPersonalInfo: TDataSource;
-    dstClients: TADODataSet;
-    dscClients: TDataSource;
+    dstEducCode: TADODataSet;
+    dscEducCode: TDataSource;
+    dstRef: TADODataSet;
+    dstRefPersonalInfo: TADODataSet;
+    dscRefPersonalInfo: TDataSource;
+    dstRefContactInfo: TADODataSet;
+    dscRefContactInfo: TDataSource;
+    dstEntities: TADODataSet;
+    dscEntities: TDataSource;
     procedure dstRefInfoAfterOpen(DataSet: TDataSet);
     procedure dstRefInfoBeforeOpen(DataSet: TDataSet);
     procedure dstRefInfoBeforePost(DataSet: TDataSet);
@@ -25,11 +31,16 @@ type
     procedure dstPersonalInfoBeforeOpen(DataSet: TDataSet);
     procedure dstContactInfoBeforeOpen(DataSet: TDataSet);
     procedure dstAddressInfoBeforeOpen(DataSet: TDataSet);
-    procedure dstPersonalInfoBeforePost(DataSet: TDataSet);
     procedure dstContactInfoBeforePost(DataSet: TDataSet);
     procedure dstAddressInfoBeforePost(DataSet: TDataSet);
     procedure dstRefInfoAfterScroll(DataSet: TDataSet);
     procedure dstRefInfoAfterDelete(DataSet: TDataSet);
+    procedure dstRefBeforeOpen(DataSet: TDataSet);
+    procedure dstRefBeforePost(DataSet: TDataSet);
+    procedure dstRefPersonalInfoBeforeOpen(DataSet: TDataSet);
+    procedure dstRefPersonalInfoBeforePost(DataSet: TDataSet);
+    procedure dstRefContactInfoBeforeOpen(DataSet: TDataSet);
+    procedure dstRefContactInfoBeforePost(DataSet: TDataSet);
   private
     { Private declarations }
     procedure RefreshAuxDataSets;
@@ -48,7 +59,7 @@ implementation
 {$R *.dfm}
 
 uses
-  AppData, Client, Reference, DBUtil;
+  AppData, Client, Reference, DBUtil, AppConstants, IFinanceGlobal;
 
 procedure TdmRef.RefreshAuxDataSets;
 var
@@ -84,7 +95,8 @@ begin
       if Components[i] is TADODataSet then
         if (Components[i] as TADODataSet).Tag = 2 then
           if not (Components[i] as TADODataSet).Locate('entity_id',refId,[]) then
-            (Components[i] as TADODataSet).Append;
+            if (Components[i] as TADODataSet).LockType <> ltReadOnly then
+              (Components[i] as TADODataSet).Append;
     end;
   end;
 end;
@@ -118,10 +130,38 @@ begin
   (DataSet as TADODataSet).Parameters.ParamByName('@entity_id').Value := cln.Id;
 end;
 
-procedure TdmRef.dstPersonalInfoBeforePost(DataSet: TDataSet);
+procedure TdmRef.dstRefBeforeOpen(DataSet: TDataSet);
+begin
+  (DataSet as TADODataSet).Parameters.ParamByName('@entity_id').Value := refc.Id;
+end;
+
+procedure TdmRef.dstRefBeforePost(DataSet: TDataSet);
+var
+  id: string;
 begin
   if DataSet.State = dsInsert then
-    DataSet.FieldByName('entity_id').AsString := cln.Id;
+  begin
+    id := GetEntityId;
+    DataSet.FieldByName('entity_id').AsString := id;
+    DataSet.FieldByName('entity_type').AsString :=
+      TRttiEnumerationType.GetName<TEntityTypes>(TEntityTypes.RF);
+    DataSet.FieldByName('created_date').AsString :=
+        FormatDateTime('yyyy-mm-dd',Date);;
+    DataSet.FieldByName('created_by').AsString := ifn.User.UserId;
+
+    refc.Id := id;
+  end;
+end;
+
+procedure TdmRef.dstRefContactInfoBeforeOpen(DataSet: TDataSet);
+begin
+  (DataSet as TADODataSet).Parameters.ParamByName('@entity_id').Value := refc.Id;
+end;
+
+procedure TdmRef.dstRefContactInfoBeforePost(DataSet: TDataSet);
+begin
+  if DataSet.State = dsInsert then
+    DataSet.FieldByName('entity_id').AsString := refc.Id;
 end;
 
 procedure TdmRef.dstRefInfoAfterDelete(DataSet: TDataSet);
@@ -196,6 +236,17 @@ procedure TdmRef.dstRefInfoBeforePost(DataSet: TDataSet);
 begin
   if DataSet.State = dsInsert then
     DataSet.FieldByName('entity_id').AsString := cln.Id;
+end;
+
+procedure TdmRef.dstRefPersonalInfoBeforeOpen(DataSet: TDataSet);
+begin
+  (DataSet as TADODataSet).Parameters.ParamByName('@entity_id').Value := refc.Id;
+end;
+
+procedure TdmRef.dstRefPersonalInfoBeforePost(DataSet: TDataSet);
+begin
+  if DataSet.State = dsInsert then
+    DataSet.FieldByName('entity_id').AsString := refc.Id;
 end;
 
 end.

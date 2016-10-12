@@ -85,7 +85,7 @@ end;
 
 procedure TfrmLandlordSearch.Cancel;
 begin
-
+  llord.Destroy;
 end;
 
 end.

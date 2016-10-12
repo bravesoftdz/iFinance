@@ -29,11 +29,11 @@
     <Transaction>2016/08/19 11:36:59.000.480,=C:\_Projects\IFMIS\Common\Unit1.pas</Transaction>
     <Transaction>2016/08/19 11:46:14.000.064,C:\_Projects\IFMIS\Common\ConnUtil.pas=C:\_Projects\IFMIS\Common\Unit1.pas</Transaction>
     <Transaction>2016/08/19 13:44:39.000.793,C:\_Projects\iFinance\Common\IFinance.pas=C:\_Projects\iFinance\Common\IFinanceGlobal.pas</Transaction>
-    <Transaction>2016/08/20 11:49:55.000.336,=dxCoreRS18.dcp</Transaction>
-    <Transaction>2016/08/20 11:49:55.000.544,=cxDataRS18.dcp</Transaction>
-    <Transaction>2016/08/20 11:49:55.000.655,=cxPageControlRS18.dcp</Transaction>
-    <Transaction>2016/08/20 11:49:55.000.598,=cxEditorsRS18.dcp</Transaction>
     <Transaction>2016/08/20 11:49:55.000.491,=dxThemeRS18.dcp</Transaction>
+    <Transaction>2016/08/20 11:49:55.000.655,=cxPageControlRS18.dcp</Transaction>
+    <Transaction>2016/08/20 11:49:55.000.544,=cxDataRS18.dcp</Transaction>
+    <Transaction>2016/08/20 11:49:55.000.598,=cxEditorsRS18.dcp</Transaction>
+    <Transaction>2016/08/20 11:49:55.000.336,=dxCoreRS18.dcp</Transaction>
     <Transaction>2016/08/20 11:49:55.000.238,=vclimg.dcp</Transaction>
     <Transaction>2016/08/20 11:49:55.000.287,=vcldb.dcp</Transaction>
     <Transaction>2016/08/20 11:49:55.000.391,=cxLibraryRS18.dcp</Transaction>
@@ -57,10 +57,10 @@
     <Transaction>2016/10/05 09:34:47.000.562,=C:\_Projects\iFinance\Common\ConfBox.pas</Transaction>
     <Transaction>2016/10/05 09:34:47.000.753,=C:\_Projects\iFinance\Common\ErrorBox.pas</Transaction>
     <Transaction>2016/10/07 11:05:00.000.565,=LockBox3DR.dcp</Transaction>
-    <Transaction>2016/10/11 19:25:59.861,=C:\_Projects\iFinance\Common\Unit1.pas</Transaction>
-    <Transaction>2016/10/11 19:26:00.145,=C:\_Projects\iFinance\Base\BasePopup.pas</Transaction>
-    <Transaction>2016/10/11 19:26:00.186,=C:\_Projects\iFinance\Common\Unit2.pas</Transaction>
-    <Transaction>2016/10/11 19:31:47.902,C:\_Projects\iFinance\Common\DecisionBox.dfm=C:\_Projects\iFinance\Common\Unit1.dfm</Transaction>
-    <Transaction>2016/10/11 19:31:47.902,C:\_Projects\iFinance\Common\DecisionBox.pas=C:\_Projects\iFinance\Common\Unit1.pas</Transaction>
+    <Transaction>2016/10/11 19:25:59.000.861,=C:\_Projects\iFinance\Common\Unit1.pas</Transaction>
+    <Transaction>2016/10/11 19:26:00.000.145,=C:\_Projects\iFinance\Base\BasePopup.pas</Transaction>
+    <Transaction>2016/10/11 19:26:00.000.186,=C:\_Projects\iFinance\Common\Unit2.pas</Transaction>
+    <Transaction>2016/10/11 19:31:47.000.902,C:\_Projects\iFinance\Common\DecisionBox.dfm=C:\_Projects\iFinance\Common\Unit1.dfm</Transaction>
+    <Transaction>2016/10/11 19:31:47.000.902,C:\_Projects\iFinance\Common\DecisionBox.pas=C:\_Projects\iFinance\Common\Unit1.pas</Transaction>
   </Transactions>
 </BorlandProject>

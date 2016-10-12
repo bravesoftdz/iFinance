@@ -40,7 +40,8 @@ requires
   JvStdCtrls,
   RaizeComponentsVcl,
   RaizeComponentsVclDb,
-  LockBox3DR;
+  LockBox3DR,
+  RESTComponents;
 
 contains
   Entity in 'Entity.pas',

@@ -15,14 +15,8 @@ inherited frmLandlordSearch: TfrmLandlordSearch
       Columns = <
         item
           Expanded = False
-          FieldName = 'lastname'
-          Width = 100
-          Visible = True
-        end
-        item
-          Expanded = False
-          FieldName = 'firstname'
-          Width = 180
+          FieldName = 'name'
+          Width = 250
           Visible = True
         end>
     end

@@ -82,7 +82,7 @@ end;
 
 procedure TfrmImmHeadSearch.Cancel;
 begin
-
+  immHead.Destroy;
 end;
 
 end.

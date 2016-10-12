@@ -104,16 +104,18 @@ begin
   begin
     for i:=0 to ComponentCount - 1 do
       if Components[i] is TADODataSet then
-        if (Components[i] as TADODataSet).State in [dsInsert,dsEdit] then
-          (Components[i] as TADODataSet).Cancel;
+        if (Components[i] as TADODataSet).Active then
+          if (Components[i] as TADODataSet).State in [dsInsert,dsEdit] then
+            (Components[i] as TADODataSet).Cancel;
   end;
 
   with dmRef do
   begin
     for i:=0 to ComponentCount - 1 do
       if Components[i] is TADODataSet then
-        if (Components[i] as TADODataSet).State in [dsInsert,dsEdit] then
-          (Components[i] as TADODataSet).Cancel;
+        if (Components[i] as TADODataSet).Active then
+          if (Components[i] as TADODataSet).State in [dsInsert,dsEdit] then
+            (Components[i] as TADODataSet).Cancel;
   end;
 end;
 

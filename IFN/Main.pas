@@ -8,7 +8,19 @@ uses
   JvPageList, JvNavigationPane, JvExControls, RzButton, System.ImageList,
   Vcl.ImgList, Vcl.ComCtrls, Vcl.ToolWin, AppConstants, Vcl.StdCtrls, RzLabel,
   JvImageList, RzStatus, StatusIntf, DockIntf, RzLstBox, Client, Vcl.AppEvnts,
-  ClientListIntf;
+  ClientListIntf, Generics.Collections;
+
+type
+  TRecentClient = class
+  strict private
+    FId: string;
+    FName: string;
+  public
+    property Id: string read FId write FId;
+    property Name: string read FName write FName;
+
+    constructor Create(const id, name: string);
+  end;
 
 type
   TfrmMain = class(TForm,IStatus,IDock)
@@ -59,8 +71,10 @@ type
     procedure lblActiveClientsClick(Sender: TObject);
     procedure lblAllClientsClick(Sender: TObject);
     procedure tbLoanClassClick(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
   private
     { Private declarations }
+    RecentClients: TObjectList<TRecentClient>;
     procedure OpenClientList(const filterType: TClientFilterType = cftAll);
   public
     { Public declarations }
@@ -69,18 +83,6 @@ type
     procedure ShowError(const error: string);
     procedure ShowConfirmation(const conf: string = 'Record saved successfully.');
   end;
-
-  type
-    TRecentClient = class
-    strict private
-      FId: string;
-      FName: string;
-    public
-      property Id: string read FId write FId;
-      property Name: string read FName write FName;
-
-      constructor Create(const id, name: string);
-    end;
 
 var
   frmMain: TfrmMain;
@@ -278,6 +280,11 @@ begin
   spMain.Caption := '';
 end;
 
+procedure TfrmMain.FormCreate(Sender: TObject);
+begin
+  RecentClients := TObjectList<TRecentClient>.Create;
+end;
+
 procedure TfrmMain.ShowError(const error: string);
 begin
   // spMain.Font.Color := clRed;
@@ -303,10 +310,22 @@ begin
 end;
 
 procedure TfrmMain.AddRecentClient(ct: TClient);
+var
+  rc: TRecentClient;
 begin
   if ct.HasId then
-    if not lbxRecent.FindItem(ct.Name) then
-      lbxRecent.Items.AddObject(ct.Name, TRecentClient.Create(ct.Id,ct.Name));
+  begin
+    for rc in RecentClients do
+    begin
+      if rc.Id = ct.Id then
+        Exit;
+    end;
+
+    rc := TRecentClient.Create(ct.Id, ct.Name);
+
+    RecentClients.Add(rc);
+    lbxRecent.Items.AddObject(rc.Name,rc);
+  end;
 end;
 
 end.

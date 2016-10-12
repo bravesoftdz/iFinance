@@ -8,10 +8,12 @@ inherited frmDecisionBox: TfrmDecisionBox
   TextHeight = 13
   inherited pnlTitle: TRzPanel
     Width = 357
-    GradientColorStart = 3109887
-    GradientColorStop = 4621311
+    GradientColorStart = 21503
+    GradientColorStop = 875519
+    ExplicitWidth = 357
     inherited imgClose: TImage
       Left = 336
+      ExplicitLeft = 336
     end
     inherited lblCaption: TRzLabel
       Width = 82
@@ -22,13 +24,17 @@ inherited frmDecisionBox: TfrmDecisionBox
   inherited pnlMain: TRzPanel
     Width = 357
     Height = 108
+    ExplicitWidth = 357
+    ExplicitHeight = 108
     object lblMessage: TJvLabel
       Left = 24
       Top = 24
-      Width = 172
-      Height = 13
+      Width = 305
+      Height = 46
+      AutoSize = False
       Caption = 'Are you sure you want to proceed?'
       Transparent = True
+      WordWrap = True
     end
     object btnNo: TRzButton
       Left = 275
@@ -38,7 +44,7 @@ inherited frmDecisionBox: TfrmDecisionBox
       ShowDownPattern = False
       ShowFocusRect = False
       Caption = 'No'
-      TabOrder = 1
+      TabOrder = 0
     end
     object btnYes: TRzButton
       Left = 194
@@ -47,7 +53,7 @@ inherited frmDecisionBox: TfrmDecisionBox
       ShowDownPattern = False
       ShowFocusRect = False
       Caption = 'Yes'
-      TabOrder = 0
+      TabOrder = 1
     end
   end
 end

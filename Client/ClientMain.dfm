@@ -4,6 +4,7 @@ inherited frmClientMain: TfrmClientMain
   ClientWidth = 923
   OnCreate = FormCreate
   OnShow = FormShow
+  ExplicitTop = -21
   ExplicitWidth = 939
   ExplicitHeight = 559
   PixelsPerInch = 96
@@ -39,9 +40,9 @@ inherited frmClientMain: TfrmClientMain
     Width = 923
     Height = 492
     Hint = ''
-    ActivePage = tsIdentityInfo
+    ActivePage = tsClientInfo
     Align = alClient
-    TabIndex = 2
+    TabIndex = 0
     TabOrder = 1
     TabOrientation = toBottom
     TabStyle = tsRoundCorners
@@ -1124,8 +1125,8 @@ inherited frmClientMain: TfrmClientMain
               Transparent = True
             end
             object JvGroupHeader8: TJvGroupHeader
-              Left = 307
-              Top = 8
+              Left = 319
+              Top = 80
               Width = 278
               Height = 12
               Caption = 'Address info'
@@ -1138,33 +1139,33 @@ inherited frmClientMain: TfrmClientMain
               Transparent = True
             end
             object JvLabel43: TJvLabel
-              Left = 323
-              Top = 28
+              Left = 335
+              Top = 100
               Width = 32
               Height = 13
               Caption = 'Street'
               Transparent = True
             end
             object JvLabel44: TJvLabel
-              Left = 323
-              Top = 52
+              Left = 335
+              Top = 124
               Width = 48
               Height = 13
               Caption = 'Barangay'
               Transparent = True
             end
             object JvLabel45: TJvLabel
-              Left = 323
-              Top = 76
+              Left = 335
+              Top = 148
               Width = 61
               Height = 13
               Caption = 'City or town'
               Transparent = True
             end
             object JvGroupHeader9: TJvGroupHeader
-              Left = 19
-              Top = 149
-              Width = 263
+              Left = 319
+              Top = 8
+              Width = 278
               Height = 12
               Caption = 'Contact Info'
               Font.Charset = DEFAULT_CHARSET
@@ -1176,16 +1177,16 @@ inherited frmClientMain: TfrmClientMain
               Transparent = True
             end
             object JvLabel46: TJvLabel
-              Left = 35
-              Top = 169
+              Left = 335
+              Top = 28
               Width = 52
               Height = 13
               Caption = 'Telephone'
               Transparent = True
             end
             object JvLabel47: TJvLabel
-              Left = 35
-              Top = 193
+              Left = 335
+              Top = 52
               Width = 32
               Height = 13
               Caption = 'Mobile'
@@ -1193,8 +1194,8 @@ inherited frmClientMain: TfrmClientMain
             end
             object urlCopyClientAddress: TRzURLLabel
               Tag = 1
-              Left = 398
-              Top = 95
+              Left = 410
+              Top = 167
               Width = 94
               Height = 13
               Caption = 'Copy client address'
@@ -1204,6 +1205,14 @@ inherited frmClientMain: TfrmClientMain
               Font.Name = 'Tahoma'
               Font.Style = [fsUnderline]
               ParentFont = False
+            end
+            object JvLabel48: TJvLabel
+              Left = 35
+              Top = 169
+              Width = 49
+              Height = 13
+              Caption = 'Education'
+              Transparent = True
             end
             object RzDBLookupComboBox9: TRzDBLookupComboBox
               Tag = 1
@@ -1274,8 +1283,8 @@ inherited frmClientMain: TfrmClientMain
             end
             object RzDBCheckBox2: TRzDBCheckBox
               Tag = 1
-              Left = 202
-              Top = 121
+              Left = 114
+              Top = 142
               Width = 57
               Height = 15
               DataField = 'is_student'
@@ -1287,8 +1296,8 @@ inherited frmClientMain: TfrmClientMain
             end
             object RzDBLookupComboBox10: TRzDBLookupComboBox
               Tag = 1
-              Left = 398
-              Top = 70
+              Left = 410
+              Top = 142
               Width = 187
               Height = 21
               DataField = 'post_code'
@@ -1296,58 +1305,74 @@ inherited frmClientMain: TfrmClientMain
               KeyField = 'post_code'
               ListField = 'town'
               ListSource = dmAux.dscTowns
-              TabOrder = 10
+              TabOrder = 11
               AllowNull = True
               FrameColor = clBlack
               FrameHotColor = clBlack
             end
             object RzDBEdit13: TRzDBEdit
               Tag = 1
-              Left = 398
-              Top = 46
+              Left = 410
+              Top = 118
               Width = 187
               Height = 21
               DataSource = dmRef.dscAddressInfo
               DataField = 'brgy'
               Ctl3D = True
               ParentCtl3D = False
-              TabOrder = 9
+              TabOrder = 10
             end
             object RzDBEdit14: TRzDBEdit
               Tag = 1
-              Left = 398
-              Top = 22
+              Left = 410
+              Top = 94
               Width = 187
               Height = 21
               DataSource = dmRef.dscAddressInfo
               DataField = 'st'
               Ctl3D = True
               ParentCtl3D = False
-              TabOrder = 8
+              TabOrder = 9
             end
             object RzDBEdit19: TRzDBEdit
               Tag = 1
-              Left = 114
-              Top = 163
-              Width = 168
+              Left = 410
+              Top = 22
+              Width = 187
               Height = 21
               DataSource = dmRef.dscContactInfo
               DataField = 'home_phone'
               Ctl3D = True
               ParentCtl3D = False
-              TabOrder = 6
+              TabOrder = 7
             end
             object RzDBEdit20: TRzDBEdit
               Tag = 1
-              Left = 114
-              Top = 187
-              Width = 168
+              Left = 410
+              Top = 46
+              Width = 187
               Height = 21
               DataSource = dmRef.dscContactInfo
               DataField = 'mobile_no'
               Ctl3D = True
               ParentCtl3D = False
-              TabOrder = 7
+              TabOrder = 8
+            end
+            object RzDBLookupComboBox11: TRzDBLookupComboBox
+              Tag = 1
+              Left = 114
+              Top = 163
+              Width = 168
+              Height = 21
+              DataField = 'educ_code'
+              DataSource = dmRef.dscRefInfo
+              KeyField = 'value'
+              ListField = 'display'
+              ListSource = dmRef.dscEducCode
+              TabOrder = 6
+              AllowNull = True
+              FrameColor = clBlack
+              FrameHotColor = clBlack
             end
           end
         end

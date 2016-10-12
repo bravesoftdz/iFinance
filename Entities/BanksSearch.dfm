@@ -8,8 +8,10 @@ inherited frmBankSearch: TfrmBankSearch
   TextHeight = 13
   inherited pnlTitle: TRzPanel
     Width = 548
+    ExplicitWidth = 548
     inherited imgClose: TImage
       Left = 527
+      ExplicitLeft = 527
     end
     inherited lblCaption: TRzLabel
       Width = 69
@@ -20,8 +22,11 @@ inherited frmBankSearch: TfrmBankSearch
   inherited pnlMain: TRzPanel
     Width = 548
     Height = 350
+    ExplicitWidth = 548
+    ExplicitHeight = 350
     inherited edSearchKey: TRzEdit
       Width = 491
+      ExplicitWidth = 491
     end
     inherited grSearch: TRzDBGrid
       Width = 530
@@ -43,14 +48,18 @@ inherited frmBankSearch: TfrmBankSearch
     end
     inherited btnSelect: TButton
       Top = 317
+      ExplicitTop = 317
     end
     inherited btnNew: TButton
       Top = 317
       Visible = False
+      ExplicitTop = 317
     end
     inherited btnClose: TButton
       Left = 463
       Top = 317
+      ExplicitLeft = 463
+      ExplicitTop = 317
     end
   end
 end

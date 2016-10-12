@@ -30,12 +30,19 @@ implementation
 {$R *.dfm}
 
 uses
-  RefData, Reference;
+  RefData, Reference, ReferenceDetail;
 
 procedure TfrmReferenceSearch.SearchList;
+var
+  filter: string;
 begin
-  grSearch.DataSource.DataSet.Locate('name',edSearchKey.Text,
-        [loPartialKey,loCaseInsensitive]);
+  inherited;
+  if Trim(edSearchKey.Text) <> '' then
+    filter := 'name like ''*' + edSearchKey.Text + '*'''
+  else
+    filter := '';
+
+  grSearch.DataSource.DataSet.Filter := filter;
 end;
 
 procedure TfrmReferenceSearch.SetReturn;
@@ -55,7 +62,23 @@ end;
 
 procedure TfrmReferenceSearch.Add;
 begin
+  with TfrmReferenceDetail.Create(self) do
+  begin
+    refc := TReference.Create;
 
+    refc.Add;
+
+    ShowModal;
+
+    if ModalResult = mrOK then
+    begin
+      // refresh the grid
+      grSearch.DataSource.DataSet.Close;
+      grSearch.DataSource.DataSet.Open;
+    end;
+
+    refc.Free;
+  end;
 end;
 
 procedure TfrmReferenceSearch.Cancel;

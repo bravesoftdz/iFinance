@@ -18,6 +18,7 @@ type
     CheckBox1: TCheckBox;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure grListDblClick(Sender: TObject);
+    procedure edSearchKeyChange(Sender: TObject);
   private
     { Private declarations }
   public
@@ -63,6 +64,19 @@ end;
 procedure TfrmClientList.SetTitle(const title: string);
 begin
   lblTitle.Caption := title;
+end;
+
+procedure TfrmClientList.edSearchKeyChange(Sender: TObject);
+var
+  filter: string;
+begin
+  inherited;
+  if Trim(edSearchKey.Text) <> '' then
+    filter := 'name like ''*' + edSearchKey.Text + '*'''
+  else
+    filter := '';
+
+  grList.DataSource.DataSet.Filter := filter;
 end;
 
 procedure TfrmClientList.FilterList(const filterType: TClientFilterType;

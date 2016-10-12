@@ -38,6 +38,7 @@ inherited frmClientList: TfrmClientList
       Text = ''
       Anchors = [akLeft, akTop, akRight]
       TabOrder = 0
+      OnChange = edSearchKeyChange
     end
   end
   object pnlList: TRzPanel
@@ -107,7 +108,7 @@ inherited frmClientList: TfrmClientList
       Width = 127
       Height = 17
       Anchors = [akLeft, akBottom]
-      Caption = 'Display non-clients'
+      Caption = 'Show non-clients'
       TabOrder = 1
     end
   end

@@ -67,7 +67,7 @@ end;
 
 procedure TfrmEmployerSearch.Cancel;
 begin
-
+  emp.Destroy;
 end;
 
 end.

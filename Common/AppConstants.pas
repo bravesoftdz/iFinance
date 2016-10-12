@@ -5,7 +5,7 @@ interface
 type TForms = (fmClientMain, fmClientList, fmGroupList, fmEmployerList,
                 fmBanksList, fmDesignationList, fmLoanClassList);
 
-type TEntityTypes = (CL,LL,IH);
+type TEntityTypes = (CL,LL,IH,RF);
 
 implementation
 

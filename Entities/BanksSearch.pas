@@ -63,7 +63,7 @@ end;
 
 procedure TfrmBankSearch.Cancel;
 begin
-
+  bnk.Destroy;
 end;
 
 
