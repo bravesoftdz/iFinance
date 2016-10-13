@@ -15,10 +15,11 @@ type
     grList: TRzDBGrid;
     Label1: TLabel;
     edSearchKey: TRzEdit;
-    CheckBox1: TCheckBox;
+    cbxNonClients: TCheckBox;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure grListDblClick(Sender: TObject);
     procedure edSearchKeyChange(Sender: TObject);
+    procedure cbxNonClientsClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -46,15 +47,17 @@ end;
 
 procedure TfrmClientList.grListDblClick(Sender: TObject);
 var
-  id: string;
+  id, displayId: string;
   intf: IDock;
 begin
   if grList.DataSource.DataSet.RecordCount > 0 then
   begin
     id := grList.DataSource.DataSet.FieldByName('entity_id').AsString;
+    displayId := grList.DataSource.DataSet.FieldByName('display_id').AsString;
 
     cln := TClient.Create;
     cln.Id := id;
+    cln.DisplayId := displayId;
 
     if Supports(Application.MainForm,IDock,intf) then
       intf.DockForm(fmClientMain);
@@ -64,6 +67,14 @@ end;
 procedure TfrmClientList.SetTitle(const title: string);
 begin
   lblTitle.Caption := title;
+end;
+
+procedure TfrmClientList.cbxNonClientsClick(Sender: TObject);
+begin
+  with dmApplication.dstClients.Parameters do
+    ParamByName('@non_clients').Value := Ord(cbxNonClients.Checked);
+
+  OpenGridDataSources(pnlList);
 end;
 
 procedure TfrmClientList.edSearchKeyChange(Sender: TObject);
@@ -89,6 +100,8 @@ begin
       cftActive: ParamByName('@filter_type').Value := 1;
       cftRecent: ParamByName('@filter_type').Value := 2;
     end;
+
+    ParamByName('@non_clients').Value := Ord(cbxNonClients.Checked);
   end;
 
   OpenGridDataSources(pnlList);

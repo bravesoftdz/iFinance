@@ -4,7 +4,6 @@ inherited frmClientMain: TfrmClientMain
   ClientWidth = 923
   OnCreate = FormCreate
   OnShow = FormShow
-  ExplicitTop = -21
   ExplicitWidth = 939
   ExplicitHeight = 559
   PixelsPerInch = 96
@@ -40,9 +39,9 @@ inherited frmClientMain: TfrmClientMain
     Width = 923
     Height = 492
     Hint = ''
-    ActivePage = tsClientInfo
+    ActivePage = tsIdentityInfo
     Align = alClient
-    TabIndex = 0
+    TabIndex = 2
     TabOrder = 1
     TabOrientation = toBottom
     TabStyle = tsRoundCorners
@@ -51,6 +50,10 @@ inherited frmClientMain: TfrmClientMain
     FixedDimension = 19
     object tsClientInfo: TRzTabSheet
       Caption = 'Client information'
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object JvLabel1: TJvLabel
         Left = 35
         Top = 40
@@ -1078,6 +1081,10 @@ inherited frmClientMain: TfrmClientMain
           object tsFamRefDetail: TRzTabSheet
             Color = 15263976
             Caption = 'Reference details'
+            ExplicitLeft = 0
+            ExplicitTop = 0
+            ExplicitWidth = 0
+            ExplicitHeight = 0
             object JvLabel39: TJvLabel
               Left = 35
               Top = 100
@@ -1458,7 +1465,7 @@ inherited frmClientMain: TfrmClientMain
           QuickCompare.FieldName = 'expiry'
           QuickCompare.FieldValue = 42644d
           QuickCompare.Operation = qcoLessThan
-          QuickCompare.Color = 11184895
+          QuickCompare.Color = 14277119
           QuickCompare.FontColor = clRed
           AltRowShading = True
           AltRowShadingColor = 15854564
@@ -1654,6 +1661,10 @@ inherited frmClientMain: TfrmClientMain
           object RzTabSheet2: TRzTabSheet
             Color = 15263976
             Caption = 'Change caption here'
+            ExplicitLeft = 0
+            ExplicitTop = 0
+            ExplicitWidth = 0
+            ExplicitHeight = 0
           end
         end
       end

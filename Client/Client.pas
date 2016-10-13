@@ -9,6 +9,7 @@ uses
 type
   TClient = class(TEntity)
   private
+    FDisplayId: string;
     FName: string;
     FBirthdate: TDate;
     FReferee: TReferee;
@@ -39,6 +40,7 @@ type
     function IdentityDocExists(const idType: string): boolean;
     function ReferenceExists(const reference: TReference): boolean;
 
+    property DisplayId: string read FDisplayId write FDisplayId;
     property Name: string read FName write FName;
     property Birthdate: TDate read FBirthdate write FBirthdate;
     property Referee: TReferee read FReferee write FReferee;
@@ -154,8 +156,11 @@ begin
   begin
     for i:=0 to ComponentCount - 1 do
       if Components[i] is TADODataSet then
-        if (Components[i] as TADODataSet).State in [dsInsert,dsEdit] then
-          (Components[i] as TADODataSet).Post;
+        if ((Components[i] as TADODataSet).State in [dsInsert,dsEdit]) then
+          if ((Components[i] as TADODataSet).Modified) then
+            (Components[i] as TADODataSet).Post
+          else
+            (Components[i] as TADODataSet).Cancel;
   end;
 end;
 

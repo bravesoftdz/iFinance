@@ -14,12 +14,14 @@ type
   TRecentClient = class
   strict private
     FId: string;
+    FDisplayId: string;
     FName: string;
   public
     property Id: string read FId write FId;
+    property DisplayId: string read FDisplayId write FDisplayId;
     property Name: string read FName write FName;
 
-    constructor Create(const id, name: string);
+    constructor Create(const id, displayId, name: string);
   end;
 
 type
@@ -95,9 +97,10 @@ uses
   ClientMain, SaveIntf, ClientList, DockedFormIntf, GroupList, EmployerList,
   BanksList, DesignationList, LoanClassificationList, ConfBox, ErrorBox, ClientIntf;
 
-constructor TRecentClient.Create(const id: string; const name: string);
+constructor TRecentClient.Create(const id, displayId, name: string);
 begin
   FId := id;
+  FDisplayId := displayId;
   FName := name;
 end;
 
@@ -105,6 +108,7 @@ procedure TfrmMain.OpenClientList(const filterType: TClientFilterType = cftAll);
 var
   title: string;
   intf: IClientFilter;
+  intd: IDockedForm;
 begin
   case filterType of
     cftAll: title := 'All clients';
@@ -112,7 +116,12 @@ begin
     cftRecent: title := 'Newly-added clients';
   end;
 
-  DockForm(fmClientList,title);
+  if (pnlDockMain.ControlCount = 0)
+    or (not Supports(pnlDockMain.Controls[0] as TForm,IClientFilter,intf)) then
+    DockForm(fmClientList,title);
+
+  if Supports(pnlDockMain.Controls[0] as TForm,IDockedForm,intd) then
+    intd.SetTitle(title);
 
   if Supports(pnlDockMain.Controls[0] as TForm,IClientFilter,intf) then
     intf.FilterList(filterType);
@@ -151,6 +160,7 @@ begin
       cln := TClient.Create;
 
       cln.Id := TRecentClient(obj).Id;
+      cln.DisplayId := TRecentClient(obj).DisplayId;
       cln.Name := TRecentClient(obj).Name;
       cln.Retrieve(true);
 
@@ -165,6 +175,7 @@ begin
     begin
       cln := TClient.Create;
       cln.Id := TRecentClient(obj).Id;
+      cln.DisplayId := TRecentClient(obj).DisplayId;
       DockForm(fmClientMain);
     end;
   end;
@@ -271,9 +282,6 @@ begin
 
     frm.ManualDock(pnlDockMain);
     frm.Show;
-
-    if Supports(frm,IDockedForm,intf) then
-      intf.SetTitle(title);
   end;
 
   // clear the status bar message
@@ -321,7 +329,7 @@ begin
         Exit;
     end;
 
-    rc := TRecentClient.Create(ct.Id, ct.Name);
+    rc := TRecentClient.Create(ct.Id, ct.DisplayId, ct.Name);
 
     RecentClients.Add(rc);
     lbxRecent.Items.AddObject(rc.Name,rc);

@@ -77,6 +77,8 @@ inherited frmLandlordDetail: TfrmLandlordDetail
           Top = 65
           Width = 207
           Height = 21
+          DataSource = dmEntities.dscLlPersonal
+          DataField = 'middlename'
           CharCase = ecUpperCase
           TabOrder = 2
         end

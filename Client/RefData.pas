@@ -222,6 +222,8 @@ begin
 end;
 
 procedure TdmRef.dstRefInfoAfterScroll(DataSet: TDataSet);
+var
+  i: integer;
 begin
   LocateAuxInfo;
 end;

@@ -8,8 +8,10 @@ inherited frmImmHeadDetail: TfrmImmHeadDetail
   TextHeight = 13
   inherited pnlTitle: TRzPanel
     Width = 370
+    ExplicitWidth = 370
     inherited imgClose: TImage
       Left = 349
+      ExplicitLeft = 349
     end
     inherited lblCaption: TRzLabel
       Width = 94
@@ -20,19 +22,24 @@ inherited frmImmHeadDetail: TfrmImmHeadDetail
   inherited pnlMain: TRzPanel
     Width = 370
     Height = 206
+    ExplicitWidth = 370
+    ExplicitHeight = 206
     inherited lblStatus: TLabel
       Top = 177
+      ExplicitTop = 177
     end
     inherited pcDetail: TRzPageControl
       Width = 353
       Height = 152
+      ExplicitWidth = 353
+      ExplicitHeight = 152
       FixedDimension = 19
       inherited tsDetail: TRzTabSheet
         Caption = 'Immediate head details'
         ExplicitLeft = 1
         ExplicitTop = 20
-        ExplicitWidth = 512
-        ExplicitHeight = 155
+        ExplicitWidth = 349
+        ExplicitHeight = 129
         object JvLabel1: TJvLabel
           Left = 19
           Top = 23
@@ -93,6 +100,7 @@ inherited frmImmHeadDetail: TfrmImmHeadDetail
           Width = 207
           Height = 21
           DataSource = dmEntities.dscIHPersonal
+          DataField = 'middlename'
           CharCase = ecUpperCase
           TabOrder = 2
         end
@@ -127,6 +135,8 @@ inherited frmImmHeadDetail: TfrmImmHeadDetail
     inherited btnCancel: TRzButton
       Left = 285
       Top = 171
+      ExplicitLeft = 285
+      ExplicitTop = 171
     end
   end
 end

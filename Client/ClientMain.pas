@@ -708,8 +708,15 @@ begin
 end;
 
 procedure TfrmClientMain.SetClientName;
+var
+  displayId: string;
 begin
-  lblClientName.Caption := UpperCase(cln.Name + '   ' + cln.Id);
+  if cln.DisplayId <> '' then
+    displayId := cln.DisplayId
+  else
+    displayId := cln.Id;
+
+  lblClientName.Caption := UpperCase(cln.Name + '   ' + displayId);
   ChangeControlState;
 end;
 

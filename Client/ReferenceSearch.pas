@@ -73,8 +73,14 @@ begin
     if ModalResult = mrOK then
     begin
       // refresh the grid
-      grSearch.DataSource.DataSet.Close;
-      grSearch.DataSource.DataSet.Open;
+      with grSearch.DataSource.DataSet do
+      begin
+        DisableControls;
+        Close;
+        Open;
+        Locate('entity_id',refc.Id,[]);
+        EnableControls;
+      end;
     end;
 
     refc.Free;

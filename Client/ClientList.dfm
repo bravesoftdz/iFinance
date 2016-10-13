@@ -33,12 +33,22 @@ inherited frmClientList: TfrmClientList
     object edSearchKey: TRzEdit
       Left = 47
       Top = 9
-      Width = 516
+      Width = 402
       Height = 21
       Text = ''
       Anchors = [akLeft, akTop, akRight]
       TabOrder = 0
       OnChange = edSearchKeyChange
+    end
+    object cbxNonClients: TCheckBox
+      Left = 460
+      Top = 11
+      Width = 103
+      Height = 17
+      Anchors = [akTop, akRight]
+      Caption = 'Show non-clients'
+      TabOrder = 1
+      OnClick = cbxNonClientsClick
     end
   end
   object pnlList: TRzPanel
@@ -51,14 +61,11 @@ inherited frmClientList: TfrmClientList
     BorderSides = [sdLeft, sdRight, sdBottom]
     BorderWidth = 5
     TabOrder = 2
-    DesignSize = (
-      569
-      226)
     object grList: TRzDBGrid
       Left = 6
       Top = 5
       Width = 557
-      Height = 190
+      Height = 215
       Align = alTop
       Anchors = [akLeft, akTop, akRight, akBottom]
       DataSource = dmApplication.dscClients
@@ -75,41 +82,18 @@ inherited frmClientList: TfrmClientList
       Columns = <
         item
           Expanded = False
-          FieldName = 'entity_id'
+          FieldName = 'display_id'
           Title.Caption = 'Client ID'
           Width = 80
           Visible = True
         end
         item
           Expanded = False
-          FieldName = 'lastname'
-          Title.Caption = 'Lastname'
-          Width = 150
-          Visible = True
-        end
-        item
-          Expanded = False
-          FieldName = 'firstname'
-          Title.Caption = 'Firstname'
-          Width = 150
-          Visible = True
-        end
-        item
-          Expanded = False
-          FieldName = 'middlename'
-          Title.Caption = 'Middlename'
-          Width = 150
+          FieldName = 'name'
+          Title.Caption = 'Name'
+          Width = 350
           Visible = True
         end>
-    end
-    object CheckBox1: TCheckBox
-      Left = 8
-      Top = 202
-      Width = 127
-      Height = 17
-      Anchors = [akLeft, akBottom]
-      Caption = 'Show non-clients'
-      TabOrder = 1
     end
   end
 end

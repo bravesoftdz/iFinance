@@ -14,7 +14,7 @@ inherited frmLogin: TfrmLogin
   TextHeight = 13
   inherited pnlTitle: TRzPanel
     Width = 434
-    ExplicitWidth = 432
+    ExplicitWidth = 434
     inherited imgClose: TImage
       Left = 412
       ExplicitLeft = 410
@@ -44,9 +44,8 @@ inherited frmLogin: TfrmLogin
   inherited pnlMain: TRzPanel
     Width = 434
     Height = 183
-    BorderColor = 10329501
-    ExplicitWidth = 432
-    ExplicitHeight = 181
+    ExplicitWidth = 434
+    ExplicitHeight = 183
     object Label4: TLabel
       Left = 71
       Top = 11
