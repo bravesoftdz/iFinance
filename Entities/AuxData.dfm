@@ -1,7 +1,7 @@
 object dmAux: TdmAux
   OldCreateOrder = False
   Height = 324
-  Width = 502
+  Width = 541
   object dscTowns: TDataSource
     DataSet = dstTowns
     Left = 112
@@ -93,6 +93,66 @@ object dmAux: TdmAux
   object dscRefType: TDataSource
     DataSet = dstRefType
     Left = 272
+    Top = 88
+  end
+  object dstGroups: TADODataSet
+    Tag = 5
+    Connection = dmApplication.acMain
+    CursorType = ctStatic
+    CommandText = 'sp_dd_get_group;1'
+    CommandType = cmdStoredProc
+    Parameters = <>
+    Left = 208
+    Top = 152
+  end
+  object dscGroups: TDataSource
+    DataSet = dstGroups
+    Left = 272
+    Top = 152
+  end
+  object dscLoanType: TDataSource
+    DataSet = dstLoanType
+    Left = 272
+    Top = 208
+  end
+  object dstLoanType: TADODataSet
+    Connection = dmApplication.acMain
+    CursorType = ctStatic
+    LockType = ltReadOnly
+    CommandText = 'sp_dd_get_loan_type;1'
+    CommandType = cmdStoredProc
+    Parameters = <>
+    Left = 208
+    Top = 208
+  end
+  object dscCompMethod: TDataSource
+    DataSet = dstCompMethod
+    Left = 432
+    Top = 24
+  end
+  object dstCompMethod: TADODataSet
+    Connection = dmApplication.acMain
+    CursorType = ctStatic
+    LockType = ltReadOnly
+    CommandText = 'sp_dd_get_int_comp_method;1'
+    CommandType = cmdStoredProc
+    Parameters = <>
+    Left = 368
+    Top = 24
+  end
+  object dscLocation: TDataSource
+    DataSet = dstLocation
+    Left = 432
+    Top = 88
+  end
+  object dstLocation: TADODataSet
+    Connection = dmApplication.acMain
+    CursorType = ctStatic
+    LockType = ltReadOnly
+    CommandText = 'sp_dd_get_int_comp_method;1'
+    CommandType = cmdStoredProc
+    Parameters = <>
+    Left = 368
     Top = 88
   end
 end

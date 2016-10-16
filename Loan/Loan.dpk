@@ -40,14 +40,23 @@ requires
   Jcl,
   JvCore,
   JvStdCtrls,
-  LockBox3DR;
+  LockBox3DR,
+  JvControls,
+  RESTComponents;
 
 contains
   LoansAuxData in 'LoansAuxData.pas' {dmLoansAux: TDataModule},
   LoanClassification in 'LoanClassification.pas',
   ClassGroup in 'ClassGroup.pas' {frmClassGroup},
-  BasePopup in '..\Base\BasePopup.pas' {frmBasePopup},
   LoanClassificationList in 'LoanClassificationList.pas' {frmLoanClassificationList},
-  BaseDocked in '..\Base\BaseDocked.pas' {frmBaseDocked};
+  LoanMain in 'LoanMain.pas' {frmLoanMain},
+  Loan in 'Loan.pas',
+  LoanData in 'LoanData.pas' {dmLoan: TDataModule},
+  LoanList in 'LoanList.pas' {frmLoanList},
+  BaseDocked in '..\Base\BaseDocked.pas' {frmBaseDocked},
+  LoanListIntf in 'LoanListIntf.pas',
+  BasePopup in '..\Base\BasePopup.pas' {frmBasePopup},
+  ClientSearch in 'ClientSearch.pas' {frmClientSearch},
+  LoanClient in 'LoanClient.pas';
 
 end.

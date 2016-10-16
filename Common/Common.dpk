@@ -60,7 +60,8 @@ contains
   ConfBox in 'ConfBox.pas' {frmConfBox},
   ErrorBox in 'ErrorBox.pas' {frmErrorBox},
   DecisionBox in 'DecisionBox.pas' {frmDecisionBox},
-  BasePopup in '..\Base\BasePopup.pas' {frmBasePopup};
+  BasePopup in '..\Base\BasePopup.pas' {frmBasePopup},
+  Branch in 'Branch.pas';
 
 end.
 

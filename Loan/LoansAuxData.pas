@@ -10,15 +10,22 @@ type
   TdmLoansAux = class(TDataModule)
     dscLoanClass: TDataSource;
     dstLoanClass: TADODataSet;
-    dscLoanType: TDataSource;
-    dstLoanType: TADODataSet;
-    dscLoanClassGroups: TDataSource;
-    dstLoanClassGroups: TADODataSet;
+    dstLoanClassclass_id: TIntegerField;
+    dstLoanClassgrp_id: TSmallintField;
+    dstLoanClassclass_name: TStringField;
+    dstLoanClassint_rate: TFloatField;
+    dstLoanClassterm: TWordField;
+    dstLoanClassloan_type: TStringField;
+    dstLoanClasscomakers: TWordField;
+    dstLoanClassint_comp_method: TStringField;
+    dstLoanClassmax_loan: TBCDField;
+    dstLoanClassgrp_name: TStringField;
+    dstLoanClassloan_name: TStringField;
+    dstLoanClasscomp_method: TStringField;
     procedure dstLoanClassBeforePost(DataSet: TDataSet);
     procedure dstLoanClassAfterOpen(DataSet: TDataSet);
     procedure DataModuleCreate(Sender: TObject);
     procedure DataModuleDestroy(Sender: TObject);
-    procedure dstLoanClassAfterScroll(DataSet: TDataSet);
     procedure dstLoanClassAfterPost(DataSet: TDataSet);
   private
     { Private declarations }
@@ -69,20 +76,6 @@ var
 begin
   classId := DataSet.FieldByName('class_id').AsInteger;
   RefreshDataSet(classId,'class_id',DataSet);
-end;
-
-procedure TdmLoansAux.dstLoanClassAfterScroll(DataSet: TDataSet);
-var
-  filterStr: string;
-begin
-  // filter groups
-  if DataSet.State = dsBrowse then
-    filterStr := 'class_id = ' + DataSet.FieldByName('class_id').AsString
-  else
-    filterStr := 'class_id = 0';
-
-  with dstLoanClassGroups do
-    Filter := filterStr;
 end;
 
 procedure TdmLoansAux.dstLoanClassBeforePost(DataSet: TDataSet);

@@ -32,7 +32,7 @@ object frmMain: TfrmMain
       Top = 1
       Width = 183
       Height = 541
-      ActivePage = nppClient
+      ActivePage = nppLoans
       Align = alClient
       AutoHeaders = True
       Background.Stretch = False
@@ -163,7 +163,62 @@ object frmMain: TfrmMain
         Background.Center = False
         Background.Tile = False
         Background.Transparent = False
-        Caption = 'Loans Management'
+        Caption = 'Loans'
+        object urlNewlyAddedLoans: TRzURLLabel
+          Left = 15
+          Top = 40
+          Width = 91
+          Height = 13
+          Caption = 'Newly-added loans'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clHighlight
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsUnderline]
+          ParentFont = False
+          OnClick = urlNewlyAddedLoansClick
+        end
+        object urlPendingLoans: TRzURLLabel
+          Left = 15
+          Top = 59
+          Width = 38
+          Height = 13
+          Caption = 'Pending'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clHighlight
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsUnderline]
+          ParentFont = False
+          OnClick = urlPendingLoansClick
+        end
+        object urlActiveLoans: TRzURLLabel
+          Left = 15
+          Top = 78
+          Width = 30
+          Height = 13
+          Caption = 'Active'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clHighlight
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsUnderline]
+          ParentFont = False
+          OnClick = urlActiveLoansClick
+        end
+        object RzLabel2: TRzLabel
+          Left = 15
+          Top = 112
+          Width = 40
+          Height = 13
+          Caption = 'Recent'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
       end
       object nppExpense: TJvNavPanelPage
         Left = 0
@@ -275,11 +330,15 @@ object frmMain: TfrmMain
       ShowHint = True
       OnClick = tbAddClientClick
     end
-    object ToolButton2: TToolButton
+    object tbNewLoan: TToolButton
       Left = 23
       Top = 0
-      Caption = 'ToolButton2'
+      Hint = 'New loan'
+      Caption = 'tbNewLoan'
       ImageIndex = 1
+      ParentShowHint = False
+      ShowHint = True
+      OnClick = tbNewLoanClick
     end
     object ToolButton3: TToolButton
       Left = 46
@@ -401,7 +460,7 @@ object frmMain: TfrmMain
     Left = 201
     Top = 464
     Bitmap = {
-      494C010109000001C00010001000FFFFFFFF2110FFFFFFFFFFFFFFFF424D3600
+      494C010109000001D00010001000FFFFFFFF2110FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000003000000001002000000000000030
       000000000000000000000000000000000000000000130000002D010101720303
       0387030303870303038703030387030303870303038703030387030303870430

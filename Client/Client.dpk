@@ -56,6 +56,7 @@ contains
   ReferenceSearch in 'ReferenceSearch.pas' {frmReferenceSearch},
   BaseSearch in '..\Base\BaseSearch.pas' {frmBaseSearch},
   ReferenceDetail in 'ReferenceDetail.pas' {frmReferenceDetail},
-  BasePopupDetail in '..\Base\BasePopupDetail.pas' {frmBasePopupDetail};
+  BasePopupDetail in '..\Base\BasePopupDetail.pas' {frmBasePopupDetail},
+  ClientListParams in 'ClientListParams.pas';
 
 end.

@@ -182,6 +182,7 @@ type
     procedure btnNewRefClick(Sender: TObject);
     procedure btnRemoveRefClick(Sender: TObject);
     procedure cmbIdTypeClick(Sender: TObject);
+    procedure urlCopyClientAddressClick(Sender: TObject);
   private
     { Private declarations }
     procedure CopyAddress;
@@ -190,6 +191,7 @@ type
     procedure ChangeIdentControlState;
     procedure ChangeFamRefControlState;
     procedure CallErrorBox(const error: string);
+    procedure ShowTabs(const show: boolean = true);
 
     function CheckClientInfo(st: IStatus): string;
     function CheckIdentInfo(st: IStatus): string;
@@ -624,6 +626,14 @@ begin
   inherited;
 end;
 
+procedure TfrmClientMain.ShowTabs(const show: boolean = true);
+var
+  i: integer;
+begin
+  for i := FAMREF to LOANS do
+    pcClient.Pages[i].TabVisible := show;
+end;
+
 procedure TfrmClientMain.FormCreate(Sender: TObject);
 begin
   inherited;
@@ -633,6 +643,7 @@ begin
 
   if not Assigned(cln) then
   begin
+    ShowTabs(false);
     cln := TClient.Create;
     cln.Add;
   end
@@ -717,6 +728,8 @@ begin
     displayId := cln.Id;
 
   lblClientName.Caption := UpperCase(cln.Name + '   ' + displayId);
+
+  ShowTabs;
   ChangeControlState;
 end;
 
@@ -793,6 +806,12 @@ procedure TfrmClientMain.urlCopyAddressClick(Sender: TObject);
 begin
   inherited;
   CopyAddress;
+end;
+
+procedure TfrmClientMain.urlCopyClientAddressClick(Sender: TObject);
+begin
+  inherited;
+  refc.CopyClientAddress;
 end;
 
 procedure TfrmClientMain.urlRefreshIdentListClick(Sender: TObject);
@@ -937,10 +956,16 @@ begin
 end;
 
 procedure TfrmClientMain.ChangeControlState;
+var
+  hasId: boolean;
 begin
-  edLastName.ReadOnly := cln.HasId;
-  edFirstName.ReadOnly := cln.HasId;
-  edMiddleName.ReadOnly := cln.HasId;
+  hasId := cln.HasId;
+
+  edLastName.ReadOnly := hasId;
+  edFirstName.ReadOnly := hasId;
+  edMiddleName.ReadOnly := hasId;
+
+  urlTakePhoto.Enabled := hasId;
 end;
 
 procedure TfrmClientMain.ChangeFamRefControlState;

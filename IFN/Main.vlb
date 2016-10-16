@@ -44,9 +44,6 @@ Coordinates=280,10,73,58
 [sbMain]
 Coordinates=135,10,56,58
 
-[ToolButton2]
-Coordinates=420,192,84,36
-
 [mmMain]
 Coordinates=73,247,63,36
 
@@ -108,4 +105,7 @@ Coordinates=630,56,75,36
 ModelLayerNames=NewLayer0
 ActiveLayerNames=NewLayer0
 EditingLayerName=NewLayer0
+
+[tbNewLoan]
+Coordinates=420,192,84,36
 

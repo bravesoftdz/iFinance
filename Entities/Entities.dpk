@@ -54,7 +54,6 @@ contains
   Referee in 'Referee.pas',
   RefereeSearch in 'RefereeSearch.pas' {frmRefereeSearch},
   AuxData in 'AuxData.pas' {dmAux: TDataModule},
-  BasePopupDetail in '..\Base\BasePopupDetail.pas' {frmBasePopupDetail},
   LandlordDetail in 'LandlordDetail.pas' {frmLandlordDetail},
   GroupList in 'GroupList.pas' {frmGroupList},
   EmployerList in 'EmployerList.pas' {frmEmployerList},
@@ -66,11 +65,12 @@ contains
   BaseForm in '..\Base\BaseForm.pas' {frmBase},
   BasePopup in '..\Base\BasePopup.pas' {frmBasePopup},
   BanksSearch in 'BanksSearch.pas' {frmBankSearch},
-  BaseSearch in '..\Base\BaseSearch.pas' {frmBaseSearch},
   DesignationList in 'DesignationList.pas' {frmDesignationList},
   BaseGridDetail in '..\Base\BaseGridDetail.pas' {frmBaseGridDetail},
   IdentityDoc in 'IdentityDoc.pas',
   Reference in 'Reference.pas',
-  Group in 'Group.pas';
+  Group in 'Group.pas',
+  BasePopupDetail in '..\Base\BasePopupDetail.pas' {frmBasePopupDetail},
+  BaseSearch in '..\Base\BaseSearch.pas' {frmBaseSearch};
 
 end.

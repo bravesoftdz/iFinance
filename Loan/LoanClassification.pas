@@ -3,7 +3,7 @@ unit LoanClassification;
 interface
 
 uses
-  Generics.Collections, Group;
+  Generics.Collections, Branch;
 
 type
   TLoanClassification = class
@@ -15,7 +15,7 @@ type
     FLoanType: string;
     FValidFrom: TDate;
     FValidUntil: TDate;
-    FGroups: TObjectList<TGroup>;
+    FBranches: TObjectList<TBranch>;
 
   public
     property ClassificationId: integer read FClassificationId write FClassificationId;
@@ -25,7 +25,7 @@ type
     property LoanType: string read FLoanType write FLoanType;
     property ValidFrom: TDate read FValidFrom write FVAlidFrom;
     property ValidUntil: TDate read FValidUntil write FValidUntil;
-    property Groups:  TObjectList<TGroup> read FGroups write FGroups;
+    property Branches:  TObjectList<TBranch> read FBranches write FBranches;
 
     constructor Create(const classificationId: integer; const classificationName: string;
         const interest, term: integer; const loanType: string; const validFrom,
@@ -48,7 +48,7 @@ begin
   FLoanType := loanType;
   FValidFrom := validFrom;
   FValidUntil := validUntil;
-  FGroups := TObjectList<TGroup>.Create;
+  FBranches := TObjectList<TBranch>.Create;
 end;
 
 end.

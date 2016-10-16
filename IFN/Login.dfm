@@ -196,10 +196,10 @@ inherited frmLogin: TfrmLogin
       Left = 14
       Top = 157
       Width = 3
-      Height = 11
+      Height = 13
       Font.Charset = ANSI_CHARSET
       Font.Color = clBlack
-      Font.Height = -9
+      Font.Height = -11
       Font.Name = 'Tahoma'
       Font.Style = []
       ParentFont = False
@@ -244,13 +244,6 @@ inherited frmLogin: TfrmLogin
       ShowHint = True
       TabOrder = 3
       OnClick = btnCancelClick
-    end
-    object Button1: TButton
-      Left = 392
-      Top = 132
-      Width = 28
-      Height = 25
-      TabOrder = 4
     end
   end
 end

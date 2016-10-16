@@ -19,6 +19,14 @@ type
     dstIdentType: TADODataSet;
     dstRefType: TADODataSet;
     dscRefType: TDataSource;
+    dstGroups: TADODataSet;
+    dscGroups: TDataSource;
+    dscLoanType: TDataSource;
+    dstLoanType: TADODataSet;
+    dscCompMethod: TDataSource;
+    dstCompMethod: TADODataSet;
+    dscLocation: TDataSource;
+    dstLocation: TADODataSet;
     procedure dstBranchesBeforePost(DataSet: TDataSet);
     procedure dstBanksAfterScroll(DataSet: TDataSet);
     procedure dstBranchesNewRecord(DataSet: TDataSet);

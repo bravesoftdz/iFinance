@@ -39,9 +39,9 @@ inherited frmClientMain: TfrmClientMain
     Width = 923
     Height = 492
     Hint = ''
-    ActivePage = tsIdentityInfo
+    ActivePage = tsClientInfo
     Align = alClient
-    TabIndex = 2
+    TabIndex = 0
     TabOrder = 1
     TabOrientation = toBottom
     TabStyle = tsRoundCorners
@@ -50,10 +50,6 @@ inherited frmClientMain: TfrmClientMain
     FixedDimension = 19
     object tsClientInfo: TRzTabSheet
       Caption = 'Client information'
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object JvLabel1: TJvLabel
         Left = 35
         Top = 40
@@ -432,6 +428,7 @@ inherited frmClientMain: TfrmClientMain
         Width = 82
         Height = 13
         Caption = 'Take client photo'
+        Enabled = False
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clGreen
         Font.Height = -11
@@ -1081,10 +1078,6 @@ inherited frmClientMain: TfrmClientMain
           object tsFamRefDetail: TRzTabSheet
             Color = 15263976
             Caption = 'Reference details'
-            ExplicitLeft = 0
-            ExplicitTop = 0
-            ExplicitWidth = 0
-            ExplicitHeight = 0
             object JvLabel39: TJvLabel
               Left = 35
               Top = 100
@@ -1212,6 +1205,7 @@ inherited frmClientMain: TfrmClientMain
               Font.Name = 'Tahoma'
               Font.Style = [fsUnderline]
               ParentFont = False
+              OnClick = urlCopyClientAddressClick
             end
             object JvLabel48: TJvLabel
               Left = 35
@@ -1661,10 +1655,6 @@ inherited frmClientMain: TfrmClientMain
           object RzTabSheet2: TRzTabSheet
             Color = 15263976
             Caption = 'Change caption here'
-            ExplicitLeft = 0
-            ExplicitTop = 0
-            ExplicitWidth = 0
-            ExplicitHeight = 0
           end
         end
       end

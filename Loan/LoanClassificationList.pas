@@ -7,7 +7,7 @@ uses
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, BaseDocked, Data.DB, RzButton, RzRadChk,
   RzDBChk, Vcl.DBCtrls, RzDBCmbo, Vcl.StdCtrls, Vcl.Mask, RzEdit, RzDBEdit,
   JvExControls, JvLabel, RzTabs, Vcl.Grids, Vcl.DBGrids, RzDBGrid, RzLabel,
-  Vcl.ExtCtrls, RzPanel, SaveIntf;
+  Vcl.ExtCtrls, RzPanel, SaveIntf, RzLstBox, RzChkLst;
 
 type
   TfrmLoanClassificationList = class(TfrmBaseDocked,ISave)
@@ -21,22 +21,24 @@ type
     dbluType: TRzDBLookupComboBox;
     btnNew: TRzButton;
     JvLabel3: TJvLabel;
-    edInterest: TRzDBEdit;
     JvLabel4: TJvLabel;
     edTerm: TRzDBEdit;
     JvLabel5: TJvLabel;
     edComakers: TRzDBEdit;
-    RzPageControl1: TRzPageControl;
-    tsGroups: TRzTabSheet;
-    tsBranches: TRzTabSheet;
-    grGroups: TRzDBGrid;
     urlRefreshList: TRzURLLabel;
-    urlClassGroup: TRzURLLabel;
+    JvLabel6: TJvLabel;
+    dbluGroup: TRzDBLookupComboBox;
+    JvLabel7: TJvLabel;
+    dbluCompMethod: TRzDBLookupComboBox;
+    lbxLocations: TRzListBox;
+    edInterest: TRzDBNumericEdit;
+    JvLabel8: TJvLabel;
+    edMaxLoan: TRzDBNumericEdit;
     procedure btnNewClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure urlRefreshListClick(Sender: TObject);
-    procedure urlClassGroupClick(Sender: TObject);
+    procedure dbluGroupClick(Sender: TObject);
   private
     { Private declarations }
     function EntryIsValid: boolean;
@@ -54,7 +56,7 @@ implementation
 {$R *.dfm}
 
 uses
-  LoansAuxData, FormsUtil, StatusIntf, ClassGroup;
+  LoansAuxData, FormsUtil, StatusIntf, AuxData;
 
 procedure TfrmLoanClassificationList.btnNewClick(Sender: TObject);
 begin
@@ -78,16 +80,6 @@ begin
   end;
 end;
 
-procedure TfrmLoanClassificationList.urlClassGroupClick(Sender: TObject);
-begin
-  inherited;
-  with TfrmClassGroup.Create(self) do
-  begin
-    ShowModal;
-    Free;
-  end;
-end;
-
 procedure TfrmLoanClassificationList.urlRefreshListClick(Sender: TObject);
 begin
   inherited;
@@ -107,6 +99,13 @@ begin
   end;
 end;
 
+procedure TfrmLoanClassificationList.dbluGroupClick(Sender: TObject);
+begin
+  inherited;
+  if dbluGroup.DataSource.DataSet.State in [dsInsert,dsEdit] then
+    edClassName.Text := dbluGroup.Text;
+end;
+
 function TfrmLoanClassificationList.EntryIsValid: boolean;
 var
   st: IStatus;
@@ -114,7 +113,12 @@ var
 begin
   if Supports(Application.MainForm,IStatus,st) then
   begin
-    if Trim(edClassName.Text) = '' then
+    if Trim(dbluGroup.Text) = '' then
+    begin
+      error := 'Please select group.';
+      st.ShowError(error);
+    end
+    else if Trim(edClassName.Text) = '' then
     begin
       error := 'Please enter class name.';
       st.ShowError(error);
@@ -143,14 +147,65 @@ end;
 procedure TfrmLoanClassificationList.FormClose(Sender: TObject;
   var Action: TCloseAction);
 begin
-  inherited;
+  OpenDropdownDataSources(tsDetail,false);
+  OpenGridDataSources(pnlList,false);
+
+  dmAux.Free;
   dmLoansAux.Free;
+
+   inherited;
 end;
 
 procedure TfrmLoanClassificationList.FormCreate(Sender: TObject);
 begin
   inherited;
+  dmAux := TdmAux.Create(self);
   dmLoansAux := TdmLoansAux.Create(self);
+
+  OpenDropdownDataSources(tsDetail);
+  OpenGridDataSources(pnlList);
+
+  lbxLocations.Clear;
+  lbxLocations.Add('Dumaguete');
+  lbxLocations.Add('Dumaguete');
+  lbxLocations.Add('Dumaguete');
+  lbxLocations.Add('Dumaguete');
+  lbxLocations.Add('Dumaguete');
+  lbxLocations.Add('Dumaguete');
+  lbxLocations.Add('Dumaguete');
+  lbxLocations.Add('Dumaguete');
+  lbxLocations.Add('Dumaguete');
+  lbxLocations.Add('Dumaguete');
+  lbxLocations.Add('Dumaguete');
+  lbxLocations.Add('Dumaguete');
+  lbxLocations.Add('Dumaguete');
+  lbxLocations.Add('Dumaguete');
+  lbxLocations.Add('Dumaguete');
+  lbxLocations.Add('Dumaguete');
+  lbxLocations.Add('Dumaguete');
+  lbxLocations.Add('Dumaguete');
+  lbxLocations.Add('Dumaguete');
+  lbxLocations.Add('Dumaguete');
+  lbxLocations.Add('Dumaguete');
+  lbxLocations.Add('Dumaguete');
+  lbxLocations.Add('Dumaguete');
+  lbxLocations.Add('Dumaguete');
+  lbxLocations.Add('Dumaguete');
+  lbxLocations.Add('Dumaguete');
+  lbxLocations.Add('Dumaguete');
+  lbxLocations.Add('Dumaguete');
+  lbxLocations.Add('Dumaguete');
+  lbxLocations.Add('Dumaguete');
+  lbxLocations.Add('Dumaguete');
+  lbxLocations.Add('Dumaguete');
+  lbxLocations.Add('Dumaguete');
+  lbxLocations.Add('Dumaguete');
+  lbxLocations.Add('Dumaguete');
+  lbxLocations.Add('Dumaguete');
+  lbxLocations.Add('Dumaguete');
+  lbxLocations.Add('Dumaguete');
+  lbxLocations.Add('Dumaguete');
+  lbxLocations.Add('Dumaguete');
 end;
 
 end.

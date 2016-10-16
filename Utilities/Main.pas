@@ -3,10 +3,8 @@ unit Main;
 interface
 
 uses
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, dxGDIPlusClasses,
-  W7Classes, W7Panels, datelbl, Vcl.Grids, Vcl.Imaging.jpeg, DirectShow9,
-  DXSUtil, DSPack, Vcl.ExtCtrls, AdvPanel;
+  System.SysUtils, System.Classes, Vcl.Controls, Vcl.Forms,
+  Vcl.StdCtrls, DirectShow9, DXSUtil, DSPack, Vcl.ExtCtrls, AdvPanel, dxGDIPlusClasses;
 
 type
   TfrmMain = class(TForm)

@@ -21,6 +21,8 @@ type
     procedure Edit; override;
     procedure Cancel; override;
 
+    procedure CopyClientAddress;
+
     property Firstname: string read FFirstname write FFirstname;
     property Lastname: string read FLastname write FLastname;
     property Middlename: string read FMiddlename write FMiddlename;
@@ -40,7 +42,7 @@ var
 implementation
 
 uses
-  RefData;
+  RefData, ClientData;
 
 constructor TReference.Create;
 begin
@@ -113,6 +115,26 @@ begin
           if (Components[i] as TADODataSet).State in [dsInsert,dsEdit] then
             (Components[i] as TADODataSet).Cancel;
   end;
+end;
+
+procedure TReference.CopyClientAddress;
+var
+  i: integer;
+begin
+  with dmRef, dmClient.dstAddressInfo do
+  begin
+    if dstAddressInfo.RecordCount > 0 then
+      dstAddressInfo.Edit
+    else
+      dstAddressInfo.Append;
+
+    for i := 0 to FieldCount - 1 do
+      if dstAddressInfo.Fields.FindField(Fields[i].FieldName) <> nil then
+        if dstAddressInfo.Fields[i].FieldName <> 'entity_id' then // exclude primary key
+          if not dstAddressInfo.Fields[i].ReadOnly then
+            dstAddressInfo.FieldByName(Fields[i].FieldName).Value := FieldByName(Fields[i].FieldName).Value;
+  end;
+
 end;
 
 end.

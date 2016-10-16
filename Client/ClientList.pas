@@ -20,8 +20,10 @@ type
     procedure grListDblClick(Sender: TObject);
     procedure edSearchKeyChange(Sender: TObject);
     procedure cbxNonClientsClick(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
   private
     { Private declarations }
+    procedure InitSearchParams;
   public
     { Public declarations }
     procedure SetTitle(const title: string);
@@ -37,12 +39,32 @@ implementation
 {$R *.dfm}
 
 uses
-  AppData, FormsUtil, DockIntf, Client, AppConstants;
+  AppData, FormsUtil, DockIntf, Client, AppConstants, ClientListParams;
+
+procedure TfrmClientList.InitSearchParams;
+begin
+  if not Assigned(clp) then
+    clp := TClientListParams.Create;
+
+  // set search values
+  edSearchKey.Text := clp.SearchKey;
+  cbxNonClients.Checked := clp.ShowNonClients;
+end;
 
 procedure TfrmClientList.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
+  // save search params
+  clp.SearchKey := edSearchKey.Text;
+  clp.ShowNonClients := cbxNonClients.Checked;
+
   OpenGridDataSources(pnlList,false);
   inherited;
+end;
+
+procedure TfrmClientList.FormCreate(Sender: TObject);
+begin
+  inherited;
+  InitSearchParams;
 end;
 
 procedure TfrmClientList.grListDblClick(Sender: TObject);

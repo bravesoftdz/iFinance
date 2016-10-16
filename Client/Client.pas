@@ -204,8 +204,9 @@ begin
       dstAddressInfo2.Append;
 
     for i := 0 to FieldCount - 1 do
-      if not dstAddressInfo2.Fields[i].ReadOnly then
-        dstAddressInfo2.Fields[i].Value := Fields[i].Value;
+      if dstAddressInfo2.Fields.FindField(Fields[i].FieldName) <> nil then
+        if not dstAddressInfo2.Fields[i].ReadOnly then
+          dstAddressInfo2.FieldByName(Fields[i].FieldName).Value := FieldByName(Fields[i].FieldName).Value;
   end;
 
 end;

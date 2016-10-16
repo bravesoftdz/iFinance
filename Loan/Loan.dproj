@@ -38,7 +38,7 @@
         <VerInfo_Locale>3081</VerInfo_Locale>
         <DCC_DcpOutput>..\_dcp</DCC_DcpOutput>
         <DCC_BplOutput>..\_bpl</DCC_BplOutput>
-        <DCC_UnitSearchPath>..\_dcu;..\Base;..\Common;..\Entities;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
+        <DCC_UnitSearchPath>..\_dcu;..\Base;..\Common;..\Entities;..\Client;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
         <GenDll>true</GenDll>
         <GenPackage>true</GenPackage>
         <DCC_CBuilderOutput>All</DCC_CBuilderOutput>
@@ -95,6 +95,8 @@
         <DCCReference Include="JvCore.dcp"/>
         <DCCReference Include="JvStdCtrls.dcp"/>
         <DCCReference Include="LockBox3DR.dcp"/>
+        <DCCReference Include="JvControls.dcp"/>
+        <DCCReference Include="RESTComponents.dcp"/>
         <DCCReference Include="LoansAuxData.pas">
             <Form>dmLoansAux</Form>
             <FormType>dfm</FormType>
@@ -105,18 +107,38 @@
             <Form>frmClassGroup</Form>
             <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="..\Base\BasePopup.pas">
-            <Form>frmBasePopup</Form>
-            <FormType>dfm</FormType>
-        </DCCReference>
         <DCCReference Include="LoanClassificationList.pas">
             <Form>frmLoanClassificationList</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="LoanMain.pas">
+            <Form>frmLoanMain</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Loan.pas"/>
+        <DCCReference Include="LoanData.pas">
+            <Form>dmLoan</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TDataModule</DesignClass>
+        </DCCReference>
+        <DCCReference Include="LoanList.pas">
+            <Form>frmLoanList</Form>
             <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\Base\BaseDocked.pas">
             <Form>frmBaseDocked</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="LoanListIntf.pas"/>
+        <DCCReference Include="..\Base\BasePopup.pas">
+            <Form>frmBasePopup</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="ClientSearch.pas">
+            <Form>frmClientSearch</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="LoanClient.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

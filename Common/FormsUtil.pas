@@ -3,7 +3,7 @@ unit FormsUtil;
 interface
 
 uses
-  Vcl.Controls, RzDBCmbo, RzDBGrid, DB;
+  Vcl.Controls, RzDBCmbo, RzDBGrid, DB, RzLstBox, RzChkLst;
 
 procedure OpenDropdownDataSources(const parentCtrl: TWinControl;
   const open: boolean = true);

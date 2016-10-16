@@ -100,6 +100,7 @@
         <DCC_DebugInformation>false</DCC_DebugInformation>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2_Win32)'!=''">
+        <Icon_MainIcon>..\_images\photoutil.ico</Icon_MainIcon>
         <DCC_DcpOutput>..\_dcp</DCC_DcpOutput>
         <DCC_UnitSearchPath>..\_dcu;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
         <DCC_ExeOutput>..\</DCC_ExeOutput>
