@@ -296,7 +296,6 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
           DataField = 'int_rate'
           Alignment = taLeftJustify
           TabOrder = 3
-          DisplayFormat = '0.00'
         end
         object edMaxLoan: TRzDBNumericEdit
           Left = 249
@@ -307,7 +306,6 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
           DataField = 'max_loan'
           Alignment = taLeftJustify
           TabOrder = 6
-          DisplayFormat = '###,##0.00'
         end
       end
     end

@@ -115,7 +115,7 @@ end;
 procedure TfrmClientList.FilterList(const filterType: TClientFilterType;
         const nonClients: Boolean = False);
 begin
-  with dmApplication.dstClients.Parameters do
+  with (grList.DataSource.DataSet as TADODataSet).Parameters do
   begin
     case filterType of
       cftAll: ParamByName('@filter_type').Value := 0;

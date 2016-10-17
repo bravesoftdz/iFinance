@@ -6,7 +6,7 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, BaseDocked, Vcl.StdCtrls, RzLabel,
   Vcl.ExtCtrls, RzPanel, Data.DB, Vcl.Mask, RzEdit, Vcl.Grids, Vcl.DBGrids,
-  RzDBGrid, LoanListIntf, DockedFormIntf;
+  RzDBGrid, LoanListIntf, DockedFormIntf, AppConstants, ADODB, System.Rtti;
 
 type
   TfrmLoanList = class(TfrmBaseDocked, ILoanListFilter, IDockedForm)
@@ -15,6 +15,7 @@ type
     pnlSearch: TRzPanel;
     Label1: TLabel;
     edSearchKey: TRzEdit;
+    procedure grListDblClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -30,9 +31,32 @@ implementation
 
 {$R *.dfm}
 
+uses
+  AppData, FormsUtil, Loan, DockIntf;
+
 procedure TfrmLoanList.FilterList(const filterType: TLoanFilterType);
 begin
+  with (grList.DataSource.DataSet as TADODataSet).Parameters do
+    ParamByName('@filter_type').Value := filterType;
 
+  OpenGridDataSources(pnlList);
+end;
+
+procedure TfrmLoanList.grListDblClick(Sender: TObject);
+var
+  id: string;
+  intf: IDock;
+begin
+  if grList.DataSource.DataSet.RecordCount > 0 then
+  begin
+    id := grList.DataSource.DataSet.FieldByName('loan_id').AsString;
+
+    ln := TLoan.Create;
+    ln.Id := id;
+
+    if Supports(Application.MainForm,IDock,intf) then
+      intf.DockForm(fmLoanMain);
+  end;
 end;
 
 procedure TfrmLoanList.SetTitle(const title: string);

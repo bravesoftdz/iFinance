@@ -7,6 +7,7 @@ object dmLoan: TdmLoan
     CursorType = ctStatic
     BeforeOpen = dstLoanBeforeOpen
     BeforePost = dstLoanBeforePost
+    OnNewRecord = dstLoanNewRecord
     CommandText = 'sp_ln_get_loan;1'
     CommandType = cmdStoredProc
     Parameters = <
@@ -37,6 +38,7 @@ object dmLoan: TdmLoan
     CursorType = ctStatic
     LockType = ltReadOnly
     BeforeOpen = dstLoanClassBeforeOpen
+    AfterOpen = dstLoanClassAfterOpen
     CommandText = 'sp_dd_get_loan_class;1'
     CommandType = cmdStoredProc
     Parameters = <

@@ -3,10 +3,7 @@ unit Loan;
 interface
 
 uses
-  SysUtils, Entity, LoanClient;
-
-type
-  TLoanStatus = (lsPending,lsApproved,lsCancelled,lsReleased);
+  SysUtils, Entity, LoanClient, AppConstants;
 
 type
   TLoan = class(TEntity)

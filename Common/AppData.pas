@@ -17,6 +17,8 @@ type
     dscClients: TDataSource;
     cglIFN: TCryptographicLibrary;
     cdcIFN: TCodec;
+    dstLoans: TADODataSet;
+    dscLoans: TDataSource;
     procedure DataModuleCreate(Sender: TObject);
     procedure acMainBeforeConnect(Sender: TObject);
     procedure DataModuleDestroy(Sender: TObject);

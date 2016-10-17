@@ -5,7 +5,6 @@ object dmApplication: TdmApplication
   Height = 276
   Width = 446
   object acMain: TADOConnection
-    Connected = True
     ConnectionString = 
       'Provider=SQLNCLI11.1;Integrated Security=SSPI;Persist Security I' +
       'nfo=False;User ID="";Initial Catalog=iFinance;Data Source=BRYAN\' +
@@ -130,5 +129,34 @@ object dmApplication: TdmApplication
     StreamCipherId = 'native.StreamToBlock'
     BlockCipherId = 'native.AES-256'
     ChainId = 'native.CBC'
+  end
+  object dstLoans: TADODataSet
+    Connection = acMain
+    CursorType = ctStatic
+    Filtered = True
+    LockType = ltReadOnly
+    CommandText = 'sp_get_loans;1'
+    CommandType = cmdStoredProc
+    Parameters = <
+      item
+        Name = '@RETURN_VALUE'
+        DataType = ftInteger
+        Direction = pdReturnValue
+        Precision = 10
+      end
+      item
+        Name = '@filter_type'
+        Attributes = [paNullable]
+        DataType = ftInteger
+        Precision = 10
+        Value = 0
+      end>
+    Left = 224
+    Top = 80
+  end
+  object dscLoans: TDataSource
+    DataSet = dstLoans
+    Left = 296
+    Top = 80
   end
 end

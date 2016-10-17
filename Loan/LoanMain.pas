@@ -6,7 +6,8 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, BaseDocked, Vcl.StdCtrls, RzLabel,
   Vcl.ExtCtrls, RzPanel, Vcl.Mask, RzEdit, RzDBEdit, JvLabel, JvExControls,
-  JvGroupHeader, RzBtnEdt, Vcl.DBCtrls, RzDBCmbo, SaveIntf, Loan;
+  JvGroupHeader, RzBtnEdt, Vcl.DBCtrls, RzDBCmbo, SaveIntf, AppConstants, System.Rtti,
+  RzButton, RzRadChk;
 
 type
   TfrmLoanMain = class(TfrmBaseDocked, ISave)
@@ -37,12 +38,18 @@ type
     RzDBEdit2: TRzDBEdit;
     JvGroupHeader3: TJvGroupHeader;
     lblLoanId: TRzLabel;
+    RzCheckBox1: TRzCheckBox;
+    RzCheckBox2: TRzCheckBox;
+    RzCheckBox3: TRzCheckBox;
+    JvLabel12: TJvLabel;
+    edInterest: TRzDBNumericEdit;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure bteClientButtonClick(Sender: TObject);
   private
     { Private declarations }
     procedure ChangeControlStatus(const loanStatus: TLoanStatus);
+    procedure SetLoanId;
   public
     { Public declarations }
     function Save: boolean;
@@ -57,21 +64,22 @@ implementation
 {$R *.dfm}
 
 uses
-  LoanData, FormsUtil, LoanClient, ClientSearch, StatusIntf;
+  LoanData, FormsUtil, LoanClient, ClientSearch, StatusIntf, Loan;
 
 procedure TfrmLoanMain.ChangeControlStatus(const loanStatus: TLoanStatus);
 var
   i, tag: integer;
+  st: string;
 begin
   tag := 0;
 
   // get corresponding TAG value
-  case loanStatus of
-    lsPending: tag := 1;
-    lsApproved: tag := 2;
-    lsCancelled: tag := 0;
-    lsReleased: tag := 4;
-  end;
+  st := TRttiEnumerationType.GetName<TLoanStatus>(loanStatus);
+
+  if st = 'P' then tag := 1
+  else if st = 'A' then tag := 2
+  else if st = 'C' then tag := 0
+  else if st = 'R' then tag := 4;
 
   for i := 0 to pnlMain.ControlCount - 1 do
     pnlMain.Controls[i].Enabled := pnlMain.Controls[i].Tag = tag;
@@ -92,7 +100,7 @@ begin
 
             OpenDropdownDataSources(self.pnlMain);
 
-            ChangeControlStatus(lsPending);
+            ChangeControlStatus(TLoanStatus.P);
         end;
       except
         on e: Exception do
@@ -130,6 +138,11 @@ begin
   end;
 end;
 
+procedure TfrmLoanMain.SetLoanId;
+begin
+ lblLoanId.Caption := 'LOAN ID: ' + ln.Id;
+end;
+
 function TfrmLoanMain.Save: Boolean;
 var
   st: IStatus;
@@ -141,15 +154,27 @@ begin
     begin
       error := '';
       if not Assigned(ln.Client) then
-      begin
-        error := 'No client selected.';
-        st.ShowError(error);
-      end;
+        error := 'No client selected.'
+      else if dbluLoanClass.Text = '' then
+        error := 'Please select a loan class.'   
+      else if dteDateApplied.Text = '' then
+        error := 'Please enter date applied.'
+      else if edAppAmount.Value <= 0 then
+        error := 'Invalid value for amount.'
+      else if edDesiredTerm.Text = '' then
+        error := 'Invalid value for desired term.'
+      else if Trim(edPurpose.Text) = '' then
+        error := 'Please enter a purpose.';
 
       Result := error = '';
 
       if Result then
+      begin
         ln.Save;
+        SetLoanId;
+      end
+      else
+        st.ShowError(error);
     end;
   finally
 

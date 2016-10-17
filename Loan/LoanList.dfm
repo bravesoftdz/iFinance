@@ -1,8 +1,11 @@
 inherited frmLoanList: TfrmLoanList
   Caption = 'frmLoanList'
+  ClientWidth = 599
+  ExplicitWidth = 615
   PixelsPerInch = 96
   TextHeight = 13
   inherited pnlTitle: TRzPanel
+    Width = 599
     inherited lblTitle: TRzLabel
       Width = 58
       Caption = 'Loans list'
@@ -12,25 +15,22 @@ inherited frmLoanList: TfrmLoanList
   object pnlList: TRzPanel
     Left = 0
     Top = 61
-    Width = 527
+    Width = 599
     Height = 181
     Align = alClient
     BorderOuter = fsFlat
     BorderSides = [sdLeft, sdRight, sdBottom]
     BorderWidth = 5
     TabOrder = 1
-    ExplicitLeft = -42
-    ExplicitTop = 16
-    ExplicitWidth = 569
-    ExplicitHeight = 226
+    ExplicitWidth = 527
     object grList: TRzDBGrid
       Left = 6
       Top = 5
-      Width = 515
+      Width = 587
       Height = 170
       Align = alTop
       Anchors = [akLeft, akTop, akRight, akBottom]
-      DataSource = dmApplication.dscClients
+      DataSource = dmApplication.dscLoans
       Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
       TabOrder = 0
       TitleFont.Charset = DEFAULT_CHARSET
@@ -38,21 +38,49 @@ inherited frmLoanList: TfrmLoanList
       TitleFont.Height = -11
       TitleFont.Name = 'Tahoma'
       TitleFont.Style = []
+      OnDblClick = grListDblClick
       AltRowShading = True
       AltRowShadingColor = 15854564
       Columns = <
         item
           Expanded = False
-          FieldName = 'display_id'
-          Title.Caption = 'Client ID'
-          Width = 80
+          FieldName = 'loan_id'
+          Title.Caption = 'Loan ID'
+          Width = 90
           Visible = True
         end
         item
           Expanded = False
           FieldName = 'name'
           Title.Caption = 'Name'
-          Width = 350
+          Width = 160
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'class_name'
+          Title.Caption = 'Loan class'
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'amt_appl'
+          Title.Caption = 'Amount'
+          Width = 80
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'des_term'
+          Title.Caption = 'Desired term'
+          Width = 70
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'purpose'
+          Title.Caption = 'Purpose'
+          Width = 200
           Visible = True
         end>
     end
@@ -60,17 +88,16 @@ inherited frmLoanList: TfrmLoanList
   object pnlSearch: TRzPanel
     Left = 0
     Top = 28
-    Width = 527
+    Width = 599
     Height = 33
     Align = alTop
     BorderInner = fsFlat
     BorderOuter = fsNone
     BorderSides = [sdLeft, sdTop, sdRight]
     TabOrder = 2
-    ExplicitLeft = -42
-    ExplicitWidth = 569
+    ExplicitWidth = 527
     DesignSize = (
-      527
+      599
       33)
     object Label1: TLabel
       Left = 8
@@ -82,11 +109,12 @@ inherited frmLoanList: TfrmLoanList
     object edSearchKey: TRzEdit
       Left = 47
       Top = 9
-      Width = 474
+      Width = 546
       Height = 21
       Text = ''
       Anchors = [akLeft, akTop, akRight]
       TabOrder = 0
+      ExplicitWidth = 474
     end
   end
 end

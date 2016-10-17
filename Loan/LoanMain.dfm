@@ -70,7 +70,7 @@ inherited frmLoanMain: TfrmLoanMain
     object JvLabel7: TJvLabel
       Tag = 1
       Left = 35
-      Top = 64
+      Top = 88
       Width = 62
       Height = 13
       Caption = 'Date applied'
@@ -79,7 +79,7 @@ inherited frmLoanMain: TfrmLoanMain
     object JvLabel4: TJvLabel
       Tag = 1
       Left = 35
-      Top = 88
+      Top = 112
       Width = 39
       Height = 13
       Caption = 'Amount'
@@ -88,7 +88,7 @@ inherited frmLoanMain: TfrmLoanMain
     object JvLabel5: TJvLabel
       Tag = 1
       Left = 35
-      Top = 112
+      Top = 160
       Width = 63
       Height = 13
       Caption = 'Desired term'
@@ -97,7 +97,7 @@ inherited frmLoanMain: TfrmLoanMain
     object JvLabel6: TJvLabel
       Tag = 1
       Left = 35
-      Top = 136
+      Top = 184
       Width = 41
       Height = 13
       Caption = 'Purpose'
@@ -106,7 +106,7 @@ inherited frmLoanMain: TfrmLoanMain
     object JvLabel2: TJvLabel
       Tag = 1
       Left = 36
-      Top = 160
+      Top = 64
       Width = 51
       Height = 13
       Caption = 'Loan class'
@@ -115,7 +115,7 @@ inherited frmLoanMain: TfrmLoanMain
     object JvLabel3: TJvLabel
       Tag = 1
       Left = 36
-      Top = 184
+      Top = 208
       Width = 33
       Height = 13
       Caption = 'Status'
@@ -123,7 +123,7 @@ inherited frmLoanMain: TfrmLoanMain
     end
     object JvGroupHeader2: TJvGroupHeader
       Left = 19
-      Top = 206
+      Top = 282
       Width = 302
       Height = 12
       Caption = 'Approval details'
@@ -137,7 +137,7 @@ inherited frmLoanMain: TfrmLoanMain
     end
     object JvLabel8: TJvLabel
       Left = 35
-      Top = 226
+      Top = 302
       Width = 74
       Height = 13
       Caption = 'Date approved'
@@ -145,7 +145,7 @@ inherited frmLoanMain: TfrmLoanMain
     end
     object JvLabel9: TJvLabel
       Left = 35
-      Top = 250
+      Top = 326
       Width = 39
       Height = 13
       Caption = 'Amount'
@@ -153,7 +153,7 @@ inherited frmLoanMain: TfrmLoanMain
     end
     object JvLabel10: TJvLabel
       Left = 35
-      Top = 274
+      Top = 350
       Width = 55
       Height = 13
       Caption = 'Interest %'
@@ -161,7 +161,7 @@ inherited frmLoanMain: TfrmLoanMain
     end
     object JvLabel11: TJvLabel
       Left = 35
-      Top = 298
+      Top = 374
       Width = 26
       Height = 13
       Caption = 'Term'
@@ -182,10 +182,19 @@ inherited frmLoanMain: TfrmLoanMain
       ParentFont = False
       Transparent = True
     end
+    object JvLabel12: TJvLabel
+      Tag = 1
+      Left = 35
+      Top = 136
+      Width = 55
+      Height = 13
+      Caption = 'Interest %'
+      Transparent = True
+    end
     object dteDateApplied: TRzDBDateTimeEdit
       Tag = 1
       Left = 114
-      Top = 58
+      Top = 82
       Width = 95
       Height = 21
       DataSource = dmLoan.dscLoan
@@ -193,11 +202,12 @@ inherited frmLoanMain: TfrmLoanMain
       Enabled = False
       TabOrder = 1
       EditType = etDate
+      Format = 'mm/dd/yyyy'
     end
     object edAppAmount: TRzDBNumericEdit
       Tag = 1
       Left = 114
-      Top = 82
+      Top = 106
       Width = 95
       Height = 21
       DataSource = dmLoan.dscLoan
@@ -210,26 +220,26 @@ inherited frmLoanMain: TfrmLoanMain
     object edDesiredTerm: TRzDBEdit
       Tag = 1
       Left = 114
-      Top = 106
+      Top = 154
       Width = 95
       Height = 21
       DataSource = dmLoan.dscLoan
       DataField = 'des_term'
       CharCase = ecUpperCase
       Enabled = False
-      TabOrder = 3
+      TabOrder = 4
     end
     object edPurpose: TRzDBEdit
       Tag = 1
       Left = 114
-      Top = 130
+      Top = 178
       Width = 207
       Height = 21
       DataSource = dmLoan.dscLoan
       DataField = 'purpose'
       CharCase = ecUpperCase
       Enabled = False
-      TabOrder = 4
+      TabOrder = 5
     end
     object bteClient: TRzButtonEdit
       Tag = 1
@@ -244,8 +254,7 @@ inherited frmLoanMain: TfrmLoanMain
       ShowHint = True
       TabOrder = 0
       AllowKeyEdit = False
-      AltBtnHint = 'Clear referee'
-      ButtonHint = 'Find referee'
+      ButtonHint = 'Find client'
       AltBtnKind = bkReject
       ButtonKind = bkFind
       AltBtnWidth = 15
@@ -257,7 +266,7 @@ inherited frmLoanMain: TfrmLoanMain
     object dbluLoanClass: TRzDBLookupComboBox
       Tag = 1
       Left = 114
-      Top = 154
+      Top = 58
       Width = 207
       Height = 21
       DataField = 'class_id'
@@ -266,15 +275,13 @@ inherited frmLoanMain: TfrmLoanMain
       KeyField = 'class_id'
       ListField = 'class_name'
       ListSource = dmLoan.dscLoanClass
-      TabOrder = 5
-      AllowNull = True
+      TabOrder = 6
       FrameColor = clBlack
       FrameHotColor = clBlack
     end
     object dbluLoanStatus: TRzDBLookupComboBox
-      Tag = 1
       Left = 114
-      Top = 178
+      Top = 202
       Width = 207
       Height = 21
       DataField = 'status_id'
@@ -283,7 +290,7 @@ inherited frmLoanMain: TfrmLoanMain
       KeyField = 'status_id'
       ListField = 'status_name'
       ListSource = dmLoan.dscLoanStatus
-      TabOrder = 6
+      TabOrder = 7
       AllowNull = True
       FrameColor = clBlack
       FrameHotColor = clBlack
@@ -291,51 +298,99 @@ inherited frmLoanMain: TfrmLoanMain
     object RzDBDateTimeEdit1: TRzDBDateTimeEdit
       Tag = 2
       Left = 114
-      Top = 220
+      Top = 296
       Width = 95
       Height = 21
       DataSource = dmLoan.dscLoan
       DataField = 'date_appv'
       Enabled = False
-      TabOrder = 7
+      TabOrder = 8
       EditType = etDate
+      Format = 'mm/dd/yyyy'
     end
     object RzDBNumericEdit1: TRzDBNumericEdit
       Tag = 2
       Left = 114
-      Top = 244
+      Top = 320
       Width = 95
       Height = 21
       DataSource = dmLoan.dscLoan
       DataField = 'amt_appv'
       Alignment = taLeftJustify
       Enabled = False
-      TabOrder = 8
+      TabOrder = 9
       DisplayFormat = '0.00'
     end
     object RzDBEdit1: TRzDBEdit
       Tag = 2
       Left = 114
-      Top = 268
+      Top = 344
       Width = 95
       Height = 21
       DataSource = dmLoan.dscLoan
       DataField = 'int'
       CharCase = ecUpperCase
       Enabled = False
-      TabOrder = 9
+      TabOrder = 10
     end
     object RzDBEdit2: TRzDBEdit
       Tag = 2
       Left = 114
-      Top = 292
+      Top = 368
       Width = 95
       Height = 21
       DataSource = dmLoan.dscLoan
       DataField = 'terms'
       CharCase = ecUpperCase
       Enabled = False
-      TabOrder = 10
+      TabOrder = 11
+    end
+    object RzCheckBox1: TRzCheckBox
+      Tag = 1
+      Left = 114
+      Top = 229
+      Width = 66
+      Height = 15
+      Caption = 'Approved'
+      Enabled = False
+      State = cbUnchecked
+      TabOrder = 12
+    end
+    object RzCheckBox2: TRzCheckBox
+      Tag = 1
+      Left = 114
+      Top = 250
+      Width = 52
+      Height = 15
+      Caption = 'Denied'
+      Enabled = False
+      State = cbUnchecked
+      TabOrder = 13
+    end
+    object RzCheckBox3: TRzCheckBox
+      Tag = 1
+      Left = 210
+      Top = 229
+      Width = 65
+      Height = 15
+      Caption = 'Cancelled'
+      Enabled = False
+      State = cbUnchecked
+      TabOrder = 14
+    end
+    object edInterest: TRzDBNumericEdit
+      Tag = 1
+      Left = 114
+      Top = 130
+      Width = 95
+      Height = 21
+      DataSource = dmLoan.dscLoanClass
+      DataField = 'int_rate'
+      ReadOnly = True
+      Alignment = taLeftJustify
+      Enabled = False
+      TabOrder = 3
+      DisplayFormat = '###,##0.00'
     end
   end
 end

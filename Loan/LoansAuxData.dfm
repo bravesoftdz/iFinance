@@ -34,6 +34,7 @@ object dmLoansAux: TdmLoansAux
     object dstLoanClassint_rate: TFloatField
       FieldName = 'int_rate'
       DisplayFormat = '0.00'
+      EditFormat = '0.00'
     end
     object dstLoanClassterm: TWordField
       FieldName = 'term'
@@ -54,6 +55,7 @@ object dmLoansAux: TdmLoansAux
     object dstLoanClassmax_loan: TBCDField
       FieldName = 'max_loan'
       DisplayFormat = '###,##0.00'
+      EditFormat = '###,##0.00'
       Precision = 10
       Size = 2
     end

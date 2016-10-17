@@ -147,6 +147,7 @@ begin
     lftAll: title := 'All loans';
     lftPending: title := 'Pending loans';
     lftActive: title := 'Active loans';
+    lftRecent: title := 'Newly-added loans';
   end;
 
   if (pnlDockMain.ControlCount = 0)
@@ -290,7 +291,7 @@ end;
 
 procedure TfrmMain.urlNewlyAddedLoansClick(Sender: TObject);
 begin
-  OpenLoanList;
+  OpenLoanList(lftRecent);
 end;
 
 procedure TfrmMain.urlPendingLoansClick(Sender: TObject);

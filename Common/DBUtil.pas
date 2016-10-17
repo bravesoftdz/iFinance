@@ -11,6 +11,7 @@ type
 
 procedure RefreshDataSet(const key: integer; const keyField: string; DataSet: TDataSet); overload;
 procedure RefreshDataSet(const key, keyField: string; DataSet: TDataSet); overload;
+procedure SetCreatedFields(dataSet: TDataSet);
 
 function GetEntityId: string;
 function GetGroupId: integer;
@@ -44,6 +45,12 @@ begin
     Locate(keyField,key,[]);
     EnableControls;
   end;
+end;
+
+procedure SetCreatedFields(dataSet: TDataSet);
+begin
+  dataSet.FieldByName('created_date').AsDateTime := ifn.AppDate;
+  dataSet.FieldByName('created_by').AsString := ifn.User.UserId;
 end;
 
 function GetSequenceID(const seqObj: TSequenceObject): integer;

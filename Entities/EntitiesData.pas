@@ -134,9 +134,8 @@ begin
     DataSet.FieldByName('entity_id').AsString := id;
     DataSet.FieldByName('entity_type').AsString :=
       TRttiEnumerationType.GetName<TEntityTypes>(TEntityTypes.IH);
-    DataSet.FieldByName('created_date').AsString :=
-        FormatDateTime('yyyy-mm-dd',Date);;
-    DataSet.FieldByName('created_by').AsString := ifn.User.UserId;
+
+    SetCreatedFields(DataSet);
 
     immHead.Id := id;
   end;
@@ -157,9 +156,8 @@ begin
     DataSet.FieldByName('entity_id').AsString := id;
     DataSet.FieldByName('entity_type').AsString :=
       TRttiEnumerationType.GetName<TEntityTypes>(TEntityTypes.LL);
-    DataSet.FieldByName('created_date').AsString :=
-        FormatDateTime('yyyy-mm-dd',Date);;
-    DataSet.FieldByName('created_by').AsString := ifn.User.UserId;
+
+    SetCreatedFields(DataSet);
 
     llord.Id := id;
   end;
