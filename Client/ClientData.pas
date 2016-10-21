@@ -31,6 +31,8 @@ type
     dscAddressInfo2: TDataSource;
     dstAcctInfo: TADODataSet;
     dscAcctInfo: TDataSource;
+    dstLoans: TADODataSet;
+    dscLoans: TDataSource;
     procedure dstPersonalInfoBeforeOpen(DataSet: TDataSet);
     procedure dstEntityBeforeOpen(DataSet: TDataSet);
     procedure dstContactInfoBeforeOpen(DataSet: TDataSet);
@@ -59,6 +61,7 @@ type
     procedure dstAcctInfoAfterOpen(DataSet: TDataSet);
     procedure dstIdentInfoAfterOpen(DataSet: TDataSet);
     procedure dstIdentInfoAfterPost(DataSet: TDataSet);
+    procedure dstLoansBeforeOpen(DataSet: TDataSet);
   private
     { Private declarations }
   public
@@ -328,6 +331,11 @@ procedure TdmClient.dstIdentInfoBeforePost(DataSet: TDataSet);
 begin
   if DataSet.State = dsInsert then
     DataSet.FieldByName('entity_id').AsString := cln.Id;
+end;
+
+procedure TdmClient.dstLoansBeforeOpen(DataSet: TDataSet);
+begin
+  (DataSet as TADODataSet).Parameters.ParamByName('@entity_id').Value := cln.Id;
 end;
 
 procedure TdmClient.dstPersonalInfoAfterOpen(DataSet: TDataSet);

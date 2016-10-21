@@ -102,10 +102,10 @@ type
     grIdentityList: TRzDBGrid;
     RzPageControl1: TRzPageControl;
     tsIdentDetail: TRzTabSheet;
-    RzPanel2: TRzPanel;
-    RzDBGrid2: TRzDBGrid;
+    pnlLoans: TRzPanel;
+    grLoans: TRzDBGrid;
     RzPageControl2: TRzPageControl;
-    RzTabSheet2: TRzTabSheet;
+    tsLoansDetail: TRzTabSheet;
     PhotoLauncher: TRzLauncher;
     imgClient: TImage;
     bteBank: TRzButtonEdit;
@@ -630,7 +630,7 @@ procedure TfrmClientMain.ShowTabs(const show: boolean = true);
 var
   i: integer;
 begin
-  for i := FAMREF to LOANS do
+  for i := FAMREF to pcClient.PageCount - 1 do
     pcClient.Pages[i].TabVisible := show;
 end;
 
@@ -643,9 +643,9 @@ begin
 
   if not Assigned(cln) then
   begin
-    ShowTabs(false);
     cln := TClient.Create;
     cln.Add;
+    ShowTabs(false);
   end
   else
   begin
@@ -944,6 +944,11 @@ begin
 
         grIdentityList.QuickCompare.Active := grIdentityList.DataSource.DataSet.RecordCount > 0;
         grIdentityList.QuickCompare.FieldValue := ifn.AppDate;
+      end;
+    LOANS:
+      begin
+        OpenGridDataSources(pnlLoans);
+        OpenDropdownDataSources(tsLoansDetail);
       end;
   end;
 end;

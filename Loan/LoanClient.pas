@@ -11,7 +11,8 @@ type
     property Id: string read FId write FId;
     property Name: string read FName write FName;
 
-    constructor Create;
+    constructor Create; overload;
+    constructor Create(const id, name: string); overload;
     destructor Destroy; override;
   end;
 
@@ -24,6 +25,14 @@ constructor TLoanClient.Create;
 begin
   if lnc = nil then
     lnc := self;
+end;
+
+constructor TLoanClient.Create(const id, name: string);
+begin
+  inherited Create;
+
+  FId := id;
+  FName := name;
 end;
 
 destructor TLoanClient.Destroy;

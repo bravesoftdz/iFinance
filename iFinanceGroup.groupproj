@@ -15,10 +15,10 @@
         <Projects Include="Entities\Entities.dproj">
             <Dependencies/>
         </Projects>
-        <Projects Include="Loan\Loan.dproj">
+        <Projects Include="Tools\Tools.dproj">
             <Dependencies/>
         </Projects>
-        <Projects Include="Tools\Tools.dproj">
+        <Projects Include="Loan\Loan.dproj">
             <Dependencies/>
         </Projects>
         <Projects Include="IFN\iFinance.dproj">
@@ -68,15 +68,6 @@
     <Target Name="Entities:Make">
         <MSBuild Projects="Entities\Entities.dproj" Targets="Make"/>
     </Target>
-    <Target Name="Loan">
-        <MSBuild Projects="Loan\Loan.dproj"/>
-    </Target>
-    <Target Name="Loan:Clean">
-        <MSBuild Projects="Loan\Loan.dproj" Targets="Clean"/>
-    </Target>
-    <Target Name="Loan:Make">
-        <MSBuild Projects="Loan\Loan.dproj" Targets="Make"/>
-    </Target>
     <Target Name="Tools">
         <MSBuild Projects="Tools\Tools.dproj"/>
     </Target>
@@ -85,6 +76,15 @@
     </Target>
     <Target Name="Tools:Make">
         <MSBuild Projects="Tools\Tools.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Loan">
+        <MSBuild Projects="Loan\Loan.dproj"/>
+    </Target>
+    <Target Name="Loan:Clean">
+        <MSBuild Projects="Loan\Loan.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="Loan:Make">
+        <MSBuild Projects="Loan\Loan.dproj" Targets="Make"/>
     </Target>
     <Target Name="iFinance">
         <MSBuild Projects="IFN\iFinance.dproj"/>
@@ -96,13 +96,13 @@
         <MSBuild Projects="IFN\iFinance.dproj" Targets="Make"/>
     </Target>
     <Target Name="Build">
-        <CallTarget Targets="Base;Client;Common;Entities;Loan;Tools;iFinance"/>
+        <CallTarget Targets="Base;Client;Common;Entities;Tools;Loan;iFinance"/>
     </Target>
     <Target Name="Clean">
-        <CallTarget Targets="Base:Clean;Client:Clean;Common:Clean;Entities:Clean;Loan:Clean;Tools:Clean;iFinance:Clean"/>
+        <CallTarget Targets="Base:Clean;Client:Clean;Common:Clean;Entities:Clean;Tools:Clean;Loan:Clean;iFinance:Clean"/>
     </Target>
     <Target Name="Make">
-        <CallTarget Targets="Base:Make;Client:Make;Common:Make;Entities:Make;Loan:Make;Tools:Make;iFinance:Make"/>
+        <CallTarget Targets="Base:Make;Client:Make;Common:Make;Entities:Make;Tools:Make;Loan:Make;iFinance:Make"/>
     </Target>
     <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
 </Project>

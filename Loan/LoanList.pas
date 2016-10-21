@@ -32,7 +32,7 @@ implementation
 {$R *.dfm}
 
 uses
-  AppData, FormsUtil, Loan, DockIntf;
+  AppData, FormsUtil, Loan, DockIntf, LoanClient;
 
 procedure TfrmLoanList.FilterList(const filterType: TLoanFilterType);
 begin
@@ -47,15 +47,21 @@ var
   id: string;
   intf: IDock;
 begin
-  if grList.DataSource.DataSet.RecordCount > 0 then
+  with  grList.DataSource.DataSet do
   begin
-    id := grList.DataSource.DataSet.FieldByName('loan_id').AsString;
+    if RecordCount > 0 then
+    begin
+      id := FieldByName('loan_id').AsString;
 
-    ln := TLoan.Create;
-    ln.Id := id;
+      ln := TLoan.Create;
+      ln.Id := id;
+      ln.Client := TLoanClient.Create(FieldByName('entity_id').AsString,
+                        FieldByName('name').AsString);
+      ln.Status := FieldByName('status_id').AsString;
 
-    if Supports(Application.MainForm,IDock,intf) then
-      intf.DockForm(fmLoanMain);
+      if Supports(Application.MainForm,IDock,intf) then
+        intf.DockForm(fmLoanMain);
+    end;
   end;
 end;
 

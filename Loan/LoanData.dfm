@@ -3,10 +3,12 @@ object dmLoan: TdmLoan
   Height = 218
   Width = 515
   object dstLoan: TADODataSet
+    Tag = 1
     Connection = dmApplication.acMain
     CursorType = ctStatic
     BeforeOpen = dstLoanBeforeOpen
     BeforePost = dstLoanBeforePost
+    AfterPost = dstLoanAfterPost
     OnNewRecord = dstLoanNewRecord
     CommandText = 'sp_ln_get_loan;1'
     CommandType = cmdStoredProc
@@ -64,18 +66,18 @@ object dmLoan: TdmLoan
     Left = 119
     Top = 70
   end
-  object dstLoanStatus: TADODataSet
+  object dstAcctType: TADODataSet
     Connection = dmApplication.acMain
     CursorType = ctStatic
     LockType = ltReadOnly
-    CommandText = 'sp_dd_get_loan_status;1'
+    CommandText = 'sp_dd_get_acct_type;1'
     CommandType = cmdStoredProc
     Parameters = <>
     Left = 55
     Top = 126
   end
-  object dscLoanStatus: TDataSource
-    DataSet = dstLoanStatus
+  object dscAcctType: TDataSource
+    DataSet = dstAcctType
     Left = 119
     Top = 126
   end

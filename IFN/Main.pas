@@ -8,7 +8,7 @@ uses
   JvPageList, JvNavigationPane, JvExControls, RzButton, System.ImageList,
   Vcl.ImgList, Vcl.ComCtrls, Vcl.ToolWin, AppConstants, Vcl.StdCtrls, RzLabel,
   JvImageList, RzStatus, StatusIntf, DockIntf, RzLstBox, Client, Vcl.AppEvnts,
-  ClientListIntf, Generics.Collections, LoanListIntf;
+  ClientListIntf, Generics.Collections, LoanListIntf, Loan, LoanClient;
 
 type
   TRecentClient = class
@@ -22,6 +22,20 @@ type
     property Name: string read FName write FName;
 
     constructor Create(const id, displayId, name: string);
+  end;
+
+type
+  TRecentLoan = class
+  strict private
+    FId: string;
+    FClient: TLoanClient;
+    FStatus: string;
+  public
+    property Id: string read FId write FId;
+    property Client: TLoanClient read FClient write FClient;
+    property Status: string read FStatus write FStatus;
+
+    constructor Create(const id, status: string; cl: TLoanClient);
   end;
 
 type
@@ -63,8 +77,10 @@ type
     tbLoanClass: TToolButton;
     urlNewlyAddedLoans: TRzURLLabel;
     urlPendingLoans: TRzURLLabel;
-    urlActiveLoans: TRzURLLabel;
+    urlApprovedLoans: TRzURLLabel;
     RzLabel2: TRzLabel;
+    RzURLLabel1: TRzURLLabel;
+    lbxRecentLoans: TRzListBox;
     procedure tbAddClientClick(Sender: TObject);
     procedure tbSaveClick(Sender: TObject);
     procedure lblRecentlyAddedClick(Sender: TObject);
@@ -82,15 +98,19 @@ type
     procedure urlNewlyAddedLoansClick(Sender: TObject);
     procedure urlPendingLoansClick(Sender: TObject);
     procedure urlActiveLoansClick(Sender: TObject);
+    procedure urlApprovedLoansClick(Sender: TObject);
+    procedure lbxRecentLoansDblClick(Sender: TObject);
   private
     { Private declarations }
     RecentClients: TObjectList<TRecentClient>;
+    RecentLoans: TObjectList<TRecentLoan>;
     procedure OpenClientList(const filterType: TClientFilterType = cftAll);
     procedure OpenLoanList(const filterType: TLoanFilterType = lftAll);
   public
     { Public declarations }
     procedure DockForm(const fm: TForms; const title: string = '');
     procedure AddRecentClient(ct: TClient);
+    procedure AddRecentLoan(lln: TLoan);
     procedure ShowError(const error: string);
     procedure ShowConfirmation(const conf: string = 'Record saved successfully.');
   end;
@@ -105,13 +125,20 @@ implementation
 uses
   ClientMain, SaveIntf, ClientList, DockedFormIntf, GroupList, EmployerList,
   BanksList, DesignationList, LoanClassificationList, ConfBox, ErrorBox, ClientIntf,
-  LoanMain, LoanList;
+  LoanMain, LoanList, LoanIntf;
 
 constructor TRecentClient.Create(const id, displayId, name: string);
 begin
   FId := id;
   FDisplayId := displayId;
   FName := name;
+end;
+
+constructor TRecentLoan.Create(const id, status: string; cl: TLoanClient);
+begin
+  FId := id;
+  FStatus := status;
+  FClient := cl;
 end;
 
 procedure TfrmMain.OpenClientList(const filterType: TClientFilterType = cftAll);
@@ -146,6 +173,7 @@ begin
   case filterType of
     lftAll: title := 'All loans';
     lftPending: title := 'Pending loans';
+    lftApproved: title := 'Approved loans';
     lftActive: title := 'Active loans';
     lftRecent: title := 'Newly-added loans';
   end;
@@ -211,6 +239,46 @@ begin
       cln.Id := TRecentClient(obj).Id;
       cln.DisplayId := TRecentClient(obj).DisplayId;
       DockForm(fmClientMain);
+    end;
+  end;
+end;
+
+procedure TfrmMain.lbxRecentLoansDblClick(Sender: TObject);
+var
+  obj: TObject;
+  intf: ILoan;
+begin
+  obj := lbxRecentLoans.Items.Objects[lbxRecentLoans.IndexOf(lbxRecentLoans.SelectedItem)];
+
+  if obj is TRecentLoan then
+  begin
+    if Assigned(ln) then
+    begin
+      AddRecentLoan(ln);
+
+      ln.Destroy;
+
+      ln := TLoan.Create;
+
+      ln.Id := TRecentLoan(obj).Id;
+      ln.Status := TRecentLoan(obj).Status;
+      ln.Client := TRecentLoan(obj).Client;
+      ln.Retrieve(true);
+
+      if Supports(pnlDockMain.Controls[0] as TForm,ILoan,intf) then
+      begin
+        intf.SetLoanId;
+        intf.RefreshDropDownSources;
+        intf.SetUnboundControls;
+      end;
+    end
+    else
+    begin
+      ln := TLoan.Create;
+      ln.Id := TRecentLoan(obj).Id;
+      ln.Status := TRecentLoan(obj).Status;
+      ln.Client := TRecentLoan(obj).Client;
+      DockForm(fmLoanMain);
     end;
   end;
 end;
@@ -289,6 +357,11 @@ begin
   OpenLoanList(lftActive);
 end;
 
+procedure TfrmMain.urlApprovedLoansClick(Sender: TObject);
+begin
+  OpenLoanList(lftApproved);
+end;
+
 procedure TfrmMain.urlNewlyAddedLoansClick(Sender: TObject);
 begin
   OpenLoanList(lftRecent);
@@ -346,6 +419,7 @@ end;
 procedure TfrmMain.FormCreate(Sender: TObject);
 begin
   RecentClients := TObjectList<TRecentClient>.Create;
+  RecentLoans := TObjectList<TRecentLoan>.Create;
 
   npMain.ActivePage := nppClient;
 end;
@@ -390,6 +464,25 @@ begin
 
     RecentClients.Add(rc);
     lbxRecent.Items.AddObject(rc.Name,rc);
+  end;
+end;
+
+procedure TfrmMain.AddRecentLoan(lln: TLoan);
+var
+  ll: TRecentLoan;
+begin
+  if lln.Action <> laCreating then
+  begin
+    for ll in RecentLoans do
+    begin
+      if ll.Id = lln.Id then
+        Exit;
+    end;
+
+    ll := TRecentLoan.Create(lln.Id,lln.Status,lln.Client);
+
+    RecentLoans.Add(ll);
+    lbxRecentLoans.Items.AddObject(ll.Id,ll);
   end;
 end;
 

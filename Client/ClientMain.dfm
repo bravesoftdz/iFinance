@@ -39,9 +39,9 @@ inherited frmClientMain: TfrmClientMain
     Width = 923
     Height = 492
     Hint = ''
-    ActivePage = tsClientInfo
+    ActivePage = tsLoansHistory
     Align = alClient
-    TabIndex = 0
+    TabIndex = 3
     TabOrder = 1
     TabOrientation = toBottom
     TabStyle = tsRoundCorners
@@ -1610,7 +1610,7 @@ inherited frmClientMain: TfrmClientMain
     end
     object tsLoansHistory: TRzTabSheet
       Caption = 'Loans history'
-      object RzPanel2: TRzPanel
+      object pnlLoans: TRzPanel
         Left = 0
         Top = 0
         Width = 921
@@ -1623,13 +1623,13 @@ inherited frmClientMain: TfrmClientMain
         DesignSize = (
           921
           468)
-        object RzDBGrid2: TRzDBGrid
+        object grLoans: TRzDBGrid
           Left = 6
           Top = 5
           Width = 909
           Height = 228
           Align = alTop
-          DataSource = dmEntities.dscGroups
+          DataSource = dmClient.dscLoans
           Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
           TabOrder = 0
           TitleFont.Charset = DEFAULT_CHARSET
@@ -1639,6 +1639,56 @@ inherited frmClientMain: TfrmClientMain
           TitleFont.Style = []
           AltRowShading = True
           AltRowShadingColor = 15854564
+          Columns = <
+            item
+              Expanded = False
+              FieldName = 'loan_id'
+              Title.Caption = 'Loan ID'
+              Width = 85
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'class_name'
+              Title.Caption = 'Loan class'
+              Width = 150
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'date_appl_f'
+              Title.Caption = 'Date applied'
+              Width = 80
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'amt_appl_f'
+              Title.Caption = 'Amt. applied'
+              Width = 80
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'date_appv_f'
+              Title.Caption = 'Date approved'
+              Width = 80
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'amt_appv_f'
+              Title.Caption = 'Amt. approved'
+              Width = 80
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'status_name'
+              Title.Caption = 'Status'
+              Width = 75
+              Visible = True
+            end>
         end
         object RzPageControl2: TRzPageControl
           Left = 6
@@ -1646,15 +1696,15 @@ inherited frmClientMain: TfrmClientMain
           Width = 911
           Height = 224
           Hint = ''
-          ActivePage = RzTabSheet2
+          ActivePage = tsLoansDetail
           Anchors = [akLeft, akTop, akRight, akBottom]
           UseColoredTabs = True
           TabIndex = 0
           TabOrder = 1
           FixedDimension = 19
-          object RzTabSheet2: TRzTabSheet
+          object tsLoansDetail: TRzTabSheet
             Color = 15263976
-            Caption = 'Change caption here'
+            Caption = 'Loan details'
           end
         end
       end

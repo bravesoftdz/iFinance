@@ -6,6 +6,7 @@ inherited frmLoanList: TfrmLoanList
   TextHeight = 13
   inherited pnlTitle: TRzPanel
     Width = 599
+    ExplicitWidth = 599
     inherited lblTitle: TRzLabel
       Width = 58
       Caption = 'Loans list'
@@ -22,7 +23,6 @@ inherited frmLoanList: TfrmLoanList
     BorderSides = [sdLeft, sdRight, sdBottom]
     BorderWidth = 5
     TabOrder = 1
-    ExplicitWidth = 527
     object grList: TRzDBGrid
       Left = 6
       Top = 5
@@ -46,34 +46,42 @@ inherited frmLoanList: TfrmLoanList
           Expanded = False
           FieldName = 'loan_id'
           Title.Caption = 'Loan ID'
-          Width = 90
+          Width = 85
           Visible = True
         end
         item
           Expanded = False
           FieldName = 'name'
           Title.Caption = 'Name'
-          Width = 160
+          Width = 150
           Visible = True
         end
         item
           Expanded = False
           FieldName = 'class_name'
           Title.Caption = 'Loan class'
+          Width = 120
           Visible = True
         end
         item
           Expanded = False
-          FieldName = 'amt_appl'
-          Title.Caption = 'Amount'
+          FieldName = 'amt_appl_f'
+          Title.Caption = 'Amt. applied'
           Width = 80
           Visible = True
         end
         item
           Expanded = False
-          FieldName = 'des_term'
-          Title.Caption = 'Desired term'
-          Width = 70
+          FieldName = 'amt_appv_f'
+          Title.Caption = 'Amt. approved'
+          Width = 80
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'terms'
+          Title.Caption = 'Term'
+          Width = 35
           Visible = True
         end
         item
@@ -95,7 +103,6 @@ inherited frmLoanList: TfrmLoanList
     BorderOuter = fsNone
     BorderSides = [sdLeft, sdTop, sdRight]
     TabOrder = 2
-    ExplicitWidth = 527
     DesignSize = (
       599
       33)
@@ -114,7 +121,6 @@ inherited frmLoanList: TfrmLoanList
       Text = ''
       Anchors = [akLeft, akTop, akRight]
       TabOrder = 0
-      ExplicitWidth = 474
     end
   end
 end

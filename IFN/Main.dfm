@@ -192,9 +192,36 @@ object frmMain: TfrmMain
           ParentFont = False
           OnClick = urlPendingLoansClick
         end
-        object urlActiveLoans: TRzURLLabel
+        object urlApprovedLoans: TRzURLLabel
           Left = 15
           Top = 78
+          Width = 47
+          Height = 13
+          Caption = 'Approved'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clHighlight
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsUnderline]
+          ParentFont = False
+          OnClick = urlApprovedLoansClick
+        end
+        object RzLabel2: TRzLabel
+          Left = 15
+          Top = 131
+          Width = 40
+          Height = 13
+          Caption = 'Recent'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object RzURLLabel1: TRzURLLabel
+          Left = 15
+          Top = 97
           Width = 30
           Height = 13
           Caption = 'Active'
@@ -206,18 +233,21 @@ object frmMain: TfrmMain
           ParentFont = False
           OnClick = urlActiveLoansClick
         end
-        object RzLabel2: TRzLabel
+        object lbxRecentLoans: TRzListBox
           Left = 15
-          Top = 112
-          Width = 40
-          Height = 13
-          Caption = 'Recent'
+          Top = 150
+          Width = 146
+          Height = 203
+          BorderStyle = bsNone
           Font.Charset = DEFAULT_CHARSET
-          Font.Color = clWindowText
+          Font.Color = clGray
           Font.Height = -11
           Font.Name = 'Tahoma'
-          Font.Style = [fsBold]
+          Font.Style = [fsItalic]
+          ItemHeight = 13
           ParentFont = False
+          TabOrder = 1
+          OnDblClick = lbxRecentLoansDblClick
         end
       end
       object nppExpense: TJvNavPanelPage
@@ -460,7 +490,7 @@ object frmMain: TfrmMain
     Left = 201
     Top = 464
     Bitmap = {
-      494C010109000001D00010001000FFFFFFFF2110FFFFFFFFFFFFFFFF424D3600
+      494C010109000001E00010001000FFFFFFFF2110FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000003000000001002000000000000030
       000000000000000000000000000000000000000000130000002D010101720303
       0387030303870303038703030387030303870303038703030387030303870430

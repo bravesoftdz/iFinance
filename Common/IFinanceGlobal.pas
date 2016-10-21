@@ -3,7 +3,7 @@ unit IFinanceGlobal;
 interface
 
 uses
-  SysUtils, User;
+  SysUtils, User, Vcl.Graphics;
 
 type
   TIFinance = class(TObject)
@@ -14,6 +14,7 @@ type
     FUser: TUser;
     FPhotoPath: string;
     FPhotoUtility: string;
+    FControlDisabledColor: TColor;
   public
     property AppDate: TDate read FAppDate write FAppDate;
     property LocationCode: string read FLocationCode write FLocationCode;
@@ -21,6 +22,7 @@ type
     property User: TUser read FUser write FUser;
     property PhotoPath: string read FPhotoPath write FPhotoPath;
     property PhotoUtility: string read FPhotoUtility write FPhotoUtility;
+    property ControlDisabledColor: TColor read FControlDisabledColor write FControlDisabledColor;
 
     constructor Create;
     destructor Destroy; override;
@@ -40,6 +42,7 @@ begin
   else
   begin
     FPhotoUtility := 'PhotoUtil.exe.';
+    FControlDisabledColor := clWhite;
 
     FUser := TUser.Create;
 
