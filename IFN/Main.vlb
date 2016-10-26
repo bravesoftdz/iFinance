@@ -26,9 +26,6 @@ Coordinates=288,238,80,36
 [tbDesignationList]
 Coordinates=164,238,114,36
 
-[ToolBar1]
-Coordinates=87,238,67,36
-
 [RzLabel1]
 Coordinates=201,10,69,58
 
@@ -108,4 +105,7 @@ EditingLayerName=NewLayer0
 
 [tbNewLoan]
 Coordinates=420,192,84,36
+
+[tbMain]
+Coordinates=87,238,67,36
 

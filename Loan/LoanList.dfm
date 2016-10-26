@@ -64,6 +64,7 @@ inherited frmLoanList: TfrmLoanList
           Visible = True
         end
         item
+          Alignment = taRightJustify
           Expanded = False
           FieldName = 'amt_appl_f'
           Title.Caption = 'Amt. applied'
@@ -71,6 +72,7 @@ inherited frmLoanList: TfrmLoanList
           Visible = True
         end
         item
+          Alignment = taRightJustify
           Expanded = False
           FieldName = 'amt_appv_f'
           Title.Caption = 'Amt. approved'

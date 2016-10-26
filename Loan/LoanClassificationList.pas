@@ -30,7 +30,6 @@ type
     dbluGroup: TRzDBLookupComboBox;
     JvLabel7: TJvLabel;
     dbluCompMethod: TRzDBLookupComboBox;
-    lbxLocations: TRzListBox;
     edInterest: TRzDBNumericEdit;
     JvLabel8: TJvLabel;
     edMaxLoan: TRzDBNumericEdit;
@@ -165,47 +164,6 @@ begin
   OpenDropdownDataSources(tsDetail);
   OpenGridDataSources(pnlList);
 
-  lbxLocations.Clear;
-  lbxLocations.Add('Dumaguete');
-  lbxLocations.Add('Dumaguete');
-  lbxLocations.Add('Dumaguete');
-  lbxLocations.Add('Dumaguete');
-  lbxLocations.Add('Dumaguete');
-  lbxLocations.Add('Dumaguete');
-  lbxLocations.Add('Dumaguete');
-  lbxLocations.Add('Dumaguete');
-  lbxLocations.Add('Dumaguete');
-  lbxLocations.Add('Dumaguete');
-  lbxLocations.Add('Dumaguete');
-  lbxLocations.Add('Dumaguete');
-  lbxLocations.Add('Dumaguete');
-  lbxLocations.Add('Dumaguete');
-  lbxLocations.Add('Dumaguete');
-  lbxLocations.Add('Dumaguete');
-  lbxLocations.Add('Dumaguete');
-  lbxLocations.Add('Dumaguete');
-  lbxLocations.Add('Dumaguete');
-  lbxLocations.Add('Dumaguete');
-  lbxLocations.Add('Dumaguete');
-  lbxLocations.Add('Dumaguete');
-  lbxLocations.Add('Dumaguete');
-  lbxLocations.Add('Dumaguete');
-  lbxLocations.Add('Dumaguete');
-  lbxLocations.Add('Dumaguete');
-  lbxLocations.Add('Dumaguete');
-  lbxLocations.Add('Dumaguete');
-  lbxLocations.Add('Dumaguete');
-  lbxLocations.Add('Dumaguete');
-  lbxLocations.Add('Dumaguete');
-  lbxLocations.Add('Dumaguete');
-  lbxLocations.Add('Dumaguete');
-  lbxLocations.Add('Dumaguete');
-  lbxLocations.Add('Dumaguete');
-  lbxLocations.Add('Dumaguete');
-  lbxLocations.Add('Dumaguete');
-  lbxLocations.Add('Dumaguete');
-  lbxLocations.Add('Dumaguete');
-  lbxLocations.Add('Dumaguete');
 end;
 
 end.

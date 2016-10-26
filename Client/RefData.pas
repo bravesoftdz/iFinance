@@ -145,9 +145,8 @@ begin
     DataSet.FieldByName('entity_id').AsString := id;
     DataSet.FieldByName('entity_type').AsString :=
       TRttiEnumerationType.GetName<TEntityTypes>(TEntityTypes.RF);
-    DataSet.FieldByName('created_date').AsString :=
-        FormatDateTime('yyyy-mm-dd',Date);;
-    DataSet.FieldByName('created_by').AsString := ifn.User.UserId;
+
+    SetCreatedFields(DataSet);
 
     refc.Id := id;
   end;

@@ -136,9 +136,6 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
       object tsDetail: TRzTabSheet
         Color = 15263976
         Caption = 'Loan classification details'
-        DesignSize = (
-          725
-          222)
         object JvLabel1: TJvLabel
           Left = 19
           Top = 47
@@ -276,17 +273,6 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
           FrameColor = clBlack
           FrameHotColor = clBlack
         end
-        object lbxLocations: TRzListBox
-          Left = 328
-          Top = 17
-          Width = 385
-          Height = 193
-          Anchors = [akLeft, akTop, akRight, akBottom]
-          Columns = 3
-          ItemHeight = 13
-          MultiSelect = True
-          TabOrder = 8
-        end
         object edInterest: TRzDBNumericEdit
           Left = 105
           Top = 89
@@ -296,6 +282,7 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
           DataField = 'int_rate'
           Alignment = taLeftJustify
           TabOrder = 3
+          DisplayFormat = ',0;(,0)'
         end
         object edMaxLoan: TRzDBNumericEdit
           Left = 249
@@ -306,6 +293,7 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
           DataField = 'max_loan'
           Alignment = taLeftJustify
           TabOrder = 6
+          DisplayFormat = ',0;(,0)'
         end
       end
     end

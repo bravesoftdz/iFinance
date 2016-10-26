@@ -71,6 +71,8 @@ contains
   Reference in 'Reference.pas',
   Group in 'Group.pas',
   BasePopupDetail in '..\Base\BasePopupDetail.pas' {frmBasePopupDetail},
+  Comaker in 'Comaker.pas',
+  ComakerSearch in 'ComakerSearch.pas' {frmComakerSearch},
   BaseSearch in '..\Base\BaseSearch.pas' {frmBaseSearch};
 
 end.

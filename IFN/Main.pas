@@ -50,7 +50,7 @@ type
     nppLoans: TJvNavPanelPage;
     nppExpense: TJvNavPanelPage;
     sbMain: TRzStatusBar;
-    ToolBar1: TToolBar;
+    tbMain: TToolBar;
     tbAddClient: TToolButton;
     tbNewLoan: TToolButton;
     ToolButton3: TToolButton;
@@ -75,12 +75,13 @@ type
     ools1: TMenuItem;
     Settings1: TMenuItem;
     tbLoanClass: TToolButton;
-    urlNewlyAddedLoans: TRzURLLabel;
+    urlCancelled: TRzURLLabel;
     urlPendingLoans: TRzURLLabel;
     urlApprovedLoans: TRzURLLabel;
     RzLabel2: TRzLabel;
-    RzURLLabel1: TRzURLLabel;
+    urlActiveLoans: TRzURLLabel;
     lbxRecentLoans: TRzListBox;
+    urlDenied: TRzURLLabel;
     procedure tbAddClientClick(Sender: TObject);
     procedure tbSaveClick(Sender: TObject);
     procedure lblRecentlyAddedClick(Sender: TObject);
@@ -95,11 +96,13 @@ type
     procedure tbLoanClassClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure tbNewLoanClick(Sender: TObject);
-    procedure urlNewlyAddedLoansClick(Sender: TObject);
+    procedure urlCancelledClick(Sender: TObject);
     procedure urlPendingLoansClick(Sender: TObject);
     procedure urlActiveLoansClick(Sender: TObject);
     procedure urlApprovedLoansClick(Sender: TObject);
     procedure lbxRecentLoansDblClick(Sender: TObject);
+    procedure urlDeniedClick(Sender: TObject);
+    procedure npMainChange(Sender: TObject);
   private
     { Private declarations }
     RecentClients: TObjectList<TRecentClient>;
@@ -175,7 +178,8 @@ begin
     lftPending: title := 'Pending loans';
     lftApproved: title := 'Approved loans';
     lftActive: title := 'Active loans';
-    lftRecent: title := 'Newly-added loans';
+    lftCancelled: title := 'Cancelled loans';
+    lftDenied: title := 'Denied loans';
   end;
 
   if (pnlDockMain.ControlCount = 0)
@@ -261,7 +265,6 @@ begin
       ln := TLoan.Create;
 
       ln.Id := TRecentLoan(obj).Id;
-      ln.Status := TRecentLoan(obj).Status;
       ln.Client := TRecentLoan(obj).Client;
       ln.Retrieve(true);
 
@@ -276,10 +279,23 @@ begin
     begin
       ln := TLoan.Create;
       ln.Id := TRecentLoan(obj).Id;
-      ln.Status := TRecentLoan(obj).Status;
       ln.Client := TRecentLoan(obj).Client;
       DockForm(fmLoanMain);
     end;
+  end;
+end;
+
+procedure TfrmMain.npMainChange(Sender: TObject);
+const
+  CLIENTS = 0;
+  LOANS   = 1;
+  EXPENSE = 2;
+  INVENTORY = 3;
+  REPORTS = 4;
+begin
+  case npMain.ActivePageIndex of
+    CLIENTS: OpenClientList(cftRecent);
+    LOANS: OpenLoanList(lftPending);
   end;
 end;
 
@@ -362,9 +378,14 @@ begin
   OpenLoanList(lftApproved);
 end;
 
-procedure TfrmMain.urlNewlyAddedLoansClick(Sender: TObject);
+procedure TfrmMain.urlCancelledClick(Sender: TObject);
 begin
-  OpenLoanList(lftRecent);
+  OpenLoanList(lftCancelled);
+end;
+
+procedure TfrmMain.urlDeniedClick(Sender: TObject);
+begin
+  OpenLoanList(lftDenied);
 end;
 
 procedure TfrmMain.urlPendingLoansClick(Sender: TObject);
@@ -475,7 +496,7 @@ begin
   begin
     for ll in RecentLoans do
     begin
-      if ll.Id = lln.Id then
+      if ll.Id = lln.Id then // update when found
         Exit;
     end;
 

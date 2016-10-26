@@ -8,7 +8,7 @@ uses
   Vcl.ExtCtrls, SaveIntf, RzLabel, RzPanel, RzTabs, Vcl.Mask, StatusIntf,
   RzEdit, RzDBEdit, JvLabel, JvExControls, JvGroupHeader, Vcl.DBCtrls, RzDBCmbo,
   Vcl.ComCtrls, RzDTP, RzDBDTP, RzButton, RzRadChk, RzDBChk, Data.DB, Vcl.Grids,
-  Vcl.DBGrids, RzDBGrid, RzBtnEdt, RzLaunch, ClientIntf;
+  Vcl.DBGrids, RzDBGrid, RzBtnEdt, RzLaunch, ClientIntf, Vcl.Imaging.pngimage;
 
 type
   TfrmClientMain = class(TfrmBaseDocked, ISave, IClient)
@@ -153,6 +153,7 @@ type
     dteExpiry: TRzDBDateTimeEdit;
     JvLabel48: TJvLabel;
     RzDBLookupComboBox11: TRzDBLookupComboBox;
+    imgPhoto: TImage;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -503,8 +504,14 @@ end;
 
 procedure TfrmClientMain.btnNewIdClick(Sender: TObject);
 begin
-  grIdentityList.DataSource.DataSet.Append;
-  ChangeIdentControlState;
+  with grIdentityList.DataSource.DataSet do
+  begin
+    if State = dsBrowse then
+    begin
+      Append;
+      ChangeIdentControlState;
+    end;
+  end;
 end;
 
 procedure TfrmClientMain.btnNewRefClick(Sender: TObject);

@@ -7,6 +7,7 @@ object dmLoan: TdmLoan
     Connection = dmApplication.acMain
     CursorType = ctStatic
     BeforeOpen = dstLoanBeforeOpen
+    AfterOpen = dstLoanAfterOpen
     BeforePost = dstLoanBeforePost
     AfterPost = dstLoanAfterPost
     OnNewRecord = dstLoanNewRecord
@@ -41,6 +42,7 @@ object dmLoan: TdmLoan
     LockType = ltReadOnly
     BeforeOpen = dstLoanClassBeforeOpen
     AfterOpen = dstLoanClassAfterOpen
+    AfterScroll = dstLoanClassAfterScroll
     CommandText = 'sp_dd_get_loan_class;1'
     CommandType = cmdStoredProc
     Parameters = <
@@ -96,5 +98,70 @@ object dmLoan: TdmLoan
     DataSet = dstClients
     Left = 271
     Top = 14
+  end
+  object dstLoanComaker: TADODataSet
+    Tag = 1
+    Connection = dmApplication.acMain
+    CursorType = ctStatic
+    BeforeOpen = dstLoanComakerBeforeOpen
+    AfterOpen = dstLoanComakerAfterOpen
+    AfterPost = dstLoanComakerAfterPost
+    OnNewRecord = dstLoanComakerNewRecord
+    CommandText = 'sp_ln_get_loan_comakers;1'
+    CommandType = cmdStoredProc
+    Parameters = <
+      item
+        Name = '@RETURN_VALUE'
+        DataType = ftInteger
+        Direction = pdReturnValue
+        Precision = 10
+        Value = 0
+      end
+      item
+        Name = '@loan_id'
+        Attributes = [paNullable]
+        DataType = ftString
+        Size = 13
+        Value = ''
+      end>
+    Left = 207
+    Top = 70
+  end
+  object dscLoanComaker: TDataSource
+    DataSet = dstLoanComaker
+    Left = 271
+    Top = 70
+  end
+  object dstAlerts: TADODataSet
+    Active = True
+    Connection = dmApplication.acMain
+    CursorType = ctStatic
+    LockType = ltReadOnly
+    BeforeOpen = dstAlertsBeforeOpen
+    AfterOpen = dstAlertsAfterOpen
+    CommandText = 'sp_ln_get_alerts;1'
+    CommandType = cmdStoredProc
+    Parameters = <
+      item
+        Name = '@RETURN_VALUE'
+        DataType = ftInteger
+        Direction = pdReturnValue
+        Precision = 10
+        Value = 0
+      end
+      item
+        Name = '@entity_id'
+        Attributes = [paNullable]
+        DataType = ftString
+        Size = 11
+        Value = ''
+      end>
+    Left = 207
+    Top = 126
+  end
+  object dscAlerts: TDataSource
+    DataSet = dstAlerts
+    Left = 271
+    Top = 126
   end
 end

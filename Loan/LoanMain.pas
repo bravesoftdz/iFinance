@@ -7,7 +7,8 @@ uses
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, BaseDocked, Vcl.StdCtrls, RzLabel,
   Vcl.ExtCtrls, RzPanel, Vcl.Mask, RzEdit, RzDBEdit, JvLabel, JvExControls,
   JvGroupHeader, RzBtnEdt, Vcl.DBCtrls, RzDBCmbo, SaveIntf,  RzButton, RzRadChk,
-  LoanIntf, Loan, RzLstBox, RzDBList;
+  LoanIntf, Loan, RzLstBox, RzDBList, Data.DB, Vcl.Grids, Vcl.DBGrids, RzDBGrid,
+  Vcl.Imaging.pngimage;
 
 type
   TfrmLoanMain = class(TfrmBaseDocked, ISave, ILoan)
@@ -27,29 +28,37 @@ type
     JvLabel2: TJvLabel;
     JvGroupHeader2: TJvGroupHeader;
     JvLabel8: TJvLabel;
-    RzDBDateTimeEdit1: TRzDBDateTimeEdit;
+    dteDateApproved: TRzDBDateTimeEdit;
     JvLabel9: TJvLabel;
     JvLabel10: TJvLabel;
-    RzDBNumericEdit1: TRzDBNumericEdit;
-    RzDBEdit1: TRzDBEdit;
+    edAppvAmount: TRzDBNumericEdit;
+    edAppvInterest: TRzDBEdit;
     JvLabel11: TJvLabel;
-    RzDBEdit2: TRzDBEdit;
+    edAppvTerm: TRzDBEdit;
     lblLoanId: TRzLabel;
     JvLabel12: TJvLabel;
     edInterest: TRzDBNumericEdit;
     JvGroupHeader3: TJvGroupHeader;
     JvLabel13: TJvLabel;
     JvLabel14: TJvLabel;
-    RzDBNumericEdit2: TRzDBNumericEdit;
-    RzDBDateTimeEdit2: TRzDBDateTimeEdit;
+    edRelAmount: TRzDBNumericEdit;
+    dteDateReleased: TRzDBDateTimeEdit;
     cbxApproved: TRzCheckBox;
     cbxReleased: TRzCheckBox;
     cbxCancelled: TRzCheckBox;
     cbxDenied: TRzCheckBox;
     JvGroupHeader4: TJvGroupHeader;
-    lbxComaker: TRzDBListBox;
     JvLabel3: TJvLabel;
     dbluAcctType: TRzDBLookupComboBox;
+    btnAddComaker: TRzButton;
+    btnRemoveComaker: TRzButton;
+    grComakers: TRzDBGrid;
+    RzPanel1: TRzPanel;
+    RzPanel2: TRzPanel;
+    imgClose: TImage;
+    lblCaption: TRzLabel;
+    Image1: TImage;
+    mmAlerts: TRzMemo;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure bteClientButtonClick(Sender: TObject);
@@ -57,10 +66,13 @@ type
     procedure cbxDeniedClick(Sender: TObject);
     procedure cbxApprovedClick(Sender: TObject);
     procedure cbxReleasedClick(Sender: TObject);
+    procedure btnAddComakerClick(Sender: TObject);
+    procedure btnRemoveComakerClick(Sender: TObject);
   private
     { Private declarations }
     procedure ChangeControlState(const useState: boolean = true);
     procedure SetAction(const action: TLoanAction = laNone);
+    procedure CallErrorBox(const error: string);
   public
     { Public declarations }
     procedure SetLoanId;
@@ -78,39 +90,21 @@ implementation
 {$R *.dfm}
 
 uses
-  LoanData, FormsUtil, LoanClient, ClientSearch, StatusIntf, DockIntf, IFinanceGlobal;
+  LoanData, FormsUtil, LoanClient, ClientSearch, StatusIntf, DockIntf, IFinanceGlobal,
+  Comaker, ComakerSearch, DecisionBox;
+
+procedure TfrmLoanMain.CallErrorBox(const error: string);
+var
+  intf: IStatus;
+begin
+  if Supports(Application.MainForm,IStatus,intf) then
+    intf.ShowError(error);
+end;
 
 procedure TfrmLoanMain.ChangeControlState(const useState: boolean);
 var
   i: integer;
   tags: set of 0..7;
-
-  procedure ChangeDisabledControlColor;
-  var
-    c: integer;
-  begin
-    if not ln.IsPending then
-      tags := tags + [0,1];
-
-    for c := 0 to pnlMain.ControlCount - 1 do
-      if pnlMain.Controls[c].Tag <> -1 then
-      begin
-        if pnlMain.Controls[c].Tag in tags then
-        begin
-          if pnlMain.Controls[c] is TRzButtonEdit then
-            (pnlMain.Controls[c] as TRzButtonEdit).DisabledColor := ifn.ControlDisabledColor
-          else if pnlMain.Controls[c] is TRzDBLookupComboBox then
-              (pnlMain.Controls[c] as TRzDBLookupComboBox).DisabledColor := ifn.ControlDisabledColor
-          else if pnlMain.Controls[c] is TRzDBDateTimeEdit then
-              (pnlMain.Controls[c] as TRzDBDateTimeEdit).DisabledColor := ifn.ControlDisabledColor
-          else if pnlMain.Controls[c] is TRzDBNumericEdit then
-              (pnlMain.Controls[c] as TRzDBNumericEdit).DisabledColor := ifn.ControlDisabledColor
-          else if pnlMain.Controls[c] is TRzDBEdit then
-              (pnlMain.Controls[c] as TRzDBEdit).DisabledColor := ifn.ControlDisabledColor;
-        end;
-      end;
-  end;
-
 begin
   if useState then
   begin
@@ -119,12 +113,21 @@ begin
     else if ln.IsApproved then
       tags := [2,6]
     else if ln.IsReleased then
+      tags := []
+    else if ln.IsCancelled then
+      tags := []
+    else if ln.IsDenied then
+      tags := []
+    else if ln.IsApprovedCancelled then
       tags := [];
   end
   else
   begin
     if ln.Action = laCreating then
-      tags := [0,1]
+    begin
+      if Assigned(ln.Client) then tags := [0,1]
+      else tags := [0];
+    end
     else if ln.Action = laApproving then
       tags := [4,5]
     else if ln.Action = laReleasing then
@@ -139,9 +142,6 @@ begin
   for i := 0 to pnlMain.ControlCount - 1 do
     if pnlMain.Controls[i].Tag <> -1 then
       pnlMain.Controls[i].Enabled := pnlMain.Controls[i].Tag in tags;
-
-  // change color for readability
-  ChangeDisabledControlColor;
 end;
 
 procedure TfrmLoanMain.RefreshDropDownSources;
@@ -176,7 +176,10 @@ begin
 
             OpenDropdownDataSources(self.pnlMain);
 
-            ChangeControlState(true);
+            ChangeControlState(false);
+
+            ln.GetAlerts;
+            mmAlerts.Text := ln.Alerts;
         end;
       except
         on e: Exception do
@@ -184,6 +187,70 @@ begin
       end;
     finally
       Free;
+    end;
+  end;
+end;
+
+procedure TfrmLoanMain.btnAddComakerClick(Sender: TObject);
+begin
+  if ln.LoanClass.ComakersNotRequired then
+    CallErrorBox('No comakers required.')
+  else if ln.ComakerCount >= ln.LoanClass.Comakers then
+    CallErrorBox('Number of comakers has already been met. ' +
+        'If a comaker has been mistakenly declared, remove the comaker and add again.')
+  else
+  with TfrmComakerSearch.Create(nil) do
+  begin
+    try
+      ShowModal;
+
+      if ModalResult = mrOK then
+      begin
+        if Trim(ln.Client.Id) = Trim(cm.Id) then
+          CallErrorBox('Client cannot be declared as a comaker.')
+        else if ln.ComakerExists(cm) then
+          CallErrorBox('Comaker already exists.')
+        else
+        begin
+          ln.AddComaker(cm);
+          cm.Free;
+        end;
+      end;
+
+      Free;
+    except
+      on e: Exception do
+        ShowMessage(e.Message);
+    end;
+  end;
+end;
+
+procedure TfrmLoanMain.btnRemoveComakerClick(Sender: TObject);
+const
+  CONF = 'Are you sure you want to delete the selected comaker?';
+var
+  id: string;
+begin
+  with TfrmDecisionBox.Create(nil,CONF) do
+  begin
+    try
+      if grComakers.DataSource.DataSet.RecordCount > 0 then
+      begin
+        id := grComakers.DataSource.DataSet.FieldByName('entity_id').AsString;
+
+        ShowModal;
+
+        if ModalResult = mrYes then
+        begin
+          grComakers.DataSource.DataSet.Delete;
+          ln.RemoveComaker(TComaker.Create(id));
+        end;
+
+        Free;
+      end;
+    except
+      on e: Exception do
+        ShowMessage(e.Message);
     end;
   end;
 end;
@@ -199,43 +266,55 @@ begin
     ln.Client := nil;
   end;
 
-  ChangeControlState;
+  ChangeControlState(false);
 end;
 
 procedure TfrmLoanMain.cbxApprovedClick(Sender: TObject);
 begin
   inherited;
-  if (Sender as TRzCheckBox).Checked then
-    SetAction(laApproving)
-  else
-    SetAction;
+  if ln.IsPending then
+  begin
+    if (Sender as TRzCheckBox).Checked then
+      SetAction(laApproving)
+    else
+      SetAction;
+  end;
 end;
 
 procedure TfrmLoanMain.cbxCancelledClick(Sender: TObject);
 begin
   inherited;
-  if (Sender as TRzCheckBox).Checked then
-    SetAction(laCancelling)
-  else
-    SetAction;
+  if (ln.IsPending) or (ln.IsApproved) then
+  begin
+    if (Sender as TRzCheckBox).Checked then
+      SetAction(laCancelling)
+    else
+      SetAction;
+  end;
 end;
 
 procedure TfrmLoanMain.cbxDeniedClick(Sender: TObject);
 begin
   inherited;
-  if (Sender as TRzCheckBox).Checked then
-    SetAction(laDenying)
-  else
-    SetAction;
+  if ln.IsPending then
+  begin
+    if (Sender as TRzCheckBox).Checked then
+      SetAction(laDenying)
+    else
+      SetAction;
+  end;
 end;
 
 procedure TfrmLoanMain.cbxReleasedClick(Sender: TObject);
 begin
   inherited;
-  if (Sender as TRzCheckBox).Checked then
-    SetAction(laReleasing)
-  else
-    SetAction;
+  if ln.IsApproved then
+  begin
+    if (Sender as TRzCheckBox).Checked then
+      SetAction(laReleasing)
+    else
+      SetAction;
+  end;
 end;
 
 procedure TfrmLoanMain.FormClose(Sender: TObject; var Action: TCloseAction);
@@ -283,53 +362,71 @@ procedure TfrmLoanMain.SetUnboundControls;
 begin
   bteClient.Text := ln.Client.Name;
 
-  cbxCancelled.Checked := ln.IsCancelled;
+  cbxCancelled.Checked := (ln.IsCancelled) or (ln.IsApprovedCancelled);
   cbxDenied.Checked := ln.IsDenied;
-  cbxApproved.Checked := (ln.IsApproved) or (ln.IsReleased);
+  cbxApproved.Checked := (ln.IsApproved) or (ln.IsReleased) or (ln.IsApprovedCancelled);
   cbxReleased.Checked := ln.IsReleased;
 end;
 
 function TfrmLoanMain.Save: Boolean;
 var
-  st: IStatus;
   error: string;
 begin
   Result := false;
   try
-    if Supports(Application.MainForm,IStatus,st) then
+    error := '';
+
+    if ln.Action = laCreating then
     begin
-      error := '';
-
-      if ln.Action = laCreating then
-      begin
-        if not Assigned(ln.Client) then
-          error := 'No client selected.'
-        else if dbluLoanClass.Text = '' then
-          error := 'Please select a loan class.'
-        else if dbluAcctType.Text = '' then
-          error := 'Please select an account type.'
-        else if dteDateApplied.Text = '' then
-          error := 'Please enter date applied.'
-        else if edAppAmount.Value <= 0 then
-          error := 'Invalid value for amount.'
-        else if edDesiredTerm.Text = '' then
-          error := 'Invalid value for desired term.'
-        else if Trim(edPurpose.Text) = '' then
-          error := 'Please enter a purpose.';
-      end;
-
-      Result := error = '';
-
-      if Result then
-      begin
-        ln.Save;
-        SetLoanId;
-        ChangeControlState;
-        ln.Action := laNone;
-      end
-      else
-        st.ShowError(error);
+      if not Assigned(ln.Client) then
+        error := 'No client selected.'
+      else if dbluLoanClass.Text = '' then
+        error := 'Please select a loan class.'
+      else if dbluAcctType.Text = '' then
+        error := 'Please select an account type.'
+      else if dteDateApplied.Text = '' then
+        error := 'Please enter date applied.'
+      else if edAppAmount.Value <= 0 then
+        error := 'Invalid value for amount.'
+      else if edDesiredTerm.Text = '' then
+        error := 'Invalid value for desired term.'
+      else if Trim(edPurpose.Text) = '' then
+        error := 'Please enter a purpose.';
+    end
+    else if ln.Action = laApproving then
+    begin
+      if dteDateApproved.Text = '' then
+        error := 'Please enter date applied.'
+      else if edAppAmount.Value <= 0 then
+        error := 'Invalid value for amount.'
+      else if edAppvInterest.Text = '' then
+        error := 'Please enter interest.'
+      else if edAppvTerm.Text = '' then
+        error := 'Please enter term.'
+      else if ln.ComakerCount < ln.LoanClass.Comakers then
+        error := 'Number of required comakers has not been met.'
+      else if ln.ComakerCount > ln.LoanClass.Comakers then
+        error := 'Declared comakers exceeds the required number.';
+    end
+    else if ln.Action = laReleasing then
+    begin
+      if dteDateReleased.Text = '' then
+        error := 'Please enter date released.'
+      else if edRelAmount.Value <= 0 then
+        error := 'Invalid value for amount.';
     end;
+
+    Result := error = '';
+
+    if Result then
+    begin
+      ln.Save;
+      SetLoanId;
+      ChangeControlState;
+      ln.Action := laNone;
+    end
+    else
+      CallErrorBox(error);
   finally
 
   end;

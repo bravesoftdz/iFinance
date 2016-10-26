@@ -3,7 +3,7 @@ object frmMain: TfrmMain
   Top = 0
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
-  Caption = 'i-Finance - Integrated Financial Managment Information System'
+  Caption = 'i-Finance - Integrated Financial Management Information System'
   ClientHeight = 592
   ClientWidth = 1074
   Color = clBtnFace
@@ -68,6 +68,7 @@ object frmMain: TfrmMain
       NavPanelHotTrackFont.Name = 'Tahoma'
       NavPanelHotTrackFont.Style = [fsBold]
       NavPanelHotTrackFontOptions = [hoPreserveColor, hoPreserveStyle]
+      OnChange = npMainChange
       object nppClient: TJvNavPanelPage
         Left = 0
         Top = 0
@@ -164,23 +165,23 @@ object frmMain: TfrmMain
         Background.Tile = False
         Background.Transparent = False
         Caption = 'Loans'
-        object urlNewlyAddedLoans: TRzURLLabel
+        object urlCancelled: TRzURLLabel
           Left = 15
-          Top = 40
-          Width = 91
+          Top = 97
+          Width = 46
           Height = 13
-          Caption = 'Newly-added loans'
+          Caption = 'Cancelled'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clHighlight
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = [fsUnderline]
           ParentFont = False
-          OnClick = urlNewlyAddedLoansClick
+          OnClick = urlCancelledClick
         end
         object urlPendingLoans: TRzURLLabel
           Left = 15
-          Top = 59
+          Top = 40
           Width = 38
           Height = 13
           Caption = 'Pending'
@@ -194,7 +195,7 @@ object frmMain: TfrmMain
         end
         object urlApprovedLoans: TRzURLLabel
           Left = 15
-          Top = 78
+          Top = 59
           Width = 47
           Height = 13
           Caption = 'Approved'
@@ -208,7 +209,7 @@ object frmMain: TfrmMain
         end
         object RzLabel2: TRzLabel
           Left = 15
-          Top = 131
+          Top = 150
           Width = 40
           Height = 13
           Caption = 'Recent'
@@ -219,9 +220,9 @@ object frmMain: TfrmMain
           Font.Style = [fsBold]
           ParentFont = False
         end
-        object RzURLLabel1: TRzURLLabel
+        object urlActiveLoans: TRzURLLabel
           Left = 15
-          Top = 97
+          Top = 78
           Width = 30
           Height = 13
           Caption = 'Active'
@@ -233,11 +234,25 @@ object frmMain: TfrmMain
           ParentFont = False
           OnClick = urlActiveLoansClick
         end
+        object urlDenied: TRzURLLabel
+          Left = 15
+          Top = 116
+          Width = 33
+          Height = 13
+          Caption = 'Denied'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clHighlight
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsUnderline]
+          ParentFont = False
+          OnClick = urlDeniedClick
+        end
         object lbxRecentLoans: TRzListBox
           Left = 15
-          Top = 150
+          Top = 169
           Width = 146
-          Height = 203
+          Height = 184
           BorderStyle = bsNone
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clGray
@@ -339,13 +354,13 @@ object frmMain: TfrmMain
       ExplicitHeight = 20
     end
   end
-  object ToolBar1: TToolBar
+  object tbMain: TToolBar
     Left = 0
     Top = 0
     Width = 1074
     Height = 30
     BorderWidth = 1
-    Caption = 'ToolBar1'
+    Caption = 'tbMain'
     EdgeBorders = [ebTop, ebBottom]
     Flat = False
     Images = imlToolbar
@@ -490,7 +505,7 @@ object frmMain: TfrmMain
     Left = 201
     Top = 464
     Bitmap = {
-      494C010109000001E00010001000FFFFFFFF2110FFFFFFFFFFFFFFFF424D3600
+      494C010109000001EC0010001000FFFFFFFF2110FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000003000000001002000000000000030
       000000000000000000000000000000000000000000130000002D010101720303
       0387030303870303038703030387030303870303038703030387030303870430
