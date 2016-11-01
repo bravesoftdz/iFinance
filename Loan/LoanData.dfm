@@ -1,6 +1,6 @@
 object dmLoan: TdmLoan
   OldCreateOrder = False
-  Height = 218
+  Height = 278
   Width = 515
   object dstLoan: TADODataSet
     Tag = 1
@@ -133,7 +133,6 @@ object dmLoan: TdmLoan
     Top = 70
   end
   object dstAlerts: TADODataSet
-    Active = True
     Connection = dmApplication.acMain
     CursorType = ctStatic
     LockType = ltReadOnly
@@ -147,13 +146,20 @@ object dmLoan: TdmLoan
         DataType = ftInteger
         Direction = pdReturnValue
         Precision = 10
-        Value = 0
+        Value = Null
       end
       item
         Name = '@entity_id'
         Attributes = [paNullable]
         DataType = ftString
-        Size = 11
+        Size = 10
+        Value = ''
+      end
+      item
+        Name = '@loan_id'
+        Attributes = [paNullable]
+        DataType = ftString
+        Size = 13
         Value = ''
       end>
     Left = 207
@@ -163,5 +169,45 @@ object dmLoan: TdmLoan
     DataSet = dstAlerts
     Left = 271
     Top = 126
+  end
+  object dscComakers: TDataSource
+    DataSet = dstComakers
+    Left = 416
+    Top = 16
+  end
+  object dstComakers: TADODataSet
+    Tag = 1
+    Connection = dmApplication.acMain
+    CursorType = ctStatic
+    Filtered = True
+    LockType = ltReadOnly
+    AfterOpen = dstLoanClassAfterOpen
+    CommandText = 'sp_get_comakers;1'
+    CommandType = cmdStoredProc
+    Parameters = <
+      item
+        Name = '@RETURN_VALUE'
+        DataType = ftInteger
+        Direction = pdReturnValue
+        Precision = 10
+        Value = 0
+      end>
+    Left = 352
+    Top = 16
+  end
+  object dstAppvMethod: TADODataSet
+    Connection = dmApplication.acMain
+    CursorType = ctStatic
+    LockType = ltReadOnly
+    CommandText = 'sp_dd_get_appv_method;1'
+    CommandType = cmdStoredProc
+    Parameters = <>
+    Left = 47
+    Top = 182
+  end
+  object dscAppvMethod: TDataSource
+    DataSet = dstAppvMethod
+    Left = 119
+    Top = 182
   end
 end

@@ -19,6 +19,10 @@ type
     dscLoanComaker: TDataSource;
     dstAlerts: TADODataSet;
     dscAlerts: TDataSource;
+    dscComakers: TDataSource;
+    dstComakers: TADODataSet;
+    dstAppvMethod: TADODataSet;
+    dscAppvMethod: TDataSource;
     procedure dstLoanBeforeOpen(DataSet: TDataSet);
     procedure dstLoanClassBeforeOpen(DataSet: TDataSet);
     procedure dstLoanBeforePost(DataSet: TDataSet);
@@ -53,16 +57,10 @@ uses
 
 procedure TdmLoan.dstAlertsAfterOpen(DataSet: TDataSet);
 begin
-  ln.Alerts := '';
-
   with DataSet do
     while not Eof do
     begin
-      if ln.Alerts <> '' then
-        ln.Alerts := ln.Alerts + #13#10 + FieldByName('alert').AsString
-      else
-        ln.Alerts := FieldByName('alert').AsString;
-
+      ln.AddAlert(FieldByName('alert').AsString);
       Next;
     end;
 end;
@@ -70,6 +68,7 @@ end;
 procedure TdmLoan.dstAlertsBeforeOpen(DataSet: TDataSet);
 begin
   (DataSet as TADODataSet).Parameters.ParamByName('@entity_id').Value := ln.Client.Id;
+  (DataSet as TADODataSet).Parameters.ParamByName('@loan_id').Value := ln.Id;
 end;
 
 procedure TdmLoan.dstLoanAfterOpen(DataSet: TDataSet);
