@@ -10,7 +10,6 @@ uses
 
 type
   TfrmComakerSearch = class(TfrmBaseSearch)
-    procedure FormCreate(Sender: TObject);
   private
     { Private declarations }
   public
@@ -30,7 +29,7 @@ implementation
 {$R *.dfm}
 
 uses
-  EntitiesData, Comaker;
+  LoanData, Comaker, ComakerDetail;
 
 procedure TfrmComakerSearch.SearchList;
 var
@@ -48,23 +47,34 @@ end;
 procedure TfrmComakerSearch.SetReturn;
 begin
   with grSearch.DataSource.DataSet do
-    cm := TComaker.Create(FieldByName('entity_id').AsString);
+  begin
+    cm.ID := (FieldByName('entity_id').AsString);
+    cm.ComakeredLoans := FieldByName('comakered_loans').AsInteger;
+  end;
 end;
 
 procedure TfrmComakerSearch.Add;
 begin
+  with TfrmComakerDetail.Create(self), grSearch.DataSource.DataSet do
+  begin
+    cm.Add;
 
+    ShowModal;
+
+    if ModalResult = mrOK then
+    begin
+      // refresh the grid
+      DisableControls;
+      Close;
+      Open;
+      EnableControls;
+    end;
+  end;
 end;
 
 procedure TfrmComakerSearch.Cancel;
 begin
 
-end;
-
-procedure TfrmComakerSearch.FormCreate(Sender: TObject);
-begin
-  dmEntities := TdmEntities.Create(self);
-  inherited;
 end;
 
 end.

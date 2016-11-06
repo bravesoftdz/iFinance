@@ -14,7 +14,7 @@ type
   TfrmEmployerList = class(TfrmBaseGridDetail)
     JvLabel1: TJvLabel;
     JvLabel2: TJvLabel;
-    RzDBLookupComboBox7: TRzDBLookupComboBox;
+    dbluGroup: TRzDBLookupComboBox;
     edEmployerName: TRzDBEdit;
     JvLabel3: TJvLabel;
     RzDBMemo1: TRzDBMemo;
@@ -61,6 +61,12 @@ begin
     if Trim(edEmployerName.Text) = '' then
     begin
       error := 'Please enter an employee name.';
+      st.ShowError(error);
+    end;
+
+    if Trim(dbluGroup.Text) = '' then
+    begin
+      error := 'Please select a group.';
       st.ShowError(error);
     end;
   end;

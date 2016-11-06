@@ -54,7 +54,7 @@ inherited frmEmployerList: TfrmEmployerList
           Caption = 'Address'
           Transparent = True
         end
-        object RzDBLookupComboBox7: TRzDBLookupComboBox
+        object dbluGroup: TRzDBLookupComboBox
           Left = 105
           Top = 97
           Width = 207
@@ -65,7 +65,6 @@ inherited frmEmployerList: TfrmEmployerList
           ListField = 'grp_name'
           ListSource = dmEntities.dscGroups
           TabOrder = 2
-          AllowNull = True
           FrameColor = clBlack
           FrameHotColor = clBlack
         end
@@ -96,7 +95,7 @@ inherited frmEmployerList: TfrmEmployerList
   end
   inherited imlMain: TJvImageList
     Bitmap = {
-      494C0101010008007C0010001000FFFFFFFF2110FFFFFFFFFFFFFFFF424D3600
+      494C010101000800800010001000FFFFFFFF2110FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000001000000001002000000000000010
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000226

@@ -35,7 +35,7 @@ uses
 
 procedure TfrmImmHeadSearch.Add;
 begin
-  with TfrmImmHeadDetail.Create(self) do
+  with TfrmImmHeadDetail.Create(self), grSearch.DataSource.DataSet do
   begin
     immHead.Add;
 
@@ -44,8 +44,10 @@ begin
     if ModalResult = mrOK then
     begin
       // refresh the grid
-      grSearch.DataSource.DataSet.Close;
-      grSearch.DataSource.DataSet.Open;
+      DisableControls;
+      Close;
+      Open;
+      EnableControls;
     end;
   end;
 end;

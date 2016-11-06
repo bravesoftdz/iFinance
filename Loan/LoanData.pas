@@ -11,8 +11,6 @@ type
     dscLoan: TDataSource;
     dstLoanClass: TADODataSet;
     dscLoanClass: TDataSource;
-    dstAcctType: TADODataSet;
-    dscAcctType: TDataSource;
     dstClients: TADODataSet;
     dscClients: TDataSource;
     dstLoanComaker: TADODataSet;
@@ -145,7 +143,7 @@ end;
 
 procedure TdmLoan.dstLoanClassAfterScroll(DataSet: TDataSet);
 var
-  clId, term, comakers: integer;
+  clId, term, comakers, groupId: integer;
   clName, loanType: string;
   interest, maxLoan: real;
   validFrom, validUntil: TDate;
@@ -153,6 +151,7 @@ begin
   with DataSet do
   begin
     clId := FieldByName('class_id').AsInteger;
+    groupId := FieldByName('grp_id').AsInteger;
     clName := FieldByName('class_name').AsString;
     interest := FieldByName('int_rate').AsFloat;
     term := FieldByName('term').AsInteger;
@@ -164,13 +163,14 @@ begin
   end;
 
   if not Assigned(ln.LoanClass) then
-    ln.LoanClass := TLoanClassification.Create(clId, clName, interest, term,
-        loanType, maxLoan, comakers, validFrom, validUntil)
+    ln.LoanClass := TLoanClassification.Create(clId, groupId, clName, interest,
+        term, loanType, maxLoan, comakers, validFrom, validUntil)
   else
   begin
     with ln do
     begin
       LoanClass.ClassificationId := clId;
+      LoanClass.GroupId := groupId;
       LoanClass.ClassificationName := clName;
       LoanClass.Interest := interest;
       LoanClass.Term := term;

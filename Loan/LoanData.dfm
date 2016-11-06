@@ -68,21 +68,6 @@ object dmLoan: TdmLoan
     Left = 119
     Top = 70
   end
-  object dstAcctType: TADODataSet
-    Connection = dmApplication.acMain
-    CursorType = ctStatic
-    LockType = ltReadOnly
-    CommandText = 'sp_dd_get_acct_type;1'
-    CommandType = cmdStoredProc
-    Parameters = <>
-    Left = 55
-    Top = 126
-  end
-  object dscAcctType: TDataSource
-    DataSet = dstAcctType
-    Left = 119
-    Top = 126
-  end
   object dstClients: TADODataSet
     Connection = dmApplication.acMain
     CursorType = ctStatic
@@ -203,11 +188,11 @@ object dmLoan: TdmLoan
     CommandType = cmdStoredProc
     Parameters = <>
     Left = 47
-    Top = 182
+    Top = 126
   end
   object dscAppvMethod: TDataSource
     DataSet = dstAppvMethod
     Left = 119
-    Top = 182
+    Top = 126
   end
 end

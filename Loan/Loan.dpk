@@ -47,7 +47,6 @@ requires
 contains
   LoansAuxData in 'LoansAuxData.pas' {dmLoansAux: TDataModule},
   LoanClassification in 'LoanClassification.pas',
-  ClassGroup in 'ClassGroup.pas' {frmClassGroup},
   LoanClassificationList in 'LoanClassificationList.pas' {frmLoanClassificationList},
   LoanMain in 'LoanMain.pas' {frmLoanMain},
   Loan in 'Loan.pas',
@@ -55,9 +54,17 @@ contains
   LoanList in 'LoanList.pas' {frmLoanList},
   BaseDocked in '..\Base\BaseDocked.pas' {frmBaseDocked},
   LoanListIntf in 'LoanListIntf.pas',
-  BasePopup in '..\Base\BasePopup.pas' {frmBasePopup},
   ClientSearch in 'ClientSearch.pas' {frmClientSearch},
   LoanClient in 'LoanClient.pas',
-  LoanIntf in 'LoanIntf.pas';
+  LoanIntf in 'LoanIntf.pas',
+  BaseForm in '..\Base\BaseForm.pas' {frmBase},
+  BasePopup in '..\Base\BasePopup.pas' {frmBasePopup},
+  Comaker in 'Comaker.pas',
+  ComakerSearch in 'ComakerSearch.pas' {frmComakerSearch},
+  ComakerDetail in 'ComakerDetail.pas' {frmComakerDetail},
+  ComakerData in 'ComakerData.pas' {dmComaker: TDataModule},
+  LoanClassChargeDetail in 'LoanClassChargeDetail.pas' {frmLoanClassChargeDetail},
+  BasePopupDetail in '..\Base\BasePopupDetail.pas' {frmBasePopupDetail},
+  LoanClassCharge in 'LoanClassCharge.pas';
 
 end.

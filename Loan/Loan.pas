@@ -19,7 +19,7 @@ type
     FAction: TLoanAction;
     FLoanClass: TLoanClassification;
     FComakers: array of TComaker;
-    FAlerts: string;
+    FAlerts: array of string;
 
     function GetIsPending: boolean;
     function GetIsApproved: boolean;
@@ -28,6 +28,10 @@ type
     function GetIsDenied: boolean;
     function GetIsApprovedCancelled: boolean;
     function GetComakerCount: integer;
+    function GetAlert(const i: integer): string;
+    function GetAlertsCount: integer;
+    function GetHasId: boolean;
+    function GetStatusName: string;
 
   public
     procedure Add; override;
@@ -38,12 +42,14 @@ type
     procedure SetDefaultValues;
     procedure AddComaker(cmk: TComaker);
     procedure RemoveComaker(cmk: TComaker);
+    procedure AddAlert(const alert: string);
     procedure GetAlerts;
 
     function ComakerExists(cmk: TComaker): boolean;
 
     property Client: TLoanClient read FClient write FClient;
     property Status: string read FStatus write FStatus;
+    property StatusName: string read GetStatusName;
     property Action: TLoanAction read FAction write FAction;
     property LoanClass: TLoanClassification read FLoanClass write FLoanClass;
     property IsPending: boolean read GetIsPending;
@@ -53,7 +59,9 @@ type
     property IsDenied: boolean read GetIsDenied;
     property IsApprovedCancelled: boolean read GetIsApprovedCancelled;
     property ComakerCount: integer read GetComakerCount;
-    property Alerts: string read FAlerts write FAlerts;
+    property Alerts[const i: integer]: string read GetAlert;
+    property AlertsCount: integer read GetAlertsCount;
+    property HasId: boolean read GetHasId;
 
     constructor Create;
     destructor Destroy; reintroduce;
@@ -91,6 +99,9 @@ begin
     Open;
     Append;
   end;
+
+  with dmLoan.dstLoanComaker do
+    Open;
 end;
 
 procedure TLoan.Save;
@@ -185,13 +196,6 @@ begin
   begin
     SetLength(FComakers,Length(FComakers) + 1);
     FComakers[Length(FComakers) - 1] := cmk;
-
-    with dmLoan.dstLoan do
-    begin
-      Append;
-      FieldByName('entity_id').AsString := cmk.Id;
-      Post;
-    end;
   end;
 end;
 
@@ -214,11 +218,20 @@ end;
 
 procedure TLoan.GetAlerts;
 begin
+  // clear alerts
+  FAlerts := [];
+
   with dmLoan do
   begin
     dstAlerts.Close;
     dstAlerts.Open;
   end;
+end;
+
+procedure TLoan.AddAlert(const alert: string);
+begin
+  SetLength(FAlerts,Length(FAlerts) + 1);
+  FAlerts[Length(FAlerts) - 1] := alert;
 end;
 
 function TLoan.GetIsPending: boolean;
@@ -274,6 +287,31 @@ begin
       Exit;
     end;
   end;
+end;
+
+function TLoan.GetAlert(const i: integer): string;
+begin
+  Result := FAlerts[i];
+end;
+
+function TLoan.GetAlertsCount: integer;
+begin
+  Result := Length(FAlerts);
+end;
+
+function TLoan.GetHasId: boolean;
+begin
+  Result := FId <> '';
+end;
+
+function TLoan.GetStatusName: string;
+begin
+  if IsPending then Result := 'Pending'
+  else if IsApproved then Result := 'Approved'
+  else if IsReleased then Result := 'Active'
+  else if IsCancelled then Result := 'Cancelled'
+  else if IsDenied then Result := 'Denied'
+  else if IsApprovedCancelled then Result := 'Approved (cancelled)';
 end;
 
 end.

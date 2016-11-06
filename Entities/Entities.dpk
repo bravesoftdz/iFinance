@@ -63,7 +63,7 @@ contains
   BaseDocked in '..\Base\BaseDocked.pas' {frmBaseDocked},
   Bank in 'Bank.pas',
   BaseForm in '..\Base\BaseForm.pas' {frmBase},
-  BasePopup in '..\Base\BasePopup.pas' {frmBasePopup},
+  BasePopup in '..\Base\BasePopup.pas' {frmBasePopup1},
   BanksSearch in 'BanksSearch.pas' {frmBankSearch},
   DesignationList in 'DesignationList.pas' {frmDesignationList},
   BaseGridDetail in '..\Base\BaseGridDetail.pas' {frmBaseGridDetail},
@@ -71,8 +71,6 @@ contains
   Reference in 'Reference.pas',
   Group in 'Group.pas',
   BasePopupDetail in '..\Base\BasePopupDetail.pas' {frmBasePopupDetail},
-  Comaker in 'Comaker.pas',
-  ComakerSearch in 'ComakerSearch.pas' {frmComakerSearch},
   BaseSearch in '..\Base\BaseSearch.pas' {frmBaseSearch};
 
 end.

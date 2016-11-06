@@ -2,8 +2,8 @@ object dmLoansAux: TdmLoansAux
   OldCreateOrder = False
   OnCreate = DataModuleCreate
   OnDestroy = DataModuleDestroy
-  Height = 151
-  Width = 312
+  Height = 253
+  Width = 457
   object dscLoanClass: TDataSource
     DataSet = dstLoanClass
     Left = 112
@@ -16,60 +16,61 @@ object dmLoansAux: TdmLoansAux
     AfterOpen = dstLoanClassAfterOpen
     BeforePost = dstLoanClassBeforePost
     AfterPost = dstLoanClassAfterPost
+    AfterScroll = dstLoanClassAfterScroll
     CommandText = 'sp_get_loan_class;1'
     CommandType = cmdStoredProc
     Parameters = <>
     Left = 48
     Top = 24
-    object dstLoanClassclass_id: TIntegerField
-      FieldName = 'class_id'
-    end
-    object dstLoanClassgrp_id: TSmallintField
-      FieldName = 'grp_id'
-    end
-    object dstLoanClassclass_name: TStringField
-      FieldName = 'class_name'
-      Size = 25
-    end
-    object dstLoanClassint_rate: TFloatField
-      FieldName = 'int_rate'
-      DisplayFormat = '0.00'
-      EditFormat = '0.00'
-    end
-    object dstLoanClassterm: TWordField
-      FieldName = 'term'
-    end
-    object dstLoanClassloan_type: TStringField
-      FieldName = 'loan_type'
-      FixedChar = True
-      Size = 2
-    end
-    object dstLoanClasscomakers: TWordField
-      FieldName = 'comakers'
-    end
-    object dstLoanClassint_comp_method: TStringField
-      FieldName = 'int_comp_method'
-      FixedChar = True
-      Size = 1
-    end
-    object dstLoanClassmax_loan: TBCDField
-      FieldName = 'max_loan'
-      DisplayFormat = '###,##0.00'
-      EditFormat = '###,##0.00'
-      Precision = 10
-      Size = 2
-    end
-    object dstLoanClassgrp_name: TStringField
-      FieldName = 'grp_name'
-      Size = 25
-    end
-    object dstLoanClassloan_name: TStringField
-      FieldName = 'loan_name'
-      Size = 25
-    end
-    object dstLoanClasscomp_method: TStringField
-      FieldName = 'comp_method'
-      Size = 25
-    end
+  end
+  object dscClassCharges: TDataSource
+    DataSet = dstClassCharges
+    Left = 112
+    Top = 80
+  end
+  object dstClassCharges: TADODataSet
+    Tag = 1
+    Connection = dmApplication.acMain
+    CursorType = ctStatic
+    BeforeOpen = dstClassChargesBeforeOpen
+    AfterOpen = dstClassChargesAfterOpen
+    BeforePost = dstClassChargesBeforePost
+    AfterPost = dstClassChargesAfterPost
+    OnNewRecord = dstClassChargesNewRecord
+    CommandText = 'sp_get_loan_class_charges;1'
+    CommandType = cmdStoredProc
+    Parameters = <
+      item
+        Name = '@RETURN_VALUE'
+        DataType = ftInteger
+        Direction = pdReturnValue
+        Precision = 10
+        Value = 0
+      end
+      item
+        Name = '@class_id'
+        Attributes = [paNullable]
+        DataType = ftInteger
+        Precision = 10
+        Value = 0
+      end>
+    Left = 48
+    Top = 80
+  end
+  object dscChargeType: TDataSource
+    DataSet = dstChargeType
+    Left = 264
+    Top = 24
+  end
+  object dstChargeType: TADODataSet
+    Tag = 1
+    Connection = dmApplication.acMain
+    CursorType = ctStatic
+    LockType = ltReadOnly
+    CommandText = 'sp_dd_get_charge_type;1'
+    CommandType = cmdStoredProc
+    Parameters = <>
+    Left = 200
+    Top = 24
   end
 end

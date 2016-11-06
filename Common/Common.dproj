@@ -129,7 +129,7 @@
             <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\Base\BasePopup.pas">
-            <Form>frmBasePopup</Form>
+            <Form>frmBasePopup1</Form>
             <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="Branch.pas"/>

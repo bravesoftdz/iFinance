@@ -152,7 +152,7 @@
             <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\Base\BasePopup.pas">
-            <Form>frmBasePopup</Form>
+            <Form>frmBasePopup1</Form>
             <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="BanksSearch.pas">
@@ -172,11 +172,6 @@
         <DCCReference Include="Group.pas"/>
         <DCCReference Include="..\Base\BasePopupDetail.pas">
             <Form>frmBasePopupDetail</Form>
-            <FormType>dfm</FormType>
-        </DCCReference>
-        <DCCReference Include="Comaker.pas"/>
-        <DCCReference Include="ComakerSearch.pas">
-            <Form>frmComakerSearch</Form>
             <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\Base\BaseSearch.pas">

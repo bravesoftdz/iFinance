@@ -15,6 +15,7 @@ type
     FPhotoPath: string;
     FPhotoUtility: string;
     FControlDisabledColor: TColor;
+    FMaxComakeredLoans: integer;
   public
     property AppDate: TDate read FAppDate write FAppDate;
     property LocationCode: string read FLocationCode write FLocationCode;
@@ -23,6 +24,7 @@ type
     property PhotoPath: string read FPhotoPath write FPhotoPath;
     property PhotoUtility: string read FPhotoUtility write FPhotoUtility;
     property ControlDisabledColor: TColor read FControlDisabledColor write FControlDisabledColor;
+    property MaxComakeredLoans: integer read FMaxComakeredLoans write FMaxComakeredLoans;
 
     constructor Create;
     destructor Destroy; override;
@@ -43,6 +45,7 @@ begin
   begin
     FPhotoUtility := 'PhotoUtil.exe.';
     FControlDisabledColor := clWhite;
+    FMaxComakeredLoans := 3;
 
     FUser := TUser.Create;
 

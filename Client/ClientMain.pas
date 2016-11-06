@@ -8,7 +8,8 @@ uses
   Vcl.ExtCtrls, SaveIntf, RzLabel, RzPanel, RzTabs, Vcl.Mask, StatusIntf,
   RzEdit, RzDBEdit, JvLabel, JvExControls, JvGroupHeader, Vcl.DBCtrls, RzDBCmbo,
   Vcl.ComCtrls, RzDTP, RzDBDTP, RzButton, RzRadChk, RzDBChk, Data.DB, Vcl.Grids,
-  Vcl.DBGrids, RzDBGrid, RzBtnEdt, RzLaunch, ClientIntf, Vcl.Imaging.pngimage;
+  Vcl.DBGrids, RzDBGrid, RzBtnEdt, RzLaunch, ClientIntf, Vcl.Imaging.pngimage,
+  RzCmboBx;
 
 type
   TfrmClientMain = class(TfrmBaseDocked, ISave, IClient)
@@ -109,7 +110,6 @@ type
     PhotoLauncher: TRzLauncher;
     imgClient: TImage;
     bteBank: TRzButtonEdit;
-    bteOtherIncome: TRzButtonEdit;
     mmBranch: TRzMemo;
     RzDBNumericEdit1: TRzDBNumericEdit;
     RzDBNumericEdit2: TRzDBNumericEdit;
@@ -154,6 +154,36 @@ type
     JvLabel48: TJvLabel;
     RzDBLookupComboBox11: TRzDBLookupComboBox;
     imgPhoto: TImage;
+    JvGroupHeader10: TJvGroupHeader;
+    JvLabel49: TJvLabel;
+    JvLabel51: TJvLabel;
+    JvLabel53: TJvLabel;
+    JvLabel55: TJvLabel;
+    edPurpose: TRzDBEdit;
+    edDesiredTerm: TRzDBEdit;
+    JvGroupHeader11: TJvGroupHeader;
+    JvGroupHeader12: TJvGroupHeader;
+    JvLabel56: TJvLabel;
+    JvLabel57: TJvLabel;
+    JvGroupHeader13: TJvGroupHeader;
+    JvLabel61: TJvLabel;
+    grComakers: TRzDBGrid;
+    JvGroupHeader14: TJvGroupHeader;
+    JvLabel63: TJvLabel;
+    RzComboBox1: TRzComboBox;
+    RzDBEdit17: TRzDBEdit;
+    RzDBEdit21: TRzDBEdit;
+    RzDBEdit22: TRzDBEdit;
+    RzDBEdit23: TRzDBEdit;
+    RzDBEdit24: TRzDBEdit;
+    RzDBEdit25: TRzDBEdit;
+    RzDBEdit26: TRzDBEdit;
+    JvLabel52: TJvLabel;
+    RzDBEdit27: TRzDBEdit;
+    RzDBEdit28: TRzDBEdit;
+    RzDBEdit29: TRzDBEdit;
+    RzDBEdit30: TRzDBEdit;
+    RzDBMemo1: TRzDBMemo;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -388,8 +418,13 @@ begin
 
       if ModalResult = mrOK then
       begin
-        bteImmHead.Text := immHead.Name;
-        cln.ImmediateHead := immHead;
+        if Trim(immHead.Id) = Trim(cln.Id)  then
+          CallErrorBox('Immediate head cannot be the same as client.')
+        else
+        begin
+          bteImmHead.Text := immHead.Name;
+          cln.ImmediateHead := immHead;
+        end;
       end;
 
       Free;
@@ -419,9 +454,14 @@ begin
 
       if ModalResult = mrOK then
       begin
-        bteLandlord2.Text := llord.Name;
-        edLandLordContact2.Text := llord.Contact;
-        cln.LandlordProv := llord;
+        if Trim(llord.Id) <> Trim(cln.Id) then
+        begin
+          bteLandlord2.Text := llord.Name;
+          edLandLordContact2.Text := llord.Contact;
+          cln.LandlordProv := llord;
+        end
+        else
+          CallErrorBox('Landlord cannot be the same as client.');
       end;
 
       Free;
@@ -451,9 +491,14 @@ begin
 
       if ModalResult = mrOK then
       begin
-        bteLandlord.Text := llord.Name;
-        edLandLordContact.Text := llord.Contact;
-        cln.LandlordPres := llord;
+        if Trim(llord.Id) <> Trim(cln.Id) then
+        begin
+          bteLandlord.Text := llord.Name;
+          edLandLordContact.Text := llord.Contact;
+          cln.LandlordPres := llord;
+        end
+        else
+          CallErrorBox('Landlord cannot be the same as client.');
       end;
 
       Free;
@@ -844,12 +889,16 @@ end;
 procedure TfrmClientMain.urlTakePhotoClick(Sender: TObject);
 begin
   inherited;
-  // close photo utility
-  if not PhotoLauncher.Running then
-  begin
-    PhotoLauncher.Parameters := ifn.PhotoPath + ' ' + Trim(cln.Id);
-    PhotoLauncher.Launch;
-    Application.MainForm.Enabled := false;
+  try
+    if not PhotoLauncher.Running then
+    begin
+      PhotoLauncher.Parameters := ifn.PhotoPath + ' ' + Trim(cln.Id);
+      PhotoLauncher.Launch;
+      Application.MainForm.Enabled := false;
+    end;
+  except
+    on e: Exception do
+      CallErrorBox(e.Message);
   end;
 end;
 
@@ -955,7 +1004,7 @@ begin
     LOANS:
       begin
         OpenGridDataSources(pnlLoans);
-        OpenDropdownDataSources(tsLoansDetail);
+        OpenGridDataSources(tsLoansDetail);
       end;
   end;
 end;

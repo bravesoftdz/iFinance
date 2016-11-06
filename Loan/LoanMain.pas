@@ -16,12 +16,9 @@ type
     JvGroupHeader1: TJvGroupHeader;
     JvLabel1: TJvLabel;
     JvLabel7: TJvLabel;
-    JvLabel4: TJvLabel;
-    JvLabel5: TJvLabel;
     JvLabel6: TJvLabel;
     dteDateApplied: TRzDBDateTimeEdit;
     edAppAmount: TRzDBNumericEdit;
-    edDesiredTerm: TRzDBEdit;
     edPurpose: TRzDBEdit;
     bteClient: TRzButtonEdit;
     dbluLoanClass: TRzDBLookupComboBox;
@@ -29,18 +26,13 @@ type
     JvGroupHeader2: TJvGroupHeader;
     JvLabel8: TJvLabel;
     dteDateApproved: TRzDBDateTimeEdit;
-    JvLabel9: TJvLabel;
     JvLabel10: TJvLabel;
     edAppvAmount: TRzDBNumericEdit;
-    edAppvInterest: TRzDBEdit;
-    JvLabel11: TJvLabel;
-    edAppvTerm: TRzDBEdit;
     lblLoanId: TRzLabel;
     JvLabel12: TJvLabel;
     edInterest: TRzDBNumericEdit;
     JvGroupHeader3: TJvGroupHeader;
     JvLabel13: TJvLabel;
-    JvLabel14: TJvLabel;
     edRelAmount: TRzDBNumericEdit;
     dteDateReleased: TRzDBDateTimeEdit;
     cbxApproved: TRzCheckBox;
@@ -48,17 +40,19 @@ type
     cbxCancelled: TRzCheckBox;
     cbxDenied: TRzCheckBox;
     JvGroupHeader4: TJvGroupHeader;
-    JvLabel3: TJvLabel;
-    dbluAcctType: TRzDBLookupComboBox;
     btnAddComaker: TRzButton;
     btnRemoveComaker: TRzButton;
     grComakers: TRzDBGrid;
-    RzPanel1: TRzPanel;
-    RzPanel2: TRzPanel;
-    imgClose: TImage;
-    lblCaption: TRzLabel;
-    Image1: TImage;
+    pnlAlerts: TRzPanel;
+    imgAlert: TImage;
     mmAlerts: TRzMemo;
+    JvLabel15: TJvLabel;
+    lblComakersRequired: TJvLabel;
+    JvLabel16: TJvLabel;
+    dbluAppvMethod: TRzDBLookupComboBox;
+    edDesiredTerm: TRzDBNumericEdit;
+    edAppvInterest: TRzDBNumericEdit;
+    edAppvTerm: TRzDBNumericEdit;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure bteClientButtonClick(Sender: TObject);
@@ -68,11 +62,14 @@ type
     procedure cbxReleasedClick(Sender: TObject);
     procedure btnAddComakerClick(Sender: TObject);
     procedure btnRemoveComakerClick(Sender: TObject);
+    procedure grComakersDblClick(Sender: TObject);
   private
     { Private declarations }
     procedure ChangeControlState(const useState: boolean = true);
     procedure SetAction(const action: TLoanAction = laNone);
     procedure CallErrorBox(const error: string);
+    procedure DisplayAlerts;
+    procedure ChangeComakersControlState;
   public
     { Public declarations }
     procedure SetLoanId;
@@ -91,7 +88,7 @@ implementation
 
 uses
   LoanData, FormsUtil, LoanClient, ClientSearch, StatusIntf, DockIntf, IFinanceGlobal,
-  Comaker, ComakerSearch, DecisionBox;
+  Comaker, ComakerSearch, DecisionBox, ComakerDetail;
 
 procedure TfrmLoanMain.CallErrorBox(const error: string);
 var
@@ -104,12 +101,12 @@ end;
 procedure TfrmLoanMain.ChangeControlState(const useState: boolean);
 var
   i: integer;
-  tags: set of 0..7;
+  tags: set of 0..8;
 begin
   if useState then
   begin
     if ln.IsPending then
-      tags := [0,1,2,3,4]
+      tags := [1,2,3,4,8]
     else if ln.IsApproved then
       tags := [2,6]
     else if ln.IsReleased then
@@ -138,10 +135,13 @@ begin
       tags := [3];
   end;
 
-  // enable or disable controls
+  // set controls to read-only
   for i := 0 to pnlMain.ControlCount - 1 do
     if pnlMain.Controls[i].Tag <> -1 then
       pnlMain.Controls[i].Enabled := pnlMain.Controls[i].Tag in tags;
+
+  ChangeComakersControlState;
+  DisplayAlerts;
 end;
 
 procedure TfrmLoanMain.RefreshDropDownSources;
@@ -177,9 +177,6 @@ begin
             OpenDropdownDataSources(self.pnlMain);
 
             ChangeControlState(false);
-
-            ln.GetAlerts;
-            mmAlerts.Text := ln.Alerts;
         end;
       except
         on e: Exception do
@@ -199,9 +196,11 @@ begin
     CallErrorBox('Number of comakers has already been met. ' +
         'If a comaker has been mistakenly declared, remove the comaker and add again.')
   else
-  with TfrmComakerSearch.Create(nil) do
+  with TfrmComakerSearch.Create(self) do
   begin
     try
+      cm := TComaker.Create;
+
       ShowModal;
 
       if ModalResult = mrOK then
@@ -210,24 +209,34 @@ begin
           CallErrorBox('Client cannot be declared as a comaker.')
         else if ln.ComakerExists(cm) then
           CallErrorBox('Comaker already exists.')
+        else if cm.ComakeredLoans >= ifn.MaxComakeredLoans then
+          CallErrorBox('Comaker has reached the maximum allowable loans.')
         else
         begin
+          with dmLoan.dstLoanComaker do
+          begin
+              Append;
+              FieldByName('entity_id').AsString := cm.Id;
+              Post;
+          end;
+
           ln.AddComaker(cm);
-          cm.Free;
         end;
       end;
 
       Free;
+
+      cm.Free;
     except
       on e: Exception do
-        ShowMessage(e.Message);
+        CallErrorBox(e.Message);
     end;
   end;
 end;
 
 procedure TfrmLoanMain.btnRemoveComakerClick(Sender: TObject);
 const
-  CONF = 'Are you sure you want to delete the selected comaker?';
+  CONF = 'Are you sure you want to remove the selected comaker?';
 var
   id: string;
 begin
@@ -353,9 +362,22 @@ begin
   end;
 end;
 
+procedure TfrmLoanMain.grComakersDblClick(Sender: TObject);
+begin
+  with TfrmComakerDetail.Create(self) do
+  begin
+    cm := TComaker.Create;
+    cm.Id := grComakers.DataSource.DataSet.FieldByName('entity_id').AsString;
+    cm.Retrieve;
+    ShowModal;
+    Free;
+    cm.Free;
+  end;
+end;
+
 procedure TfrmLoanMain.SetLoanId;
 begin
- lblLoanId.Caption := 'LOAN ID: ' + ln.Id;
+ lblLoanId.Caption := 'LOAN ID: ' + ln.Id + ' ' + ln.StatusName;
 end;
 
 procedure TfrmLoanMain.SetUnboundControls;
@@ -372,18 +394,15 @@ function TfrmLoanMain.Save: Boolean;
 var
   error: string;
 begin
-  Result := false;
   try
     error := '';
 
-    if ln.Action = laCreating then
+    if (ln.Action = laCreating) or (ln.IsPending) then
     begin
       if not Assigned(ln.Client) then
         error := 'No client selected.'
       else if dbluLoanClass.Text = '' then
         error := 'Please select a loan class.'
-      else if dbluAcctType.Text = '' then
-        error := 'Please select an account type.'
       else if dteDateApplied.Text = '' then
         error := 'Please enter date applied.'
       else if edAppAmount.Value <= 0 then
@@ -391,9 +410,14 @@ begin
       else if edDesiredTerm.Text = '' then
         error := 'Invalid value for desired term.'
       else if Trim(edPurpose.Text) = '' then
-        error := 'Please enter a purpose.';
-    end
-    else if ln.Action = laApproving then
+        error := 'Please enter a purpose.'
+      else if edAppAmount.Value > ln.LoanClass.MaxLoan then
+        error := 'Amount applied exceeds the maximum loanable amount for the selected loan class.'
+      else if edDesiredTerm.Value > ln.LoanClass.Term then
+        error := 'Term applied exceeds the maximum allowed term for the selected loan class.';
+    end;
+
+    if ln.Action = laApproving then
     begin
       if dteDateApproved.Text = '' then
         error := 'Please enter date applied.'
@@ -403,6 +427,10 @@ begin
         error := 'Please enter interest.'
       else if edAppvTerm.Text = '' then
         error := 'Please enter term.'
+      else if edAppvAmount.Value > edAppAmount.Value then
+        error := 'Approved amount exceeds the amount entered in the application.'
+      else if edAppvTerm.Value > edDesiredTerm.Value then
+        error := 'Approved term exceeds the term entered in the application.'
       else if ln.ComakerCount < ln.LoanClass.Comakers then
         error := 'Number of required comakers has not been met.'
       else if ln.ComakerCount > ln.LoanClass.Comakers then
@@ -413,7 +441,9 @@ begin
       if dteDateReleased.Text = '' then
         error := 'Please enter date released.'
       else if edRelAmount.Value <= 0 then
-        error := 'Invalid value for amount.';
+        error := 'Invalid value for amount.'
+      else if edRelAmount.Value > edAppvAmount.Value then
+        error := 'Amount released exceeds the approved amount.';     
     end;
 
     Result := error = '';
@@ -431,6 +461,47 @@ begin
 
   end;
 
+end;
+
+procedure TfrmLoanMain.DisplayAlerts;
+var
+  i, c: integer;
+begin
+  if Assigned(ln.Client) then
+  begin
+    ln.GetAlerts;
+
+    if ln.AlertsCount > 0 then
+    begin
+       c := ln.AlertsCount - 1;
+       mmAlerts.Clear;
+      for i := 0 to c do
+        mmAlerts.Lines.Add(IntToStr(i + 1) + '. ' + ln.Alerts[i] + #13#10);
+    end;
+
+    pnlAlerts.Visible := ((ln.IsPending) or (ln.IsApproved) or ((ln.Action = laCreating) and (Assigned(ln.Client))))
+          and (ln.AlertsCount > 0);
+  end;
+end;
+
+procedure TfrmLoanMain.ChangeComakersControlState;
+begin
+  with lblComakersRequired, ln.LoanClass do
+  begin
+    Visible := not (ln.Action = laCreating);
+
+    if Visible then
+      if ComakersNotRequired then
+        Caption := 'No comakers required.'
+      else
+      begin
+        if Comakers = 1 then
+          Caption := '1 comaker required.'
+        else
+          Caption := IntToStr(Comakers) + ' comakers required.';
+      end;
+
+  end;
 end;
 
 end.

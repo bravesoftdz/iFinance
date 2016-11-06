@@ -11,6 +11,7 @@ type
   TfrmErrorBox = class(TfrmBasePopup)
     btnClose: TRzButton;
     lblMessage: TJvLabel;
+    Image1: TImage;
   private
     { Private declarations }
   public

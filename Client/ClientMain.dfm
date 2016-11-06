@@ -39,9 +39,9 @@ inherited frmClientMain: TfrmClientMain
     Width = 923
     Height = 492
     Hint = ''
-    ActivePage = tsClientInfo
+    ActivePage = tsLoansHistory
     Align = alClient
-    TabIndex = 0
+    TabIndex = 3
     TabOrder = 1
     TabOrientation = toBottom
     TabStyle = tsRoundCorners
@@ -205,7 +205,7 @@ inherited frmClientMain: TfrmClientMain
         Transparent = True
       end
       object JvGroupHeader4: TJvGroupHeader
-        Left = 347
+        Left = 336
         Top = 20
         Width = 278
         Height = 12
@@ -219,7 +219,7 @@ inherited frmClientMain: TfrmClientMain
         Transparent = True
       end
       object JvLabel9: TJvLabel
-        Left = 363
+        Left = 352
         Top = 40
         Width = 32
         Height = 13
@@ -227,7 +227,7 @@ inherited frmClientMain: TfrmClientMain
         Transparent = True
       end
       object JvLabel10: TJvLabel
-        Left = 363
+        Left = 352
         Top = 64
         Width = 48
         Height = 13
@@ -235,7 +235,7 @@ inherited frmClientMain: TfrmClientMain
         Transparent = True
       end
       object JvLabel11: TJvLabel
-        Left = 363
+        Left = 352
         Top = 88
         Width = 61
         Height = 13
@@ -243,7 +243,7 @@ inherited frmClientMain: TfrmClientMain
         Transparent = True
       end
       object JvLabel17: TJvLabel
-        Left = 363
+        Left = 352
         Top = 112
         Width = 57
         Height = 13
@@ -251,7 +251,7 @@ inherited frmClientMain: TfrmClientMain
         Transparent = True
       end
       object JvLabel18: TJvLabel
-        Left = 363
+        Left = 352
         Top = 136
         Width = 43
         Height = 13
@@ -259,7 +259,7 @@ inherited frmClientMain: TfrmClientMain
         Transparent = True
       end
       object JvLabel19: TJvLabel
-        Left = 363
+        Left = 352
         Top = 160
         Width = 40
         Height = 13
@@ -305,9 +305,9 @@ inherited frmClientMain: TfrmClientMain
         Transparent = True
       end
       object JvGroupHeader6: TJvGroupHeader
-        Left = 347
+        Left = 336
         Top = 200
-        Width = 502
+        Width = 278
         Height = 12
         Caption = 'Employment Info'
         Font.Charset = DEFAULT_CHARSET
@@ -319,7 +319,7 @@ inherited frmClientMain: TfrmClientMain
         Transparent = True
       end
       object JvLabel23: TJvLabel
-        Left = 363
+        Left = 352
         Top = 220
         Width = 46
         Height = 13
@@ -327,7 +327,7 @@ inherited frmClientMain: TfrmClientMain
         Transparent = True
       end
       object JvLabel24: TJvLabel
-        Left = 363
+        Left = 352
         Top = 244
         Width = 41
         Height = 13
@@ -335,7 +335,7 @@ inherited frmClientMain: TfrmClientMain
         Transparent = True
       end
       object JvLabel25: TJvLabel
-        Left = 363
+        Left = 352
         Top = 286
         Width = 59
         Height = 13
@@ -343,7 +343,7 @@ inherited frmClientMain: TfrmClientMain
         Transparent = True
       end
       object JvLabel26: TJvLabel
-        Left = 363
+        Left = 352
         Top = 310
         Width = 58
         Height = 13
@@ -351,7 +351,7 @@ inherited frmClientMain: TfrmClientMain
         Transparent = True
       end
       object JvLabel27: TJvLabel
-        Left = 363
+        Left = 352
         Top = 334
         Width = 53
         Height = 13
@@ -359,7 +359,7 @@ inherited frmClientMain: TfrmClientMain
         Transparent = True
       end
       object JvLabel28: TJvLabel
-        Left = 363
+        Left = 352
         Top = 358
         Width = 67
         Height = 13
@@ -367,7 +367,7 @@ inherited frmClientMain: TfrmClientMain
         Transparent = True
       end
       object JvLabel29: TJvLabel
-        Left = 363
+        Left = 352
         Top = 382
         Width = 65
         Height = 13
@@ -375,7 +375,7 @@ inherited frmClientMain: TfrmClientMain
         Transparent = True
       end
       object JvLabel30: TJvLabel
-        Left = 363
+        Left = 352
         Top = 406
         Width = 40
         Height = 13
@@ -383,8 +383,8 @@ inherited frmClientMain: TfrmClientMain
         Transparent = True
       end
       object JvLabel31: TJvLabel
-        Left = 363
-        Top = 430
+        Left = 643
+        Top = 358
         Width = 66
         Height = 13
         Caption = 'Other income'
@@ -423,8 +423,8 @@ inherited frmClientMain: TfrmClientMain
         Transparent = True
       end
       object urlTakePhoto: TRzURLLabel
-        Left = 683
-        Top = 181
+        Left = 767
+        Top = 178
         Width = 82
         Height = 13
         Caption = 'Take client photo'
@@ -452,8 +452,8 @@ inherited frmClientMain: TfrmClientMain
         Transparent = True
       end
       object imgPhoto: TImage
-        Left = 665
-        Top = 181
+        Left = 749
+        Top = 178
         Width = 16
         Height = 16
         DragCursor = crHandPoint
@@ -488,6 +488,20 @@ inherited frmClientMain: TfrmClientMain
           8093053E07A123EC04DB8718FC2FAE09EAA979996434930C9032F8094DFA7274
           A32C12AB0000000049454E44AE426082}
       end
+      object JvGroupHeader10: TJvGroupHeader
+        Left = 627
+        Top = 200
+        Width = 222
+        Height = 12
+        Caption = 'Bank Account Info'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = 9134911
+        Font.Height = -11
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ParentFont = False
+        Transparent = True
+      end
       object edLastname: TRzDBEdit
         Left = 114
         Top = 34
@@ -498,6 +512,7 @@ inherited frmClientMain: TfrmClientMain
         CharCase = ecUpperCase
         Ctl3D = True
         ParentCtl3D = False
+        TabOnEnter = True
         TabOrder = 0
       end
       object edFirstname: TRzDBEdit
@@ -508,6 +523,7 @@ inherited frmClientMain: TfrmClientMain
         DataSource = dmClient.dscPersonalInfo
         DataField = 'firstname'
         CharCase = ecUpperCase
+        TabOnEnter = True
         TabOrder = 1
       end
       object edMiddlename: TRzDBEdit
@@ -518,6 +534,7 @@ inherited frmClientMain: TfrmClientMain
         DataSource = dmClient.dscPersonalInfo
         DataField = 'middlename'
         CharCase = ecUpperCase
+        TabOnEnter = True
         TabOrder = 2
       end
       object RzDBLookupComboBox1: TRzDBLookupComboBox
@@ -529,11 +546,12 @@ inherited frmClientMain: TfrmClientMain
         DataSource = dmClient.dscPersonalInfo
         KeyField = 'value'
         ListField = 'display'
-        ListSource = dmClient.dscCivilStatus
+        ListSource = dmAux.dscCivilStatus
         TabOrder = 5
         AllowNull = True
         FrameColor = clBlack
         FrameHotColor = clBlack
+        TabOnEnter = True
       end
       object RzDBLookupComboBox2: TRzDBLookupComboBox
         Left = 255
@@ -544,23 +562,25 @@ inherited frmClientMain: TfrmClientMain
         DataSource = dmClient.dscPersonalInfo
         KeyField = 'value'
         ListField = 'display'
-        ListSource = dmClient.dscGender
+        ListSource = dmAux.dscGender
         TabOrder = 6
+        TabOnEnter = True
       end
       object RzGroupBox1: TRzGroupBox
         Left = 664
         Top = 18
         Width = 185
-        Height = 161
+        Height = 157
         TabOrder = 18
         object imgClient: TImage
           Left = 1
           Top = 14
           Width = 183
-          Height = 146
+          Height = 142
           Align = alClient
           Proportional = True
           ExplicitTop = 13
+          ExplicitHeight = 146
         end
       end
       object edAge: TRzEdit
@@ -585,6 +605,7 @@ inherited frmClientMain: TfrmClientMain
         ParentShowHint = False
         ReadOnly = True
         ShowHint = True
+        TabOnEnter = True
         TabOrder = 7
         AllowKeyEdit = False
         AltBtnHint = 'Clear referee'
@@ -608,6 +629,7 @@ inherited frmClientMain: TfrmClientMain
         DataField = 'st'
         Ctl3D = True
         ParentCtl3D = False
+        TabOnEnter = True
         TabOrder = 12
       end
       object RzDBEdit5: TRzDBEdit
@@ -619,6 +641,7 @@ inherited frmClientMain: TfrmClientMain
         DataField = 'brgy'
         Ctl3D = True
         ParentCtl3D = False
+        TabOnEnter = True
         TabOrder = 13
       end
       object RzDBLookupComboBox3: TRzDBLookupComboBox
@@ -635,6 +658,7 @@ inherited frmClientMain: TfrmClientMain
         AllowNull = True
         FrameColor = clBlack
         FrameHotColor = clBlack
+        TabOnEnter = True
       end
       object RzDBLookupComboBox5: TRzDBLookupComboBox
         Left = 114
@@ -650,6 +674,7 @@ inherited frmClientMain: TfrmClientMain
         AllowNull = True
         FrameColor = clBlack
         FrameHotColor = clBlack
+        TabOnEnter = True
       end
       object bteLandlord: TRzButtonEdit
         Tag = 1
@@ -662,6 +687,7 @@ inherited frmClientMain: TfrmClientMain
         ParentShowHint = False
         ReadOnly = True
         ShowHint = True
+        TabOnEnter = True
         TabOrder = 16
         AllowKeyEdit = False
         AltBtnHint = 'Clear landlord'
@@ -685,10 +711,11 @@ inherited frmClientMain: TfrmClientMain
         Text = ''
         Color = clInfoBk
         ReadOnly = True
+        TabOnEnter = True
         TabOrder = 17
       end
       object RzDBEdit6: TRzDBEdit
-        Left = 438
+        Left = 427
         Top = 34
         Width = 187
         Height = 21
@@ -696,10 +723,11 @@ inherited frmClientMain: TfrmClientMain
         DataField = 'st'
         Ctl3D = True
         ParentCtl3D = False
+        TabOnEnter = True
         TabOrder = 19
       end
       object RzDBEdit7: TRzDBEdit
-        Left = 438
+        Left = 427
         Top = 58
         Width = 187
         Height = 21
@@ -707,10 +735,11 @@ inherited frmClientMain: TfrmClientMain
         DataField = 'brgy'
         Ctl3D = True
         ParentCtl3D = False
+        TabOnEnter = True
         TabOrder = 20
       end
       object RzDBLookupComboBox4: TRzDBLookupComboBox
-        Left = 438
+        Left = 427
         Top = 82
         Width = 187
         Height = 21
@@ -723,9 +752,10 @@ inherited frmClientMain: TfrmClientMain
         AllowNull = True
         FrameColor = clBlack
         FrameHotColor = clBlack
+        TabOnEnter = True
       end
       object RzDBLookupComboBox6: TRzDBLookupComboBox
-        Left = 438
+        Left = 427
         Top = 106
         Width = 187
         Height = 21
@@ -738,10 +768,11 @@ inherited frmClientMain: TfrmClientMain
         AllowNull = True
         FrameColor = clBlack
         FrameHotColor = clBlack
+        TabOnEnter = True
       end
       object bteLandlord2: TRzButtonEdit
         Tag = 1
-        Left = 438
+        Left = 427
         Top = 130
         Width = 187
         Height = 21
@@ -750,6 +781,7 @@ inherited frmClientMain: TfrmClientMain
         ParentShowHint = False
         ReadOnly = True
         ShowHint = True
+        TabOnEnter = True
         TabOrder = 23
         AllowKeyEdit = False
         AltBtnHint = 'Clear landlord'
@@ -766,13 +798,14 @@ inherited frmClientMain: TfrmClientMain
       end
       object edLandlordContact2: TRzEdit
         Tag = 1
-        Left = 438
+        Left = 427
         Top = 154
         Width = 187
         Height = 21
         Text = ''
         Color = clInfoBk
         ReadOnly = True
+        TabOnEnter = True
         TabOrder = 24
       end
       object RzDBEdit8: TRzDBEdit
@@ -784,6 +817,7 @@ inherited frmClientMain: TfrmClientMain
         DataField = 'fb_acct'
         Ctl3D = True
         ParentCtl3D = False
+        TabOnEnter = True
         TabOrder = 9
       end
       object RzDBEdit9: TRzDBEdit
@@ -795,6 +829,7 @@ inherited frmClientMain: TfrmClientMain
         DataField = 'email_add'
         Ctl3D = True
         ParentCtl3D = False
+        TabOnEnter = True
         TabOrder = 8
       end
       object RzDBEdit11: TRzDBEdit
@@ -806,6 +841,7 @@ inherited frmClientMain: TfrmClientMain
         DataField = 'mobile_no'
         Ctl3D = True
         ParentCtl3D = False
+        TabOnEnter = True
         TabOrder = 10
       end
       object RzDBEdit10: TRzDBEdit
@@ -817,11 +853,12 @@ inherited frmClientMain: TfrmClientMain
         DataField = 'home_phone'
         Ctl3D = True
         ParentCtl3D = False
+        TabOnEnter = True
         TabOrder = 11
       end
       object bteEmployer: TRzButtonEdit
         Tag = 1
-        Left = 438
+        Left = 427
         Top = 214
         Width = 187
         Height = 21
@@ -830,6 +867,7 @@ inherited frmClientMain: TfrmClientMain
         ParentShowHint = False
         ReadOnly = True
         ShowHint = True
+        TabOnEnter = True
         TabOrder = 25
         AllowKeyEdit = False
         AltBtnHint = 'Clear employer'
@@ -845,7 +883,7 @@ inherited frmClientMain: TfrmClientMain
         OnButtonClick = bteEmployerButtonClick
       end
       object RzDBLookupComboBox7: TRzDBLookupComboBox
-        Left = 438
+        Left = 427
         Top = 280
         Width = 187
         Height = 21
@@ -858,20 +896,22 @@ inherited frmClientMain: TfrmClientMain
         AllowNull = True
         FrameColor = clBlack
         FrameHotColor = clBlack
+        TabOnEnter = True
       end
       object mmEmployerAddress: TRzMemo
         Tag = 1
-        Left = 438
+        Left = 427
         Top = 238
         Width = 187
         Height = 39
         Color = clInfoBk
         ReadOnly = True
         TabOrder = 26
+        TabOnEnter = True
       end
       object bteImmHead: TRzButtonEdit
         Tag = 1
-        Left = 438
+        Left = 427
         Top = 328
         Width = 187
         Height = 21
@@ -880,6 +920,7 @@ inherited frmClientMain: TfrmClientMain
         ParentShowHint = False
         ReadOnly = True
         ShowHint = True
+        TabOnEnter = True
         TabOrder = 29
         AltBtnHint = 'Clear immediate head'
         ButtonHint = 'Find immediate head'
@@ -894,7 +935,7 @@ inherited frmClientMain: TfrmClientMain
         OnButtonClick = bteImmHeadButtonClick
       end
       object RzDBEdit12: TRzDBEdit
-        Left = 438
+        Left = 427
         Top = 352
         Width = 59
         Height = 21
@@ -902,6 +943,7 @@ inherited frmClientMain: TfrmClientMain
         DataField = 'serv_len'
         Ctl3D = True
         ParentCtl3D = False
+        TabOnEnter = True
         TabOrder = 30
       end
       object RzDBEdit15: TRzDBEdit
@@ -913,7 +955,8 @@ inherited frmClientMain: TfrmClientMain
         DataField = 'acct_no'
         Ctl3D = True
         ParentCtl3D = False
-        TabOrder = 36
+        TabOnEnter = True
+        TabOrder = 35
       end
       object RzDBEdit16: TRzDBEdit
         Left = 694
@@ -924,10 +967,11 @@ inherited frmClientMain: TfrmClientMain
         DataField = 'card_no'
         Ctl3D = True
         ParentCtl3D = False
-        TabOrder = 37
+        TabOnEnter = True
+        TabOrder = 36
       end
       object RzDBLookupComboBox8: TRzDBLookupComboBox
-        Left = 438
+        Left = 427
         Top = 304
         Width = 187
         Height = 21
@@ -940,6 +984,7 @@ inherited frmClientMain: TfrmClientMain
         AllowNull = True
         FrameColor = clBlack
         FrameHotColor = clBlack
+        TabOnEnter = True
       end
       object bteBank: TRzButtonEdit
         Tag = 1
@@ -952,7 +997,8 @@ inherited frmClientMain: TfrmClientMain
         ParentShowHint = False
         ReadOnly = True
         ShowHint = True
-        TabOrder = 34
+        TabOnEnter = True
+        TabOrder = 33
         AllowKeyEdit = False
         AltBtnHint = 'Clear bank'
         ButtonHint = 'Find bank'
@@ -966,31 +1012,6 @@ inherited frmClientMain: TfrmClientMain
         OnAltBtnClick = bteBankAltBtnClick
         OnButtonClick = bteBankButtonClick
       end
-      object bteOtherIncome: TRzButtonEdit
-        Tag = 1
-        Left = 438
-        Top = 424
-        Width = 187
-        Height = 21
-        Text = ''
-        Color = clInfoBk
-        ParentShowHint = False
-        ReadOnly = True
-        ShowHint = True
-        TabOrder = 33
-        AllowKeyEdit = False
-        AltBtnHint = 'Clear other income'
-        ButtonHint = 'Find other income'
-        AltBtnKind = bkReject
-        ButtonKind = bkFind
-        AltBtnVisible = True
-        AltBtnWidth = 15
-        ButtonWidth = 15
-        FlatButtons = True
-        HideButtonsOnReadOnly = False
-        OnAltBtnClick = bteEmployerAltBtnClick
-        OnButtonClick = bteEmployerButtonClick
-      end
       object mmBranch: TRzMemo
         Tag = 1
         Left = 694
@@ -999,28 +1020,33 @@ inherited frmClientMain: TfrmClientMain
         Height = 39
         Color = clInfoBk
         ReadOnly = True
-        TabOrder = 35
+        TabOrder = 34
+        TabOnEnter = True
       end
       object RzDBNumericEdit1: TRzDBNumericEdit
-        Left = 438
+        Left = 427
         Top = 376
         Width = 187
         Height = 21
         DataSource = dmClient.dscEmplInfo
         DataField = 'gross_pay'
         Alignment = taLeftJustify
+        TabOnEnter = True
         TabOrder = 31
+        IntegersOnly = False
         DisplayFormat = '###,##0.00'
       end
       object RzDBNumericEdit2: TRzDBNumericEdit
-        Left = 438
+        Left = 427
         Top = 400
         Width = 187
         Height = 21
         DataSource = dmClient.dscEmplInfo
         DataField = 'net_pay'
         Alignment = taLeftJustify
+        TabOnEnter = True
         TabOrder = 32
+        IntegersOnly = False
         DisplayFormat = '###,##0.00'
       end
       object dteBirthdate: TRzDBDateTimeEdit
@@ -1030,9 +1056,21 @@ inherited frmClientMain: TfrmClientMain
         Height = 21
         DataSource = dmClient.dscPersonalInfo
         DataField = 'birth_date'
+        TabOnEnter = True
         TabOrder = 3
         OnChange = dteBirthdateChange
         EditType = etDate
+        Format = 'mm/dd/yyyy'
+      end
+      object RzDBMemo1: TRzDBMemo
+        Left = 643
+        Top = 376
+        Width = 207
+        Height = 45
+        DataField = 'oth_income'
+        DataSource = dmClient.dscPersonalInfo
+        TabOrder = 37
+        TabOnEnter = True
       end
     end
     object tsReferences: TRzTabSheet
@@ -1267,6 +1305,7 @@ inherited frmClientMain: TfrmClientMain
               AllowNull = True
               FrameColor = clBlack
               FrameHotColor = clBlack
+              TabOnEnter = True
             end
             object RzDBEdit1: TRzDBEdit
               Left = 114
@@ -1317,6 +1356,7 @@ inherited frmClientMain: TfrmClientMain
               ValueChecked = '1'
               ValueUnchecked = '0'
               Caption = 'Dependent'
+              TabOnEnter = True
               TabOrder = 4
             end
             object RzDBCheckBox2: TRzDBCheckBox
@@ -1330,6 +1370,7 @@ inherited frmClientMain: TfrmClientMain
               ValueChecked = '1'
               ValueUnchecked = '0'
               Caption = 'Student'
+              TabOnEnter = True
               TabOrder = 5
             end
             object RzDBLookupComboBox10: TRzDBLookupComboBox
@@ -1347,6 +1388,7 @@ inherited frmClientMain: TfrmClientMain
               AllowNull = True
               FrameColor = clBlack
               FrameHotColor = clBlack
+              TabOnEnter = True
             end
             object RzDBEdit13: TRzDBEdit
               Tag = 1
@@ -1358,6 +1400,7 @@ inherited frmClientMain: TfrmClientMain
               DataField = 'brgy'
               Ctl3D = True
               ParentCtl3D = False
+              TabOnEnter = True
               TabOrder = 10
             end
             object RzDBEdit14: TRzDBEdit
@@ -1370,6 +1413,7 @@ inherited frmClientMain: TfrmClientMain
               DataField = 'st'
               Ctl3D = True
               ParentCtl3D = False
+              TabOnEnter = True
               TabOrder = 9
             end
             object RzDBEdit19: TRzDBEdit
@@ -1382,6 +1426,7 @@ inherited frmClientMain: TfrmClientMain
               DataField = 'home_phone'
               Ctl3D = True
               ParentCtl3D = False
+              TabOnEnter = True
               TabOrder = 7
             end
             object RzDBEdit20: TRzDBEdit
@@ -1394,6 +1439,7 @@ inherited frmClientMain: TfrmClientMain
               DataField = 'mobile_no'
               Ctl3D = True
               ParentCtl3D = False
+              TabOnEnter = True
               TabOrder = 8
             end
             object RzDBLookupComboBox11: TRzDBLookupComboBox
@@ -1411,6 +1457,7 @@ inherited frmClientMain: TfrmClientMain
               AllowNull = True
               FrameColor = clBlack
               FrameHotColor = clBlack
+              TabOnEnter = True
             end
           end
         end
@@ -1570,6 +1617,7 @@ inherited frmClientMain: TfrmClientMain
               DataSource = dmClient.dscIdentInfo
               DataField = 'ident_no'
               CharCase = ecUpperCase
+              TabOnEnter = True
               TabOrder = 1
             end
             object cmbIdType: TRzDBLookupComboBox
@@ -1587,6 +1635,7 @@ inherited frmClientMain: TfrmClientMain
               AllowNull = True
               FrameColor = clBlack
               FrameHotColor = clBlack
+              TabOnEnter = True
             end
             object chbNoExpiry: TRzDBCheckBox
               Left = 223
@@ -1608,8 +1657,10 @@ inherited frmClientMain: TfrmClientMain
               Height = 21
               DataSource = dmClient.dscIdentInfo
               DataField = 'exp_date'
+              TabOnEnter = True
               TabOrder = 2
               EditType = etDate
+              Format = 'mm/dd/yyyy'
             end
           end
         end
@@ -1660,12 +1711,21 @@ inherited frmClientMain: TfrmClientMain
         DesignSize = (
           921
           468)
+        object JvLabel63: TJvLabel
+          Tag = -1
+          Left = 7
+          Top = 13
+          Width = 33
+          Height = 13
+          Caption = 'Status'
+          Transparent = True
+        end
         object grLoans: TRzDBGrid
           Left = 6
-          Top = 5
-          Width = 909
-          Height = 228
-          Align = alTop
+          Top = 32
+          Width = 549
+          Height = 430
+          Anchors = [akLeft, akTop, akBottom]
           DataSource = dmClient.dscLoans
           Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
           TabOrder = 0
@@ -1693,47 +1753,17 @@ inherited frmClientMain: TfrmClientMain
             end
             item
               Expanded = False
-              FieldName = 'date_appl_f'
-              Title.Caption = 'Date applied'
-              Width = 80
-              Visible = True
-            end
-            item
-              Alignment = taRightJustify
-              Expanded = False
-              FieldName = 'amt_appl_f'
-              Title.Caption = 'Amt. applied'
-              Width = 80
-              Visible = True
-            end
-            item
-              Expanded = False
-              FieldName = 'date_appv_f'
-              Title.Caption = 'Date approved'
-              Width = 80
-              Visible = True
-            end
-            item
-              Alignment = taRightJustify
-              Expanded = False
-              FieldName = 'amt_appv_f'
-              Title.Caption = 'Amt. approved'
-              Width = 80
-              Visible = True
-            end
-            item
-              Expanded = False
               FieldName = 'status_name'
               Title.Caption = 'Status'
-              Width = 75
+              Width = 80
               Visible = True
             end>
         end
         object RzPageControl2: TRzPageControl
-          Left = 6
-          Top = 239
-          Width = 911
-          Height = 224
+          Left = 560
+          Top = 7
+          Width = 357
+          Height = 457
           Hint = ''
           ActivePage = tsLoansDetail
           Anchors = [akLeft, akTop, akRight, akBottom]
@@ -1744,7 +1774,367 @@ inherited frmClientMain: TfrmClientMain
           object tsLoansDetail: TRzTabSheet
             Color = 15263976
             Caption = 'Loan details'
+            object JvLabel49: TJvLabel
+              Tag = -1
+              Left = 35
+              Top = 40
+              Width = 51
+              Height = 13
+              Caption = 'Loan class'
+              Transparent = True
+            end
+            object JvLabel51: TJvLabel
+              Tag = -1
+              Left = 35
+              Top = 64
+              Width = 65
+              Height = 13
+              Caption = 'Date/amount'
+              Transparent = True
+            end
+            object JvLabel53: TJvLabel
+              Tag = -1
+              Left = 35
+              Top = 88
+              Width = 63
+              Height = 13
+              Caption = 'Int(%)/Term'
+              Transparent = True
+            end
+            object JvLabel55: TJvLabel
+              Tag = -1
+              Left = 35
+              Top = 112
+              Width = 41
+              Height = 13
+              Caption = 'Purpose'
+              Transparent = True
+            end
+            object JvGroupHeader11: TJvGroupHeader
+              Tag = -1
+              Left = 19
+              Top = 20
+              Width = 262
+              Height = 12
+              Caption = 'Application details'
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = 9134911
+              Font.Height = -11
+              Font.Name = 'Tahoma'
+              Font.Style = []
+              ParentFont = False
+              Transparent = True
+            end
+            object JvGroupHeader12: TJvGroupHeader
+              Tag = -1
+              Left = 19
+              Top = 134
+              Width = 262
+              Height = 12
+              Caption = 'Approval details'
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = 9134911
+              Font.Height = -11
+              Font.Name = 'Tahoma'
+              Font.Style = []
+              ParentFont = False
+              Transparent = True
+            end
+            object JvLabel56: TJvLabel
+              Tag = -1
+              Left = 35
+              Top = 154
+              Width = 65
+              Height = 13
+              Caption = 'Date/amount'
+              Transparent = True
+            end
+            object JvLabel57: TJvLabel
+              Tag = -1
+              Left = 35
+              Top = 178
+              Width = 38
+              Height = 13
+              Caption = 'Method'
+              Transparent = True
+            end
+            object JvGroupHeader13: TJvGroupHeader
+              Tag = -1
+              Left = 19
+              Top = 224
+              Width = 262
+              Height = 12
+              Caption = 'Released'
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = 9134911
+              Font.Height = -11
+              Font.Name = 'Tahoma'
+              Font.Style = []
+              ParentFont = False
+              Transparent = True
+            end
+            object JvLabel61: TJvLabel
+              Tag = -1
+              Left = 35
+              Top = 242
+              Width = 65
+              Height = 13
+              Caption = 'Date/amount'
+              Transparent = True
+            end
+            object JvGroupHeader14: TJvGroupHeader
+              Tag = -1
+              Left = 19
+              Top = 264
+              Width = 262
+              Height = 12
+              Caption = 'Comakers'
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = 9134911
+              Font.Height = -11
+              Font.Name = 'Tahoma'
+              Font.Style = []
+              ParentFont = False
+              Transparent = True
+            end
+            object JvLabel52: TJvLabel
+              Tag = -1
+              Left = 35
+              Top = 202
+              Width = 63
+              Height = 13
+              Caption = 'Int(%)/Term'
+              Transparent = True
+            end
+            object edPurpose: TRzDBEdit
+              Tag = 1
+              Left = 114
+              Top = 106
+              Width = 167
+              Height = 21
+              DataSource = dmClient.dscLoans
+              DataField = 'purpose'
+              ReadOnly = True
+              CharCase = ecUpperCase
+              Color = clInfoBk
+              DisabledColor = clWhite
+              TabOnEnter = True
+              TabOrder = 0
+            end
+            object edDesiredTerm: TRzDBEdit
+              Tag = 1
+              Left = 198
+              Top = 82
+              Width = 83
+              Height = 21
+              DataSource = dmClient.dscLoans
+              DataField = 'des_term'
+              ReadOnly = True
+              CharCase = ecUpperCase
+              Color = clInfoBk
+              DisabledColor = clWhite
+              TabOnEnter = True
+              TabOrder = 1
+            end
+            object grComakers: TRzDBGrid
+              Tag = -1
+              Left = 35
+              Top = 278
+              Width = 246
+              Height = 63
+              Color = clMenu
+              DataSource = dmClient.dscComakers
+              Options = [dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
+              ReadOnly = True
+              TabOrder = 2
+              TitleFont.Charset = DEFAULT_CHARSET
+              TitleFont.Color = clWindowText
+              TitleFont.Height = -11
+              TitleFont.Name = 'Tahoma'
+              TitleFont.Style = []
+              AltRowShadingColor = 15854564
+              Columns = <
+                item
+                  Expanded = False
+                  FieldName = 'name'
+                  Title.Caption = 'Name'
+                  Width = 200
+                  Visible = True
+                end>
+            end
+            object RzDBEdit17: TRzDBEdit
+              Tag = 1
+              Left = 114
+              Top = 34
+              Width = 167
+              Height = 21
+              DataSource = dmClient.dscLoans
+              DataField = 'class_name'
+              ReadOnly = True
+              CharCase = ecUpperCase
+              Color = clInfoBk
+              DisabledColor = clWhite
+              TabOnEnter = True
+              TabOrder = 3
+            end
+            object RzDBEdit21: TRzDBEdit
+              Tag = 1
+              Left = 114
+              Top = 82
+              Width = 80
+              Height = 21
+              DataSource = dmClient.dscLoans
+              DataField = 'class_int'
+              ReadOnly = True
+              CharCase = ecUpperCase
+              Color = clInfoBk
+              DisabledColor = clWhite
+              TabOnEnter = True
+              TabOrder = 4
+            end
+            object RzDBEdit22: TRzDBEdit
+              Tag = 1
+              Left = 114
+              Top = 58
+              Width = 80
+              Height = 21
+              DataSource = dmClient.dscLoans
+              DataField = 'date_appl_f'
+              ReadOnly = True
+              CharCase = ecUpperCase
+              Color = clInfoBk
+              DisabledColor = clWhite
+              TabOnEnter = True
+              TabOrder = 5
+            end
+            object RzDBEdit23: TRzDBEdit
+              Tag = 1
+              Left = 198
+              Top = 58
+              Width = 83
+              Height = 21
+              DataSource = dmClient.dscLoans
+              DataField = 'amt_appl_f'
+              ReadOnly = True
+              CharCase = ecUpperCase
+              Color = clInfoBk
+              DisabledColor = clWhite
+              TabOnEnter = True
+              TabOrder = 6
+            end
+            object RzDBEdit24: TRzDBEdit
+              Tag = 1
+              Left = 114
+              Top = 148
+              Width = 80
+              Height = 21
+              DataSource = dmClient.dscLoans
+              DataField = 'date_appv_f'
+              ReadOnly = True
+              CharCase = ecUpperCase
+              Color = clInfoBk
+              DisabledColor = clWhite
+              TabOnEnter = True
+              TabOrder = 7
+            end
+            object RzDBEdit25: TRzDBEdit
+              Tag = 1
+              Left = 198
+              Top = 148
+              Width = 83
+              Height = 21
+              DataSource = dmClient.dscLoans
+              DataField = 'amt_appv_f'
+              ReadOnly = True
+              CharCase = ecUpperCase
+              Color = clInfoBk
+              DisabledColor = clWhite
+              TabOnEnter = True
+              TabOrder = 8
+            end
+            object RzDBEdit26: TRzDBEdit
+              Tag = 1
+              Left = 114
+              Top = 172
+              Width = 167
+              Height = 21
+              DataSource = dmClient.dscLoans
+              DataField = 'appv_method_name'
+              ReadOnly = True
+              CharCase = ecUpperCase
+              Color = clInfoBk
+              DisabledColor = clWhite
+              TabOnEnter = True
+              TabOrder = 9
+            end
+            object RzDBEdit27: TRzDBEdit
+              Tag = 1
+              Left = 114
+              Top = 196
+              Width = 80
+              Height = 21
+              DataSource = dmClient.dscLoans
+              DataField = 'int'
+              ReadOnly = True
+              CharCase = ecUpperCase
+              Color = clInfoBk
+              DisabledColor = clWhite
+              TabOnEnter = True
+              TabOrder = 10
+            end
+            object RzDBEdit28: TRzDBEdit
+              Tag = 1
+              Left = 198
+              Top = 196
+              Width = 83
+              Height = 21
+              DataSource = dmClient.dscLoans
+              DataField = 'terms'
+              ReadOnly = True
+              CharCase = ecUpperCase
+              Color = clInfoBk
+              DisabledColor = clWhite
+              TabOnEnter = True
+              TabOrder = 11
+            end
+            object RzDBEdit29: TRzDBEdit
+              Tag = 1
+              Left = 114
+              Top = 236
+              Width = 80
+              Height = 21
+              DataSource = dmClient.dscLoans
+              DataField = 'date_rel_f'
+              ReadOnly = True
+              CharCase = ecUpperCase
+              Color = clInfoBk
+              DisabledColor = clWhite
+              TabOnEnter = True
+              TabOrder = 12
+            end
+            object RzDBEdit30: TRzDBEdit
+              Tag = 1
+              Left = 198
+              Top = 236
+              Width = 83
+              Height = 21
+              DataSource = dmClient.dscLoans
+              DataField = 'amt_rel_f'
+              ReadOnly = True
+              CharCase = ecUpperCase
+              Color = clInfoBk
+              DisabledColor = clWhite
+              TabOnEnter = True
+              TabOrder = 13
+            end
           end
+        end
+        object RzComboBox1: TRzComboBox
+          Left = 46
+          Top = 7
+          Width = 509
+          Height = 21
+          TabOrder = 2
         end
       end
     end
@@ -1755,6 +2145,6 @@ inherited frmClientMain: TfrmClientMain
     Timeout = -1
     OnFinished = PhotoLauncherFinished
     Left = 897
-    Top = 517
+    Top = 516
   end
 end

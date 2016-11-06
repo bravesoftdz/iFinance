@@ -11,7 +11,7 @@ inherited frmComakerSearch: TfrmComakerSearch
   end
   inherited pnlMain: TRzPanel
     inherited grSearch: TRzDBGrid
-      DataSource = dmEntities.dscEntities
+      DataSource = dmLoan.dscComakers
       Columns = <
         item
           Expanded = False

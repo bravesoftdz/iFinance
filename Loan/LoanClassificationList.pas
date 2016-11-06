@@ -7,7 +7,7 @@ uses
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, BaseDocked, Data.DB, RzButton, RzRadChk,
   RzDBChk, Vcl.DBCtrls, RzDBCmbo, Vcl.StdCtrls, Vcl.Mask, RzEdit, RzDBEdit,
   JvExControls, JvLabel, RzTabs, Vcl.Grids, Vcl.DBGrids, RzDBGrid, RzLabel,
-  Vcl.ExtCtrls, RzPanel, SaveIntf, RzLstBox, RzChkLst;
+  Vcl.ExtCtrls, RzPanel, SaveIntf, RzLstBox, RzChkLst, JvGroupHeader;
 
 type
   TfrmLoanClassificationList = class(TfrmBaseDocked,ISave)
@@ -18,7 +18,7 @@ type
     JvLabel1: TJvLabel;
     JvLabel2: TJvLabel;
     edClassName: TRzDBEdit;
-    dbluType: TRzDBLookupComboBox;
+    dbluLoanType: TRzDBLookupComboBox;
     btnNew: TRzButton;
     JvLabel3: TJvLabel;
     JvLabel4: TJvLabel;
@@ -33,13 +33,27 @@ type
     edInterest: TRzDBNumericEdit;
     JvLabel8: TJvLabel;
     edMaxLoan: TRzDBNumericEdit;
+    JvLabel9: TJvLabel;
+    dbluAcctType: TRzDBLookupComboBox;
+    JvGroupHeader4: TJvGroupHeader;
+    grCharges: TRzDBGrid;
+    dbluBranch: TRzDBLookupComboBox;
+    btnAddCharge: TRzButton;
+    btnRemoveCharge: TRzButton;
+    JvLabel10: TJvLabel;
+    dteFrom: TRzDBDateTimeEdit;
+    dteUntil: TRzDBDateTimeEdit;
     procedure btnNewClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure urlRefreshListClick(Sender: TObject);
     procedure dbluGroupClick(Sender: TObject);
+    procedure btnAddChargeClick(Sender: TObject);
+    procedure grChargesDblClick(Sender: TObject);
+    procedure btnRemoveChargeClick(Sender: TObject);
   private
     { Private declarations }
+    procedure ChangeControlState;
     function EntryIsValid: boolean;
   public
     { Public declarations }
@@ -55,12 +69,59 @@ implementation
 {$R *.dfm}
 
 uses
-  LoansAuxData, FormsUtil, StatusIntf, AuxData;
+  LoansAuxData, FormsUtil, StatusIntf, AuxData, LoanClassChargeDetail, DecisionBox,
+  LoanClassification;
+
+procedure TfrmLoanClassificationList.btnAddChargeClick(Sender: TObject);
+begin
+  with TfrmLoanClassChargeDetail.Create(nil) do
+  begin
+    try
+      grCharges.DataSource.DataSet.Append;
+      ShowModal;
+      Free;
+    except
+      on e: Exception do
+        ShowMessage(e.Message);
+    end;
+  end;
+end;
 
 procedure TfrmLoanClassificationList.btnNewClick(Sender: TObject);
 begin
   inherited;
   grList.DataSource.DataSet.Append;
+  ChangeControlState;
+end;
+
+procedure TfrmLoanClassificationList.btnRemoveChargeClick(Sender: TObject);
+const
+  CONF = 'Are you sure you want to delete the selected loan class charge?';
+var
+  cgType: string;
+begin
+  with TfrmDecisionBox.Create(nil, CONF) do
+  begin
+    try
+      if grCharges.DataSource.DataSet.RecordCount > 0 then
+      begin
+        cgType := grCharges.DataSource.DataSet.FieldByName('charge_type').AsString;
+
+        ShowModal;
+
+        if ModalResult = mrYes then
+        begin
+          grCharges.DataSource.DataSet.Delete;
+          lnc.RemoveClassCharge(cgType);
+        end;
+
+        Free;
+      end;
+    except
+      on e: Exception do
+        ShowMessage(e.Message);
+    end;
+  end;
 end;
 
 function TfrmLoanClassificationList.Save: boolean;
@@ -74,6 +135,7 @@ begin
       begin
         Post;
         Result := true;
+        ChangeControlState;
       end;
     end
   end;
@@ -114,27 +176,32 @@ begin
   begin
     if Trim(dbluGroup.Text) = '' then
     begin
-      error := 'Please select group.';
+      error := 'Please select a group.';
       st.ShowError(error);
     end
     else if Trim(edClassName.Text) = '' then
     begin
-      error := 'Please enter class name.';
+      error := 'Please enter a class name.';
       st.ShowError(error);
     end
-    else if dbluType.Text = '' then
+    else if dbluLoanType.Text = '' then
     begin
-      error := 'Please select type.';
+      error := 'Please select a loan type.';
+      st.ShowError(error);
+    end
+    else if dbluAcctType.Text = '' then
+    begin
+      error := 'Please select an account type.';
       st.ShowError(error);
     end
     else if edInterest.Text = '' then
     begin
-      error := 'Please enter interest rate.';
+      error := 'Please enter an interest rate.';
       st.ShowError(error);
     end
     else if edTerm.Text = '' then
     begin
-      error := 'Please enter term.';
+      error := 'Please enter a term.';
       st.ShowError(error);
     end
 
@@ -152,7 +219,7 @@ begin
   dmAux.Free;
   dmLoansAux.Free;
 
-   inherited;
+  inherited;
 end;
 
 procedure TfrmLoanClassificationList.FormCreate(Sender: TObject);
@@ -164,6 +231,30 @@ begin
   OpenDropdownDataSources(tsDetail);
   OpenGridDataSources(pnlList);
 
+  ChangeControlState;
+end;
+
+procedure TfrmLoanClassificationList.grChargesDblClick(Sender: TObject);
+begin
+  with TfrmLoanClassChargeDetail.Create(nil) do
+  begin
+    try
+      ShowModal;
+      Free;
+    except
+      on e: Exception do
+        ShowMessage(e.Message);
+    end;
+  end;
+end;
+
+procedure TfrmLoanClassificationList.ChangeControlState;
+begin
+  with grList.DataSource.DataSet do
+  begin
+    btnAddCharge.Enabled := State <> dsInsert;
+    btnRemoveCharge.Enabled := State <> dsInsert;
+  end;
 end;
 
 end.

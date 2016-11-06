@@ -1,0 +1,10 @@
+Demo from 03 Nov 2016
+
+1. interest is fixed in loan class
+2. deduction in loan class (fixed amount, percentage, etc)
+3. acct type in loan class
+4. recommended amount in loan
+5. checklist in loan
+6. loan assessment
+7. mode of release (cash or check or release to other branch or cash card or authorized rep)
+8. payment frequency in loan class

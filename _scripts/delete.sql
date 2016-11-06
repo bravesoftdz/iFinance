@@ -8,5 +8,9 @@ delete identityinfo
 delete personalinfo
 delete refinfo
 delete sequence
-delete entity
 delete employer
+delete LoanComaker
+delete Loan
+delete LoanClass
+delete [Group]
+delete entity

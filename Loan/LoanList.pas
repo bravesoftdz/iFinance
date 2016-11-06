@@ -16,6 +16,7 @@ type
     Label1: TLabel;
     edSearchKey: TRzEdit;
     procedure grListDblClick(Sender: TObject);
+    procedure edSearchKeyChange(Sender: TObject);
   private
     { Private declarations }
   public
@@ -33,6 +34,19 @@ implementation
 
 uses
   AppData, FormsUtil, Loan, DockIntf, LoanClient;
+
+procedure TfrmLoanList.edSearchKeyChange(Sender: TObject);
+var
+  filter: string;
+begin
+  inherited;
+  if Trim(edSearchKey.Text) <> '' then
+    filter := 'name like ''*' + edSearchKey.Text + '*'''
+  else
+    filter := '';
+
+  grList.DataSource.DataSet.Filter := filter;
+end;
 
 procedure TfrmLoanList.FilterList(const filterType: TLoanFilterType);
 begin

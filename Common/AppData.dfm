@@ -5,7 +5,6 @@ object dmApplication: TdmApplication
   Height = 276
   Width = 446
   object acMain: TADOConnection
-    Connected = True
     ConnectionString = 
       'Provider=SQLNCLI11.1;Integrated Security=SSPI;Persist Security I' +
       'nfo=False;User ID="";Initial Catalog=iFinance;Data Source=BRYAN\' +

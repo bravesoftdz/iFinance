@@ -6,7 +6,6 @@ inherited frmLogin: TfrmLogin
   KeyPreview = True
   Position = poScreenCenter
   OnCreate = FormCreate
-  OnKeyPress = FormKeyPress
   OnShow = FormShow
   ExplicitWidth = 434
   ExplicitHeight = 204
@@ -211,6 +210,7 @@ inherited frmLogin: TfrmLogin
       Height = 21
       Text = ''
       CharCase = ecUpperCase
+      TabOnEnter = True
       TabOrder = 0
       OnChange = edUsernameChange
     end
@@ -221,6 +221,7 @@ inherited frmLogin: TfrmLogin
       Height = 21
       Text = ''
       PasswordChar = '*'
+      TabOnEnter = True
       TabOrder = 1
     end
     object btnLogin: TRzButton

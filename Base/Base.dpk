@@ -42,7 +42,7 @@ requires
 
 contains
   BaseForm in 'BaseForm.pas' {frmBase},
-  BasePopup in 'BasePopup.pas' {frmBasePopup},
+  BasePopup in 'BasePopup.pas' {frmBasePopup1},
   BasePopupDetail in 'BasePopupDetail.pas' {frmBasePopupDetail},
   BaseGridDetail in 'BaseGridDetail.pas' {frmBaseGridDetail},
   BaseDocked in 'BaseDocked.pas' {frmBaseDocked},

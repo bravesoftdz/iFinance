@@ -123,6 +123,7 @@ inherited frmLoanList: TfrmLoanList
       Text = ''
       Anchors = [akLeft, akTop, akRight]
       TabOrder = 0
+      OnChange = edSearchKeyChange
     end
   end
 end

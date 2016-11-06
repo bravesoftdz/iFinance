@@ -12,6 +12,7 @@ type
     lblMessage: TJvLabel;
     btnNo: TRzButton;
     btnYes: TRzButton;
+    Image1: TImage;
   private
     { Private declarations }
   public

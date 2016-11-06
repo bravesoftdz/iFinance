@@ -36,7 +36,7 @@ uses
 procedure TfrmLandlordSearch.Add;
 begin
   inherited;
-  with TfrmLandlordDetail.Create(self) do
+  with TfrmLandlordDetail.Create(self), grSearch.DataSource.DataSet do
   begin
     llord.Add;
 
@@ -45,8 +45,10 @@ begin
     if ModalResult = mrOK then
     begin
       // refresh the grid
-      grSearch.DataSource.DataSet.Close;
-      grSearch.DataSource.DataSet.Open;
+      DisableControls;
+      Close;
+      Open;
+      EnableControls;
     end;
   end;
 end;

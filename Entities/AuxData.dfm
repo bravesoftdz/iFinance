@@ -1,7 +1,7 @@
 object dmAux: TdmAux
   OldCreateOrder = False
-  Height = 324
-  Width = 541
+  Height = 329
+  Width = 648
   object dscTowns: TDataSource
     DataSet = dstTowns
     Left = 112
@@ -154,5 +154,57 @@ object dmAux: TdmAux
     Parameters = <>
     Left = 368
     Top = 88
+  end
+  object dstCivilStatus: TADODataSet
+    Connection = dmApplication.acMain
+    CursorType = ctStatic
+    LockType = ltReadOnly
+    CommandText = 'sp_dd_get_civil_status;1'
+    CommandType = cmdStoredProc
+    Parameters = <>
+    Left = 368
+    Top = 152
+  end
+  object dscCivilStatus: TDataSource
+    DataSet = dstCivilStatus
+    Left = 440
+    Top = 152
+  end
+  object dstGender: TADODataSet
+    Connection = dmApplication.acMain
+    CursorType = ctStatic
+    LockType = ltReadOnly
+    CommandText = 'sp_dd_get_gender;1'
+    CommandType = cmdStoredProc
+    Parameters = <
+      item
+        Name = '@RETURN_VALUE'
+        DataType = ftInteger
+        Direction = pdReturnValue
+        Precision = 10
+        Value = 0
+      end>
+    Left = 368
+    Top = 208
+  end
+  object dscGender: TDataSource
+    DataSet = dstGender
+    Left = 440
+    Top = 208
+  end
+  object dstAcctType: TADODataSet
+    Connection = dmApplication.acMain
+    CursorType = ctStatic
+    LockType = ltReadOnly
+    CommandText = 'sp_dd_get_acct_type;1'
+    CommandType = cmdStoredProc
+    Parameters = <>
+    Left = 527
+    Top = 22
+  end
+  object dscAcctType: TDataSource
+    DataSet = dstAcctType
+    Left = 591
+    Top = 22
   end
 end

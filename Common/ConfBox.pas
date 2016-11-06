@@ -11,6 +11,7 @@ type
   TfrmConfBox = class(TfrmBasePopup)
     lblMessage: TJvLabel;
     btnOk: TRzButton;
+    Image1: TImage;
   private
     { Private declarations }
   public

@@ -27,6 +27,12 @@ type
     dstCompMethod: TADODataSet;
     dscLocation: TDataSource;
     dstLocation: TADODataSet;
+    dstCivilStatus: TADODataSet;
+    dscCivilStatus: TDataSource;
+    dstGender: TADODataSet;
+    dscGender: TDataSource;
+    dstAcctType: TADODataSet;
+    dscAcctType: TDataSource;
     procedure dstBranchesBeforePost(DataSet: TDataSet);
     procedure dstBanksAfterScroll(DataSet: TDataSet);
     procedure dstBranchesNewRecord(DataSet: TDataSet);

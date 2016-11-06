@@ -24,7 +24,6 @@ type
     btnCancel: TRzButton;
     lblStatus: TLabel;
     procedure FormShow(Sender: TObject);
-    procedure FormKeyPress(Sender: TObject; var Key: Char);
     procedure FormCreate(Sender: TObject);
     procedure btnLoginClick(Sender: TObject);
     procedure btnCancelClick(Sender: TObject);
@@ -150,17 +149,6 @@ begin
 
   // get version
   lblVersion.Caption := 'Version ' + GetAppVersionStr(ParamStr(0));
-end;
-
-procedure TfrmLogin.FormKeyPress(Sender: TObject; var Key: Char);
-begin
-  if Key = #13 then
-  begin
-    if edUserName.Focused then
-      edPassword.SetFocus
-    else
-      btnLogin.Click;
-    end;
 end;
 
 procedure TfrmLogin.FormShow(Sender: TObject);

@@ -13,10 +13,6 @@ type
     dstEntity: TADODataSet;
     dstContactInfo: TADODataSet;
     dscContactInfo: TDataSource;
-    dstCivilStatus: TADODataSet;
-    dscCivilStatus: TDataSource;
-    dstGender: TADODataSet;
-    dscGender: TDataSource;
     dstAddressInfo: TADODataSet;
     dscAddressInfo: TDataSource;
     dstResStatus: TADODataSet;
@@ -33,6 +29,8 @@ type
     dscAcctInfo: TDataSource;
     dstLoans: TADODataSet;
     dscLoans: TDataSource;
+    dstComakers: TADODataSet;
+    dscComakers: TDataSource;
     procedure dstPersonalInfoBeforeOpen(DataSet: TDataSet);
     procedure dstEntityBeforeOpen(DataSet: TDataSet);
     procedure dstContactInfoBeforeOpen(DataSet: TDataSet);
@@ -61,6 +59,8 @@ type
     procedure dstAcctInfoAfterOpen(DataSet: TDataSet);
     procedure dstIdentInfoAfterOpen(DataSet: TDataSet);
     procedure dstIdentInfoAfterPost(DataSet: TDataSet);
+    procedure dstLoansAfterScroll(DataSet: TDataSet);
+    procedure dstComakersBeforeOpen(DataSet: TDataSet);
     procedure dstLoansBeforeOpen(DataSet: TDataSet);
   private
     { Private declarations }
@@ -177,6 +177,11 @@ begin
     DataSet.FieldByName('landlord').AsString := cln.LandlordPres.Id
   else
     DataSet.FieldByName('landlord').Value := null;
+end;
+
+procedure TdmClient.dstComakersBeforeOpen(DataSet: TDataSet);
+begin
+  (DataSet as TADODataSet).Parameters.ParamByName('@entity_id').Value := cln.Id;
 end;
 
 procedure TdmClient.dstContactInfoBeforeOpen(DataSet: TDataSet);
@@ -331,6 +336,12 @@ procedure TdmClient.dstIdentInfoBeforePost(DataSet: TDataSet);
 begin
   if DataSet.State = dsInsert then
     DataSet.FieldByName('entity_id').AsString := cln.Id;
+end;
+
+procedure TdmClient.dstLoansAfterScroll(DataSet: TDataSet);
+begin
+  // filter comakers
+  dstComakers.Filter := 'loan_id = ' + QuotedStr(DataSet.FieldByName('loan_id').AsString);
 end;
 
 procedure TdmClient.dstLoansBeforeOpen(DataSet: TDataSet);

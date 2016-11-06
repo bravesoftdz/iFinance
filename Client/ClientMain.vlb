@@ -82,9 +82,6 @@ Coordinates=1045,535,73,36
 [JvLabel8]
 Coordinates=976,535,66,36
 
-[dmClient.dscGender]
-Coordinates=24,365,132,36
-
 [JvLabel9]
 Coordinates=907,535,66,36
 
@@ -133,9 +130,6 @@ Coordinates=171,1,148,36
 [RzDBLookupComboBox7]
 Coordinates=1322,111,160,36
 
-[dmClient.dscCivilStatus]
-Coordinates=946,1,150,36
-
 [JvGroupHeader4]
 Coordinates=1322,166,112,36
 
@@ -163,9 +157,6 @@ Coordinates=1322,496,90,36
 [edLandlordContact2]
 Coordinates=1322,551,130,36
 
-[dmClient.dstGender]
-Coordinates=258,269,129,58
-
 [JvLabel27]
 Coordinates=1243,609,73,36
 
@@ -183,9 +174,6 @@ Coordinates=926,609,66,36
 
 [dmAux.dscTowns]
 Coordinates=40,269,115,36
-
-[dmClient.dstCivilStatus]
-Coordinates=109,173,148,58
 
 [JvLabel25]
 Coordinates=847,609,73,36
@@ -324,4 +312,7 @@ Coordinates=1520,56,77,36
 
 [urlTakePhoto]
 Coordinates=152,77,94,58
+
+[dmClient.]
+Coordinates=24,365,132,36
 
