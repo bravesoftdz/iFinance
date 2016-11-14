@@ -1,8 +1,7 @@
 object dmLoansAux: TdmLoansAux
   OldCreateOrder = False
-  OnCreate = DataModuleCreate
   OnDestroy = DataModuleDestroy
-  Height = 253
+  Height = 221
   Width = 457
   object dscLoanClass: TDataSource
     DataSet = dstLoanClass
@@ -72,5 +71,37 @@ object dmLoansAux: TdmLoansAux
     Parameters = <>
     Left = 200
     Top = 24
+  end
+  object dscCompetitors: TDataSource
+    DataSet = dstCompetitors
+    Left = 264
+    Top = 80
+  end
+  object dstCompetitors: TADODataSet
+    Tag = 1
+    Connection = dmApplication.acMain
+    CursorType = ctStatic
+    LockType = ltReadOnly
+    CommandText = 'sp_dd_get_competitors;1'
+    CommandType = cmdStoredProc
+    Parameters = <>
+    Left = 200
+    Top = 80
+  end
+  object dscExpType: TDataSource
+    DataSet = dstExpType
+    Left = 264
+    Top = 136
+  end
+  object dstExpType: TADODataSet
+    Tag = 1
+    Connection = dmApplication.acMain
+    CursorType = ctStatic
+    LockType = ltReadOnly
+    CommandText = 'sp_dd_get_exp_type;1'
+    CommandType = cmdStoredProc
+    Parameters = <>
+    Left = 200
+    Top = 136
   end
 end

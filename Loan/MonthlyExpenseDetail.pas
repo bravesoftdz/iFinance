@@ -1,4 +1,4 @@
-unit LoanClassChargeDetail;
+unit MonthlyExpenseDetail;
 
 interface
 
@@ -6,17 +6,14 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, BasePopupDetail, RzButton, RzTabs,
   Vcl.StdCtrls, RzLabel, Vcl.Imaging.pngimage, Vcl.ExtCtrls, RzPanel, Vcl.Mask,
-  RzEdit, RzDBEdit, JvExControls, JvLabel, RzRadGrp, RzDBRGrp, Vcl.DBCtrls,
-  RzDBCmbo, DB;
+  RzEdit, RzDBEdit, Vcl.DBCtrls, RzDBCmbo, JvExControls, JvLabel, DB;
 
 type
-  TfrmLoanClassChargeDetail = class(TfrmBasePopupDetail)
+  TfrmMonthlyExpDetail = class(TfrmBasePopupDetail)
     JvLabel1: TJvLabel;
     JvLabel2: TJvLabel;
-    rbgValueType: TRzDBRadioGroup;
     dbluType: TRzDBLookupComboBox;
-    edValue: TRzDBNumericEdit;
-    procedure FormCreate(Sender: TObject);
+    edMonthly: TRzDBNumericEdit;
     procedure FormShow(Sender: TObject);
   private
     { Private declarations }
@@ -29,56 +26,48 @@ type
   end;
 
 var
-  frmLoanClassChargeDetail: TfrmLoanClassChargeDetail;
+  frmMonthlyExpDetail: TfrmMonthlyExpDetail;
 
 implementation
 
 {$R *.dfm}
 
 uses
-  LoansAuxData, FormsUtil, LoanClassification;
+  LoanData, LoansAuxData, FormsUtil, Loan;
 
-procedure TfrmLoanClassChargeDetail.FormCreate(Sender: TObject);
-begin
-  inherited;
-  OpenDropdownDataSources(tsDetail);
-end;
-
-procedure TfrmLoanClassChargeDetail.FormShow(Sender: TObject);
+procedure TfrmMonthlyExpDetail.FormShow(Sender: TObject);
 begin
   inherited;
   // disable type on editing
   dbluType.Enabled := dbluType.DataSource.DataSet.State = dsInsert;
 end;
 
-procedure TfrmLoanClassChargeDetail.Save;
+procedure TfrmMonthlyExpDetail.Save;
 begin
-  with dmLoansAux.dstClassCharges do
+  with dmLoan.dstMonExp do
     if State in [dsInsert,dsEdit] then
       Post;
 end;
 
-procedure TfrmLoanClassChargeDetail.Cancel;
+procedure TfrmMonthlyExpDetail.Cancel;
 begin
-  with dmLoansAux.dstClassCharges do
+  with dmLoan.dstMonExp do
     if State in [dsInsert,dsEdit] then
       Cancel;
 end;
 
-function TfrmLoanClassChargeDetail.ValidEntry: boolean;
+function TfrmMonthlyExpDetail.ValidEntry: boolean;
 var
   error: string;
 begin
-  with dmLoansAux.dstClassCharges do
+  with dmLoan.dstMonExp do
   begin
     if Trim(dbluType.Text) = '' then
       error := 'Please select a type.'
-    else if Trim(edValue.Text) = '' then
-      error := 'Please enter a value.'
-    else if edValue.Value <= 0 then
-      error := 'Invalid value entered.'
-    else if (State = dsInsert) and (lnc.ClassChargeExists(dbluType.GetKeyValue)) then
-      error := 'Type already exists.';
+    else if Trim(edMonthly.Text) = '' then
+      error := 'Please enter monthly amount.'
+    else if (State = dsInsert) and (ln.MonthlyExpenseExists(dbluType.GetKeyValue)) then
+      error := 'Expense already exists.';
   end;
 
   Result := error = '';

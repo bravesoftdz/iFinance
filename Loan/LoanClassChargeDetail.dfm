@@ -10,7 +10,7 @@ inherited frmLoanClassChargeDetail: TfrmLoanClassChargeDetail
   TextHeight = 13
   inherited pnlTitle: TRzPanel
     Width = 303
-    ExplicitWidth = 370
+    ExplicitWidth = 303
     inherited imgClose: TImage
       Left = 282
       ExplicitLeft = 349
@@ -24,7 +24,8 @@ inherited frmLoanClassChargeDetail: TfrmLoanClassChargeDetail
   inherited pnlMain: TRzPanel
     Width = 303
     Height = 156
-    ExplicitWidth = 370
+    ExplicitWidth = 303
+    ExplicitHeight = 156
     inherited lblStatus: TLabel
       Top = 121
       Width = 122
@@ -34,13 +35,14 @@ inherited frmLoanClassChargeDetail: TfrmLoanClassChargeDetail
     inherited pcDetail: TRzPageControl
       Width = 286
       Height = 102
-      ExplicitWidth = 353
+      ExplicitWidth = 286
+      ExplicitHeight = 102
       FixedDimension = 19
       inherited tsDetail: TRzTabSheet
         ExplicitLeft = 1
         ExplicitTop = 1
-        ExplicitWidth = 349
-        ExplicitHeight = 174
+        ExplicitWidth = 282
+        ExplicitHeight = 98
         object JvLabel1: TJvLabel
           Left = 19
           Top = 23
@@ -76,7 +78,7 @@ inherited frmLoanClassChargeDetail: TfrmLoanClassChargeDetail
           Columns = 2
           GroupStyle = gsCustom
           TabOnEnter = True
-          TabOrder = 0
+          TabOrder = 2
           TabStop = True
         end
         object edValue: TRzDBNumericEdit
@@ -103,7 +105,7 @@ inherited frmLoanClassChargeDetail: TfrmLoanClassChargeDetail
           KeyField = 'charge_type'
           ListField = 'charge_name'
           ListSource = dmLoansAux.dscChargeType
-          TabOrder = 2
+          TabOrder = 0
           AllowNull = True
           FrameColor = clBlack
           FrameHotColor = clBlack
@@ -114,12 +116,14 @@ inherited frmLoanClassChargeDetail: TfrmLoanClassChargeDetail
     inherited btnSave: TRzButton
       Left = 137
       Top = 121
-      ExplicitLeft = 204
+      ExplicitLeft = 137
+      ExplicitTop = 121
     end
     inherited btnCancel: TRzButton
       Left = 218
       Top = 121
-      ExplicitLeft = 285
+      ExplicitLeft = 218
+      ExplicitTop = 121
     end
   end
 end

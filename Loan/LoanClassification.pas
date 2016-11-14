@@ -3,7 +3,7 @@ unit LoanClassification;
 interface
 
 uses
-  Generics.Collections, LoanClassCharge;
+  LoanClassCharge;
 
 type
   TLoanClassification = class

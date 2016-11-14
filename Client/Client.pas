@@ -177,7 +177,9 @@ begin
         if closeDataSources then
           (Components[i] as TADODataSet).Close;
 
+        (Components[i] as TADODataSet).DisableControls;
         (Components[i] as TADODataSet).Open;
+        (Components[i] as TADODataSet).EnableControls;
 
         if (Components[i] as TADODataSet).Tag in [1,2] then
           if (Components[i] as TADODataSet).RecordCount > 0 then

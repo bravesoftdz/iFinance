@@ -7,11 +7,12 @@ uses
 
 type
   TSequenceObject = (soEntity,soGroup,soEmployer,soBankBranch,soDesignation,
-                        soLoanClass,soLoan);
+                        soLoanClass,soLoan,soCompetitor);
 
 procedure RefreshDataSet(const key: integer; const keyField: string; DataSet: TDataSet); overload;
 procedure RefreshDataSet(const key, keyField: string; DataSet: TDataSet); overload;
 procedure SetCreatedFields(dataSet: TDataSet);
+procedure ExecuteSQL(const sql: string);
 
 function GetEntityId: string;
 function GetGroupId: integer;
@@ -20,6 +21,7 @@ function GetBankBranchId: string;
 function GetDesignationId: integer;
 function GetLoanClassId: integer;
 function GetLoanId: string;
+function GetCompetitorId: integer;
 
 implementation
 
@@ -53,6 +55,12 @@ begin
   dataSet.FieldByName('created_by').AsString := ifn.User.UserId;
 end;
 
+procedure ExecuteSQL(const sql: string);
+begin
+  with dmApplication.acMain do
+    Execute(sql);
+end;
+
 function GetSequenceID(const seqObj: TSequenceObject): integer;
 var
   parm: string;
@@ -65,6 +73,7 @@ begin
     soDesignation: parm := 'DSG';
     soLoanClass: parm := 'LNC';
     soLoan: parm := 'LON';
+    soCompetitor: parm := 'CMP';
     else parm := '';
   end;
 
@@ -112,5 +121,11 @@ function GetLoanId: string;
 begin
   Result := ifn.LocationPrefix + '-' + IntToStr(GetSequenceID(soLoan));
 end;
+
+function GetCompetitorId: integer;
+begin
+  Result := GetSequenceID(soCompetitor);
+end;
+
 
 end.

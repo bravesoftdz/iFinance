@@ -1,6 +1,6 @@
 object dmLoan: TdmLoan
   OldCreateOrder = False
-  Height = 278
+  Height = 224
   Width = 515
   object dstLoan: TADODataSet
     Tag = 1
@@ -166,7 +166,6 @@ object dmLoan: TdmLoan
     CursorType = ctStatic
     Filtered = True
     LockType = ltReadOnly
-    AfterOpen = dstLoanClassAfterOpen
     CommandText = 'sp_get_comakers;1'
     CommandType = cmdStoredProc
     Parameters = <
@@ -194,5 +193,71 @@ object dmLoan: TdmLoan
     DataSet = dstAppvMethod
     Left = 119
     Top = 126
+  end
+  object dscFinInfo: TDataSource
+    DataSet = dstFinInfo
+    Left = 416
+    Top = 72
+  end
+  object dstFinInfo: TADODataSet
+    Tag = 1
+    Connection = dmApplication.acMain
+    CursorType = ctStatic
+    Filtered = True
+    BeforeOpen = dstFinInfoBeforeOpen
+    AfterOpen = dstFinInfoAfterOpen
+    AfterPost = dstFinInfoAfterPost
+    CommandText = 'sp_ln_get_fin_info;1'
+    CommandType = cmdStoredProc
+    Parameters = <
+      item
+        Name = '@RETURN_VALUE'
+        DataType = ftInteger
+        Direction = pdReturnValue
+        Precision = 10
+        Value = 0
+      end
+      item
+        Name = '@loan_id'
+        Attributes = [paNullable]
+        DataType = ftString
+        Size = 13
+        Value = ''
+      end>
+    Left = 352
+    Top = 72
+  end
+  object dscMonExp: TDataSource
+    DataSet = dstMonExp
+    Left = 416
+    Top = 128
+  end
+  object dstMonExp: TADODataSet
+    Tag = 1
+    Connection = dmApplication.acMain
+    CursorType = ctStatic
+    Filtered = True
+    BeforeOpen = dstFinInfoBeforeOpen
+    AfterOpen = dstMonExpAfterOpen
+    AfterPost = dstMonExpAfterPost
+    CommandText = 'sp_ln_get_mon_exp;1'
+    CommandType = cmdStoredProc
+    Parameters = <
+      item
+        Name = '@RETURN_VALUE'
+        DataType = ftInteger
+        Direction = pdReturnValue
+        Precision = 10
+        Value = 0
+      end
+      item
+        Name = '@loan_id'
+        Attributes = [paNullable]
+        DataType = ftString
+        Size = 13
+        Value = ''
+      end>
+    Left = 352
+    Top = 128
   end
 end

@@ -43,6 +43,10 @@ type
     JvLabel10: TJvLabel;
     dteFrom: TRzDBDateTimeEdit;
     dteUntil: TRzDBDateTimeEdit;
+    JvLabel11: TJvLabel;
+    JvLabel12: TJvLabel;
+    dbluPayFreq: TRzDBLookupComboBox;
+    JvGroupHeader7: TJvGroupHeader;
     procedure btnNewClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
@@ -192,6 +196,21 @@ begin
     else if dbluAcctType.Text = '' then
     begin
       error := 'Please select an account type.';
+      st.ShowError(error);
+    end
+    else if dbluBranch.Text = '' then
+    begin
+      error := 'Please select a branch.';
+      st.ShowError(error);
+    end
+    else if dbluCompMethod.Text = '' then
+    begin
+      error := 'Please select a computation method.';
+      st.ShowError(error);
+    end
+    else if dbluPayFreq.Text = '' then
+    begin
+      error := 'Please select a payment frequency.';
       st.ShowError(error);
     end
     else if edInterest.Text = '' then

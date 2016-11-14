@@ -60,17 +60,18 @@ contains
   EmployerSearch in 'EmployerSearch.pas' {frmEmployerSearch},
   Employer in 'Employer.pas',
   BanksList in 'BanksList.pas' {frmBanksList},
-  BaseDocked in '..\Base\BaseDocked.pas' {frmBaseDocked},
   Bank in 'Bank.pas',
   BaseForm in '..\Base\BaseForm.pas' {frmBase},
   BasePopup in '..\Base\BasePopup.pas' {frmBasePopup1},
   BanksSearch in 'BanksSearch.pas' {frmBankSearch},
   DesignationList in 'DesignationList.pas' {frmDesignationList},
-  BaseGridDetail in '..\Base\BaseGridDetail.pas' {frmBaseGridDetail},
   IdentityDoc in 'IdentityDoc.pas',
   Reference in 'Reference.pas',
   Group in 'Group.pas',
   BasePopupDetail in '..\Base\BasePopupDetail.pas' {frmBasePopupDetail},
-  BaseSearch in '..\Base\BaseSearch.pas' {frmBaseSearch};
+  BaseSearch in '..\Base\BaseSearch.pas' {frmBaseSearch},
+  BaseDocked in '..\Base\BaseDocked.pas' {frmBaseDocked},
+  BaseGridDetail in '..\Base\BaseGridDetail.pas' {frmBaseGridDetail},
+  CompetitorList in 'CompetitorList.pas' {frmCompetitorList};
 
 end.

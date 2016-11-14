@@ -8,6 +8,7 @@ uses
 type
   TComaker = class(TEntity)
   private
+    FName: string;
     FComakeredLoans: integer;
     FEmployer: TEmployer;
 
@@ -21,6 +22,7 @@ type
     procedure Retrieve;
     procedure CopyAddress;
 
+    property Name: string read FName write FName;
     property ComakeredLoans: integer read FComakeredLoans write FComakeredLoans;
     property Employer: TEmployer read FEmployer write FEmployer;
     property HasId: boolean read GetHasId;

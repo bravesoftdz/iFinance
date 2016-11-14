@@ -8,51 +8,82 @@ uses
   Vcl.ExtCtrls, RzPanel, Vcl.Mask, RzEdit, RzDBEdit, JvLabel, JvExControls,
   JvGroupHeader, RzBtnEdt, Vcl.DBCtrls, RzDBCmbo, SaveIntf,  RzButton, RzRadChk,
   LoanIntf, Loan, RzLstBox, RzDBList, Data.DB, Vcl.Grids, Vcl.DBGrids, RzDBGrid,
-  Vcl.Imaging.pngimage;
+  Vcl.Imaging.pngimage, RzTabs, RzDBLbl;
 
 type
   TfrmLoanMain = class(TfrmBaseDocked, ISave, ILoan)
     pnlMain: TRzPanel;
-    JvGroupHeader1: TJvGroupHeader;
-    JvLabel1: TJvLabel;
-    JvLabel7: TJvLabel;
-    JvLabel6: TJvLabel;
-    dteDateApplied: TRzDBDateTimeEdit;
-    edAppAmount: TRzDBNumericEdit;
-    edPurpose: TRzDBEdit;
-    bteClient: TRzButtonEdit;
-    dbluLoanClass: TRzDBLookupComboBox;
-    JvLabel2: TJvLabel;
     JvGroupHeader2: TJvGroupHeader;
     JvLabel8: TJvLabel;
     dteDateApproved: TRzDBDateTimeEdit;
     JvLabel10: TJvLabel;
     edAppvAmount: TRzDBNumericEdit;
     lblLoanId: TRzLabel;
-    JvLabel12: TJvLabel;
-    edInterest: TRzDBNumericEdit;
     JvGroupHeader3: TJvGroupHeader;
-    JvLabel13: TJvLabel;
-    edRelAmount: TRzDBNumericEdit;
-    dteDateReleased: TRzDBDateTimeEdit;
     cbxApproved: TRzCheckBox;
     cbxReleased: TRzCheckBox;
     cbxCancelled: TRzCheckBox;
     cbxDenied: TRzCheckBox;
-    JvGroupHeader4: TJvGroupHeader;
-    btnAddComaker: TRzButton;
-    btnRemoveComaker: TRzButton;
-    grComakers: TRzDBGrid;
     pnlAlerts: TRzPanel;
     imgAlert: TImage;
     mmAlerts: TRzMemo;
     JvLabel15: TJvLabel;
-    lblComakersRequired: TJvLabel;
-    JvLabel16: TJvLabel;
     dbluAppvMethod: TRzDBLookupComboBox;
-    edDesiredTerm: TRzDBNumericEdit;
-    edAppvInterest: TRzDBNumericEdit;
     edAppvTerm: TRzDBNumericEdit;
+    RzDBGrid1: TRzDBGrid;
+    JvLabel13: TJvLabel;
+    RzDBLookupComboBox2: TRzDBLookupComboBox;
+    RzButton1: TRzButton;
+    RzButton2: TRzButton;
+    JvGroupHeader5: TJvGroupHeader;
+    JvLabel14: TJvLabel;
+    JvLabel16: TJvLabel;
+    pnlDetails: TRzPanel;
+    JvGroupHeader1: TJvGroupHeader;
+    JvGroupHeader4: TJvGroupHeader;
+    JvLabel1: TJvLabel;
+    JvLabel2: TJvLabel;
+    JvLabel12: TJvLabel;
+    JvLabel7: TJvLabel;
+    JvLabel5: TJvLabel;
+    JvLabel9: TJvLabel;
+    JvLabel6: TJvLabel;
+    JvLabel3: TJvLabel;
+    btnAddComaker: TRzButton;
+    btnRemoveComaker: TRzButton;
+    edPurpose: TRzDBEdit;
+    edDesiredTerm: TRzDBNumericEdit;
+    edAppAmount: TRzDBNumericEdit;
+    dteDateApplied: TRzDBDateTimeEdit;
+    edInterest: TRzDBNumericEdit;
+    dbluLoanClass: TRzDBLookupComboBox;
+    bteClient: TRzButtonEdit;
+    JvLabel4: TJvLabel;
+    dteDateAssessed: TRzDBDateTimeEdit;
+    edRecAmount: TRzDBNumericEdit;
+    JvLabel11: TJvLabel;
+    pcAssessment: TRzPageControl;
+    tsFinInfo: TRzTabSheet;
+    grFinInfo: TRzDBGrid;
+    tsMonExp: TRzTabSheet;
+    grMonExp: TRzDBGrid;
+    btnAddAss: TRzButton;
+    btnRemoveAss: TRzButton;
+    cbxAssessed: TRzCheckBox;
+    JvLabel17: TJvLabel;
+    RzDBDateTimeEdit2: TRzDBDateTimeEdit;
+    JvLabel18: TJvLabel;
+    JvGroupHeader6: TJvGroupHeader;
+    JvLabel19: TJvLabel;
+    JvLabel20: TJvLabel;
+    RzDBDateTimeEdit3: TRzDBDateTimeEdit;
+    RzDBLookupComboBox1: TRzDBLookupComboBox;
+    RzDBNumericEdit1: TRzDBNumericEdit;
+    RzDBNumericEdit2: TRzDBNumericEdit;
+    JvLabel21: TJvLabel;
+    JvLabel22: TJvLabel;
+    lblComakersDesc: TRzDBLabel;
+    lbxComakers: TRzListBox;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure bteClientButtonClick(Sender: TObject);
@@ -62,14 +93,25 @@ type
     procedure cbxReleasedClick(Sender: TObject);
     procedure btnAddComakerClick(Sender: TObject);
     procedure btnRemoveComakerClick(Sender: TObject);
-    procedure grComakersDblClick(Sender: TObject);
+    procedure JvGroupHeader4Click(Sender: TObject);
+    procedure cbxAssessedClick(Sender: TObject);
+    procedure btnAddAssClick(Sender: TObject);
+    procedure btnRemoveAssClick(Sender: TObject);
+    procedure grFinInfoDblClick(Sender: TObject);
+    procedure grMonExpDblClick(Sender: TObject);
+    procedure lbxComakersDblClick(Sender: TObject);
   private
     { Private declarations }
-    procedure ChangeControlState(const useState: boolean = true);
+    procedure ChangeControlState(parentCtrls: array of TWinControl; const useState: boolean = true);
     procedure SetAction(const action: TLoanAction = laNone);
     procedure CallErrorBox(const error: string);
     procedure DisplayAlerts;
     procedure ChangeComakersControlState;
+    procedure AddFinancialInfo;
+    procedure RemoveFinancialInfo;
+    procedure AddMonthlyExpense;
+    procedure RemoveMonthlyExpense;
+    procedure PopulateComakers;
   public
     { Public declarations }
     procedure SetLoanId;
@@ -88,7 +130,7 @@ implementation
 
 uses
   LoanData, FormsUtil, LoanClient, ClientSearch, StatusIntf, DockIntf, IFinanceGlobal,
-  Comaker, ComakerSearch, DecisionBox, ComakerDetail;
+  Comaker, ComakerSearch, DecisionBox, ComakerDetail, FinInfoDetail, MonthlyExpenseDetail;
 
 procedure TfrmLoanMain.CallErrorBox(const error: string);
 var
@@ -98,17 +140,20 @@ begin
     intf.ShowError(error);
 end;
 
-procedure TfrmLoanMain.ChangeControlState(const useState: boolean);
+procedure TfrmLoanMain.ChangeControlState(parentCtrls: array of TWinControl; const useState: boolean);
 var
-  i: integer;
-  tags: set of 0..8;
+  i, c: integer;
+  tags: set of 0..11;
 begin
+  // control whose tag is in the tags array will be enabled
   if useState then
   begin
     if ln.IsPending then
-      tags := [1,2,3,4,8]
+      tags := [1,2]
+    else if ln.IsAssessed then
+      tags := [4,5,10]
     else if ln.IsApproved then
-      tags := [2,6]
+      tags := [4,5,10]
     else if ln.IsReleased then
       tags := []
     else if ln.IsCancelled then
@@ -125,20 +170,23 @@ begin
       if Assigned(ln.Client) then tags := [0,1]
       else tags := [0];
     end
+    else if ln.Action = laAssessing then
+      tags := [2,3]
     else if ln.Action = laApproving then
       tags := [4,5]
     else if ln.Action = laReleasing then
       tags := [6,7]
     else if ln.Action = laCancelling then
-      tags := [2]
+      tags := [10,11]
     else if ln.Action = laDenying then
-      tags := [3];
+      tags := [8,9];
   end;
 
-  // set controls to read-only
-  for i := 0 to pnlMain.ControlCount - 1 do
-    if pnlMain.Controls[i].Tag <> -1 then
-      pnlMain.Controls[i].Enabled := pnlMain.Controls[i].Tag in tags;
+  // enable controls
+  for c := 0 to Length(parentCtrls) - 1 do
+    for i := 0 to parentCtrls[c].ControlCount - 1 do
+      if parentCtrls[c].Controls[i].Tag <> -1 then
+        parentCtrls[c].Controls[i].Enabled := parentCtrls[c].Controls[i].Tag in tags;
 
   ChangeComakersControlState;
   DisplayAlerts;
@@ -154,9 +202,9 @@ begin
   ln.Action := action;
 
   if action = laNone then
-    ChangeControlState
+    ChangeControlState([pnlMain,pnlDetails])
   else
-    ChangeControlState(false);
+    ChangeControlState([pnlMain,pnlDetails],false);
 
   ln.SetDefaultValues;
 end;
@@ -174,9 +222,10 @@ begin
             bteClient.Text := lnc.Name;
             ln.Client := lnc;
 
-            OpenDropdownDataSources(self.pnlMain);
+            OpenDropdownDataSources(self.pnlDetails);
 
-            ChangeControlState(false);
+            ChangeControlState([self.pnlMain,self.pnlDetails],false);
+            ChangeComakersControlState;
         end;
       except
         on e: Exception do
@@ -186,6 +235,15 @@ begin
       Free;
     end;
   end;
+end;
+
+procedure TfrmLoanMain.btnAddAssClick(Sender: TObject);
+begin
+  inherited;
+  if pcAssessment.ActivePage = tsFinInfo then
+    AddFinancialInfo
+  else
+    AddMonthlyExpense;
 end;
 
 procedure TfrmLoanMain.btnAddComakerClick(Sender: TObject);
@@ -210,15 +268,20 @@ begin
         else if ln.ComakerExists(cm) then
           CallErrorBox('Comaker already exists.')
         else if cm.ComakeredLoans >= ifn.MaxComakeredLoans then
-          CallErrorBox('Comaker has reached the maximum allowable loans.')
+          CallErrorBox('Comaker has reached the maximum allowable comakered loans.')
         else
         begin
-          with dmLoan.dstLoanComaker do
+          if ln.Action <> laCreating then
           begin
-              Append;
-              FieldByName('entity_id').AsString := cm.Id;
-              Post;
+            with dmLoan.dstLoanComaker do
+            begin
+                Append;
+                FieldByName('entity_id').AsString := cm.Id;
+                Post;
+            end;
           end;
+
+          lbxComakers.Items.AddObject(cm.Name,cm);
 
           ln.AddComaker(cm);
         end;
@@ -226,7 +289,7 @@ begin
 
       Free;
 
-      cm.Free;
+      // cm.Free;
     except
       on e: Exception do
         CallErrorBox(e.Message);
@@ -234,32 +297,51 @@ begin
   end;
 end;
 
+procedure TfrmLoanMain.btnRemoveAssClick(Sender: TObject);
+begin
+  if pcAssessment.ActivePage = tsFinInfo then
+    RemoveFinancialInfo
+  else
+    RemoveMonthlyExpense;
+end;
+
 procedure TfrmLoanMain.btnRemoveComakerClick(Sender: TObject);
 const
   CONF = 'Are you sure you want to remove the selected comaker?';
 var
+  obj: TObject;
   id: string;
 begin
-  with TfrmDecisionBox.Create(nil,CONF) do
+  if (lbxComakers.Items.Count > 0) and (lbxComakers.IndexOf(lbxComakers.SelectedItem) > -1) then
   begin
-    try
-      if grComakers.DataSource.DataSet.RecordCount > 0 then
+    obj := lbxComakers.Items.Objects[lbxComakers.IndexOf(lbxComakers.SelectedItem)];
+    if Assigned(obj) then
+    begin
+      with TfrmDecisionBox.Create(nil,CONF) do
       begin
-        id := grComakers.DataSource.DataSet.FieldByName('entity_id').AsString;
+        try
+          if lbxComakers.Items.Count > 0 then
+          begin
 
-        ShowModal;
 
-        if ModalResult = mrYes then
-        begin
-          grComakers.DataSource.DataSet.Delete;
-          ln.RemoveComaker(TComaker.Create(id));
+            id := (obj as TComaker).Id;
+
+            ShowModal;
+
+            if ModalResult = mrYes then
+            begin
+              // grComakers.DataSource.DataSet.Delete;
+              lbxComakers.Items.Delete(lbxComakers.IndexOf(lbxComakers.SelectedItem));
+              ln.RemoveComaker(TComaker.Create(id));
+            end;
+
+            Free;
+          end;
+        except
+          on e: Exception do
+            ShowMessage(e.Message);
         end;
-
-        Free;
       end;
-    except
-      on e: Exception do
-        ShowMessage(e.Message);
     end;
   end;
 end;
@@ -275,16 +357,28 @@ begin
     ln.Client := nil;
   end;
 
-  ChangeControlState(false);
+  ChangeControlState([pnlMain,pnlDetails],false);
 end;
 
 procedure TfrmLoanMain.cbxApprovedClick(Sender: TObject);
 begin
   inherited;
-  if ln.IsPending then
+  if ln.IsAssessed then
   begin
     if (Sender as TRzCheckBox).Checked then
       SetAction(laApproving)
+    else
+      SetAction;
+  end;
+end;
+
+procedure TfrmLoanMain.cbxAssessedClick(Sender: TObject);
+begin
+  inherited;
+  if ln.IsPending then
+  begin
+    if (Sender as TRzCheckBox).Checked then
+      SetAction(laAssessing)
     else
       SetAction;
   end;
@@ -354,20 +448,58 @@ begin
   else
   begin
     ln.Retrieve;
+    OpenDropdownDataSources(pnlDetails);
     OpenDropdownDataSources(pnlMain);
+
+    PopulateComakers;
 
     SetUnboundControls;
     SetLoanId;
-    ChangeControlState;
+    ChangeControlState([pnlMain,pnlDetails]);
   end;
 end;
 
-procedure TfrmLoanMain.grComakersDblClick(Sender: TObject);
+procedure TfrmLoanMain.grFinInfoDblClick(Sender: TObject);
 begin
+  if grFinInfo.DataSource.DataSet.RecordCount > 0 then
+  with TfrmFinInfoDetail.Create(self) do
+  begin
+    ShowModal;
+    Free;
+  end;
+end;
+
+procedure TfrmLoanMain.grMonExpDblClick(Sender: TObject);
+begin
+  if grMonExp.DataSource.DataSet.RecordCount > 0 then
+  with TfrmMonthlyExpDetail.Create(self) do
+  begin
+    ShowModal;
+    Free;
+  end;
+end;
+
+procedure TfrmLoanMain.JvGroupHeader4Click(Sender: TObject);
+begin
+  if ln.IsPending then
+  begin
+    if (Sender as TRzCheckBox).Checked then
+      SetAction(laAssessing)
+    else
+      SetAction;
+  end;
+end;
+
+procedure TfrmLoanMain.lbxComakersDblClick(Sender: TObject);
+var
+  obj: TObject;
+begin
+  obj := lbxComakers.Items.Objects[lbxComakers.IndexOf(lbxComakers.SelectedItem)];
+
+  if obj is TComaker then
   with TfrmComakerDetail.Create(self) do
   begin
-    cm := TComaker.Create;
-    cm.Id := grComakers.DataSource.DataSet.FieldByName('entity_id').AsString;
+    cm := obj as TComaker;
     cm.Retrieve;
     ShowModal;
     Free;
@@ -384,10 +516,11 @@ procedure TfrmLoanMain.SetUnboundControls;
 begin
   bteClient.Text := ln.Client.Name;
 
-  cbxCancelled.Checked := (ln.IsCancelled) or (ln.IsApprovedCancelled);
-  cbxDenied.Checked := ln.IsDenied;
+  cbxAssessed.Checked := ln.IsAssessed;
   cbxApproved.Checked := (ln.IsApproved) or (ln.IsReleased) or (ln.IsApprovedCancelled);
   cbxReleased.Checked := ln.IsReleased;
+  cbxCancelled.Checked := (ln.IsCancelled) or (ln.IsApprovedCancelled);
+  cbxDenied.Checked := ln.IsDenied;
 end;
 
 function TfrmLoanMain.Save: Boolean;
@@ -414,7 +547,11 @@ begin
       else if edAppAmount.Value > ln.LoanClass.MaxLoan then
         error := 'Amount applied exceeds the maximum loanable amount for the selected loan class.'
       else if edDesiredTerm.Value > ln.LoanClass.Term then
-        error := 'Term applied exceeds the maximum allowed term for the selected loan class.';
+        error := 'Term applied exceeds the maximum allowed term for the selected loan class.'
+      else if ln.ComakerCount < ln.LoanClass.Comakers then
+        error := 'Number of required comakers has not been met.'
+      else if ln.ComakerCount > ln.LoanClass.Comakers then
+        error := 'Declared comakers exceeds the required number.';
     end;
 
     if ln.Action = laApproving then
@@ -423,27 +560,21 @@ begin
         error := 'Please enter date applied.'
       else if edAppAmount.Value <= 0 then
         error := 'Invalid value for amount.'
-      else if edAppvInterest.Text = '' then
-        error := 'Please enter interest.'
       else if edAppvTerm.Text = '' then
         error := 'Please enter term.'
       else if edAppvAmount.Value > edAppAmount.Value then
         error := 'Approved amount exceeds the amount entered in the application.'
       else if edAppvTerm.Value > edDesiredTerm.Value then
-        error := 'Approved term exceeds the term entered in the application.'
-      else if ln.ComakerCount < ln.LoanClass.Comakers then
-        error := 'Number of required comakers has not been met.'
-      else if ln.ComakerCount > ln.LoanClass.Comakers then
-        error := 'Declared comakers exceeds the required number.';
+        error := 'Approved term exceeds the term entered in the application.';
     end
     else if ln.Action = laReleasing then
     begin
-      if dteDateReleased.Text = '' then
-        error := 'Please enter date released.'
-      else if edRelAmount.Value <= 0 then
-        error := 'Invalid value for amount.'
-      else if edRelAmount.Value > edAppvAmount.Value then
-        error := 'Amount released exceeds the approved amount.';     
+//      if dteDateReleased.Text = '' then
+//        error := 'Please enter date released.'
+//      else if edRelAmount.Value <= 0 then
+//        error := 'Invalid value for amount.'
+//      else if edRelAmount.Value > edAppvAmount.Value then
+//        error := 'Amount released exceeds the approved amount.';
     end;
 
     Result := error = '';
@@ -452,7 +583,8 @@ begin
     begin
       ln.Save;
       SetLoanId;
-      ChangeControlState;
+      ChangeControlState([pnlMain,pnlDetails]);
+      ChangeComakersControlState;
       ln.Action := laNone;
     end
     else
@@ -486,22 +618,54 @@ end;
 
 procedure TfrmLoanMain.ChangeComakersControlState;
 begin
-  with lblComakersRequired, ln.LoanClass do
+  
+end;
+
+procedure TfrmLoanMain.AddFinancialInfo;
+begin
+  with TfrmFinInfoDetail.Create(nil) do
   begin
-    Visible := not (ln.Action = laCreating);
-
-    if Visible then
-      if ComakersNotRequired then
-        Caption := 'No comakers required.'
-      else
-      begin
-        if Comakers = 1 then
-          Caption := '1 comaker required.'
-        else
-          Caption := IntToStr(Comakers) + ' comakers required.';
-      end;
-
+    try
+      ShowModal;
+      Free;
+    except
+      on e: Exception do
+        ShowMessage(e.Message);
+    end;
   end;
+end;
+
+procedure TfrmLoanMain.RemoveFinancialInfo;
+begin
+
+end;
+
+procedure TfrmLoanMain.AddMonthlyExpense;
+begin
+  with TfrmMonthlyExpDetail.Create(nil) do
+  begin
+    try
+      ShowModal;
+      Free;
+    except
+      on e: Exception do
+        ShowMessage(e.Message);
+    end;
+  end;
+end;
+
+procedure TfrmLoanMain.RemoveMonthlyExpense;
+begin
+
+end;
+
+procedure TfrmLoanMain.PopulateComakers;
+var
+  i, len: integer;
+begin
+  len := ln.ComakerCount - 1;
+  for i := 0 to len do
+    lbxComakers.AddObject(ln.Comaker[i].Name,ln.Comaker[i]);
 end;
 
 end.

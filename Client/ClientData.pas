@@ -31,6 +31,10 @@ type
     dscLoans: TDataSource;
     dstComakers: TADODataSet;
     dscComakers: TDataSource;
+    dstClientLoanClass: TADODataSet;
+    dscClientLoanClass: TDataSource;
+    dstLoanClassAvail: TADODataSet;
+    dscLoanClassAvail: TDataSource;
     procedure dstPersonalInfoBeforeOpen(DataSet: TDataSet);
     procedure dstEntityBeforeOpen(DataSet: TDataSet);
     procedure dstContactInfoBeforeOpen(DataSet: TDataSet);
@@ -62,6 +66,9 @@ type
     procedure dstLoansAfterScroll(DataSet: TDataSet);
     procedure dstComakersBeforeOpen(DataSet: TDataSet);
     procedure dstLoansBeforeOpen(DataSet: TDataSet);
+    procedure dstClientLoanClassBeforeOpen(DataSet: TDataSet);
+    procedure dstLoanClassAvailBeforeOpen(DataSet: TDataSet);
+    procedure dstClientLoanClassAfterScroll(DataSet: TDataSet);
   private
     { Private declarations }
   public
@@ -75,7 +82,7 @@ implementation
 
 uses
   AppData, DBUtil, Client, IFinanceGlobal, AppConstants, Referee, Landlord,
-  Employer, ImmediateHead, Bank, IdentityDoc;
+  Employer, ImmediateHead, Bank, IdentityDoc, LoanClassification;
 
 {%CLASSGROUP 'Vcl.Controls.TControl'}
 
@@ -177,6 +184,50 @@ begin
     DataSet.FieldByName('landlord').AsString := cln.LandlordPres.Id
   else
     DataSet.FieldByName('landlord').Value := null;
+end;
+
+procedure TdmClient.dstClientLoanClassAfterScroll(DataSet: TDataSet);
+var
+  clId, term, comakers, groupId: integer;
+  clName, loanType: string;
+  interest, maxLoan: real;
+  validFrom, validUntil: TDate;
+begin
+  with DataSet do
+  begin
+    clId := FieldByName('class_id').AsInteger;
+    groupId := FieldByName('grp_id').AsInteger;
+    clName := FieldByName('class_name').AsString;
+    interest := FieldByName('int_rate').AsFloat;
+    term := FieldByName('term').AsInteger;
+    loanType := FieldByName('loan_type').AsString;
+    maxLoan := FieldByName('max_loan').AsFloat;
+    comakers := FieldByName('comakers').AsInteger;
+    validFrom := FieldByName('valid_from').AsDateTime;
+    validUntil := FieldByName('valid_until').AsDateTime;
+  end;
+
+  if not Assigned(lnc) then
+    lnc := TLoanClassification.Create(clId, groupId, clName, interest,
+        term, loanType, maxLoan, comakers, validFrom, validUntil)
+  else
+  begin
+    lnc.ClassificationId := clId;
+    lnc.GroupId := groupId;
+    lnc.ClassificationName := clName;
+    lnc.Interest := interest;
+    lnc.Term := term;
+    lnc.LoanType := loanType;
+    lnc.MaxLoan := maxLoan;
+    lnc.Comakers := comakers;
+    lnc.ValidFrom := validFrom;
+    lnc.ValidUntil := validUntil;
+  end;
+end;
+
+procedure TdmClient.dstClientLoanClassBeforeOpen(DataSet: TDataSet);
+begin
+  (DataSet as TADODataSet).Parameters.ParamByName('@entity_id').Value := cln.Id;
 end;
 
 procedure TdmClient.dstComakersBeforeOpen(DataSet: TDataSet);
@@ -336,6 +387,11 @@ procedure TdmClient.dstIdentInfoBeforePost(DataSet: TDataSet);
 begin
   if DataSet.State = dsInsert then
     DataSet.FieldByName('entity_id').AsString := cln.Id;
+end;
+
+procedure TdmClient.dstLoanClassAvailBeforeOpen(DataSet: TDataSet);
+begin
+  (DataSet as TADODataSet).Parameters.ParamByName('@entity_id').Value := cln.Id;
 end;
 
 procedure TdmClient.dstLoansAfterScroll(DataSet: TDataSet);

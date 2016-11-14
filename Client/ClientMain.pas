@@ -9,7 +9,7 @@ uses
   RzEdit, RzDBEdit, JvLabel, JvExControls, JvGroupHeader, Vcl.DBCtrls, RzDBCmbo,
   Vcl.ComCtrls, RzDTP, RzDBDTP, RzButton, RzRadChk, RzDBChk, Data.DB, Vcl.Grids,
   Vcl.DBGrids, RzDBGrid, RzBtnEdt, RzLaunch, ClientIntf, Vcl.Imaging.pngimage,
-  RzCmboBx;
+  RzCmboBx, RzLstBox, RzDBList;
 
 type
   TfrmClientMain = class(TfrmBaseDocked, ISave, IClient)
@@ -179,11 +179,17 @@ type
     RzDBEdit25: TRzDBEdit;
     RzDBEdit26: TRzDBEdit;
     JvLabel52: TJvLabel;
-    RzDBEdit27: TRzDBEdit;
     RzDBEdit28: TRzDBEdit;
     RzDBEdit29: TRzDBEdit;
     RzDBEdit30: TRzDBEdit;
     RzDBMemo1: TRzDBMemo;
+    tsLoanClassAccess: TRzTabSheet;
+    JvGroupHeader15: TJvGroupHeader;
+    JvGroupHeader16: TJvGroupHeader;
+    grAvailList: TRzDBGrid;
+    btnMakeAccessible: TRzButton;
+    grAccessList: TRzDBGrid;
+    btnRemoveAccessibility: TRzButton;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -214,6 +220,8 @@ type
     procedure btnRemoveRefClick(Sender: TObject);
     procedure cmbIdTypeClick(Sender: TObject);
     procedure urlCopyClientAddressClick(Sender: TObject);
+    procedure btnRemoveAccessibilityClick(Sender: TObject);
+    procedure btnMakeAccessibleClick(Sender: TObject);
   private
     { Private declarations }
     procedure CopyAddress;
@@ -224,9 +232,8 @@ type
     procedure CallErrorBox(const error: string);
     procedure ShowTabs(const show: boolean = true);
 
-    function CheckClientInfo(st: IStatus): string;
-    function CheckIdentInfo(st: IStatus): string;
-    function CheckFamRefInfo(st: IStatus): string;
+    function CheckClientInfo: string;
+    function CheckIdentInfo: string;
   public
     { Public declarations }
     procedure Cancel;
@@ -246,7 +253,8 @@ uses
   Client, ClientData, FormsUtil, LandlordSearch, ImmHeadSearch, Landlord,
   ImmediateHead, RefereeSearch, Referee, AuxData, DockIntf, RefData,
   EmployerSearch, Employer, Bank, BanksSearch, IdentityDoc, IFinanceGlobal,
-  ReferenceSearch, Reference, DecisionBox;
+  ReferenceSearch, Reference, DecisionBox, LoansAuxData, LoanClassification,
+  DBUtil;
 
 {$R *.dfm}
 
@@ -257,26 +265,23 @@ const
   FAMREF = 1;
   IDENT  = 2;
   LOANS  = 3;
+  LOANCLASSACCESS = 4;
 
-function TfrmClientMain.CheckClientInfo(st: IStatus): string;
+function TfrmClientMain.CheckClientInfo: string;
 var
   error: string;
 begin
   if Trim(edLastname.Text) = '' then
-  begin
-    error := 'Please enter client''s lastname.';
-    st.ShowError(error);
-  end
+    error := 'Please enter client''s lastname.'
   else if Trim(edFirstname.Text) = '' then
-  begin
     error := 'Please enter client''s firstname.';
-    st.ShowError(error);
-  end;
 
   Result := error;
+
+  CallErrorBox(error);
 end;
 
-function TfrmClientMain.CheckIdentInfo(st: IStatus): string;
+function TfrmClientMain.CheckIdentInfo: string;
 var
   error: string;
   inserting: boolean;
@@ -284,25 +289,16 @@ begin
   inserting := grIdentityList.DataSource.DataSet.State = dsInsert;
 
   if cmbIdType.Text = '' then
-  begin
-    error := 'Please select ID type.';
-    st.ShowError(error);
-  end
+    error := 'Please select ID type.'
   else if Trim(edIdNo.Text) = '' then
-  begin
-    error := 'Please enter ID number.';
-    st.ShowError(error);
-  end
+    error := 'Please enter ID number.'
   else if inserting then
-  begin
     if cln.IdentityDocExists(cmbIdType.GetKeyValue) then
-    begin
       error := 'Identity type already exists.';
-      st.ShowError(error);
-    end;
-  end;
 
   Result := error;
+
+  CallErrorBox(error);
 end;
 
 procedure TfrmClientMain.CallErrorBox(const error: string);
@@ -329,11 +325,6 @@ begin
   end;
 
   dteExpiry.Enabled := hasExpiry;
-end;
-
-function TfrmClientMain.CheckFamRefInfo(st: IStatus): string;
-begin
-  Result := '';
 end;
 
 procedure TfrmClientMain.bteBankAltBtnClick(Sender: TObject);
@@ -547,6 +538,28 @@ begin
 
 end;
 
+procedure TfrmClientMain.btnMakeAccessibleClick(Sender: TObject);
+var
+  sql, classId: string;
+begin
+  try
+    if grAvailList.DataSource.DataSet.RecordCount > 0 then
+    begin
+      classId := grAvailList.DataSource.DataSet.FieldByName('class_id').AsString;
+
+      sql := 'INSERT INTO ENTITYLOANCLASS VALUES (' + QuotedStr(cln.Id) +
+          ',' + classId + ')';
+
+      ExecuteSQL(sql);
+
+      OpenGridDataSources(tsLoanClassAccess);
+    end;
+  except
+    on e: Exception do
+      CallErrorBox(e.Message);
+  end;
+end;
+
 procedure TfrmClientMain.btnNewIdClick(Sender: TObject);
 begin
   with grIdentityList.DataSource.DataSet do
@@ -591,6 +604,41 @@ begin
     except
       on e: Exception do
         ShowMessage(e.Message);
+    end;
+  end;
+end;
+
+procedure TfrmClientMain.btnRemoveAccessibilityClick(Sender: TObject);
+const
+  CONF = 'Are you sure you want to remove client access to the selected loan class?';
+var
+  sql: string;
+begin
+  if grAccessList.DataSource.DataSet.RecordCount > 0 then
+  begin
+  if (Assigned(cln.Employer)) and (lnc.GroupId = cln.Employer.GroupId) then
+    CallErrorBox('Cannot remove the loan class. Loan class belongs to the client''s employer group.')
+  else
+    with TfrmDecisionBox.Create(nil, CONF) do
+    begin
+      try
+        begin
+          ShowModal;
+
+          if ModalResult = mrYes then
+          begin
+            sql := 'DELETE ENTITYLOANCLASS WHERE ENTITY_ID = ' + QuotedStr(cln.Id) +
+                ' AND CLASS_ID = ' + IntToStr(lnc.ClassificationId);
+            ExecuteSQL(sql);
+            OpenGridDataSources(tsLoanClassAccess);
+          end;
+
+          Free;
+        end;
+      except
+        on e: Exception do
+          ShowMessage(e.Message);
+      end;
     end;
   end;
 end;
@@ -717,39 +765,34 @@ end;
 
 function TfrmClientMain.Save: boolean;
 var
-  st: IStatus;
   error: string;
 begin
   Result := false;
 
   try
-    if Supports(Application.MainForm,IStatus,st) then
+    error := '';
+
+    case pcClient.ActivePageIndex of
+
+      CLIENT: error := CheckClientInfo;
+      IDENT : error := CheckIdentInfo;
+
+    end;
+
+    Result := error = '';
+
+    if Result then
     begin
-      error := '';
+      cln.Save;
+      SetClientName;
 
       case pcClient.ActivePageIndex of
 
-        CLIENT: error := CheckClientInfo(st);
-        FAMREF: error := CheckFamRefInfo(st);
-        IDENT : error := CheckIdentInfo(st);
+        CLIENT, FAMREF: Exit;
+        IDENT : ChangeIdentControlState;
 
       end;
 
-      Result := error = '';
-
-      if Result then
-      begin
-        cln.Save;
-        SetClientName;
-
-        case pcClient.ActivePageIndex of
-
-          CLIENT, FAMREF: Exit;
-          IDENT : ChangeIdentControlState;
-
-        end;
-
-      end;
     end;
   finally
 
@@ -1005,6 +1048,10 @@ begin
       begin
         OpenGridDataSources(pnlLoans);
         OpenGridDataSources(tsLoansDetail);
+      end;
+    LOANCLASSACCESS:
+      begin
+        OpenGridDataSources(tsLoanClassAccess);
       end;
   end;
 end;

@@ -21,11 +21,14 @@ type
     dstComakers: TADODataSet;
     dstAppvMethod: TADODataSet;
     dscAppvMethod: TDataSource;
+    dscFinInfo: TDataSource;
+    dstFinInfo: TADODataSet;
+    dscMonExp: TDataSource;
+    dstMonExp: TADODataSet;
     procedure dstLoanBeforeOpen(DataSet: TDataSet);
     procedure dstLoanClassBeforeOpen(DataSet: TDataSet);
     procedure dstLoanBeforePost(DataSet: TDataSet);
     procedure dstLoanNewRecord(DataSet: TDataSet);
-    procedure dstLoanClassAfterOpen(DataSet: TDataSet);
     procedure dstLoanAfterPost(DataSet: TDataSet);
     procedure dstLoanClassAfterScroll(DataSet: TDataSet);
     procedure dstLoanAfterOpen(DataSet: TDataSet);
@@ -35,6 +38,12 @@ type
     procedure dstLoanComakerAfterPost(DataSet: TDataSet);
     procedure dstAlertsBeforeOpen(DataSet: TDataSet);
     procedure dstAlertsAfterOpen(DataSet: TDataSet);
+    procedure dstFinInfoBeforeOpen(DataSet: TDataSet);
+    procedure dstFinInfoAfterOpen(DataSet: TDataSet);
+    procedure dstFinInfoAfterPost(DataSet: TDataSet);
+    procedure dstMonExpAfterOpen(DataSet: TDataSet);
+    procedure dstMonExpAfterPost(DataSet: TDataSet);
+    procedure dstLoanClassAfterOpen(DataSet: TDataSet);
   private
     { Private declarations }
   public
@@ -66,6 +75,29 @@ end;
 procedure TdmLoan.dstAlertsBeforeOpen(DataSet: TDataSet);
 begin
   (DataSet as TADODataSet).Parameters.ParamByName('@entity_id').Value := ln.Client.Id;
+  (DataSet as TADODataSet).Parameters.ParamByName('@loan_id').Value := ln.Id;
+end;
+
+procedure TdmLoan.dstFinInfoAfterOpen(DataSet: TDataSet);
+begin
+  (DataSet as TADODataSet).Properties['Unique table'].Value := 'LoanAssFinInfo';
+  with DataSet do
+  begin
+    while not Eof do
+    begin
+      ln.AddCompetitor(FieldByName('comp_id').AsInteger);
+      Next;
+    end;
+  end;
+end;
+
+procedure TdmLoan.dstFinInfoAfterPost(DataSet: TDataSet);
+begin
+  RefreshDataSet('','comp_id',Dataset);
+end;
+
+procedure TdmLoan.dstFinInfoBeforeOpen(DataSet: TDataSet);
+begin
   (DataSet as TADODataSet).Parameters.ParamByName('@loan_id').Value := ln.Id;
 end;
 
@@ -136,9 +168,9 @@ end;
 
 procedure TdmLoan.dstLoanClassAfterOpen(DataSet: TDataSet);
 begin
-  // set the loan class of the newly-added record
   if dstLoan.State = dsInsert then
-    dstLoan.FieldByName('class_id').AsInteger := DataSet.FieldByName('class_id').AsInteger;
+    if DataSet.RecordCount > 0 then
+      dstLoan.FieldByName('class_id').AsInteger := DataSet.FieldByName('class_id').AsInteger;
 end;
 
 procedure TdmLoan.dstLoanClassAfterScroll(DataSet: TDataSet);
@@ -222,6 +254,24 @@ begin
   DataSet.FieldByName('status_id').AsString :=
         TRttiEnumerationType.GetName<TLoanStatus>(TLoanStatus.P);
   DataSet.FieldByName('date_appl').AsDateTime := ifn.AppDate;
+end;
+
+procedure TdmLoan.dstMonExpAfterOpen(DataSet: TDataSet);
+begin
+  (DataSet as TADODataSet).Properties['Unique table'].Value := 'LoanAssMonExp';
+  with DataSet do
+  begin
+    while not Eof do
+    begin
+      ln.AddMonthlyExpense(FieldByName('exp_type').AsString);
+      Next;
+    end;
+  end;
+end;
+
+procedure TdmLoan.dstMonExpAfterPost(DataSet: TDataSet);
+begin
+  RefreshDataSet('','exp_type',Dataset);
 end;
 
 end.

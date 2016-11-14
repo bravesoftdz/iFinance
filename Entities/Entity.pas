@@ -27,7 +27,7 @@ implementation
 constructor TEntity.Create;
 begin
   if ent <> nil then
-    Abort
+    Exit
   else
     ent := self;
 end;

@@ -28,6 +28,7 @@ type
     procedure btnLoginClick(Sender: TObject);
     procedure btnCancelClick(Sender: TObject);
     procedure edUsernameChange(Sender: TObject);
+    procedure edPasswordKeyPress(Sender: TObject; var Key: Char);
   private
     { Private declarations }
     procedure LoadModules;
@@ -134,6 +135,13 @@ begin
     lbErrorMessage.Visible := true;
     edUsername.SetFocus;
   end;
+end;
+
+procedure TfrmLogin.edPasswordKeyPress(Sender: TObject; var Key: Char);
+begin
+  inherited;
+  if Key = #13 then
+    btnLogin.Click;
 end;
 
 procedure TfrmLogin.edUsernameChange(Sender: TObject);

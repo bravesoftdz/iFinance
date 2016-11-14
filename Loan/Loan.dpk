@@ -64,7 +64,9 @@ contains
   ComakerDetail in 'ComakerDetail.pas' {frmComakerDetail},
   ComakerData in 'ComakerData.pas' {dmComaker: TDataModule},
   LoanClassChargeDetail in 'LoanClassChargeDetail.pas' {frmLoanClassChargeDetail},
+  LoanClassCharge in 'LoanClassCharge.pas',
+  FinInfoDetail in 'FinInfoDetail.pas' {frmFinInfoDetail},
   BasePopupDetail in '..\Base\BasePopupDetail.pas' {frmBasePopupDetail},
-  LoanClassCharge in 'LoanClassCharge.pas';
+  MonthlyExpenseDetail in 'MonthlyExpenseDetail.pas' {frmMonthlyExpDetail};
 
 end.

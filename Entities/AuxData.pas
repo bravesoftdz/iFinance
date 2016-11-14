@@ -33,10 +33,15 @@ type
     dscGender: TDataSource;
     dstAcctType: TADODataSet;
     dscAcctType: TDataSource;
+    dstPaymentFreq: TADODataSet;
+    dscPaymentFreq: TDataSource;
+    dstCompetitors: TADODataSet;
+    dscCompetitors: TDataSource;
     procedure dstBranchesBeforePost(DataSet: TDataSet);
     procedure dstBanksAfterScroll(DataSet: TDataSet);
     procedure dstBranchesNewRecord(DataSet: TDataSet);
     procedure dstDesignationsBeforePost(DataSet: TDataSet);
+    procedure dstCompetitorsBeforePost(DataSet: TDataSet);
   private
     { Private declarations }
   public
@@ -76,6 +81,17 @@ procedure TdmAux.dstBranchesNewRecord(DataSet: TDataSet);
 begin
   DataSet.FieldByName('bank_code').AsString :=
         dstBanks.FieldByName('bank_code').AsString;
+end;
+
+procedure TdmAux.dstCompetitorsBeforePost(DataSet: TDataSet);
+var
+  id: integer;
+begin
+  if DataSet.State = dsInsert then
+  begin
+    id := GetCompetitorId;
+    DataSet.FieldByName('comp_id').AsInteger := id;
+  end;
 end;
 
 procedure TdmAux.dstDesignationsBeforePost(DataSet: TDataSet);

@@ -39,9 +39,9 @@ inherited frmClientMain: TfrmClientMain
     Width = 923
     Height = 492
     Hint = ''
-    ActivePage = tsLoansHistory
+    ActivePage = tsLoanClassAccess
     Align = alClient
-    TabIndex = 3
+    TabIndex = 4
     TabOrder = 1
     TabOrientation = toBottom
     TabStyle = tsRoundCorners
@@ -1113,7 +1113,7 @@ inherited frmClientMain: TfrmClientMain
           Height = 156
           Align = alTop
           DataSource = dmRef.dscRefInfo
-          Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
+          Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
           TabOrder = 0
           TitleFont.Charset = DEFAULT_CHARSET
           TitleFont.Color = clWindowText
@@ -1533,7 +1533,7 @@ inherited frmClientMain: TfrmClientMain
           Height = 228
           Align = alTop
           DataSource = dmClient.dscIdentInfo
-          Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
+          Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
           TabOrder = 0
           TitleFont.Charset = DEFAULT_CHARSET
           TitleFont.Color = clWindowText
@@ -1727,7 +1727,7 @@ inherited frmClientMain: TfrmClientMain
           Height = 430
           Anchors = [akLeft, akTop, akBottom]
           DataSource = dmClient.dscLoans
-          Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
+          Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
           TabOrder = 0
           TitleFont.Charset = DEFAULT_CHARSET
           TitleFont.Color = clWindowText
@@ -1901,9 +1901,9 @@ inherited frmClientMain: TfrmClientMain
               Tag = -1
               Left = 35
               Top = 202
-              Width = 63
+              Width = 26
               Height = 13
-              Caption = 'Int(%)/Term'
+              Caption = 'Term'
               Transparent = True
             end
             object edPurpose: TRzDBEdit
@@ -2067,24 +2067,9 @@ inherited frmClientMain: TfrmClientMain
               TabOnEnter = True
               TabOrder = 9
             end
-            object RzDBEdit27: TRzDBEdit
-              Tag = 1
-              Left = 114
-              Top = 196
-              Width = 80
-              Height = 21
-              DataSource = dmClient.dscLoans
-              DataField = 'int'
-              ReadOnly = True
-              CharCase = ecUpperCase
-              Color = clInfoBk
-              DisabledColor = clWhite
-              TabOnEnter = True
-              TabOrder = 10
-            end
             object RzDBEdit28: TRzDBEdit
               Tag = 1
-              Left = 198
+              Left = 114
               Top = 196
               Width = 83
               Height = 21
@@ -2095,7 +2080,7 @@ inherited frmClientMain: TfrmClientMain
               Color = clInfoBk
               DisabledColor = clWhite
               TabOnEnter = True
-              TabOrder = 11
+              TabOrder = 10
             end
             object RzDBEdit29: TRzDBEdit
               Tag = 1
@@ -2110,7 +2095,7 @@ inherited frmClientMain: TfrmClientMain
               Color = clInfoBk
               DisabledColor = clWhite
               TabOnEnter = True
-              TabOrder = 12
+              TabOrder = 11
             end
             object RzDBEdit30: TRzDBEdit
               Tag = 1
@@ -2125,7 +2110,7 @@ inherited frmClientMain: TfrmClientMain
               Color = clInfoBk
               DisabledColor = clWhite
               TabOnEnter = True
-              TabOrder = 13
+              TabOrder = 12
             end
           end
         end
@@ -2136,6 +2121,248 @@ inherited frmClientMain: TfrmClientMain
           Height = 21
           TabOrder = 2
         end
+      end
+    end
+    object tsLoanClassAccess: TRzTabSheet
+      Caption = 'Loan class accessibility'
+      DesignSize = (
+        921
+        468)
+      object JvGroupHeader15: TJvGroupHeader
+        Left = 19
+        Top = 20
+        Width = 886
+        Height = 12
+        Anchors = [akLeft, akTop, akRight]
+        Caption = 'Available loan class'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = 9134911
+        Font.Height = -11
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ParentFont = False
+        Transparent = True
+      end
+      object JvGroupHeader16: TJvGroupHeader
+        Left = 19
+        Top = 310
+        Width = 886
+        Height = 12
+        Anchors = [akLeft, akTop, akRight]
+        Caption = 'Accessible loan class'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = 9134911
+        Font.Height = -11
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ParentFont = False
+        Transparent = True
+      end
+      object grAvailList: TRzDBGrid
+        Left = 19
+        Top = 35
+        Width = 886
+        Height = 230
+        Anchors = [akLeft, akTop, akRight]
+        DataSource = dmClient.dscLoanClassAvail
+        Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
+        TabOrder = 0
+        TitleFont.Charset = DEFAULT_CHARSET
+        TitleFont.Color = clWindowText
+        TitleFont.Height = -11
+        TitleFont.Name = 'Tahoma'
+        TitleFont.Style = []
+        AltRowShading = True
+        AltRowShadingColor = 15854564
+        Columns = <
+          item
+            Expanded = False
+            FieldName = 'grp_name'
+            Title.Caption = 'Group'
+            Width = 100
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'class_name'
+            Title.Caption = 'Class name'
+            Width = 160
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'loan_name'
+            Title.Caption = 'Loan type'
+            Width = 60
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'acct_name'
+            Title.Caption = 'Account type'
+            Width = 80
+            Visible = True
+          end
+          item
+            Alignment = taRightJustify
+            Expanded = False
+            FieldName = 'int_rate_f'
+            Title.Alignment = taRightJustify
+            Title.Caption = 'Int %'
+            Width = 35
+            Visible = True
+          end
+          item
+            Alignment = taRightJustify
+            Expanded = False
+            FieldName = 'term'
+            Title.Alignment = taRightJustify
+            Title.Caption = 'Term'
+            Width = 35
+            Visible = True
+          end
+          item
+            Alignment = taRightJustify
+            Expanded = False
+            FieldName = 'comakers'
+            Title.Alignment = taRightJustify
+            Title.Caption = 'CM'
+            Width = 35
+            Visible = True
+          end
+          item
+            Alignment = taRightJustify
+            Expanded = False
+            FieldName = 'max_loan_f'
+            Title.Caption = 'Max. loanable'
+            Width = 70
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'comp_method'
+            Title.Caption = 'Computation method'
+            Width = 115
+            Visible = True
+          end>
+      end
+      object btnMakeAccessible: TRzButton
+        Left = 19
+        Top = 271
+        Width = 131
+        Hint = 'Make loan class accesible to client'
+        FrameColor = clBlack
+        ShowFocusRect = False
+        Caption = 'Make accessible'
+        HotTrackColor = clMoneyGreen
+        ParentShowHint = False
+        ShowHint = True
+        TabOrder = 1
+        TabStop = False
+        OnClick = btnMakeAccessibleClick
+      end
+      object grAccessList: TRzDBGrid
+        Left = 19
+        Top = 325
+        Width = 886
+        Height = 100
+        Anchors = [akLeft, akTop, akRight]
+        DataSource = dmClient.dscClientLoanClass
+        Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
+        TabOrder = 2
+        TitleFont.Charset = DEFAULT_CHARSET
+        TitleFont.Color = clWindowText
+        TitleFont.Height = -11
+        TitleFont.Name = 'Tahoma'
+        TitleFont.Style = []
+        AltRowShading = True
+        AltRowShadingColor = 15854564
+        Columns = <
+          item
+            Expanded = False
+            FieldName = 'grp_name'
+            Title.Caption = 'Group'
+            Width = 100
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'class_name'
+            Title.Caption = 'Class name'
+            Width = 160
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'loan_name'
+            Title.Caption = 'Loan type'
+            Width = 60
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'acct_name'
+            Title.Caption = 'Account type'
+            Width = 80
+            Visible = True
+          end
+          item
+            Alignment = taRightJustify
+            Expanded = False
+            FieldName = 'int_rate_f'
+            Title.Alignment = taRightJustify
+            Title.Caption = 'Int %'
+            Width = 35
+            Visible = True
+          end
+          item
+            Alignment = taRightJustify
+            Expanded = False
+            FieldName = 'term'
+            Title.Alignment = taRightJustify
+            Title.Caption = 'Term'
+            Width = 35
+            Visible = True
+          end
+          item
+            Alignment = taRightJustify
+            Expanded = False
+            FieldName = 'comakers'
+            Title.Alignment = taRightJustify
+            Title.Caption = 'CM'
+            Width = 35
+            Visible = True
+          end
+          item
+            Alignment = taRightJustify
+            Expanded = False
+            FieldName = 'max_loan_f'
+            Title.Caption = 'Max. loanable'
+            Width = 70
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'comp_method'
+            Title.Caption = 'Computation method'
+            Width = 115
+            Visible = True
+          end>
+      end
+      object btnRemoveAccessibility: TRzButton
+        Left = 19
+        Top = 431
+        Width = 131
+        Hint = 'Remove loan class accessibility'
+        FrameColor = clBlack
+        ShowFocusRect = False
+        Caption = 'Remove accesibility'
+        HotTrackColor = clMoneyGreen
+        ParentShowHint = False
+        ShowHint = True
+        TabOrder = 3
+        TabStop = False
+        OnClick = btnRemoveAccessibilityClick
       end
     end
   end

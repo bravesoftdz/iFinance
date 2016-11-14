@@ -142,10 +142,6 @@
             <Form>frmBanksList</Form>
             <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="..\Base\BaseDocked.pas">
-            <Form>frmBaseDocked</Form>
-            <FormType>dfm</FormType>
-        </DCCReference>
         <DCCReference Include="Bank.pas"/>
         <DCCReference Include="..\Base\BaseForm.pas">
             <Form>frmBase</Form>
@@ -163,10 +159,6 @@
             <Form>frmDesignationList</Form>
             <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="..\Base\BaseGridDetail.pas">
-            <Form>frmBaseGridDetail</Form>
-            <FormType>dfm</FormType>
-        </DCCReference>
         <DCCReference Include="IdentityDoc.pas"/>
         <DCCReference Include="Reference.pas"/>
         <DCCReference Include="Group.pas"/>
@@ -176,6 +168,18 @@
         </DCCReference>
         <DCCReference Include="..\Base\BaseSearch.pas">
             <Form>frmBaseSearch</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\Base\BaseDocked.pas">
+            <Form>frmBaseDocked</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\Base\BaseGridDetail.pas">
+            <Form>frmBaseGridDetail</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="CompetitorList.pas">
+            <Form>frmCompetitorList</Form>
             <FormType>dfm</FormType>
         </DCCReference>
         <BuildConfiguration Include="Release">
@@ -251,16 +255,7 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployClass Name="DependencyModule">
-                    <Platform Name="Win32">
-                        <Operation>0</Operation>
-                        <Extensions>.dll;.bpl</Extensions>
-                    </Platform>
-                    <Platform Name="OSX32">
-                        <Operation>1</Operation>
-                        <Extensions>.dylib</Extensions>
-                    </Platform>
-                </DeployClass>
+                <DeployClass Name="ProjectiOSDeviceResourceRules"/>
                 <DeployClass Name="ProjectOSXResource">
                     <Platform Name="OSX32">
                         <RemoteDir>Contents\Resources</RemoteDir>
@@ -571,7 +566,16 @@
                         <Operation>1</Operation>
                     </Platform>
                 </DeployClass>
-                <DeployClass Name="ProjectiOSDeviceResourceRules"/>
+                <DeployClass Name="DependencyModule">
+                    <Platform Name="Win32">
+                        <Operation>0</Operation>
+                        <Extensions>.dll;.bpl</Extensions>
+                    </Platform>
+                    <Platform Name="OSX32">
+                        <Operation>1</Operation>
+                        <Extensions>.dylib</Extensions>
+                    </Platform>
+                </DeployClass>
                 <ProjectRoot Platform="iOSDevice64" Name="$(PROJECTNAME).app"/>
                 <ProjectRoot Platform="Win64" Name="$(PROJECTNAME)"/>
                 <ProjectRoot Platform="iOSDevice32" Name="$(PROJECTNAME).app"/>

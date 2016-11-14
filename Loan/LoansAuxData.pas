@@ -14,9 +14,12 @@ type
     dstClassCharges: TADODataSet;
     dscChargeType: TDataSource;
     dstChargeType: TADODataSet;
+    dscCompetitors: TDataSource;
+    dstCompetitors: TADODataSet;
+    dscExpType: TDataSource;
+    dstExpType: TADODataSet;
     procedure dstLoanClassBeforePost(DataSet: TDataSet);
     procedure dstLoanClassAfterOpen(DataSet: TDataSet);
-    procedure DataModuleCreate(Sender: TObject);
     procedure DataModuleDestroy(Sender: TObject);
     procedure dstLoanClassAfterPost(DataSet: TDataSet);
     procedure dstClassChargesNewRecord(DataSet: TDataSet);
@@ -42,16 +45,6 @@ implementation
 
 uses
   AppData, DBUtil, LoanClassification, LoanClassCharge;
-
-procedure TdmLoansAux.DataModuleCreate(Sender: TObject);
-var
-  i: integer;
-begin
-  // open all datasets
-  for i := 0 to ComponentCount - 1 do
-    if Components[i] is TADODataSet then
-      (Components[i] as TADODataSet).Open;
-end;
 
 procedure TdmLoansAux.DataModuleDestroy(Sender: TObject);
 var

@@ -1,7 +1,7 @@
 object dmAux: TdmAux
   OldCreateOrder = False
   Height = 329
-  Width = 648
+  Width = 709
   object dscTowns: TDataSource
     DataSet = dstTowns
     Left = 112
@@ -206,5 +206,35 @@ object dmAux: TdmAux
     DataSet = dstAcctType
     Left = 591
     Top = 22
+  end
+  object dstPaymentFreq: TADODataSet
+    Connection = dmApplication.acMain
+    CursorType = ctStatic
+    LockType = ltReadOnly
+    CommandText = 'sp_dd_get_payment_frequency;1'
+    CommandType = cmdStoredProc
+    Parameters = <>
+    Left = 527
+    Top = 86
+  end
+  object dscPaymentFreq: TDataSource
+    DataSet = dstPaymentFreq
+    Left = 591
+    Top = 86
+  end
+  object dstCompetitors: TADODataSet
+    Connection = dmApplication.acMain
+    CursorType = ctStatic
+    BeforePost = dstCompetitorsBeforePost
+    CommandText = 'sp_get_competitors;1'
+    CommandType = cmdStoredProc
+    Parameters = <>
+    Left = 527
+    Top = 150
+  end
+  object dscCompetitors: TDataSource
+    DataSet = dstCompetitors
+    Left = 591
+    Top = 150
   end
 end

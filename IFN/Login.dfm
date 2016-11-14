@@ -221,8 +221,8 @@ inherited frmLogin: TfrmLogin
       Height = 21
       Text = ''
       PasswordChar = '*'
-      TabOnEnter = True
       TabOrder = 1
+      OnKeyPress = edPasswordKeyPress
     end
     object btnLogin: TRzButton
       Left = 138

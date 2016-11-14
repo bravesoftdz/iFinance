@@ -82,6 +82,7 @@ type
     urlActiveLoans: TRzURLLabel;
     lbxRecentLoans: TRzListBox;
     urlDenied: TRzURLLabel;
+    tbCompetitor: TToolButton;
     procedure tbAddClientClick(Sender: TObject);
     procedure tbSaveClick(Sender: TObject);
     procedure lblRecentlyAddedClick(Sender: TObject);
@@ -103,6 +104,7 @@ type
     procedure lbxRecentLoansDblClick(Sender: TObject);
     procedure urlDeniedClick(Sender: TObject);
     procedure npMainChange(Sender: TObject);
+    procedure tbCompetitorClick(Sender: TObject);
   private
     { Private declarations }
     RecentClients: TObjectList<TRecentClient>;
@@ -128,7 +130,7 @@ implementation
 uses
   ClientMain, SaveIntf, ClientList, DockedFormIntf, GroupList, EmployerList,
   BanksList, DesignationList, LoanClassificationList, ConfBox, ErrorBox, ClientIntf,
-  LoanMain, LoanList, LoanIntf;
+  LoanMain, LoanList, LoanIntf, CompetitorList;
 
 constructor TRecentClient.Create(const id, displayId, name: string);
 begin
@@ -326,6 +328,11 @@ begin
   end;
 end;
 
+procedure TfrmMain.tbCompetitorClick(Sender: TObject);
+begin
+  DockForm(fmCompetitorList);
+end;
+
 procedure TfrmMain.tbDesignationListClick(Sender: TObject);
 begin
   DockForm(fmDesignationList);
@@ -425,6 +432,7 @@ begin
       fmLoanClassList: frm := TfrmLoanClassificationList.Create(Application);
       fmLoanMain: frm := TfrmLoanMain.Create(Application);
       fmLoanList: frm := TfrmLoanList.Create(Application);
+      fmCompetitorList: frm := TfrmCompetitorList.Create(Application);
       else
         frm := TForm.Create(Application);
     end;

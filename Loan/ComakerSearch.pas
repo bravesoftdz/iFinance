@@ -49,6 +49,7 @@ begin
   with grSearch.DataSource.DataSet do
   begin
     cm.ID := (FieldByName('entity_id').AsString);
+    cm.Name := FieldByName('name').AsString;
     cm.ComakeredLoans := FieldByName('comakered_loans').AsInteger;
   end;
 end;

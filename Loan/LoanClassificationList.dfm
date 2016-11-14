@@ -1,14 +1,14 @@
 inherited frmLoanClassificationList: TfrmLoanClassificationList
   Caption = 'frmLoanClassificationList'
   ClientHeight = 549
-  ClientWidth = 739
+  ClientWidth = 855
   OnCreate = FormCreate
-  ExplicitWidth = 755
+  ExplicitWidth = 871
   ExplicitHeight = 588
   PixelsPerInch = 96
   TextHeight = 13
   inherited pnlTitle: TRzPanel
-    Width = 739
+    Width = 855
     ExplicitWidth = 739
     inherited lblTitle: TRzLabel
       Width = 133
@@ -19,19 +19,20 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
   object pnlList: TRzPanel
     Left = 0
     Top = 28
-    Width = 739
+    Width = 855
     Height = 521
     Align = alClient
     BorderOuter = fsFlat
     BorderSides = [sdLeft, sdRight, sdBottom]
     BorderWidth = 5
     TabOrder = 1
+    ExplicitWidth = 739
     DesignSize = (
-      739
+      855
       521)
     object urlRefreshList: TRzURLLabel
-      Left = 695
-      Top = 231
+      Left = 811
+      Top = 271
       Width = 38
       Height = 13
       Hint = 'Refresh identity document list'
@@ -50,8 +51,8 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
     object grList: TRzDBGrid
       Left = 6
       Top = 5
-      Width = 727
-      Height = 220
+      Width = 843
+      Height = 260
       Align = alTop
       DataSource = dmLoansAux.dscLoanClass
       Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
@@ -137,9 +138,9 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
     end
     object pcDetail: TRzPageControl
       Left = 6
-      Top = 262
-      Width = 729
-      Height = 253
+      Top = 302
+      Width = 845
+      Height = 213
       Hint = ''
       ActivePage = tsDetail
       Anchors = [akLeft, akTop, akRight, akBottom]
@@ -150,69 +151,70 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
       object tsDetail: TRzTabSheet
         Color = 15263976
         Caption = 'Loan classification details'
-        ExplicitHeight = 222
+        ExplicitWidth = 725
+        ExplicitHeight = 230
         DesignSize = (
-          725
-          230)
+          841
+          190)
         object JvLabel1: TJvLabel
-          Left = 19
-          Top = 47
+          Left = 35
+          Top = 52
           Width = 56
           Height = 13
           Caption = 'Class name'
           Transparent = True
         end
         object JvLabel2: TJvLabel
-          Left = 19
-          Top = 71
+          Left = 35
+          Top = 76
           Width = 78
           Height = 13
           Caption = 'Loan/acct. type'
           Transparent = True
         end
         object JvLabel3: TJvLabel
-          Left = 19
-          Top = 143
+          Left = 347
+          Top = 28
           Width = 55
           Height = 13
           Caption = 'Interest %'
           Transparent = True
         end
         object JvLabel4: TJvLabel
-          Left = 163
-          Top = 143
+          Left = 347
+          Top = 52
           Width = 72
           Height = 13
           Caption = 'Term (months)'
           Transparent = True
         end
         object JvLabel5: TJvLabel
-          Left = 19
-          Top = 167
+          Left = 347
+          Top = 76
           Width = 49
           Height = 13
           Caption = 'Comakers'
           Transparent = True
         end
         object JvLabel6: TJvLabel
-          Left = 19
-          Top = 23
+          Left = 35
+          Top = 28
           Width = 31
           Height = 13
           Caption = 'Group'
           Transparent = True
         end
         object JvLabel7: TJvLabel
-          Left = 19
-          Top = 119
+          Left = 35
+          Top = 124
           Width = 72
           Height = 13
           Caption = 'Comp. method'
           Transparent = True
         end
         object JvLabel8: TJvLabel
-          Left = 163
-          Top = 167
+          Left = 347
+          Top = 100
           Width = 69
           Height = 13
           Caption = 'Max. loanable'
@@ -220,8 +222,8 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
         end
         object JvLabel9: TJvLabel
           Tag = -1
-          Left = 19
-          Top = 95
+          Left = 35
+          Top = 100
           Width = 35
           Height = 13
           Caption = 'Branch'
@@ -229,10 +231,10 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
         end
         object JvGroupHeader4: TJvGroupHeader
           Tag = -1
-          Left = 344
-          Top = 17
-          Width = 361
-          Height = 12
+          Left = 544
+          Top = 8
+          Width = 277
+          Height = 15
           Anchors = [akLeft, akTop, akRight]
           Caption = 'Charges'
           Font.Charset = DEFAULT_CHARSET
@@ -244,16 +246,46 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
           Transparent = True
         end
         object JvLabel10: TJvLabel
-          Left = 19
-          Top = 191
-          Width = 36
+          Left = 347
+          Top = 124
+          Width = 49
           Height = 13
-          Caption = 'Validity'
+          Caption = 'Valid from'
+          Transparent = True
+        end
+        object JvLabel11: TJvLabel
+          Left = 346
+          Top = 148
+          Width = 47
+          Height = 13
+          Caption = 'Valid until'
+          Transparent = True
+        end
+        object JvLabel12: TJvLabel
+          Left = 35
+          Top = 148
+          Width = 71
+          Height = 13
+          Caption = 'Payment freq.'
+          Transparent = True
+        end
+        object JvGroupHeader7: TJvGroupHeader
+          Left = 19
+          Top = 8
+          Width = 495
+          Height = 12
+          Caption = 'Details'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = 9134911
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
           Transparent = True
         end
         object edClassName: TRzDBEdit
-          Left = 105
-          Top = 41
+          Left = 121
+          Top = 46
           Width = 207
           Height = 21
           DataSource = dmLoansAux.dscLoanClass
@@ -262,8 +294,8 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
           TabOrder = 1
         end
         object dbluLoanType: TRzDBLookupComboBox
-          Left = 105
-          Top = 65
+          Left = 121
+          Top = 70
           Width = 104
           Height = 21
           DataField = 'loan_type'
@@ -276,9 +308,9 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
           FrameHotColor = clBlack
         end
         object edTerm: TRzDBEdit
-          Left = 249
-          Top = 137
-          Width = 63
+          Left = 433
+          Top = 46
+          Width = 81
           Height = 21
           DataSource = dmLoansAux.dscLoanClass
           DataField = 'term'
@@ -286,9 +318,9 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
           TabOrder = 7
         end
         object edComakers: TRzDBEdit
-          Left = 105
-          Top = 161
-          Width = 40
+          Left = 433
+          Top = 70
+          Width = 81
           Height = 21
           DataSource = dmLoansAux.dscLoanClass
           DataField = 'comakers'
@@ -296,8 +328,8 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
           TabOrder = 8
         end
         object dbluGroup: TRzDBLookupComboBox
-          Left = 105
-          Top = 17
+          Left = 121
+          Top = 22
           Width = 207
           Height = 21
           DataField = 'grp_id'
@@ -311,8 +343,8 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
           FrameHotColor = clBlack
         end
         object dbluCompMethod: TRzDBLookupComboBox
-          Left = 105
-          Top = 113
+          Left = 121
+          Top = 118
           Width = 207
           Height = 21
           DataField = 'int_comp_method'
@@ -325,9 +357,9 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
           FrameHotColor = clBlack
         end
         object edInterest: TRzDBNumericEdit
-          Left = 105
-          Top = 137
-          Width = 40
+          Left = 433
+          Top = 22
+          Width = 81
           Height = 21
           DataSource = dmLoansAux.dscLoanClass
           DataField = 'int_rate'
@@ -337,9 +369,9 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
           DisplayFormat = '0.00'
         end
         object edMaxLoan: TRzDBNumericEdit
-          Left = 249
-          Top = 161
-          Width = 63
+          Left = 433
+          Top = 94
+          Width = 81
           Height = 21
           DataSource = dmLoansAux.dscLoanClass
           DataField = 'max_loan'
@@ -349,8 +381,8 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
         end
         object dbluAcctType: TRzDBLookupComboBox
           Tag = 1
-          Left = 213
-          Top = 65
+          Left = 229
+          Top = 70
           Width = 99
           Height = 21
           DataField = 'acct_type'
@@ -366,10 +398,10 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
         end
         object grCharges: TRzDBGrid
           Tag = -1
-          Left = 360
-          Top = 32
-          Width = 345
-          Height = 126
+          Left = 544
+          Top = 22
+          Width = 277
+          Height = 111
           Anchors = [akLeft, akTop, akRight]
           DataSource = dmLoansAux.dscClassCharges
           Options = [dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
@@ -399,8 +431,8 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
         end
         object dbluBranch: TRzDBLookupComboBox
           Tag = 1
-          Left = 105
-          Top = 89
+          Left = 121
+          Top = 94
           Width = 207
           Height = 21
           DataField = 'acct_type'
@@ -415,8 +447,8 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
           TabOnEnter = True
         end
         object btnAddCharge: TRzButton
-          Left = 360
-          Top = 181
+          Left = 544
+          Top = 138
           Width = 97
           Hint = 'New identity document'
           FrameColor = clBlack
@@ -431,8 +463,8 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
           OnClick = btnAddChargeClick
         end
         object btnRemoveCharge: TRzButton
-          Left = 463
-          Top = 181
+          Left = 647
+          Top = 138
           Width = 114
           Hint = 'Remove identity document'
           FrameColor = clBlack
@@ -447,9 +479,9 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
           OnClick = btnRemoveChargeClick
         end
         object dteFrom: TRzDBDateTimeEdit
-          Left = 105
-          Top = 185
-          Width = 102
+          Left = 433
+          Top = 118
+          Width = 81
           Height = 21
           DataSource = dmLoansAux.dscLoanClass
           DataField = 'valid_from'
@@ -459,9 +491,9 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
           Format = 'mm/dd/yyyy'
         end
         object dteUntil: TRzDBDateTimeEdit
-          Left = 210
-          Top = 185
-          Width = 102
+          Left = 433
+          Top = 142
+          Width = 81
           Height = 21
           DataSource = dmLoansAux.dscLoanClass
           DataField = 'valid_until'
@@ -470,11 +502,25 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
           EditType = etDate
           Format = 'mm/dd/yyyy'
         end
+        object dbluPayFreq: TRzDBLookupComboBox
+          Left = 121
+          Top = 142
+          Width = 207
+          Height = 21
+          DataField = 'pay_freq'
+          DataSource = dmLoansAux.dscLoanClass
+          KeyField = 'value'
+          ListField = 'display'
+          ListSource = dmAux.dscPaymentFreq
+          TabOrder = 15
+          FrameColor = clBlack
+          FrameHotColor = clBlack
+        end
       end
     end
     object btnNew: TRzButton
       Left = 6
-      Top = 231
+      Top = 271
       Width = 171
       Hint = 'New'
       Caption = 'New loan classification'
