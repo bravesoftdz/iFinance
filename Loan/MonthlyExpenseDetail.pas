@@ -15,6 +15,7 @@ type
     dbluType: TRzDBLookupComboBox;
     edMonthly: TRzDBNumericEdit;
     procedure FormShow(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
   private
     { Private declarations }
   public
@@ -33,7 +34,13 @@ implementation
 {$R *.dfm}
 
 uses
-  LoanData, LoansAuxData, FormsUtil, Loan;
+  LoanData, LoansAuxData, FormsUtil, Loan, MonthlyExpense;
+
+procedure TfrmMonthlyExpDetail.FormCreate(Sender: TObject);
+begin
+  inherited;
+  OpenDropdownDataSources(tsDetail);
+end;
 
 procedure TfrmMonthlyExpDetail.FormShow(Sender: TObject);
 begin
@@ -43,10 +50,20 @@ begin
 end;
 
 procedure TfrmMonthlyExpDetail.Save;
+var
+  expType, expName, expAmount: string;
 begin
   with dmLoan.dstMonExp do
+  begin
     if State in [dsInsert,dsEdit] then
       Post;
+
+    expType := FieldByName('exp_type').AsString;
+    expName := dbluType.Text;
+    expAmount := edMonthly.Text;
+
+    ln.AddMonthlyExpense(TMonthlyExpense.Create(expType,expName,expAmount),true);
+  end;
 end;
 
 procedure TfrmMonthlyExpDetail.Cancel;
@@ -72,8 +89,7 @@ begin
 
   Result := error = '';
 
-  lblStatus.Caption := error;
-  lblStatus.Visible := not Result;
+  if not Result then CallErrorBox(error);
 end;
 
 end.

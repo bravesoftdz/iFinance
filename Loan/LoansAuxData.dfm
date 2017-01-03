@@ -2,7 +2,7 @@ object dmLoansAux: TdmLoansAux
   OldCreateOrder = False
   OnDestroy = DataModuleDestroy
   Height = 221
-  Width = 457
+  Width = 595
   object dscLoanClass: TDataSource
     DataSet = dstLoanClass
     Left = 112
@@ -103,5 +103,35 @@ object dmLoansAux: TdmLoansAux
     Parameters = <>
     Left = 200
     Top = 136
+  end
+  object dstAppvMethod: TADODataSet
+    Connection = dmApplication.acMain
+    CursorType = ctStatic
+    LockType = ltReadOnly
+    CommandText = 'sp_dd_get_appv_method;1'
+    CommandType = cmdStoredProc
+    Parameters = <>
+    Left = 359
+    Top = 30
+  end
+  object dscAppvMethod: TDataSource
+    DataSet = dstAppvMethod
+    Left = 431
+    Top = 30
+  end
+  object dstCancelReason: TADODataSet
+    Connection = dmApplication.acMain
+    CursorType = ctStatic
+    LockType = ltReadOnly
+    CommandText = 'sp_dd_get_cancel_reason;1'
+    CommandType = cmdStoredProc
+    Parameters = <>
+    Left = 359
+    Top = 78
+  end
+  object dscCancelReason: TDataSource
+    DataSet = dstCancelReason
+    Left = 431
+    Top = 78
   end
 end

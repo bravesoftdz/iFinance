@@ -16,6 +16,7 @@ type
     FPhotoUtility: string;
     FControlDisabledColor: TColor;
     FMaxComakeredLoans: integer;
+    FAppImagesPath: string;
   public
     property AppDate: TDate read FAppDate write FAppDate;
     property LocationCode: string read FLocationCode write FLocationCode;
@@ -25,6 +26,7 @@ type
     property PhotoUtility: string read FPhotoUtility write FPhotoUtility;
     property ControlDisabledColor: TColor read FControlDisabledColor write FControlDisabledColor;
     property MaxComakeredLoans: integer read FMaxComakeredLoans write FMaxComakeredLoans;
+    property AppImagesPath: string read FAppImagesPath write FAppImagesPath;
 
     constructor Create;
     destructor Destroy; override;

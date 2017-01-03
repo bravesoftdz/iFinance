@@ -83,8 +83,7 @@ begin
 
   Result := error = '';
 
-  lblStatus.Caption := error;
-  lblStatus.Visible := not Result;
+  if not Result then CallErrorBox(error);
 end;
 
 end.

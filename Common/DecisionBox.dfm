@@ -8,8 +8,8 @@ inherited frmDecisionBox: TfrmDecisionBox
   TextHeight = 13
   inherited pnlTitle: TRzPanel
     Width = 357
-    GradientColorStart = 16750383
-    GradientColorStop = 16756834
+    GradientColorStart = 16744448
+    GradientColorStop = 16746255
     ExplicitWidth = 357
     inherited imgClose: TImage
       Left = 336

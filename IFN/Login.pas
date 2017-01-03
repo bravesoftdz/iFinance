@@ -210,6 +210,9 @@ begin
     if not DirectoryExists(ifn.PhotoPath) then
       CreateDir(ifn.PhotoPath);
 
+    // application images path
+    ifn.AppImagesPath := ExtractFilePath(Application.ExeName) + '_images\';
+
     Close;
   end;
 

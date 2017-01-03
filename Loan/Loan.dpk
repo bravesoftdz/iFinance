@@ -66,7 +66,14 @@ contains
   LoanClassChargeDetail in 'LoanClassChargeDetail.pas' {frmLoanClassChargeDetail},
   LoanClassCharge in 'LoanClassCharge.pas',
   FinInfoDetail in 'FinInfoDetail.pas' {frmFinInfoDetail},
+  MonthlyExpenseDetail in 'MonthlyExpenseDetail.pas' {frmMonthlyExpDetail},
+  LoanApprovalDetail in 'LoanApprovalDetail.pas' {frmLoanAppvDetail},
+  LoanReleaseDetail in 'LoanReleaseDetail.pas' {frmBasePopupDetail2},
+  LoanRejectionDetail in 'LoanRejectionDetail.pas' {frmBasePopupDetail3},
+  LoanCancellationDetail in 'LoanCancellationDetail.pas' {frmLoanCancellationDetail},
+  LoanAssessmentDetail in 'LoanAssessmentDetail.pas' {frmLoanAssessmentDetail},
   BasePopupDetail in '..\Base\BasePopupDetail.pas' {frmBasePopupDetail},
-  MonthlyExpenseDetail in 'MonthlyExpenseDetail.pas' {frmMonthlyExpDetail};
+  FinInfo in 'FinInfo.pas',
+  MonthlyExpense in 'MonthlyExpense.pas';
 
 end.

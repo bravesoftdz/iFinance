@@ -25,12 +25,6 @@ inherited frmComakerDetail: TfrmComakerDetail
     Height = 362
     ExplicitWidth = 674
     ExplicitHeight = 510
-    inherited lblStatus: TLabel
-      Top = 327
-      Width = 488
-      ExplicitTop = 327
-      ExplicitWidth = 488
-    end
     inherited pcDetail: TRzPageControl
       Width = 673
       Height = 308
@@ -40,6 +34,7 @@ inherited frmComakerDetail: TfrmComakerDetail
       FixedDimension = 19
       inherited tsDetail: TRzTabSheet
         Caption = 'Comaker details'
+        ExplicitLeft = 0
         ExplicitTop = -9
         ExplicitWidth = 648
         ExplicitHeight = 379

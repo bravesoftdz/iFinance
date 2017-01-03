@@ -4,7 +4,7 @@ interface
 
 uses
   System.SysUtils, System.Classes, Data.DB, Data.Win.ADODB, System.ImageList,
-  Vcl.Controls;
+  Vcl.Controls, Vcl.ImgList, JvImageList;
 
 type
   TdmLoansAux = class(TDataModule)
@@ -18,6 +18,10 @@ type
     dstCompetitors: TADODataSet;
     dscExpType: TDataSource;
     dstExpType: TADODataSet;
+    dstAppvMethod: TADODataSet;
+    dscAppvMethod: TDataSource;
+    dstCancelReason: TADODataSet;
+    dscCancelReason: TDataSource;
     procedure dstLoanClassBeforePost(DataSet: TDataSet);
     procedure dstLoanClassAfterOpen(DataSet: TDataSet);
     procedure DataModuleDestroy(Sender: TObject);

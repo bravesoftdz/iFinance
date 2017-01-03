@@ -83,6 +83,10 @@ type
     lbxRecentLoans: TRzListBox;
     urlDenied: TRzURLLabel;
     tbCompetitor: TToolButton;
+    ToolButton2: TToolButton;
+    tbApproveLoan: TToolButton;
+    tbCancelLoan: TToolButton;
+    tbAssessLoan: TToolButton;
     procedure tbAddClientClick(Sender: TObject);
     procedure tbSaveClick(Sender: TObject);
     procedure lblRecentlyAddedClick(Sender: TObject);
@@ -105,6 +109,9 @@ type
     procedure urlDeniedClick(Sender: TObject);
     procedure npMainChange(Sender: TObject);
     procedure tbCompetitorClick(Sender: TObject);
+    procedure tbApproveLoanClick(Sender: TObject);
+    procedure tbAssessLoanClick(Sender: TObject);
+    procedure tbCancelLoanClick(Sender: TObject);
   private
     { Private declarations }
     RecentClients: TObjectList<TRecentClient>;
@@ -275,6 +282,7 @@ begin
         intf.SetLoanId;
         intf.RefreshDropDownSources;
         intf.SetUnboundControls;
+        intf.DisplayLoanStateDetails;
       end;
     end
     else
@@ -306,6 +314,38 @@ begin
   DockForm(fmClientMain);
 end;
 
+procedure TfrmMain.tbApproveLoanClick(Sender: TObject);
+var
+  intf: ILoan;
+begin
+  try
+    if pnlDockMain.ControlCount > 0 then
+      if Supports(pnlDockMain.Controls[0] as TForm,ILoan,intf) then
+      begin
+        intf.ApproveLoan;
+      end;
+  except
+    on e:Exception do
+      ShowError(e.Message);
+  end;
+end;
+
+procedure TfrmMain.tbAssessLoanClick(Sender: TObject);
+var
+  intf: ILoan;
+begin
+  try
+    if pnlDockMain.ControlCount > 0 then
+      if Supports(pnlDockMain.Controls[0] as TForm,ILoan,intf) then
+      begin
+        intf.AssessLoan;
+      end;
+  except
+    on e:Exception do
+      ShowError(e.Message);
+  end;
+end;
+
 procedure TfrmMain.tbBanksClick(Sender: TObject);
 begin
   DockForm(fmBanksList);
@@ -321,6 +361,22 @@ begin
       begin
         intf.Cancel;
         // ShowConfirmation('Changes have been cancelled.');
+      end;
+  except
+    on e:Exception do
+      ShowError(e.Message);
+  end;
+end;
+
+procedure TfrmMain.tbCancelLoanClick(Sender: TObject);
+var
+  intf: ILoan;
+begin
+  try
+    if pnlDockMain.ControlCount > 0 then
+      if Supports(pnlDockMain.Controls[0] as TForm,ILoan,intf) then
+      begin
+        intf.CancelLoan;
       end;
   except
     on e:Exception do

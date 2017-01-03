@@ -1,0 +1,78 @@
+unit LoanApprovalDetail;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, BasePopupDetail, Vcl.StdCtrls,
+  Vcl.DBCtrls, RzDBEdit, RzDBCmbo, Vcl.Mask, RzEdit, JvExControls, JvLabel,
+  RzButton, RzTabs, RzLabel, Vcl.Imaging.pngimage, Vcl.ExtCtrls, RzPanel;
+
+type
+  TfrmLoanAppvDetail = class(TfrmBasePopupDetail)
+    JvLabel8: TJvLabel;
+    JvLabel14: TJvLabel;
+    JvLabel10: TJvLabel;
+    edAppvTerm: TRzDBNumericEdit;
+    edAppvAmount: TRzDBNumericEdit;
+    dteDateApproved: TRzDBDateTimeEdit;
+    JvLabel24: TJvLabel;
+    JvLabel16: TJvLabel;
+    dbluAppvMethod: TRzDBLookupComboBox;
+    mmRemarks: TRzDBMemo;
+    procedure FormCreate(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  protected
+    procedure Save; override;
+    procedure Cancel; override;
+    function ValidEntry: boolean; override;
+  end;
+
+var
+  frmLoanAppvDetail: TfrmLoanAppvDetail;
+
+implementation
+
+{$R *.dfm}
+
+uses
+  LoanData, LoansAuxData, Loan, FormsUtil;
+
+procedure TfrmLoanAppvDetail.FormCreate(Sender: TObject);
+begin
+  inherited;
+  OpenDropdownDataSources(tsDetail);
+end;
+
+procedure TfrmLoanAppvDetail.Save;
+begin
+  ln.Save;
+end;
+
+procedure TfrmLoanAppvDetail.Cancel;
+begin
+  ln.Cancel;
+end;
+
+function TfrmLoanAppvDetail.ValidEntry: boolean;
+var
+  error: string;
+begin
+  if dteDateApproved.Text = '' then
+    error := 'Please enter date approved.'
+  else if edAppvAmount.Value <= 0 then
+    error := 'Invalid value for approved amount.'
+  else if edAppvTerm.Value <= 0 then
+    error := 'Invalid value for approved term.'
+  else if dbluAppvMethod.Text = '' then
+    error := 'Please select approval method.';
+
+  Result := error = '';
+
+  if not Result then CallErrorBox(error);
+end;
+
+end.

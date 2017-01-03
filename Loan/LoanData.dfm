@@ -1,7 +1,7 @@
 object dmLoan: TdmLoan
   OldCreateOrder = False
-  Height = 224
-  Width = 515
+  Height = 338
+  Width = 779
   object dstLoan: TADODataSet
     Tag = 1
     Connection = dmApplication.acMain
@@ -88,6 +88,7 @@ object dmLoan: TdmLoan
     Tag = 1
     Connection = dmApplication.acMain
     CursorType = ctStatic
+    LockType = ltBatchOptimistic
     BeforeOpen = dstLoanComakerBeforeOpen
     AfterOpen = dstLoanComakerAfterOpen
     AfterPost = dstLoanComakerAfterPost
@@ -122,7 +123,6 @@ object dmLoan: TdmLoan
     CursorType = ctStatic
     LockType = ltReadOnly
     BeforeOpen = dstAlertsBeforeOpen
-    AfterOpen = dstAlertsAfterOpen
     CommandText = 'sp_ln_get_alerts;1'
     CommandType = cmdStoredProc
     Parameters = <
@@ -179,21 +179,6 @@ object dmLoan: TdmLoan
     Left = 352
     Top = 16
   end
-  object dstAppvMethod: TADODataSet
-    Connection = dmApplication.acMain
-    CursorType = ctStatic
-    LockType = ltReadOnly
-    CommandText = 'sp_dd_get_appv_method;1'
-    CommandType = cmdStoredProc
-    Parameters = <>
-    Left = 47
-    Top = 126
-  end
-  object dscAppvMethod: TDataSource
-    DataSet = dstAppvMethod
-    Left = 119
-    Top = 126
-  end
   object dscFinInfo: TDataSource
     DataSet = dstFinInfo
     Left = 416
@@ -204,9 +189,10 @@ object dmLoan: TdmLoan
     Connection = dmApplication.acMain
     CursorType = ctStatic
     Filtered = True
+    LockType = ltBatchOptimistic
     BeforeOpen = dstFinInfoBeforeOpen
     AfterOpen = dstFinInfoAfterOpen
-    AfterPost = dstFinInfoAfterPost
+    BeforePost = dstFinInfoBeforePost
     CommandText = 'sp_ln_get_fin_info;1'
     CommandType = cmdStoredProc
     Parameters = <
@@ -237,9 +223,10 @@ object dmLoan: TdmLoan
     Connection = dmApplication.acMain
     CursorType = ctStatic
     Filtered = True
-    BeforeOpen = dstFinInfoBeforeOpen
+    LockType = ltBatchOptimistic
+    BeforeOpen = dstMonExpBeforeOpen
     AfterOpen = dstMonExpAfterOpen
-    AfterPost = dstMonExpAfterPost
+    BeforePost = dstMonExpBeforePost
     CommandText = 'sp_ln_get_mon_exp;1'
     CommandType = cmdStoredProc
     Parameters = <
@@ -259,5 +246,135 @@ object dmLoan: TdmLoan
       end>
     Left = 352
     Top = 128
+  end
+  object dstLoanAss: TADODataSet
+    Tag = 1
+    Connection = dmApplication.acMain
+    CursorType = ctStatic
+    BeforeOpen = dstLoanAssBeforeOpen
+    AfterOpen = dstLoanAssAfterOpen
+    BeforePost = dstLoanAssBeforePost
+    AfterPost = dstLoanAssAfterPost
+    CommandText = 'sp_ln_get_loan_ass;1'
+    CommandType = cmdStoredProc
+    Parameters = <
+      item
+        Name = '@RETURN_VALUE'
+        DataType = ftInteger
+        Direction = pdReturnValue
+        Precision = 10
+        Value = 0
+      end
+      item
+        Name = '@loan_id'
+        Attributes = [paNullable]
+        DataType = ftString
+        Size = 13
+        Value = ''
+      end>
+    Left = 55
+    Top = 126
+  end
+  object dscLoanAss: TDataSource
+    DataSet = dstLoanAss
+    Left = 127
+    Top = 126
+  end
+  object dstLoanAppv: TADODataSet
+    Tag = 1
+    Connection = dmApplication.acMain
+    CursorType = ctStatic
+    BeforeOpen = dstLoanAppvBeforeOpen
+    AfterOpen = dstLoanAppvAfterOpen
+    BeforePost = dstLoanAppvBeforePost
+    AfterPost = dstLoanAppvAfterPost
+    CommandText = 'sp_ln_get_loan_appv;1'
+    CommandType = cmdStoredProc
+    Parameters = <
+      item
+        Name = '@RETURN_VALUE'
+        DataType = ftInteger
+        Direction = pdReturnValue
+        Precision = 10
+        Value = 0
+      end
+      item
+        Name = '@loan_id'
+        Attributes = [paNullable]
+        DataType = ftString
+        Size = 13
+        Value = ''
+      end>
+    Left = 55
+    Top = 182
+  end
+  object dscLoanAppv: TDataSource
+    DataSet = dstLoanAppv
+    Left = 119
+    Top = 182
+  end
+  object dstStatuses: TADODataSet
+    Tag = 1
+    Connection = dmApplication.acMain
+    CursorType = ctStatic
+    LockType = ltReadOnly
+    BeforeOpen = dstStatusesBeforeOpen
+    CommandText = 'sp_ln_get_loan_statuses;1'
+    CommandType = cmdStoredProc
+    Parameters = <
+      item
+        Name = '@RETURN_VALUE'
+        DataType = ftInteger
+        Direction = pdReturnValue
+        Precision = 10
+        Value = 0
+      end
+      item
+        Name = '@loan_id'
+        Attributes = [paNullable]
+        DataType = ftString
+        Size = 13
+        Value = ''
+      end>
+    Left = 207
+    Top = 182
+  end
+  object dscStatuses: TDataSource
+    DataSet = dstStatuses
+    Left = 271
+    Top = 182
+  end
+  object dstLoanCancel: TADODataSet
+    Tag = 1
+    Connection = dmApplication.acMain
+    CursorType = ctStatic
+    BeforeOpen = dstLoanCancelBeforeOpen
+    AfterOpen = dstLoanCancelAfterOpen
+    BeforePost = dstLoanCancelBeforePost
+    AfterPost = dstLoanCancelAfterPost
+    CommandText = 'sp_ln_get_loan_cancel;1'
+    CommandType = cmdStoredProc
+    Parameters = <
+      item
+        Name = '@RETURN_VALUE'
+        DataType = ftInteger
+        Direction = pdReturnValue
+        Precision = 10
+        Value = 0
+      end
+      item
+        Name = '@loan_id'
+        Attributes = [paNullable]
+        DataType = ftString
+        Size = 13
+        Value = ''
+      end>
+    Left = 55
+    Top = 238
+  end
+  object dscLoanCancel: TDataSource
+    DataSet = dstLoanCancel
+    Left = 119
+    Top = 238
   end
 end

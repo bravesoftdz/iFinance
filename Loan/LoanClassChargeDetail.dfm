@@ -26,12 +26,6 @@ inherited frmLoanClassChargeDetail: TfrmLoanClassChargeDetail
     Height = 156
     ExplicitWidth = 303
     ExplicitHeight = 156
-    inherited lblStatus: TLabel
-      Top = 121
-      Width = 122
-      ExplicitTop = 125
-      ExplicitWidth = 122
-    end
     inherited pcDetail: TRzPageControl
       Width = 286
       Height = 102
@@ -39,8 +33,6 @@ inherited frmLoanClassChargeDetail: TfrmLoanClassChargeDetail
       ExplicitHeight = 102
       FixedDimension = 19
       inherited tsDetail: TRzTabSheet
-        ExplicitLeft = 1
-        ExplicitTop = 1
         ExplicitWidth = 282
         ExplicitHeight = 98
         object JvLabel1: TJvLabel

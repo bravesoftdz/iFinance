@@ -13,12 +13,12 @@ type
     tsDetail: TRzTabSheet;
     btnSave: TRzButton;
     btnCancel: TRzButton;
-    lblStatus: TLabel;
     procedure btnSaveClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
     { Private declarations }
   protected
+    procedure CallErrorBox(const error: string);
     procedure Save; virtual; abstract;
     procedure Cancel; virtual; abstract;
     function ValidEntry: boolean; virtual; abstract;
@@ -32,6 +32,9 @@ var
 implementation
 
 {$R *.dfm}
+
+uses
+  ErrorBox;
 
 procedure TfrmBasePopupDetail.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
@@ -51,11 +54,18 @@ begin
 
     except
       on e: Exception do
-      begin
-        lblStatus.Caption := e.Message;
-        lblStatus.Visible := true;
-      end;
+        CallErrorBox(e.Message);
     end;
+  end;
+end;
+
+procedure TfrmBasePopupDetail.CallErrorBox(const error: string);
+begin
+  with TfrmErrorBox.Create(self,error) do
+  try
+    ShowModal;
+  finally
+    Free;
   end;
 end;
 

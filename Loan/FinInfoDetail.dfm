@@ -10,8 +10,10 @@ inherited frmFinInfoDetail: TfrmFinInfoDetail
   TextHeight = 13
   inherited pnlTitle: TRzPanel
     Width = 303
+    ExplicitWidth = 303
     inherited imgClose: TImage
       Left = 282
+      ExplicitLeft = 282
     end
     inherited lblCaption: TRzLabel
       Width = 73
@@ -22,18 +24,15 @@ inherited frmFinInfoDetail: TfrmFinInfoDetail
   inherited pnlMain: TRzPanel
     Width = 303
     Height = 163
-    inherited lblStatus: TLabel
-      Top = 128
-    end
+    ExplicitWidth = 303
+    ExplicitHeight = 163
     inherited pcDetail: TRzPageControl
       Width = 286
       Height = 109
+      ExplicitWidth = 286
+      ExplicitHeight = 109
       FixedDimension = 19
       inherited tsDetail: TRzTabSheet
-        ExplicitLeft = 1
-        ExplicitTop = 1
-        ExplicitWidth = 512
-        ExplicitHeight = 174
         object JvLabel1: TJvLabel
           Left = 19
           Top = 23
@@ -86,6 +85,7 @@ inherited frmFinInfoDetail: TfrmFinInfoDetail
           TabOnEnter = True
           TabOrder = 1
           IntegersOnly = False
+          Max = 100000.000000000000000000
           DisplayFormat = '###,##0.00'
         end
         object edBalance: TRzDBNumericEdit
@@ -99,6 +99,7 @@ inherited frmFinInfoDetail: TfrmFinInfoDetail
           TabOnEnter = True
           TabOrder = 2
           IntegersOnly = False
+          Max = 900000.000000000000000000
           DisplayFormat = '###,##0.00'
         end
       end
@@ -106,10 +107,14 @@ inherited frmFinInfoDetail: TfrmFinInfoDetail
     inherited btnSave: TRzButton
       Left = 137
       Top = 128
+      ExplicitLeft = 137
+      ExplicitTop = 128
     end
     inherited btnCancel: TRzButton
       Left = 218
       Top = 128
+      ExplicitLeft = 218
+      ExplicitTop = 128
     end
   end
 end

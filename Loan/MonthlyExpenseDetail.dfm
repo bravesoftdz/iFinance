@@ -2,6 +2,7 @@ inherited frmMonthlyExpDetail: TfrmMonthlyExpDetail
   Caption = 'frmMonthlyExpDetail'
   ClientHeight = 166
   ClientWidth = 303
+  OnCreate = FormCreate
   OnShow = FormShow
   ExplicitWidth = 303
   ExplicitHeight = 166
@@ -9,8 +10,10 @@ inherited frmMonthlyExpDetail: TfrmMonthlyExpDetail
   TextHeight = 13
   inherited pnlTitle: TRzPanel
     Width = 303
+    ExplicitWidth = 303
     inherited imgClose: TImage
       Left = 282
+      ExplicitLeft = 282
     end
     inherited lblCaption: TRzLabel
       Width = 97
@@ -21,14 +24,19 @@ inherited frmMonthlyExpDetail: TfrmMonthlyExpDetail
   inherited pnlMain: TRzPanel
     Width = 303
     Height = 145
-    inherited lblStatus: TLabel
-      Top = 110
-    end
+    ExplicitWidth = 303
+    ExplicitHeight = 145
     inherited pcDetail: TRzPageControl
       Width = 286
       Height = 91
+      ExplicitWidth = 286
+      ExplicitHeight = 91
       FixedDimension = 19
       inherited tsDetail: TRzTabSheet
+        ExplicitLeft = 1
+        ExplicitTop = 1
+        ExplicitWidth = 282
+        ExplicitHeight = 87
         object JvLabel1: TJvLabel
           Left = 19
           Top = 23
@@ -80,10 +88,14 @@ inherited frmMonthlyExpDetail: TfrmMonthlyExpDetail
     inherited btnSave: TRzButton
       Left = 137
       Top = 110
+      ExplicitLeft = 137
+      ExplicitTop = 110
     end
     inherited btnCancel: TRzButton
       Left = 218
       Top = 110
+      ExplicitLeft = 218
+      ExplicitTop = 110
     end
   end
 end

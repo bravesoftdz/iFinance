@@ -29,6 +29,7 @@ type
 
     constructor Create; overload;
     constructor Create(const id: string); overload;
+    constructor Create(const name, id: string); overload;
   end;
 
 var
@@ -46,6 +47,12 @@ end;
 
 constructor TComaker.Create(const id: string);
 begin
+  FId := id;
+end;
+
+constructor TComaker.Create(const name, id: string);
+begin
+  FName := name;
   FId := id;
 end;
 

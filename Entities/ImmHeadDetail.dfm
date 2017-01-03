@@ -24,12 +24,6 @@ inherited frmImmHeadDetail: TfrmImmHeadDetail
     Height = 187
     ExplicitWidth = 370
     ExplicitHeight = 187
-    inherited lblStatus: TLabel
-      Top = 152
-      Width = 189
-      ExplicitTop = 152
-      ExplicitWidth = 189
-    end
     inherited pcDetail: TRzPageControl
       Width = 353
       Height = 133
@@ -38,7 +32,7 @@ inherited frmImmHeadDetail: TfrmImmHeadDetail
       FixedDimension = 19
       inherited tsDetail: TRzTabSheet
         Caption = 'Immediate head details'
-        ExplicitTop = 1
+        ExplicitLeft = 0
         ExplicitWidth = 349
         ExplicitHeight = 129
         object JvLabel1: TJvLabel

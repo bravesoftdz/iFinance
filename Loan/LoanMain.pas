@@ -8,39 +8,17 @@ uses
   Vcl.ExtCtrls, RzPanel, Vcl.Mask, RzEdit, RzDBEdit, JvLabel, JvExControls,
   JvGroupHeader, RzBtnEdt, Vcl.DBCtrls, RzDBCmbo, SaveIntf,  RzButton, RzRadChk,
   LoanIntf, Loan, RzLstBox, RzDBList, Data.DB, Vcl.Grids, Vcl.DBGrids, RzDBGrid,
-  Vcl.Imaging.pngimage, RzTabs, RzDBLbl;
+  Vcl.Imaging.pngimage, RzDBLbl, RzTabs, Vcl.ComCtrls, Vcl.ToolWin, RzGrids;
 
 type
   TfrmLoanMain = class(TfrmBaseDocked, ISave, ILoan)
     pnlMain: TRzPanel;
-    JvGroupHeader2: TJvGroupHeader;
-    JvLabel8: TJvLabel;
-    dteDateApproved: TRzDBDateTimeEdit;
-    JvLabel10: TJvLabel;
-    edAppvAmount: TRzDBNumericEdit;
     lblLoanId: TRzLabel;
-    JvGroupHeader3: TJvGroupHeader;
-    cbxApproved: TRzCheckBox;
-    cbxReleased: TRzCheckBox;
-    cbxCancelled: TRzCheckBox;
-    cbxDenied: TRzCheckBox;
     pnlAlerts: TRzPanel;
     imgAlert: TImage;
     mmAlerts: TRzMemo;
     JvLabel15: TJvLabel;
-    dbluAppvMethod: TRzDBLookupComboBox;
-    edAppvTerm: TRzDBNumericEdit;
-    RzDBGrid1: TRzDBGrid;
-    JvLabel13: TJvLabel;
-    RzDBLookupComboBox2: TRzDBLookupComboBox;
-    RzButton1: TRzButton;
-    RzButton2: TRzButton;
-    JvGroupHeader5: TJvGroupHeader;
-    JvLabel14: TJvLabel;
-    JvLabel16: TJvLabel;
-    pnlDetails: TRzPanel;
-    JvGroupHeader1: TJvGroupHeader;
-    JvGroupHeader4: TJvGroupHeader;
+    pnlApplication: TRzPanel;
     JvLabel1: TJvLabel;
     JvLabel2: TJvLabel;
     JvLabel12: TJvLabel;
@@ -58,60 +36,84 @@ type
     edInterest: TRzDBNumericEdit;
     dbluLoanClass: TRzDBLookupComboBox;
     bteClient: TRzButtonEdit;
-    JvLabel4: TJvLabel;
-    dteDateAssessed: TRzDBDateTimeEdit;
-    edRecAmount: TRzDBNumericEdit;
-    JvLabel11: TJvLabel;
-    pcAssessment: TRzPageControl;
-    tsFinInfo: TRzTabSheet;
-    grFinInfo: TRzDBGrid;
-    tsMonExp: TRzTabSheet;
-    grMonExp: TRzDBGrid;
-    btnAddAss: TRzButton;
-    btnRemoveAss: TRzButton;
-    cbxAssessed: TRzCheckBox;
-    JvLabel17: TJvLabel;
-    RzDBDateTimeEdit2: TRzDBDateTimeEdit;
-    JvLabel18: TJvLabel;
-    JvGroupHeader6: TJvGroupHeader;
-    JvLabel19: TJvLabel;
-    JvLabel20: TJvLabel;
-    RzDBDateTimeEdit3: TRzDBDateTimeEdit;
-    RzDBLookupComboBox1: TRzDBLookupComboBox;
     RzDBNumericEdit1: TRzDBNumericEdit;
     RzDBNumericEdit2: TRzDBNumericEdit;
     JvLabel21: TJvLabel;
     JvLabel22: TJvLabel;
     lblComakersDesc: TRzDBLabel;
     lbxComakers: TRzListBox;
+    JvLabel20: TJvLabel;
+    RzDBEdit9: TRzDBEdit;
+    RzDBEdit8: TRzDBEdit;
+    JvLabel4: TJvLabel;
+    JvLabel8: TJvLabel;
+    RzDBEdit11: TRzDBEdit;
+    RzDBEdit10: TRzDBEdit;
+    RzPanel1: TRzPanel;
+    RzLabel1: TRzLabel;
+    pnlAssessment: TRzPanel;
+    RzPanel3: TRzPanel;
+    RzLabel2: TRzLabel;
+    pnlApproval: TRzPanel;
+    RzPanel5: TRzPanel;
+    RzLabel3: TRzLabel;
+    pnlRelease: TRzPanel;
+    RzPanel7: TRzPanel;
+    RzLabel4: TRzLabel;
+    pnlCancellation: TRzPanel;
+    RzPanel9: TRzPanel;
+    RzLabel5: TRzLabel;
+    pnlRejection: TRzPanel;
+    RzPanel11: TRzPanel;
+    RzLabel6: TRzLabel;
+    JvLabel10: TJvLabel;
+    dteDateAssessed: TRzDBDateTimeEdit;
+    JvLabel11: TJvLabel;
+    edRecAmount: TRzDBNumericEdit;
+    JvLabel13: TJvLabel;
+    dteDateApproved: TRzDBDateTimeEdit;
+    JvLabel14: TJvLabel;
+    edAppvAmount: TRzDBNumericEdit;
+    JvLabel16: TJvLabel;
+    edAppvTerm: TRzDBNumericEdit;
+    pcAssessment: TRzPageControl;
+    tsFinInfo: TRzTabSheet;
+    tsMonExp: TRzTabSheet;
+    grAccessList: TRzDBGrid;
+    mmRemarks: TRzDBMemo;
+    JvLabel24: TJvLabel;
+    RzDBGrid1: TRzDBGrid;
+    imgAssessment: TImage;
+    imgApproval: TImage;
+    JvLabel17: TJvLabel;
+    RzDBMemo1: TRzDBMemo;
+    imgRelease: TImage;
+    imgCancellation: TImage;
+    JvLabel18: TJvLabel;
+    JvLabel19: TJvLabel;
+    JvLabel23: TJvLabel;
+    RzDBMemo2: TRzDBMemo;
+    dbluReason: TRzDBLookupComboBox;
+    dteDateCancelled: TRzDBDateTimeEdit;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure bteClientButtonClick(Sender: TObject);
-    procedure cbxCancelledClick(Sender: TObject);
-    procedure cbxDeniedClick(Sender: TObject);
-    procedure cbxApprovedClick(Sender: TObject);
-    procedure cbxReleasedClick(Sender: TObject);
     procedure btnAddComakerClick(Sender: TObject);
     procedure btnRemoveComakerClick(Sender: TObject);
-    procedure JvGroupHeader4Click(Sender: TObject);
-    procedure cbxAssessedClick(Sender: TObject);
-    procedure btnAddAssClick(Sender: TObject);
-    procedure btnRemoveAssClick(Sender: TObject);
-    procedure grFinInfoDblClick(Sender: TObject);
-    procedure grMonExpDblClick(Sender: TObject);
     procedure lbxComakersDblClick(Sender: TObject);
+    procedure imgAssessmentClick(Sender: TObject);
   private
     { Private declarations }
     procedure ChangeControlState(parentCtrls: array of TWinControl; const useState: boolean = true);
-    procedure SetAction(const action: TLoanAction = laNone);
     procedure CallErrorBox(const error: string);
     procedure DisplayAlerts;
     procedure ChangeComakersControlState;
-    procedure AddFinancialInfo;
-    procedure RemoveFinancialInfo;
-    procedure AddMonthlyExpense;
-    procedure RemoveMonthlyExpense;
     procedure PopulateComakers;
+    procedure RetrieveLoan;
+    procedure CollapsePanel(Sender: TObject);
+    procedure ExpandPanel(Sender: TObject);
+    procedure HideLoanStateDetails;
+    procedure SetExpandImage(img: TImage);
   public
     { Public declarations }
     procedure SetLoanId;
@@ -119,10 +121,22 @@ type
     procedure RefreshDropDownSources;
     function Save: boolean;
     procedure Cancel;
+    procedure ApproveLoan;
+    procedure AssessLoan;
+    procedure RejectLoan;
+    procedure CancelLoan;
+    procedure DisplayLoanStateDetails;
   end;
 
 var
   frmLoanMain: TfrmLoanMain;
+
+const
+  COLLAPSE = 0;
+  EXPAND = 1;
+  TOP_ANCHOR = 181;
+  SPACE = 5;
+  COLLAPSED_HEIGHT = 19;
 
 implementation
 
@@ -130,7 +144,161 @@ implementation
 
 uses
   LoanData, FormsUtil, LoanClient, ClientSearch, StatusIntf, DockIntf, IFinanceGlobal,
-  Comaker, ComakerSearch, DecisionBox, ComakerDetail, FinInfoDetail, MonthlyExpenseDetail;
+  Comaker, ComakerSearch, DecisionBox, ComakerDetail, FinInfoDetail, MonthlyExpenseDetail,
+  LoansAuxData, LoanApprovalDetail, LoanAssessmentDetail, LoanCancellationDetail;
+
+procedure TfrmLoanMain.SetExpandImage(img: TImage);
+begin
+  img.Picture.LoadFromFile(ifn.AppImagesPath + 'expand.png');
+  img.Hint := 'Expand';
+  img.Tag := EXPAND;
+end;
+
+procedure TfrmLoanMain.HideLoanStateDetails;
+begin
+  pnlAssessment.Visible := false;
+  pnlApproval.Visible := false;
+  pnlRelease.Visible := false;
+  pnlCancellation.Visible := false;
+  pnlRejection.Visible := false;
+end;
+
+procedure TfrmLoanMain.DisplayLoanStateDetails;
+const
+  LEFT = 19;
+var
+  i, len, tp: integer;
+  loanState: TLoanState;
+begin
+  HideLoanStateDetails;
+
+  len := ln.LoanSatusCount - 1;
+
+  tp := TOP_ANCHOR;
+
+  for i := 0 to len do
+  begin
+    loanState := ln.LoanStatusHistory[i];
+
+    case loanState of
+
+      lsAssessed:
+        begin
+          with pnlAssessment do
+          begin
+            Left := LEFT;
+            Top  := tp;
+            Height := COLLAPSED_HEIGHT;
+            Visible := true;
+            tp := Top + Height + SPACE;
+          end;
+
+          SetExpandImage(imgAssessment);
+        end;
+
+      lsApproved:
+        begin
+          with pnlApproval do
+          begin
+            Left := LEFT;
+            Top  := tp;
+            Height := COLLAPSED_HEIGHT;
+            Visible := true;
+            tp := Top + Height + SPACE;
+          end;
+
+          SetExpandImage(imgApproval);
+        end;
+
+      lsReleased:
+        begin
+          with pnlRelease do
+          begin
+            Left := LEFT;
+            Top  := tp;
+            Height := COLLAPSED_HEIGHT;
+            Visible := true;
+            tp := Top + Height + SPACE;
+          end;
+
+          SetExpandImage(imgRelease);
+        end;
+
+        lsCancelled:
+        begin
+          with pnlCancellation do
+          begin
+            Left := LEFT;
+            Top  := tp;
+            Height := COLLAPSED_HEIGHT;
+            Visible := true;
+            tp := Top + Height + SPACE;
+          end;
+
+          SetExpandImage(imgCancellation);
+        end;
+    end;
+  end;
+end;
+
+procedure TfrmLoanMain.ApproveLoan;
+begin
+  with TfrmLoanAppvDetail.Create(self) do
+  begin
+    try
+      ln.Action := laApproving;
+      ShowModal;
+
+      if ModalResult = mrOk then DisplayLoanStateDetails;
+
+      Free;
+    except
+      on e: Exception do
+        CallErrorBox(e.Message);
+    end;
+  end;
+end;
+
+procedure TfrmLoanMain.AssessLoan;
+begin
+  with TfrmLoanAssessmentDetail.Create(self) do
+  begin
+    try
+      ln.Action := laAssessing;
+      ShowModal;
+
+      if ModalResult = mrOk then DisplayLoanStateDetails;
+
+      Free;
+    except
+      on e: Exception do
+        CallErrorBox(e.Message);
+    end;
+  end;
+end;
+
+procedure TfrmLoanMain.RejectLoan;
+begin
+
+end;
+
+procedure TfrmLoanMain.CancelLoan;
+begin
+  with TfrmLoanCancellationDetail.Create(self) do
+  begin
+    try
+      ln.Action := laCancelling;
+      ShowModal;
+
+      if ModalResult = mrOk then DisplayLoanStateDetails;
+
+      Free;
+    except
+      on e: Exception do
+        CallErrorBox(e.Message);
+    end;
+  end;
+end;
 
 procedure TfrmLoanMain.CallErrorBox(const error: string);
 var
@@ -158,9 +326,7 @@ begin
       tags := []
     else if ln.IsCancelled then
       tags := []
-    else if ln.IsDenied then
-      tags := []
-    else if ln.IsApprovedCancelled then
+    else if ln.IsRejected then
       tags := [];
   end
   else
@@ -178,14 +344,14 @@ begin
       tags := [6,7]
     else if ln.Action = laCancelling then
       tags := [10,11]
-    else if ln.Action = laDenying then
+    else if ln.Action = laRejecting then
       tags := [8,9];
   end;
 
   // enable controls
   for c := 0 to Length(parentCtrls) - 1 do
     for i := 0 to parentCtrls[c].ControlCount - 1 do
-      if parentCtrls[c].Controls[i].Tag <> -1 then
+      if not parentCtrls[c].Controls[i].Tag in [100,200] then
         parentCtrls[c].Controls[i].Enabled := parentCtrls[c].Controls[i].Tag in tags;
 
   ChangeComakersControlState;
@@ -195,18 +361,6 @@ end;
 procedure TfrmLoanMain.RefreshDropDownSources;
 begin
   OpenDropdownDataSources(pnlMain);
-end;
-
-procedure TfrmLoanMain.SetAction(const action: TLoanAction);
-begin
-  ln.Action := action;
-
-  if action = laNone then
-    ChangeControlState([pnlMain,pnlDetails])
-  else
-    ChangeControlState([pnlMain,pnlDetails],false);
-
-  ln.SetDefaultValues;
 end;
 
 procedure TfrmLoanMain.bteClientButtonClick(Sender: TObject);
@@ -222,9 +376,9 @@ begin
             bteClient.Text := lnc.Name;
             ln.Client := lnc;
 
-            OpenDropdownDataSources(self.pnlDetails);
+            OpenDropdownDataSources(self.pnlApplication);
 
-            ChangeControlState([self.pnlMain,self.pnlDetails],false);
+            ChangeControlState([self.pnlMain,self.pnlApplication],false);
             ChangeComakersControlState;
         end;
       except
@@ -235,15 +389,6 @@ begin
       Free;
     end;
   end;
-end;
-
-procedure TfrmLoanMain.btnAddAssClick(Sender: TObject);
-begin
-  inherited;
-  if pcAssessment.ActivePage = tsFinInfo then
-    AddFinancialInfo
-  else
-    AddMonthlyExpense;
 end;
 
 procedure TfrmLoanMain.btnAddComakerClick(Sender: TObject);
@@ -297,14 +442,6 @@ begin
   end;
 end;
 
-procedure TfrmLoanMain.btnRemoveAssClick(Sender: TObject);
-begin
-  if pcAssessment.ActivePage = tsFinInfo then
-    RemoveFinancialInfo
-  else
-    RemoveMonthlyExpense;
-end;
-
 procedure TfrmLoanMain.btnRemoveComakerClick(Sender: TObject);
 const
   CONF = 'Are you sure you want to remove the selected comaker?';
@@ -322,8 +459,6 @@ begin
         try
           if lbxComakers.Items.Count > 0 then
           begin
-
-
             id := (obj as TComaker).Id;
 
             ShowModal;
@@ -355,69 +490,12 @@ begin
   begin
     bteClient.Clear;
     ln.Client := nil;
-  end;
+  end
+  else
+    RetrieveLoan;
 
-  ChangeControlState([pnlMain,pnlDetails],false);
-end;
+  ChangeControlState([pnlMain,pnlApplication],false);
 
-procedure TfrmLoanMain.cbxApprovedClick(Sender: TObject);
-begin
-  inherited;
-  if ln.IsAssessed then
-  begin
-    if (Sender as TRzCheckBox).Checked then
-      SetAction(laApproving)
-    else
-      SetAction;
-  end;
-end;
-
-procedure TfrmLoanMain.cbxAssessedClick(Sender: TObject);
-begin
-  inherited;
-  if ln.IsPending then
-  begin
-    if (Sender as TRzCheckBox).Checked then
-      SetAction(laAssessing)
-    else
-      SetAction;
-  end;
-end;
-
-procedure TfrmLoanMain.cbxCancelledClick(Sender: TObject);
-begin
-  inherited;
-  if (ln.IsPending) or (ln.IsApproved) then
-  begin
-    if (Sender as TRzCheckBox).Checked then
-      SetAction(laCancelling)
-    else
-      SetAction;
-  end;
-end;
-
-procedure TfrmLoanMain.cbxDeniedClick(Sender: TObject);
-begin
-  inherited;
-  if ln.IsPending then
-  begin
-    if (Sender as TRzCheckBox).Checked then
-      SetAction(laDenying)
-    else
-      SetAction;
-  end;
-end;
-
-procedure TfrmLoanMain.cbxReleasedClick(Sender: TObject);
-begin
-  inherited;
-  if ln.IsApproved then
-  begin
-    if (Sender as TRzCheckBox).Checked then
-      SetAction(laReleasing)
-    else
-      SetAction;
-  end;
 end;
 
 procedure TfrmLoanMain.FormClose(Sender: TObject; var Action: TCloseAction);
@@ -429,6 +507,7 @@ begin
       intf.AddRecentLoan(ln);
 
   dmLoan.Destroy;
+  dmLoansAux.Destroy;
 
   ln.Destroy;
 
@@ -439,6 +518,7 @@ procedure TfrmLoanMain.FormCreate(Sender: TObject);
 begin
   inherited;
   dmLoan := TdmLoan.Create(self);
+  dmLoansAux := TdmLoansAux.Create(self);
 
   if not Assigned(ln) then
   begin
@@ -446,48 +526,28 @@ begin
     ln.Add;
   end
   else
-  begin
-    ln.Retrieve;
-    OpenDropdownDataSources(pnlDetails);
-    OpenDropdownDataSources(pnlMain);
-
-    PopulateComakers;
-
-    SetUnboundControls;
-    SetLoanId;
-    ChangeControlState([pnlMain,pnlDetails]);
-  end;
+    RetrieveLoan;
 end;
 
-procedure TfrmLoanMain.grFinInfoDblClick(Sender: TObject);
+procedure TfrmLoanMain.imgAssessmentClick(Sender: TObject);
 begin
-  if grFinInfo.DataSource.DataSet.RecordCount > 0 then
-  with TfrmFinInfoDetail.Create(self) do
-  begin
-    ShowModal;
-    Free;
-  end;
+  if (Sender as TImage).Tag = COLLAPSE then  CollapsePanel(Sender)
+  else ExpandPanel(Sender);
 end;
 
-procedure TfrmLoanMain.grMonExpDblClick(Sender: TObject);
+procedure TfrmLoanMain.RetrieveLoan;
 begin
-  if grMonExp.DataSource.DataSet.RecordCount > 0 then
-  with TfrmMonthlyExpDetail.Create(self) do
-  begin
-    ShowModal;
-    Free;
-  end;
-end;
+  ln.Retrieve;
+  OpenDropdownDataSources(pnlApplication);
+  OpenDropdownDataSources(pnlMain);
 
-procedure TfrmLoanMain.JvGroupHeader4Click(Sender: TObject);
-begin
-  if ln.IsPending then
-  begin
-    if (Sender as TRzCheckBox).Checked then
-      SetAction(laAssessing)
-    else
-      SetAction;
-  end;
+  PopulateComakers;
+
+  SetUnboundControls;
+  SetLoanId;
+  ChangeControlState([pnlMain,pnlApplication]);
+
+  DisplayLoanStateDetails;
 end;
 
 procedure TfrmLoanMain.lbxComakersDblClick(Sender: TObject);
@@ -509,18 +569,12 @@ end;
 
 procedure TfrmLoanMain.SetLoanId;
 begin
- lblLoanId.Caption := 'LOAN ID: ' + ln.Id + ' ' + ln.StatusName;
+  lblLoanId.Caption := 'LOAN ID: ' + ln.Id + ' ' + ln.StatusName;
 end;
 
 procedure TfrmLoanMain.SetUnboundControls;
 begin
   bteClient.Text := ln.Client.Name;
-
-  cbxAssessed.Checked := ln.IsAssessed;
-  cbxApproved.Checked := (ln.IsApproved) or (ln.IsReleased) or (ln.IsApprovedCancelled);
-  cbxReleased.Checked := ln.IsReleased;
-  cbxCancelled.Checked := (ln.IsCancelled) or (ln.IsApprovedCancelled);
-  cbxDenied.Checked := ln.IsDenied;
 end;
 
 function TfrmLoanMain.Save: Boolean;
@@ -530,7 +584,7 @@ begin
   try
     error := '';
 
-    if (ln.Action = laCreating) or (ln.IsPending) then
+    if (ln.Action in [laCreating, laAssessing]) or (ln.IsPending) then
     begin
       if not Assigned(ln.Client) then
         error := 'No client selected.'
@@ -539,42 +593,19 @@ begin
       else if dteDateApplied.Text = '' then
         error := 'Please enter date applied.'
       else if edAppAmount.Value <= 0 then
-        error := 'Invalid value for amount.'
+        error := 'Invalid value for amount applied.'
       else if edDesiredTerm.Text = '' then
         error := 'Invalid value for desired term.'
-      else if Trim(edPurpose.Text) = '' then
-        error := 'Please enter a purpose.'
+//      else if Trim(edPurpose.Text) = '' then
+//        error := 'Please enter a purpose.'
       else if edAppAmount.Value > ln.LoanClass.MaxLoan then
         error := 'Amount applied exceeds the maximum loanable amount for the selected loan class.'
       else if edDesiredTerm.Value > ln.LoanClass.Term then
         error := 'Term applied exceeds the maximum allowed term for the selected loan class.'
       else if ln.ComakerCount < ln.LoanClass.Comakers then
-        error := 'Number of required comakers has not been met.'
+        error := 'Number of required comakers has not been entered.'
       else if ln.ComakerCount > ln.LoanClass.Comakers then
         error := 'Declared comakers exceeds the required number.';
-    end;
-
-    if ln.Action = laApproving then
-    begin
-      if dteDateApproved.Text = '' then
-        error := 'Please enter date applied.'
-      else if edAppAmount.Value <= 0 then
-        error := 'Invalid value for amount.'
-      else if edAppvTerm.Text = '' then
-        error := 'Please enter term.'
-      else if edAppvAmount.Value > edAppAmount.Value then
-        error := 'Approved amount exceeds the amount entered in the application.'
-      else if edAppvTerm.Value > edDesiredTerm.Value then
-        error := 'Approved term exceeds the term entered in the application.';
-    end
-    else if ln.Action = laReleasing then
-    begin
-//      if dteDateReleased.Text = '' then
-//        error := 'Please enter date released.'
-//      else if edRelAmount.Value <= 0 then
-//        error := 'Invalid value for amount.'
-//      else if edRelAmount.Value > edAppvAmount.Value then
-//        error := 'Amount released exceeds the approved amount.';
     end;
 
     Result := error = '';
@@ -583,7 +614,7 @@ begin
     begin
       ln.Save;
       SetLoanId;
-      ChangeControlState([pnlMain,pnlDetails]);
+      ChangeControlState([pnlMain,pnlApplication]);
       ChangeComakersControlState;
       ln.Action := laNone;
     end
@@ -613,50 +644,14 @@ begin
 
     pnlAlerts.Visible := ((ln.IsPending) or (ln.IsApproved) or ((ln.Action = laCreating) and (Assigned(ln.Client))))
           and (ln.AlertsCount > 0);
-  end;
+  end
+  else
+    pnlAlerts.Visible := false;
 end;
 
 procedure TfrmLoanMain.ChangeComakersControlState;
 begin
   
-end;
-
-procedure TfrmLoanMain.AddFinancialInfo;
-begin
-  with TfrmFinInfoDetail.Create(nil) do
-  begin
-    try
-      ShowModal;
-      Free;
-    except
-      on e: Exception do
-        ShowMessage(e.Message);
-    end;
-  end;
-end;
-
-procedure TfrmLoanMain.RemoveFinancialInfo;
-begin
-
-end;
-
-procedure TfrmLoanMain.AddMonthlyExpense;
-begin
-  with TfrmMonthlyExpDetail.Create(nil) do
-  begin
-    try
-      ShowModal;
-      Free;
-    except
-      on e: Exception do
-        ShowMessage(e.Message);
-    end;
-  end;
-end;
-
-procedure TfrmLoanMain.RemoveMonthlyExpense;
-begin
-
 end;
 
 procedure TfrmLoanMain.PopulateComakers;
@@ -666,6 +661,111 @@ begin
   len := ln.ComakerCount - 1;
   for i := 0 to len do
     lbxComakers.AddObject(ln.Comaker[i].Name,ln.Comaker[i]);
+end;
+
+procedure TfrmLoanMain.CollapsePanel(Sender: TObject);
+begin
+  (Sender as TImage).Parent.Parent.Height := 19;
+  (Sender as TImage).Picture.LoadFromFile(ifn.AppImagesPath + 'expand.png');
+  (Sender as TImage).Hint := 'Expand';
+  (Sender as TImage).Tag := EXPAND;
+
+  DisplayLoanStateDetails;
+end;
+
+procedure TfrmLoanMain.ExpandPanel(Sender: TObject);
+var
+  ht, i, len, tp: integer;
+  loanState: TLoanState;
+begin
+  ht := 0;
+
+  // get the expanded height and loan state
+  if (Sender as TImage).Parent.Parent.Name = 'pnlAssessment' then
+  begin
+    ht := 162;
+    loanState := lsAssessed;
+  end
+  else if (Sender as TImage).Parent.Parent.Name = 'pnlApproval' then
+  begin
+    ht := 115;
+    loanState := lsApproved;
+  end
+  else if (Sender as TImage).Parent.Parent.Name = 'pnlCancellation' then
+  begin
+    ht := 92;
+    loanState := lsCancelled;
+  end;
+
+  // expand the panel
+  // collapse other visible panels
+  len := ln.LoanSatusCount - 1;
+
+  tp := TOP_ANCHOR;
+
+  for i := 0 to len do
+  begin
+    if ln.LoanStatusHistory[i] = loanState then
+    begin
+      (Sender as TImage).Parent.Parent.Top := tp;
+      (Sender as TImage).Parent.Parent.Height := ht;
+      (Sender as TImage).Picture.LoadFromFile(ifn.AppImagesPath + 'collapse.png');
+      (Sender as TImage).Hint := 'Collapse';
+      (Sender as TImage).Tag := COLLAPSE;
+
+      tp := (Sender as TImage).Parent.Parent.Top + (Sender as TImage).Parent.Parent.Height + SPACE;
+    end
+    else
+    begin
+
+      case ln.LoanStatusHistory[i] of
+
+        lsAssessed:
+          begin
+            with pnlAssessment do
+            begin
+              Top  := tp;
+              Height := COLLAPSED_HEIGHT;
+              tp := Top + Height + SPACE;
+            end;
+            SetExpandImage(imgAssessment);
+          end;
+
+        lsApproved:
+          begin
+            with pnlApproval do
+            begin
+              Top  := tp;
+              Height := COLLAPSED_HEIGHT;
+              tp := Top + Height + SPACE;
+            end;
+            SetExpandImage(imgApproval);
+          end;
+
+        lsReleased:
+          begin
+            with pnlRelease do
+            begin
+              Top  := tp;
+              Height := COLLAPSED_HEIGHT;
+              tp := Top + Height + SPACE;
+            end;
+            SetExpandImage(imgRelease);
+          end;
+
+          lsCancelled:
+          begin
+            with pnlCancellation do
+            begin
+              Top  := tp;
+              Height := COLLAPSED_HEIGHT;
+              tp := Top + Height + SPACE;
+            end;
+            SetExpandImage(imgCancellation);
+          end;
+      end;
+    end;
+  end;
 end;
 
 end.

@@ -278,7 +278,8 @@ begin
 
   Result := error;
 
-  CallErrorBox(error);
+  if Result <> '' then
+    CallErrorBox(error);
 end;
 
 function TfrmClientMain.CheckIdentInfo: string;
@@ -298,7 +299,8 @@ begin
 
   Result := error;
 
-  CallErrorBox(error);
+  if Result <> '' then
+    CallErrorBox(error);
 end;
 
 procedure TfrmClientMain.CallErrorBox(const error: string);
@@ -421,7 +423,7 @@ begin
       Free;
     except
       on e: Exception do
-        ShowMessage(e.Message);
+        CallErrorBox(e.Message);
     end;
   end;
 end;
@@ -458,7 +460,7 @@ begin
       Free;
     except
       on e: Exception do
-        ShowMessage(e.Message);
+        CallErrorBox(e.Message);
     end;
   end;
 end;
@@ -495,7 +497,7 @@ begin
       Free;
     except
       on e: Exception do
-        ShowMessage(e.Message);
+        CallErrorBox(e.Message);
     end;
   end;
 end;

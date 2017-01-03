@@ -26,21 +26,6 @@ inherited frmBasePopupDetail: TfrmBasePopupDetail
     DesignSize = (
       533
       232)
-    object lblStatus: TLabel
-      Left = 9
-      Top = 197
-      Width = 344
-      Height = 28
-      Anchors = [akLeft, akBottom]
-      AutoSize = False
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clRed
-      Font.Height = -11
-      Font.Name = 'Tahoma'
-      Font.Style = []
-      ParentFont = False
-      WordWrap = True
-    end
     object pcDetail: TRzPageControl
       Left = 8
       Top = 11
@@ -56,8 +41,6 @@ inherited frmBasePopupDetail: TfrmBasePopupDetail
         Color = 15263976
         TabVisible = False
         Caption = 'Change caption here'
-        ExplicitTop = 20
-        ExplicitHeight = 155
       end
     end
     object btnSave: TRzButton

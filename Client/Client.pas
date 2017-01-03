@@ -173,18 +173,18 @@ begin
     for i:=0 to ComponentCount - 1 do
     begin
       if Components[i] is TADODataSet then
-      begin
-        if closeDataSources then
-          (Components[i] as TADODataSet).Close;
+       if (Components[i] as TADODataSet).Tag in [1,2] then
+        begin
+          if closeDataSources then
+            (Components[i] as TADODataSet).Close;
 
-        (Components[i] as TADODataSet).DisableControls;
-        (Components[i] as TADODataSet).Open;
-        (Components[i] as TADODataSet).EnableControls;
+          (Components[i] as TADODataSet).DisableControls;
+          (Components[i] as TADODataSet).Open;
+          (Components[i] as TADODataSet).EnableControls;
 
-        if (Components[i] as TADODataSet).Tag in [1,2] then
           if (Components[i] as TADODataSet).RecordCount > 0 then
             (Components[i] as TADODataSet).Edit;
-      end;
+        end;
     end;
   end;
 end;

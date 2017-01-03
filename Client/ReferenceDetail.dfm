@@ -24,10 +24,6 @@ inherited frmReferenceDetail: TfrmReferenceDetail
     Height = 206
     ExplicitWidth = 370
     ExplicitHeight = 206
-    inherited lblStatus: TLabel
-      Top = 177
-      ExplicitTop = 177
-    end
     inherited pcDetail: TRzPageControl
       Width = 353
       Height = 152
@@ -36,7 +32,6 @@ inherited frmReferenceDetail: TfrmReferenceDetail
       FixedDimension = 19
       inherited tsDetail: TRzTabSheet
         Caption = 'Reference details'
-        ExplicitLeft = 1
         ExplicitTop = 20
         ExplicitWidth = 349
         ExplicitHeight = 129

@@ -36,7 +36,7 @@ implementation
 {$R *.dfm}
 
 uses
-  LoanData, LoansAuxData, FormsUtil, Loan;
+  LoanData, LoansAuxData, FormsUtil, Loan, FinInfo;
 
 procedure TfrmFinInfoDetail.FormCreate(Sender: TObject);
 begin
@@ -52,10 +52,22 @@ begin
 end;
 
 procedure TfrmFinInfoDetail.Save;
+var
+  compId: integer;
+  compName, balance, monthly: string;
 begin
   with dmLoan.dstFinInfo do
+  begin
     if State in [dsInsert,dsEdit] then
       Post;
+
+    compId := FieldByName('comp_id').AsInteger;
+    compName := dbluCompany.Text;
+    balance := edBalance.Text;
+    monthly := edMonthly.Text;
+
+    ln.AddFinancialInfo(TFinInfo.Create(compId,compName,monthly,balance),true);
+  end;
 end;
 
 procedure TfrmFinInfoDetail.Cancel;
@@ -77,15 +89,13 @@ begin
       error := 'Please enter monthly due.'
     else if Trim(edBalance.Text) = '' then
       error := 'Please enter balance.'
-    else if (State = dsInsert) and (ln.CompetitorExists(StrToInt(dbluCompany.GetKeyValue))) then
-      error := 'Type already exists.';
+    else if (State = dsInsert) and (ln.FinancialInfoExists(StrToInt(dbluCompany.GetKeyValue))) then
+      error := 'Financial information already exists.';
   end;
-
 
   Result := error = '';
 
-  lblStatus.Caption := error;
-  lblStatus.Visible := not Result;
+  if not Result then CallErrorBox(error);
 end;
 
 end.

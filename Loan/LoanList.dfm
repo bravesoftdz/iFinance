@@ -62,36 +62,6 @@ inherited frmLoanList: TfrmLoanList
           Title.Caption = 'Loan class'
           Width = 120
           Visible = True
-        end
-        item
-          Alignment = taRightJustify
-          Expanded = False
-          FieldName = 'amt_appl_f'
-          Title.Caption = 'Amt. applied'
-          Width = 80
-          Visible = True
-        end
-        item
-          Alignment = taRightJustify
-          Expanded = False
-          FieldName = 'amt_appv_f'
-          Title.Caption = 'Amt. approved'
-          Width = 80
-          Visible = True
-        end
-        item
-          Expanded = False
-          FieldName = 'terms'
-          Title.Caption = 'Term'
-          Width = 35
-          Visible = True
-        end
-        item
-          Expanded = False
-          FieldName = 'purpose'
-          Title.Caption = 'Purpose'
-          Width = 200
-          Visible = True
         end>
     end
   end
