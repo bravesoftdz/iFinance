@@ -4,12 +4,13 @@ interface
 
 uses
   SysUtils, Entity, LoanClient, AppConstants, DB, System.Rtti, ADODB, Variants,
-  LoanClassification, Comaker, FinInfo, MonthlyExpense;
+  LoanClassification, Comaker, FinInfo, MonthlyExpense, ReleaseRecipient,
+  LoanCharge;
 
 type
   TLoanAction = (laNone,laCreating,laAssessing,laApproving,laRejecting,laReleasing,laCancelling);
 
-type TLoanState = (lsAssessed,lsApproved,lsReleased,lsCancelled,lsRejected);
+type TLoanState = (lsNone,lsAssessed,lsApproved,lsActive,lsCancelled,lsRejected);
 
 type TLoanStatus = (A,C,P,R,F,J,S);
 
@@ -21,27 +22,32 @@ type
     FAction: TLoanAction;
     FLoanClass: TLoanClassification;
     FComakers: array of TComaker;
-    FAlerts: array of string;
     FFinancialInfo: array of TFinInfo;
     FMonthlyExpenses: array of TMonthlyExpense;
     FAppliedAmout: real;
     FLoanStatusHistory: array of TLoanState;
+    FReleaseRecipients: array of TReleaseRecipient;
+    FLoanCharges: array of TLoanCharge;
+    FApprovedAmount: real;
+    FDesiredTerm: integer;
+    FRecommendedAmount: real;
 
     procedure SaveComakers;
     procedure SaveAssessments;
     procedure SaveApproval;
     procedure SaveCancellation;
+    procedure SaveRejection;
+    procedure SaveRelease;
+    procedure ChangeLoanStatus;
 
     function GetIsPending: boolean;
     function GetIsAssessed: boolean;
     function GetIsApproved: boolean;
-    function GetIsReleased: boolean;
+    function GetIsActive: boolean;
     function GetIsCancelled: boolean;
     function GetIsRejected: boolean;
 
     function GetComakerCount: integer;
-    function GetAlert(const i: integer): string;
-    function GetAlertsCount: integer;
     function GetHasId: boolean;
     function GetStatusName: string;
     function GetComaker(const i: integer): TComaker;
@@ -51,6 +57,10 @@ type
     function GetMonthlyExpenseCount: integer;
     function GetLoanState(const i: integer): TLoanState;
     function GetLoanStateCount: integer;
+    function GetReleaseRecipient(const i: integer): TReleaseRecipient;
+    function GetReleaseRecipientCount: integer;
+    function GetLoanCharge(const i: integer): TLoanCharge;
+    function GetLoanChargeCount: integer;
 
   public
     procedure Add; override;
@@ -59,10 +69,8 @@ type
     procedure Cancel; override;
     procedure Retrieve(const closeDataSources: boolean = false);
     procedure SetDefaultValues;
-    procedure AddComaker(cmk: TComaker);
+    procedure AddComaker(cmk: TComaker; const append: boolean = false);
     procedure RemoveComaker(cmk: TComaker);
-    procedure AddAlert(const alert: string);
-    procedure GetAlerts;
     procedure AppendFinancialInfo;
     procedure AddFinancialInfo(const financialInfo: TFinInfo; const overwrite: boolean = false);
     procedure RemoveFinancialInfo(const compId: integer);
@@ -72,10 +80,18 @@ type
     procedure ClearFinancialInfo;
     procedure ClearMonthlyExpenses;
     procedure AddLoanState(const loanState: TLoanState);
+    procedure GetAlerts;
+    procedure AddReleaseRecipient(const rec: TReleaseRecipient; const overwrite: boolean = false);
+    procedure AppendReleaseRecipient;
+    procedure ClearReleaseRecipients;
+    procedure AddLoanCharge(const charge: TLoanCharge; const overwrite: boolean = false);
+    procedure ClearLoanCharges;
 
     function ComakerExists(cmk: TComaker): boolean;
     function FinancialInfoExists(const compId: integer): boolean;
     function MonthlyExpenseExists(const expType: string): boolean;
+    function ReleaseRecipientExists(const rec: TReleaseRecipient): boolean;
+    function LoanChargeExists(const charge: TLoanCharge): boolean;
 
     property Client: TLoanClient read FClient write FClient;
     property Status: string read FStatus write FStatus;
@@ -85,12 +101,10 @@ type
     property IsPending: boolean read GetIsPending;
     property IsAssessed: boolean read GetIsAssessed;
     property IsApproved: boolean read GetIsApproved;
-    property IsReleased: boolean read GetIsReleased;
+    property IsActive: boolean read GetIsActive;
     property IsCancelled: boolean read GetIsCancelled;
     property IsRejected: boolean read GetIsRejected;
     property ComakerCount: integer read GetComakerCount;
-    property Alerts[const i: integer]: string read GetAlert;
-    property AlertsCount: integer read GetAlertsCount;
     property HasId: boolean read GetHasId;
     property Comaker[const i: integer]: TComaker read GetComaker;
     property AppliedAmount: real read FAppliedAmout write FAppliedAmout;
@@ -100,6 +114,13 @@ type
     property MonthlyExpense[const i: integer]: TMonthlyExpense read GetMonthlyExpense;
     property LoanStatusHistory[const i: integer]: TLoanState read GetLoanState;
     property LoanSatusCount: integer read GetLoanStateCount;
+    property ReleaseRecipients[const i: integer]: TReleaseRecipient read GetReleaseRecipient;
+    property ReleaseRecipientCount: integer read GetReleaseRecipientCount;
+    property LoanCharges[const i: integer]: TLoanCharge read GetLoanCharge;
+    property LoanChargeCount: integer read GetLoanChargeCount;
+    property ApprovedAmount: real read FApprovedAmount write FApprovedAmount;
+    property DesiredTerm: integer read FDesiredTerm write FDesiredTerm;
+    property RecommendedAmount: real read FRecommendedAmount write FRecommendedAmount;
 
     constructor Create;
     destructor Destroy; reintroduce;
@@ -121,10 +142,7 @@ begin
   begin
     ln := self;
 
-    if HasId then
-      FAction := laNone
-    else
-      FAction := laCreating;
+    FAction := laCreating;
   end;
 end;
 
@@ -152,14 +170,21 @@ begin
     if State in [dsInsert,dsEdit] then
       Post;
 
-  if ln.Action = laCreating then
-    SaveComakers
-  else if ln.Action = laAssessing then
+  if (ln.Action = laCreating) or (ln.IsPending) then
+    SaveComakers;
+
+  if ln.Action = laAssessing then
     SaveAssessments
   else if ln.Action = laApproving then
     SaveApproval
   else if ln.Action = laCancelling then
-    SaveCancellation;   
+    SaveCancellation
+  else if ln.Action = laRejecting then
+    SaveRejection
+  else if ln.Action = laReleasing then
+    SaveRelease;
+
+  ChangeLoanStatus;
 
   ln.Action := laNone;
 end;
@@ -175,8 +200,10 @@ begin
   begin
     if (ln.Action = laCreating) or (ln.IsPending) then
     begin
-     if State in [dsInsert,dsEdit] then
-       Cancel;
+      if State in [dsInsert,dsEdit] then
+        Cancel;
+
+      dstLoanComaker.CancelBatch;
     end;
 
     if ln.Action = laAssessing then
@@ -198,6 +225,18 @@ begin
     begin
       if dstLoanCancel.State in [dsInsert,dsEdit] then
         dstLoanCancel.Cancel;
+    end
+    else if ln.Action = laRejecting then
+    begin
+      if dstLoanReject.State in [dsInsert,dsEdit] then
+        dstLoanReject.Cancel;
+    end
+    else if ln.Action = laReleasing then
+    begin
+      if dstLoanRelease.State in [dsInsert,dsEdit] then
+        dstLoanRelease.Cancel;
+
+      dstLoanRelease.CancelBatch;
     end;
   end;
 
@@ -206,16 +245,32 @@ end;
 procedure TLoan.Retrieve(const closeDataSources: boolean = false);
 var
   i: integer;
+  tags: set of 1..6;
 begin
   // clear loan state history
-  SetLength(FLoanStatusHistory,0);
+  if closeDataSources then SetLength(FLoanStatusHistory,0);
+
+  // set tags according to loan status and action
+  if ln.IsPending then  tags := [1]
+  else if ln.IsAssessed then tags := [1,2]
+  else if ln.IsApproved then tags := [1,2,3]
+  else if ln.IsActive then tags := [1,2,3,4]
+  else if ln.IsCancelled then tags := [1,5]
+  else if ln.IsRejected then tags := [1,6];
+
+  // add tags depending on action
+  if ln.Action = laAssessing then tags := tags + [2]
+  else if ln.Action = laApproving then tags := tags + [3]
+  else if ln.Action = laReleasing then tags := tags + [4]
+  else if ln.Action = laCancelling then tags := tags + [5]
+  else if ln.Action = laRejecting then tags := tags + [6];
 
   with dmLoan do
   begin
     for i:=0 to ComponentCount - 1 do
     begin
       if Components[i] is TADODataSet then
-        if (Components[i] as TADODataSet).Tag in [1] then
+        if (Components[i] as TADODataSet).Tag in tags then
         begin
           if closeDataSources then
             (Components[i] as TADODataSet).Close;
@@ -226,8 +281,6 @@ begin
         end;
     end;
   end;
-
-  ln.Action := laNone;
 end;
 
 procedure TLoan.SetDefaultValues;
@@ -236,23 +289,33 @@ begin
   begin
     if ln.Action = laAssessing then
     begin
-      if not dstLoanAss.Active then
-        dstLoanAss.Open;
+      if not dstLoanAss.Active then dstLoanAss.Open;
 
-      dstLoanAss.Append;
-      dstLoanAss.FieldByName('date_ass').AsDateTime := ifn.AppDate;
-      dstLoanAss.FieldByName('rec_amt').AsCurrency := ln.AppliedAmount;
-      dstLoanAss.FieldByName('ass_by').AsString := ifn.User.UserId;
+      if dstLoanAss.RecordCount = 0 then
+      begin
+        dstLoanAss.Append;
+        dstLoanAss.FieldByName('date_ass').AsDateTime := ifn.AppDate;
+        dstLoanAss.FieldByName('ass_by').AsString := ifn.User.UserId;
+      end;
     end;
   end;
 end;
 
-procedure TLoan.AddComaker(cmk: TComaker);
+procedure TLoan.AddComaker(cmk: TComaker; const append: boolean);
 begin
   if not ComakerExists(cmk) then
   begin
     SetLength(FComakers,Length(FComakers) + 1);
     FComakers[Length(FComakers) - 1] := cmk;
+
+    // add in db
+    if (append) and (ln.IsPending) then
+    with dmLoan.dstLoanComaker do
+    begin
+      Append;
+      FieldByName('entity_id').AsString := cmk.Id;
+      Post;
+    end;
   end;
 end;
 
@@ -271,24 +334,13 @@ begin
   end;
 
   SetLength(FComakers,Length(FComakers) - 1);
-end;
 
-procedure TLoan.GetAlerts;
-begin
-  // clear alerts
-  FAlerts := [];
-
-  with dmLoan do
+  // delete from db
+  with dmLoan.dstLoanComaker do
   begin
-    dstAlerts.Close;
-    dstAlerts.Open;
+    Locate('entity_id',cmk.Id,[]);
+    Delete;
   end;
-end;
-
-procedure TLoan.AddAlert(const alert: string);
-begin
-  SetLength(FAlerts,Length(FAlerts) + 1);
-  FAlerts[Length(FAlerts) - 1] := alert;
 end;
 
 procedure TLoan.AppendFinancialInfo;
@@ -389,17 +441,22 @@ end;
 
 procedure TLoan.SaveComakers;
 var
-  i, len: integer;
+  i, cnt: integer;
 begin
   with dmLoan.dstLoanComaker do
   begin
-    len := Length(FComakers) - 1;
-    for i := 0 to len do
+    cnt := ln.ComakerCount - 1;
+    if ln.Action = laCreating then
     begin
-      Append;
-      FieldByName('entity_id').AsString := FComakers[i].Id;
-      Post;
+      for i := 0 to cnt do
+      begin
+        Append;
+        FieldByName('entity_id').AsString := ln.Comaker[i].Id;
+        Post;
+      end;
     end;
+
+    UpdateBatch;
   end;
 end;
 
@@ -429,6 +486,50 @@ begin
       Post;
 end;
 
+procedure TLoan.SaveRejection;
+begin
+  with dmLoan.dstLoanReject do
+    if State in [dsInsert,dsEdit] then
+      Post;
+end;
+
+procedure TLoan.SaveRelease;
+begin
+  with dmLoan.dstLoanRelease do
+  begin
+    if State in [dsInsert,dsEdit] then
+      Post;
+
+    UpdateBatch;
+  end;
+end;
+
+procedure TLoan.ChangeLoanStatus;
+begin
+  with dmLoan.dstLoan do
+  begin
+    Edit;
+
+    if ln.Action = laAssessing then
+      FieldByName('status_id').AsString :=
+          TRttiEnumerationType.GetName<TLoanStatus>(TLoanStatus.S)
+    else if ln.Action = laApproving then
+      FieldByName('status_id').AsString :=
+          TRttiEnumerationType.GetName<TLoanStatus>(TLoanStatus.A)
+    else if ln.Action = laReleasing then
+      FieldByName('status_id').AsString :=
+          TRttiEnumerationType.GetName<TLoanStatus>(TLoanStatus.R)
+    else if ln.Action = laCancelling then
+        FieldByName('status_id').AsString :=
+          TRttiEnumerationType.GetName<TLoanStatus>(TLoanStatus.C)
+    else if ln.Action = laRejecting then
+      FieldByName('status_id').AsString :=
+        TRttiEnumerationType.GetName<TLoanStatus>(TLoanStatus.J);
+
+    Post;
+  end;
+end;
+
 procedure TLoan.ClearFinancialInfo;
 begin
   SetLength(FFinancialInfo,0);
@@ -443,6 +544,66 @@ procedure TLoan.AddLoanState(const loanState: TLoanState);
 begin
   SetLength(FLoanStatusHistory,Length(FLoanStatusHistory) + 1);
   FLoanStatusHistory[Length(FLoanStatusHistory) - 1] := loanState;
+end;
+
+procedure TLoan.GetAlerts;
+begin
+  with dmLoan.dstAlerts do
+    Open;
+end;
+
+procedure TLoan.AddReleaseRecipient(const rec: TReleaseRecipient; const overwrite: boolean);
+var
+  index: integer;
+begin
+  if not ReleaseRecipientExists(rec) then
+  begin
+    SetLength(FReleaseRecipients,Length(FReleaseRecipients) + 1);
+    FReleaseRecipients[Length(FReleaseRecipients) - 1] := rec;
+  end
+  else if overwrite then
+  begin
+    // get the record no
+    // Note: DataSet.Locate has been called prior to opening the detail window
+    with dmLoan.dstLoanRelease do
+      index := RecNo;
+
+    FReleaseRecipients[index - 1] := rec;
+  end;
+end;
+
+procedure TLoan.AppendReleaseRecipient;
+begin
+  with dmLoan.dstLoanRelease do
+    Append;
+end;
+
+procedure TLoan.ClearReleaseRecipients;
+begin
+  FReleaseRecipients := [];
+end;
+
+procedure TLoan.AddLoanCharge(const charge: TLoanCharge; const overwrite: boolean);
+var
+  index: integer;
+begin
+  if not LoanChargeExists(charge) then
+  begin
+    SetLength(FLoanCharges,Length(FLoanCharges) + 1);
+    FLoanCharges[Length(FLoanCharges) - 1] := charge;
+  end
+  else if overwrite then
+  begin
+    with dmLoan.dstLoanCharge do
+      index := RecNo;
+
+    FLoanCharges[index - 1] := charge;
+  end;
+end;
+
+procedure TLoan.ClearLoanCharges;
+begin
+  FLoanCharges := [];
 end;
 
 function TLoan.GetIsPending: boolean;
@@ -460,7 +621,7 @@ begin
   Result := FStatus =  TRttiEnumerationType.GetName<TLoanStatus>(TLoanStatus.A);
 end;
 
-function TLoan.GetIsReleased: boolean;
+function TLoan.GetIsActive: boolean;
 begin
   Result := FStatus =  TRttiEnumerationType.GetName<TLoanStatus>(TLoanStatus.R);
 end;
@@ -510,16 +671,6 @@ begin
   end;
 end;
 
-function TLoan.GetAlert(const i: integer): string;
-begin
-  Result := FAlerts[i];
-end;
-
-function TLoan.GetAlertsCount: integer;
-begin
-  Result := Length(FAlerts);
-end;
-
 function TLoan.GetHasId: boolean;
 begin
   Result := FId <> '';
@@ -530,7 +681,7 @@ begin
   if IsPending then Result := 'Pending'
   else if IsAssessed then Result := 'Assessed'
   else if IsApproved then Result := 'Approved'
-  else if IsReleased then Result := 'Active'
+  else if IsActive then Result := 'Active'
   else if IsCancelled then Result := 'Cancelled'
   else if IsRejected then Result := 'Rejected';
 end;
@@ -598,6 +749,51 @@ end;
 function TLoan.GetLoanStateCount;
 begin
   Result := Length(FLoanStatusHistory);
+end;
+
+function TLoan.ReleaseRecipientExists(const rec: TReleaseRecipient): boolean;
+begin
+  Result := false;
+end;
+
+function TLoan.GetReleaseRecipientCount;
+begin
+  Result := Length(FReleaseRecipients);
+end;
+
+function TLoan.GetReleaseRecipient(const i: integer): TReleaseRecipient;
+begin
+  Result := FReleaseRecipients[i];
+end;
+
+function TLoan.GetLoanCharge(const i: Integer): TLoanCharge;
+begin
+  Result := FLoanCharges[i];
+end;
+
+function TLoan.GetLoanChargeCount;
+begin
+  Result := Length(FLoanCharges);
+end;
+
+function TLoan.LoanChargeExists(const charge: TLoanCharge): boolean;
+var
+  i, len: integer;
+  ch: TLoanCharge;
+begin
+  Result := false;
+
+  len := Length(FLoanCharges);
+
+  for i := 0 to len - 1 do
+  begin
+    ch := FLoanCharges[i];
+    if ch.ChargeType = charge.ChargeType then
+    begin
+      Result := true;
+      Exit;
+    end;
+  end;
 end;
 
 end.

@@ -69,9 +69,11 @@ contains
   Reference in 'Reference.pas',
   Group in 'Group.pas',
   BasePopupDetail in '..\Base\BasePopupDetail.pas' {frmBasePopupDetail},
-  BaseSearch in '..\Base\BaseSearch.pas' {frmBaseSearch},
   BaseDocked in '..\Base\BaseDocked.pas' {frmBaseDocked},
   BaseGridDetail in '..\Base\BaseGridDetail.pas' {frmBaseGridDetail},
-  CompetitorList in 'CompetitorList.pas' {frmCompetitorList};
+  CompetitorList in 'CompetitorList.pas' {frmCompetitorList},
+  Recipient in 'Recipient.pas',
+  RecipientSearch in 'RecipientSearch.pas' {frmRecipientSearch},
+  BaseSearch in '..\Base\BaseSearch.pas' {frmBaseSearch};
 
 end.

@@ -20,6 +20,10 @@ type
     JvLabel16: TJvLabel;
     dbluAppvMethod: TRzDBLookupComboBox;
     mmRemarks: TRzDBMemo;
+    JvLabel1: TJvLabel;
+    urlAppliedAmount: TRzURLLabel;
+    JvLabel2: TJvLabel;
+    RzURLLabel1: TRzURLLabel;
     procedure FormCreate(Sender: TObject);
   private
     { Private declarations }

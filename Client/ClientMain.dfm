@@ -39,9 +39,9 @@ inherited frmClientMain: TfrmClientMain
     Width = 923
     Height = 492
     Hint = ''
-    ActivePage = tsLoanClassAccess
+    ActivePage = tsReferences
     Align = alClient
-    TabIndex = 4
+    TabIndex = 1
     TabOrder = 1
     TabOrientation = toBottom
     TabStyle = tsRoundCorners

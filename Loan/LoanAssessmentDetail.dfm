@@ -1,10 +1,10 @@
 inherited frmLoanAssessmentDetail: TfrmLoanAssessmentDetail
   Caption = 'frmLoanAssessmentDetail'
-  ClientHeight = 323
+  ClientHeight = 381
   ClientWidth = 441
   OnShow = FormShow
   ExplicitWidth = 441
-  ExplicitHeight = 323
+  ExplicitHeight = 381
   PixelsPerInch = 96
   TextHeight = 13
   inherited pnlTitle: TRzPanel
@@ -22,20 +22,20 @@ inherited frmLoanAssessmentDetail: TfrmLoanAssessmentDetail
   end
   inherited pnlMain: TRzPanel
     Width = 441
-    Height = 302
+    Height = 360
     ExplicitWidth = 441
-    ExplicitHeight = 302
+    ExplicitHeight = 360
     inherited pcDetail: TRzPageControl
       Width = 424
-      Height = 248
+      Height = 306
       ExplicitWidth = 424
-      ExplicitHeight = 248
+      ExplicitHeight = 306
       FixedDimension = 19
       inherited tsDetail: TRzTabSheet
         ExplicitLeft = 1
         ExplicitTop = 1
         ExplicitWidth = 420
-        ExplicitHeight = 244
+        ExplicitHeight = 302
         object JvLabel4: TJvLabel
           Tag = -1
           Left = 19
@@ -47,16 +47,49 @@ inherited frmLoanAssessmentDetail: TfrmLoanAssessmentDetail
         end
         object JvLabel11: TJvLabel
           Tag = -1
-          Left = 198
-          Top = 23
+          Left = 20
+          Top = 47
           Width = 111
           Height = 13
           Caption = 'Recommended amount'
           Transparent = True
         end
+        object JvLabel1: TJvLabel
+          Tag = -1
+          Left = 238
+          Top = 47
+          Width = 80
+          Height = 13
+          Caption = 'Applied amount:'
+          Transparent = True
+        end
+        object urlAppliedAmount: TRzURLLabel
+          Tag = 1
+          Left = 324
+          Top = 47
+          Width = 22
+          Height = 13
+          Caption = '0.00'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clGreen
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsUnderline]
+          ParentFont = False
+          OnClick = urlAppliedAmountClick
+        end
+        object JvLabel2: TJvLabel
+          Tag = -1
+          Left = 20
+          Top = 71
+          Width = 43
+          Height = 13
+          Caption = 'Remarks'
+          Transparent = True
+        end
         object dteDateAssessed: TRzDBDateTimeEdit
           Tag = 3
-          Left = 102
+          Left = 137
           Top = 17
           Width = 85
           Height = 21
@@ -70,9 +103,9 @@ inherited frmLoanAssessmentDetail: TfrmLoanAssessmentDetail
         end
         object edRecAmount: TRzDBNumericEdit
           Tag = 3
-          Left = 320
-          Top = 17
-          Width = 75
+          Left = 137
+          Top = 41
+          Width = 85
           Height = 21
           DataSource = dmLoan.dscLoanAss
           DataField = 'rec_amt'
@@ -85,7 +118,7 @@ inherited frmLoanAssessmentDetail: TfrmLoanAssessmentDetail
         object pcAssessment: TRzPageControl
           Tag = 3
           Left = 19
-          Top = 54
+          Top = 116
           Width = 378
           Height = 147
           Hint = ''
@@ -93,7 +126,7 @@ inherited frmLoanAssessmentDetail: TfrmLoanAssessmentDetail
           ActivePageDefault = tsFinInfo
           TabOverlap = 0
           TabIndex = 0
-          TabOrder = 2
+          TabOrder = 3
           TabStyle = tsRoundCorners
           FixedDimension = 19
           object tsFinInfo: TRzTabSheet
@@ -145,36 +178,45 @@ inherited frmLoanAssessmentDetail: TfrmLoanAssessmentDetail
         object btnAddAss: TRzButton
           Tag = 3
           Left = 19
-          Top = 207
+          Top = 269
           Width = 57
           Height = 20
           Caption = 'Add'
-          TabOrder = 3
+          TabOrder = 4
           OnClick = btnAddAssClick
         end
         object btnRemoveAss: TRzButton
           Tag = 3
           Left = 82
-          Top = 207
+          Top = 269
           Width = 57
           Height = 20
           Caption = 'Remove'
-          TabOrder = 4
+          TabOrder = 5
           OnClick = btnRemoveAssClick
+        end
+        object mmRemarks: TRzDBMemo
+          Left = 137
+          Top = 65
+          Width = 258
+          Height = 45
+          DataField = 'remarks'
+          DataSource = dmLoan.dscLoanAss
+          TabOrder = 2
         end
       end
     end
     inherited btnSave: TRzButton
       Left = 275
-      Top = 267
+      Top = 325
       ExplicitLeft = 275
-      ExplicitTop = 267
+      ExplicitTop = 325
     end
     inherited btnCancel: TRzButton
       Left = 356
-      Top = 267
+      Top = 325
       ExplicitLeft = 356
-      ExplicitTop = 267
+      ExplicitTop = 325
     end
   end
 end

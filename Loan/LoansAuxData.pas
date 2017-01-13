@@ -22,6 +22,10 @@ type
     dscAppvMethod: TDataSource;
     dstCancelReason: TADODataSet;
     dscCancelReason: TDataSource;
+    dstRejectReason: TADODataSet;
+    dscRejectReason: TDataSource;
+    dstReleaseMethod: TADODataSet;
+    dscReleaseMethod: TDataSource;
     procedure dstLoanClassBeforePost(DataSet: TDataSet);
     procedure dstLoanClassAfterOpen(DataSet: TDataSet);
     procedure DataModuleDestroy(Sender: TObject);

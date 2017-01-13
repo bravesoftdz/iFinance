@@ -25,6 +25,9 @@ type
     dscParGroup: TDataSource;
     dstEmployers: TADODataSet;
     dscEmployers: TDataSource;
+    dstRecipient: TADODataSet;
+    dstRcpPersonal: TADODataSet;
+    dscRcpPersonal: TDataSource;
     procedure dstLandlordBeforeOpen(DataSet: TDataSet);
     procedure dstLandlordBeforePost(DataSet: TDataSet);
     procedure dstLlPersonalBeforeOpen(DataSet: TDataSet);
@@ -40,6 +43,8 @@ type
     procedure dstGroupsBeforePost(DataSet: TDataSet);
     procedure dstGroupsNewRecord(DataSet: TDataSet);
     procedure dstEmployersBeforePost(DataSet: TDataSet);
+    procedure dstRecipientBeforeOpen(DataSet: TDataSet);
+    procedure dstRecipientBeforePost(DataSet: TDataSet);
   private
     { Private declarations }
   public
@@ -52,7 +57,8 @@ var
 implementation
 
 uses
-  AppData, Landlord, DBUtil, ImmediateHead, AppConstants,IFinanceGlobal;
+  AppData, Landlord, DBUtil, ImmediateHead, AppConstants,IFinanceGlobal,
+  Recipient;
 
 {%CLASSGROUP 'Vcl.Controls.TControl'}
 
@@ -172,6 +178,28 @@ procedure TdmEntities.dstLlPersonalBeforePost(DataSet: TDataSet);
 begin
   if DataSet.State = dsInsert then
     DataSet.FieldByName('entity_id').AsString := llord.Id;
+end;
+
+procedure TdmEntities.dstRecipientBeforeOpen(DataSet: TDataSet);
+begin
+  (DataSet as TADODataSet).Parameters.ParamByName('@entity_id').Value := rcp.Id;
+end;
+
+procedure TdmEntities.dstRecipientBeforePost(DataSet: TDataSet);
+var
+  id: string;
+begin
+  if DataSet.State = dsInsert then
+  begin
+    id := GetEntityId;
+    DataSet.FieldByName('entity_id').AsString := id;
+    DataSet.FieldByName('entity_type').AsString :=
+      TRttiEnumerationType.GetName<TEntityTypes>(TEntityTypes.RP);
+
+    SetCreatedFields(DataSet);
+
+    rcp.Id := id;
+  end;
 end;
 
 end.

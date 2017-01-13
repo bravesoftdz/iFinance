@@ -61,7 +61,10 @@ contains
   ErrorBox in 'ErrorBox.pas' {frmErrorBox},
   DecisionBox in 'DecisionBox.pas' {frmDecisionBox},
   BasePopup in '..\Base\BasePopup.pas' {frmBasePopup1},
-  Branch in 'Branch.pas';
+  Branch in 'Branch.pas',
+  Alerts in 'Alerts.pas' {frmAlerts},
+  Alert in 'Alert.pas',
+  AlertIntf in 'AlertIntf.pas';
 
 end.
 

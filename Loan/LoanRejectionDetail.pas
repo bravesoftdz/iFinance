@@ -9,22 +9,62 @@ uses
   RzTabs, RzLabel, Vcl.Imaging.pngimage, Vcl.ExtCtrls, RzPanel;
 
 type
-  TfrmBasePopupDetail3 = class(TfrmBasePopupDetail)
-    JvLabel19: TJvLabel;
-    JvLabel20: TJvLabel;
-    RzDBLookupComboBox1: TRzDBLookupComboBox;
-    RzDBDateTimeEdit3: TRzDBDateTimeEdit;
+  TfrmLoanRejectionDetail = class(TfrmBasePopupDetail)
+    JvLabel17: TJvLabel;
+    dteDateRejected: TRzDBDateTimeEdit;
+    dbluReason: TRzDBLookupComboBox;
+    JvLabel18: TJvLabel;
+    JvLabel24: TJvLabel;
+    mmRemarks: TRzDBMemo;
+    procedure FormCreate(Sender: TObject);
   private
     { Private declarations }
   public
     { Public declarations }
+  protected
+    procedure Save; override;
+    procedure Cancel; override;
+    function ValidEntry: boolean; override;
   end;
 
 var
-  frmBasePopupDetail3: TfrmBasePopupDetail3;
+  frmLoanRejectionDetail: TfrmLoanRejectionDetail;
 
 implementation
 
 {$R *.dfm}
+
+uses
+  LoanData, FormsUtil, Loan, LoansAuxData;
+
+procedure TfrmLoanRejectionDetail.Save;
+begin
+  ln.Save;
+end;
+
+procedure TfrmLoanRejectionDetail.Cancel;
+begin
+  ln.Cancel;
+end;
+
+function TfrmLoanRejectionDetail.ValidEntry: boolean;
+var
+  error: string;
+begin
+  if dteDateRejected.Text = '' then
+    error := 'Please enter date rejected.'
+  else if dbluReason.Text = '' then
+    error := 'Please select reject reason.';
+
+  Result := error = '';
+
+  if not Result then CallErrorBox(error);
+end;
+
+procedure TfrmLoanRejectionDetail.FormCreate(Sender: TObject);
+begin
+  inherited;
+  OpenDropdownDataSources(tsDetail);
+end;
 
 end.

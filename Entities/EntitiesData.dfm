@@ -253,4 +253,60 @@ object dmEntities: TdmEntities
     Left = 296
     Top = 248
   end
+  object dstRecipient: TADODataSet
+    Tag = 7
+    Connection = dmApplication.acMain
+    BeforeOpen = dstRecipientBeforeOpen
+    BeforePost = dstRecipientBeforePost
+    CommandText = 'sp_cl_get_entity'
+    CommandType = cmdStoredProc
+    Parameters = <
+      item
+        Name = '@RETURN_VALUE'
+        DataType = ftInteger
+        Direction = pdReturnValue
+        Precision = 10
+        Value = Null
+      end
+      item
+        Name = '@entity_id'
+        Attributes = [paNullable]
+        DataType = ftString
+        Size = 9
+        Value = Null
+      end>
+    Left = 384
+    Top = 80
+  end
+  object dstRcpPersonal: TADODataSet
+    Tag = 8
+    Connection = dmApplication.acMain
+    CursorType = ctStatic
+    BeforeOpen = dstLlPersonalBeforeOpen
+    BeforePost = dstLlPersonalBeforePost
+    CommandText = 'sp_cl_get_personal_info'
+    CommandType = cmdStoredProc
+    Parameters = <
+      item
+        Name = '@RETURN_VALUE'
+        DataType = ftInteger
+        Direction = pdReturnValue
+        Precision = 10
+        Value = 0
+      end
+      item
+        Name = '@entity_id'
+        Attributes = [paNullable]
+        DataType = ftString
+        Size = 9
+        Value = ''
+      end>
+    Left = 384
+    Top = 136
+  end
+  object dscRcpPersonal: TDataSource
+    DataSet = dstRcpPersonal
+    Left = 472
+    Top = 136
+  end
 end

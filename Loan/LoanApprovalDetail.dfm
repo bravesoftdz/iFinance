@@ -1,17 +1,17 @@
 inherited frmLoanAppvDetail: TfrmLoanAppvDetail
   Caption = 'frmLoanAppvDetail'
-  ClientHeight = 187
-  ClientWidth = 506
+  ClientHeight = 258
+  ClientWidth = 411
   OnCreate = FormCreate
-  ExplicitWidth = 506
-  ExplicitHeight = 187
+  ExplicitWidth = 411
+  ExplicitHeight = 258
   PixelsPerInch = 96
   TextHeight = 13
   inherited pnlTitle: TRzPanel
-    Width = 506
+    Width = 411
     ExplicitWidth = 506
     inherited imgClose: TImage
-      Left = 485
+      Left = 390
       ExplicitLeft = 525
     end
     inherited lblCaption: TRzLabel
@@ -21,19 +21,21 @@ inherited frmLoanAppvDetail: TfrmLoanAppvDetail
     end
   end
   inherited pnlMain: TRzPanel
-    Width = 506
-    Height = 166
+    Width = 411
+    Height = 237
     ExplicitWidth = 506
-    ExplicitHeight = 176
+    ExplicitHeight = 166
     inherited pcDetail: TRzPageControl
-      Width = 489
-      Height = 112
+      Width = 394
+      Height = 183
       ExplicitWidth = 489
-      ExplicitHeight = 122
+      ExplicitHeight = 112
       FixedDimension = 19
       inherited tsDetail: TRzTabSheet
+        ExplicitLeft = 1
+        ExplicitTop = 1
         ExplicitWidth = 485
-        ExplicitHeight = 118
+        ExplicitHeight = 108
         object JvLabel8: TJvLabel
           Tag = -1
           Left = 19
@@ -63,8 +65,8 @@ inherited frmLoanAppvDetail: TfrmLoanAppvDetail
         end
         object JvLabel24: TJvLabel
           Tag = -1
-          Left = 218
-          Top = 47
+          Left = 19
+          Top = 119
           Width = 43
           Height = 13
           Caption = 'Remarks'
@@ -72,12 +74,58 @@ inherited frmLoanAppvDetail: TfrmLoanAppvDetail
         end
         object JvLabel16: TJvLabel
           Tag = -1
-          Left = 218
-          Top = 23
+          Left = 19
+          Top = 95
           Width = 84
           Height = 13
           Caption = 'Approval method'
           Transparent = True
+        end
+        object JvLabel1: TJvLabel
+          Tag = -1
+          Left = 217
+          Top = 47
+          Width = 88
+          Height = 13
+          Caption = 'Recommendation:'
+          Transparent = True
+        end
+        object urlAppliedAmount: TRzURLLabel
+          Tag = 1
+          Left = 310
+          Top = 47
+          Width = 22
+          Height = 13
+          Caption = '0.00'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clGreen
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsUnderline]
+          ParentFont = False
+        end
+        object JvLabel2: TJvLabel
+          Tag = -1
+          Left = 217
+          Top = 71
+          Width = 67
+          Height = 13
+          Caption = 'Desired term:'
+          Transparent = True
+        end
+        object RzURLLabel1: TRzURLLabel
+          Tag = 1
+          Left = 310
+          Top = 71
+          Width = 22
+          Height = 13
+          Caption = '0.00'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clGreen
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsUnderline]
+          ParentFont = False
         end
         object edAppvTerm: TRzDBNumericEdit
           Tag = 5
@@ -123,9 +171,9 @@ inherited frmLoanAppvDetail: TfrmLoanAppvDetail
         end
         object dbluAppvMethod: TRzDBLookupComboBox
           Tag = 5
-          Left = 313
-          Top = 17
-          Width = 152
+          Left = 122
+          Top = 89
+          Width = 247
           Height = 21
           DataField = 'appv_method'
           DataSource = dmLoan.dscLoanAppv
@@ -139,27 +187,28 @@ inherited frmLoanAppvDetail: TfrmLoanAppvDetail
           TabOnEnter = True
         end
         object mmRemarks: TRzDBMemo
-          Left = 313
-          Top = 41
-          Width = 152
+          Left = 122
+          Top = 113
+          Width = 247
           Height = 45
           DataField = 'remarks'
           DataSource = dmLoan.dscLoanAppv
           TabOrder = 4
+          TabOnEnter = True
         end
       end
     end
     inherited btnSave: TRzButton
-      Left = 340
-      Top = 131
+      Left = 245
+      Top = 202
       ExplicitLeft = 340
-      ExplicitTop = 141
+      ExplicitTop = 131
     end
     inherited btnCancel: TRzButton
-      Left = 421
-      Top = 131
+      Left = 326
+      Top = 202
       ExplicitLeft = 421
-      ExplicitTop = 141
+      ExplicitTop = 131
     end
   end
 end

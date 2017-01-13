@@ -72,6 +72,7 @@ begin
       ln.Client := TLoanClient.Create(FieldByName('entity_id').AsString,
                         FieldByName('name').AsString);
       ln.Status := FieldByName('status_id').AsString;
+      ln.Action := laNone;
 
       if Supports(Application.MainForm,IDock,intf) then
         intf.DockForm(fmLoanMain);

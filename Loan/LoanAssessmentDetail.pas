@@ -7,7 +7,7 @@ uses
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, BasePopupDetail, Data.DB, Vcl.Grids,
   Vcl.DBGrids, RzDBGrid, RzDBEdit, Vcl.StdCtrls, Vcl.Mask, RzEdit, JvExControls,
   JvLabel, RzButton, RzTabs, RzLabel, Vcl.Imaging.pngimage, Vcl.ExtCtrls,
-  RzPanel, RzGrids, FinInfo, MonthlyExpense;
+  RzPanel, RzGrids, FinInfo, MonthlyExpense, Vcl.DBCtrls;
 
 type
   TfrmLoanAssessmentDetail = class(TfrmBasePopupDetail)
@@ -22,11 +22,16 @@ type
     btnRemoveAss: TRzButton;
     grFinInfo: TRzStringGrid;
     grMonExp: TRzStringGrid;
+    JvLabel1: TJvLabel;
+    urlAppliedAmount: TRzURLLabel;
+    mmRemarks: TRzDBMemo;
+    JvLabel2: TJvLabel;
     procedure btnAddAssClick(Sender: TObject);
     procedure btnRemoveAssClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure grFinInfoDblClick(Sender: TObject);
     procedure grMonExpDblClick(Sender: TObject);
+    procedure urlAppliedAmountClick(Sender: TObject);
   private
     { Private declarations }
     procedure AddFinancialInfo;
@@ -89,6 +94,8 @@ begin
     r := Row;
 
     compId := (Objects[0,r] as TFinInfo).CompanyId;
+
+    // locate the record in the dataset
     Locate('comp_id',compId,[]);
   end;
 
@@ -354,6 +361,12 @@ begin
   ln.Save;
 end;
 
+procedure TfrmLoanAssessmentDetail.urlAppliedAmountClick(Sender: TObject);
+begin
+  inherited;
+  if ln.Action = laAssessing then edRecAmount.Value := ln.AppliedAmount;
+end;
+
 procedure TfrmLoanAssessmentDetail.Cancel;
 begin
   ln.Cancel;
@@ -364,6 +377,9 @@ begin
   inherited;
   PopulateFinInfo;
   PopulateMonthlyExpense;
+
+  // applied amount
+  urlAppliedAmount.Caption := FormatFloat('###,##0.00',ln.AppliedAmount);
 end;
 
 function TfrmLoanAssessmentDetail.ValidEntry: boolean;

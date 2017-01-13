@@ -27,10 +27,14 @@ type
     dscLoanAss: TDataSource;
     dstLoanAppv: TADODataSet;
     dscLoanAppv: TDataSource;
-    dstStatuses: TADODataSet;
-    dscStatuses: TDataSource;
     dstLoanCancel: TADODataSet;
     dscLoanCancel: TDataSource;
+    dstLoanReject: TADODataSet;
+    dscLoanReject: TDataSource;
+    dstLoanRelease: TADODataSet;
+    dscLoanRelease: TDataSource;
+    dstLoanCharge: TADODataSet;
+    dscLoanCharge: TDataSource;
     procedure dstLoanBeforeOpen(DataSet: TDataSet);
     procedure dstLoanClassBeforeOpen(DataSet: TDataSet);
     procedure dstLoanBeforePost(DataSet: TDataSet);
@@ -39,9 +43,7 @@ type
     procedure dstLoanClassAfterScroll(DataSet: TDataSet);
     procedure dstLoanAfterOpen(DataSet: TDataSet);
     procedure dstLoanComakerBeforeOpen(DataSet: TDataSet);
-    procedure dstLoanComakerNewRecord(DataSet: TDataSet);
     procedure dstLoanComakerAfterOpen(DataSet: TDataSet);
-    procedure dstLoanComakerAfterPost(DataSet: TDataSet);
     procedure dstAlertsBeforeOpen(DataSet: TDataSet);
     procedure dstFinInfoBeforeOpen(DataSet: TDataSet);
     procedure dstFinInfoAfterOpen(DataSet: TDataSet);
@@ -63,6 +65,18 @@ type
     procedure dstLoanAssAfterPost(DataSet: TDataSet);
     procedure dstLoanAppvAfterPost(DataSet: TDataSet);
     procedure dstLoanCancelAfterPost(DataSet: TDataSet);
+    procedure dstLoanRejectAfterOpen(DataSet: TDataSet);
+    procedure dstLoanRejectAfterPost(DataSet: TDataSet);
+    procedure dstLoanRejectBeforeOpen(DataSet: TDataSet);
+    procedure dstLoanRejectBeforePost(DataSet: TDataSet);
+    procedure dstAlertsAfterOpen(DataSet: TDataSet);
+    procedure dstLoanComakerNewRecord(DataSet: TDataSet);
+    procedure dstLoanReleaseAfterOpen(DataSet: TDataSet);
+    procedure dstLoanReleaseBeforeOpen(DataSet: TDataSet);
+    procedure dstLoanReleaseBeforePost(DataSet: TDataSet);
+    procedure dstLoanChargeBeforeOpen(DataSet: TDataSet);
+    procedure dstLoanChargeBeforePost(DataSet: TDataSet);
+    procedure dstLoanChargeAfterOpen(DataSet: TDataSet);
   private
     { Private declarations }
     procedure SetLoanClassProperties;
@@ -77,7 +91,7 @@ implementation
 
 uses
   AppData, Loan, DBUtil, IFinanceGlobal, LoanClassification, Comaker, FinInfo,
-  MonthlyExpense;
+  MonthlyExpense, Alert, ReleaseRecipient, Recipient, LoanCharge;
 
 {%CLASSGROUP 'Vcl.Controls.TControl'}
 
@@ -89,7 +103,26 @@ begin
   begin
     ln.Status := FieldByName('status_id').AsString;
     ln.AppliedAmount := FieldByName('amt_appl').AsCurrency;
+    ln.DesiredTerm := FieldByName('des_term').AsInteger;
   end;
+end;
+
+procedure TdmLoan.dstAlertsAfterOpen(DataSet: TDataSet);
+begin
+  try
+    alrt := TAlert.Create;
+    with DataSet, alrt do
+    begin
+      while not Eof do
+      begin
+        Add(FieldByName('alert').AsString);
+        Next;
+      end;
+    end;
+  finally
+    DataSet.Close;
+  end;
+
 end;
 
 procedure TdmLoan.dstAlertsBeforeOpen(DataSet: TDataSet);
@@ -145,12 +178,17 @@ end;
 
 procedure TdmLoan.dstLoanAppvAfterOpen(DataSet: TDataSet);
 begin
-  if not DataSet.IsEmpty then ln.AddLoanState(lsApproved);
+  if not DataSet.IsEmpty then
+  begin
+    ln.AddLoanState(lsApproved);
+    ln.ApprovedAmount := DataSet.FieldByName('amt_appv').AsFloat;
+  end;
 end;
 
 procedure TdmLoan.dstLoanAppvAfterPost(DataSet: TDataSet);
 begin
   ln.AddLoanState(lsApproved);
+  ln.ApprovedAmount := DataSet.FieldByName('amt_appv').AsFloat;
 end;
 
 procedure TdmLoan.dstLoanAppvBeforeOpen(DataSet: TDataSet);
@@ -167,7 +205,11 @@ end;
 
 procedure TdmLoan.dstLoanAssAfterOpen(DataSet: TDataSet);
 begin
-  if not DataSet.IsEmpty then ln.AddLoanState(lsAssessed);
+  if not DataSet.IsEmpty then
+  begin
+    ln.AddLoanState(lsAssessed);
+    ln.RecommendedAmount := DataSet.FieldByName('rec_amt').AsFloat;
+  end;
 end;
 
 procedure TdmLoan.dstLoanAssAfterPost(DataSet: TDataSet);
@@ -207,26 +249,6 @@ begin
 
       ln.Id := id;
     end
-    else
-    begin
-      Edit;
-
-      if ln.Action = laAssessing then
-        FieldByName('status_id').AsString :=
-            TRttiEnumerationType.GetName<TLoanStatus>(TLoanStatus.S)
-      else if ln.Action = laApproving then
-        FieldByName('status_id').AsString :=
-            TRttiEnumerationType.GetName<TLoanStatus>(TLoanStatus.A)
-      else if ln.Action = laReleasing then
-        FieldByName('status_id').AsString :=
-            TRttiEnumerationType.GetName<TLoanStatus>(TLoanStatus.R)
-      else if ln.Action = laCancelling then
-          FieldByName('status_id').AsString :=
-            TRttiEnumerationType.GetName<TLoanStatus>(TLoanStatus.C)
-      else if ln.Action = laRejecting then
-        FieldByName('status_id').AsString :=
-          TRttiEnumerationType.GetName<TLoanStatus>(TLoanStatus.J);
-    end;
   end;
 end;
 
@@ -249,6 +271,39 @@ procedure TdmLoan.dstLoanCancelBeforePost(DataSet: TDataSet);
 begin
   DataSet.FieldByName('loan_id').AsString := ln.Id;
   DataSet.FieldByName('cancelled_by').AsString := ifn.User.UserId;
+end;
+
+procedure TdmLoan.dstLoanChargeAfterOpen(DataSet: TDataSet);
+var
+ chargeType, chargeName, amt: string;
+begin
+  (DataSet as TADODataSet).Properties['Unique table'].Value := 'LoanCharge';
+
+  ln.ClearLoanCharges;
+
+  with DataSet do
+  begin
+    while not Eof do
+    begin
+      chargeType := FieldByName('charge_type').AsString;
+      chargeName := FieldByName('charge_name').AsString;
+      amt := FieldByName('rel_amt_f').AsString;
+
+      ln.AddLoanCharge(TLoanCharge.Create(chargeType,chargeName,amt));
+
+      Next;
+    end;
+  end;
+end;
+
+procedure TdmLoan.dstLoanChargeBeforeOpen(DataSet: TDataSet);
+begin
+  (DataSet as TADODataSet).Parameters.ParamByName('@loan_id').Value := ln.Id;
+end;
+
+procedure TdmLoan.dstLoanChargeBeforePost(DataSet: TDataSet);
+begin
+  DataSet.FieldByName('loan_id').AsString := ln.Id;
 end;
 
 procedure TdmLoan.dstLoanClassAfterOpen(DataSet: TDataSet);
@@ -310,6 +365,7 @@ begin
   (DataSet as TADODataSet).Properties['Unique table'].Value := 'LoanComaker';
   with DataSet do
   begin
+    First;
     while not Eof do
     begin
       ln.AddComaker(TComaker.Create(FieldByName('name').AsString,
@@ -317,11 +373,6 @@ begin
       Next;
     end;
   end;
-end;
-
-procedure TdmLoan.dstLoanComakerAfterPost(DataSet: TDataSet);
-begin
-  RefreshDataSet('','entity_id',Dataset);
 end;
 
 procedure TdmLoan.dstLoanComakerBeforeOpen(DataSet: TDataSet);
@@ -340,6 +391,71 @@ begin
   DataSet.FieldByName('status_id').AsString :=
         TRttiEnumerationType.GetName<TLoanStatus>(TLoanStatus.P);
   DataSet.FieldByName('date_appl').AsDateTime := ifn.AppDate;
+end;
+
+procedure TdmLoan.dstLoanRejectAfterOpen(DataSet: TDataSet);
+begin
+  if not DataSet.IsEmpty then ln.AddLoanState(lsRejected);
+end;
+
+procedure TdmLoan.dstLoanRejectAfterPost(DataSet: TDataSet);
+begin
+  ln.AddLoanState(lsRejected);
+end;
+
+procedure TdmLoan.dstLoanRejectBeforeOpen(DataSet: TDataSet);
+begin
+  (DataSet as TADODataSet).Parameters.ParamByName('@loan_id').Value := ln.Id;
+end;
+
+procedure TdmLoan.dstLoanRejectBeforePost(DataSet: TDataSet);
+begin
+  DataSet.FieldByName('loan_id').AsString := ln.Id;
+  DataSet.FieldByName('rejected_by').AsString := ifn.User.UserId;
+end;
+
+procedure TdmLoan.dstLoanReleaseAfterOpen(DataSet: TDataSet);
+var
+  amt, dt: string;
+  relId, relName: string;
+  recipientId, recipientName: string;
+begin
+  (DataSet as TADODataSet).Properties['Unique table'].Value := 'LoanRelease';
+
+  if not DataSet.IsEmpty then ln.AddLoanState(lsActive);
+
+  ln.ClearReleaseRecipients;
+
+  with DataSet do
+  begin
+    while not Eof do
+    begin
+      amt := FieldByName('rel_amt_f').AsString;
+      dt := FieldByName('date_rel_f').AsString;
+      relId := FieldByName('rel_method').AsString;
+      relName := FieldByName('method_name').AsString;
+      recipientId := FieldByName('recipient').AsString;
+      recipientName := FieldByName('recipient_name').AsString;
+
+      ln.AddReleaseRecipient(TReleaseRecipient.Create(
+          TRecipient.Create(recipientId,recipientName),
+          TReleaseMethod.Create(relId,relName),
+          amt,dt));
+
+      Next;
+    end;
+  end;
+end;
+
+procedure TdmLoan.dstLoanReleaseBeforeOpen(DataSet: TDataSet);
+begin
+  (DataSet as TADODataSet).Parameters.ParamByName('@loan_id').Value := ln.Id;
+end;
+
+procedure TdmLoan.dstLoanReleaseBeforePost(DataSet: TDataSet);
+begin
+  DataSet.FieldByName('loan_id').AsString := ln.Id;
+  DataSet.FieldByName('rel_by').AsString := ifn.User.UserId;
 end;
 
 procedure TdmLoan.dstMonExpAfterOpen(DataSet: TDataSet);

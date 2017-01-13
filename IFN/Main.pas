@@ -87,6 +87,10 @@ type
     tbApproveLoan: TToolButton;
     tbCancelLoan: TToolButton;
     tbAssessLoan: TToolButton;
+    tbRejectLoan: TToolButton;
+    urlAssessedLoans: TRzURLLabel;
+    tbReleaseLoan: TToolButton;
+    btnAlerts: TToolButton;
     procedure tbAddClientClick(Sender: TObject);
     procedure tbSaveClick(Sender: TObject);
     procedure lblRecentlyAddedClick(Sender: TObject);
@@ -112,6 +116,10 @@ type
     procedure tbApproveLoanClick(Sender: TObject);
     procedure tbAssessLoanClick(Sender: TObject);
     procedure tbCancelLoanClick(Sender: TObject);
+    procedure tbRejectLoanClick(Sender: TObject);
+    procedure urlAssessedLoansClick(Sender: TObject);
+    procedure tbReleaseLoanClick(Sender: TObject);
+    procedure btnAlertsClick(Sender: TObject);
   private
     { Private declarations }
     RecentClients: TObjectList<TRecentClient>;
@@ -137,7 +145,7 @@ implementation
 uses
   ClientMain, SaveIntf, ClientList, DockedFormIntf, GroupList, EmployerList,
   BanksList, DesignationList, LoanClassificationList, ConfBox, ErrorBox, ClientIntf,
-  LoanMain, LoanList, LoanIntf, CompetitorList;
+  LoanMain, LoanList, LoanIntf, CompetitorList, AlertIntf;
 
 constructor TRecentClient.Create(const id, displayId, name: string);
 begin
@@ -185,6 +193,7 @@ begin
   case filterType of
     lftAll: title := 'All loans';
     lftPending: title := 'Pending loans';
+    lftAssessed: title := 'Assessed loans';
     lftApproved: title := 'Approved loans';
     lftActive: title := 'Active loans';
     lftCancelled: title := 'Cancelled loans';
@@ -275,6 +284,8 @@ begin
 
       ln.Id := TRecentLoan(obj).Id;
       ln.Client := TRecentLoan(obj).Client;
+      ln.Status := TRecentLoan(obj).Status;
+      ln.Action := laNone;
       ln.Retrieve(true);
 
       if Supports(pnlDockMain.Controls[0] as TForm,ILoan,intf) then
@@ -290,6 +301,8 @@ begin
       ln := TLoan.Create;
       ln.Id := TRecentLoan(obj).Id;
       ln.Client := TRecentLoan(obj).Client;
+      ln.Status := TRecentLoan(obj).Status;
+      ln.Action := laNone;
       DockForm(fmLoanMain);
     end;
   end;
@@ -414,6 +427,38 @@ begin
   DockForm(fmLoanMain);
 end;
 
+procedure TfrmMain.tbRejectLoanClick(Sender: TObject);
+var
+  intf: ILoan;
+begin
+  try
+    if pnlDockMain.ControlCount > 0 then
+      if Supports(pnlDockMain.Controls[0] as TForm,ILoan,intf) then
+      begin
+        intf.RejectLoan;
+      end;
+  except
+    on e:Exception do
+      ShowError(e.Message);
+  end;
+end;
+
+procedure TfrmMain.tbReleaseLoanClick(Sender: TObject);
+var
+  intf: ILoan;
+begin
+  try
+    if pnlDockMain.ControlCount > 0 then
+      if Supports(pnlDockMain.Controls[0] as TForm,ILoan,intf) then
+      begin
+        intf.ReleaseLoan;
+      end;
+  except
+    on e:Exception do
+      ShowError(e.Message);
+  end;
+end;
+
 procedure TfrmMain.tbSaveClick(Sender: TObject);
 var
   intf: ISave;
@@ -439,6 +484,11 @@ end;
 procedure TfrmMain.urlApprovedLoansClick(Sender: TObject);
 begin
   OpenLoanList(lftApproved);
+end;
+
+procedure TfrmMain.urlAssessedLoansClick(Sender: TObject);
+begin
+  OpenLoanList(lftAssessed);
 end;
 
 procedure TfrmMain.urlCancelledClick(Sender: TObject);
@@ -568,6 +618,22 @@ begin
 
     RecentLoans.Add(ll);
     lbxRecentLoans.Items.AddObject(ll.Id,ll);
+  end;
+end;
+
+procedure TfrmMain.btnAlertsClick(Sender: TObject);
+var
+  intf: IAlert;
+begin
+  try
+    if pnlDockMain.ControlCount > 0 then
+      if Supports(pnlDockMain.Controls[0] as TForm,IAlert,intf) then
+      begin
+        intf.ShowAlerts;
+      end;
+  except
+    on e:Exception do
+      ShowError(e.Message);
   end;
 end;
 
