@@ -178,9 +178,6 @@ Coordinates=40,269,115,36
 [JvLabel25]
 Coordinates=847,609,73,36
 
-[JvGroupHeader3]
-Coordinates=728,609,112,36
-
 [JvLabel33]
 Coordinates=649,609,73,36
 
@@ -281,7 +278,7 @@ Coordinates=863,683,111,124
 Coordinates=724,683,136,36
 
 []
-Coordinates=946,430,84,36
+Coordinates=728,609,112,36
 
 [edLastname]
 Coordinates=353,535,77,36

@@ -10,6 +10,14 @@ delete refinfo
 delete sequence
 delete employer
 delete LoanComaker
+delete LoanAss
+delete LoanAssFinInfo
+delete LoanAssMonExp
+delete LoanAppv
+delete LoanCancel
+delete LoanCharge
+delete LoanReject
+delete LoanRelease
 delete Loan
 delete LoanClass
 delete [Group]

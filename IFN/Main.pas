@@ -8,7 +8,8 @@ uses
   JvPageList, JvNavigationPane, JvExControls, RzButton, System.ImageList,
   Vcl.ImgList, Vcl.ComCtrls, Vcl.ToolWin, AppConstants, Vcl.StdCtrls, RzLabel,
   JvImageList, RzStatus, StatusIntf, DockIntf, RzLstBox, Client, Vcl.AppEvnts,
-  ClientListIntf, Generics.Collections, LoanListIntf, Loan, LoanClient;
+  ClientListIntf, Generics.Collections, LoanListIntf, Loan, LoanClient, RzTabs,
+  Vcl.Imaging.pngimage;
 
 type
   TRecentClient = class
@@ -40,57 +41,52 @@ type
 
 type
   TfrmMain = class(TForm,IStatus,IDock)
-    mmMain: TMainMenu;
-    pnlNavbar: TPanel;
-    File1: TMenuItem;
-    About1: TMenuItem;
-    pnlDockMain: TPanel;
+    pnlTitle: TRzPanel;
+    imgClose: TImage;
+    lblCaption: TRzLabel;
+    pnlMain: TRzPanel;
+    pnlNavBar: TRzPanel;
     npMain: TJvNavigationPane;
     nppClient: TJvNavPanelPage;
-    nppLoans: TJvNavPanelPage;
-    nppExpense: TJvNavPanelPage;
-    sbMain: TRzStatusBar;
-    tbMain: TToolBar;
-    tbAddClient: TToolButton;
-    tbNewLoan: TToolButton;
-    ToolButton3: TToolButton;
-    tbSave: TToolButton;
     lblRecentlyAdded: TRzURLLabel;
     lblActiveClients: TRzURLLabel;
-    imlToolbar: TJvImageList;
-    spMain: TRzStatusPane;
-    RzVersionInfoStatus1: TRzVersionInfoStatus;
-    nppInventory: TJvNavPanelPage;
-    nppReports: TJvNavPanelPage;
     lblAllClients: TRzURLLabel;
     RzLabel1: TRzLabel;
     lbxRecent: TRzListBox;
-    ToolButton1: TToolButton;
-    tbGroups: TToolButton;
-    tbEmployer: TToolButton;
-    tbCancel: TToolButton;
-    tbBanks: TToolButton;
-    tbDesignationList: TToolButton;
-    ToolButton4: TToolButton;
-    ools1: TMenuItem;
-    Settings1: TMenuItem;
-    tbLoanClass: TToolButton;
+    nppLoans: TJvNavPanelPage;
     urlCancelled: TRzURLLabel;
     urlPendingLoans: TRzURLLabel;
     urlApprovedLoans: TRzURLLabel;
     RzLabel2: TRzLabel;
     urlActiveLoans: TRzURLLabel;
-    lbxRecentLoans: TRzListBox;
     urlDenied: TRzURLLabel;
-    tbCompetitor: TToolButton;
-    ToolButton2: TToolButton;
-    tbApproveLoan: TToolButton;
-    tbCancelLoan: TToolButton;
-    tbAssessLoan: TToolButton;
-    tbRejectLoan: TToolButton;
     urlAssessedLoans: TRzURLLabel;
-    tbReleaseLoan: TToolButton;
-    btnAlerts: TToolButton;
+    lbxRecentLoans: TRzListBox;
+    nppExpense: TJvNavPanelPage;
+    nppInventory: TJvNavPanelPage;
+    nppReports: TJvNavPanelPage;
+    pnlDockMain: TRzPanel;
+    pnlAddClient: TRzPanel;
+    imgAddClient: TImage;
+    lblWelcome: TRzLabel;
+    pnlSave: TRzPanel;
+    imgSave: TImage;
+    pnlCancel: TRzPanel;
+    imgCancel: TImage;
+    pnlNewLoan: TRzPanel;
+    imgNewLoan: TImage;
+    pnlGroups: TRzPanel;
+    imgGroups: TImage;
+    pnlEmployer: TRzPanel;
+    imgEmployer: TImage;
+    pnlBank: TRzPanel;
+    imgBanks: TImage;
+    pnlDesignationList: TRzPanel;
+    imgDesignationList: TImage;
+    pnlCompetitor: TRzPanel;
+    imgCompetitor: TImage;
+    RzPanel12: TRzPanel;
+    imgLoanClass: TImage;
     procedure tbAddClientClick(Sender: TObject);
     procedure tbSaveClick(Sender: TObject);
     procedure lblRecentlyAddedClick(Sender: TObject);
@@ -119,7 +115,14 @@ type
     procedure tbRejectLoanClick(Sender: TObject);
     procedure urlAssessedLoansClick(Sender: TObject);
     procedure tbReleaseLoanClick(Sender: TObject);
-    procedure btnAlertsClick(Sender: TObject);
+    procedure tbAlertsClick(Sender: TObject);
+    procedure pnlTitleMouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+    procedure imgCloseClick(Sender: TObject);
+    procedure imgAddClientMouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+    procedure imgAddClientMouseUp(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
   private
     { Private declarations }
     RecentClients: TObjectList<TRecentClient>;
@@ -145,7 +148,7 @@ implementation
 uses
   ClientMain, SaveIntf, ClientList, DockedFormIntf, GroupList, EmployerList,
   BanksList, DesignationList, LoanClassificationList, ConfBox, ErrorBox, ClientIntf,
-  LoanMain, LoanList, LoanIntf, CompetitorList, AlertIntf;
+  LoanMain, LoanList, LoanIntf, CompetitorList, AlertIntf, FormsUtil;
 
 constructor TRecentClient.Create(const id, displayId, name: string);
 begin
@@ -209,6 +212,18 @@ begin
 
   if Supports(pnlDockMain.Controls[0] as TForm,ILoanListFilter,intf) then
     intf.FilterList(filterType);
+end;
+
+procedure TfrmMain.pnlTitleMouseDown(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+const
+  SC_DRAGMOVE = $F012;
+begin
+  if Button = mbLeft then
+  begin
+    ReleaseCapture;
+    Perform(WM_SYSCOMMAND, SC_DRAGMOVE, 0);
+  end;
 end;
 
 procedure TfrmMain.lblActiveClientsClick(Sender: TObject);
@@ -548,7 +563,7 @@ begin
   end;
 
   // clear the status bar message
-  spMain.Caption := '';
+  // spMain.Caption := '';
 end;
 
 procedure TfrmMain.FormCreate(Sender: TObject);
@@ -557,6 +572,23 @@ begin
   RecentLoans := TObjectList<TRecentLoan>.Create;
 
   npMain.ActivePage := nppClient;
+end;
+
+procedure TfrmMain.imgAddClientMouseDown(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+begin
+  ButtonDown(Sender);
+end;
+
+procedure TfrmMain.imgAddClientMouseUp(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+begin
+  ButtonUp(Sender);
+end;
+
+procedure TfrmMain.imgCloseClick(Sender: TObject);
+begin
+  Application.Terminate;
 end;
 
 procedure TfrmMain.ShowError(const error: string);
@@ -621,7 +653,7 @@ begin
   end;
 end;
 
-procedure TfrmMain.btnAlertsClick(Sender: TObject);
+procedure TfrmMain.tbAlertsClick(Sender: TObject);
 var
   intf: IAlert;
 begin

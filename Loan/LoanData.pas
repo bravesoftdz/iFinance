@@ -35,6 +35,8 @@ type
     dscLoanRelease: TDataSource;
     dstLoanCharge: TADODataSet;
     dscLoanCharge: TDataSource;
+    dscLoanClassCharges: TDataSource;
+    dstLoanClassCharges: TADODataSet;
     procedure dstLoanBeforeOpen(DataSet: TDataSet);
     procedure dstLoanClassBeforeOpen(DataSet: TDataSet);
     procedure dstLoanBeforePost(DataSet: TDataSet);
@@ -77,9 +79,12 @@ type
     procedure dstLoanChargeBeforeOpen(DataSet: TDataSet);
     procedure dstLoanChargeBeforePost(DataSet: TDataSet);
     procedure dstLoanChargeAfterOpen(DataSet: TDataSet);
+    procedure dstLoanReleaseNewRecord(DataSet: TDataSet);
+    procedure dstLoanClassChargesBeforeOpen(DataSet: TDataSet);
   private
     { Private declarations }
     procedure SetLoanClassProperties;
+    procedure AddLoanClassCharges;
   public
     { Public declarations }
   end;
@@ -91,7 +96,7 @@ implementation
 
 uses
   AppData, Loan, DBUtil, IFinanceGlobal, LoanClassification, Comaker, FinInfo,
-  MonthlyExpense, Alert, ReleaseRecipient, Recipient, LoanCharge;
+  MonthlyExpense, Alert, ReleaseRecipient, Recipient, LoanCharge, LoanClassCharge;
 
 {%CLASSGROUP 'Vcl.Controls.TControl'}
 
@@ -104,6 +109,29 @@ begin
     ln.Status := FieldByName('status_id').AsString;
     ln.AppliedAmount := FieldByName('amt_appl').AsCurrency;
     ln.DesiredTerm := FieldByName('des_term').AsInteger;
+  end;
+end;
+
+procedure TdmLoan.AddLoanClassCharges;
+var
+  ct, cn: string;
+  cv: real;
+  vt: TValueType;
+begin
+  with dstLoanClassCharges, ln do
+  begin
+    First;
+    while not Eof do
+    begin
+      ct := FieldByName('charge_type').AsString;
+      cn := FieldByName('charge_name').AsString;
+      cv := FieldByName('charge_value').AsFloat;
+      vt := TValueType(FieldByName('value_type').AsInteger);
+
+      LoanClass.AddClassCharge(TLoanClassCharge.Create(ct,cn,cv,vt));
+
+      Next;
+    end;
   end;
 end;
 
@@ -149,7 +177,7 @@ begin
       balance := FieldByName('loan_bal_f').AsString;
       monthly := FieldByName('mon_due_f').AsString;
 
-      ln.AddFinancialInfo(TFinInfo.Create(compId,compName,balance,monthly));
+      ln.AddFinancialInfo(TFinInfo.Create(compId,compName,monthly,balance));
 
       Next;
     end;
@@ -215,6 +243,7 @@ end;
 procedure TdmLoan.dstLoanAssAfterPost(DataSet: TDataSet);
 begin
   ln.AddLoanState(lsAssessed);
+  ln.RecommendedAmount := DataSet.FieldByName('rec_amt').AsFloat;
 end;
 
 procedure TdmLoan.dstLoanAssBeforeOpen(DataSet: TDataSet);
@@ -224,8 +253,12 @@ end;
 
 procedure TdmLoan.dstLoanAssBeforePost(DataSet: TDataSet);
 begin
-  DataSet.FieldByName('loan_id').AsString := ln.Id;
-  DataSet.FieldByName('ass_by').AsString := ifn.User.UserId;
+  if DataSet.State = dsInsert then
+  begin
+    DataSet.FieldByName('loan_id').AsString := ln.Id;
+    DataSet.FieldByName('ass_by').AsString := ifn.User.UserId;
+    SetCreatedFields(DataSet);
+  end;
 end;
 
 procedure TdmLoan.dstLoanBeforeOpen(DataSet: TDataSet);
@@ -311,6 +344,10 @@ begin
   if dstLoan.State = dsInsert then
     if DataSet.RecordCount > 0 then
       dstLoan.FieldByName('class_id').AsInteger := DataSet.FieldByName('class_id').AsInteger;
+
+  // open class charges
+  dstLoanClassCharges.Close;
+  dstLoanClassCharges.Open;
 end;
 
 procedure TdmLoan.dstLoanClassAfterScroll(DataSet: TDataSet);
@@ -353,9 +390,16 @@ begin
       LoanClass.ValidUntil := validUntil;
     end;
   end;
+
+  AddLoanClassCharges;
 end;
 
 procedure TdmLoan.dstLoanClassBeforeOpen(DataSet: TDataSet);
+begin
+  (DataSet as TADODataSet).Parameters.ParamByName('@entity_id').Value := ln.Client.Id;
+end;
+
+procedure TdmLoan.dstLoanClassChargesBeforeOpen(DataSet: TDataSet);
 begin
   (DataSet as TADODataSet).Parameters.ParamByName('@entity_id').Value := ln.Client.Id;
 end;
@@ -456,6 +500,15 @@ procedure TdmLoan.dstLoanReleaseBeforePost(DataSet: TDataSet);
 begin
   DataSet.FieldByName('loan_id').AsString := ln.Id;
   DataSet.FieldByName('rel_by').AsString := ifn.User.UserId;
+end;
+
+procedure TdmLoan.dstLoanReleaseNewRecord(DataSet: TDataSet);
+begin
+  with DataSet do
+  begin
+    FieldByName('date_rel').AsDateTime := ifn.AppDate;
+    FieldByName('rel_by').AsString := ifn.User.UserId;
+  end;
 end;
 
 procedure TdmLoan.dstMonExpAfterOpen(DataSet: TDataSet);

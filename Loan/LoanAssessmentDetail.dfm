@@ -113,6 +113,7 @@ inherited frmLoanAssessmentDetail: TfrmLoanAssessmentDetail
           DisabledColor = clWhite
           TabOnEnter = True
           TabOrder = 1
+          IntegersOnly = False
           DisplayFormat = '###,##0.00'
         end
         object pcAssessment: TRzPageControl

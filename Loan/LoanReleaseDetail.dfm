@@ -24,18 +24,18 @@ inherited frmLoanReleaseDetail: TfrmLoanReleaseDetail
     Width = 451
     Height = 249
     ExplicitWidth = 451
-    ExplicitHeight = 252
+    ExplicitHeight = 249
     inherited pcDetail: TRzPageControl
       Width = 434
       Height = 195
       ExplicitWidth = 434
-      ExplicitHeight = 198
+      ExplicitHeight = 195
       FixedDimension = 19
       inherited tsDetail: TRzTabSheet
         ExplicitLeft = 1
         ExplicitTop = 1
         ExplicitWidth = 430
-        ExplicitHeight = 194
+        ExplicitHeight = 191
         object urlReleaseToClient: TRzURLLabel
           Tag = 1
           Left = 330
@@ -77,24 +77,22 @@ inherited frmLoanReleaseDetail: TfrmLoanReleaseDetail
           Width = 392
           Height = 129
           Hint = ''
-          ActivePage = tsMonExp
+          ActivePage = tsRecipients
           ActivePageDefault = tsRecipients
           TabOverlap = 0
-          TabIndex = 1
+          TabIndex = 0
           TabOrder = 2
           TabStyle = tsRoundCorners
           FixedDimension = 19
           object tsRecipients: TRzTabSheet
             Color = 15000804
             Caption = 'Recipients'
-            ExplicitWidth = 374
-            ExplicitHeight = 121
             DesignSize = (
               388
               103)
             object grReleaseRecipient: TRzStringGrid
-              Left = 5
-              Top = 5
+              Left = 7
+              Top = 3
               Width = 378
               Height = 93
               Anchors = [akLeft, akTop, akRight, akBottom]
@@ -104,6 +102,7 @@ inherited frmLoanReleaseDetail: TfrmLoanReleaseDetail
               FixedRows = 0
               Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goRowSelect]
               TabOrder = 0
+              OnDblClick = grReleaseRecipientDblClick
               ColWidths = (
                 60
                 60
@@ -116,7 +115,6 @@ inherited frmLoanReleaseDetail: TfrmLoanReleaseDetail
           object tsMonExp: TRzTabSheet
             Color = 15000804
             Caption = 'Charges'
-            ExplicitHeight = 121
             object grCharges: TRzStringGrid
               Left = 5
               Top = 5
@@ -142,13 +140,13 @@ inherited frmLoanReleaseDetail: TfrmLoanReleaseDetail
       Left = 285
       Top = 214
       ExplicitLeft = 285
-      ExplicitTop = 217
+      ExplicitTop = 214
     end
     inherited btnCancel: TRzButton
       Left = 366
       Top = 214
       ExplicitLeft = 366
-      ExplicitTop = 217
+      ExplicitTop = 214
     end
   end
 end

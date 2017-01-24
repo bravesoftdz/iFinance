@@ -11,11 +11,12 @@ inherited frmBaseDocked: TfrmBaseDocked
     Height = 28
     Align = alTop
     BorderOuter = fsNone
+    BorderSides = [sdBottom]
     BorderColor = clBlack
     BorderWidth = 1
     GradientColorStyle = gcsCustom
-    GradientColorStart = 8806462
-    GradientColorStop = 11110503
+    GradientColorStart = 6572079
+    GradientColorStop = 8675134
     TabOrder = 0
     VisualStyle = vsGradient
     object lblTitle: TRzLabel

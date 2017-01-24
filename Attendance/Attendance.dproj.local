@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2016/09/01 15:33:54.000.468,=rtl.dcp</Transaction>
+    <Transaction>2017/01/17 21:58:05.000.600,=rtl.dcp</Transaction>
+    <Transaction>2017/01/17 21:59:30.000.158,C:\Users\BryanGarcia\Documents\Embarcadero\Studio\Projects\Package1.dproj=C:\_Projects\iFinance\Attendance\Attendance.dproj</Transaction>
+    <Transaction>2017/01/17 22:34:27.000.539,=C:\_Projects\iFinance\Attendance\Unit1.pas</Transaction>
+    <Transaction>2017/01/17 22:34:46.000.735,=C:\_Projects\iFinance\Base\BaseCalendar.pas</Transaction>
+    <Transaction>2017/01/17 22:34:46.000.908,=C:\_Projects\iFinance\Attendance\Unit2.pas</Transaction>
+    <Transaction>2017/01/17 22:35:25.000.424,C:\_Projects\iFinance\Attendance\Unit1.dfm=C:\_Projects\iFinance\Attendance\TimelogMain.dfm</Transaction>
+    <Transaction>2017/01/17 22:35:25.000.424,C:\_Projects\iFinance\Attendance\Unit1.pas=C:\_Projects\iFinance\Attendance\TimelogMain.pas</Transaction>
+    <Transaction>2017/01/17 22:42:26.000.970,=vcl.dcp</Transaction>
+    <Transaction>2017/01/17 22:42:27.000.014,=RaizeComponentsVcl.dcp</Transaction>
+    <Transaction>2017/01/17 23:49:01.000.738,=C:\_Projects\iFinance\Attendance\Unit1.pas</Transaction>
+    <Transaction>2017/01/17 23:49:16.000.541,C:\_Projects\iFinance\Attendance\Unit1.pas=C:\_Projects\iFinance\Attendance\TimelogData.pas</Transaction>
+    <Transaction>2017/01/17 23:49:16.000.541,C:\_Projects\iFinance\Attendance\Unit1.dfm=C:\_Projects\iFinance\Attendance\TimelogData.dfm</Transaction>
+    <Transaction>2017/01/17 23:59:56.000.192,=C:\_Projects\iFinance\Attendance\Unit1.pas</Transaction>
+    <Transaction>2017/01/18 00:01:18.000.939,C:\_Projects\iFinance\Attendance\Unit1.pas=C:\_Projects\iFinance\Attendance\AttendanceUtils.pas</Transaction>
+  </Transactions>
+</BorlandProject>

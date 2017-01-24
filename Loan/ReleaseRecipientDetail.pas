@@ -23,6 +23,7 @@ type
     procedure bteRecipientButtonClick(Sender: TObject);
   private
     { Private declarations }
+    procedure PopulateUnboundFields;
   public
     { Public declarations }
   protected
@@ -42,10 +43,21 @@ uses
   LoanData, LoansAuxData, FormsUtil, RecipientSearch, Recipient, ReleaseRecipient,
   Loan;
 
+procedure TfrmReleaseRecipientDetail.PopulateUnboundFields;
+begin
+  with dmLoan.dstLoanRelease do
+  begin
+    if State <> dsInsert then
+      bteRecipient.Text := rrp.Recipient.Name;
+  end;
+end;
+
 procedure TfrmReleaseRecipientDetail.FormCreate(Sender: TObject);
 begin
   inherited;
   OpenDropdownDataSources(tsDetail);
+
+  PopulateUnboundFields;
 end;
 
 procedure TfrmReleaseRecipientDetail.Save;
@@ -113,8 +125,8 @@ begin
       error := 'Please select a release method'
     else if edAmount.Value <= 0 then
       error := 'Invalid value for amount.'
-    else if (State = dsInsert) and (ln.ReleaseRecipientExists(TReleaseRecipient.Create)) then
-      error := 'Recipient already exists.';
+    else if (State = dsInsert) and (ln.ReleaseRecipientExists(rrp.Recipient.Id,dbluMethod.GetKeyValue)) then
+      error := 'Recipient and release method already exists.';
   end;
 
   Result := error = '';

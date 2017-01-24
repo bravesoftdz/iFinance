@@ -97,6 +97,7 @@
         <DCCReference Include="LockBox3DR.dcp"/>
         <DCCReference Include="JvControls.dcp"/>
         <DCCReference Include="RESTComponents.dcp"/>
+        <DCCReference Include="FireDAC.dcp"/>
         <DCCReference Include="LoansAuxData.pas">
             <Form>dmLoansAux</Form>
             <DesignClass>TDataModule</DesignClass>

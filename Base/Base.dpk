@@ -45,7 +45,8 @@ contains
   BasePopup in 'BasePopup.pas' {frmBasePopup1},
   BasePopupDetail in 'BasePopupDetail.pas' {frmBasePopupDetail},
   BaseGridDetail in 'BaseGridDetail.pas' {frmBaseGridDetail},
-  BaseDocked in 'BaseDocked.pas' {frmBaseDocked},
-  BaseSearch in 'BaseSearch.pas' {frmBaseSearch};
+  BaseSearch in 'BaseSearch.pas' {frmBaseSearch},
+  BaseCalendar in 'BaseCalendar.pas' {frmBaseCalendar},
+  BaseDocked in 'BaseDocked.pas' {frmBaseDocked};
 
 end.

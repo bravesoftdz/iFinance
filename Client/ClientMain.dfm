@@ -1,15 +1,15 @@
 inherited frmClientMain: TfrmClientMain
   Caption = 'frmClientMain'
-  ClientHeight = 520
-  ClientWidth = 923
+  ClientHeight = 605
+  ClientWidth = 927
   OnCreate = FormCreate
   OnShow = FormShow
-  ExplicitWidth = 939
-  ExplicitHeight = 559
+  ExplicitWidth = 943
+  ExplicitHeight = 644
   PixelsPerInch = 96
-  TextHeight = 13
+  TextHeight = 14
   inherited pnlTitle: TRzPanel
-    Width = 923
+    Width = 927
     ExplicitWidth = 923
     inherited lblTitle: TRzLabel
       Width = 78
@@ -17,7 +17,7 @@ inherited frmClientMain: TfrmClientMain
       ExplicitWidth = 78
     end
     object lblClientName: TRzLabel
-      Left = 830
+      Left = 834
       Top = 7
       Width = 82
       Height = 14
@@ -31,106 +31,104 @@ inherited frmClientMain: TfrmClientMain
       Font.Style = [fsBold]
       ParentFont = False
       Transparent = True
+      ExplicitLeft = 830
     end
   end
   object pcClient: TRzPageControl
     Left = 0
     Top = 28
-    Width = 923
-    Height = 492
+    Width = 927
+    Height = 577
     Hint = ''
-    ActivePage = tsReferences
+    ActivePage = tsClientInfo
     Align = alClient
-    TabIndex = 1
+    BoldCurrentTab = True
+    FlatColor = 6572079
+    ShowFullFrame = False
+    ShowShadow = False
+    TabIndex = 0
     TabOrder = 1
     TabOrientation = toBottom
     TabStyle = tsRoundCorners
     OnChange = pcClientChange
     OnChanging = pcClientChanging
-    FixedDimension = 19
+    ExplicitWidth = 923
+    ExplicitHeight = 492
+    FixedDimension = 20
     object tsClientInfo: TRzTabSheet
+      Color = 14273211
       Caption = 'Client information'
+      ExplicitLeft = 1
+      ExplicitTop = 1
+      ExplicitWidth = 921
+      ExplicitHeight = 467
       object JvLabel1: TJvLabel
         Left = 35
         Top = 40
-        Width = 48
-        Height = 13
+        Width = 54
+        Height = 14
         Caption = 'Lastname'
         Transparent = True
       end
       object JvLabel2: TJvLabel
         Left = 35
         Top = 64
-        Width = 49
-        Height = 13
+        Width = 54
+        Height = 14
         Caption = 'Firstname'
         Transparent = True
       end
       object JvLabel3: TJvLabel
         Left = 35
         Top = 88
-        Width = 32
-        Height = 13
+        Width = 36
+        Height = 14
         Caption = 'Middle'
-        Transparent = True
-      end
-      object JvGroupHeader3: TJvGroupHeader
-        Left = 19
-        Top = 110
-        Width = 302
-        Height = 12
-        Caption = 'Personal Info'
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = 9134911
-        Font.Height = -11
-        Font.Name = 'Tahoma'
-        Font.Style = []
-        ParentFont = False
         Transparent = True
       end
       object JvLabel7: TJvLabel
         Left = 35
-        Top = 130
-        Width = 46
-        Height = 13
+        Top = 142
+        Width = 52
+        Height = 14
         Caption = 'Birthdate'
         Transparent = True
       end
       object JvLabel12: TJvLabel
         Left = 35
-        Top = 154
-        Width = 54
-        Height = 13
+        Top = 166
+        Width = 58
+        Height = 14
         Caption = 'Civil status'
         Transparent = True
       end
       object JvLabel13: TJvLabel
         Left = 223
-        Top = 130
-        Width = 21
-        Height = 13
+        Top = 142
+        Width = 24
+        Height = 14
         Caption = 'Age'
         Transparent = True
       end
       object JvLabel8: TJvLabel
         Left = 223
-        Top = 154
-        Width = 20
-        Height = 13
+        Top = 166
+        Width = 22
+        Height = 14
         Caption = 'Sex'
         Transparent = True
       end
       object JvLabel35: TJvLabel
         Left = 35
-        Top = 178
-        Width = 60
-        Height = 13
+        Top = 190
+        Width = 66
+        Height = 14
         Caption = 'Referred by'
         Transparent = True
       end
       object JvGroupHeader2: TJvGroupHeader
         Left = 19
-        Top = 290
+        Top = 302
         Width = 302
         Height = 12
         Caption = 'Present Address'
@@ -144,36 +142,36 @@ inherited frmClientMain: TfrmClientMain
       end
       object JvLabel4: TJvLabel
         Left = 35
-        Top = 310
-        Width = 32
-        Height = 13
+        Top = 322
+        Width = 37
+        Height = 14
         Caption = 'Street'
         Transparent = True
       end
       object JvLabel5: TJvLabel
         Left = 35
-        Top = 334
-        Width = 48
-        Height = 13
+        Top = 346
+        Width = 51
+        Height = 14
         Caption = 'Barangay'
         Transparent = True
       end
       object JvLabel6: TJvLabel
         Left = 35
-        Top = 358
-        Width = 61
-        Height = 13
+        Top = 370
+        Width = 70
+        Height = 14
         Caption = 'City or town'
         Transparent = True
       end
       object urlCopyAddress: TRzURLLabel
         Left = 114
-        Top = 449
+        Top = 461
         Width = 208
         Height = 13
         Caption = 'Copy present address to provincial address'
         Font.Charset = DEFAULT_CHARSET
-        Font.Color = clGreen
+        Font.Color = 6572079
         Font.Height = -11
         Font.Name = 'Tahoma'
         Font.Style = [fsUnderline]
@@ -182,25 +180,25 @@ inherited frmClientMain: TfrmClientMain
       end
       object JvLabel14: TJvLabel
         Left = 35
-        Top = 382
-        Width = 57
-        Height = 13
+        Top = 394
+        Width = 62
+        Height = 14
         Caption = 'Res. status'
         Transparent = True
       end
       object JvLabel15: TJvLabel
         Left = 35
-        Top = 406
-        Width = 43
-        Height = 13
+        Top = 418
+        Width = 48
+        Height = 14
         Caption = 'Landlord'
         Transparent = True
       end
       object JvLabel16: TJvLabel
         Left = 35
-        Top = 430
-        Width = 40
-        Height = 13
+        Top = 442
+        Width = 45
+        Height = 14
         Caption = 'Contact'
         Transparent = True
       end
@@ -221,54 +219,54 @@ inherited frmClientMain: TfrmClientMain
       object JvLabel9: TJvLabel
         Left = 352
         Top = 40
-        Width = 32
-        Height = 13
+        Width = 37
+        Height = 14
         Caption = 'Street'
         Transparent = True
       end
       object JvLabel10: TJvLabel
         Left = 352
         Top = 64
-        Width = 48
-        Height = 13
+        Width = 51
+        Height = 14
         Caption = 'Barangay'
         Transparent = True
       end
       object JvLabel11: TJvLabel
         Left = 352
         Top = 88
-        Width = 61
-        Height = 13
+        Width = 70
+        Height = 14
         Caption = 'City or town'
         Transparent = True
       end
       object JvLabel17: TJvLabel
         Left = 352
         Top = 112
-        Width = 57
-        Height = 13
+        Width = 62
+        Height = 14
         Caption = 'Res. status'
         Transparent = True
       end
       object JvLabel18: TJvLabel
         Left = 352
         Top = 136
-        Width = 43
-        Height = 13
+        Width = 48
+        Height = 14
         Caption = 'Landlord'
         Transparent = True
       end
       object JvLabel19: TJvLabel
         Left = 352
         Top = 160
-        Width = 40
-        Height = 13
+        Width = 45
+        Height = 14
         Caption = 'Contact'
         Transparent = True
       end
       object JvGroupHeader5: TJvGroupHeader
         Left = 19
-        Top = 200
+        Top = 212
         Width = 302
         Height = 12
         Caption = 'Contact Info'
@@ -282,25 +280,25 @@ inherited frmClientMain: TfrmClientMain
       end
       object JvLabel20: TJvLabel
         Left = 35
-        Top = 220
-        Width = 26
-        Height = 13
+        Top = 232
+        Width = 29
+        Height = 14
         Caption = 'Email'
         Transparent = True
       end
       object JvLabel21: TJvLabel
         Left = 35
-        Top = 244
-        Width = 48
-        Height = 13
+        Top = 256
+        Width = 54
+        Height = 14
         Caption = 'Facebook'
         Transparent = True
       end
       object JvLabel22: TJvLabel
         Left = 35
-        Top = 268
-        Width = 71
-        Height = 13
+        Top = 280
+        Width = 81
+        Height = 14
         Caption = 'Mobile/tel. no.'
         Transparent = True
       end
@@ -321,104 +319,104 @@ inherited frmClientMain: TfrmClientMain
       object JvLabel23: TJvLabel
         Left = 352
         Top = 220
-        Width = 46
-        Height = 13
+        Width = 52
+        Height = 14
         Caption = 'Employer'
         Transparent = True
       end
       object JvLabel24: TJvLabel
         Left = 352
         Top = 244
-        Width = 41
-        Height = 13
+        Width = 45
+        Height = 14
         Caption = 'Address'
         Transparent = True
       end
       object JvLabel25: TJvLabel
         Left = 352
         Top = 286
-        Width = 59
-        Height = 13
+        Width = 67
+        Height = 14
         Caption = 'Emp. status'
         Transparent = True
       end
       object JvLabel26: TJvLabel
         Left = 352
         Top = 310
-        Width = 58
-        Height = 13
+        Width = 65
+        Height = 14
         Caption = 'Designation'
         Transparent = True
       end
       object JvLabel27: TJvLabel
         Left = 352
         Top = 334
-        Width = 53
-        Height = 13
+        Width = 61
+        Height = 14
         Caption = 'Imm. head'
         Transparent = True
       end
       object JvLabel28: TJvLabel
         Left = 352
         Top = 358
-        Width = 67
-        Height = 13
+        Width = 73
+        Height = 14
         Caption = 'Service years'
         Transparent = True
       end
       object JvLabel29: TJvLabel
         Left = 352
         Top = 382
-        Width = 65
-        Height = 13
+        Width = 74
+        Height = 14
         Caption = 'Gross income'
         Transparent = True
       end
       object JvLabel30: TJvLabel
         Left = 352
         Top = 406
-        Width = 40
-        Height = 13
+        Width = 45
+        Height = 14
         Caption = 'Net pay'
         Transparent = True
       end
       object JvLabel31: TJvLabel
         Left = 643
         Top = 358
-        Width = 66
-        Height = 13
+        Width = 77
+        Height = 14
         Caption = 'Other income'
         Transparent = True
       end
       object JvLabel32: TJvLabel
         Left = 643
         Top = 286
-        Width = 46
-        Height = 13
+        Width = 53
+        Height = 14
         Caption = 'Acct. no.'
         Transparent = True
       end
       object JvLabel33: TJvLabel
         Left = 643
         Top = 310
-        Width = 44
-        Height = 13
+        Width = 48
+        Height = 14
         Caption = 'Card no.'
         Transparent = True
       end
       object JvLabel34: TJvLabel
         Left = 643
         Top = 220
-        Width = 25
-        Height = 13
+        Width = 28
+        Height = 14
         Caption = 'Bank'
         Transparent = True
       end
       object JvLabel36: TJvLabel
         Left = 643
         Top = 244
-        Width = 35
-        Height = 13
+        Width = 39
+        Height = 14
         Caption = 'Branch'
         Transparent = True
       end
@@ -445,7 +443,7 @@ inherited frmClientMain: TfrmClientMain
         Caption = 'Client Name'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = 9134911
-        Font.Height = -11
+        Font.Height = -12
         Font.Name = 'Tahoma'
         Font.Style = []
         ParentFont = False
@@ -506,12 +504,16 @@ inherited frmClientMain: TfrmClientMain
         Left = 114
         Top = 34
         Width = 207
-        Height = 21
+        Height = 22
         DataSource = dmClient.dscPersonalInfo
         DataField = 'lastname'
         CharCase = ecUpperCase
         Ctl3D = True
+        FrameColor = 8675134
+        FrameVisible = True
+        FramingPreference = fpCustomFraming
         ParentCtl3D = False
+        ReadOnlyColor = 14273211
         TabOnEnter = True
         TabOrder = 0
       end
@@ -519,10 +521,14 @@ inherited frmClientMain: TfrmClientMain
         Left = 114
         Top = 58
         Width = 207
-        Height = 21
+        Height = 22
         DataSource = dmClient.dscPersonalInfo
         DataField = 'firstname'
         CharCase = ecUpperCase
+        FrameColor = 8675134
+        FrameVisible = True
+        FramingPreference = fpCustomFraming
+        ReadOnlyColor = 14273211
         TabOnEnter = True
         TabOrder = 1
       end
@@ -530,10 +536,14 @@ inherited frmClientMain: TfrmClientMain
         Left = 114
         Top = 82
         Width = 207
-        Height = 21
+        Height = 22
         DataSource = dmClient.dscPersonalInfo
         DataField = 'middlename'
         CharCase = ecUpperCase
+        FrameColor = 8675134
+        FrameVisible = True
+        FramingPreference = fpCustomFraming
+        ReadOnlyColor = 14273211
         TabOnEnter = True
         TabOrder = 2
       end
@@ -541,7 +551,7 @@ inherited frmClientMain: TfrmClientMain
         Left = 114
         Top = 148
         Width = 95
-        Height = 21
+        Height = 22
         DataField = 'civil_status'
         DataSource = dmClient.dscPersonalInfo
         KeyField = 'value'
@@ -555,9 +565,9 @@ inherited frmClientMain: TfrmClientMain
       end
       object RzDBLookupComboBox2: TRzDBLookupComboBox
         Left = 255
-        Top = 148
+        Top = 160
         Width = 66
-        Height = 21
+        Height = 22
         DataField = 'gender'
         DataSource = dmClient.dscPersonalInfo
         KeyField = 'value'
@@ -574,9 +584,9 @@ inherited frmClientMain: TfrmClientMain
         TabOrder = 18
         object imgClient: TImage
           Left = 1
-          Top = 14
+          Top = 15
           Width = 183
-          Height = 142
+          Height = 141
           Align = alClient
           Proportional = True
           ExplicitTop = 13
@@ -585,9 +595,9 @@ inherited frmClientMain: TfrmClientMain
       end
       object edAge: TRzEdit
         Left = 255
-        Top = 124
+        Top = 136
         Width = 66
-        Height = 21
+        Height = 22
         TabStop = False
         Text = ''
         Color = clInfoBk
@@ -597,9 +607,9 @@ inherited frmClientMain: TfrmClientMain
       object bteReferee: TRzButtonEdit
         Tag = 1
         Left = 114
-        Top = 172
+        Top = 184
         Width = 207
-        Height = 21
+        Height = 22
         Text = ''
         Color = clInfoBk
         ParentShowHint = False
@@ -622,9 +632,9 @@ inherited frmClientMain: TfrmClientMain
       end
       object RzDBEdit4: TRzDBEdit
         Left = 114
-        Top = 304
+        Top = 316
         Width = 207
-        Height = 21
+        Height = 22
         DataSource = dmClient.dscAddressInfo
         DataField = 'st'
         Ctl3D = True
@@ -634,9 +644,9 @@ inherited frmClientMain: TfrmClientMain
       end
       object RzDBEdit5: TRzDBEdit
         Left = 114
-        Top = 328
+        Top = 340
         Width = 207
-        Height = 21
+        Height = 22
         DataSource = dmClient.dscAddressInfo
         DataField = 'brgy'
         Ctl3D = True
@@ -646,9 +656,9 @@ inherited frmClientMain: TfrmClientMain
       end
       object RzDBLookupComboBox3: TRzDBLookupComboBox
         Left = 114
-        Top = 352
+        Top = 364
         Width = 207
-        Height = 21
+        Height = 22
         DataField = 'post_code'
         DataSource = dmClient.dscAddressInfo
         KeyField = 'post_code'
@@ -662,9 +672,9 @@ inherited frmClientMain: TfrmClientMain
       end
       object RzDBLookupComboBox5: TRzDBLookupComboBox
         Left = 114
-        Top = 376
+        Top = 388
         Width = 207
-        Height = 21
+        Height = 22
         DataField = 'res_status'
         DataSource = dmClient.dscAddressInfo
         KeyField = 'value'
@@ -679,9 +689,9 @@ inherited frmClientMain: TfrmClientMain
       object bteLandlord: TRzButtonEdit
         Tag = 1
         Left = 114
-        Top = 400
+        Top = 412
         Width = 207
-        Height = 21
+        Height = 22
         Text = ''
         Color = clInfoBk
         ParentShowHint = False
@@ -705,9 +715,9 @@ inherited frmClientMain: TfrmClientMain
       object edLandlordContact: TRzEdit
         Tag = 1
         Left = 114
-        Top = 424
+        Top = 436
         Width = 207
-        Height = 21
+        Height = 22
         Text = ''
         Color = clInfoBk
         ReadOnly = True
@@ -718,7 +728,7 @@ inherited frmClientMain: TfrmClientMain
         Left = 427
         Top = 34
         Width = 187
-        Height = 21
+        Height = 22
         DataSource = dmClient.dscAddressInfo2
         DataField = 'st'
         Ctl3D = True
@@ -730,7 +740,7 @@ inherited frmClientMain: TfrmClientMain
         Left = 427
         Top = 58
         Width = 187
-        Height = 21
+        Height = 22
         DataSource = dmClient.dscAddressInfo2
         DataField = 'brgy'
         Ctl3D = True
@@ -742,7 +752,7 @@ inherited frmClientMain: TfrmClientMain
         Left = 427
         Top = 82
         Width = 187
-        Height = 21
+        Height = 22
         DataField = 'post_code'
         DataSource = dmClient.dscAddressInfo2
         KeyField = 'post_code'
@@ -758,7 +768,7 @@ inherited frmClientMain: TfrmClientMain
         Left = 427
         Top = 106
         Width = 187
-        Height = 21
+        Height = 22
         DataField = 'res_status'
         DataSource = dmClient.dscAddressInfo2
         KeyField = 'value'
@@ -775,7 +785,7 @@ inherited frmClientMain: TfrmClientMain
         Left = 427
         Top = 130
         Width = 187
-        Height = 21
+        Height = 22
         Text = ''
         Color = clInfoBk
         ParentShowHint = False
@@ -801,7 +811,7 @@ inherited frmClientMain: TfrmClientMain
         Left = 427
         Top = 154
         Width = 187
-        Height = 21
+        Height = 22
         Text = ''
         Color = clInfoBk
         ReadOnly = True
@@ -810,9 +820,9 @@ inherited frmClientMain: TfrmClientMain
       end
       object RzDBEdit8: TRzDBEdit
         Left = 114
-        Top = 238
+        Top = 250
         Width = 207
-        Height = 21
+        Height = 22
         DataSource = dmClient.dscContactInfo
         DataField = 'fb_acct'
         Ctl3D = True
@@ -822,9 +832,9 @@ inherited frmClientMain: TfrmClientMain
       end
       object RzDBEdit9: TRzDBEdit
         Left = 114
-        Top = 214
+        Top = 226
         Width = 207
-        Height = 21
+        Height = 22
         DataSource = dmClient.dscContactInfo
         DataField = 'email_add'
         Ctl3D = True
@@ -834,9 +844,9 @@ inherited frmClientMain: TfrmClientMain
       end
       object RzDBEdit11: TRzDBEdit
         Left = 114
-        Top = 262
+        Top = 274
         Width = 102
-        Height = 21
+        Height = 22
         DataSource = dmClient.dscContactInfo
         DataField = 'mobile_no'
         Ctl3D = True
@@ -846,9 +856,9 @@ inherited frmClientMain: TfrmClientMain
       end
       object RzDBEdit10: TRzDBEdit
         Left = 219
-        Top = 262
+        Top = 274
         Width = 102
-        Height = 21
+        Height = 22
         DataSource = dmClient.dscContactInfo
         DataField = 'home_phone'
         Ctl3D = True
@@ -861,7 +871,7 @@ inherited frmClientMain: TfrmClientMain
         Left = 427
         Top = 214
         Width = 187
-        Height = 21
+        Height = 22
         Text = ''
         Color = clInfoBk
         ParentShowHint = False
@@ -886,7 +896,7 @@ inherited frmClientMain: TfrmClientMain
         Left = 427
         Top = 280
         Width = 187
-        Height = 21
+        Height = 22
         DataField = 'emp_status'
         DataSource = dmClient.dscEmplInfo
         KeyField = 'value'
@@ -914,7 +924,7 @@ inherited frmClientMain: TfrmClientMain
         Left = 427
         Top = 328
         Width = 187
-        Height = 21
+        Height = 22
         Text = ''
         Color = clInfoBk
         ParentShowHint = False
@@ -938,7 +948,7 @@ inherited frmClientMain: TfrmClientMain
         Left = 427
         Top = 352
         Width = 59
-        Height = 21
+        Height = 22
         DataSource = dmClient.dscEmplInfo
         DataField = 'serv_len'
         Ctl3D = True
@@ -950,7 +960,7 @@ inherited frmClientMain: TfrmClientMain
         Left = 694
         Top = 280
         Width = 155
-        Height = 21
+        Height = 22
         DataSource = dmClient.dscAcctInfo
         DataField = 'acct_no'
         Ctl3D = True
@@ -962,7 +972,7 @@ inherited frmClientMain: TfrmClientMain
         Left = 694
         Top = 304
         Width = 155
-        Height = 21
+        Height = 22
         DataSource = dmClient.dscAcctInfo
         DataField = 'card_no'
         Ctl3D = True
@@ -974,7 +984,7 @@ inherited frmClientMain: TfrmClientMain
         Left = 427
         Top = 304
         Width = 187
-        Height = 21
+        Height = 22
         DataField = 'des_id'
         DataSource = dmClient.dscEmplInfo
         KeyField = 'des_id'
@@ -991,7 +1001,7 @@ inherited frmClientMain: TfrmClientMain
         Left = 694
         Top = 214
         Width = 155
-        Height = 21
+        Height = 22
         Text = ''
         Color = clInfoBk
         ParentShowHint = False
@@ -1027,7 +1037,7 @@ inherited frmClientMain: TfrmClientMain
         Left = 427
         Top = 376
         Width = 187
-        Height = 21
+        Height = 22
         DataSource = dmClient.dscEmplInfo
         DataField = 'gross_pay'
         Alignment = taLeftJustify
@@ -1040,7 +1050,7 @@ inherited frmClientMain: TfrmClientMain
         Left = 427
         Top = 400
         Width = 187
-        Height = 21
+        Height = 22
         DataSource = dmClient.dscEmplInfo
         DataField = 'net_pay'
         Alignment = taLeftJustify
@@ -1051,9 +1061,9 @@ inherited frmClientMain: TfrmClientMain
       end
       object dteBirthdate: TRzDBDateTimeEdit
         Left = 114
-        Top = 124
+        Top = 136
         Width = 95
-        Height = 21
+        Height = 22
         DataSource = dmClient.dscPersonalInfo
         DataField = 'birth_date'
         TabOnEnter = True
@@ -1072,24 +1082,83 @@ inherited frmClientMain: TfrmClientMain
         TabOrder = 37
         TabOnEnter = True
       end
+      object RzGroupBox2: TRzGroupBox
+        Left = 19
+        Top = 12
+        Width = 302
+        Height = 22
+        BorderColor = 6572079
+        BorderSides = [sdTop]
+        BorderWidth = 1
+        Caption = 'Client Name'
+        CaptionFont.Charset = DEFAULT_CHARSET
+        CaptionFont.Color = clRed
+        CaptionFont.Height = -12
+        CaptionFont.Name = 'Tahoma'
+        CaptionFont.Style = []
+        Color = 14273211
+        FlatColor = 6572079
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = 6572079
+        Font.Height = -12
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        GradientColorStyle = gcsCustom
+        GroupStyle = gsUnderline
+        ParentFont = False
+        TabOrder = 38
+      end
+      object RzGroupBox3: TRzGroupBox
+        Left = 19
+        Top = 114
+        Width = 302
+        Height = 22
+        BorderColor = 6572079
+        BorderSides = [sdTop]
+        BorderWidth = 1
+        Caption = 'Personal Info'
+        CaptionFont.Charset = DEFAULT_CHARSET
+        CaptionFont.Color = clRed
+        CaptionFont.Height = -12
+        CaptionFont.Name = 'Tahoma'
+        CaptionFont.Style = []
+        Color = 14273211
+        FlatColor = 6572079
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = 6572079
+        Font.Height = -12
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        GradientColorStyle = gcsCustom
+        GroupStyle = gsUnderline
+        ParentFont = False
+        TabOrder = 39
+      end
     end
     object tsReferences: TRzTabSheet
+      Color = 14273211
       Caption = 'Family and references'
+      ExplicitLeft = 1
+      ExplicitTop = 1
+      ExplicitWidth = 921
+      ExplicitHeight = 467
       object pnlFamRef: TRzPanel
         Left = 0
         Top = 0
-        Width = 921
-        Height = 468
+        Width = 927
+        Height = 554
         Align = alClient
         BorderOuter = fsFlat
         BorderSides = [sdLeft, sdRight]
         BorderWidth = 5
         TabOrder = 0
+        ExplicitWidth = 921
+        ExplicitHeight = 467
         DesignSize = (
-          921
-          468)
+          927
+          554)
         object urlRefreshRefList: TRzURLLabel
-          Left = 877
+          Left = 883
           Top = 167
           Width = 38
           Height = 13
@@ -1105,11 +1174,12 @@ inherited frmClientMain: TfrmClientMain
           ParentShowHint = False
           ShowHint = True
           OnClick = urlRefreshRefListClick
+          ExplicitLeft = 877
         end
         object grRefList: TRzDBGrid
           Left = 6
           Top = 5
-          Width = 909
+          Width = 915
           Height = 156
           Align = alTop
           DataSource = dmRef.dscRefInfo
@@ -1117,7 +1187,7 @@ inherited frmClientMain: TfrmClientMain
           TabOrder = 0
           TitleFont.Charset = DEFAULT_CHARSET
           TitleFont.Color = clWindowText
-          TitleFont.Height = -11
+          TitleFont.Height = -12
           TitleFont.Name = 'Tahoma'
           TitleFont.Style = []
           AltRowShading = True
@@ -1141,23 +1211,27 @@ inherited frmClientMain: TfrmClientMain
         object pcDetail: TRzPageControl
           Left = 6
           Top = 198
-          Width = 911
-          Height = 265
+          Width = 917
+          Height = 351
           Hint = ''
           ActivePage = tsFamRefDetail
           Anchors = [akLeft, akTop, akRight, akBottom]
           UseColoredTabs = True
           TabIndex = 0
           TabOrder = 1
-          FixedDimension = 19
+          ExplicitWidth = 911
+          ExplicitHeight = 264
+          FixedDimension = 20
           object tsFamRefDetail: TRzTabSheet
             Color = 15263976
             Caption = 'Reference details'
+            ExplicitWidth = 907
+            ExplicitHeight = 240
             object JvLabel39: TJvLabel
               Left = 35
               Top = 100
-              Width = 41
-              Height = 13
+              Width = 45
+              Height = 14
               Caption = 'Relation'
               Transparent = True
             end
@@ -1178,24 +1252,24 @@ inherited frmClientMain: TfrmClientMain
             object JvLabel40: TJvLabel
               Left = 35
               Top = 28
-              Width = 48
-              Height = 13
+              Width = 54
+              Height = 14
               Caption = 'Lastname'
               Transparent = True
             end
             object JvLabel41: TJvLabel
               Left = 35
               Top = 52
-              Width = 49
-              Height = 13
+              Width = 54
+              Height = 14
               Caption = 'Firstname'
               Transparent = True
             end
             object JvLabel42: TJvLabel
               Left = 35
               Top = 76
-              Width = 32
-              Height = 13
+              Width = 36
+              Height = 14
               Caption = 'Middle'
               Transparent = True
             end
@@ -1216,24 +1290,24 @@ inherited frmClientMain: TfrmClientMain
             object JvLabel43: TJvLabel
               Left = 335
               Top = 100
-              Width = 32
-              Height = 13
+              Width = 37
+              Height = 14
               Caption = 'Street'
               Transparent = True
             end
             object JvLabel44: TJvLabel
               Left = 335
               Top = 124
-              Width = 48
-              Height = 13
+              Width = 51
+              Height = 14
               Caption = 'Barangay'
               Transparent = True
             end
             object JvLabel45: TJvLabel
               Left = 335
               Top = 148
-              Width = 61
-              Height = 13
+              Width = 70
+              Height = 14
               Caption = 'City or town'
               Transparent = True
             end
@@ -1254,16 +1328,16 @@ inherited frmClientMain: TfrmClientMain
             object JvLabel46: TJvLabel
               Left = 335
               Top = 28
-              Width = 52
-              Height = 13
+              Width = 61
+              Height = 14
               Caption = 'Telephone'
               Transparent = True
             end
             object JvLabel47: TJvLabel
               Left = 335
               Top = 52
-              Width = 32
-              Height = 13
+              Width = 36
+              Height = 14
               Caption = 'Mobile'
               Transparent = True
             end
@@ -1285,8 +1359,8 @@ inherited frmClientMain: TfrmClientMain
             object JvLabel48: TJvLabel
               Left = 35
               Top = 169
-              Width = 49
-              Height = 13
+              Width = 56
+              Height = 14
               Caption = 'Education'
               Transparent = True
             end
@@ -1295,7 +1369,7 @@ inherited frmClientMain: TfrmClientMain
               Left = 114
               Top = 94
               Width = 168
-              Height = 21
+              Height = 22
               DataField = 'ref_type'
               DataSource = dmRef.dscRefInfo
               KeyField = 'ref_type'
@@ -1311,7 +1385,7 @@ inherited frmClientMain: TfrmClientMain
               Left = 114
               Top = 70
               Width = 168
-              Height = 21
+              Height = 22
               DataSource = dmRef.dscPersonalInfo
               DataField = 'middlename'
               ReadOnly = True
@@ -1323,7 +1397,7 @@ inherited frmClientMain: TfrmClientMain
               Left = 114
               Top = 46
               Width = 168
-              Height = 21
+              Height = 22
               DataSource = dmRef.dscPersonalInfo
               DataField = 'firstname'
               ReadOnly = True
@@ -1335,7 +1409,7 @@ inherited frmClientMain: TfrmClientMain
               Left = 114
               Top = 22
               Width = 168
-              Height = 21
+              Height = 22
               DataSource = dmRef.dscPersonalInfo
               DataField = 'lastname'
               ReadOnly = True
@@ -1349,8 +1423,8 @@ inherited frmClientMain: TfrmClientMain
               Tag = 1
               Left = 114
               Top = 121
-              Width = 72
-              Height = 15
+              Width = 81
+              Height = 16
               DataField = 'is_dependent'
               DataSource = dmRef.dscRefInfo
               ValueChecked = '1'
@@ -1363,8 +1437,8 @@ inherited frmClientMain: TfrmClientMain
               Tag = 1
               Left = 114
               Top = 142
-              Width = 57
-              Height = 15
+              Width = 64
+              Height = 16
               DataField = 'is_student'
               DataSource = dmRef.dscRefInfo
               ValueChecked = '1'
@@ -1378,7 +1452,7 @@ inherited frmClientMain: TfrmClientMain
               Left = 410
               Top = 142
               Width = 187
-              Height = 21
+              Height = 22
               DataField = 'post_code'
               DataSource = dmRef.dscAddressInfo
               KeyField = 'post_code'
@@ -1395,7 +1469,7 @@ inherited frmClientMain: TfrmClientMain
               Left = 410
               Top = 118
               Width = 187
-              Height = 21
+              Height = 22
               DataSource = dmRef.dscAddressInfo
               DataField = 'brgy'
               Ctl3D = True
@@ -1408,7 +1482,7 @@ inherited frmClientMain: TfrmClientMain
               Left = 410
               Top = 94
               Width = 187
-              Height = 21
+              Height = 22
               DataSource = dmRef.dscAddressInfo
               DataField = 'st'
               Ctl3D = True
@@ -1421,7 +1495,7 @@ inherited frmClientMain: TfrmClientMain
               Left = 410
               Top = 22
               Width = 187
-              Height = 21
+              Height = 22
               DataSource = dmRef.dscContactInfo
               DataField = 'home_phone'
               Ctl3D = True
@@ -1434,7 +1508,7 @@ inherited frmClientMain: TfrmClientMain
               Left = 410
               Top = 46
               Width = 187
-              Height = 21
+              Height = 22
               DataSource = dmRef.dscContactInfo
               DataField = 'mobile_no'
               Ctl3D = True
@@ -1447,7 +1521,7 @@ inherited frmClientMain: TfrmClientMain
               Left = 114
               Top = 163
               Width = 168
-              Height = 21
+              Height = 22
               DataField = 'educ_code'
               DataSource = dmRef.dscRefInfo
               KeyField = 'value'
@@ -1494,22 +1568,29 @@ inherited frmClientMain: TfrmClientMain
       end
     end
     object tsIdentityInfo: TRzTabSheet
+      Color = 14273211
       Caption = 'Identity information'
+      ExplicitLeft = 1
+      ExplicitTop = 1
+      ExplicitWidth = 921
+      ExplicitHeight = 467
       object pnlIdentity: TRzPanel
         Left = 0
         Top = 0
-        Width = 921
-        Height = 468
+        Width = 927
+        Height = 554
         Align = alClient
         BorderOuter = fsFlat
         BorderSides = [sdLeft, sdRight]
         BorderWidth = 5
         TabOrder = 0
+        ExplicitWidth = 921
+        ExplicitHeight = 467
         DesignSize = (
-          921
-          468)
+          927
+          554)
         object urlRefreshIdentList: TRzURLLabel
-          Left = 877
+          Left = 883
           Top = 239
           Width = 38
           Height = 13
@@ -1525,11 +1606,12 @@ inherited frmClientMain: TfrmClientMain
           ParentShowHint = False
           ShowHint = True
           OnClick = urlRefreshIdentListClick
+          ExplicitLeft = 877
         end
         object grIdentityList: TRzDBGrid
           Left = 6
           Top = 5
-          Width = 909
+          Width = 915
           Height = 228
           Align = alTop
           DataSource = dmClient.dscIdentInfo
@@ -1537,7 +1619,7 @@ inherited frmClientMain: TfrmClientMain
           TabOrder = 0
           TitleFont.Charset = DEFAULT_CHARSET
           TitleFont.Color = clWindowText
-          TitleFont.Height = -11
+          TitleFont.Height = -12
           TitleFont.Name = 'Tahoma'
           TitleFont.Style = []
           QuickCompare.FieldName = 'expiry'
@@ -1573,39 +1655,43 @@ inherited frmClientMain: TfrmClientMain
         object RzPageControl1: TRzPageControl
           Left = 6
           Top = 270
-          Width = 911
-          Height = 193
+          Width = 917
+          Height = 279
           Hint = ''
           ActivePage = tsIdentDetail
           Anchors = [akLeft, akTop, akRight, akBottom]
           UseColoredTabs = True
           TabIndex = 0
           TabOrder = 1
-          FixedDimension = 19
+          ExplicitWidth = 911
+          ExplicitHeight = 192
+          FixedDimension = 20
           object tsIdentDetail: TRzTabSheet
             Color = 15263976
             Caption = 'Identity document details'
+            ExplicitWidth = 907
+            ExplicitHeight = 168
             object JvLabel37: TJvLabel
               Left = 19
               Top = 23
-              Width = 26
-              Height = 13
+              Width = 30
+              Height = 14
               Caption = 'Type'
               Transparent = True
             end
             object JvLabel38: TJvLabel
               Left = 19
               Top = 44
-              Width = 52
-              Height = 13
+              Width = 60
+              Height = 14
               Caption = 'ID number'
               Transparent = True
             end
             object lblExpiry: TJvLabel
               Left = 19
               Top = 68
-              Width = 32
-              Height = 13
+              Width = 34
+              Height = 14
               Caption = 'Expiry'
               Transparent = True
             end
@@ -1613,7 +1699,7 @@ inherited frmClientMain: TfrmClientMain
               Left = 105
               Top = 38
               Width = 207
-              Height = 21
+              Height = 22
               DataSource = dmClient.dscIdentInfo
               DataField = 'ident_no'
               CharCase = ecUpperCase
@@ -1624,7 +1710,7 @@ inherited frmClientMain: TfrmClientMain
               Left = 105
               Top = 14
               Width = 207
-              Height = 21
+              Height = 22
               DataField = 'ident_type'
               DataSource = dmClient.dscIdentInfo
               KeyField = 'ident_type'
@@ -1640,8 +1726,8 @@ inherited frmClientMain: TfrmClientMain
             object chbNoExpiry: TRzDBCheckBox
               Left = 223
               Top = 65
-              Width = 65
-              Height = 15
+              Width = 70
+              Height = 16
               DataField = 'has_expiry'
               DataSource = dmAux.dscIdentType
               NullAsUnchecked = False
@@ -1654,7 +1740,7 @@ inherited frmClientMain: TfrmClientMain
               Left = 105
               Top = 62
               Width = 112
-              Height = 21
+              Height = 22
               DataSource = dmClient.dscIdentInfo
               DataField = 'exp_date'
               TabOnEnter = True
@@ -1697,41 +1783,48 @@ inherited frmClientMain: TfrmClientMain
       end
     end
     object tsLoansHistory: TRzTabSheet
+      Color = 14273211
       Caption = 'Loans history'
+      ExplicitLeft = 1
+      ExplicitTop = 1
+      ExplicitWidth = 921
+      ExplicitHeight = 467
       object pnlLoans: TRzPanel
         Left = 0
         Top = 0
-        Width = 921
-        Height = 468
+        Width = 927
+        Height = 554
         Align = alClient
         BorderOuter = fsFlat
         BorderSides = [sdLeft, sdRight]
         BorderWidth = 5
         TabOrder = 0
+        ExplicitWidth = 921
+        ExplicitHeight = 467
         DesignSize = (
-          921
-          468)
+          927
+          554)
         object JvLabel63: TJvLabel
           Tag = -1
           Left = 7
           Top = 13
-          Width = 33
-          Height = 13
+          Width = 37
+          Height = 14
           Caption = 'Status'
           Transparent = True
         end
         object grLoans: TRzDBGrid
           Left = 6
           Top = 32
-          Width = 549
-          Height = 430
-          Anchors = [akLeft, akTop, akBottom]
+          Width = 915
+          Height = 516
+          Anchors = [akLeft, akTop, akRight, akBottom]
           DataSource = dmClient.dscLoans
           Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
           TabOrder = 0
           TitleFont.Charset = DEFAULT_CHARSET
           TitleFont.Color = clWindowText
-          TitleFont.Height = -11
+          TitleFont.Height = -12
           TitleFont.Name = 'Tahoma'
           TitleFont.Style = []
           AltRowShading = True
@@ -1748,390 +1841,40 @@ inherited frmClientMain: TfrmClientMain
               Expanded = False
               FieldName = 'class_name'
               Title.Caption = 'Loan class'
-              Width = 150
+              Width = 200
               Visible = True
             end
             item
               Expanded = False
               FieldName = 'status_name'
               Title.Caption = 'Status'
-              Width = 80
+              Width = 150
               Visible = True
             end>
-        end
-        object RzPageControl2: TRzPageControl
-          Left = 560
-          Top = 7
-          Width = 357
-          Height = 457
-          Hint = ''
-          ActivePage = tsLoansDetail
-          Anchors = [akLeft, akTop, akRight, akBottom]
-          UseColoredTabs = True
-          TabIndex = 0
-          TabOrder = 1
-          FixedDimension = 19
-          object tsLoansDetail: TRzTabSheet
-            Color = 15263976
-            Caption = 'Loan details'
-            object JvLabel49: TJvLabel
-              Tag = -1
-              Left = 35
-              Top = 40
-              Width = 51
-              Height = 13
-              Caption = 'Loan class'
-              Transparent = True
-            end
-            object JvLabel51: TJvLabel
-              Tag = -1
-              Left = 35
-              Top = 64
-              Width = 65
-              Height = 13
-              Caption = 'Date/amount'
-              Transparent = True
-            end
-            object JvLabel53: TJvLabel
-              Tag = -1
-              Left = 35
-              Top = 88
-              Width = 63
-              Height = 13
-              Caption = 'Int(%)/Term'
-              Transparent = True
-            end
-            object JvLabel55: TJvLabel
-              Tag = -1
-              Left = 35
-              Top = 112
-              Width = 41
-              Height = 13
-              Caption = 'Purpose'
-              Transparent = True
-            end
-            object JvGroupHeader11: TJvGroupHeader
-              Tag = -1
-              Left = 19
-              Top = 20
-              Width = 262
-              Height = 12
-              Caption = 'Application details'
-              Font.Charset = DEFAULT_CHARSET
-              Font.Color = 9134911
-              Font.Height = -11
-              Font.Name = 'Tahoma'
-              Font.Style = []
-              ParentFont = False
-              Transparent = True
-            end
-            object JvGroupHeader12: TJvGroupHeader
-              Tag = -1
-              Left = 19
-              Top = 134
-              Width = 262
-              Height = 12
-              Caption = 'Approval details'
-              Font.Charset = DEFAULT_CHARSET
-              Font.Color = 9134911
-              Font.Height = -11
-              Font.Name = 'Tahoma'
-              Font.Style = []
-              ParentFont = False
-              Transparent = True
-            end
-            object JvLabel56: TJvLabel
-              Tag = -1
-              Left = 35
-              Top = 154
-              Width = 65
-              Height = 13
-              Caption = 'Date/amount'
-              Transparent = True
-            end
-            object JvLabel57: TJvLabel
-              Tag = -1
-              Left = 35
-              Top = 178
-              Width = 38
-              Height = 13
-              Caption = 'Method'
-              Transparent = True
-            end
-            object JvGroupHeader13: TJvGroupHeader
-              Tag = -1
-              Left = 19
-              Top = 224
-              Width = 262
-              Height = 12
-              Caption = 'Released'
-              Font.Charset = DEFAULT_CHARSET
-              Font.Color = 9134911
-              Font.Height = -11
-              Font.Name = 'Tahoma'
-              Font.Style = []
-              ParentFont = False
-              Transparent = True
-            end
-            object JvLabel61: TJvLabel
-              Tag = -1
-              Left = 35
-              Top = 242
-              Width = 65
-              Height = 13
-              Caption = 'Date/amount'
-              Transparent = True
-            end
-            object JvGroupHeader14: TJvGroupHeader
-              Tag = -1
-              Left = 19
-              Top = 264
-              Width = 262
-              Height = 12
-              Caption = 'Comakers'
-              Font.Charset = DEFAULT_CHARSET
-              Font.Color = 9134911
-              Font.Height = -11
-              Font.Name = 'Tahoma'
-              Font.Style = []
-              ParentFont = False
-              Transparent = True
-            end
-            object JvLabel52: TJvLabel
-              Tag = -1
-              Left = 35
-              Top = 202
-              Width = 26
-              Height = 13
-              Caption = 'Term'
-              Transparent = True
-            end
-            object edPurpose: TRzDBEdit
-              Tag = 1
-              Left = 114
-              Top = 106
-              Width = 167
-              Height = 21
-              DataSource = dmClient.dscLoans
-              DataField = 'purpose'
-              ReadOnly = True
-              CharCase = ecUpperCase
-              Color = clInfoBk
-              DisabledColor = clWhite
-              TabOnEnter = True
-              TabOrder = 0
-            end
-            object edDesiredTerm: TRzDBEdit
-              Tag = 1
-              Left = 198
-              Top = 82
-              Width = 83
-              Height = 21
-              DataSource = dmClient.dscLoans
-              DataField = 'des_term'
-              ReadOnly = True
-              CharCase = ecUpperCase
-              Color = clInfoBk
-              DisabledColor = clWhite
-              TabOnEnter = True
-              TabOrder = 1
-            end
-            object grComakers: TRzDBGrid
-              Tag = -1
-              Left = 35
-              Top = 278
-              Width = 246
-              Height = 63
-              Color = clMenu
-              DataSource = dmClient.dscComakers
-              Options = [dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
-              ReadOnly = True
-              TabOrder = 2
-              TitleFont.Charset = DEFAULT_CHARSET
-              TitleFont.Color = clWindowText
-              TitleFont.Height = -11
-              TitleFont.Name = 'Tahoma'
-              TitleFont.Style = []
-              AltRowShadingColor = 15854564
-              Columns = <
-                item
-                  Expanded = False
-                  FieldName = 'name'
-                  Title.Caption = 'Name'
-                  Width = 200
-                  Visible = True
-                end>
-            end
-            object RzDBEdit17: TRzDBEdit
-              Tag = 1
-              Left = 114
-              Top = 34
-              Width = 167
-              Height = 21
-              DataSource = dmClient.dscLoans
-              DataField = 'class_name'
-              ReadOnly = True
-              CharCase = ecUpperCase
-              Color = clInfoBk
-              DisabledColor = clWhite
-              TabOnEnter = True
-              TabOrder = 3
-            end
-            object RzDBEdit21: TRzDBEdit
-              Tag = 1
-              Left = 114
-              Top = 82
-              Width = 80
-              Height = 21
-              DataSource = dmClient.dscLoans
-              DataField = 'class_int'
-              ReadOnly = True
-              CharCase = ecUpperCase
-              Color = clInfoBk
-              DisabledColor = clWhite
-              TabOnEnter = True
-              TabOrder = 4
-            end
-            object RzDBEdit22: TRzDBEdit
-              Tag = 1
-              Left = 114
-              Top = 58
-              Width = 80
-              Height = 21
-              DataSource = dmClient.dscLoans
-              DataField = 'date_appl_f'
-              ReadOnly = True
-              CharCase = ecUpperCase
-              Color = clInfoBk
-              DisabledColor = clWhite
-              TabOnEnter = True
-              TabOrder = 5
-            end
-            object RzDBEdit23: TRzDBEdit
-              Tag = 1
-              Left = 198
-              Top = 58
-              Width = 83
-              Height = 21
-              DataSource = dmClient.dscLoans
-              DataField = 'amt_appl_f'
-              ReadOnly = True
-              CharCase = ecUpperCase
-              Color = clInfoBk
-              DisabledColor = clWhite
-              TabOnEnter = True
-              TabOrder = 6
-            end
-            object RzDBEdit24: TRzDBEdit
-              Tag = 1
-              Left = 114
-              Top = 148
-              Width = 80
-              Height = 21
-              DataSource = dmClient.dscLoans
-              DataField = 'date_appv_f'
-              ReadOnly = True
-              CharCase = ecUpperCase
-              Color = clInfoBk
-              DisabledColor = clWhite
-              TabOnEnter = True
-              TabOrder = 7
-            end
-            object RzDBEdit25: TRzDBEdit
-              Tag = 1
-              Left = 198
-              Top = 148
-              Width = 83
-              Height = 21
-              DataSource = dmClient.dscLoans
-              DataField = 'amt_appv_f'
-              ReadOnly = True
-              CharCase = ecUpperCase
-              Color = clInfoBk
-              DisabledColor = clWhite
-              TabOnEnter = True
-              TabOrder = 8
-            end
-            object RzDBEdit26: TRzDBEdit
-              Tag = 1
-              Left = 114
-              Top = 172
-              Width = 167
-              Height = 21
-              DataSource = dmClient.dscLoans
-              DataField = 'appv_method_name'
-              ReadOnly = True
-              CharCase = ecUpperCase
-              Color = clInfoBk
-              DisabledColor = clWhite
-              TabOnEnter = True
-              TabOrder = 9
-            end
-            object RzDBEdit28: TRzDBEdit
-              Tag = 1
-              Left = 114
-              Top = 196
-              Width = 83
-              Height = 21
-              DataSource = dmClient.dscLoans
-              DataField = 'terms'
-              ReadOnly = True
-              CharCase = ecUpperCase
-              Color = clInfoBk
-              DisabledColor = clWhite
-              TabOnEnter = True
-              TabOrder = 10
-            end
-            object RzDBEdit29: TRzDBEdit
-              Tag = 1
-              Left = 114
-              Top = 236
-              Width = 80
-              Height = 21
-              DataSource = dmClient.dscLoans
-              DataField = 'date_rel_f'
-              ReadOnly = True
-              CharCase = ecUpperCase
-              Color = clInfoBk
-              DisabledColor = clWhite
-              TabOnEnter = True
-              TabOrder = 11
-            end
-            object RzDBEdit30: TRzDBEdit
-              Tag = 1
-              Left = 198
-              Top = 236
-              Width = 83
-              Height = 21
-              DataSource = dmClient.dscLoans
-              DataField = 'amt_rel_f'
-              ReadOnly = True
-              CharCase = ecUpperCase
-              Color = clInfoBk
-              DisabledColor = clWhite
-              TabOnEnter = True
-              TabOrder = 12
-            end
-          end
         end
         object RzComboBox1: TRzComboBox
           Left = 46
           Top = 7
-          Width = 509
-          Height = 21
-          TabOrder = 2
+          Width = 869
+          Height = 22
+          TabOrder = 1
         end
       end
     end
     object tsLoanClassAccess: TRzTabSheet
+      Color = 14273211
       Caption = 'Loan class accessibility'
+      ExplicitLeft = 1
+      ExplicitTop = 1
+      ExplicitWidth = 921
+      ExplicitHeight = 467
       DesignSize = (
-        921
-        468)
+        927
+        554)
       object JvGroupHeader15: TJvGroupHeader
         Left = 19
         Top = 20
-        Width = 886
+        Width = 892
         Height = 12
         Anchors = [akLeft, akTop, akRight]
         Caption = 'Available loan class'
@@ -2142,11 +1885,12 @@ inherited frmClientMain: TfrmClientMain
         Font.Style = []
         ParentFont = False
         Transparent = True
+        ExplicitWidth = 886
       end
       object JvGroupHeader16: TJvGroupHeader
         Left = 19
         Top = 310
-        Width = 886
+        Width = 892
         Height = 12
         Anchors = [akLeft, akTop, akRight]
         Caption = 'Accessible loan class'
@@ -2157,11 +1901,12 @@ inherited frmClientMain: TfrmClientMain
         Font.Style = []
         ParentFont = False
         Transparent = True
+        ExplicitWidth = 886
       end
       object grAvailList: TRzDBGrid
         Left = 19
         Top = 35
-        Width = 886
+        Width = 892
         Height = 230
         Anchors = [akLeft, akTop, akRight]
         DataSource = dmClient.dscLoanClassAvail
@@ -2169,7 +1914,7 @@ inherited frmClientMain: TfrmClientMain
         TabOrder = 0
         TitleFont.Charset = DEFAULT_CHARSET
         TitleFont.Color = clWindowText
-        TitleFont.Height = -11
+        TitleFont.Height = -12
         TitleFont.Name = 'Tahoma'
         TitleFont.Style = []
         AltRowShading = True
@@ -2264,7 +2009,7 @@ inherited frmClientMain: TfrmClientMain
       object grAccessList: TRzDBGrid
         Left = 19
         Top = 325
-        Width = 886
+        Width = 892
         Height = 100
         Anchors = [akLeft, akTop, akRight]
         DataSource = dmClient.dscClientLoanClass
@@ -2272,7 +2017,7 @@ inherited frmClientMain: TfrmClientMain
         TabOrder = 2
         TitleFont.Charset = DEFAULT_CHARSET
         TitleFont.Color = clWindowText
-        TitleFont.Height = -11
+        TitleFont.Height = -12
         TitleFont.Name = 'Tahoma'
         TitleFont.Style = []
         AltRowShading = True

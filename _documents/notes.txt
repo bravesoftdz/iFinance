@@ -8,3 +8,10 @@ Demo from 03 Nov 2016
 6. loan assessment
 7. mode of release (cash or check or release to other branch or cash card or authorized rep)
 8. payment frequency in loan class
+
+Demo from 16 Jan 2017
+
+1. Acct type (Short-term, regular)
+
+Charges: formula..
+   

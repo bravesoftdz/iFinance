@@ -42,7 +42,8 @@ requires
   JvStdCtrls,
   LockBox3DR,
   JvControls,
-  RESTComponents;
+  RESTComponents,
+  FireDAC;
 
 contains
   LoansAuxData in 'LoansAuxData.pas' {dmLoansAux: TDataModule},

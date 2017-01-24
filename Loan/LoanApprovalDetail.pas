@@ -21,10 +21,12 @@ type
     dbluAppvMethod: TRzDBLookupComboBox;
     mmRemarks: TRzDBMemo;
     JvLabel1: TJvLabel;
-    urlAppliedAmount: TRzURLLabel;
+    urlRecommendedAmount: TRzURLLabel;
     JvLabel2: TJvLabel;
-    RzURLLabel1: TRzURLLabel;
+    urlDesiredTerm: TRzURLLabel;
     procedure FormCreate(Sender: TObject);
+    procedure urlRecommendedAmountClick(Sender: TObject);
+    procedure urlDesiredTermClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -49,11 +51,28 @@ procedure TfrmLoanAppvDetail.FormCreate(Sender: TObject);
 begin
   inherited;
   OpenDropdownDataSources(tsDetail);
+
+  // recommended amount
+  urlRecommendedAmount.Caption := FormatFloat('###,##0.00',ln.RecommendedAmount);
+  // desired term
+  urlDesiredTerm.Caption := IntToStr(ln.DesiredTerm);
 end;
 
 procedure TfrmLoanAppvDetail.Save;
 begin
   ln.Save;
+end;
+
+procedure TfrmLoanAppvDetail.urlDesiredTermClick(Sender: TObject);
+begin
+  inherited;
+  if (ln.Action = laApproving) and (ln.IsAssessed) then edAppvTerm.Value := ln.DesiredTerm;
+end;
+
+procedure TfrmLoanAppvDetail.urlRecommendedAmountClick(Sender: TObject);
+begin
+  inherited;
+  if (ln.Action = laApproving) and (ln.IsAssessed) then edAppvAmount.Value := ln.RecommendedAmount;
 end;
 
 procedure TfrmLoanAppvDetail.Cancel;

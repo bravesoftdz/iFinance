@@ -18,7 +18,8 @@ type
     property GroupId: integer read FGroupId write FGroupId;
     property Address: string read FAddress write FAddress;
 
-    constructor Create;
+    constructor Create; overload;
+    constructor Create(const id, name: string; const grpId: integer; const addr: string); overload;
     destructor Destroy; override;
   end;
 
@@ -31,6 +32,14 @@ constructor TEmployer.Create;
 begin
   if emp = nil then
     emp := self;
+end;
+
+constructor TEmployer.Create(const id: string; const name: string; const grpId: Integer; const addr: string);
+begin
+  FId := id;
+  FName := name;
+  FGroupId := grpId;
+  FAddress := addr;
 end;
 
 destructor TEmployer.Destroy;

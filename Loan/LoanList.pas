@@ -10,11 +10,11 @@ uses
 
 type
   TfrmLoanList = class(TfrmBaseDocked, ILoanListFilter, IDockedForm)
-    pnlList: TRzPanel;
-    grList: TRzDBGrid;
     pnlSearch: TRzPanel;
     Label1: TLabel;
     edSearchKey: TRzEdit;
+    pnlList: TRzPanel;
+    grList: TRzDBGrid;
     procedure grListDblClick(Sender: TObject);
     procedure edSearchKeyChange(Sender: TObject);
   private
@@ -33,7 +33,7 @@ implementation
 {$R *.dfm}
 
 uses
-  AppData, FormsUtil, Loan, DockIntf, LoanClient;
+  AppData, FormsUtil, Loan, DockIntf, LoanClient, Employer;
 
 procedure TfrmLoanList.edSearchKeyChange(Sender: TObject);
 var
@@ -60,17 +60,24 @@ procedure TfrmLoanList.grListDblClick(Sender: TObject);
 var
   id: string;
   intf: IDock;
+  empl: TEmployer;
 begin
   with  grList.DataSource.DataSet do
   begin
     if RecordCount > 0 then
     begin
+      empl := TEmployer.Create(FieldByName('emp_id').AsString,
+                        FieldByName('emp_name').AsString,
+                        FieldByName('grp_id').AsInteger,
+                        FieldByName('emp_add').AsString);
+
       id := FieldByName('loan_id').AsString;
 
       ln := TLoan.Create;
       ln.Id := id;
       ln.Client := TLoanClient.Create(FieldByName('entity_id').AsString,
-                        FieldByName('name').AsString);
+                        FieldByName('name').AsString, empl,
+                        FieldByName('client_addr').AsString);
       ln.Status := FieldByName('status_id').AsString;
       ln.Action := laNone;
 

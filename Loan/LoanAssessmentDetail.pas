@@ -134,7 +134,7 @@ begin
         Free;
       except
         on e: Exception do
-          ShowMessage(e.Message);
+          CallErrorBox(e.Message);
       end;
     end;
   end;
@@ -193,7 +193,7 @@ begin
         Free;
       except
         on e: Exception do
-          ShowMessage(e.Message);
+          CallErrorBox(e.Message);
       end;
     end;
   end;
@@ -364,7 +364,7 @@ end;
 procedure TfrmLoanAssessmentDetail.urlAppliedAmountClick(Sender: TObject);
 begin
   inherited;
-  if ln.Action = laAssessing then edRecAmount.Value := ln.AppliedAmount;
+  if (ln.Action = laAssessing) and (ln.IsPending) then edRecAmount.Value := ln.AppliedAmount;
 end;
 
 procedure TfrmLoanAssessmentDetail.Cancel;

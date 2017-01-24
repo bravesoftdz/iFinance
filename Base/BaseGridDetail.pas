@@ -7,7 +7,7 @@ uses
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, BaseDocked, Data.DB, Vcl.StdCtrls,
   Vcl.Mask, RzEdit, RzTabs, Vcl.Grids, Vcl.DBGrids, RzDBGrid, RzLabel,
   Vcl.ExtCtrls, RzPanel, RzButton, System.ImageList, Vcl.ImgList, JvImageList,
-  SaveIntf, JvExControls, JvSpeedButton;
+  SaveIntf, JvExControls, JvSpeedButton, Vcl.Imaging.pngimage;
 
 type
   TfrmBaseGridDetail = class(TfrmBaseDocked,ISave)
@@ -18,13 +18,25 @@ type
     pnlSearch: TRzPanel;
     Label1: TLabel;
     edSearchKey: TRzEdit;
-    imlMain: TJvImageList;
     btnNew: TRzButton;
+    pnlDetail: TRzPanel;
+    pnlAdd: TRzPanel;
+    imgAdd: TImage;
+    pnlSave: TRzPanel;
+    imgSave: TImage;
+    pnlCancel: TRzPanel;
+    imgCancel: TImage;
     procedure FormCreate(Sender: TObject);
     procedure edSearchKeyChange(Sender: TObject);
-    procedure btnNewClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure imgAddClick(Sender: TObject);
+    procedure imgSaveClick(Sender: TObject);
+    procedure imgCancelClick(Sender: TObject);
+    procedure imgAddMouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+    procedure imgAddMouseUp(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
   private
     { Private declarations }
   protected
@@ -45,12 +57,6 @@ implementation
 
 uses
   FormsUtil;
-
-procedure TfrmBaseGridDetail.btnNewClick(Sender: TObject);
-begin
-  inherited;
-  grList.DataSource.DataSet.Append;
-end;
 
 procedure TfrmBaseGridDetail.edSearchKeyChange(Sender: TObject);
 begin
@@ -76,6 +82,38 @@ procedure TfrmBaseGridDetail.FormShow(Sender: TObject);
 begin
   inherited;
   OpenDropdownDataSources(tsDetail);
+end;
+
+procedure TfrmBaseGridDetail.imgAddClick(Sender: TObject);
+begin
+  inherited;
+  grList.DataSource.DataSet.Append;
+end;
+
+procedure TfrmBaseGridDetail.imgAddMouseDown(Sender: TObject;
+  Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+begin
+  inherited;
+  ButtonDown(Sender);
+end;
+
+procedure TfrmBaseGridDetail.imgAddMouseUp(Sender: TObject;
+  Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+begin
+  inherited;
+  ButtonUp(Sender);
+end;
+
+procedure TfrmBaseGridDetail.imgCancelClick(Sender: TObject);
+begin
+  inherited;
+  Cancel;
+end;
+
+procedure TfrmBaseGridDetail.imgSaveClick(Sender: TObject);
+begin
+  inherited;
+  Save;
 end;
 
 function TfrmBaseGridDetail.Save: boolean;

@@ -19,7 +19,6 @@ type
     JvLabel1: TJvLabel;
     JvLabel2: TJvLabel;
     JvLabel3: TJvLabel;
-    JvGroupHeader3: TJvGroupHeader;
     JvLabel7: TJvLabel;
     JvLabel12: TJvLabel;
     JvLabel13: TJvLabel;
@@ -105,8 +104,6 @@ type
     tsIdentDetail: TRzTabSheet;
     pnlLoans: TRzPanel;
     grLoans: TRzDBGrid;
-    RzPageControl2: TRzPageControl;
-    tsLoansDetail: TRzTabSheet;
     PhotoLauncher: TRzLauncher;
     imgClient: TImage;
     bteBank: TRzButtonEdit;
@@ -155,33 +152,8 @@ type
     RzDBLookupComboBox11: TRzDBLookupComboBox;
     imgPhoto: TImage;
     JvGroupHeader10: TJvGroupHeader;
-    JvLabel49: TJvLabel;
-    JvLabel51: TJvLabel;
-    JvLabel53: TJvLabel;
-    JvLabel55: TJvLabel;
-    edPurpose: TRzDBEdit;
-    edDesiredTerm: TRzDBEdit;
-    JvGroupHeader11: TJvGroupHeader;
-    JvGroupHeader12: TJvGroupHeader;
-    JvLabel56: TJvLabel;
-    JvLabel57: TJvLabel;
-    JvGroupHeader13: TJvGroupHeader;
-    JvLabel61: TJvLabel;
-    grComakers: TRzDBGrid;
-    JvGroupHeader14: TJvGroupHeader;
     JvLabel63: TJvLabel;
     RzComboBox1: TRzComboBox;
-    RzDBEdit17: TRzDBEdit;
-    RzDBEdit21: TRzDBEdit;
-    RzDBEdit22: TRzDBEdit;
-    RzDBEdit23: TRzDBEdit;
-    RzDBEdit24: TRzDBEdit;
-    RzDBEdit25: TRzDBEdit;
-    RzDBEdit26: TRzDBEdit;
-    JvLabel52: TJvLabel;
-    RzDBEdit28: TRzDBEdit;
-    RzDBEdit29: TRzDBEdit;
-    RzDBEdit30: TRzDBEdit;
     RzDBMemo1: TRzDBMemo;
     tsLoanClassAccess: TRzTabSheet;
     JvGroupHeader15: TJvGroupHeader;
@@ -190,6 +162,8 @@ type
     btnMakeAccessible: TRzButton;
     grAccessList: TRzDBGrid;
     btnRemoveAccessibility: TRzButton;
+    RzGroupBox2: TRzGroupBox;
+    RzGroupBox3: TRzGroupBox;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -1049,7 +1023,6 @@ begin
     LOANS:
       begin
         OpenGridDataSources(pnlLoans);
-        OpenGridDataSources(tsLoansDetail);
       end;
     LOANCLASSACCESS:
       begin

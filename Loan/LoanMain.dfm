@@ -167,27 +167,21 @@ inherited frmLoanMain: TfrmLoanMain
         DataSource = dmLoan.dscLoanClass
       end
       object JvLabel20: TJvLabel
+        Tag = -1
         Left = 20
         Top = 64
-        Width = 26
+        Width = 41
         Height = 13
-        Caption = 'Email'
+        Caption = 'Address'
         Transparent = True
       end
       object JvLabel4: TJvLabel
-        Left = 20
-        Top = 88
-        Width = 48
-        Height = 13
-        Caption = 'Facebook'
-        Transparent = True
-      end
-      object JvLabel8: TJvLabel
+        Tag = -1
         Left = 20
         Top = 112
-        Width = 71
+        Width = 46
         Height = 13
-        Caption = 'Mobile/tel. no.'
+        Caption = 'Employer'
         Transparent = True
       end
       object btnAddComaker: TRzButton
@@ -196,8 +190,11 @@ inherited frmLoanMain: TfrmLoanMain
         Top = 133
         Width = 57
         Height = 20
+        Hint = 'Add comaker'
         Caption = 'Add'
         Enabled = False
+        ParentShowHint = False
+        ShowHint = True
         TabOrder = 7
         OnClick = btnAddComakerClick
       end
@@ -207,8 +204,11 @@ inherited frmLoanMain: TfrmLoanMain
         Top = 133
         Width = 57
         Height = 20
+        Hint = 'Remove comaker'
         Caption = 'Remove'
         Enabled = False
+        ParentShowHint = False
+        ShowHint = True
         TabOrder = 8
         OnClick = btnRemoveComakerClick
       end
@@ -370,57 +370,10 @@ inherited frmLoanMain: TfrmLoanMain
         Top = 58
         Width = 218
         Height = 69
+        Color = clInfoBk
         ItemHeight = 13
         TabOrder = 11
         OnDblClick = lbxComakersDblClick
-      end
-      object RzDBEdit9: TRzDBEdit
-        Left = 99
-        Top = 58
-        Width = 175
-        Height = 21
-        DataSource = dmClient.dscContactInfo
-        DataField = 'email_add'
-        Ctl3D = True
-        ParentCtl3D = False
-        TabOnEnter = True
-        TabOrder = 12
-      end
-      object RzDBEdit8: TRzDBEdit
-        Left = 99
-        Top = 82
-        Width = 175
-        Height = 21
-        DataSource = dmClient.dscContactInfo
-        DataField = 'fb_acct'
-        Ctl3D = True
-        ParentCtl3D = False
-        TabOnEnter = True
-        TabOrder = 13
-      end
-      object RzDBEdit11: TRzDBEdit
-        Left = 99
-        Top = 106
-        Width = 86
-        Height = 21
-        DataSource = dmClient.dscContactInfo
-        DataField = 'mobile_no'
-        Ctl3D = True
-        ParentCtl3D = False
-        TabOnEnter = True
-        TabOrder = 14
-      end
-      object RzDBEdit10: TRzDBEdit
-        Left = 189
-        Top = 106
-        Width = 85
-        Height = 21
-        DataSource = dmClient.dscContactInfo
-        DataField = 'home_phone'
-        Ctl3D = True
-        ParentCtl3D = False
-        TabOnEnter = True
-        TabOrder = 15
       end
       object RzPanel1: TRzPanel
         Tag = -1
@@ -435,7 +388,7 @@ inherited frmLoanMain: TfrmLoanMain
         GradientColorStyle = gcsCustom
         GradientColorStart = 8806462
         GradientColorStop = 11110503
-        TabOrder = 16
+        TabOrder = 12
         VisualStyle = vsGradient
         object RzLabel1: TRzLabel
           Tag = -1
@@ -453,13 +406,35 @@ inherited frmLoanMain: TfrmLoanMain
           Transparent = True
         end
       end
+      object mmAddress: TRzMemo
+        Tag = -1
+        Left = 99
+        Top = 58
+        Width = 175
+        Height = 45
+        TabStop = False
+        Color = clInfoBk
+        ReadOnly = True
+        TabOrder = 13
+      end
+      object mmEmployer: TRzMemo
+        Tag = -1
+        Left = 99
+        Top = 106
+        Width = 175
+        Height = 45
+        TabStop = False
+        Color = clInfoBk
+        ReadOnly = True
+        TabOrder = 14
+      end
     end
     object pnlAssessment: TRzPanel
       Tag = 200
       Left = 17
       Top = 192
       Width = 850
-      Height = 19
+      Height = 100
       BorderOuter = fsFlat
       Color = 15000804
       TabOrder = 1
@@ -599,17 +574,16 @@ inherited frmLoanMain: TfrmLoanMain
         Width = 383
         Height = 115
         Hint = ''
-        ActivePage = tsMonExp
+        ActivePage = tsFinInfo
         ActivePageDefault = tsFinInfo
         TabOverlap = 0
-        TabIndex = 1
+        TabIndex = 0
         TabOrder = 3
         TabStyle = tsRoundCorners
         FixedDimension = 19
         object tsFinInfo: TRzTabSheet
           Color = 15000804
           Caption = 'Financial info'
-          ExplicitHeight = 134
           DesignSize = (
             379
             89)
@@ -664,7 +638,6 @@ inherited frmLoanMain: TfrmLoanMain
         object tsMonExp: TRzTabSheet
           Color = 15000804
           Caption = 'Monthly expenses'
-          ExplicitHeight = 134
           DesignSize = (
             379
             89)
@@ -922,7 +895,7 @@ inherited frmLoanMain: TfrmLoanMain
     object pnlRelease: TRzPanel
       Tag = -1
       Left = 17
-      Top = 217
+      Top = 339
       Width = 850
       Height = 135
       BorderOuter = fsFlat
@@ -1090,7 +1063,7 @@ inherited frmLoanMain: TfrmLoanMain
             Color = clInfoBk
             Expanded = False
             FieldName = 'exp_name'
-            Title.Caption = 'Expense'
+            Title.Caption = 'Charge'
             Width = 120
             Visible = True
           end
@@ -1099,7 +1072,7 @@ inherited frmLoanMain: TfrmLoanMain
             Expanded = False
             FieldName = 'monthly_f'
             Title.Alignment = taRightJustify
-            Title.Caption = 'Monthly'
+            Title.Caption = 'Amount'
             Width = 80
             Visible = True
           end>

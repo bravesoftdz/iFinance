@@ -9,7 +9,7 @@ inherited frmLoanAppvDetail: TfrmLoanAppvDetail
   TextHeight = 13
   inherited pnlTitle: TRzPanel
     Width = 411
-    ExplicitWidth = 506
+    ExplicitWidth = 411
     inherited imgClose: TImage
       Left = 390
       ExplicitLeft = 525
@@ -23,19 +23,19 @@ inherited frmLoanAppvDetail: TfrmLoanAppvDetail
   inherited pnlMain: TRzPanel
     Width = 411
     Height = 237
-    ExplicitWidth = 506
-    ExplicitHeight = 166
+    ExplicitWidth = 411
+    ExplicitHeight = 237
     inherited pcDetail: TRzPageControl
       Width = 394
       Height = 183
-      ExplicitWidth = 489
-      ExplicitHeight = 112
+      ExplicitWidth = 394
+      ExplicitHeight = 183
       FixedDimension = 19
       inherited tsDetail: TRzTabSheet
         ExplicitLeft = 1
         ExplicitTop = 1
-        ExplicitWidth = 485
-        ExplicitHeight = 108
+        ExplicitWidth = 390
+        ExplicitHeight = 179
         object JvLabel8: TJvLabel
           Tag = -1
           Left = 19
@@ -90,7 +90,7 @@ inherited frmLoanAppvDetail: TfrmLoanAppvDetail
           Caption = 'Recommendation:'
           Transparent = True
         end
-        object urlAppliedAmount: TRzURLLabel
+        object urlRecommendedAmount: TRzURLLabel
           Tag = 1
           Left = 310
           Top = 47
@@ -103,6 +103,7 @@ inherited frmLoanAppvDetail: TfrmLoanAppvDetail
           Font.Name = 'Tahoma'
           Font.Style = [fsUnderline]
           ParentFont = False
+          OnClick = urlRecommendedAmountClick
         end
         object JvLabel2: TJvLabel
           Tag = -1
@@ -113,19 +114,20 @@ inherited frmLoanAppvDetail: TfrmLoanAppvDetail
           Caption = 'Desired term:'
           Transparent = True
         end
-        object RzURLLabel1: TRzURLLabel
+        object urlDesiredTerm: TRzURLLabel
           Tag = 1
           Left = 310
           Top = 71
-          Width = 22
+          Width = 6
           Height = 13
-          Caption = '0.00'
+          Caption = '0'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clGreen
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = [fsUnderline]
           ParentFont = False
+          OnClick = urlDesiredTermClick
         end
         object edAppvTerm: TRzDBNumericEdit
           Tag = 5
@@ -153,6 +155,7 @@ inherited frmLoanAppvDetail: TfrmLoanAppvDetail
           DisabledColor = clWhite
           TabOnEnter = True
           TabOrder = 1
+          IntegersOnly = False
           DisplayFormat = '###,##0.00'
         end
         object dteDateApproved: TRzDBDateTimeEdit
@@ -201,14 +204,14 @@ inherited frmLoanAppvDetail: TfrmLoanAppvDetail
     inherited btnSave: TRzButton
       Left = 245
       Top = 202
-      ExplicitLeft = 340
-      ExplicitTop = 131
+      ExplicitLeft = 245
+      ExplicitTop = 202
     end
     inherited btnCancel: TRzButton
       Left = 326
       Top = 202
-      ExplicitLeft = 421
-      ExplicitTop = 131
+      ExplicitLeft = 326
+      ExplicitTop = 202
     end
   end
 end

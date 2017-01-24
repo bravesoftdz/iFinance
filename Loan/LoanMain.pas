@@ -39,12 +39,7 @@ type
     lblComakersDesc: TRzDBLabel;
     lbxComakers: TRzListBox;
     JvLabel20: TJvLabel;
-    RzDBEdit9: TRzDBEdit;
-    RzDBEdit8: TRzDBEdit;
     JvLabel4: TJvLabel;
-    JvLabel8: TJvLabel;
-    RzDBEdit11: TRzDBEdit;
-    RzDBEdit10: TRzDBEdit;
     RzPanel1: TRzPanel;
     RzLabel1: TRzLabel;
     pnlAssessment: TRzPanel;
@@ -104,6 +99,8 @@ type
     JvLabel1: TJvLabel;
     RzDBGrid2: TRzDBGrid;
     JvLabel15: TJvLabel;
+    mmAddress: TRzMemo;
+    mmEmployer: TRzMemo;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure bteClientButtonClick(Sender: TObject);
@@ -113,10 +110,9 @@ type
     procedure imgAssessmentClick(Sender: TObject);
   private
     { Private declarations }
-    procedure ChangeControlState(parentCtrl: TWinControl; const useState: boolean = true);
+    procedure ChangeControlState;
     procedure CallErrorBox(const error: string);
     procedure ShowAlerts;
-    procedure ChangeComakersControlState;
     procedure PopulateComakers;
     procedure RetrieveLoan;
     procedure CollapsePanel(Sender: TObject);
@@ -218,10 +214,18 @@ begin
   end;
 
   SetLoanId;
+
+  ChangeControlState;
 end;
 
 procedure TfrmLoanMain.ApproveLoan;
 begin
+  if ln.IsFinalised then
+  begin
+    CallErrorBox('Loan has been finalised.');
+    Exit;
+  end;
+
   with TfrmLoanAppvDetail.Create(self) do
   begin
     try
@@ -243,6 +247,11 @@ end;
 
 procedure TfrmLoanMain.AssessLoan;
 begin
+  if ln.IsFinalised then
+  begin
+    CallErrorBox('Loan has been finalised.');
+    Exit;
+  end;
 
   with TfrmLoanAssessmentDetail.Create(self) do
   begin
@@ -265,10 +274,19 @@ end;
 
 procedure TfrmLoanMain.RejectLoan;
 begin
+  if ln.IsFinalised then
+  begin
+    CallErrorBox('Loan has been finalised.');
+    Exit;
+  end;
+
   with TfrmLoanRejectionDetail.Create(self) do
   begin
     try
       ln.Action := laRejecting;
+      ln.Retrieve;
+      ln.SetDefaultValues;
+
       ShowModal;
 
       if ModalResult = mrOk then DisplayLoanStateDetails;
@@ -283,10 +301,19 @@ end;
 
 procedure TfrmLoanMain.CancelLoan;
 begin
+  if ln.IsFinalised then
+  begin
+    CallErrorBox('Loan has been finalised.');
+    Exit;
+  end;
+
   with TfrmLoanCancellationDetail.Create(self) do
   begin
     try
       ln.Action := laCancelling;
+      ln.Retrieve;
+      ln.SetDefaultValues;
+
       ShowModal;
 
       if ModalResult = mrOk then DisplayLoanStateDetails;
@@ -301,10 +328,18 @@ end;
 
 procedure TfrmLoanMain.ReleaseLoan;
 begin
+  if ln.IsFinalised then
+  begin
+    CallErrorBox('Loan has been finalised.');
+    Exit;
+  end;
+
   with TfrmLoanReleaseDetail.Create(self) do
   begin
     try
       ln.Action := laReleasing;
+      ln.Retrieve;
+
       ShowModal;
 
       if ModalResult = mrOk then DisplayLoanStateDetails;
@@ -325,31 +360,37 @@ begin
     intf.ShowError(error);
 end;
 
-procedure TfrmLoanMain.ChangeControlState(parentCtrl: TWinControl; const useState: boolean);
+procedure TfrmLoanMain.ChangeControlState;
 var
   i: integer;
-  tags: set of 0..11;
+  tags: set of 0..1;
 begin
   // control whose tag is in the tags array will be enabled
-  if useState then
+  if (ln.Action = laCreating) or (ln.IsPending) then
   begin
-    if ln.IsPending then tags := [1,2];
+    if Assigned(ln.Client) then tags := [0,1]
+    else tags := [0];
   end
-  else
-  begin
-    if ln.Action = laCreating then
-    begin
-      if Assigned(ln.Client) then tags := [0,1]
-      else tags := [0];
-    end;
-  end;
+  else tags := [];
 
   // enable controls
-    for i := 0 to parentCtrl.ControlCount - 1 do
-      if parentCtrl.Controls[i].Tag in [0..11] then
-        parentCtrl.Controls[i].Enabled := parentCtrl.Controls[i].Tag in tags;
-
-  ChangeComakersControlState;
+  for i := 0 to pnlApplication.ControlCount - 1 do
+    if pnlApplication.Controls[i].Tag <> -1 then
+    begin
+      pnlApplication.Controls[i].Enabled := pnlApplication.Controls[i].Tag in tags
+//      if pnlApplication.Controls[i] is TRzButtonEdit then
+//        (pnlApplication.Controls[i] as TRzButtonEdit).ReadOnly := pnlApplication.Controls[i].Tag in tags
+//      else if pnlApplication.Controls[i] is TRzDBLookUpComboBox then
+//        (pnlApplication.Controls[i] as TRzDBLookUpComboBox).ReadOnly := pnlApplication.Controls[i].Tag in tags
+//      else if pnlApplication.Controls[i] is TRzDBDateTimeEdit then
+//        (pnlApplication.Controls[i] as TRzDBDateTimeEdit).ReadOnly := pnlApplication.Controls[i].Tag in tags
+//      else if pnlApplication.Controls[i] is TRzDBNumericEdit then
+//        (pnlApplication.Controls[i] as TRzDBNumericEdit).ReadOnly := pnlApplication.Controls[i].Tag in tags
+//      else if pnlApplication.Controls[i] is TRzDBEdit then
+//        (pnlApplication.Controls[i] as TRzDBEdit).ReadOnly := pnlApplication.Controls[i].Tag in tags
+//      else if pnlApplication.Controls[i] is TRzButton then
+//        (pnlApplication.Controls[i] as TRzButton).Enabled := pnlApplication.Controls[i].Tag in tags
+    end;
 end;
 
 procedure TfrmLoanMain.RefreshDropDownSources;
@@ -368,12 +409,14 @@ begin
         if ModalResult = mrOK then
         begin
             bteClient.Text := lnc.Name;
+            mmAddress.Text := lnc.Address;
+            mmEmployer.Text := lnc.Employer.Name;
+
             ln.Client := lnc;
 
             OpenDropdownDataSources(self.pnlApplication);
 
-            ChangeControlState(self.pnlApplication,false);
-            ChangeComakersControlState;
+            ChangeControlState;
             ShowAlerts;
         end;
       except
@@ -474,12 +517,15 @@ begin
   if ln.Action = laCreating then
   begin
     bteClient.Clear;
+    mmAddress.Clear;
+    mmEmployer.Clear;
+
     ln.Client := nil;
   end
   else
     RetrieveLoan;
 
-  ChangeControlState(pnlApplication,false);
+  ChangeControlState;
 
 end;
 
@@ -528,7 +574,7 @@ begin
 
   SetUnboundControls;
   SetLoanId;
-  ChangeControlState(pnlApplication);
+  // ChangeControlState;
 
   DisplayLoanStateDetails;
 end;
@@ -539,15 +585,15 @@ var
 begin
   obj := lbxComakers.Items.Objects[lbxComakers.IndexOf(lbxComakers.SelectedItem)];
 
-  if obj is TComaker then
-  with TfrmComakerDetail.Create(self) do
-  begin
-    cm := obj as TComaker;
-    cm.Retrieve;
-    ShowModal;
-    Free;
-    // cm.Free;
-  end;
+  if Assigned(obj) then
+    if obj is TComaker then
+    with TfrmComakerDetail.Create(self) do
+    begin
+      cm := obj as TComaker;
+      cm.Retrieve;
+      ShowModal;
+      Free;
+    end;
 end;
 
 procedure TfrmLoanMain.SetLoanId;
@@ -558,6 +604,10 @@ end;
 procedure TfrmLoanMain.SetUnboundControls;
 begin
   bteClient.Text := ln.Client.Name;
+
+  mmAddress.Text := ln.Client.Address;
+
+  mmEmployer.Text := ln.Client.Employer.Name;
 
   PopulateComakers;
 end;
@@ -599,8 +649,7 @@ begin
     begin
       ln.Save;
       SetLoanId;
-      ChangeControlState(pnlApplication);
-      ChangeComakersControlState;
+      ChangeControlState;
       ln.Action := laNone;
     end
     else
@@ -624,11 +673,6 @@ begin
         Free;
       end;
   end;
-end;
-
-procedure TfrmLoanMain.ChangeComakersControlState;
-begin
-  
 end;
 
 procedure TfrmLoanMain.PopulateComakers;

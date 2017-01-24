@@ -116,20 +116,6 @@ object dmApplication: TdmApplication
     Left = 296
     Top = 24
   end
-  object cglIFN: TCryptographicLibrary
-    Left = 56
-    Top = 192
-  end
-  object cdcIFN: TCodec
-    AsymetricKeySizeInBits = 1024
-    AdvancedOptions2 = []
-    CryptoLibrary = cglIFN
-    Left = 136
-    Top = 192
-    StreamCipherId = 'native.StreamToBlock'
-    BlockCipherId = 'native.AES-256'
-    ChainId = 'native.CBC'
-  end
   object dstLoans: TADODataSet
     Connection = acMain
     CursorType = ctStatic

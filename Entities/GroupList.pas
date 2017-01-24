@@ -8,16 +8,12 @@ uses
   System.ImageList, Vcl.ImgList, JvImageList, Vcl.StdCtrls, Vcl.Mask, RzEdit,
   RzButton, RzTabs, Vcl.Grids, Vcl.DBGrids, RzDBGrid, RzLabel, Vcl.ExtCtrls,
   RzPanel, RzRadChk, RzDBChk, Vcl.DBCtrls, RzDBCmbo, JvExControls, JvLabel,
-  RzDBEdit;
+  RzDBEdit, Vcl.Imaging.pngimage;
 
 type
   TfrmGroupList = class(TfrmBaseGridDetail)
-    edGroupName: TRzDBEdit;
     JvLabel1: TJvLabel;
-    JvLabel2: TJvLabel;
-    RzDBLookupComboBox7: TRzDBLookupComboBox;
-    RzDBCheckBox1: TRzDBCheckBox;
-    RzDBCheckBox2: TRzDBCheckBox;
+    edGroupName: TRzDBEdit;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private

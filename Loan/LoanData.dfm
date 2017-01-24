@@ -384,6 +384,7 @@ object dmLoan: TdmLoan
     BeforeOpen = dstLoanReleaseBeforeOpen
     AfterOpen = dstLoanReleaseAfterOpen
     BeforePost = dstLoanReleaseBeforePost
+    OnNewRecord = dstLoanReleaseNewRecord
     CommandText = 'sp_ln_get_loan_release;1'
     CommandType = cmdStoredProc
     Parameters = <
@@ -441,5 +442,35 @@ object dmLoan: TdmLoan
     DataSet = dstLoanCharge
     Left = 111
     Top = 406
+  end
+  object dscLoanClassCharges: TDataSource
+    DataSet = dstLoanClassCharges
+    Left = 272
+    Top = 184
+  end
+  object dstLoanClassCharges: TADODataSet
+    Connection = dmApplication.acMain
+    CursorType = ctStatic
+    Filtered = True
+    LockType = ltReadOnly
+    BeforeOpen = dstLoanClassChargesBeforeOpen
+    CommandText = 'sp_ln_get_loan_class_charges;1'
+    CommandType = cmdStoredProc
+    Parameters = <
+      item
+        Name = '@RETURN_VALUE'
+        DataType = ftInteger
+        Direction = pdReturnValue
+        Precision = 10
+      end
+      item
+        Name = '@entity_id'
+        Attributes = [paNullable]
+        DataType = ftString
+        Size = 10
+        Value = ''
+      end>
+    Left = 208
+    Top = 184
   end
 end

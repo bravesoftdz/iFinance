@@ -8,7 +8,7 @@ uses
   System.ImageList, Vcl.ImgList, JvImageList, RzButton, Vcl.StdCtrls, Vcl.Mask,
   RzEdit, RzTabs, Vcl.Grids, Vcl.DBGrids, RzDBGrid, RzLabel, Vcl.ExtCtrls,
   RzPanel, RzRadChk, RzDBChk, RzDBEdit, Vcl.DBCtrls, RzDBCmbo, JvExControls,
-  JvLabel;
+  JvLabel, Vcl.Imaging.pngimage;
 
 type
   TfrmEmployerList = class(TfrmBaseGridDetail)
