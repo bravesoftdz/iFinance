@@ -148,7 +148,7 @@ implementation
 uses
   ClientMain, SaveIntf, ClientList, DockedFormIntf, GroupList, EmployerList,
   BanksList, DesignationList, LoanClassificationList, ConfBox, ErrorBox, ClientIntf,
-  LoanMain, LoanList, LoanIntf, CompetitorList, AlertIntf, FormsUtil;
+  LoanMain, LoanList, LoanIntf, CompetitorList, AlertIntf, FormsUtil, IFinanceGlobal;
 
 constructor TRecentClient.Create(const id, displayId, name: string);
 begin
@@ -572,6 +572,8 @@ begin
   RecentLoans := TObjectList<TRecentLoan>.Create;
 
   npMain.ActivePage := nppClient;
+
+  lblWelcome.Caption := 'Welcome back ' + ifn.User.Name + '.';
 end;
 
 procedure TfrmMain.imgAddClientMouseDown(Sender: TObject; Button: TMouseButton;

@@ -10,9 +10,13 @@ uses
 type
   TfrmDecisionBox = class(TfrmBasePopup)
     lblMessage: TJvLabel;
-    btnNo: TRzButton;
-    btnYes: TRzButton;
     Image1: TImage;
+    pnlNo: TRzPanel;
+    btnNo: TRzShapeButton;
+    pnlYes: TRzPanel;
+    btnYes: TRzShapeButton;
+    procedure btnNoClick(Sender: TObject);
+    procedure btnYesClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -31,6 +35,18 @@ implementation
 constructor TfrmDecisionBox.Create(AOwner: TComponent);
 begin
   inherited;
+end;
+
+procedure TfrmDecisionBox.btnNoClick(Sender: TObject);
+begin
+  inherited;
+  ModalResult := mrNo;
+end;
+
+procedure TfrmDecisionBox.btnYesClick(Sender: TObject);
+begin
+  inherited;
+  ModalResult := mrYes;
 end;
 
 constructor TfrmDecisionBox.Create(AOwner: TComponent; const confMessage: string);

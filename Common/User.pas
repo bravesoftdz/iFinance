@@ -11,12 +11,16 @@ type
     FUserId: string;
     FUserName: string;
     FUserRights: array of string;
+    FName: string;
   public
     property UserId: string read FUserId write FUserId;
     property UserName: string read FUserName write FUserName;
+    property Name: string read FName write FName;
+
     procedure SetRight(const right: string);
     function HasRights(const rights: array of string;
       const warn: boolean = false): boolean;
+
     constructor Create;
     destructor Destroy; override;
   end;

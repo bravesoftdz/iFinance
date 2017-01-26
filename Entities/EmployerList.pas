@@ -58,18 +58,11 @@ var
 begin
   if Supports(Application.MainForm,IStatus,st) then
   begin
-    if Trim(edEmployerName.Text) = '' then
-    begin
-      error := 'Please enter an employee name.';
-      st.ShowError(error);
-    end;
-
-    if Trim(dbluGroup.Text) = '' then
-    begin
-      error := 'Please select a group.';
-      st.ShowError(error);
-    end;
+    if Trim(edEmployerName.Text) = '' then error := 'Please enter an employer name.'
+    else if Trim(dbluGroup.Text) = '' then error := 'Please select a group.';
   end;
+
+  if error <> '' then st.ShowError(error);
 
   Result := error = '';
 end;

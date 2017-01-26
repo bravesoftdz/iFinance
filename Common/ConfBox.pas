@@ -10,8 +10,10 @@ uses
 type
   TfrmConfBox = class(TfrmBasePopup)
     lblMessage: TJvLabel;
-    btnOk: TRzButton;
     Image1: TImage;
+    pnlClose: TRzPanel;
+    btnClose: TRzShapeButton;
+    procedure btnCloseClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -36,6 +38,12 @@ constructor TfrmConfBox.Create(AOwner: TComponent; const confMessage: string);
 begin
   inherited Create(AOwner);
   lblMessage.Caption := confMessage;
+end;
+
+procedure TfrmConfBox.btnCloseClick(Sender: TObject);
+begin
+  inherited;
+  ModalResult := mrClose;
 end;
 
 end.

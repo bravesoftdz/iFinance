@@ -6,7 +6,7 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, Buttons, BasePopup, BaseForm, Vcl.StdCtrls, RzLabel, System.UITypes,
   Vcl.Imaging.pngimage, Vcl.ExtCtrls, RzPanel, Vcl.Mask, RzEdit, RzPrgres,
-  RzButton;
+  RzButton, JvGIF;
 
 type
   TfrmLogin = class(TfrmBasePopup)
@@ -20,15 +20,19 @@ type
     lbErrorMessage: TLabel;
     imgLogo: TImage;
     prbStatus: TRzProgressBar;
-    btnLogin: TRzButton;
-    btnCancel: TRzButton;
     lblStatus: TLabel;
+    pnlClose: TRzPanel;
+    btnClose: TRzShapeButton;
+    pnlLogin: TRzPanel;
+    btnLogin: TRzShapeButton;
     procedure FormShow(Sender: TObject);
     procedure FormCreate(Sender: TObject);
-    procedure btnLoginClick(Sender: TObject);
-    procedure btnCancelClick(Sender: TObject);
     procedure edUsernameChange(Sender: TObject);
     procedure edPasswordKeyPress(Sender: TObject; var Key: Char);
+    procedure btnCloseClick(Sender: TObject);
+    procedure btnLoginClick(Sender: TObject);
+    procedure pnlTitleMouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
   private
     { Private declarations }
     procedure LoadModules;
@@ -47,7 +51,7 @@ var
 
 const
   LIMITGLOBAL = 6;
-  TICK = 400;
+  TICK = 100;
   INCREMENT = 16;
 
 implementation
@@ -83,57 +87,6 @@ begin
 
     if not Result then
       lbErrorMessage.Caption := 'Invalid username or password.';
-  end;
-end;
-
-procedure TfrmLogin.btnCancelClick(Sender: TObject);
-begin
-  inherited;
-  ModalResult := mrAbort;
-end;
-
-procedure TfrmLogin.btnLoginClick(Sender: TObject);
-begin
-  if (UserExists) and (PasswordIsValid) then
-  begin
-    try
-      try
-        edUsername.Enabled := false;
-        edPassword.Enabled := false;
-        btnLogin.Enabled := false;
-        btnCancel.Enabled := false;
-
-        lblStatus.Visible := true;
-        prbStatus.Visible := true;
-        lbErrorMessage.Visible := false;
-
-        self.Update;
-
-        ifn := TIFinance.Create;
-
-        LoadModules;
-        SettingAccessRights;
-        LoadSettings;
-
-        ModalResult := 1;
-      except
-        on e: Exception do
-        begin
-          MessageDlg('An exception has been detected and the application needs to close. ' +
-            'Please contact the administrator with the message below.' + #13#10 + #13#10 +
-            e.Message,
-            mtError,[mbOK],0);
-          Application.Terminate;
-        end;
-      end;
-    finally
-
-    end;
-  end
-  else
-  begin
-    lbErrorMessage.Visible := true;
-    edUsername.SetFocus;
   end;
 end;
 
@@ -175,6 +128,69 @@ begin
 
   while StartTimer < EndTimer do
     StartTimer := GetTickCount;
+end;
+
+procedure TfrmLogin.pnlTitleMouseDown(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+const
+  SC_DRAGMOVE = $F012;
+begin
+  if Button = mbLeft then
+  begin
+    ReleaseCapture;
+    Perform(WM_SYSCOMMAND, SC_DRAGMOVE, 0);
+  end;
+end;
+
+procedure TfrmLogin.btnLoginClick(Sender: TObject);
+begin
+if (UserExists) and (PasswordIsValid) then
+  begin
+    try
+      try
+        edUsername.Enabled := false;
+        edPassword.Enabled := false;
+        btnLogin.Enabled := false;
+        btnClose.Enabled := false;
+
+        lblStatus.Visible := true;
+        prbStatus.Visible := true;
+        lbErrorMessage.Visible := false;
+
+        self.Update;
+
+        ifn := TIFinance.Create;
+
+        LoadModules;
+        SettingAccessRights;
+        LoadSettings;
+
+        ModalResult := 1;
+      except
+        on e: Exception do
+        begin
+          MessageDlg('An exception has been detected and the application needs to close. ' +
+            'Please contact the administrator with the message below.' + #13#10 + #13#10 +
+            e.Message,
+            mtError,[mbOK],0);
+          Application.Terminate;
+        end;
+      end;
+    finally
+
+    end;
+  end
+  else
+  begin
+    lbErrorMessage.Visible := true;
+    edUsername.SetFocus;
+  end;
+end;
+
+procedure TfrmLogin.btnCloseClick(Sender: TObject);
+begin
+  inherited;
+  ModalResult := mrAbort;
 end;
 
 procedure TfrmLogin.LoadSettings;
@@ -273,6 +289,8 @@ begin
   with dmApplication.dstUser do
   begin
     ifn.User.UserId := FieldByName('id_num').AsString;
+    ifn.User.Name := FieldByName('name').Asstring;
+
     while not Eof do
     begin
       right := FieldbyName('privilege_code').AsString;

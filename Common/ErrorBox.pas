@@ -9,9 +9,11 @@ uses
 
 type
   TfrmErrorBox = class(TfrmBasePopup)
-    btnClose: TRzButton;
     lblMessage: TJvLabel;
     Image1: TImage;
+    pnlClose: TRzPanel;
+    btnClose: TRzShapeButton;
+    procedure btnCloseClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -38,5 +40,11 @@ begin
   lblMessage.Caption := errMessage;
 end;
 
+
+procedure TfrmErrorBox.btnCloseClick(Sender: TObject);
+begin
+  inherited;
+  ModalResult := mrClose;
+end;
 
 end.

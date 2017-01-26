@@ -29,11 +29,9 @@ type
     edMiddlename: TRzDBEdit;
     RzDBLookupComboBox1: TRzDBLookupComboBox;
     RzDBLookupComboBox2: TRzDBLookupComboBox;
-    RzGroupBox1: TRzGroupBox;
     tsReferences: TRzTabSheet;
     edAge: TRzEdit;
     bteReferee: TRzButtonEdit;
-    JvGroupHeader2: TJvGroupHeader;
     JvLabel4: TJvLabel;
     RzDBEdit4: TRzDBEdit;
     JvLabel5: TJvLabel;
@@ -47,7 +45,6 @@ type
     bteLandlord: TRzButtonEdit;
     edLandlordContact: TRzEdit;
     JvLabel16: TJvLabel;
-    JvGroupHeader4: TJvGroupHeader;
     JvLabel9: TJvLabel;
     JvLabel10: TJvLabel;
     RzDBEdit6: TRzDBEdit;
@@ -60,7 +57,6 @@ type
     bteLandlord2: TRzButtonEdit;
     JvLabel19: TJvLabel;
     edLandlordContact2: TRzEdit;
-    JvGroupHeader5: TJvGroupHeader;
     JvLabel20: TJvLabel;
     JvLabel21: TJvLabel;
     RzDBEdit8: TRzDBEdit;
@@ -68,7 +64,6 @@ type
     JvLabel22: TJvLabel;
     RzDBEdit11: TRzDBEdit;
     RzDBEdit10: TRzDBEdit;
-    JvGroupHeader6: TJvGroupHeader;
     JvLabel23: TJvLabel;
     JvLabel24: TJvLabel;
     bteEmployer: TRzButtonEdit;
@@ -89,14 +84,10 @@ type
     RzDBEdit16: TRzDBEdit;
     JvLabel34: TJvLabel;
     JvLabel36: TJvLabel;
-    urlTakePhoto: TRzURLLabel;
     RzDBLookupComboBox8: TRzDBLookupComboBox;
-    JvGroupHeader1: TJvGroupHeader;
     tsIdentityInfo: TRzTabSheet;
     pnlFamRef: TRzPanel;
     grRefList: TRzDBGrid;
-    pcDetail: TRzPageControl;
-    tsFamRefDetail: TRzTabSheet;
     tsLoansHistory: TRzTabSheet;
     pnlIdentity: TRzPanel;
     grIdentityList: TRzDBGrid;
@@ -105,7 +96,6 @@ type
     pnlLoans: TRzPanel;
     grLoans: TRzDBGrid;
     PhotoLauncher: TRzLauncher;
-    imgClient: TImage;
     bteBank: TRzButtonEdit;
     mmBranch: TRzMemo;
     RzDBNumericEdit1: TRzDBNumericEdit;
@@ -118,40 +108,10 @@ type
     btnNewId: TRzButton;
     chbNoExpiry: TRzDBCheckBox;
     btnRemoveId: TRzButton;
-    btnNewRef: TRzButton;
-    btnRemoveRef: TRzButton;
-    JvLabel39: TJvLabel;
-    RzDBLookupComboBox9: TRzDBLookupComboBox;
-    JvGroupHeader7: TJvGroupHeader;
-    JvLabel40: TJvLabel;
-    JvLabel41: TJvLabel;
-    JvLabel42: TJvLabel;
-    RzDBEdit1: TRzDBEdit;
-    RzDBEdit2: TRzDBEdit;
-    RzDBEdit3: TRzDBEdit;
-    RzDBCheckBox1: TRzDBCheckBox;
-    RzDBCheckBox2: TRzDBCheckBox;
-    JvGroupHeader8: TJvGroupHeader;
-    JvLabel43: TJvLabel;
-    JvLabel44: TJvLabel;
-    JvLabel45: TJvLabel;
-    RzDBLookupComboBox10: TRzDBLookupComboBox;
-    RzDBEdit13: TRzDBEdit;
-    RzDBEdit14: TRzDBEdit;
-    JvGroupHeader9: TJvGroupHeader;
-    JvLabel46: TJvLabel;
-    JvLabel47: TJvLabel;
-    RzDBEdit19: TRzDBEdit;
-    RzDBEdit20: TRzDBEdit;
     urlRefreshIdentList: TRzURLLabel;
     urlRefreshRefList: TRzURLLabel;
-    urlCopyClientAddress: TRzURLLabel;
     dteBirthdate: TRzDBDateTimeEdit;
     dteExpiry: TRzDBDateTimeEdit;
-    JvLabel48: TJvLabel;
-    RzDBLookupComboBox11: TRzDBLookupComboBox;
-    imgPhoto: TImage;
-    JvGroupHeader10: TJvGroupHeader;
     JvLabel63: TJvLabel;
     RzComboBox1: TRzComboBox;
     RzDBMemo1: TRzDBMemo;
@@ -164,6 +124,60 @@ type
     btnRemoveAccessibility: TRzButton;
     RzGroupBox2: TRzGroupBox;
     RzGroupBox3: TRzGroupBox;
+    RzGroupBox4: TRzGroupBox;
+    RzGroupBox5: TRzGroupBox;
+    pnlToolbar: TRzPanel;
+    pnlClientMainBtn: TRzPanel;
+    imgClientMain: TImage;
+    pnlFamRefBtn: TRzPanel;
+    imgFamRef: TImage;
+    pnlIdentInfoBtn: TRzPanel;
+    imgIdentInfo: TImage;
+    pnlLoanHistoryBtn: TRzPanel;
+    imgLoanHistory: TImage;
+    pnlLoanClassAccess: TRzPanel;
+    imgLoanClass: TImage;
+    RzGroupBox6: TRzGroupBox;
+    RzGroupBox7: TRzGroupBox;
+    RzGroupBox8: TRzGroupBox;
+    pnlTakePhoto: TRzPanel;
+    imgTakePhoto: TImage;
+    pnlPhoto: TRzPanel;
+    imgClient: TImage;
+    pnlFamRefDetail: TRzPanel;
+    pnlAddFamRef: TRzPanel;
+    sbtnNewFamRef: TRzShapeButton;
+    pnlSave: TRzPanel;
+    sbtnSaveFamRef: TRzShapeButton;
+    pnlCancel: TRzPanel;
+    sbtnCancelFamRef: TRzShapeButton;
+    pnlDetailHead: TRzPanel;
+    lblDetailHeadCaption: TRzLabel;
+    JvLabel40: TJvLabel;
+    RzDBEdit3: TRzDBEdit;
+    JvLabel41: TJvLabel;
+    RzDBEdit2: TRzDBEdit;
+    RzDBEdit1: TRzDBEdit;
+    JvLabel42: TJvLabel;
+    JvLabel39: TJvLabel;
+    RzDBLookupComboBox9: TRzDBLookupComboBox;
+    RzDBCheckBox1: TRzDBCheckBox;
+    RzDBCheckBox2: TRzDBCheckBox;
+    JvLabel48: TJvLabel;
+    RzDBLookupComboBox11: TRzDBLookupComboBox;
+    urlCopyClientAddress: TRzURLLabel;
+    RzDBLookupComboBox10: TRzDBLookupComboBox;
+    JvLabel45: TJvLabel;
+    RzDBEdit13: TRzDBEdit;
+    JvLabel44: TJvLabel;
+    JvLabel43: TJvLabel;
+    RzDBEdit14: TRzDBEdit;
+    JvLabel47: TJvLabel;
+    RzDBEdit20: TRzDBEdit;
+    RzDBEdit19: TRzDBEdit;
+    JvLabel46: TJvLabel;
+    pnlRemoveFamRef: TRzPanel;
+    sbtnRemoveFamRef: TRzShapeButton;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -176,26 +190,32 @@ type
     procedure bteLandlord2AltBtnClick(Sender: TObject);
     procedure bteEmployerButtonClick(Sender: TObject);
     procedure bteEmployerAltBtnClick(Sender: TObject);
-    procedure urlTakePhotoClick(Sender: TObject);
     procedure PhotoLauncherFinished(Sender: TObject);
     procedure bteImmHeadButtonClick(Sender: TObject);
     procedure bteImmHeadAltBtnClick(Sender: TObject);
     procedure bteBankButtonClick(Sender: TObject);
     procedure bteBankAltBtnClick(Sender: TObject);
-    procedure pcClientChange(Sender: TObject);
     procedure btnNewIdClick(Sender: TObject);
-    procedure pcClientChanging(Sender: TObject; NewIndex: Integer;
-      var AllowChange: Boolean);
     procedure btnRemoveIdClick(Sender: TObject);
     procedure urlRefreshIdentListClick(Sender: TObject);
     procedure urlRefreshRefListClick(Sender: TObject);
     procedure dteBirthdateChange(Sender: TObject);
-    procedure btnNewRefClick(Sender: TObject);
-    procedure btnRemoveRefClick(Sender: TObject);
     procedure cmbIdTypeClick(Sender: TObject);
     procedure urlCopyClientAddressClick(Sender: TObject);
     procedure btnRemoveAccessibilityClick(Sender: TObject);
     procedure btnMakeAccessibleClick(Sender: TObject);
+    procedure imgClientMainMouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+    procedure imgClientMainMouseUp(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+    procedure imgClientMainClick(Sender: TObject);
+    procedure imgFamRefClick(Sender: TObject);
+    procedure imgIdentInfoClick(Sender: TObject);
+    procedure imgLoanClassClick(Sender: TObject);
+    procedure imgLoanHistoryClick(Sender: TObject);
+    procedure imgTakePhotoClick(Sender: TObject);
+    procedure sbtnNewFamRefClick(Sender: TObject);
+    procedure sbtnRemoveFamRefClick(Sender: TObject);
   private
     { Private declarations }
     procedure CopyAddress;
@@ -204,7 +224,8 @@ type
     procedure ChangeIdentControlState;
     procedure ChangeFamRefControlState;
     procedure CallErrorBox(const error: string);
-    procedure ShowTabs(const show: boolean = true);
+    procedure HideTabs;
+    procedure SetActiveTab(const tabIndex: integer);
 
     function CheckClientInfo: string;
     function CheckIdentInfo: string;
@@ -548,42 +569,6 @@ begin
   end;
 end;
 
-procedure TfrmClientMain.btnNewRefClick(Sender: TObject);
-begin
-  with TfrmReferenceSearch.Create(nil) do
-  begin
-    try
-      ShowModal;
-
-      if ModalResult = mrOK then
-      begin
-        with grRefList.DataSource.DataSet do
-        begin
-          if Trim(cln.Id) = Trim(refc.Id) then
-            CallErrorBox('Client cannot be declared as a reference.')
-          else if cln.ReferenceExists(refc) then
-            CallErrorBox('Reference already exists.')
-          else
-          begin
-            Append;
-            FieldByName('ref_entity_id').AsString := refc.Id;
-            Post;
-
-            ChangeFamRefControlState;
-
-            refc.Free;
-          end;
-        end;
-      end;
-
-      Free;
-    except
-      on e: Exception do
-        ShowMessage(e.Message);
-    end;
-  end;
-end;
-
 procedure TfrmClientMain.btnRemoveAccessibilityClick(Sender: TObject);
 const
   CONF = 'Are you sure you want to remove client access to the selected loan class?';
@@ -650,37 +635,6 @@ begin
   end;
 end;
 
-procedure TfrmClientMain.btnRemoveRefClick(Sender: TObject);
-const
-  CONF = 'Are you sure you want to delete the selected reference?';
-var
-  id: string;
-begin
-  with TfrmDecisionBox.Create(nil,CONF) do
-  begin
-    try
-      if grRefList.DataSource.DataSet.RecordCount > 0 then
-      begin
-        id := grRefList.DataSource.DataSet.FieldByName('ref_entity_id').AsString;
-
-        ShowModal;
-
-        if ModalResult = mrYes then
-        begin
-          grRefList.DataSource.DataSet.Delete;
-          cln.RemoveReference(id);
-          ChangeFamRefControlState;
-        end;
-
-        Free;
-      end;
-    except
-      on e: Exception do
-        ShowMessage(e.Message);
-    end;
-  end;
-end;
-
 procedure TfrmClientMain.FormClose(Sender: TObject; var Action: TCloseAction);
 var
   intf: IDock;
@@ -702,12 +656,103 @@ begin
   inherited;
 end;
 
-procedure TfrmClientMain.ShowTabs(const show: boolean = true);
+procedure TfrmClientMain.HideTabs;
 var
   i: integer;
 begin
-  for i := FAMREF to pcClient.PageCount - 1 do
-    pcClient.Pages[i].TabVisible := show;
+  for i := 0 to pcClient.PageCount - 1 do
+    pcClient.Pages[i].TabVisible := false;
+end;
+
+procedure TfrmClientMain.SetActiveTab(const tabIndex: Integer);
+begin
+  pcClient.ActivePageIndex := tabIndex;
+
+  case tabIndex of
+    FAMREF:
+      begin
+        OpenGridDataSources(pnlFamRef);
+        OpenDropdownDataSources(pnlFamRefDetail);
+        ChangeFamRefControlState;
+      end;
+    IDENT:
+      begin
+        OpenGridDataSources(pnlIdentity);
+        OpenDropdownDataSources(tsIdentDetail);
+        ChangeIdentControlState;
+
+        grIdentityList.QuickCompare.Active := grIdentityList.DataSource.DataSet.RecordCount > 0;
+        grIdentityList.QuickCompare.FieldValue := ifn.AppDate;
+      end;
+    LOANS:
+      begin
+        OpenGridDataSources(pnlLoans);
+      end;
+    LOANCLASSACCESS:
+      begin
+        OpenGridDataSources(tsLoanClassAccess);
+      end;
+  end;
+end;
+
+procedure TfrmClientMain.imgClientMainClick(Sender: TObject);
+begin
+  inherited;
+  SetActiveTab(CLIENT);
+end;
+
+procedure TfrmClientMain.imgClientMainMouseDown(Sender: TObject;
+  Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+begin
+  inherited;
+  ButtonDown(Sender);
+end;
+
+procedure TfrmClientMain.imgClientMainMouseUp(Sender: TObject;
+  Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+begin
+  inherited;
+    ButtonUp(Sender);
+end;
+
+procedure TfrmClientMain.imgFamRefClick(Sender: TObject);
+begin
+  inherited;
+  SetActiveTab(FAMREF);
+end;
+
+procedure TfrmClientMain.imgIdentInfoClick(Sender: TObject);
+begin
+  inherited;
+  SetActiveTab(IDENT);
+end;
+
+procedure TfrmClientMain.imgLoanClassClick(Sender: TObject);
+begin
+  inherited;
+  SetActiveTab(LOANCLASSACCESS);
+end;
+
+procedure TfrmClientMain.imgLoanHistoryClick(Sender: TObject);
+begin
+  inherited;
+  SetActiveTab(LOANS);
+end;
+
+procedure TfrmClientMain.imgTakePhotoClick(Sender: TObject);
+begin
+  inherited;
+  try
+    if not PhotoLauncher.Running then
+    begin
+      PhotoLauncher.Parameters := ifn.PhotoPath + ' ' + Trim(cln.Id);
+      PhotoLauncher.Launch;
+      Application.MainForm.Enabled := false;
+    end;
+  except
+    on e: Exception do
+      CallErrorBox(e.Message);
+  end;
 end;
 
 procedure TfrmClientMain.FormCreate(Sender: TObject);
@@ -721,7 +766,6 @@ begin
   begin
     cln := TClient.Create;
     cln.Add;
-    ShowTabs(false);
   end
   else
   begin
@@ -730,6 +774,7 @@ begin
   end;
 
   SetUnBoundControls;
+  HideTabs;
 end;
 
 procedure TfrmClientMain.FormShow(Sender: TObject);
@@ -775,6 +820,73 @@ begin
   end;
 end;
 
+procedure TfrmClientMain.sbtnNewFamRefClick(Sender: TObject);
+begin
+  with TfrmReferenceSearch.Create(nil) do
+  begin
+    try
+      ShowModal;
+
+      if ModalResult = mrOK then
+      begin
+        with grRefList.DataSource.DataSet do
+        begin
+          if Trim(cln.Id) = Trim(refc.Id) then
+            CallErrorBox('Client cannot be declared as a reference.')
+          else if cln.ReferenceExists(refc) then
+            CallErrorBox('Reference already exists.')
+          else
+          begin
+            Append;
+            FieldByName('ref_entity_id').AsString := refc.Id;
+            Post;
+
+            ChangeFamRefControlState;
+
+            refc.Free;
+          end;
+        end;
+      end;
+
+      Free;
+    except
+      on e: Exception do
+        ShowMessage(e.Message);
+    end;
+  end;
+end;
+
+procedure TfrmClientMain.sbtnRemoveFamRefClick(Sender: TObject);
+const
+  CONF = 'Are you sure you want to delete the selected reference?';
+var
+  id: string;
+begin
+  with TfrmDecisionBox.Create(nil,CONF) do
+  begin
+    try
+      if grRefList.DataSource.DataSet.RecordCount > 0 then
+      begin
+        id := grRefList.DataSource.DataSet.FieldByName('ref_entity_id').AsString;
+
+        ShowModal;
+
+        if ModalResult = mrYes then
+        begin
+          grRefList.DataSource.DataSet.Delete;
+          cln.RemoveReference(id);
+          ChangeFamRefControlState;
+        end;
+
+        Free;
+      end;
+    except
+      on e: Exception do
+        ShowMessage(e.Message);
+    end;
+  end;
+end;
+
 procedure TfrmClientMain.Cancel;
 begin
   cln.Cancel;
@@ -800,7 +912,6 @@ begin
 
   lblClientName.Caption := UpperCase(cln.Name + '   ' + displayId);
 
-  ShowTabs;
   ChangeControlState;
 end;
 
@@ -905,22 +1016,6 @@ begin
   end;
 end;
 
-procedure TfrmClientMain.urlTakePhotoClick(Sender: TObject);
-begin
-  inherited;
-  try
-    if not PhotoLauncher.Running then
-    begin
-      PhotoLauncher.Parameters := ifn.PhotoPath + ' ' + Trim(cln.Id);
-      PhotoLauncher.Launch;
-      Application.MainForm.Enabled := false;
-    end;
-  except
-    on e: Exception do
-      CallErrorBox(e.Message);
-  end;
-end;
-
 procedure TfrmClientMain.CopyAddress;
 begin
   cln.CopyAddress;
@@ -1002,42 +1097,6 @@ begin
     Application.MainForm.Enabled := true;
 end;
 
-procedure TfrmClientMain.pcClientChange(Sender: TObject);
-begin
-  case pcClient.ActivePageIndex of
-    FAMREF:
-      begin
-        OpenGridDataSources(pnlFamRef);
-        OpenDropdownDataSources(tsFamRefDetail);
-        ChangeFamRefControlState;
-      end;
-    IDENT:
-      begin
-        OpenGridDataSources(pnlIdentity);
-        OpenDropdownDataSources(tsIdentDetail);
-        ChangeIdentControlState;
-
-        grIdentityList.QuickCompare.Active := grIdentityList.DataSource.DataSet.RecordCount > 0;
-        grIdentityList.QuickCompare.FieldValue := ifn.AppDate;
-      end;
-    LOANS:
-      begin
-        OpenGridDataSources(pnlLoans);
-      end;
-    LOANCLASSACCESS:
-      begin
-        OpenGridDataSources(tsLoanClassAccess);
-      end;
-  end;
-end;
-
-procedure TfrmClientMain.pcClientChanging(Sender: TObject; NewIndex: Integer;
-  var AllowChange: Boolean);
-begin
-  inherited;
-  AllowChange := (cln.HasId) or (NewIndex = CLIENT);
-end;
-
 procedure TfrmClientMain.ChangeControlState;
 var
   hasId: boolean;
@@ -1048,7 +1107,7 @@ begin
   edFirstName.ReadOnly := hasId;
   edMiddleName.ReadOnly := hasId;
 
-  urlTakePhoto.Enabled := hasId;
+  pnlToolBar.Visible := hasId;
 end;
 
 procedure TfrmClientMain.ChangeFamRefControlState;
@@ -1057,9 +1116,9 @@ var
 begin
   with grRefList.DataSource.DataSet do
   begin
-    for i := 0 to tsFamRefDetail.ControlCount - 1 do
-      if tsFamRefDetail.Controls[i].Tag = 1 then
-        tsFamRefDetail.Controls[i].Enabled := (State in [dsInsert,dsEdit]) or
+    for i := 0 to pnlFamRefDetail.ControlCount - 1 do
+      if pnlFamRefDetail.Controls[i].Tag = 1 then
+        pnlFamRefDetail.Controls[i].Enabled := (State in [dsInsert,dsEdit]) or
                 (RecordCount > 0);
   end;
 end;

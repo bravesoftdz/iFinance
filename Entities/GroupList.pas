@@ -14,6 +14,8 @@ type
   TfrmGroupList = class(TfrmBaseGridDetail)
     JvLabel1: TJvLabel;
     edGroupName: TRzDBEdit;
+    cbxPrivate: TRzDBCheckBox;
+    cbxActive: TRzDBCheckBox;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private

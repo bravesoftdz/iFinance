@@ -4,8 +4,8 @@ object frmMain: TfrmMain
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsNone
   Caption = 'i-Finance - Integrated Financial Management Information System'
-  ClientHeight = 667
-  ClientWidth = 1172
+  ClientHeight = 680
+  ClientWidth = 1180
   Color = 14273211
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -20,7 +20,7 @@ object frmMain: TfrmMain
   object pnlTitle: TRzPanel
     Left = 0
     Top = 0
-    Width = 1172
+    Width = 1180
     Height = 21
     Align = alTop
     BorderOuter = fsNone
@@ -33,13 +33,11 @@ object frmMain: TfrmMain
     TabOrder = 0
     VisualStyle = vsGradient
     OnMouseDown = pnlTitleMouseDown
-    ExplicitTop = 30
-    ExplicitWidth = 1149
     DesignSize = (
-      1172
+      1180
       21)
     object imgClose: TImage
-      Left = 1151
+      Left = 1159
       Top = 2
       Width = 16
       Height = 16
@@ -91,8 +89,8 @@ object frmMain: TfrmMain
   object pnlMain: TRzPanel
     Left = 0
     Top = 21
-    Width = 1172
-    Height = 646
+    Width = 1180
+    Height = 659
     Align = alClient
     BorderOuter = fsNone
     BorderSides = [sdLeft, sdRight, sdBottom]
@@ -100,12 +98,11 @@ object frmMain: TfrmMain
     BorderWidth = 1
     Color = 12955288
     TabOrder = 1
-    ExplicitTop = 23
     DesignSize = (
-      1172
-      646)
+      1180
+      659)
     object lblWelcome: TRzLabel
-      Left = 1018
+      Left = 1026
       Top = 11
       Width = 133
       Height = 14
@@ -118,12 +115,13 @@ object frmMain: TfrmMain
       Font.Name = 'Tahoma'
       Font.Style = [fsBold]
       ParentFont = False
+      ExplicitLeft = 1018
     end
     object pnlNavBar: TRzPanel
       Left = 17
       Top = 86
       Width = 183
-      Height = 537
+      Height = 550
       Anchors = [akLeft, akTop, akBottom]
       BorderOuter = fsNone
       BorderColor = 6572079
@@ -136,12 +134,11 @@ object frmMain: TfrmMain
       Font.Style = []
       ParentFont = False
       TabOrder = 0
-      ExplicitHeight = 500
       object npMain: TJvNavigationPane
         Left = 1
         Top = 1
         Width = 181
-        Height = 535
+        Height = 548
         ActivePage = nppClient
         Align = alClient
         BorderWidth = 0
@@ -179,12 +176,11 @@ object frmMain: TfrmMain
         NavPanelHotTrackFont.Style = [fsBold]
         NavPanelHotTrackFontOptions = [hoPreserveColor, hoPreserveStyle]
         OnChange = npMainChange
-        ExplicitHeight = 498
         object nppClient: TJvNavPanelPage
           Left = 0
           Top = 0
           Width = 181
-          Height = 360
+          Height = 373
           Hint = ''
           Background.Stretch = False
           Background.Proportional = False
@@ -193,7 +189,6 @@ object frmMain: TfrmMain
           Background.Transparent = False
           Color = 14273211
           Caption = 'Clients'
-          ExplicitHeight = 323
           object lblRecentlyAdded: TRzURLLabel
             Left = 15
             Top = 15
@@ -271,7 +266,7 @@ object frmMain: TfrmMain
           Left = 0
           Top = 0
           Width = 181
-          Height = 360
+          Height = 373
           Hint = ''
           Background.Stretch = False
           Background.Proportional = False
@@ -280,7 +275,6 @@ object frmMain: TfrmMain
           Background.Transparent = False
           Color = 14273211
           Caption = 'Loans'
-          ExplicitHeight = 323
           object urlCancelled: TRzURLLabel
             Left = 15
             Top = 90
@@ -402,7 +396,7 @@ object frmMain: TfrmMain
           Left = 0
           Top = 0
           Width = 181
-          Height = 360
+          Height = 373
           Hint = ''
           Background.Stretch = False
           Background.Proportional = False
@@ -410,13 +404,12 @@ object frmMain: TfrmMain
           Background.Tile = False
           Background.Transparent = False
           Caption = 'Expense Managment'
-          ExplicitHeight = 323
         end
         object nppInventory: TJvNavPanelPage
           Left = 0
           Top = 0
           Width = 181
-          Height = 360
+          Height = 373
           Hint = ''
           Background.Stretch = False
           Background.Proportional = False
@@ -424,13 +417,12 @@ object frmMain: TfrmMain
           Background.Tile = False
           Background.Transparent = False
           Caption = 'Inventory'
-          ExplicitHeight = 323
         end
         object nppReports: TJvNavPanelPage
           Left = 0
           Top = 0
           Width = 181
-          Height = 360
+          Height = 373
           Hint = ''
           Background.Stretch = False
           Background.Proportional = False
@@ -438,23 +430,20 @@ object frmMain: TfrmMain
           Background.Tile = False
           Background.Transparent = False
           Caption = 'Reports'
-          ExplicitHeight = 323
         end
       end
     end
     object pnlDockMain: TRzPanel
       Left = 217
       Top = 86
-      Width = 934
-      Height = 537
+      Width = 942
+      Height = 550
       Anchors = [akLeft, akTop, akRight, akBottom]
       BorderOuter = fsNone
       BorderColor = 6572079
       BorderWidth = 1
       Color = 14273211
       TabOrder = 1
-      ExplicitWidth = 911
-      ExplicitHeight = 530
     end
     object pnlAddClient: TRzPanel
       Left = 17

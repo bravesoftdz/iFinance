@@ -21,24 +21,24 @@ type
     btnNew: TRzButton;
     pnlDetail: TRzPanel;
     pnlAdd: TRzPanel;
-    imgAdd: TImage;
     pnlSave: TRzPanel;
-    imgSave: TImage;
     pnlCancel: TRzPanel;
-    imgCancel: TImage;
+    pnlDetailHead: TRzPanel;
+    lblDetailHeadCaption: TRzLabel;
+    sbtnNew: TRzShapeButton;
+    sbtnSave: TRzShapeButton;
+    sbtnCancel: TRzShapeButton;
     procedure FormCreate(Sender: TObject);
     procedure edSearchKeyChange(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
-    procedure imgAddClick(Sender: TObject);
-    procedure imgSaveClick(Sender: TObject);
-    procedure imgCancelClick(Sender: TObject);
-    procedure imgAddMouseDown(Sender: TObject; Button: TMouseButton;
-      Shift: TShiftState; X, Y: Integer);
-    procedure imgAddMouseUp(Sender: TObject; Button: TMouseButton;
-      Shift: TShiftState; X, Y: Integer);
+    procedure sbtnNewClick(Sender: TObject);
+    procedure sbtnSaveClick(Sender: TObject);
+    procedure sbtnCancelClick(Sender: TObject);
   private
     { Private declarations }
+    procedure CallErrorBox(const error: string);
+    procedure ShowConfirmation;
   protected
     procedure SearchList; virtual; abstract;
     function EntryIsValid: boolean; virtual; abstract;
@@ -56,7 +56,7 @@ implementation
 {$R *.dfm}
 
 uses
-  FormsUtil;
+  FormsUtil, ConfBox, ErrorBox;
 
 procedure TfrmBaseGridDetail.edSearchKeyChange(Sender: TObject);
 begin
@@ -67,7 +67,7 @@ end;
 procedure TfrmBaseGridDetail.FormClose(Sender: TObject;
   var Action: TCloseAction);
 begin
-  OpenDropdownDataSources(tsDetail,false);
+  OpenDropdownDataSources(pnlDetail,false);
   OpenGridDataSources(pnlList,false);
   inherited;
 end;
@@ -81,39 +81,7 @@ end;
 procedure TfrmBaseGridDetail.FormShow(Sender: TObject);
 begin
   inherited;
-  OpenDropdownDataSources(tsDetail);
-end;
-
-procedure TfrmBaseGridDetail.imgAddClick(Sender: TObject);
-begin
-  inherited;
-  grList.DataSource.DataSet.Append;
-end;
-
-procedure TfrmBaseGridDetail.imgAddMouseDown(Sender: TObject;
-  Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
-begin
-  inherited;
-  ButtonDown(Sender);
-end;
-
-procedure TfrmBaseGridDetail.imgAddMouseUp(Sender: TObject;
-  Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
-begin
-  inherited;
-  ButtonUp(Sender);
-end;
-
-procedure TfrmBaseGridDetail.imgCancelClick(Sender: TObject);
-begin
-  inherited;
-  Cancel;
-end;
-
-procedure TfrmBaseGridDetail.imgSaveClick(Sender: TObject);
-begin
-  inherited;
-  Save;
+  OpenDropdownDataSources(pnlDetail);
 end;
 
 function TfrmBaseGridDetail.Save: boolean;
@@ -130,9 +98,54 @@ begin
   end;
 end;
 
+procedure TfrmBaseGridDetail.sbtnCancelClick(Sender: TObject);
+begin
+  inherited;
+  Cancel;
+end;
+
+procedure TfrmBaseGridDetail.sbtnNewClick(Sender: TObject);
+begin
+  inherited;
+  grList.DataSource.DataSet.Append;
+end;
+
+procedure TfrmBaseGridDetail.sbtnSaveClick(Sender: TObject);
+begin
+  inherited;
+  try
+    if Save then ShowConfirmation;
+  except
+  on e: Exception do
+    CallErrorBox(e.Message);
+  end;
+end;
+
 procedure TfrmBaseGridDetail.Cancel;
 begin
   grList.DataSource.DataSet.Cancel;
+end;
+
+procedure TfrmBaseGridDetail.CallErrorBox(const error: string);
+begin
+  with TfrmErrorBox.Create(self,error) do
+  try
+    ShowModal;
+  finally
+    Free;
+  end;
+end;
+
+procedure TfrmBaseGridDetail.ShowConfirmation;
+const
+  conf = 'Record has been saved successfully.';
+begin
+  with TfrmConfBox.Create(self,conf) do
+  try
+    ShowModal;
+  finally
+    Free;
+  end;
 end;
 
 end.

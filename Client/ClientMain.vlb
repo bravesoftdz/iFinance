@@ -49,9 +49,6 @@ Coordinates=1143,56,73,36
 [dmClient.dstEntity]
 Coordinates=759,1,119,58
 
-[RzGroupBox1]
-Coordinates=258,173,95,58
-
 [RzDBEdit16]
 Coordinates=1143,166,84,36
 
@@ -66,9 +63,6 @@ Coordinates=1143,331,73,36
 
 [edLandlordContact]
 Coordinates=1143,386,123,36
-
-[JvGroupHeader6]
-Coordinates=1143,441,112,36
 
 [RzDBEdit11]
 Coordinates=1143,496,84,36
@@ -96,9 +90,6 @@ Coordinates=749,535,73,36
 
 [bteReferee]
 Coordinates=670,535,78,36
-
-[JvGroupHeader5]
-Coordinates=551,535,112,36
 
 [dmClient.dstAddressInfo2]
 Coordinates=556,232,162,58
@@ -129,9 +120,6 @@ Coordinates=171,1,148,36
 
 [RzDBLookupComboBox7]
 Coordinates=1322,111,160,36
-
-[JvGroupHeader4]
-Coordinates=1322,166,112,36
 
 [JvLabel23]
 Coordinates=1322,221,73,36
@@ -214,9 +202,6 @@ Coordinates=556,155,165,36
 [JvLabel26]
 Coordinates=17,609,73,36
 
-[JvGroupHeader2]
-Coordinates=1520,1,112,36
-
 [dmClient.dstResStatus]
 Coordinates=357,78,146,58
 
@@ -278,7 +263,7 @@ Coordinates=863,683,111,124
 Coordinates=724,683,136,36
 
 []
-Coordinates=728,609,112,36
+Coordinates=258,173,95,58
 
 [edLastname]
 Coordinates=353,535,77,36
@@ -306,9 +291,6 @@ Coordinates=73,77,73,58
 
 [tsReferences]
 Coordinates=1520,56,77,36
-
-[urlTakePhoto]
-Coordinates=152,77,94,58
 
 [dmClient.]
 Coordinates=24,365,132,36

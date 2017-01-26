@@ -5,7 +5,7 @@ inherited frmBasePopup: TfrmBasePopup
   ClientWidth = 543
   Position = poMainFormCenter
   PixelsPerInch = 96
-  TextHeight = 13
+  TextHeight = 14
   object pnlTitle: TRzPanel
     Left = 0
     Top = 0
@@ -15,9 +15,10 @@ inherited frmBasePopup: TfrmBasePopup
     BorderOuter = fsNone
     BorderColor = clBlack
     BorderWidth = 1
+    Color = 8675134
     GradientColorStyle = gcsCustom
-    GradientColorStart = 8806462
-    GradientColorStop = 11110503
+    GradientColorStart = 6572079
+    GradientColorStop = 8675134
     GradientDirection = gdVerticalEnd
     TabOrder = 0
     VisualStyle = vsGradient
@@ -83,7 +84,7 @@ inherited frmBasePopup: TfrmBasePopup
     BorderSides = [sdLeft, sdRight, sdBottom]
     BorderColor = clBlack
     BorderWidth = 1
-    Color = 13948116
+    Color = 12955288
     TabOrder = 1
   end
 end

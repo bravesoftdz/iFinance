@@ -3,7 +3,7 @@ inherited frmBaseDocked: TfrmBaseDocked
   Caption = 'frmBaseDocked'
   OnClose = FormClose
   PixelsPerInch = 96
-  TextHeight = 13
+  TextHeight = 14
   object pnlTitle: TRzPanel
     Left = 0
     Top = 0
@@ -14,6 +14,7 @@ inherited frmBaseDocked: TfrmBaseDocked
     BorderSides = [sdBottom]
     BorderColor = clBlack
     BorderWidth = 1
+    Color = 8675134
     GradientColorStyle = gcsCustom
     GradientColorStart = 6572079
     GradientColorStop = 8675134
