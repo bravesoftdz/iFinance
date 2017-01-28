@@ -6,7 +6,7 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, BaseSearch, Data.DB, Vcl.StdCtrls,
   Vcl.Grids, Vcl.DBGrids, RzDBGrid, Vcl.Mask, RzEdit, RzLabel,
-  Vcl.Imaging.pngimage, Vcl.ExtCtrls, RzPanel, System.Rtti, ADODB;
+  Vcl.Imaging.pngimage, Vcl.ExtCtrls, RzPanel, System.Rtti, ADODB, RzButton;
 
 type
   TfrmRefereeSearch = class(TfrmBaseSearch)
@@ -27,7 +27,7 @@ var
 implementation
 
 uses
-  EntitiesData, Referee, AppConstants;
+  EntitiesData, Referee, AppConstants, RefereeDetail;
 
 {$R *.dfm}
 
@@ -63,12 +63,27 @@ end;
 
 procedure TfrmRefereeSearch.Add;
 begin
+  with TfrmRefereeDetail.Create(self), grSearch.DataSource.DataSet do
+  begin
+    ref.Add;
 
+    ShowModal;
+
+    if ModalResult = mrOK then
+    begin
+      // refresh the grid
+      DisableControls;
+      Close;
+      Open;
+      Locate('entity_id',ref.Id,[]);
+      EnableControls;
+    end;
+  end;
 end;
 
 procedure TfrmRefereeSearch.Cancel;
 begin
-
+  ref.Destroy;
 end;
 
 end.

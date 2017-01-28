@@ -22,9 +22,6 @@ type
     JvLabel5: TJvLabel;
     JvLabel9: TJvLabel;
     JvLabel6: TJvLabel;
-    JvLabel3: TJvLabel;
-    btnAddComaker: TRzButton;
-    btnRemoveComaker: TRzButton;
     edPurpose: TRzDBEdit;
     edDesiredTerm: TRzDBNumericEdit;
     edAppAmount: TRzDBNumericEdit;
@@ -40,8 +37,6 @@ type
     lbxComakers: TRzListBox;
     JvLabel20: TJvLabel;
     JvLabel4: TJvLabel;
-    RzPanel1: TRzPanel;
-    RzLabel1: TRzLabel;
     pnlAssessment: TRzPanel;
     RzPanel3: TRzPanel;
     RzLabel2: TRzLabel;
@@ -67,13 +62,8 @@ type
     edAppvAmount: TRzDBNumericEdit;
     JvLabel16: TJvLabel;
     edAppvTerm: TRzDBNumericEdit;
-    pcAssessment: TRzPageControl;
-    tsFinInfo: TRzTabSheet;
-    tsMonExp: TRzTabSheet;
-    grFinInfo: TRzDBGrid;
     mmRemarks: TRzDBMemo;
     JvLabel24: TJvLabel;
-    grMonExp: TRzDBGrid;
     imgAssessment: TImage;
     imgApproval: TImage;
     JvLabel17: TJvLabel;
@@ -101,13 +91,37 @@ type
     JvLabel15: TJvLabel;
     mmAddress: TRzMemo;
     mmEmployer: TRzMemo;
+    RzGroupBox1: TRzGroupBox;
+    RzGroupBox2: TRzGroupBox;
+    RzGroupBox3: TRzGroupBox;
+    pnlToolbar: TRzPanel;
+    pnlClientMainBtn: TRzPanel;
+    imgClientMain: TImage;
+    pnlFamRefBtn: TRzPanel;
+    imgFamRef: TImage;
+    pnlIdentInfoBtn: TRzPanel;
+    imgIdentInfo: TImage;
+    pnlLoanHistoryBtn: TRzPanel;
+    imgLoanHistory: TImage;
+    pnlLoanClassAccess: TRzPanel;
+    imgLoanClass: TImage;
+    pnlTakePhoto: TRzPanel;
+    imgTakePhoto: TImage;
+    pnlAdd: TRzPanel;
+    btnAddComaker: TRzShapeButton;
+    RzPanel1: TRzPanel;
+    btnRemoveComaker: TRzShapeButton;
+    RzGroupBox4: TRzGroupBox;
+    grFinInfo: TRzDBGrid;
+    RzGroupBox5: TRzGroupBox;
+    grMonExp: TRzDBGrid;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure bteClientButtonClick(Sender: TObject);
-    procedure btnAddComakerClick(Sender: TObject);
-    procedure btnRemoveComakerClick(Sender: TObject);
     procedure lbxComakersDblClick(Sender: TObject);
     procedure imgAssessmentClick(Sender: TObject);
+    procedure btnAddComakerClick(Sender: TObject);
+    procedure RzShapeButton1Click(Sender: TObject);
   private
     { Private declarations }
     procedure ChangeControlState;
@@ -140,11 +154,11 @@ var
 const
   COLLAPSE = 0;
   EXPAND = 1;
-  TOP_ANCHOR = 192;
-  LEFT_ANCHOR = 17;
-  PANEL_WIDTH = 850;
+  TOP_ANCHOR = 6;
+  LEFT_ANCHOR = 367;
+  PANEL_WIDTH = 495;
   SPACE = 6;
-  COLLAPSED_HEIGHT = 19;
+  COLLAPSED_HEIGHT = 18;
 
 implementation
 
@@ -421,7 +435,7 @@ begin
         end;
       except
         on e: Exception do
-          ShowMessage(e.Message);
+          CallErrorBox(e.Message);
       end;
     finally
       Free;
@@ -467,44 +481,6 @@ begin
     except
       on e: Exception do
         CallErrorBox(e.Message);
-    end;
-  end;
-end;
-
-procedure TfrmLoanMain.btnRemoveComakerClick(Sender: TObject);
-const
-  CONF = 'Are you sure you want to remove the selected comaker?';
-var
-  obj: TObject;
-  id: string;
-begin
-  if (lbxComakers.Items.Count > 0) and (lbxComakers.IndexOf(lbxComakers.SelectedItem) > -1) then
-  begin
-    obj := lbxComakers.Items.Objects[lbxComakers.IndexOf(lbxComakers.SelectedItem)];
-    if Assigned(obj) then
-    begin
-      with TfrmDecisionBox.Create(nil,CONF) do
-      begin
-        try
-          if lbxComakers.Items.Count > 0 then
-          begin
-            id := (obj as TComaker).Id;
-
-            ShowModal;
-
-            if ModalResult = mrYes then
-            begin
-              lbxComakers.Items.Delete(lbxComakers.IndexOf(lbxComakers.SelectedItem));
-              ln.RemoveComaker(TComaker.Create(id));
-            end;
-
-            Free;
-          end;
-        except
-          on e: Exception do
-            ShowMessage(e.Message);
-        end;
-      end;
     end;
   end;
 end;
@@ -577,6 +553,44 @@ begin
   // ChangeControlState;
 
   DisplayLoanStateDetails;
+end;
+
+procedure TfrmLoanMain.RzShapeButton1Click(Sender: TObject);
+const
+  CONF = 'Are you sure you want to remove the selected comaker?';
+var
+  obj: TObject;
+  id: string;
+begin
+  if (lbxComakers.Items.Count > 0) and (lbxComakers.IndexOf(lbxComakers.SelectedItem) > -1) then
+  begin
+    obj := lbxComakers.Items.Objects[lbxComakers.IndexOf(lbxComakers.SelectedItem)];
+    if Assigned(obj) then
+    begin
+      with TfrmDecisionBox.Create(nil,CONF) do
+      begin
+        try
+          if lbxComakers.Items.Count > 0 then
+          begin
+            id := (obj as TComaker).Id;
+
+            ShowModal;
+
+            if ModalResult = mrYes then
+            begin
+              lbxComakers.Items.Delete(lbxComakers.IndexOf(lbxComakers.SelectedItem));
+              ln.RemoveComaker(TComaker.Create(id));
+            end;
+
+            Free;
+          end;
+        except
+          on e: Exception do
+            ShowMessage(e.Message);
+        end;
+      end;
+    end;
+  end;
 end;
 
 procedure TfrmLoanMain.lbxComakersDblClick(Sender: TObject);
@@ -708,7 +722,7 @@ begin
   // get the expanded height and loan state
   if (Sender as TImage).Parent.Parent.Name = 'pnlAssessment' then
   begin
-    ht := 165;
+    ht := 400;
     loanState := lsAssessed;
   end
   else if (Sender as TImage).Parent.Parent.Name = 'pnlApproval' then

@@ -6,7 +6,7 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, BaseSearch, Data.DB, Vcl.StdCtrls,
   Vcl.Grids, Vcl.DBGrids, RzDBGrid, Vcl.Mask, RzEdit, RzLabel,
-  Vcl.Imaging.pngimage, Vcl.ExtCtrls, RzPanel, ADODB, System.Rtti;
+  Vcl.Imaging.pngimage, Vcl.ExtCtrls, RzPanel, ADODB, System.Rtti, RzButton;
 
 type
   TfrmLandlordSearch = class(TfrmBaseSearch)
@@ -48,6 +48,7 @@ begin
       DisableControls;
       Close;
       Open;
+      Locate('entity_id',llord.Id,[]);
       EnableControls;
     end;
   end;

@@ -28,7 +28,7 @@ inherited frmErrorBox: TfrmErrorBox
       Left = 59
       Top = 21
       Width = 270
-      Height = 49
+      Height = 76
       AutoSize = False
       Caption = 'Errors have been found. Unable to save record.'
       Transparent = True

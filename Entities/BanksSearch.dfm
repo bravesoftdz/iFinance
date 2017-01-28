@@ -5,7 +5,7 @@ inherited frmBankSearch: TfrmBankSearch
   ExplicitWidth = 548
   ExplicitHeight = 371
   PixelsPerInch = 96
-  TextHeight = 13
+  TextHeight = 14
   inherited pnlTitle: TRzPanel
     Width = 548
     ExplicitWidth = 548
@@ -28,38 +28,46 @@ inherited frmBankSearch: TfrmBankSearch
       Width = 491
       ExplicitWidth = 491
     end
-    inherited grSearch: TRzDBGrid
+    inherited pnlSearch: TRzPanel
       Width = 530
       Height = 274
-      DataSource = dmAux.dscBranches
-      Columns = <
-        item
-          Expanded = False
-          FieldName = 'bank_name'
-          Width = 250
-          Visible = True
-        end
-        item
-          Expanded = False
-          FieldName = 'branch'
-          Width = 250
-          Visible = True
-        end>
+      ExplicitWidth = 530
+      ExplicitHeight = 274
+      inherited grSearch: TRzDBGrid
+        Width = 528
+        Height = 272
+        DataSource = dmAux.dscBranches
+        Columns = <
+          item
+            Expanded = False
+            FieldName = 'bank_name'
+            Title.Alignment = taCenter
+            Width = 250
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'branch'
+            Title.Alignment = taCenter
+            Width = 250
+            Visible = True
+          end>
+      end
     end
-    inherited btnSelect: TButton
-      Top = 317
-      ExplicitTop = 317
+    inherited pnlSelect: TRzPanel
+      Top = 318
+      ExplicitTop = 318
     end
-    inherited btnNew: TButton
-      Top = 317
+    inherited pnlNew: TRzPanel
+      Top = 318
       Visible = False
-      ExplicitTop = 317
+      ExplicitTop = 318
     end
-    inherited btnClose: TButton
-      Left = 463
-      Top = 317
-      ExplicitLeft = 463
-      ExplicitTop = 317
+    inherited pnlCancel: TRzPanel
+      Left = 488
+      Top = 318
+      ExplicitLeft = 488
+      ExplicitTop = 318
     end
   end
 end

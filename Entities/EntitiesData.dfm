@@ -1,7 +1,7 @@
 object dmEntities: TdmEntities
   OldCreateOrder = False
   Height = 379
-  Width = 606
+  Width = 859
   object dstEntities: TADODataSet
     Connection = dmApplication.acMain
     CursorType = ctStatic
@@ -308,5 +308,91 @@ object dmEntities: TdmEntities
     DataSet = dstRcpPersonal
     Left = 472
     Top = 136
+  end
+  object dstReferee: TADODataSet
+    Tag = 9
+    Connection = dmApplication.acMain
+    BeforeOpen = dstRefereeBeforeOpen
+    BeforePost = dstRefereeBeforePost
+    CommandText = 'sp_cl_get_entity'
+    CommandType = cmdStoredProc
+    Parameters = <
+      item
+        Name = '@RETURN_VALUE'
+        DataType = ftInteger
+        Direction = pdReturnValue
+        Precision = 10
+        Value = Null
+      end
+      item
+        Name = '@entity_id'
+        Attributes = [paNullable]
+        DataType = ftString
+        Size = 9
+        Value = Null
+      end>
+    Left = 552
+    Top = 80
+  end
+  object dstRefPersonal: TADODataSet
+    Tag = 10
+    Connection = dmApplication.acMain
+    CursorType = ctStatic
+    BeforeOpen = dstRefPersonalBeforeOpen
+    BeforePost = dstRefPersonalBeforePost
+    CommandText = 'sp_cl_get_personal_info'
+    CommandType = cmdStoredProc
+    Parameters = <
+      item
+        Name = '@RETURN_VALUE'
+        DataType = ftInteger
+        Direction = pdReturnValue
+        Precision = 10
+        Value = 0
+      end
+      item
+        Name = '@entity_id'
+        Attributes = [paNullable]
+        DataType = ftString
+        Size = 9
+        Value = ''
+      end>
+    Left = 552
+    Top = 136
+  end
+  object dscRefPersonal: TDataSource
+    DataSet = dstRefPersonal
+    Left = 640
+    Top = 136
+  end
+  object dstRefContact: TADODataSet
+    Tag = 10
+    Connection = dmApplication.acMain
+    BeforeOpen = dstRefContactBeforeOpen
+    BeforePost = dstRefContactBeforePost
+    CommandText = 'sp_cl_get_contact_info'
+    CommandType = cmdStoredProc
+    Parameters = <
+      item
+        Name = '@RETURN_VALUE'
+        DataType = ftInteger
+        Direction = pdReturnValue
+        Precision = 10
+        Value = Null
+      end
+      item
+        Name = '@entity_id'
+        Attributes = [paNullable]
+        DataType = ftString
+        Size = 9
+        Value = ''
+      end>
+    Left = 552
+    Top = 192
+  end
+  object dscRefContact: TDataSource
+    DataSet = dstRefContact
+    Left = 640
+    Top = 192
   end
 end

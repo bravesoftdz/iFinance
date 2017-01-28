@@ -28,14 +28,9 @@ inherited frmEmployerList: TfrmEmployerList
     FixedDimension = 20
     inherited tsDetail: TRzTabSheet
       Caption = 'Employer details'
-      inherited btnNew: TRzButton
-        Caption = 'New employer'
-      end
     end
   end
   inherited pnlDetail: TRzPanel
-    Top = 65
-    ExplicitTop = 65
     object JvLabel1: TJvLabel [0]
       Left = 13
       Top = 39
@@ -63,14 +58,8 @@ inherited frmEmployerList: TfrmEmployerList
     inherited pnlAdd: TRzPanel
       TabOrder = 3
     end
-    inherited pnlSave: TRzPanel
-      TabOrder = 4
-    end
-    inherited pnlCancel: TRzPanel
-      TabOrder = 5
-    end
     inherited pnlDetailHead: TRzPanel
-      TabOrder = 6
+      TabOrder = 4
     end
     object dbluGroup: TRzDBLookupComboBox
       Left = 63
@@ -85,10 +74,12 @@ inherited frmEmployerList: TfrmEmployerList
       TabOrder = 2
       FlatButtonColor = 8675134
       FlatButtons = True
+      DisabledColor = clWhite
       FrameColor = 8675134
       FrameHotColor = clBlack
       FrameVisible = True
       FramingPreference = fpCustomFraming
+      TabOnEnter = True
     end
     object edEmployerName: TRzDBEdit
       Left = 63
@@ -98,9 +89,11 @@ inherited frmEmployerList: TfrmEmployerList
       DataSource = dmEntities.dscEmployers
       DataField = 'emp_name'
       CharCase = ecUpperCase
+      DisabledColor = clWhite
       FrameColor = 8675134
       FrameVisible = True
       FramingPreference = fpCustomFraming
+      TabOnEnter = True
       TabOrder = 0
     end
     object RzDBMemo1: TRzDBMemo
@@ -111,9 +104,11 @@ inherited frmEmployerList: TfrmEmployerList
       DataField = 'emp_add'
       DataSource = dmEntities.dscEmployers
       TabOrder = 1
+      DisabledColor = clWhite
       FrameColor = 8675134
       FrameVisible = True
       FramingPreference = fpCustomFraming
+      TabOnEnter = True
     end
   end
 end

@@ -1,7 +1,7 @@
 inherited frmRefereeSearch: TfrmRefereeSearch
   Caption = 'frmRefereeSearch'
   PixelsPerInch = 96
-  TextHeight = 13
+  TextHeight = 14
   inherited pnlTitle: TRzPanel
     inherited lblCaption: TRzLabel
       Width = 86
@@ -10,18 +10,19 @@ inherited frmRefereeSearch: TfrmRefereeSearch
     end
   end
   inherited pnlMain: TRzPanel
-    inherited grSearch: TRzDBGrid
-      DataSource = dmEntities.dscEntities
-      Columns = <
-        item
-          Expanded = False
-          FieldName = 'name'
-          Width = 250
-          Visible = True
-        end>
-    end
-    inherited btnNew: TButton
-      Visible = False
+    inherited pnlSearch: TRzPanel
+      inherited grSearch: TRzDBGrid
+        DataSource = dmEntities.dscEntities
+        Columns = <
+          item
+            Expanded = False
+            FieldName = 'name'
+            Title.Alignment = taCenter
+            Title.Caption = 'Name'
+            Width = 250
+            Visible = True
+          end>
+      end
     end
   end
 end

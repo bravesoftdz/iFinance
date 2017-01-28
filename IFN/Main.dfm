@@ -848,7 +848,7 @@ object frmMain: TfrmMain
           382D32315431323A31373A34332D30363A3030F768A7420000000049454E44AE
           426082}
         ShowHint = True
-        OnClick = tbAddClientClick
+        OnClick = tbNewLoanClick
         OnMouseDown = imgAddClientMouseDown
         OnMouseUp = imgAddClientMouseUp
       end

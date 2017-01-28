@@ -103,16 +103,6 @@ inherited frmBaseGridDetail: TfrmBaseGridDetail
     object tsDetail: TRzTabSheet
       Color = 14273211
       Caption = 'Change caption here'
-      object btnNew: TRzButton
-        Left = 14
-        Top = 367
-        Width = 115
-        Hint = 'New'
-        Caption = 'New'
-        ParentShowHint = False
-        ShowHint = True
-        TabOrder = 0
-      end
     end
   end
   object pnlDetail: TRzPanel
@@ -153,54 +143,6 @@ inherited frmBaseGridDetail: TfrmBaseGridDetail
         OnClick = sbtnNewClick
       end
     end
-    object pnlSave: TRzPanel
-      Left = 160
-      Top = 373
-      Width = 50
-      Height = 22
-      Anchors = [akLeft, akBottom]
-      BorderOuter = fsNone
-      BorderColor = 6572079
-      BorderWidth = 1
-      Color = 12955288
-      TabOrder = 1
-      object sbtnSave: TRzShapeButton
-        Left = 0
-        Top = 0
-        Width = 50
-        Height = 22
-        Hint = 'Save current changes'
-        BorderStyle = bsNone
-        Caption = 'Save'
-        ParentShowHint = False
-        ShowHint = True
-        OnClick = sbtnSaveClick
-      end
-    end
-    object pnlCancel: TRzPanel
-      Left = 216
-      Top = 373
-      Width = 50
-      Height = 22
-      Anchors = [akLeft, akBottom]
-      BorderOuter = fsNone
-      BorderColor = 6572079
-      BorderWidth = 1
-      Color = 12955288
-      TabOrder = 2
-      object sbtnCancel: TRzShapeButton
-        Left = 0
-        Top = 0
-        Width = 50
-        Height = 22
-        Hint = 'Cancel current changes'
-        BorderStyle = bsNone
-        Caption = 'Cancel'
-        ParentShowHint = False
-        ShowHint = True
-        OnClick = sbtnCancelClick
-      end
-    end
     object pnlDetailHead: TRzPanel
       Left = 1
       Top = 1
@@ -211,10 +153,11 @@ inherited frmBaseGridDetail: TfrmBaseGridDetail
       BorderSides = [sdBottom]
       BorderColor = clBlack
       BorderWidth = 1
+      Color = 8675134
       GradientColorStyle = gcsCustom
       GradientColorStart = 6572079
       GradientColorStop = 8675134
-      TabOrder = 3
+      TabOrder = 1
       VisualStyle = vsGradient
       object lblDetailHeadCaption: TRzLabel
         Left = 7

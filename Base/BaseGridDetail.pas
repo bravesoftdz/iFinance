@@ -18,27 +18,18 @@ type
     pnlSearch: TRzPanel;
     Label1: TLabel;
     edSearchKey: TRzEdit;
-    btnNew: TRzButton;
     pnlDetail: TRzPanel;
     pnlAdd: TRzPanel;
-    pnlSave: TRzPanel;
-    pnlCancel: TRzPanel;
     pnlDetailHead: TRzPanel;
     lblDetailHeadCaption: TRzLabel;
     sbtnNew: TRzShapeButton;
-    sbtnSave: TRzShapeButton;
-    sbtnCancel: TRzShapeButton;
     procedure FormCreate(Sender: TObject);
     procedure edSearchKeyChange(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure sbtnNewClick(Sender: TObject);
-    procedure sbtnSaveClick(Sender: TObject);
-    procedure sbtnCancelClick(Sender: TObject);
   private
     { Private declarations }
-    procedure CallErrorBox(const error: string);
-    procedure ShowConfirmation;
   protected
     procedure SearchList; virtual; abstract;
     function EntryIsValid: boolean; virtual; abstract;
@@ -56,7 +47,7 @@ implementation
 {$R *.dfm}
 
 uses
-  FormsUtil, ConfBox, ErrorBox;
+  FormsUtil;
 
 procedure TfrmBaseGridDetail.edSearchKeyChange(Sender: TObject);
 begin
@@ -98,54 +89,15 @@ begin
   end;
 end;
 
-procedure TfrmBaseGridDetail.sbtnCancelClick(Sender: TObject);
-begin
-  inherited;
-  Cancel;
-end;
-
 procedure TfrmBaseGridDetail.sbtnNewClick(Sender: TObject);
 begin
   inherited;
   grList.DataSource.DataSet.Append;
 end;
 
-procedure TfrmBaseGridDetail.sbtnSaveClick(Sender: TObject);
-begin
-  inherited;
-  try
-    if Save then ShowConfirmation;
-  except
-  on e: Exception do
-    CallErrorBox(e.Message);
-  end;
-end;
-
 procedure TfrmBaseGridDetail.Cancel;
 begin
   grList.DataSource.DataSet.Cancel;
-end;
-
-procedure TfrmBaseGridDetail.CallErrorBox(const error: string);
-begin
-  with TfrmErrorBox.Create(self,error) do
-  try
-    ShowModal;
-  finally
-    Free;
-  end;
-end;
-
-procedure TfrmBaseGridDetail.ShowConfirmation;
-const
-  conf = 'Record has been saved successfully.';
-begin
-  with TfrmConfBox.Create(self,conf) do
-  try
-    ShowModal;
-  finally
-    Free;
-  end;
 end;
 
 end.

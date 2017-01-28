@@ -1,13 +1,13 @@
 inherited frmLoanClassChargeDetail: TfrmLoanClassChargeDetail
   Caption = 'frmLoanClassChargeDetail'
-  ClientHeight = 177
+  ClientHeight = 185
   ClientWidth = 303
   OnCreate = FormCreate
   OnShow = FormShow
   ExplicitWidth = 303
-  ExplicitHeight = 177
+  ExplicitHeight = 185
   PixelsPerInch = 96
-  TextHeight = 13
+  TextHeight = 14
   inherited pnlTitle: TRzPanel
     Width = 303
     ExplicitWidth = 303
@@ -23,99 +23,115 @@ inherited frmLoanClassChargeDetail: TfrmLoanClassChargeDetail
   end
   inherited pnlMain: TRzPanel
     Width = 303
-    Height = 156
+    Height = 164
     ExplicitWidth = 303
     ExplicitHeight = 156
-    inherited pcDetail: TRzPageControl
-      Width = 286
-      Height = 102
-      ExplicitWidth = 286
-      ExplicitHeight = 102
-      FixedDimension = 19
-      inherited tsDetail: TRzTabSheet
-        ExplicitWidth = 282
-        ExplicitHeight = 98
-        object JvLabel1: TJvLabel
-          Left = 19
-          Top = 23
-          Width = 26
-          Height = 13
-          Caption = 'Type'
-          Transparent = True
-        end
-        object JvLabel2: TJvLabel
-          Left = 19
-          Top = 47
-          Width = 28
-          Height = 13
-          Caption = 'Value'
-          Transparent = True
-        end
-        object rbgValueType: TRzDBRadioGroup
-          Left = 81
-          Top = 65
-          Width = 184
-          Height = 24
-          DataField = 'value_type'
-          DataSource = dmLoansAux.dscClassCharges
-          Items.Strings = (
-            'Fixed amount'
-            'Percentage')
-          Values.Strings = (
-            '0'
-            '1')
-          BorderColor = 15263976
-          Caption = ''
-          Color = 15263976
-          Columns = 2
-          GroupStyle = gsCustom
-          TabOnEnter = True
-          TabOrder = 2
-          TabStop = True
-        end
-        object edValue: TRzDBNumericEdit
-          Left = 81
-          Top = 41
-          Width = 168
-          Height = 21
-          DataSource = dmLoansAux.dscClassCharges
-          DataField = 'charge_value'
-          Alignment = taLeftJustify
-          TabOnEnter = True
-          TabOrder = 1
-          IntegersOnly = False
-          DisplayFormat = '###,##0.00'
-        end
-        object dbluType: TRzDBLookupComboBox
-          Tag = 1
-          Left = 81
-          Top = 17
-          Width = 168
-          Height = 21
-          DataField = 'charge_type'
-          DataSource = dmLoansAux.dscClassCharges
-          KeyField = 'charge_type'
-          ListField = 'charge_name'
-          ListSource = dmLoansAux.dscChargeType
-          TabOrder = 0
-          AllowNull = True
-          FrameColor = clBlack
-          FrameHotColor = clBlack
-          TabOnEnter = True
+    inherited pnlDetail: TRzPanel
+      Width = 287
+      Height = 118
+      ExplicitWidth = 287
+      ExplicitHeight = 110
+      inherited pcDetail: TRzPageControl
+        Width = 285
+        Height = 116
+        ExplicitLeft = 1
+        ExplicitTop = 1
+        ExplicitWidth = 285
+        ExplicitHeight = 108
+        FixedDimension = 20
+        inherited tsDetail: TRzTabSheet
+          ExplicitWidth = 285
+          ExplicitHeight = 108
+          object JvLabel1: TJvLabel
+            Left = 19
+            Top = 23
+            Width = 30
+            Height = 14
+            Caption = 'Type'
+            Transparent = True
+          end
+          object JvLabel2: TJvLabel
+            Left = 19
+            Top = 47
+            Width = 32
+            Height = 14
+            Caption = 'Value'
+            Transparent = True
+          end
+          object rbgValueType: TRzDBRadioGroup
+            Left = 73
+            Top = 65
+            Width = 196
+            Height = 40
+            DataField = 'value_type'
+            DataSource = dmLoansAux.dscClassCharges
+            Items.Strings = (
+              'Fixed amount'
+              'Percentage')
+            Values.Strings = (
+              '0'
+              '1')
+            BorderColor = 15263976
+            BorderSides = []
+            Caption = ''
+            Color = 14273211
+            FlatColor = 14273211
+            GroupStyle = gsCustom
+            TabOnEnter = True
+            TabOrder = 2
+            TabStop = True
+          end
+          object edValue: TRzDBNumericEdit
+            Left = 81
+            Top = 41
+            Width = 168
+            Height = 22
+            DataSource = dmLoansAux.dscClassCharges
+            DataField = 'charge_value'
+            Alignment = taLeftJustify
+            FrameColor = 8675134
+            FrameVisible = True
+            FramingPreference = fpCustomFraming
+            TabOnEnter = True
+            TabOrder = 1
+            IntegersOnly = False
+            DisplayFormat = '###,##0.00'
+          end
+          object dbluType: TRzDBLookupComboBox
+            Tag = 1
+            Left = 81
+            Top = 17
+            Width = 168
+            Height = 22
+            DataField = 'charge_type'
+            DataSource = dmLoansAux.dscClassCharges
+            KeyField = 'charge_type'
+            ListField = 'charge_name'
+            ListSource = dmLoansAux.dscChargeType
+            TabOrder = 0
+            AllowNull = True
+            FlatButtons = True
+            DisabledColor = 14273211
+            FrameColor = 8675134
+            FrameHotColor = clBlack
+            FrameVisible = True
+            FramingPreference = fpCustomFraming
+            TabOnEnter = True
+          end
         end
       end
     end
-    inherited btnSave: TRzButton
-      Left = 137
-      Top = 121
-      ExplicitLeft = 137
-      ExplicitTop = 121
+    inherited pnlCancel: TRzPanel
+      Left = 245
+      Top = 133
+      ExplicitLeft = 245
+      ExplicitTop = 125
     end
-    inherited btnCancel: TRzButton
-      Left = 218
-      Top = 121
-      ExplicitLeft = 218
-      ExplicitTop = 121
+    inherited pnlSave: TRzPanel
+      Left = 190
+      Top = 133
+      ExplicitLeft = 190
+      ExplicitTop = 125
     end
   end
 end

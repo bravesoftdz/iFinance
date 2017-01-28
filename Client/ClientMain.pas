@@ -6,7 +6,7 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, BaseDocked, Vcl.StdCtrls,
   Vcl.ExtCtrls, SaveIntf, RzLabel, RzPanel, RzTabs, Vcl.Mask, StatusIntf,
-  RzEdit, RzDBEdit, JvLabel, JvExControls, JvGroupHeader, Vcl.DBCtrls, RzDBCmbo,
+  RzEdit, RzDBEdit, JvLabel, JvExControls, Vcl.DBCtrls, RzDBCmbo,
   Vcl.ComCtrls, RzDTP, RzDBDTP, RzButton, RzRadChk, RzDBChk, Data.DB, Vcl.Grids,
   Vcl.DBGrids, RzDBGrid, RzBtnEdt, RzLaunch, ClientIntf, Vcl.Imaging.pngimage,
   RzCmboBx, RzLstBox, RzDBList;
@@ -91,8 +91,6 @@ type
     tsLoansHistory: TRzTabSheet;
     pnlIdentity: TRzPanel;
     grIdentityList: TRzDBGrid;
-    RzPageControl1: TRzPageControl;
-    tsIdentDetail: TRzTabSheet;
     pnlLoans: TRzPanel;
     grLoans: TRzDBGrid;
     PhotoLauncher: TRzLauncher;
@@ -100,28 +98,10 @@ type
     mmBranch: TRzMemo;
     RzDBNumericEdit1: TRzDBNumericEdit;
     RzDBNumericEdit2: TRzDBNumericEdit;
-    JvLabel37: TJvLabel;
-    edIdNo: TRzDBEdit;
-    JvLabel38: TJvLabel;
-    lblExpiry: TJvLabel;
-    cmbIdType: TRzDBLookupComboBox;
-    btnNewId: TRzButton;
-    chbNoExpiry: TRzDBCheckBox;
-    btnRemoveId: TRzButton;
-    urlRefreshIdentList: TRzURLLabel;
     urlRefreshRefList: TRzURLLabel;
     dteBirthdate: TRzDBDateTimeEdit;
-    dteExpiry: TRzDBDateTimeEdit;
-    JvLabel63: TJvLabel;
-    RzComboBox1: TRzComboBox;
     RzDBMemo1: TRzDBMemo;
     tsLoanClassAccess: TRzTabSheet;
-    JvGroupHeader15: TJvGroupHeader;
-    JvGroupHeader16: TJvGroupHeader;
-    grAvailList: TRzDBGrid;
-    btnMakeAccessible: TRzButton;
-    grAccessList: TRzDBGrid;
-    btnRemoveAccessibility: TRzButton;
     RzGroupBox2: TRzGroupBox;
     RzGroupBox3: TRzGroupBox;
     RzGroupBox4: TRzGroupBox;
@@ -147,10 +127,6 @@ type
     pnlFamRefDetail: TRzPanel;
     pnlAddFamRef: TRzPanel;
     sbtnNewFamRef: TRzShapeButton;
-    pnlSave: TRzPanel;
-    sbtnSaveFamRef: TRzShapeButton;
-    pnlCancel: TRzPanel;
-    sbtnCancelFamRef: TRzShapeButton;
     pnlDetailHead: TRzPanel;
     lblDetailHeadCaption: TRzLabel;
     JvLabel40: TJvLabel;
@@ -178,6 +154,33 @@ type
     JvLabel46: TJvLabel;
     pnlRemoveFamRef: TRzPanel;
     sbtnRemoveFamRef: TRzShapeButton;
+    RzGroupBox1: TRzGroupBox;
+    pnlAvailList: TRzPanel;
+    grAvailList: TRzDBGrid;
+    pnlAdd: TRzPanel;
+    btnMakeAccessible: TRzShapeButton;
+    RzGroupBox9: TRzGroupBox;
+    pnlAccessList: TRzPanel;
+    grAccessList: TRzDBGrid;
+    RzPanel2: TRzPanel;
+    btnRemoveAccessibility: TRzShapeButton;
+    pnlIdentDocDetail: TRzPanel;
+    JvLabel49: TJvLabel;
+    JvLabel50: TJvLabel;
+    JvLabel51: TJvLabel;
+    JvLabel52: TJvLabel;
+    pnlIdentDoc: TRzPanel;
+    sbtnNewIdentDoc: TRzShapeButton;
+    RzPanel4: TRzPanel;
+    RzLabel1: TRzLabel;
+    pnlRemIdentDoc: TRzPanel;
+    sbtnRemIdentDoc: TRzShapeButton;
+    cmbIdType: TRzDBLookupComboBox;
+    edIdNo: TRzDBEdit;
+    dteExpiry: TRzDBDateTimeEdit;
+    RzPanel1: TRzPanel;
+    RzPanel5: TRzPanel;
+    RzLabel2: TRzLabel;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -195,9 +198,6 @@ type
     procedure bteImmHeadAltBtnClick(Sender: TObject);
     procedure bteBankButtonClick(Sender: TObject);
     procedure bteBankAltBtnClick(Sender: TObject);
-    procedure btnNewIdClick(Sender: TObject);
-    procedure btnRemoveIdClick(Sender: TObject);
-    procedure urlRefreshIdentListClick(Sender: TObject);
     procedure urlRefreshRefListClick(Sender: TObject);
     procedure dteBirthdateChange(Sender: TObject);
     procedure cmbIdTypeClick(Sender: TObject);
@@ -216,6 +216,8 @@ type
     procedure imgTakePhotoClick(Sender: TObject);
     procedure sbtnNewFamRefClick(Sender: TObject);
     procedure sbtnRemoveFamRefClick(Sender: TObject);
+    procedure sbtnRemIdentDocClick(Sender: TObject);
+    procedure sbtnNewIdentDocClick(Sender: TObject);
   private
     { Private declarations }
     procedure CopyAddress;
@@ -549,23 +551,12 @@ begin
 
       ExecuteSQL(sql);
 
-      OpenGridDataSources(tsLoanClassAccess);
+      OpenGridDataSources(pnlAvailList);
+      OpenGridDataSources(pnlAccessList);
     end;
   except
     on e: Exception do
       CallErrorBox(e.Message);
-  end;
-end;
-
-procedure TfrmClientMain.btnNewIdClick(Sender: TObject);
-begin
-  with grIdentityList.DataSource.DataSet do
-  begin
-    if State = dsBrowse then
-    begin
-      Append;
-      ChangeIdentControlState;
-    end;
   end;
 end;
 
@@ -591,7 +582,8 @@ begin
             sql := 'DELETE ENTITYLOANCLASS WHERE ENTITY_ID = ' + QuotedStr(cln.Id) +
                 ' AND CLASS_ID = ' + IntToStr(lnc.ClassificationId);
             ExecuteSQL(sql);
-            OpenGridDataSources(tsLoanClassAccess);
+            OpenGridDataSources(pnlAvailList);
+            OpenGridDataSources(pnlAccessList);
           end;
 
           Free;
@@ -600,37 +592,6 @@ begin
         on e: Exception do
           ShowMessage(e.Message);
       end;
-    end;
-  end;
-end;
-
-procedure TfrmClientMain.btnRemoveIdClick(Sender: TObject);
-const
-  CONF = 'Are you sure you want to delete the selected identity document?';
-var
-  idType: string;
-begin
-  with TfrmDecisionBox.Create(nil, CONF) do
-  begin
-    try
-      if grIdentityList.DataSource.DataSet.RecordCount > 0 then
-      begin
-        idType := grIdentityList.DataSource.DataSet.FieldByName('ident_type').AsString;
-
-        ShowModal;
-
-        if ModalResult = mrYes then
-        begin
-          grIdentityList.DataSource.DataSet.Delete;
-          cln.RemoveIdentityDoc(idType);
-          ChangeIdentControlState;
-        end;
-
-        Free;
-      end;
-    except
-      on e: Exception do
-        ShowMessage(e.Message);
     end;
   end;
 end;
@@ -678,7 +639,7 @@ begin
     IDENT:
       begin
         OpenGridDataSources(pnlIdentity);
-        OpenDropdownDataSources(tsIdentDetail);
+        OpenDropdownDataSources(pnlIdentDocDetail);
         ChangeIdentControlState;
 
         grIdentityList.QuickCompare.Active := grIdentityList.DataSource.DataSet.RecordCount > 0;
@@ -690,7 +651,8 @@ begin
       end;
     LOANCLASSACCESS:
       begin
-        OpenGridDataSources(tsLoanClassAccess);
+        OpenGridDataSources(pnlAvailList);
+        OpenGridDataSources(pnlAccessList);
       end;
   end;
 end;
@@ -788,7 +750,6 @@ function TfrmClientMain.Save: boolean;
 var
   error: string;
 begin
-  Result := false;
 
   try
     error := '';
@@ -849,6 +810,50 @@ begin
       end;
 
       Free;
+    except
+      on e: Exception do
+        ShowMessage(e.Message);
+    end;
+  end;
+end;
+
+procedure TfrmClientMain.sbtnNewIdentDocClick(Sender: TObject);
+begin
+  inherited;
+  with grIdentityList.DataSource.DataSet do
+  begin
+    if State = dsBrowse then
+    begin
+      Append;
+      ChangeIdentControlState;
+    end;
+  end;
+end;
+
+procedure TfrmClientMain.sbtnRemIdentDocClick(Sender: TObject);
+const
+  CONF = 'Are you sure you want to delete the selected identity document?';
+var
+  idType: string;
+begin
+  with TfrmDecisionBox.Create(nil, CONF) do
+  begin
+    try
+      if grIdentityList.DataSource.DataSet.RecordCount > 0 then
+      begin
+        idType := grIdentityList.DataSource.DataSet.FieldByName('ident_type').AsString;
+
+        ShowModal;
+
+        if ModalResult = mrYes then
+        begin
+          grIdentityList.DataSource.DataSet.Delete;
+          cln.RemoveIdentityDoc(idType);
+          ChangeIdentControlState;
+        end;
+
+        Free;
+      end;
     except
       on e: Exception do
         ShowMessage(e.Message);
@@ -996,16 +1001,6 @@ begin
   refc.CopyClientAddress;
 end;
 
-procedure TfrmClientMain.urlRefreshIdentListClick(Sender: TObject);
-begin
-  inherited;
-  with grIdentityList.DataSource.DataSet do
-  begin
-    Close;
-    Open;
-  end;
-end;
-
 procedure TfrmClientMain.urlRefreshRefListClick(Sender: TObject);
 begin
   inherited;
@@ -1127,7 +1122,7 @@ procedure TfrmClientMain.ChangeIdentControlState;
 begin
   with grIdentityList.DataSource.DataSet do
   begin
-    cmbIdType.Enabled := State in [dsInsert];
+    cmbIdType.Readonly := not (State in [dsInsert]);
     edIdNo.Enabled := (RecordCount > 0) or (State in [dsInsert]);
     dteExpiry.Enabled := (RecordCount > 0) or (State in [dsInsert]);
   end;

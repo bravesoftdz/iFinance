@@ -7,25 +7,21 @@ uses
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, BaseDocked, Data.DB, RzButton, RzRadChk,
   RzDBChk, Vcl.DBCtrls, RzDBCmbo, Vcl.StdCtrls, Vcl.Mask, RzEdit, RzDBEdit,
   JvExControls, JvLabel, RzTabs, Vcl.Grids, Vcl.DBGrids, RzDBGrid, RzLabel,
-  Vcl.ExtCtrls, RzPanel, SaveIntf, RzLstBox, RzChkLst, JvGroupHeader;
+  Vcl.ExtCtrls, RzPanel, SaveIntf, RzLstBox, RzChkLst;
 
 type
   TfrmLoanClassificationList = class(TfrmBaseDocked,ISave)
     pnlList: TRzPanel;
     grList: TRzDBGrid;
-    pcDetail: TRzPageControl;
-    tsDetail: TRzTabSheet;
     JvLabel1: TJvLabel;
     JvLabel2: TJvLabel;
     edClassName: TRzDBEdit;
     dbluLoanType: TRzDBLookupComboBox;
-    btnNew: TRzButton;
     JvLabel3: TJvLabel;
     JvLabel4: TJvLabel;
     edTerm: TRzDBEdit;
     JvLabel5: TJvLabel;
     edComakers: TRzDBEdit;
-    urlRefreshList: TRzURLLabel;
     JvLabel6: TJvLabel;
     dbluGroup: TRzDBLookupComboBox;
     JvLabel7: TJvLabel;
@@ -35,25 +31,32 @@ type
     edMaxLoan: TRzDBNumericEdit;
     JvLabel9: TJvLabel;
     dbluAcctType: TRzDBLookupComboBox;
-    JvGroupHeader4: TJvGroupHeader;
-    grCharges: TRzDBGrid;
     dbluBranch: TRzDBLookupComboBox;
-    btnAddCharge: TRzButton;
-    btnRemoveCharge: TRzButton;
     JvLabel10: TJvLabel;
     dteFrom: TRzDBDateTimeEdit;
     dteUntil: TRzDBDateTimeEdit;
-    JvLabel11: TJvLabel;
     JvLabel12: TJvLabel;
     dbluPayFreq: TRzDBLookupComboBox;
-    JvGroupHeader7: TJvGroupHeader;
-    procedure btnNewClick(Sender: TObject);
+    pnlDetail: TRzPanel;
+    pnlAdd: TRzPanel;
+    sbtnNew: TRzShapeButton;
+    pnlDetailHead: TRzPanel;
+    lblDetailHeadCaption: TRzLabel;
+    JvLabel13: TJvLabel;
+    RzGroupBox1: TRzGroupBox;
+    RzPanel1: TRzPanel;
+    btnAddCharge: TRzShapeButton;
+    RzPanel2: TRzPanel;
+    btnRemoveCharge: TRzShapeButton;
+    pnlCharges: TRzPanel;
+    grCharges: TRzDBGrid;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure urlRefreshListClick(Sender: TObject);
     procedure dbluGroupClick(Sender: TObject);
-    procedure btnAddChargeClick(Sender: TObject);
     procedure grChargesDblClick(Sender: TObject);
+    procedure sbtnNewClick(Sender: TObject);
+    procedure btnAddChargesClick(Sender: TObject);
     procedure btnRemoveChargeClick(Sender: TObject);
   private
     { Private declarations }
@@ -76,58 +79,6 @@ uses
   LoansAuxData, FormsUtil, StatusIntf, AuxData, LoanClassChargeDetail, DecisionBox,
   LoanClassification;
 
-procedure TfrmLoanClassificationList.btnAddChargeClick(Sender: TObject);
-begin
-  with TfrmLoanClassChargeDetail.Create(nil) do
-  begin
-    try
-      grCharges.DataSource.DataSet.Append;
-      ShowModal;
-      Free;
-    except
-      on e: Exception do
-        ShowMessage(e.Message);
-    end;
-  end;
-end;
-
-procedure TfrmLoanClassificationList.btnNewClick(Sender: TObject);
-begin
-  inherited;
-  grList.DataSource.DataSet.Append;
-  ChangeControlState;
-end;
-
-procedure TfrmLoanClassificationList.btnRemoveChargeClick(Sender: TObject);
-const
-  CONF = 'Are you sure you want to delete the selected loan class charge?';
-var
-  cgType: string;
-begin
-  with TfrmDecisionBox.Create(nil, CONF) do
-  begin
-    try
-      if grCharges.DataSource.DataSet.RecordCount > 0 then
-      begin
-        cgType := grCharges.DataSource.DataSet.FieldByName('charge_type').AsString;
-
-        ShowModal;
-
-        if ModalResult = mrYes then
-        begin
-          grCharges.DataSource.DataSet.Delete;
-          lnc.RemoveClassCharge(cgType);
-        end;
-
-        Free;
-      end;
-    except
-      on e: Exception do
-        ShowMessage(e.Message);
-    end;
-  end;
-end;
-
 function TfrmLoanClassificationList.Save: boolean;
 begin
   Result := false;
@@ -143,6 +94,15 @@ begin
       end;
     end
   end;
+end;
+
+procedure TfrmLoanClassificationList.sbtnNewClick(Sender: TObject);
+begin
+  inherited;
+  grList.DataSource.DataSet.Append;
+  ChangeControlState;
+
+  dbluGroup.SetFocus;
 end;
 
 procedure TfrmLoanClassificationList.urlRefreshListClick(Sender: TObject);
@@ -161,6 +121,8 @@ begin
   begin
     if State in [dsInsert,dsEdit] then
       Cancel;
+
+    ChangeControlState;
   end;
 end;
 
@@ -198,9 +160,14 @@ begin
       error := 'Please select an account type.';
       st.ShowError(error);
     end
-    else if dbluBranch.Text = '' then
+    else if edInterest.Text = '' then
     begin
-      error := 'Please select a branch.';
+      error := 'Please enter an interest rate.';
+      st.ShowError(error);
+    end
+    else if edTerm.Text = '' then
+    begin
+      error := 'Please enter a term.';
       st.ShowError(error);
     end
     else if dbluCompMethod.Text = '' then
@@ -213,16 +180,11 @@ begin
       error := 'Please select a payment frequency.';
       st.ShowError(error);
     end
-    else if edInterest.Text = '' then
+    else if dbluBranch.Text = '' then
     begin
-      error := 'Please enter an interest rate.';
+      error := 'Please select a branch.';
       st.ShowError(error);
-    end
-    else if edTerm.Text = '' then
-    begin
-      error := 'Please enter a term.';
-      st.ShowError(error);
-    end
+    end;
 
   end;
 
@@ -232,7 +194,7 @@ end;
 procedure TfrmLoanClassificationList.FormClose(Sender: TObject;
   var Action: TCloseAction);
 begin
-  OpenDropdownDataSources(tsDetail,false);
+  OpenDropdownDataSources(pnlDetail,false);
   OpenGridDataSources(pnlList,false);
 
   dmAux.Free;
@@ -247,7 +209,7 @@ begin
   dmAux := TdmAux.Create(self);
   dmLoansAux := TdmLoansAux.Create(self);
 
-  OpenDropdownDataSources(tsDetail);
+  OpenDropdownDataSources(pnlDetail);
   OpenGridDataSources(pnlList);
 
   ChangeControlState;
@@ -258,6 +220,52 @@ begin
   with TfrmLoanClassChargeDetail.Create(nil) do
   begin
     try
+      ShowModal;
+      Free;
+    except
+      on e: Exception do
+        ShowMessage(e.Message);
+    end;
+  end;
+end;
+
+procedure TfrmLoanClassificationList.btnRemoveChargeClick(Sender: TObject);
+const
+  CONF = 'Are you sure you want to delete the selected loan class charge?';
+var
+  cgType: string;
+begin
+  with TfrmDecisionBox.Create(nil, CONF) do
+  begin
+    try
+      if grCharges.DataSource.DataSet.RecordCount > 0 then
+      begin
+        cgType := grCharges.DataSource.DataSet.FieldByName('charge_type').AsString;
+
+        ShowModal;
+
+        if ModalResult = mrYes then
+        begin
+          grCharges.DataSource.DataSet.Delete;
+          lnc.RemoveClassCharge(cgType);
+        end;
+
+        Free;
+      end;
+    except
+      on e: Exception do
+        ShowMessage(e.Message);
+    end;
+  end;
+end;
+
+procedure TfrmLoanClassificationList.btnAddChargesClick(Sender: TObject);
+begin
+  inherited;
+  with TfrmLoanClassChargeDetail.Create(nil) do
+  begin
+    try
+      grCharges.DataSource.DataSet.Append;
       ShowModal;
       Free;
     except

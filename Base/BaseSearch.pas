@@ -6,21 +6,27 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, BasePopup, Data.DB, Vcl.StdCtrls,
   Vcl.Grids, Vcl.DBGrids, RzDBGrid, Vcl.Mask, RzEdit, RzLabel,
-  Vcl.Imaging.pngimage, Vcl.ExtCtrls, RzPanel;
+  Vcl.Imaging.pngimage, Vcl.ExtCtrls, RzPanel, RzButton;
 
 type
   TfrmBaseSearch = class(TfrmBasePopup)
     RzLabel2: TRzLabel;
     edSearchKey: TRzEdit;
     grSearch: TRzDBGrid;
-    btnSelect: TButton;
-    btnNew: TButton;
-    btnClose: TButton;
+    pnlSearch: TRzPanel;
+    pnlSelect: TRzPanel;
+    btnSelect: TRzShapeButton;
+    pnlNew: TRzPanel;
+    btnNew: TRzShapeButton;
+    pnlCancel: TRzPanel;
+    btnCancel: TRzShapeButton;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnNewClick(Sender: TObject);
     procedure grSearchDblClick(Sender: TObject);
     procedure edSearchKeyChange(Sender: TObject);
     procedure FormCreate(Sender: TObject);
+    procedure btnSelectClick(Sender: TObject);
+    procedure btnCancelClick(Sender: TObject);
   private
     { Private declarations }
     procedure EnableControls;
@@ -44,6 +50,12 @@ begin
   inherited;
   Add;
   EnableControls;
+end;
+
+procedure TfrmBaseSearch.btnSelectClick(Sender: TObject);
+begin
+  inherited;
+  ModalResult := mrOk;
 end;
 
 procedure TfrmBaseSearch.edSearchKeyChange(Sender: TObject);
@@ -82,6 +94,12 @@ begin
   inherited;
   if grSearch.DataSource.DataSet.RecordCount > 0 then
     ModalResult := mrOK;
+end;
+
+procedure TfrmBaseSearch.btnCancelClick(Sender: TObject);
+begin
+  inherited;
+  ModalResult := mrCancel;
 end;
 
 procedure TfrmBaseSearch.EnableControls;

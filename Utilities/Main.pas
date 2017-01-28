@@ -3,7 +3,7 @@ unit Main;
 interface
 
 uses
-  System.SysUtils, System.Classes, Vcl.Controls, Vcl.Forms,
+  System.SysUtils, System.Classes, Vcl.Controls, Vcl.Forms, Winapi.Windows, Winapi.Messages,
   Vcl.StdCtrls, DirectShow9, DXSUtil, DSPack, Vcl.ExtCtrls, AdvPanel, dxGDIPlusClasses;
 
 type
@@ -24,10 +24,13 @@ type
     btnClose: TButton;
     imgSnapshot: TImage;
     lblStatus: TLabel;
+    Shape1: TShape;
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure btnGetPhotoClick(Sender: TObject);
     procedure btnCloseClick(Sender: TObject);
+    procedure pnlTitleMouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
   private
     { Private declarations }
     procedure SetImageDevice;
@@ -65,6 +68,18 @@ begin
   imgSnapShot.Picture.SaveToFile(path + filename);
 
   Application.Terminate;
+end;
+
+procedure TfrmMain.pnlTitleMouseDown(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+const
+  SC_DRAGMOVE = $F012;
+begin
+  if Button = mbLeft then
+  begin
+    ReleaseCapture;
+    Perform(WM_SYSCOMMAND, SC_DRAGMOVE, 0);
+  end;
 end;
 
 procedure TfrmMain.btnCloseClick(Sender: TObject);

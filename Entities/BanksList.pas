@@ -12,17 +12,20 @@ type
   TfrmBanksList = class(TfrmBaseDocked, ISave)
     pnlList: TRzPanel;
     grList: TRzDBGrid;
-    pcDetail: TRzPageControl;
-    tsDetail: TRzTabSheet;
     grBranches: TRzDBGrid;
-    btnNew: TRzButton;
     JvLabel1: TJvLabel;
     edBankName: TRzDBEdit;
     mmBranch: TRzDBMemo;
     JvLabel3: TJvLabel;
+    pnlDetail: TRzPanel;
+    pnlAdd: TRzPanel;
+    sbtnNew: TRzShapeButton;
+    pnlDetailHead: TRzPanel;
+    lblDetailHeadCaption: TRzLabel;
+    pnlBranches: TRzPanel;
     procedure FormShow(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
-    procedure btnNewClick(Sender: TObject);
+    procedure sbtnNewClick(Sender: TObject);
   private
     { Private declarations }
     function EntryIsValid: boolean;
@@ -42,16 +45,11 @@ implementation
 uses
   AuxData, FormsUtil, StatusIntf;
 
-procedure TfrmBanksList.btnNewClick(Sender: TObject);
-begin
-  inherited;
-  grBranches.DataSource.DataSet.Append;
-end;
-
 procedure TfrmBanksList.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
-  OpenDropdownDataSources(tsDetail,false);
+  OpenDropdownDataSources(pnlDetail,false);
   OpenGridDataSources(pnlList,false);
+  OpenGridDataSources(pnlBranches,false);
 
   dmAux.Free;
 
@@ -63,8 +61,9 @@ begin
   inherited;
   dmAux := TdmAux.Create(self);
 
-  OpenDropdownDataSources(tsDetail);
+  OpenDropdownDataSources(pnlDetail);
   OpenGridDataSources(pnlList);
+  OpenGridDataSources(pnlBranches);
 end;
 
 function TfrmBanksList.Save: boolean;
@@ -81,6 +80,12 @@ begin
       end;
     end
   end;
+end;
+
+procedure TfrmBanksList.sbtnNewClick(Sender: TObject);
+begin
+  inherited;
+  grBranches.DataSource.DataSet.Append;
 end;
 
 procedure TfrmBanksList.Cancel;

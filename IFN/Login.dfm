@@ -44,12 +44,11 @@ inherited frmLogin: TfrmLogin
   inherited pnlMain: TRzPanel
     Width = 434
     Height = 183
-    ExplicitTop = 23
     ExplicitWidth = 434
     ExplicitHeight = 183
     object Label4: TLabel
-      Left = 151
-      Top = 13
+      Left = 125
+      Top = 5
       Width = 76
       Height = 23
       Alignment = taCenter
@@ -65,16 +64,16 @@ inherited frmLogin: TfrmLogin
       WordWrap = True
     end
     object Label5: TLabel
-      Left = 151
-      Top = 34
-      Width = 277
+      Left = 125
+      Top = 26
+      Width = 297
       Height = 29
       AutoSize = False
       Caption = 'Integrated Financial Management Information System'
       Color = clWhite
       Font.Charset = ANSI_CHARSET
       Font.Color = clWhite
-      Font.Height = -11
+      Font.Height = -12
       Font.Name = 'Tahoma'
       Font.Style = []
       ParentColor = False
@@ -665,7 +664,7 @@ inherited frmLogin: TfrmLogin
       OnKeyPress = edPasswordKeyPress
     end
     object pnlClose: TRzPanel
-      Left = 245
+      Left = 243
       Top = 133
       Width = 50
       Height = 22
@@ -686,7 +685,7 @@ inherited frmLogin: TfrmLogin
       end
     end
     object pnlLogin: TRzPanel
-      Left = 185
+      Left = 187
       Top = 133
       Width = 50
       Height = 22

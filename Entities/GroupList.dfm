@@ -33,10 +33,12 @@ inherited frmGroupList: TfrmGroupList
     ExplicitWidth = 366
     ExplicitHeight = 137
     FixedDimension = 20
+    inherited tsDetail: TRzTabSheet
+      ExplicitWidth = 362
+      ExplicitHeight = 110
+    end
   end
   inherited pnlDetail: TRzPanel
-    Top = 65
-    ExplicitTop = 65
     object JvLabel1: TJvLabel [0]
       Left = 13
       Top = 39
@@ -48,10 +50,10 @@ inherited frmGroupList: TfrmGroupList
     inherited pnlAdd: TRzPanel
       TabOrder = 4
     end
-    inherited pnlSave: TRzPanel
-      TabOrder = 5
+    inherited pnlDetailHead: TRzPanel
+      TabOrder = 3
     end
-    object edGroupName: TRzDBEdit [3]
+    object edGroupName: TRzDBEdit
       Left = 60
       Top = 33
       Width = 204
@@ -64,7 +66,7 @@ inherited frmGroupList: TfrmGroupList
       FramingPreference = fpCustomFraming
       TabOrder = 0
     end
-    object cbxPrivate: TRzDBCheckBox [4]
+    object cbxPrivate: TRzDBCheckBox
       Left = 60
       Top = 62
       Width = 56
@@ -77,7 +79,7 @@ inherited frmGroupList: TfrmGroupList
       FrameColor = 8675134
       TabOrder = 1
     end
-    object cbxActive: TRzDBCheckBox [5]
+    object cbxActive: TRzDBCheckBox
       Left = 60
       Top = 84
       Width = 53
@@ -89,9 +91,6 @@ inherited frmGroupList: TfrmGroupList
       Caption = 'Active'
       FrameColor = 8675134
       TabOrder = 2
-    end
-    inherited pnlCancel: TRzPanel
-      TabOrder = 6
     end
   end
 end

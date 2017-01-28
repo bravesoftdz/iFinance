@@ -6,7 +6,7 @@ inherited frmBasePopupDetail: TfrmBasePopupDetail
   ExplicitWidth = 533
   ExplicitHeight = 253
   PixelsPerInch = 96
-  TextHeight = 13
+  TextHeight = 14
   inherited pnlTitle: TRzPanel
     Width = 533
     ExplicitWidth = 533
@@ -26,40 +26,83 @@ inherited frmBasePopupDetail: TfrmBasePopupDetail
     DesignSize = (
       533
       232)
-    object pcDetail: TRzPageControl
+    object pnlDetail: TRzPanel
       Left = 8
-      Top = 11
+      Top = 8
       Width = 516
-      Height = 178
-      Hint = ''
-      ActivePage = tsDetail
+      Height = 183
       Anchors = [akLeft, akTop, akRight, akBottom]
-      UseColoredTabs = True
+      BorderOuter = fsNone
+      BorderColor = 6572079
+      BorderWidth = 1
+      Color = 14273211
       TabOrder = 0
-      FixedDimension = 19
-      object tsDetail: TRzTabSheet
-        Color = 15263976
-        TabVisible = False
-        Caption = 'Change caption here'
+      object pcDetail: TRzPageControl
+        Left = 1
+        Top = 1
+        Width = 514
+        Height = 181
+        Hint = ''
+        ActivePage = tsDetail
+        Align = alClient
+        ButtonColor = 14273211
+        UseColoredTabs = True
+        FlatColor = 14273211
+        ShowCardFrame = False
+        ShowFocusRect = False
+        ShowFullFrame = False
+        ShowShadow = False
+        TabOrder = 0
+        TabStop = False
+        FixedDimension = 20
+        object tsDetail: TRzTabSheet
+          Color = 14273211
+          TabVisible = False
+          Caption = 'Change caption here'
+        end
       end
     end
-    object btnSave: TRzButton
-      Left = 367
-      Top = 197
-      ShowFocusRect = False
+    object pnlCancel: TRzPanel
+      Left = 474
+      Top = 200
+      Width = 50
+      Height = 22
       Anchors = [akRight, akBottom]
-      Caption = 'Save'
+      BorderOuter = fsNone
+      BorderColor = 6572079
+      BorderWidth = 1
+      Color = 14273211
       TabOrder = 1
-      OnClick = btnSaveClick
+      object btnCancel: TRzShapeButton
+        Left = 0
+        Top = 0
+        Width = 50
+        Height = 22
+        BorderStyle = bsNone
+        Caption = 'Cancel'
+        OnClick = btnCancelClick
+      end
     end
-    object btnCancel: TRzButton
-      Left = 448
-      Top = 197
-      ModalResult = 2
-      ShowFocusRect = False
+    object pnlSave: TRzPanel
+      Left = 418
+      Top = 200
+      Width = 50
+      Height = 22
       Anchors = [akRight, akBottom]
-      Caption = 'Cancel'
+      BorderOuter = fsNone
+      BorderColor = 6572079
+      BorderWidth = 1
+      Color = 14273211
       TabOrder = 2
+      object btnSave: TRzShapeButton
+        Left = 0
+        Top = 0
+        Width = 50
+        Height = 22
+        BorderStyle = bsNone
+        Caption = 'Save'
+        OnClick = btnYesClick
+      end
     end
   end
 end

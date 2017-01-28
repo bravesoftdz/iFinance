@@ -7,7 +7,7 @@ inherited frmBaseSearch: TfrmBaseSearch
   ExplicitWidth = 314
   ExplicitHeight = 342
   PixelsPerInch = 96
-  TextHeight = 13
+  TextHeight = 14
   inherited pnlTitle: TRzPanel
     Width = 314
     ExplicitWidth = 314
@@ -23,73 +23,139 @@ inherited frmBaseSearch: TfrmBaseSearch
     Width = 314
     Height = 321
     ExplicitWidth = 314
-    ExplicitHeight = 321
+    ExplicitHeight = 327
     DesignSize = (
       314
       321)
     object RzLabel2: TRzLabel
       Left = 8
       Top = 14
-      Width = 33
-      Height = 13
+      Width = 37
+      Height = 14
       Caption = 'Search'
     end
     object edSearchKey: TRzEdit
       Left = 47
       Top = 8
       Width = 257
-      Height = 21
+      Height = 22
       Text = ''
       Anchors = [akLeft, akTop, akRight]
+      FrameColor = 8675134
+      FrameVisible = True
+      FramingPreference = fpCustomFraming
       TabOrder = 0
       OnChange = edSearchKeyChange
     end
-    object grSearch: TRzDBGrid
+    object pnlSearch: TRzPanel
       Left = 8
       Top = 35
       Width = 296
       Height = 245
       Anchors = [akLeft, akTop, akRight, akBottom]
-      Options = [dgIndicator, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
+      BorderOuter = fsNone
+      BorderColor = 6572079
+      BorderWidth = 1
+      Color = 14273211
       TabOrder = 1
-      TitleFont.Charset = DEFAULT_CHARSET
-      TitleFont.Color = clWindowText
-      TitleFont.Height = -11
-      TitleFont.Name = 'Tahoma'
-      TitleFont.Style = []
-      OnDblClick = grSearchDblClick
-      AltRowShading = True
-      AltRowShadingColor = 16249582
+      ExplicitHeight = 251
+      object grSearch: TRzDBGrid
+        Left = 1
+        Top = 1
+        Width = 294
+        Height = 243
+        Align = alClient
+        BorderStyle = bsNone
+        DrawingStyle = gdsGradient
+        FixedColor = 12955288
+        GradientEndColor = 12955288
+        GradientStartColor = 12955288
+        Options = [dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
+        TabOrder = 0
+        TitleFont.Charset = DEFAULT_CHARSET
+        TitleFont.Color = clWindowText
+        TitleFont.Height = -12
+        TitleFont.Name = 'Tahoma'
+        TitleFont.Style = []
+        OnDblClick = grSearchDblClick
+        FrameStyle = fsNone
+        FrameVisible = True
+        FramingPreference = fpCustomFraming
+        FixedLineColor = 12955288
+        AltRowShadingColor = 16249582
+      end
     end
-    object btnSelect: TButton
-      Left = 8
-      Top = 288
-      Width = 75
-      Height = 25
+    object pnlSelect: TRzPanel
+      Left = 9
+      Top = 289
+      Width = 50
+      Height = 22
       Anchors = [akLeft, akBottom]
-      Caption = 'Select'
-      ModalResult = 1
+      BorderOuter = fsNone
+      BorderColor = 6572079
+      BorderWidth = 1
+      Color = 14273211
       TabOrder = 2
+      ExplicitTop = 295
+      object btnSelect: TRzShapeButton
+        Left = 0
+        Top = 0
+        Width = 50
+        Height = 22
+        Hint = 'Select row '
+        Caption = 'Select'
+        ParentShowHint = False
+        ShowHint = True
+        OnClick = btnSelectClick
+      end
     end
-    object btnNew: TButton
-      Left = 89
-      Top = 288
-      Width = 75
-      Height = 25
+    object pnlNew: TRzPanel
+      Left = 65
+      Top = 289
+      Width = 50
+      Height = 22
       Anchors = [akLeft, akBottom]
-      Caption = 'New'
+      BorderOuter = fsNone
+      BorderColor = 6572079
+      BorderWidth = 1
+      Color = 14273211
       TabOrder = 3
-      OnClick = btnNewClick
+      ExplicitTop = 295
+      object btnNew: TRzShapeButton
+        Left = 0
+        Top = 0
+        Width = 50
+        Height = 22
+        Hint = 'Select row '
+        Caption = 'New'
+        ParentShowHint = False
+        ShowHint = True
+        OnClick = btnNewClick
+      end
     end
-    object btnClose: TButton
-      Left = 229
-      Top = 288
-      Width = 75
-      Height = 25
+    object pnlCancel: TRzPanel
+      Left = 254
+      Top = 289
+      Width = 50
+      Height = 22
       Anchors = [akRight, akBottom]
-      Caption = 'Cancel'
-      ModalResult = 2
+      BorderOuter = fsNone
+      BorderColor = 6572079
+      BorderWidth = 1
+      Color = 14273211
       TabOrder = 4
+      ExplicitTop = 295
+      object btnCancel: TRzShapeButton
+        Left = 0
+        Top = 0
+        Width = 50
+        Height = 22
+        Hint = 'Select row '
+        Caption = 'Cancel'
+        ParentShowHint = False
+        ShowHint = True
+        OnClick = btnCancelClick
+      end
     end
   end
 end

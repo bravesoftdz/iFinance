@@ -11,10 +11,14 @@ type
   TfrmBasePopupDetail = class(TfrmBasePopup)
     pcDetail: TRzPageControl;
     tsDetail: TRzTabSheet;
-    btnSave: TRzButton;
-    btnCancel: TRzButton;
-    procedure btnSaveClick(Sender: TObject);
+    pnlDetail: TRzPanel;
+    pnlCancel: TRzPanel;
+    btnCancel: TRzShapeButton;
+    pnlSave: TRzPanel;
+    btnSave: TRzShapeButton;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure btnCancelClick(Sender: TObject);
+    procedure btnYesClick(Sender: TObject);
   private
     { Private declarations }
   protected
@@ -43,7 +47,13 @@ begin
     Cancel;
 end;
 
-procedure TfrmBasePopupDetail.btnSaveClick(Sender: TObject);
+procedure TfrmBasePopupDetail.btnCancelClick(Sender: TObject);
+begin
+  inherited;
+  ModalResult := mrCancel;
+end;
+
+procedure TfrmBasePopupDetail.btnYesClick(Sender: TObject);
 begin
   inherited;
   if ValidEntry then

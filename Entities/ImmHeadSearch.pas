@@ -6,7 +6,7 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, BaseSearch, Vcl.ExtCtrls, Vcl.Grids, Vcl.DBGrids,
   RzDBGrid, Vcl.Mask, RzEdit, RzLabel, Vcl.Imaging.pngimage, RzPanel, Data.DB,
-  Vcl.StdCtrls, ADODB, System.Rtti;
+  Vcl.StdCtrls, ADODB, System.Rtti, RzButton;
 
 type
   TfrmImmHeadSearch = class(TfrmBaseSearch)
@@ -47,6 +47,7 @@ begin
       DisableControls;
       Close;
       Open;
+      Locate('entity_id',immHead.Id,[]);
       EnableControls;
     end;
   end;

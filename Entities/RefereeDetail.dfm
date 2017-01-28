@@ -1,5 +1,5 @@
-inherited frmImmHeadDetail: TfrmImmHeadDetail
-  Caption = 'frmImmHeadDetail'
+inherited frmRefereeDetail: TfrmRefereeDetail
+  Caption = 'frmRefereeDetail'
   ClientHeight = 208
   ClientWidth = 370
   ExplicitWidth = 370
@@ -8,38 +8,27 @@ inherited frmImmHeadDetail: TfrmImmHeadDetail
   TextHeight = 14
   inherited pnlTitle: TRzPanel
     Width = 370
-    ExplicitWidth = 370
     inherited imgClose: TImage
       Left = 349
-      ExplicitLeft = 349
     end
     inherited lblCaption: TRzLabel
-      Width = 94
-      Caption = 'Immediate head'
-      ExplicitWidth = 94
+      Width = 45
+      Caption = 'Referee'
+      ExplicitWidth = 45
     end
   end
   inherited pnlMain: TRzPanel
     Width = 370
     Height = 187
-    ExplicitWidth = 370
-    ExplicitHeight = 187
     inherited pnlDetail: TRzPanel
       Width = 353
-      Height = 141
-      ExplicitWidth = 353
-      ExplicitHeight = 141
+      Height = 138
       inherited pcDetail: TRzPageControl
         Width = 351
-        Height = 139
+        Height = 136
         TabStop = False
-        ExplicitWidth = 351
-        ExplicitHeight = 139
         FixedDimension = 20
         inherited tsDetail: TRzTabSheet
-          Caption = 'Immediate head details'
-          ExplicitWidth = 351
-          ExplicitHeight = 139
           object JvLabel1: TJvLabel
             Left = 19
             Top = 23
@@ -77,7 +66,7 @@ inherited frmImmHeadDetail: TfrmImmHeadDetail
             Top = 89
             Width = 102
             Height = 22
-            DataSource = dmEntities.dscIHContact
+            DataSource = dmEntities.dscRefContact
             DataField = 'mobile_no'
             Ctl3D = True
             FrameColor = 8675134
@@ -92,7 +81,7 @@ inherited frmImmHeadDetail: TfrmImmHeadDetail
             Top = 89
             Width = 102
             Height = 22
-            DataSource = dmEntities.dscIHContact
+            DataSource = dmEntities.dscRefContact
             DataField = 'home_phone'
             Ctl3D = True
             FrameColor = 8675134
@@ -107,7 +96,7 @@ inherited frmImmHeadDetail: TfrmImmHeadDetail
             Top = 65
             Width = 207
             Height = 22
-            DataSource = dmEntities.dscIHPersonal
+            DataSource = dmEntities.dscRefPersonal
             DataField = 'middlename'
             CharCase = ecUpperCase
             FrameColor = 8675134
@@ -121,7 +110,7 @@ inherited frmImmHeadDetail: TfrmImmHeadDetail
             Top = 41
             Width = 207
             Height = 22
-            DataSource = dmEntities.dscIHPersonal
+            DataSource = dmEntities.dscRefPersonal
             DataField = 'firstname'
             CharCase = ecUpperCase
             FrameColor = 8675134
@@ -135,7 +124,7 @@ inherited frmImmHeadDetail: TfrmImmHeadDetail
             Top = 17
             Width = 207
             Height = 22
-            DataSource = dmEntities.dscIHPersonal
+            DataSource = dmEntities.dscRefPersonal
             DataField = 'lastname'
             CharCase = ecUpperCase
             FrameColor = 8675134
@@ -149,15 +138,11 @@ inherited frmImmHeadDetail: TfrmImmHeadDetail
     end
     inherited pnlCancel: TRzPanel
       Left = 311
-      Top = 157
-      ExplicitLeft = 311
-      ExplicitTop = 157
+      Top = 155
     end
     inherited pnlSave: TRzPanel
       Left = 255
-      Top = 157
-      ExplicitLeft = 255
-      ExplicitTop = 157
+      Top = 155
     end
   end
 end

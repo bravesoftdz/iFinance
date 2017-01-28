@@ -73,6 +73,8 @@ begin
   (DataSet as TADODataSet).Properties['Unique Table'].Value := 'LoanClassCharge';
 
   with DataSet do
+  begin
+    DisableControls;
     while not Eof do
     begin
       ct := FieldByName('charge_type').AsString;
@@ -83,6 +85,8 @@ begin
 
       Next;
     end;
+    EnableControls;
+  end;
 end;
 
 procedure TdmLoansAux.dstClassChargesAfterPost(DataSet: TDataSet);

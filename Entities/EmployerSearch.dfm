@@ -1,7 +1,7 @@
 inherited frmEmployerSearch: TfrmEmployerSearch
   Caption = 'frmEmployerSearch'
   PixelsPerInch = 96
-  TextHeight = 13
+  TextHeight = 14
   inherited pnlTitle: TRzPanel
     inherited lblCaption: TRzLabel
       Width = 94
@@ -10,19 +10,25 @@ inherited frmEmployerSearch: TfrmEmployerSearch
     end
   end
   inherited pnlMain: TRzPanel
-    inherited grSearch: TRzDBGrid
-      DataSource = dmEntities.dscEmployers
-      Columns = <
-        item
-          Expanded = False
-          FieldName = 'emp_name'
-          Title.Caption = 'Employer name'
-          Width = 250
-          Visible = True
-        end>
+    inherited pnlSearch: TRzPanel
+      inherited grSearch: TRzDBGrid
+        DataSource = dmEntities.dscEmployers
+        Columns = <
+          item
+            Expanded = False
+            FieldName = 'emp_name'
+            Title.Alignment = taCenter
+            Title.Caption = 'Employer'
+            Width = 250
+            Visible = True
+          end>
+      end
     end
-    inherited btnNew: TButton
+    inherited pnlNew: TRzPanel
       Visible = False
+      inherited btnNew: TRzShapeButton
+        Visible = False
+      end
     end
   end
 end

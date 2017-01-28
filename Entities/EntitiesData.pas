@@ -28,6 +28,11 @@ type
     dstRecipient: TADODataSet;
     dstRcpPersonal: TADODataSet;
     dscRcpPersonal: TDataSource;
+    dstReferee: TADODataSet;
+    dstRefPersonal: TADODataSet;
+    dscRefPersonal: TDataSource;
+    dstRefContact: TADODataSet;
+    dscRefContact: TDataSource;
     procedure dstLandlordBeforeOpen(DataSet: TDataSet);
     procedure dstLandlordBeforePost(DataSet: TDataSet);
     procedure dstLlPersonalBeforeOpen(DataSet: TDataSet);
@@ -45,6 +50,12 @@ type
     procedure dstEmployersBeforePost(DataSet: TDataSet);
     procedure dstRecipientBeforeOpen(DataSet: TDataSet);
     procedure dstRecipientBeforePost(DataSet: TDataSet);
+    procedure dstRefereeBeforeOpen(DataSet: TDataSet);
+    procedure dstRefereeBeforePost(DataSet: TDataSet);
+    procedure dstRefPersonalBeforeOpen(DataSet: TDataSet);
+    procedure dstRefPersonalBeforePost(DataSet: TDataSet);
+    procedure dstRefContactBeforeOpen(DataSet: TDataSet);
+    procedure dstRefContactBeforePost(DataSet: TDataSet);
   private
     { Private declarations }
   public
@@ -58,7 +69,7 @@ implementation
 
 uses
   AppData, Landlord, DBUtil, ImmediateHead, AppConstants,IFinanceGlobal,
-  Recipient;
+  Recipient, Referee;
 
 {%CLASSGROUP 'Vcl.Controls.TControl'}
 
@@ -110,8 +121,7 @@ end;
 
 procedure TdmEntities.dstIHContactBeforePost(DataSet: TDataSet);
 begin
-  if DataSet.State = dsInsert then
-    DataSet.FieldByName('entity_id').AsString := immHead.Id;
+  if DataSet.State = dsInsert then DataSet.FieldByName('entity_id').AsString := immHead.Id;
 end;
 
 procedure TdmEntities.dstIHPersonalBeforeOpen(DataSet: TDataSet);
@@ -121,8 +131,7 @@ end;
 
 procedure TdmEntities.dstIHPersonalBeforePost(DataSet: TDataSet);
 begin
-  if DataSet.State = dsInsert then
-    DataSet.FieldByName('entity_id').AsString := immHead.Id;
+  if DataSet.State = dsInsert then DataSet.FieldByName('entity_id').AsString := immHead.Id;
 end;
 
 procedure TdmEntities.dstImmHeadBeforeOpen(DataSet: TDataSet);
@@ -200,6 +209,48 @@ begin
 
     rcp.Id := id;
   end;
+end;
+
+procedure TdmEntities.dstRefContactBeforeOpen(DataSet: TDataSet);
+begin
+  (DataSet as TADODataSet).Parameters.ParamByName('@entity_id').Value := ref.Id;
+end;
+
+procedure TdmEntities.dstRefContactBeforePost(DataSet: TDataSet);
+begin
+    if DataSet.State = dsInsert then DataSet.FieldByName('entity_id').AsString := ref.Id;
+end;
+
+procedure TdmEntities.dstRefereeBeforeOpen(DataSet: TDataSet);
+begin
+  (DataSet as TADODataSet).Parameters.ParamByName('@entity_id').Value := ref.Id;
+end;
+
+procedure TdmEntities.dstRefereeBeforePost(DataSet: TDataSet);
+var
+  id: string;
+begin
+  if DataSet.State = dsInsert then
+  begin
+    id := GetEntityId;
+    DataSet.FieldByName('entity_id').AsString := id;
+    DataSet.FieldByName('entity_type').AsString :=
+      TRttiEnumerationType.GetName<TEntityTypes>(TEntityTypes.RF);
+
+    SetCreatedFields(DataSet);
+
+    ref.Id := id;
+  end;
+end;
+
+procedure TdmEntities.dstRefPersonalBeforeOpen(DataSet: TDataSet);
+begin
+  (DataSet as TADODataSet).Parameters.ParamByName('@entity_id').Value := ref.Id;
+end;
+
+procedure TdmEntities.dstRefPersonalBeforePost(DataSet: TDataSet);
+begin
+    if DataSet.State = dsInsert then DataSet.FieldByName('entity_id').AsString := ref.Id;
 end;
 
 end.
