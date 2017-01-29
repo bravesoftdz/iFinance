@@ -40,13 +40,13 @@ inherited frmClientMain: TfrmClientMain
     Width = 860
     Height = 552
     Hint = ''
-    ActivePage = tsLoanClassAccess
+    ActivePage = tsClientInfo
     Anchors = [akLeft, akTop, akRight, akBottom]
     BoldCurrentTab = True
     FlatColor = 6572079
     ShowFullFrame = False
     ShowShadow = False
-    TabIndex = 4
+    TabIndex = 0
     TabOrder = 1
     TabOrientation = toBottom
     TabStyle = tsRoundCorners
@@ -54,8 +54,6 @@ inherited frmClientMain: TfrmClientMain
     object tsClientInfo: TRzTabSheet
       Color = 14273211
       Caption = 'Client information'
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object JvLabel1: TJvLabel
         Left = 35
         Top = 40
@@ -145,8 +143,8 @@ inherited frmClientMain: TfrmClientMain
         Transparent = True
       end
       object urlCopyAddress: TRzURLLabel
-        Left = 352
-        Top = 185
+        Left = 35
+        Top = 491
         Width = 232
         Height = 14
         Caption = 'Copy present address to provincial address'
@@ -1057,7 +1055,7 @@ inherited frmClientMain: TfrmClientMain
         CaptionFont.Color = clRed
         CaptionFont.Height = -12
         CaptionFont.Name = 'Tahoma'
-        CaptionFont.Style = []
+        CaptionFont.Style = [fsBold]
         Color = 14273211
         FlatColor = 6572079
         Font.Charset = DEFAULT_CHARSET
@@ -1083,7 +1081,7 @@ inherited frmClientMain: TfrmClientMain
         CaptionFont.Color = clRed
         CaptionFont.Height = -12
         CaptionFont.Name = 'Tahoma'
-        CaptionFont.Style = []
+        CaptionFont.Style = [fsBold]
         Color = 14273211
         FlatColor = 6572079
         Font.Charset = DEFAULT_CHARSET
@@ -1109,7 +1107,7 @@ inherited frmClientMain: TfrmClientMain
         CaptionFont.Color = clRed
         CaptionFont.Height = -12
         CaptionFont.Name = 'Tahoma'
-        CaptionFont.Style = []
+        CaptionFont.Style = [fsBold]
         Color = 14273211
         FlatColor = 6572079
         Font.Charset = DEFAULT_CHARSET
@@ -1135,7 +1133,7 @@ inherited frmClientMain: TfrmClientMain
         CaptionFont.Color = clRed
         CaptionFont.Height = -12
         CaptionFont.Name = 'Tahoma'
-        CaptionFont.Style = []
+        CaptionFont.Style = [fsBold]
         Color = 14273211
         FlatColor = 6572079
         Font.Charset = DEFAULT_CHARSET
@@ -1161,7 +1159,7 @@ inherited frmClientMain: TfrmClientMain
         CaptionFont.Color = clRed
         CaptionFont.Height = -12
         CaptionFont.Name = 'Tahoma'
-        CaptionFont.Style = []
+        CaptionFont.Style = [fsBold]
         Color = 14273211
         FlatColor = 6572079
         Font.Charset = DEFAULT_CHARSET
@@ -1187,7 +1185,7 @@ inherited frmClientMain: TfrmClientMain
         CaptionFont.Color = clRed
         CaptionFont.Height = -12
         CaptionFont.Name = 'Tahoma'
-        CaptionFont.Style = []
+        CaptionFont.Style = [fsBold]
         Color = 14273211
         FlatColor = 6572079
         Font.Charset = DEFAULT_CHARSET
@@ -1213,7 +1211,7 @@ inherited frmClientMain: TfrmClientMain
         CaptionFont.Color = clRed
         CaptionFont.Height = -12
         CaptionFont.Name = 'Tahoma'
-        CaptionFont.Style = []
+        CaptionFont.Style = [fsBold]
         Color = 14273211
         FlatColor = 6572079
         Font.Charset = DEFAULT_CHARSET
@@ -1253,8 +1251,6 @@ inherited frmClientMain: TfrmClientMain
     object tsReferences: TRzTabSheet
       Color = 14273211
       Caption = 'Family and references'
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       DesignSize = (
         860
         529)
@@ -1747,8 +1743,6 @@ inherited frmClientMain: TfrmClientMain
     object tsIdentityInfo: TRzTabSheet
       Color = 14273211
       Caption = 'Identity information'
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       DesignSize = (
         860
         529)
@@ -2020,8 +2014,6 @@ inherited frmClientMain: TfrmClientMain
     object tsLoansHistory: TRzTabSheet
       Color = 14273211
       Caption = 'Loans history'
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       DesignSize = (
         860
         529)
@@ -2130,9 +2122,6 @@ inherited frmClientMain: TfrmClientMain
     object tsLoanClassAccess: TRzTabSheet
       Color = 14273211
       Caption = 'Loan class accessibility'
-      ExplicitTop = -1
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       DesignSize = (
         860
         529)
@@ -2150,7 +2139,7 @@ inherited frmClientMain: TfrmClientMain
         CaptionFont.Color = clRed
         CaptionFont.Height = -12
         CaptionFont.Name = 'Tahoma'
-        CaptionFont.Style = []
+        CaptionFont.Style = [fsBold]
         Color = 14273211
         FlatColor = 6572079
         Font.Charset = DEFAULT_CHARSET
@@ -2314,7 +2303,7 @@ inherited frmClientMain: TfrmClientMain
         CaptionFont.Color = clRed
         CaptionFont.Height = -12
         CaptionFont.Name = 'Tahoma'
-        CaptionFont.Style = []
+        CaptionFont.Style = [fsBold]
         Color = 14273211
         FlatColor = 6572079
         Font.Charset = DEFAULT_CHARSET

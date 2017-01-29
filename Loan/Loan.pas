@@ -48,7 +48,7 @@ type
     function GetIsRejected: boolean;
 
     function GetComakerCount: integer;
-    function GetHasId: boolean;
+    function GetNew: boolean;
     function GetStatusName: string;
     function GetComaker(const i: integer): TComaker;
     function GetFinancialInfo(const i: integer): TFinInfo;
@@ -109,7 +109,7 @@ type
     property IsCancelled: boolean read GetIsCancelled;
     property IsRejected: boolean read GetIsRejected;
     property ComakerCount: integer read GetComakerCount;
-    property HasId: boolean read GetHasId;
+    property New: boolean read GetNew;
     property Comaker[const i: integer]: TComaker read GetComaker;
     property AppliedAmount: real read FAppliedAmout write FAppliedAmout;
     property FinancialInfoCount: integer read GetFinancialInfoCount;
@@ -751,9 +751,9 @@ begin
   end;
 end;
 
-function TLoan.GetHasId: boolean;
+function TLoan.GetNew: boolean;
 begin
-  Result := FId <> '';
+  Result := FId = '';
 end;
 
 function TLoan.GetStatusName: string;

@@ -13,7 +13,6 @@ type
     procedure RejectLoan;
     procedure CancelLoan;
     procedure ReleaseLoan;
-    procedure DisplayLoanStateDetails;
   end;
 
 implementation

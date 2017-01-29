@@ -51,7 +51,7 @@ object dmLoan: TdmLoan
         DataType = ftInteger
         Direction = pdReturnValue
         Precision = 10
-        Value = 0
+        Value = Null
       end
       item
         Name = '@entity_id'
@@ -59,6 +59,13 @@ object dmLoan: TdmLoan
         DataType = ftString
         Size = 10
         Value = ''
+      end
+      item
+        Name = '@new_loan'
+        Attributes = [paNullable]
+        DataType = ftSmallint
+        Precision = 5
+        Value = 0
       end>
     Left = 55
     Top = 70
@@ -384,6 +391,7 @@ object dmLoan: TdmLoan
     BeforeOpen = dstLoanReleaseBeforeOpen
     AfterOpen = dstLoanReleaseAfterOpen
     BeforePost = dstLoanReleaseBeforePost
+    AfterPost = dstLoanReleaseAfterPost
     OnNewRecord = dstLoanReleaseNewRecord
     CommandText = 'sp_ln_get_loan_release;1'
     CommandType = cmdStoredProc
@@ -462,6 +470,7 @@ object dmLoan: TdmLoan
         DataType = ftInteger
         Direction = pdReturnValue
         Precision = 10
+        Value = Null
       end
       item
         Name = '@entity_id'

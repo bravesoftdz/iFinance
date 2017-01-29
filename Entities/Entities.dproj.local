@@ -47,8 +47,8 @@
     <Transaction>2016/08/23 22:33:02.000.486,=dxSkinOffice2007GreenRS18.dcp</Transaction>
     <Transaction>2016/08/23 22:33:02.000.240,=dxSkinMoneyTwinsRS18.dcp</Transaction>
     <Transaction>2016/08/23 22:33:02.000.009,=dxSkinLiquidSkyRS18.dcp</Transaction>
-    <Transaction>2016/08/23 22:33:02.000.899,=dxSkinOffice2010SilverRS18.dcp</Transaction>
     <Transaction>2016/08/23 22:33:02.000.407,=dxSkinOffice2007BlueRS18.dcp</Transaction>
+    <Transaction>2016/08/23 22:33:02.000.899,=dxSkinOffice2010SilverRS18.dcp</Transaction>
     <Transaction>2016/08/23 22:33:02.000.730,=dxSkinOffice2010BlackRS18.dcp</Transaction>
     <Transaction>2016/08/23 22:33:02.000.814,=dxSkinOffice2010BlueRS18.dcp</Transaction>
     <Transaction>2016/08/23 22:33:02.000.981,=dxSkinPumpkinRS18.dcp</Transaction>
@@ -201,9 +201,9 @@
     <Transaction>2017/01/10 11:33:14.000.978,=C:\_Projects\iFinance\Entities\Unit2.pas</Transaction>
     <Transaction>2017/01/10 11:34:11.000.095,C:\_Projects\iFinance\Entities\RecipientSearch.dfm=C:\_Projects\iFinance\Entities\Unit1.dfm</Transaction>
     <Transaction>2017/01/10 11:34:11.000.095,C:\_Projects\iFinance\Entities\RecipientSearch.pas=C:\_Projects\iFinance\Entities\Unit1.pas</Transaction>
-    <Transaction>2017/01/28 22:08:43.592,=C:\_Projects\iFinance\Entities\Unit1.pas</Transaction>
-    <Transaction>2017/01/28 22:08:45.766,=C:\_Projects\iFinance\Entities\Unit2.pas</Transaction>
-    <Transaction>2017/01/28 22:11:43.958,C:\_Projects\iFinance\Entities\RefereeDetail.pas=C:\_Projects\iFinance\Entities\Unit1.pas</Transaction>
-    <Transaction>2017/01/28 22:11:43.958,C:\_Projects\iFinance\Entities\RefereeDetail.dfm=C:\_Projects\iFinance\Entities\Unit1.dfm</Transaction>
+    <Transaction>2017/01/28 22:08:43.000.592,=C:\_Projects\iFinance\Entities\Unit1.pas</Transaction>
+    <Transaction>2017/01/28 22:08:45.000.766,=C:\_Projects\iFinance\Entities\Unit2.pas</Transaction>
+    <Transaction>2017/01/28 22:11:43.000.958,C:\_Projects\iFinance\Entities\RefereeDetail.pas=C:\_Projects\iFinance\Entities\Unit1.pas</Transaction>
+    <Transaction>2017/01/28 22:11:43.000.958,C:\_Projects\iFinance\Entities\RefereeDetail.dfm=C:\_Projects\iFinance\Entities\Unit1.dfm</Transaction>
   </Transactions>
 </BorlandProject>

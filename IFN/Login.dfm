@@ -72,7 +72,7 @@ inherited frmLogin: TfrmLogin
       Caption = 'Integrated Financial Management Information System'
       Color = clWhite
       Font.Charset = ANSI_CHARSET
-      Font.Color = clWhite
+      Font.Color = 8675134
       Font.Height = -12
       Font.Name = 'Tahoma'
       Font.Style = []

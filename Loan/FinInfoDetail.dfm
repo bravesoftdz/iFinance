@@ -1,18 +1,18 @@
 inherited frmFinInfoDetail: TfrmFinInfoDetail
   Caption = 'frmFinInfoDetail'
-  ClientHeight = 184
-  ClientWidth = 303
+  ClientHeight = 183
+  ClientWidth = 298
   OnCreate = FormCreate
   OnShow = FormShow
-  ExplicitWidth = 303
-  ExplicitHeight = 184
+  ExplicitWidth = 298
+  ExplicitHeight = 183
   PixelsPerInch = 96
-  TextHeight = 13
+  TextHeight = 14
   inherited pnlTitle: TRzPanel
-    Width = 303
+    Width = 298
     ExplicitWidth = 303
     inherited imgClose: TImage
-      Left = 282
+      Left = 277
       ExplicitLeft = 282
     end
     inherited lblCaption: TRzLabel
@@ -22,99 +22,115 @@ inherited frmFinInfoDetail: TfrmFinInfoDetail
     end
   end
   inherited pnlMain: TRzPanel
-    Width = 303
-    Height = 163
+    Width = 298
+    Height = 162
     ExplicitWidth = 303
     ExplicitHeight = 163
-    inherited pcDetail: TRzPageControl
-      Width = 286
-      Height = 109
-      ExplicitWidth = 286
-      ExplicitHeight = 109
-      FixedDimension = 19
-      inherited tsDetail: TRzTabSheet
-        object JvLabel1: TJvLabel
-          Left = 19
-          Top = 23
-          Width = 47
-          Height = 13
-          Caption = 'Company'
-          Transparent = True
-        end
-        object JvLabel2: TJvLabel
-          Left = 19
-          Top = 47
-          Width = 40
-          Height = 13
-          Caption = 'Monthly'
-          Transparent = True
-        end
-        object JvLabel3: TJvLabel
-          Left = 19
-          Top = 72
-          Width = 39
-          Height = 13
-          Caption = 'Balance'
-          Transparent = True
-        end
-        object dbluCompany: TRzDBLookupComboBox
-          Tag = 1
-          Left = 81
-          Top = 17
-          Width = 168
-          Height = 21
-          DataField = 'comp_id'
-          DataSource = dmLoan.dscFinInfo
-          KeyField = 'comp_id'
-          ListField = 'comp_name'
-          ListSource = dmLoansAux.dscCompetitors
-          TabOrder = 0
-          AllowNull = True
-          FrameColor = clBlack
-          FrameHotColor = clBlack
-          TabOnEnter = True
-        end
-        object edMonthly: TRzDBNumericEdit
-          Left = 81
-          Top = 41
-          Width = 168
-          Height = 21
-          DataSource = dmLoan.dscFinInfo
-          DataField = 'mon_due'
-          Alignment = taLeftJustify
-          TabOnEnter = True
-          TabOrder = 1
-          IntegersOnly = False
-          Max = 100000.000000000000000000
-          DisplayFormat = '###,##0.00'
-        end
-        object edBalance: TRzDBNumericEdit
-          Left = 81
-          Top = 66
-          Width = 168
-          Height = 21
-          DataSource = dmLoan.dscFinInfo
-          DataField = 'loan_bal'
-          Alignment = taLeftJustify
-          TabOnEnter = True
-          TabOrder = 2
-          IntegersOnly = False
-          Max = 900000.000000000000000000
-          DisplayFormat = '###,##0.00'
+    inherited pnlDetail: TRzPanel
+      Width = 281
+      Height = 113
+      ExplicitWidth = 281
+      ExplicitHeight = 113
+      inherited pcDetail: TRzPageControl
+        Width = 279
+        Height = 111
+        Anchors = [akLeft, akTop]
+        FixedDimension = 20
+        inherited tsDetail: TRzTabSheet
+          object JvLabel1: TJvLabel
+            Left = 19
+            Top = 23
+            Width = 52
+            Height = 14
+            Caption = 'Company'
+            Transparent = True
+          end
+          object JvLabel2: TJvLabel
+            Left = 19
+            Top = 47
+            Width = 45
+            Height = 14
+            Caption = 'Monthly'
+            Transparent = True
+          end
+          object JvLabel3: TJvLabel
+            Left = 19
+            Top = 71
+            Width = 43
+            Height = 14
+            Caption = 'Balance'
+            Transparent = True
+          end
+          object dbluCompany: TRzDBLookupComboBox
+            Tag = 1
+            Left = 81
+            Top = 17
+            Width = 168
+            Height = 22
+            Ctl3D = False
+            DataField = 'comp_id'
+            DataSource = dmLoan.dscFinInfo
+            KeyField = 'comp_id'
+            ListField = 'comp_name'
+            ListSource = dmLoansAux.dscCompetitors
+            ParentCtl3D = False
+            TabOrder = 0
+            AllowNull = True
+            FlatButtons = True
+            FrameColor = 8675134
+            FrameHotColor = clBlack
+            FrameVisible = True
+            FramingPreference = fpCustomFraming
+            TabOnEnter = True
+          end
+          object edMonthly: TRzDBNumericEdit
+            Left = 81
+            Top = 41
+            Width = 168
+            Height = 22
+            DataSource = dmLoan.dscFinInfo
+            DataField = 'mon_due'
+            Alignment = taLeftJustify
+            FrameColor = 8675134
+            FrameVisible = True
+            FramingPreference = fpCustomFraming
+            TabOnEnter = True
+            TabOrder = 1
+            IntegersOnly = False
+            Max = 100000.000000000000000000
+            DisplayFormat = '###,##0.00'
+          end
+          object edBalance: TRzDBNumericEdit
+            Left = 81
+            Top = 65
+            Width = 168
+            Height = 22
+            DataSource = dmLoan.dscFinInfo
+            DataField = 'loan_bal'
+            Alignment = taLeftJustify
+            FrameColor = 8675134
+            FrameVisible = True
+            FramingPreference = fpCustomFraming
+            TabOnEnter = True
+            TabOrder = 2
+            IntegersOnly = False
+            Max = 900000.000000000000000000
+            DisplayFormat = '###,##0.00'
+          end
         end
       end
     end
-    inherited btnSave: TRzButton
-      Left = 137
-      Top = 128
-      ExplicitLeft = 137
-      ExplicitTop = 128
+    inherited pnlCancel: TRzPanel
+      Left = 239
+      Top = 130
+      ExplicitLeft = 239
+      ExplicitTop = 130
     end
-    inherited btnCancel: TRzButton
-      Left = 218
-      Top = 128
-      ExplicitLeft = 218
-      ExplicitTop = 128
+    inherited pnlSave: TRzPanel
+      Left = 183
+      Top = 130
+      ExplicitLeft = 183
+      ExplicitTop = 130
     end
   end
 end

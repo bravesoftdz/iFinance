@@ -25,23 +25,21 @@ inherited frmLoanClassChargeDetail: TfrmLoanClassChargeDetail
     Width = 303
     Height = 164
     ExplicitWidth = 303
-    ExplicitHeight = 156
+    ExplicitHeight = 164
     inherited pnlDetail: TRzPanel
       Width = 287
       Height = 118
       ExplicitWidth = 287
-      ExplicitHeight = 110
+      ExplicitHeight = 118
       inherited pcDetail: TRzPageControl
         Width = 285
         Height = 116
-        ExplicitLeft = 1
-        ExplicitTop = 1
         ExplicitWidth = 285
-        ExplicitHeight = 108
+        ExplicitHeight = 116
         FixedDimension = 20
         inherited tsDetail: TRzTabSheet
           ExplicitWidth = 285
-          ExplicitHeight = 108
+          ExplicitHeight = 116
           object JvLabel1: TJvLabel
             Left = 19
             Top = 23
@@ -111,7 +109,7 @@ inherited frmLoanClassChargeDetail: TfrmLoanClassChargeDetail
             TabOrder = 0
             AllowNull = True
             FlatButtons = True
-            DisabledColor = 14273211
+            DisabledColor = clWhite
             FrameColor = 8675134
             FrameHotColor = clBlack
             FrameVisible = True
@@ -125,13 +123,13 @@ inherited frmLoanClassChargeDetail: TfrmLoanClassChargeDetail
       Left = 245
       Top = 133
       ExplicitLeft = 245
-      ExplicitTop = 125
+      ExplicitTop = 133
     end
     inherited pnlSave: TRzPanel
       Left = 190
       Top = 133
       ExplicitLeft = 190
-      ExplicitTop = 125
+      ExplicitTop = 133
     end
   end
 end

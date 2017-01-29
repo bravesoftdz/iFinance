@@ -18,20 +18,22 @@ type
     pcAssessment: TRzPageControl;
     tsFinInfo: TRzTabSheet;
     tsMonExp: TRzTabSheet;
-    btnAddAss: TRzButton;
-    btnRemoveAss: TRzButton;
     grFinInfo: TRzStringGrid;
     grMonExp: TRzStringGrid;
     JvLabel1: TJvLabel;
     urlAppliedAmount: TRzURLLabel;
     mmRemarks: TRzDBMemo;
     JvLabel2: TJvLabel;
-    procedure btnAddAssClick(Sender: TObject);
-    procedure btnRemoveAssClick(Sender: TObject);
+    pnlAdd: TRzPanel;
+    btnAdd: TRzShapeButton;
+    pnlRemoveComaker: TRzPanel;
+    btnRemove: TRzShapeButton;
     procedure FormShow(Sender: TObject);
     procedure grFinInfoDblClick(Sender: TObject);
     procedure grMonExpDblClick(Sender: TObject);
     procedure urlAppliedAmountClick(Sender: TObject);
+    procedure btnAddClick(Sender: TObject);
+    procedure btnRemoveClick(Sender: TObject);
   private
     { Private declarations }
     procedure AddFinancialInfo;
@@ -290,7 +292,7 @@ begin
   end;
 end;
 
-procedure TfrmLoanAssessmentDetail.btnAddAssClick(Sender: TObject);
+procedure TfrmLoanAssessmentDetail.btnAddClick(Sender: TObject);
 begin
   inherited;
   if pcAssessment.ActivePage = tsFinInfo then
@@ -299,7 +301,7 @@ begin
     AddMonthlyExpense;
 end;
 
-procedure TfrmLoanAssessmentDetail.btnRemoveAssClick(Sender: TObject);
+procedure TfrmLoanAssessmentDetail.btnRemoveClick(Sender: TObject);
 begin
   inherited;
   if pcAssessment.ActivePage = tsFinInfo then

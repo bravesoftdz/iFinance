@@ -59,6 +59,8 @@ inherited frmBasePopupDetail: TfrmBasePopupDetail
           Color = 14273211
           TabVisible = False
           Caption = 'Change caption here'
+          ExplicitWidth = 0
+          ExplicitHeight = 0
         end
       end
     end

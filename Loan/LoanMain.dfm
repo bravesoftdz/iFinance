@@ -9,7 +9,7 @@ inherited frmLoanMain: TfrmLoanMain
   TextHeight = 14
   inherited pnlTitle: TRzPanel
     Width = 931
-    ExplicitWidth = 900
+    ExplicitWidth = 931
     DesignSize = (
       931
       28)
@@ -46,7 +46,6 @@ inherited frmLoanMain: TfrmLoanMain
     BorderSides = [sdLeft, sdRight, sdBottom]
     ParentColor = True
     TabOrder = 1
-    ExplicitTop = 27
     DesignSize = (
       931
       485)
@@ -85,8 +84,8 @@ inherited frmLoanMain: TfrmLoanMain
       end
       object JvLabel12: TJvLabel
         Tag = -1
-        Left = 217
-        Top = 255
+        Left = 209
+        Top = 206
         Width = 34
         Height = 14
         Caption = 'Int %'
@@ -130,7 +129,7 @@ inherited frmLoanMain: TfrmLoanMain
       end
       object JvLabel21: TJvLabel
         Tag = -1
-        Left = 217
+        Left = 209
         Top = 231
         Width = 27
         Height = 14
@@ -139,8 +138,8 @@ inherited frmLoanMain: TfrmLoanMain
       end
       object JvLabel22: TJvLabel
         Tag = -1
-        Left = 217
-        Top = 206
+        Left = 209
+        Top = 255
         Width = 27
         Height = 14
         Caption = 'Max.'
@@ -148,22 +147,20 @@ inherited frmLoanMain: TfrmLoanMain
       end
       object lblComakersDesc: TRzDBLabel
         Tag = -1
-        Left = -288
-        Top = 315
-        Width = 80
-        Height = 13
-        Alignment = taRightJustify
+        Left = 19
+        Top = 447
+        Width = 89
+        Height = 14
         Anchors = [akTop, akRight]
         AutoSize = True
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clMaroon
-        Font.Height = -11
+        Font.Height = -12
         Font.Name = 'Tahoma'
         Font.Style = []
         ParentFont = False
         DataField = 'comakers_desc'
         DataSource = dmLoan.dscLoanClass
-        ExplicitLeft = 209
       end
       object JvLabel20: TJvLabel
         Tag = -1
@@ -255,10 +252,10 @@ inherited frmLoanMain: TfrmLoanMain
         FlatButtons = True
       end
       object edInterest: TRzDBNumericEdit
-        Tag = 100
-        Left = 264
+        Tag = -1
+        Left = 280
         Top = 201
-        Width = 65
+        Width = 49
         Height = 22
         DataSource = dmLoan.dscLoanClass
         DataField = 'int_rate'
@@ -324,10 +321,10 @@ inherited frmLoanMain: TfrmLoanMain
         OnButtonClick = bteClientButtonClick
       end
       object RzDBNumericEdit1: TRzDBNumericEdit
-        Tag = 100
-        Left = 264
-        Top = 249
-        Width = 65
+        Tag = -1
+        Left = 242
+        Top = 225
+        Width = 87
         Height = 22
         Hint = 'Maximum loanable amout'
         DataSource = dmLoan.dscLoanClass
@@ -346,10 +343,10 @@ inherited frmLoanMain: TfrmLoanMain
         DisplayFormat = '###,##0.00'
       end
       object RzDBNumericEdit2: TRzDBNumericEdit
-        Tag = 100
-        Left = 264
-        Top = 225
-        Width = 65
+        Tag = -1
+        Left = 280
+        Top = 249
+        Width = 49
         Height = 22
         Hint = 'Maximum allowed term'
         DataSource = dmLoan.dscLoanClass
@@ -426,7 +423,7 @@ inherited frmLoanMain: TfrmLoanMain
         CaptionFont.Color = clRed
         CaptionFont.Height = -12
         CaptionFont.Name = 'Tahoma'
-        CaptionFont.Style = []
+        CaptionFont.Style = [fsBold]
         Color = 14273211
         FlatColor = 6572079
         Font.Charset = DEFAULT_CHARSET
@@ -454,7 +451,7 @@ inherited frmLoanMain: TfrmLoanMain
         CaptionFont.Color = clRed
         CaptionFont.Height = -12
         CaptionFont.Name = 'Tahoma'
-        CaptionFont.Style = []
+        CaptionFont.Style = [fsBold]
         Color = 14273211
         FlatColor = 6572079
         Font.Charset = DEFAULT_CHARSET
@@ -479,10 +476,10 @@ inherited frmLoanMain: TfrmLoanMain
         BorderWidth = 1
         Caption = 'Client details'
         CaptionFont.Charset = DEFAULT_CHARSET
-        CaptionFont.Color = clRed
+        CaptionFont.Color = 8675134
         CaptionFont.Height = -12
         CaptionFont.Name = 'Tahoma'
-        CaptionFont.Style = []
+        CaptionFont.Style = [fsBold]
         Color = 14273211
         FlatColor = 6572079
         Font.Charset = DEFAULT_CHARSET
@@ -496,6 +493,7 @@ inherited frmLoanMain: TfrmLoanMain
         TabOrder = 14
       end
       object pnlAdd: TRzPanel
+        Tag = 1
         Left = 19
         Top = 411
         Width = 50
@@ -506,6 +504,7 @@ inherited frmLoanMain: TfrmLoanMain
         Color = 12955288
         TabOrder = 15
         object btnAddComaker: TRzShapeButton
+          Tag = 1
           Left = 0
           Top = 0
           Width = 50
@@ -513,13 +512,12 @@ inherited frmLoanMain: TfrmLoanMain
           Hint = 'Add comaker'
           BorderStyle = bsNone
           Caption = 'Add'
-          Enabled = False
           ParentShowHint = False
           ShowHint = True
           OnClick = btnAddComakerClick
         end
       end
-      object RzPanel1: TRzPanel
+      object pnlRemoveComaker: TRzPanel
         Left = 75
         Top = 411
         Width = 50
@@ -530,6 +528,7 @@ inherited frmLoanMain: TfrmLoanMain
         Color = 12955288
         TabOrder = 16
         object btnRemoveComaker: TRzShapeButton
+          Tag = 1
           Left = 0
           Top = 0
           Width = 50
@@ -540,998 +539,8 @@ inherited frmLoanMain: TfrmLoanMain
           Enabled = False
           ParentShowHint = False
           ShowHint = True
-          OnClick = RzShapeButton1Click
+          OnClick = btnRemoveComakerClick
         end
-      end
-    end
-    object pnlAssessment: TRzPanel
-      Tag = 200
-      Left = 367
-      Top = 6
-      Width = 495
-      Height = 471
-      Anchors = [akLeft, akTop, akRight]
-      BorderOuter = fsNone
-      BorderColor = 8675134
-      BorderWidth = 1
-      Color = 14273211
-      TabOrder = 1
-      Visible = False
-      DesignSize = (
-        495
-        471)
-      object JvLabel10: TJvLabel
-        Tag = -1
-        Left = 20
-        Top = 40
-        Width = 79
-        Height = 14
-        Caption = 'Date assessed'
-        Transparent = True
-      end
-      object JvLabel11: TJvLabel
-        Tag = -1
-        Left = 221
-        Top = 40
-        Width = 130
-        Height = 14
-        Caption = 'Recommended amount'
-        Transparent = True
-      end
-      object JvLabel24: TJvLabel
-        Tag = -1
-        Left = 20
-        Top = 64
-        Width = 47
-        Height = 14
-        Caption = 'Remarks'
-        Transparent = True
-      end
-      object RzPanel3: TRzPanel
-        Left = 1
-        Top = 1
-        Width = 493
-        Height = 17
-        Align = alTop
-        BorderOuter = fsNone
-        BorderSides = [sdBottom]
-        BorderColor = clBlack
-        BorderWidth = 1
-        GradientColorStyle = gcsCustom
-        GradientColorStart = 6572079
-        GradientColorStop = 8675134
-        TabOrder = 0
-        VisualStyle = vsGradient
-        ExplicitWidth = 848
-        DesignSize = (
-          493
-          17)
-        object RzLabel2: TRzLabel
-          Tag = -1
-          Left = 7
-          Top = 2
-          Width = 110
-          Height = 13
-          Caption = 'Assessment details'
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clWhite
-          Font.Height = -11
-          Font.Name = 'Tahoma'
-          Font.Style = [fsBold]
-          ParentFont = False
-          Transparent = True
-        end
-        object imgAssessment: TImage
-          Tag = 1
-          Left = 475
-          Top = 1
-          Width = 16
-          Height = 16
-          Hint = 'Expand'
-          Anchors = [akTop, akRight]
-          DragCursor = crHandPoint
-          ParentShowHint = False
-          Picture.Data = {
-            0954506E67496D61676589504E470D0A1A0A0000000D49484452000000100000
-            001008060000001FF3FF610000001974455874536F6674776172650041646F62
-            6520496D616765526561647971C9653C0000021C4944415478DA63FCFFFF3F03
-            258031B9F5350323236330107703F98A44E8B90FB4B41488D7CEA91261608CA9
-            7B0C12BC571A23AAA8A7CA4E50F7A5DB3F19BA97BCBE0F642A2D6E9461600C28
-            BA0E12FFBFB65B8DE1DFBF7F849DCCC8C81052761BCC5CDFABC1C0E89472026C
-            C08E69460C7FFEFC2168003333338367F679B0017B679B33309A86EF021B7068
-            812DC3AF5FBFE00A7FFFFECDF0F5EB37866FDFBE81C5FFFE8518CECBCBCB1055
-            731F6CC0A915AE0C8C5A3E1BC0069C5EE9CAF0F3E74F86DCB68B0C4F5F7D6798
-            582CCB008BA1FC9E470C22822C0CB5C9520CECECEC0CC1A5606F335EDDECCFC0
-            A8ECBA1A6CC0C5F59E0C1F3F7E6678FF8581C13FE7088398102BC3EC5A0D86D4
-            E61B0CAFDEFD66D838C506E8AC8F0C2C2C2C0CDEB9102FDCD915C2C0A8E4B216
-            6CC089650E0C1F3E7C01DBFA97918BC127EB30DC3B5BA6D93230FFFF06663331
-            3131B8679E061B7077771003A3AAFB56B00107E69903FDFA1BAEE9E73F7606DF
-            ACE30C9BA75932B033FD448E0706B78CB360C6AD1D5E0C8CDABE07C106EC9965
-            000C28D468E4E3E364F8F4E93B464CB8675E021B7065931D03A37128D83FFFB7
-            4FD504A603E292B577EE0DB0016756193030F28B9B33E8B82DBB579726AE68AC
-            C94150F3D9EB3F189A66BDBC7F655794D2871727801E626010D6B0E90D97548B
-            2C636064962768C2FFBF0F9FDD5ADE7DF348F10A6080BF0519C0054A1FA04446
-            94FB21E02F107F061AF08D91D2EC0C00FF44D3E1741FD00E0000000049454E44
-            AE426082}
-          ShowHint = True
-          OnClick = imgAssessmentClick
-          ExplicitLeft = 810
-        end
-      end
-      object dteDateAssessed: TRzDBDateTimeEdit
-        Tag = 3
-        Left = 107
-        Top = 34
-        Width = 86
-        Height = 22
-        DataSource = dmLoan.dscLoanAss
-        DataField = 'date_ass'
-        ReadOnly = True
-        Color = clInfoBk
-        DisabledColor = clWhite
-        TabOnEnter = True
-        TabOrder = 1
-        EditType = etDate
-        Format = 'mm/dd/yyyy'
-      end
-      object edRecAmount: TRzDBNumericEdit
-        Tag = 3
-        Left = 367
-        Top = 34
-        Width = 82
-        Height = 22
-        DataSource = dmLoan.dscLoanAss
-        DataField = 'rec_amt'
-        ReadOnly = True
-        Alignment = taLeftJustify
-        Color = clInfoBk
-        DisabledColor = clWhite
-        TabOnEnter = True
-        TabOrder = 2
-        DisplayFormat = '###,##0.00'
-      end
-      object mmRemarks: TRzDBMemo
-        Left = 107
-        Top = 58
-        Width = 342
-        Height = 45
-        Color = clInfoBk
-        DataField = 'remarks'
-        DataSource = dmLoan.dscLoanAss
-        ReadOnly = True
-        TabOrder = 3
-      end
-      object RzGroupBox4: TRzGroupBox
-        Tag = -1
-        Left = 20
-        Top = 117
-        Width = 429
-        Height = 22
-        Anchors = [akLeft, akTop, akRight]
-        BorderColor = 6572079
-        BorderSides = []
-        BorderWidth = 1
-        Caption = 'Financial information'
-        CaptionFont.Charset = DEFAULT_CHARSET
-        CaptionFont.Color = clRed
-        CaptionFont.Height = -12
-        CaptionFont.Name = 'Tahoma'
-        CaptionFont.Style = []
-        Color = 14273211
-        FlatColor = 6572079
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = 6572079
-        Font.Height = -12
-        Font.Name = 'Tahoma'
-        Font.Style = []
-        GradientColorStyle = gcsCustom
-        GroupStyle = gsUnderline
-        ParentFont = False
-        TabOrder = 4
-      end
-      object grFinInfo: TRzDBGrid
-        Left = 20
-        Top = 138
-        Width = 429
-        Height = 110
-        Anchors = [akLeft, akTop, akRight]
-        Color = clInfoBk
-        DataSource = dmLoan.dscFinInfo
-        Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
-        ReadOnly = True
-        TabOrder = 5
-        TitleFont.Charset = DEFAULT_CHARSET
-        TitleFont.Color = clWindowText
-        TitleFont.Height = -12
-        TitleFont.Name = 'Tahoma'
-        TitleFont.Style = []
-        AltRowShadingColor = 15854564
-        Columns = <
-          item
-            Color = clInfoBk
-            Expanded = False
-            FieldName = 'comp_name'
-            Title.Caption = 'Company'
-            Width = 150
-            Visible = True
-          end
-          item
-            Alignment = taRightJustify
-            Color = clInfoBk
-            Expanded = False
-            FieldName = 'mon_due_f'
-            Title.Alignment = taRightJustify
-            Title.Caption = 'Monthly'
-            Width = 80
-            Visible = True
-          end
-          item
-            Alignment = taRightJustify
-            Color = clInfoBk
-            Expanded = False
-            FieldName = 'loan_bal_f'
-            Title.Alignment = taRightJustify
-            Title.Caption = 'Balance'
-            Width = 80
-            Visible = True
-          end>
-      end
-      object RzGroupBox5: TRzGroupBox
-        Tag = -1
-        Left = 20
-        Top = 261
-        Width = 429
-        Height = 22
-        Anchors = [akLeft, akTop, akRight]
-        BorderColor = 6572079
-        BorderSides = []
-        BorderWidth = 1
-        Caption = 'Monthly expenses'
-        CaptionFont.Charset = DEFAULT_CHARSET
-        CaptionFont.Color = clRed
-        CaptionFont.Height = -12
-        CaptionFont.Name = 'Tahoma'
-        CaptionFont.Style = []
-        Color = 14273211
-        FlatColor = 6572079
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = 6572079
-        Font.Height = -12
-        Font.Name = 'Tahoma'
-        Font.Style = []
-        GradientColorStyle = gcsCustom
-        GroupStyle = gsUnderline
-        ParentFont = False
-        TabOrder = 6
-      end
-      object grMonExp: TRzDBGrid
-        Left = 20
-        Top = 283
-        Width = 430
-        Height = 110
-        Anchors = [akLeft, akTop, akRight]
-        DataSource = dmLoan.dscMonExp
-        Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
-        ReadOnly = True
-        TabOrder = 7
-        TitleFont.Charset = DEFAULT_CHARSET
-        TitleFont.Color = clWindowText
-        TitleFont.Height = -12
-        TitleFont.Name = 'Tahoma'
-        TitleFont.Style = []
-        AltRowShadingColor = 15854564
-        Columns = <
-          item
-            Color = clInfoBk
-            Expanded = False
-            FieldName = 'exp_name'
-            Title.Caption = 'Expense'
-            Width = 120
-            Visible = True
-          end
-          item
-            Color = clInfoBk
-            Expanded = False
-            FieldName = 'monthly_f'
-            Title.Alignment = taRightJustify
-            Title.Caption = 'Monthly'
-            Width = 80
-            Visible = True
-          end>
-      end
-    end
-    object pnlApproval: TRzPanel
-      Tag = 200
-      Left = -1000
-      Top = 216
-      Width = 850
-      Height = 19
-      Anchors = [akLeft, akTop, akRight]
-      BorderOuter = fsFlat
-      Color = 15000804
-      TabOrder = 2
-      Visible = False
-      object JvLabel13: TJvLabel
-        Tag = -1
-        Left = 20
-        Top = 40
-        Width = 83
-        Height = 14
-        Caption = 'Date approved'
-        Transparent = True
-      end
-      object JvLabel14: TJvLabel
-        Tag = -1
-        Left = 20
-        Top = 64
-        Width = 101
-        Height = 14
-        Caption = 'Approved amount'
-        Transparent = True
-      end
-      object JvLabel16: TJvLabel
-        Tag = -1
-        Left = 20
-        Top = 88
-        Width = 85
-        Height = 14
-        Caption = 'Approved term'
-        Transparent = True
-      end
-      object JvLabel17: TJvLabel
-        Tag = -1
-        Left = 236
-        Top = 64
-        Width = 47
-        Height = 14
-        Caption = 'Remarks'
-        Transparent = True
-      end
-      object JvLabel28: TJvLabel
-        Left = 236
-        Top = 40
-        Width = 96
-        Height = 14
-        Caption = 'Approval method'
-        Transparent = True
-      end
-      object RzPanel5: TRzPanel
-        Left = 1
-        Top = 1
-        Width = 848
-        Height = 17
-        Align = alTop
-        BorderOuter = fsNone
-        BorderColor = clBlack
-        BorderWidth = 1
-        GradientColorStyle = gcsCustom
-        GradientColorStart = 37632
-        GradientColorStop = 43008
-        TabOrder = 0
-        VisualStyle = vsGradient
-        DesignSize = (
-          848
-          17)
-        object RzLabel3: TRzLabel
-          Tag = -1
-          Left = 7
-          Top = 2
-          Width = 92
-          Height = 13
-          Caption = 'Approval details'
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clWhite
-          Font.Height = -11
-          Font.Name = 'Tahoma'
-          Font.Style = [fsBold]
-          ParentFont = False
-          Transparent = True
-        end
-        object imgApproval: TImage
-          Tag = 1
-          Left = 830
-          Top = 1
-          Width = 16
-          Height = 16
-          Hint = 'Expand'
-          Anchors = [akTop, akRight]
-          DragCursor = crHandPoint
-          ParentShowHint = False
-          Picture.Data = {
-            0954506E67496D61676589504E470D0A1A0A0000000D49484452000000100000
-            001008060000001FF3FF610000001974455874536F6674776172650041646F62
-            6520496D616765526561647971C9653C0000021C4944415478DA63FCFFFF3F03
-            258031B9F5350323236330107703F98A44E8B90FB4B41488D7CEA91261608CA9
-            7B0C12BC571A23AAA8A7CA4E50F7A5DB3F19BA97BCBE0F642A2D6E9461600C28
-            BA0E12FFBFB65B8DE1DFBF7F849DCCC8C81052761BCC5CDFABC1C0E89472026C
-            C08E69460C7FFEFC2168003333338367F679B0017B679B33309A86EF021B7068
-            812DC3AF5FBFE00A7FFFFECDF0F5EB37866FDFBE81C5FFFE8518CECBCBCB1055
-            731F6CC0A915AE0C8C5A3E1BC0069C5EE9CAF0F3E74F86DCB68B0C4F5F7D6798
-            582CCB008BA1FC9E470C22822C0CB5C9520CECECEC0CC1A5606F335EDDECCFC0
-            A8ECBA1A6CC0C5F59E0C1F3F7E6678FF8581C13FE7088398102BC3EC5A0D86D4
-            E61B0CAFDEFD66D838C506E8AC8F0C2C2C2C0CDEB9102FDCD915C2C0A8E4B216
-            6CC089650E0C1F3E7C01DBFA97918BC127EB30DC3B5BA6D93230FFFF06663331
-            3131B8679E061B7077771003A3AAFB56B00107E69903FDFA1BAEE9E73F7606DF
-            ACE30C9BA75932B033FD448E0706B78CB360C6AD1D5E0C8CDABE07C106EC9965
-            000C28D468E4E3E364F8F4E93B464CB8675E021B7065931D03A37128D83FFFB7
-            4FD504A603E292B577EE0DB0016756193030F28B9B33E8B82DBB579726AE68AC
-            C94150F3D9EB3F189A66BDBC7F655794D2871727801E626010D6B0E90D97548B
-            2C636064962768C2FFBF0F9FDD5ADE7DF348F10A6080BF0519C0054A1FA04446
-            94FB21E02F107F061AF08D91D2EC0C00FF44D3E1741FD00E0000000049454E44
-            AE426082}
-          ShowHint = True
-          OnClick = imgAssessmentClick
-          ExplicitLeft = 810
-        end
-      end
-      object dteDateApproved: TRzDBDateTimeEdit
-        Tag = 5
-        Left = 125
-        Top = 34
-        Width = 86
-        Height = 22
-        TabStop = False
-        DataSource = dmLoan.dscLoanAppv
-        DataField = 'date_appv'
-        ReadOnly = True
-        Color = clInfoBk
-        DisabledColor = clWhite
-        TabOnEnter = True
-        TabOrder = 1
-        EditType = etDate
-        Format = 'mm/dd/yyyy'
-      end
-      object edAppvAmount: TRzDBNumericEdit
-        Tag = 5
-        Left = 125
-        Top = 58
-        Width = 86
-        Height = 22
-        TabStop = False
-        DataSource = dmLoan.dscLoanAppv
-        DataField = 'amt_appv'
-        ReadOnly = True
-        Alignment = taLeftJustify
-        Color = clInfoBk
-        DisabledColor = clWhite
-        TabOnEnter = True
-        TabOrder = 2
-        DisplayFormat = '###,##0.00'
-      end
-      object edAppvTerm: TRzDBNumericEdit
-        Tag = 5
-        Left = 125
-        Top = 82
-        Width = 86
-        Height = 22
-        TabStop = False
-        DataSource = dmLoan.dscLoanAppv
-        DataField = 'terms'
-        ReadOnly = True
-        Alignment = taLeftJustify
-        Color = clInfoBk
-        DisabledColor = clWhite
-        TabOnEnter = True
-        TabOrder = 3
-        DisplayFormat = '0'
-      end
-      object RzDBMemo1: TRzDBMemo
-        Left = 341
-        Top = 58
-        Width = 276
-        Height = 45
-        TabStop = False
-        Color = clInfoBk
-        DataField = 'remarks'
-        DataSource = dmLoan.dscLoanAppv
-        ReadOnly = True
-        TabOrder = 4
-      end
-      object RzDBEdit3: TRzDBEdit
-        Left = 341
-        Top = 34
-        Width = 276
-        Height = 22
-        TabStop = False
-        DataSource = dmLoan.dscLoanAppv
-        DataField = 'method_name'
-        ReadOnly = True
-        Color = clInfoBk
-        Ctl3D = True
-        ParentCtl3D = False
-        TabOnEnter = True
-        TabOrder = 5
-      end
-    end
-    object pnlRelease: TRzPanel
-      Tag = -1
-      Left = -1000
-      Top = 339
-      Width = 850
-      Height = 135
-      Anchors = [akLeft, akTop, akRight]
-      BorderOuter = fsFlat
-      Color = 15000804
-      TabOrder = 3
-      Visible = False
-      DesignSize = (
-        850
-        135)
-      object JvLabel1: TJvLabel
-        Tag = -1
-        Left = 20
-        Top = 40
-        Width = 52
-        Height = 14
-        Caption = 'Recipient'
-        Transparent = True
-      end
-      object JvLabel15: TJvLabel
-        Tag = -1
-        Left = 491
-        Top = 40
-        Width = 45
-        Height = 14
-        Caption = 'Charges'
-        Transparent = True
-      end
-      object RzPanel7: TRzPanel
-        Left = 1
-        Top = 1
-        Width = 848
-        Height = 17
-        Align = alTop
-        BorderOuter = fsNone
-        BorderColor = clBlack
-        BorderWidth = 1
-        GradientColorStyle = gcsCustom
-        GradientColorStart = 37632
-        GradientColorStop = 43008
-        TabOrder = 0
-        VisualStyle = vsGradient
-        DesignSize = (
-          848
-          17)
-        object RzLabel4: TRzLabel
-          Tag = -1
-          Left = 7
-          Top = 2
-          Width = 86
-          Height = 13
-          Caption = 'Release details'
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clWhite
-          Font.Height = -11
-          Font.Name = 'Tahoma'
-          Font.Style = [fsBold]
-          ParentFont = False
-          Transparent = True
-        end
-        object imgRelease: TImage
-          Tag = 1
-          Left = 830
-          Top = 1
-          Width = 16
-          Height = 16
-          Hint = 'Expand'
-          Anchors = [akTop, akRight]
-          DragCursor = crHandPoint
-          ParentShowHint = False
-          Picture.Data = {
-            0954506E67496D61676589504E470D0A1A0A0000000D49484452000000100000
-            001008060000001FF3FF610000001974455874536F6674776172650041646F62
-            6520496D616765526561647971C9653C0000021C4944415478DA63FCFFFF3F03
-            258031B9F5350323236330107703F98A44E8B90FB4B41488D7CEA91261608CA9
-            7B0C12BC571A23AAA8A7CA4E50F7A5DB3F19BA97BCBE0F642A2D6E9461600C28
-            BA0E12FFBFB65B8DE1DFBF7F849DCCC8C81052761BCC5CDFABC1C0E89472026C
-            C08E69460C7FFEFC2168003333338367F679B0017B679B33309A86EF021B7068
-            812DC3AF5FBFE00A7FFFFECDF0F5EB37866FDFBE81C5FFFE8518CECBCBCB1055
-            731F6CC0A915AE0C8C5A3E1BC0069C5EE9CAF0F3E74F86DCB68B0C4F5F7D6798
-            582CCB008BA1FC9E470C22822C0CB5C9520CECECEC0CC1A5606F335EDDECCFC0
-            A8ECBA1A6CC0C5F59E0C1F3F7E6678FF8581C13FE7088398102BC3EC5A0D86D4
-            E61B0CAFDEFD66D838C506E8AC8F0C2C2C2C0CDEB9102FDCD915C2C0A8E4B216
-            6CC089650E0C1F3E7C01DBFA97918BC127EB30DC3B5BA6D93230FFFF06663331
-            3131B8679E061B7077771003A3AAFB56B00107E69903FDFA1BAEE9E73F7606DF
-            ACE30C9BA75932B033FD448E0706B78CB360C6AD1D5E0C8CDABE07C106EC9965
-            000C28D468E4E3E364F8F4E93B464CB8675E021B7065931D03A37128D83FFFB7
-            4FD504A603E292B577EE0DB0016756193030F28B9B33E8B82DBB579726AE68AC
-            C94150F3D9EB3F189A66BDBC7F655794D2871727801E626010D6B0E90D97548B
-            2C636064962768C2FFBF0F9FDD5ADE7DF348F10A6080BF0519C0054A1FA04446
-            94FB21E02F107F061AF08D91D2EC0C00FF44D3E1741FD00E0000000049454E44
-            AE426082}
-          ShowHint = True
-          OnClick = imgAssessmentClick
-          ExplicitLeft = 810
-        end
-      end
-      object RzDBGrid1: TRzDBGrid
-        Left = 77
-        Top = 34
-        Width = 379
-        Height = 86
-        Anchors = [akLeft, akTop, akRight]
-        DataSource = dmLoan.dscLoanRelease
-        Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
-        ReadOnly = True
-        TabOrder = 1
-        TitleFont.Charset = DEFAULT_CHARSET
-        TitleFont.Color = clWindowText
-        TitleFont.Height = -12
-        TitleFont.Name = 'Tahoma'
-        TitleFont.Style = []
-        AltRowShadingColor = 15854564
-        Columns = <
-          item
-            Color = clInfoBk
-            Expanded = False
-            FieldName = 'date_rel_f'
-            Title.Caption = 'Date'
-            Width = 70
-            Visible = True
-          end
-          item
-            Color = clInfoBk
-            Expanded = False
-            FieldName = 'recipient_name'
-            Title.Caption = 'Recipient'
-            Width = 145
-            Visible = True
-          end
-          item
-            Color = clInfoBk
-            Expanded = False
-            FieldName = 'method_name'
-            Title.Caption = 'Method'
-            Width = 70
-            Visible = True
-          end
-          item
-            Color = clInfoBk
-            Expanded = False
-            FieldName = 'rel_amt_f'
-            Title.Caption = 'Amount'
-            Width = 60
-            Visible = True
-          end>
-      end
-      object RzDBGrid2: TRzDBGrid
-        Left = 552
-        Top = 35
-        Width = 281
-        Height = 86
-        Anchors = [akLeft, akTop, akRight]
-        DataSource = dmLoan.dscMonExp
-        Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
-        ReadOnly = True
-        TabOrder = 2
-        TitleFont.Charset = DEFAULT_CHARSET
-        TitleFont.Color = clWindowText
-        TitleFont.Height = -12
-        TitleFont.Name = 'Tahoma'
-        TitleFont.Style = []
-        AltRowShadingColor = 15854564
-        Columns = <
-          item
-            Color = clInfoBk
-            Expanded = False
-            FieldName = 'exp_name'
-            Title.Caption = 'Charge'
-            Width = 120
-            Visible = True
-          end
-          item
-            Color = clInfoBk
-            Expanded = False
-            FieldName = 'monthly_f'
-            Title.Alignment = taRightJustify
-            Title.Caption = 'Amount'
-            Width = 80
-            Visible = True
-          end>
-      end
-    end
-    object pnlCancellation: TRzPanel
-      Tag = -1
-      Left = -1000
-      Top = 168
-      Width = 492
-      Height = 120
-      Anchors = [akLeft, akTop, akRight]
-      BorderOuter = fsFlat
-      Color = 15000804
-      TabOrder = 4
-      Visible = False
-      object JvLabel18: TJvLabel
-        Tag = -1
-        Left = 20
-        Top = 40
-        Width = 82
-        Height = 14
-        Caption = 'Date cancelled'
-        Transparent = True
-      end
-      object JvLabel19: TJvLabel
-        Tag = -1
-        Left = 190
-        Top = 40
-        Width = 41
-        Height = 14
-        Caption = 'Reason'
-        Transparent = True
-      end
-      object JvLabel23: TJvLabel
-        Tag = -1
-        Left = 20
-        Top = 64
-        Width = 47
-        Height = 14
-        Caption = 'Remarks'
-        Transparent = True
-      end
-      object RzPanel9: TRzPanel
-        Left = 1
-        Top = 1
-        Width = 490
-        Height = 17
-        Align = alTop
-        BorderOuter = fsNone
-        BorderColor = clBlack
-        BorderWidth = 1
-        GradientColorStyle = gcsCustom
-        GradientColorStart = 5329407
-        GradientColorStop = 4868863
-        TabOrder = 0
-        VisualStyle = vsGradient
-        DesignSize = (
-          490
-          17)
-        object RzLabel5: TRzLabel
-          Tag = -1
-          Left = 7
-          Top = 2
-          Width = 110
-          Height = 13
-          Caption = 'Cancellation details'
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clWhite
-          Font.Height = -11
-          Font.Name = 'Tahoma'
-          Font.Style = [fsBold]
-          ParentFont = False
-          Transparent = True
-        end
-        object imgCancellation: TImage
-          Tag = 1
-          Left = 472
-          Top = 1
-          Width = 16
-          Height = 16
-          Hint = 'Expand'
-          Anchors = [akTop, akRight]
-          DragCursor = crHandPoint
-          ParentShowHint = False
-          Picture.Data = {
-            0954506E67496D61676589504E470D0A1A0A0000000D49484452000000100000
-            001008060000001FF3FF610000001974455874536F6674776172650041646F62
-            6520496D616765526561647971C9653C0000021C4944415478DA63FCFFFF3F03
-            258031B9F5350323236330107703F98A44E8B90FB4B41488D7CEA91261608CA9
-            7B0C12BC571A23AAA8A7CA4E50F7A5DB3F19BA97BCBE0F642A2D6E9461600C28
-            BA0E12FFBFB65B8DE1DFBF7F849DCCC8C81052761BCC5CDFABC1C0E89472026C
-            C08E69460C7FFEFC2168003333338367F679B0017B679B33309A86EF021B7068
-            812DC3AF5FBFE00A7FFFFECDF0F5EB37866FDFBE81C5FFFE8518CECBCBCB1055
-            731F6CC0A915AE0C8C5A3E1BC0069C5EE9CAF0F3E74F86DCB68B0C4F5F7D6798
-            582CCB008BA1FC9E470C22822C0CB5C9520CECECEC0CC1A5606F335EDDECCFC0
-            A8ECBA1A6CC0C5F59E0C1F3F7E6678FF8581C13FE7088398102BC3EC5A0D86D4
-            E61B0CAFDEFD66D838C506E8AC8F0C2C2C2C0CDEB9102FDCD915C2C0A8E4B216
-            6CC089650E0C1F3E7C01DBFA97918BC127EB30DC3B5BA6D93230FFFF06663331
-            3131B8679E061B7077771003A3AAFB56B00107E69903FDFA1BAEE9E73F7606DF
-            ACE30C9BA75932B033FD448E0706B78CB360C6AD1D5E0C8CDABE07C106EC9965
-            000C28D468E4E3E364F8F4E93B464CB8675E021B7065931D03A37128D83FFFB7
-            4FD504A603E292B577EE0DB0016756193030F28B9B33E8B82DBB579726AE68AC
-            C94150F3D9EB3F189A66BDBC7F655794D2871727801E626010D6B0E90D97548B
-            2C636064962768C2FFBF0F9FDD5ADE7DF348F10A6080BF0519C0054A1FA04446
-            94FB21E02F107F061AF08D91D2EC0C00FF44D3E1741FD00E0000000049454E44
-            AE426082}
-          ShowHint = True
-          OnClick = imgAssessmentClick
-          ExplicitLeft = 810
-        end
-      end
-      object RzDBMemo2: TRzDBMemo
-        Left = 99
-        Top = 58
-        Width = 302
-        Height = 45
-        TabStop = False
-        Color = clInfoBk
-        DataField = 'remarks'
-        DataSource = dmLoan.dscLoanCancel
-        ReadOnly = True
-        TabOrder = 1
-        TabOnEnter = True
-      end
-      object dteDateCancelled: TRzDBDateTimeEdit
-        Left = 99
-        Top = 34
-        Width = 80
-        Height = 22
-        TabStop = False
-        DataSource = dmLoan.dscLoanCancel
-        DataField = 'cancelled_date'
-        ReadOnly = True
-        Color = clInfoBk
-        DisabledColor = clWhite
-        TabOnEnter = True
-        TabOrder = 2
-        EditType = etDate
-        Format = 'mm/dd/yyyy'
-      end
-      object RzDBEdit1: TRzDBEdit
-        Tag = 1
-        Left = 234
-        Top = 34
-        Width = 167
-        Height = 22
-        TabStop = False
-        DataSource = dmLoan.dscLoanCancel
-        DataField = 'reason_name'
-        ReadOnly = True
-        Color = clInfoBk
-        DisabledColor = clWhite
-        TabOnEnter = True
-        TabOrder = 3
-      end
-    end
-    object pnlRejection: TRzPanel
-      Tag = -1
-      Left = -1000
-      Top = 148
-      Width = 491
-      Height = 120
-      Anchors = [akLeft, akTop, akRight]
-      BorderOuter = fsFlat
-      Color = 15000804
-      TabOrder = 5
-      Visible = False
-      object JvLabel25: TJvLabel
-        Tag = -1
-        Left = 20
-        Top = 40
-        Width = 78
-        Height = 14
-        Caption = 'Date rejected'
-        Transparent = True
-      end
-      object JvLabel26: TJvLabel
-        Tag = -1
-        Left = 20
-        Top = 64
-        Width = 47
-        Height = 14
-        Caption = 'Remarks'
-        Transparent = True
-      end
-      object JvLabel27: TJvLabel
-        Tag = -1
-        Left = 189
-        Top = 40
-        Width = 41
-        Height = 14
-        Caption = 'Reason'
-        Transparent = True
-      end
-      object RzPanel11: TRzPanel
-        Left = 1
-        Top = 1
-        Width = 489
-        Height = 17
-        Align = alTop
-        BorderOuter = fsNone
-        BorderColor = clBlack
-        BorderWidth = 1
-        GradientColorStyle = gcsCustom
-        GradientColorStart = 5329407
-        GradientColorStop = 4868863
-        TabOrder = 0
-        VisualStyle = vsGradient
-        DesignSize = (
-          489
-          17)
-        object RzLabel6: TRzLabel
-          Tag = -1
-          Left = 7
-          Top = 2
-          Width = 95
-          Height = 13
-          Caption = 'Rejection details'
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clWhite
-          Font.Height = -11
-          Font.Name = 'Tahoma'
-          Font.Style = [fsBold]
-          ParentFont = False
-          Transparent = True
-        end
-        object imgRejection: TImage
-          Tag = 1
-          Left = 471
-          Top = 1
-          Width = 16
-          Height = 16
-          Hint = 'Expand'
-          Anchors = [akTop, akRight]
-          DragCursor = crHandPoint
-          ParentShowHint = False
-          Picture.Data = {
-            0954506E67496D61676589504E470D0A1A0A0000000D49484452000000100000
-            001008060000001FF3FF610000001974455874536F6674776172650041646F62
-            6520496D616765526561647971C9653C0000021C4944415478DA63FCFFFF3F03
-            258031B9F5350323236330107703F98A44E8B90FB4B41488D7CEA91261608CA9
-            7B0C12BC571A23AAA8A7CA4E50F7A5DB3F19BA97BCBE0F642A2D6E9461600C28
-            BA0E12FFBFB65B8DE1DFBF7F849DCCC8C81052761BCC5CDFABC1C0E89472026C
-            C08E69460C7FFEFC2168003333338367F679B0017B679B33309A86EF021B7068
-            812DC3AF5FBFE00A7FFFFECDF0F5EB37866FDFBE81C5FFFE8518CECBCBCB1055
-            731F6CC0A915AE0C8C5A3E1BC0069C5EE9CAF0F3E74F86DCB68B0C4F5F7D6798
-            582CCB008BA1FC9E470C22822C0CB5C9520CECECEC0CC1A5606F335EDDECCFC0
-            A8ECBA1A6CC0C5F59E0C1F3F7E6678FF8581C13FE7088398102BC3EC5A0D86D4
-            E61B0CAFDEFD66D838C506E8AC8F0C2C2C2C0CDEB9102FDCD915C2C0A8E4B216
-            6CC089650E0C1F3E7C01DBFA97918BC127EB30DC3B5BA6D93230FFFF06663331
-            3131B8679E061B7077771003A3AAFB56B00107E69903FDFA1BAEE9E73F7606DF
-            ACE30C9BA75932B033FD448E0706B78CB360C6AD1D5E0C8CDABE07C106EC9965
-            000C28D468E4E3E364F8F4E93B464CB8675E021B7065931D03A37128D83FFFB7
-            4FD504A603E292B577EE0DB0016756193030F28B9B33E8B82DBB579726AE68AC
-            C94150F3D9EB3F189A66BDBC7F655794D2871727801E626010D6B0E90D97548B
-            2C636064962768C2FFBF0F9FDD5ADE7DF348F10A6080BF0519C0054A1FA04446
-            94FB21E02F107F061AF08D91D2EC0C00FF44D3E1741FD00E0000000049454E44
-            AE426082}
-          ShowHint = True
-          OnClick = imgAssessmentClick
-          ExplicitLeft = 810
-        end
-      end
-      object RzDBMemo3: TRzDBMemo
-        Left = 99
-        Top = 58
-        Width = 302
-        Height = 45
-        TabStop = False
-        Color = clInfoBk
-        DataField = 'remarks'
-        DataSource = dmLoan.dscLoanReject
-        ReadOnly = True
-        TabOrder = 1
-        TabOnEnter = True
-      end
-      object RzDBDateTimeEdit1: TRzDBDateTimeEdit
-        Left = 99
-        Top = 34
-        Width = 80
-        Height = 22
-        TabStop = False
-        DataSource = dmLoan.dscLoanReject
-        DataField = 'date_rejected'
-        ReadOnly = True
-        Color = clInfoBk
-        DisabledColor = clWhite
-        TabOnEnter = True
-        TabOrder = 2
-        EditType = etDate
-        Format = 'mm/dd/yyyy'
-      end
-      object RzDBEdit2: TRzDBEdit
-        Tag = 1
-        Left = 234
-        Top = 34
-        Width = 167
-        Height = 22
-        TabStop = False
-        DataSource = dmLoan.dscLoanReject
-        DataField = 'reason_name'
-        ReadOnly = True
-        Color = clInfoBk
-        DisabledColor = clWhite
-        TabOnEnter = True
-        TabOrder = 3
       end
     end
     object pnlToolbar: TRzPanel
@@ -1545,11 +554,11 @@ inherited frmLoanMain: TfrmLoanMain
       BorderColor = 6572079
       BorderWidth = 1
       Color = 14273211
-      TabOrder = 6
+      TabOrder = 1
       DesignSize = (
         69
         482)
-      object pnlClientMainBtn: TRzPanel
+      object pnlAssessmentBtn: TRzPanel
         Left = 13
         Top = 9
         Width = 40
@@ -1560,96 +569,87 @@ inherited frmLoanMain: TfrmLoanMain
         BorderWidth = 1
         Color = 12955288
         TabOrder = 0
-        ExplicitLeft = 69
-        object imgClientMain: TImage
+        object imgAssessment: TImage
           Left = 4
           Top = 4
           Width = 32
           Height = 32
           Cursor = crHandPoint
-          Hint = 'Show main client window'
+          Hint = 'Assessment'
           AutoSize = True
           ParentShowHint = False
           Picture.Data = {
             0954506E67496D61676589504E470D0A1A0A0000000D49484452000000200000
             00200806000000737A7AF400000006624B474400FF00FF00FFA0BDA793000000
             097048597300000048000000480046C96B3E0000000976704167000000200000
-            00200087FA9C9D0000080C4944415478DAB5970B5454751EC7BFF7CE9D61782A
-            670185503956E6AA24083E8E72CEBABA8A481048D816CA4B4012717D145B59BB
-            C74A33304945455061CDCA7350414D5930C858B7430AA2216CE0C62B5E232A3A
-            020EF3B8777F77E63230A819BBDBE5FCCFDCF9BF7E9FDF7B6030F2872B48C669
-            F125640F82E943FF5FDC617E98910A3F96883C258B10F18B8647C11F33112E41
-            7099D97F2B6019048A6B3CCF9F4D4C88097912E04800649FC521CF8A41A861DC
-            02D3C44FA5E817901F71D00861B33FFB53F54BCB66E04EB70A5F9736213121D6
-            81E6EFFF3F00644756214FC123543F760EA6451F314E5ECF8D04D7590EAD80BC
-            C85CACDB75E08B8E97433D09A013255F35223929DE85B675FDAF00B29C281C53
-            002FE9C7CEC6D49559F09A32D578F26A4D0D6A3E4D00D7F11DBA7B71B47F51DE
-            8A883002B8D386E2A21B58BF2E710C9DBF391200EEF81A14C8243FB232F2F303
-            1A7DE453B759F08CCC82E7E467D0DB731B2CAD5BDB3BA1BAF606AA8FC443D67A
-            197DCECF23F4FDB3B873AB11855F5663E3FAA41103D81F4B80DA73EE427A15F0
-            63CD7574B5DC84E03E1B5ED199F0FAAD07B47DDDE8E93159D5CECE194A1B475C
-            A96DC4D5DC78A0B1126E74F6D95776E0D4F1EFF0FAFA915BC039371A37BD66FB
-            E0DFB5F5B8DD4EF1336E26BC630E60FA64777C52781767AB4CDA8B0F4F23D0DB
-            09EB031C70ED87565C39140FA6F90A5CE7FE0E75B6717863EDCA1103B8644540
-            35DAD11AB75A1F8019EF8B19B19978CE632C18831AC1BBD5D818EE09271B13C2
-            AD3E1E3BF3AA71669D0378F928D435B413440241544137612692F75C1E39C0BE
-            70A8042D39C07D267CE2F661E2B8DF40DFDF0356E8C18A432CC2029E47697DAF
-            71F38249B63851F83D8EAEE2C13376E0ACECD0F0D36D5C399808A6B5121A06F9
-            1B0B8C296AF82500B2B460CA73209471F7854FFC5E4C7073804ED30FBDBE0F36
-            0A0191391C1607CF82BA8F371E70204B149FBE8423317AF4691970721BC8AD94
-            686EBF87CAEC24A0AD02BA27400C0070692F228F33208421CD67C567C06D8C12
-            069D285C07AA6E50CA19ACC8B58642C6D321C17848A037AD81C5D1E807D0E804
-            F034CD710AC8E50AB4AA34B894BD160265875E8682374E992BE643005C6A10CE
-            91571771EEB330336E0FC63AC9A0D7E920F0266856C6917656B052C82193597A
-            CD6010D0AFD5D1FE7EF006D3FD0CE52F2797A3F39601970F2643DF7A490CD8F3
-            2967B0743884789BDDFBFE2852F7A077E2EAD38B16CF7785B65F43C20569070B
-            566E8DD69349E8AE2A07332C6A04DAE6E83D07EECBF682D751D11078E9180305
-            B9A3F842071A0F049FB7B783EDBB45F0A7A59E870068B88A019891FDF9C5D5D1
-            41A8FFB142D4DBAC0D6B658FAA94E958B0F904D94B49108C249CA4EB3528DD1A
-            06EFD46BE0FBEF9BAD2626E9A4A77D7120F70CD6C6BFEA276543C7A300381A4A
-            1ACEBBF61D6A88238086A66A12320440E9808A142FFC7E530E2A7263C0C824ED
-            49966F740EBEFE3806BEA957C16BD46600812CF1B4C774E4E49E43D29AC88930
-            F504CDA35C604EC1F4DDFB553151816869ABA7854100997214CA5FF7C2C20D7B
-            71FD4412C584D2A4A3418369617B51929E84393BAEC2A0B937C402023C9E9A8A
-            CF8E94213179F963EB8105C0CE4F3254912B97A0BDB3D1C20532EB51F8768337
-            16266F477DF116025048005A4C5AFC5794EC791373D3AB607830140098E03A0D
-            4BF78F81AD1CEDC529F0A029DDCF02ECD899A18A8858005557AB796900E0E29F
-            7CF087359BD1F88F0C02909B00781D26FAAD45C9BEADF0DB4500435CC0D09FBB
-            F364BC90E58A80494059033A8BDFC4F8E110C30076ABC297FB513FEF7A08A06C
-            9D2F16AD5E87B6CA2F28064C002CA5DDF8191128C94CC7FCFD7514847DE4FB01
-            00164EA3C62130CB1987A2DFC2B1F20F71B10EF925EF5A16254B808F77AB42C2
-            A8D2A9EF0E128A394D00A549B3E09F1007556D21052867CC0439A56ABE13830B
-            F79A00AD9481C2E08562011313E5F0AA2DE8EEABC3F9EF3F3741BC33086101F0
-            515ABA2A28C40B0FFA348337490025AFCDC192B85771A7A91C621AB074D48A67
-            F01A5387E3ABB37157734A8A1BCB4221668342588C0BF5C998EE1E8DA2EA5CFC
-            B306F95F4910E652BCE5BD0F4E727265D0D217A640A7D35B00C86D46A328D10F
-            41B12150ABFE2519988535CF225E7F1DB9B1DB48C0DB46D1C3BB9B20A9C948C3
-            D32D16C5D587F16D35BE2C7A9BFA8EB4CF7EDBF634F5CBE1CBE1F6943DF406DE
-            2C9F911180723476CC67F062AC3F7ABBDB250006D6028B559A2A6444AD45454B
-            C623010626180946C959C165D4B3D875F23AFE9E028781FD4E5B3F4CED9AE64D
-            6558AB37FA72C0950CCB1A83B0664B0842A2E6A1BFBFD7B86802E010D37319A9
-            51A1A8BB99FFD81F985275365A80A3B2D7423A7C7311DF947E806503675CB66E
-            4B550504F9C0A03718036750034A28EA05A7A3FD101E3DC5681D0112001488EA
-            B986F7627DD071BF128C00CB5E41DFC596A297128FA30ADA44195E5A82B2B28F
-            904C538D03DB9DDFDAFC977C3B3BBB793C2F58D2130D4B2D76D3A60D1043831F
-            D08686155D98561486E2DA93C67ACE3130FF5C339D25E17426EA15D37B733350
-            72DE287C032DB7D0B86B8E011A62917082A9370C7DE49959870B757493082748
-            CE110B0D4BD9A0609590B3640BD60E2BE2FD03605968E44BB6A3307225507F83
-            343F4BC2D3CCC2BB2DB28086354C4D69B82BC56EE92C7DFEDC2376B92E58763B
-            C7C034FC308F7AE18512DC2E7EC7D88E9B078403BFEC1F13B1F0DB8ADA3C619F
-            A8B9F863513B64CE257827541403EA737FC612FADE40E3161E53097F8DC79186
-            8764E136C9428FED05BFC6235ACF467AEFC523BAE17F00E58D348292B2D17200
-            00003674455874636F6D6D656E7400476F20686F7573652066726F6D2049636F
-            6E2047616C6C65727920687474703A2F2F69636F6E67616C2E636F6D2F275678
-            040000002574455874646174653A63726561746500323031312D30382D323154
-            31343A31313A34392D30363A30308FBEEF2A0000002574455874646174653A6D
-            6F6469667900323031312D30382D32315431343A31313A34392D30363A3030FE
-            E357960000001974455874536F6674776172650041646F626520496D61676552
-            6561647971C9653C0000000049454E44AE426082}
+            00200087FA9C9D0000068F4944415478DAAD97094C54571486FF370B8B0C9BAD
+            126190AA68AC855423B88060AC46166BC001AB621769EB52236A8C5DAC4D1353
+            35DD92366A89694C5514342E807641DA06446BD5CA262820B8216318C75AC561
+            98F5CDF4DCCBCC0882CA6B7A939B9977DFBCF77FE7DC73CE3D2300501C2D2A2A
+            8620CC713A1C7042EA604F0890090244513CF65A6666262DD8FBF9A1D7C52FCB
+            2C4ED186F11B92BCE9DA0AFE24E04F000F35E9E992A51F1F7ABD1EBF9795152D
+            5EB4683E5D8A3DC51BB75658542F8D86A1AB135D972E2266CB7C0EC100861C29
+            2CD467CC9B871B375BC9118234FB9D4E8C782102FB0B0AF07A5616743A1DCA4F
+            9DAAC85AB06096CB135E7BF20B2C0F4D06A478BD0283C988CE2E337C5A1B31E9
+            DB6C6FA636F47061E19D4C0268BDD5C601060AC1C4D98C181E8EFC8307312739
+            0541418168D7DDC1E9B3E7DA1668D2C7EECE3B688C8D1D8FE0E040ECCADB8D64
+            D92C74984D08686FC494EF560CEE0570AB4D0B994C26C9030E8A9BE1E16A1410
+            40864683CECE2E3C373808BAFB6668378F404BDC1E4C9B3A01D7AF35A3A9B909
+            CDDA9B58AC8FC0C4DC6553E8F1E65E006DDADBFF09205C1DC601B2162E848576
+            DE64032E7D1086696BDE00C2976047FE25286C463435D543F49661C7E75F25D2
+            A33758D8F402D0DE6E27006931C000D461A1B850558D96EBADB4E32A44946723
+            7E1589872D03CE6F025A0E639D963E2D0FF0CD175B3CE2EE202480A304A0C1ED
+            761D4FA7DEA33B26D85EA39F2465EBFE2A7FF8FBFBF1EB336BC3119F43E2A14B
+            81B39B49FC3825BA1307EA2290B5ADBA9778F7DB19C05102A0FDD351F008828C
+            437467B700B94CC1A79DF25774D868DDD907107225A054E1CA27C391B8E6AD6E
+            CBDDE2721976D58DC6D2ED67FA88F701D0EBFF8652EE05054D27A5B14C90C35B
+            E183B11F0BA8DD648285F6D1E174F4D09641207181C41B36AA919843E26A9778
+            3389CB1CF8BE662496EFACEC57BC0FC03FF71E40A7BD8B797963B037AD865B9E
+            7D3C1A735F9E898DAFFE028B9D001CDDF585790A042AD09E376C0845C2EA1E96
+            371F03AB43B917C2109AB50BF3664D1D450BDAC7C5FB00747418D070B1052B4F
+            4C44CD5627954C0171EA49D8FEEE7998AC26D8D916700FD0E6302F297D79B427
+            AC7EB3873859EEB461DBD910ACCEBB82A29F4AA0999B1AE2B21E4F05786830A2
+            B1B60539A51378BC2545A5628E7A33C6C74461DFFEBD888C1CC5232066723C0E
+            15FE88172BD7BAA27D691FF1253F5C418002385A5C0CCAB081011808A0BEBA01
+            EF954C42666C1A3E4A2DC61F7F5620764A0C4F37B00C111410BC7D50B75E4DD1
+            4E968732CB3FEB259EBDFB0A449309412A5F5099C7FC8C8C817AC0805B37DAD0
+            71DFC06F5AED660C7E3E0823468EE400824CCEF7BC6E7D0815996C97DBB7F412
+            7F7B0F1337C361B7203830502A4027E47205658182DF61FB2D8A6CDAC1CA80A0
+            F0C28D7387E06BBD8831B33E042AD691F8CF3CE098F83B7B99B8958BB3078202
+            03A40118A98E375F6DC65DBDDE737348480846478EA66F541FBC7C7061DF2A24
+            2ED90C7BEBAF40C361285A4F60DBB9502CA38013CD762ECEFA0A360202FCA501
+            98E898AC387512C9C9C93099CD301A8DA8AEAAC2F4E933205328A1AD2E829FA1
+            1443231360D335A2EECC19FC55DB86657BAFC24E07AF5B9C6D17AF90FE2A6900
+            66B315274F967100635717BA68D6D65463E6CCD9C82F3880C6D3791480FEC849
+            F24359793DEE05C421267529442BD507BB958B32F1C993A7F04F95CA4F1A80C5
+            62457979591F0FCC9E3D1B972B7FC38AF55F2376B80DCB57ACC4A8B84CB092E0
+            A41871F2E2E4E471C23EDD1EF0F31B2411C06A455363139D09EDFC064BBB61C3
+            4211151D85AD9FBE4F0DC70C8C8F4B858D84453B0B4C112E55CFE067856B6990
+            AFC434B4D86C940172DE13B8CF44D1650D2BBDECBD0E517459E8C0B386AF8F8F
+            3400EA6A71F9F265B4B7F7F4C0308C1B37AEBB1001AE63B99FC1F354F0FC867D
+            F3F2F69606C01E2C2D2DED1503559595484A4AF2F47F6CF29EC1D3233C8272F7
+            0D6E58A552290D808D13274A0820C5930535D5D53C08737373111D1D8D848404
+            ECDCB9135151511E7136131313F96FD87A7C7C3C5F532814D2014A4A4A909292
+            C23DD0C9B2C0E581479E76F6E99A9FE40139C5936480FAFA7A68B55A8F885AAD
+            E656F58C81FEDAF69EEBEEEF2C980706E06A4A9F359E1880FDBDD80573A4A808
+            F3359AA703D0997D47939636E0974B1985C78E21233DFDE90085C5C5D7C83A95
+            835928C1CA67B880670B79A293FE778E7A1A4010CD1134835DD7FFE760D6DC47
+            7743FAE04900D4538335F55EFFB3B87BB046D448D3D6DFCD7F010D20D27C34C1
+            F97D0000004174455874636F6D6D656E74004C69737420746F20646F20312063
+            68656B65642066726F6D2049636F6E2047616C6C65727920687474703A2F2F69
+            636F6E67616C2E636F6D2F01A9220A0000002574455874646174653A63726561
+            746500323031312D30382D32315431343A31303A31342D30363A3030494BEBB0
+            0000002574455874646174653A6D6F6469667900323031312D30382D32315431
+            343A31303A31342D30363A30303816530C0000001974455874536F6674776172
+            650041646F626520496D616765526561647971C9653C0000000049454E44AE42
+            6082}
           ShowHint = True
+          OnClick = imgAssessmentClick
+          OnMouseDown = imgAssessmentMouseDown
+          OnMouseUp = imgAssessmentMouseUp
         end
       end
-      object pnlFamRefBtn: TRzPanel
+      object pnlApproveLoan: TRzPanel
         Left = 13
         Top = 54
         Width = 40
@@ -1660,98 +660,93 @@ inherited frmLoanMain: TfrmLoanMain
         BorderWidth = 1
         Color = 12955288
         TabOrder = 1
-        ExplicitLeft = 69
-        object imgFamRef: TImage
+        object imgApproval: TImage
           Left = 4
           Top = 4
           Width = 32
           Height = 32
           Cursor = crHandPoint
-          Hint = 'Show client family and references'
+          Hint = 'Approval'
           AutoSize = True
           ParentShowHint = False
           Picture.Data = {
             0954506E67496D61676589504E470D0A1A0A0000000D49484452000000200000
             00200806000000737A7AF400000006624B474400FF00FF00FFA0BDA793000000
             097048597300000048000000480046C96B3E0000000976704167000000200000
-            00200087FA9C9D000008474944415478DAC5970B7054E515C7FFF7BDD92CBB9B
-            EC6E5E908410D040840022A54078A441AD082D6AC5E928C20C328CB5483463A1
-            03856241D0F2AAA5B62308A8F481156C85E1A112280549208021011423219B84
-            DDCDBEDFCFBB3D7793545E2DD1D1F1CE9CD9DD7BBFFDCEEF3BDFFF9CF35D2699
-            4CE2BBBC18058061986F622E7EE1848C9D1CC7CD60C1012CDD49CA90E5C4AEB5
-            879D33E957FCDB0410AB27654654E93C0A0B2588A284405086CD1182DB1187C4
-            27B1E643BB44E3A2DF0600BFA05CFF6E7ABA387D4499062A950E1CAF42209484
-            C51640F3172E2422318842FCFD75871D0FDD18896F02A0CFF3938DDEFC0211FD
-            0B8D10D2F410780D42B456CB552F9A9BEDB0D99CC833305875D0AAA5F1BEDE02
-            304F8FD38F9104F62516EC448E0712C4CED2DECA49F94838262FDEF46FF7091A
-            67A8AEC8EE2C18C0A15F6E0ED2B5042119607744F0D925331C761F990BF9D93C
-            56EE6B37D1787B6F0058723E5B2D725BF40601D93912044E40309C84DB1D81D3
-            19A340CA08C5624F12C4C1172AB3AE66982448B4F74946A0E751E415E563E888
-            3B51577B11F5479B30205F5200B2696EDBED009839DFD3951BD4FC913C0A6B51
-            BE0E2C97068615110A25E07447D161F5A1A3DD874C0D838F5BFC634717A4EFCB
-            3089BA69337F0297CB8B3B4B0791164404832128F33F33E7150C2E4A8FACFEC0
-            52D01B00714179C621AD5E1837A2540B5ED28213D329F422A251064E5798003C
-            04E021718548F1890FFDE17830D7284E5FF9D6AB08753AE0F305100C84100E87
-            0940C6AFAAFE882C2357F38763AE477BB3053A12953B2F9F47415F03D2D4242A
-            49034ED0201A49C2EE0CC06C76A2D3E682CBE9469E89C3A6239D154F4F36FE73
-            E56BAB344EBB137E7F80A215A6F151C41309ECF8D3AEE0E126DBA3673AA2FFEA
-            8D084DD515265BDF020E266326B43A03A4341D78410F739B0B173FBD0CAF2F0C
-            39C620E0F3A22087C3CA0396B2A5B3463E53F5DC134F057D7E04FC4184C21144
-            C93C9E006A6B2F6C5DB2B57619CD6D218BDD0E20EB854A93559F25816778709C
-            845882456B9B13A5C34B3069CA18E833FB60F5AFDF84C3DC89FE3902561DB20D
-            A0FFA94FBEFB8B46AD86472C1A4184F2D0E3F1E368ED792CDB7C62283D6F210B
-            90256F0B503DC9D8DAC72448132B2B49ECCA7816838795409D26C14FC28AC7A3
-            68FEAC03BF5FF317DC51A082B73C6BB9214BBD7C76C9C3F8BCB50D56CA7BAFC7
-            47005E781D1EE82AD2E175F957BFBCE8DC129A2C713B00E3BCEF6BFF6ACA147F
-            F09BAD1B41B9D715D21059309212563C1E27B5FBB17ED91B183ABE10E58BE6A1
-            A4640C02073E8227E086ADD3496275C3470096363B7EFED6163434D4E0C4F13D
-            549C9CD37FB7A2714F4F246E05A09D3A583D6B90917BB56A45150C2613028100
-            39A6B086A38844222980CF29027BDED88D87572D44DADD269CBD7C10D373E781
-            7704A90EB4116C90042820AC93F0A9F6084A7326A130BB0CA7EB0EA0F6D8A1B9
-            1B969FDB4ABEE45B01284DA3DF8AC7061D98F5D4CC626D462645C08F30293AA2
-            40D0672C1687C7EE464B8705D223C568B39EA7C62753BD10B1E8FE1AD010B204
-            429130B69D9C461D31967A9E97710786154DC13B6FAEC1CB8B1BD4E42774CB42
-            449631BED43066F9FC897B878F1E05AF3FDC15015A7D341A438CBE5F35B7217D
-            EA44D499F79242F85440E3721803B3C6E3A7F7BC42CE819DF50BD1EAAE03CF4A
-            A982942090F1431EC3FE5D5BB0F6979F18C98FE37F9562912C6FD9B38FBCF760
-            C590B23E628456AD388E23485A3879E602F8FE65C82D4F4743F311B08C2A2554
-            9956194D84306DF8628291B1BF610D3526353DE7882F49CFE3281B3805C7F7ED
-            C2BA25675365F95600ECFD6B3F79222E6856E875A682D5B92FE112E5BFD5E626
-            657BA91778E07358D0F1D02584BDE761E4B7234BFA88E2A622170239A19526BB
-            3A2E477D8155BA1705B50B40C6C07E23D178F430D62F3D73130033F9C5630F42
-            A57B674CB156AA1CAC4745491F5CDCFB3C7CB472BBDD4BE22208AF8BC27F050B
-            36D4E19C538FFD8D7ED45F6E45B1F67518A453E44609379B9238A3EC66CFDAC8
-            874A5243ABCE84F96C13362CADBF0E801DBBB4664E51BFDCCDCF56E621374342
-            A303282F12215F3D85F6E63A72EC443814200D24A1EF371469459568978D18A2
-            4FA2DD99C0BA0FDCD0F39BD0575BDB05811BB6957EC67D51043A3DE8347BDFDE
-            B1A9A94AE90B3D00691356D607373E5E023BD5FB7A2B9D9D64061A89C1C2D12A
-            C428AC8AAA63947E89B8920D21EC6CD1214891165819779B18185402E66C69C7
-            A4E4BD48B01A8A02771340D0176D68B9E4FD5BCDFB2DBBE98E99CCDF036098B1
-            FEACFDB9070660FF1599F6AEAB5A52CB47BE96C3FC7B04F882514409804944B0
-            E3A2046B8803C72653EA4FD0EC0FF417307773332EAC19F6C31BEB7DF795E82E
-            C58E6EF32BF77A00B2EE5D75D23AFFBE621C6B8F936ABBB64EA9C2B4708C2FE4
-            31A38445943261F785044E5A585A3952E392DDE326E48BA8DEDE844B1BC695D0
-            2DD72D0094A1CAA134DC0D285F5B09B3262EFFD83AABA218A72C5F02A4B06958
-            8420E68E12E9BB8C6DA7E3107945E15FCEAAD8A81C112FFEF92C2EBF5679D3A9
-            E7FF5DFF05289ABFDFFAB319C3D1688DA69286B9069BFC526AA13BB5BACE85D7
-            3E5746DF952D62E3DFEB617E7DEAD703C879F21FD61F4F2E052308F0D0D14B4E
-            C8D7C5AEE7058AB9263AA9A2C1B1D0A771743E88E1BD9A2658B6FFE86B0118F5
-            53D7AF17F4858F8FBCAB1026EAF76AB50AB77B6D53EA4790BA65A7D387D38D57
-            10735F79DBBDB72A955E5F154043DF0BD463AB67277503EEA36234ACB7AF8CA9
-            1A16F634309E2F0E048FFF761BFD6A4597C2BF128092B40A84726ECF24533A15
-            D7CB3994F40A9239C93ABB9D277AF9DFEBCE034AD1569A90D2590400BD7D5D52
-            62A5A495925E4A9AC9BDFCDF4D00DFC9F51FC4AB265A3E1822F2000000457445
-            5874636F6D6D656E740047726F75702070656F706C6520757365722075736572
-            732066726F6D2049636F6E2047616C6C65727920687474703A2F2F69636F6E67
-            616C2E636F6D2F46982A930000002574455874646174653A6372656174650032
-            3031312D30382D32315431343A31303A31322D30363A30302A9BDE8A00000025
-            74455874646174653A6D6F6469667900323031312D30382D32315431343A3130
-            3A31322D30363A30305BC666360000001974455874536F667477617265004164
-            6F626520496D616765526561647971C9653C0000000049454E44AE426082}
+            00200087FA9C9D000007554944415478DA9D976B5094D719C77F7B6301111603
+            E282C0222028A4788B26A3823A588C4882C6A9DAD6F6436C3BEDB47126A33656
+            F3A5459D499DCCD84C3393D67EC824D344C716532A35536307076D6B02410101
+            B9EE72595640968BC8B2EC6ECF79F7D2E5A242DE996767F65C9EFFFF39E7B91D
+            1573FC36BE4164F8620EA1E6871E15DFF28FAB5441E2E1AECAC5872336CE579E
+            63782E7A55CF9ADFF216CB34915C0E0D217BF3CACDA4C425931863C4E39E6074
+            6288C70EBB902186C607E9ECB3F2606808EBC0386E3775E3768AAF9FA64DE8F1
+            7C13029AFC53BCAFD7F3E39FBEFC261B333732ECECC2895DEC9AC0E371E372BB
+            70B95C820C4C381D0C0C3FC0DADF86A5BF11CB83517A06C03DC91FCA7FC9CF84
+            3ED77C08E8B69DC6FC62C61AE3DB7BDE658416C6DC16BAFBEE627B58CFC0501B
+            E3E32EE5D8FD5AF43A1D51E1894446A412AA8DA7B5A79A7B5DB5620F0C8F612D
+            3F4AB258E99C0B01DDD6123A5EDFFE83F8E2F5FB1874D7D03B584BCDFD8B389C
+            6ED46AEF26D52C3B3DBE1F9D564B5CD45671422154B75DA3A7DF41773F3DFF38
+            86693A89E96A74F9A7B11CC87B6DC9CE75858C6BDAA96B2FA5A3A70E8D06D4AA
+            D9816710F178C918C2D3880E5FCB972D5730CB2BE9A3B7FC1849C12482D569F2
+            7FCD0759A929AFFFBCF030BA887EAA9B2F08F6CD01F0F97E6EC122322C8945E1
+            2FF19FA6CB34753AB0DBF9D3D513FCC4EF13815B5C7F88CCD84CEEFD6AEF51E2
+            8C6134584A31DB6AD1A8E70F1EECF2F234E449846A32A86CB8C2FD4EB035B0F2
+            F6791AE5B45F75C8F6D3D4ECDA90BB62CBAA0D383C5DDC6EFC64DE967B7C802E
+            B7D7348DEFCAE45882211FEB432BD52DF5745A69287F8B5562D584A2DEB489F8
+            AC62BA0FBF7210D3D2782AEACF3239E9521C6E3EE06E198EE260776797617FDC
+            4445FB11746A2F09AD5A4742E41E6E365CE44EAB87BA5212DA2BE99104345B4F
+            707C7576C26F766DD8862ED4CE5D739962FD5C8DF7833B047851E6A7A42EDAA7
+            8CFFB9C684DD6156AE51AE3146E462EEB550D5D241B785B7BF28E18CC408FBF6
+            29AA727396AFD8B626976EFBBFE81B6E5536CD1FFC1301BE3F30E7981CE08F5F
+            C528A720AD89D027A19A3451597F83F66E1AAE1E67AD2410BDE31D1E16BE90C9
+            E69C02BE6A7F1FA7CB39E5EEFD4EA57A1678F4FE29F31DF6CBFCBD69373A8DF7
+            BF56A5237EE16EAEDFB9C83D0B941F6191D4192B083C285893CC96D5C5DC6A3D
+            A758EF0793A1E4F231F03B956A3A78C64CF0D6C14F05F80142B4DE7D8A2E21A9
+            86837C51F311B5ED82C05116CBA9C582802D37DBC0F675DFE34BF3EF03D94E82
+            8BE4475ED2590CA119943616112223431D04BE7C76F0B2FB07D0FBD6068C9104
+            A2A610885308BCFC5B6CEBD235EC7CE1105F5B3F081CBF0C27435832DFCDEAF0
+            29BEC0DFEEEF57EE54127B651EE04F25B05310C83609851B0E51DB773E906E9D
+            C2C21FADEE17CA9E0B286919FC984B8D07D99BF91169D1DF9F0A6E7F32788040
+            E46C04CE625B293274C1EA03743CBA24EEDC1920B02BAD145354F133A341016F
+            7E32B8F419990BE243A738A14220B6A0849B2949A4E78986C31D6A6664D2A228
+            90CE3731294988A336EC7F3A788B00D7FA0AD62C6B248108AD084387370CDB2C
+            347F7E928D4A186EFC0527539FE7CDB5A9264C0949F48CDF403DDDD3D30589A8
+            99245A879E6E793081B85091884406AA6EEDA0B596776FBE47899288A29359B1
+            E90DAA7252556CCAFC0E5DCEBF32E976CE0CB7B4A92414F096B9812BC7AFDBC3
+            AD466F2AAEFC1D6B07CD3428A958C8921D25DC485ECAB235E9591845CFD7EDB8
+            863A48814242C8ABCB2E9112F51AED437FE1B3B6BDE8D54F07F73B9F519F4F6F
+            BF95AF9BEB3177D176F524B962B8D7BFCF90B89E4DABF651B63C1136AD90CD48
+            137657CB5412BE4A2715CA717FA97E1678944694635706B744396E12E5B8E602
+            459DB7A91453F640399624F38E71CE98CCAB194BF5BC9851CC80FBDF8CB82C04
+            97057FDB85EAD9C54A713C8D6848D42FF15FD9907439B09AF9ACE21D0E8B292B
+            FE72EC55478490941D67B8BE348EE792E32258975A88DD5385DDDD227BFE7955
+            47B938529D8641B596AA56D192D946E9B231200AD036312BB200A3043524F87C
+            41669C650567284B8C232621464F4E4A3E1ABD833E570593323F78FECF7806A8
+            6F42169D184D1E6E879E3BEDD74443EAA0D346FFE7C729122BE43B4134EC535B
+            32FFA71312E33B893243248B96C6427A7C96788C6433A1B632EAEE60DC63155D
+            A573DA461DA12A230BD426F46EA3781BD4D1D2534F9768CBEDC33CBCEA059796
+            F7F384A6743A89E4BC239C8C3452182FCE25D6A022666132B15149444718D16A
+            42A6F47E2ED70483A356FA862CF48F98E9B37B9487C9B0952B156729114BCCD3
+            C19F44C04F225AC892F81CB29FDFCBA990704CD10B6141A857A6372C323A1E8D
+            7B65704478D7181DB59738D173873A31DD2B6490393E4C827D22DCE717B10B62
+            89137D63912191EDDA705266BCF684A6C931DAED9DFCB3FE32658FFAB089D13E
+            DF7D8F31CFA759F0BCCE4764819048215142C280E94D9B0CF9C7428684C897F1
+            231FB0B4FA1B3D4E673B11992FC405A065F64010A50B71094C3CC9E2E9DFFF00
+            361B1D0A41A691180000004974455874636F6D6D656E74004F6B207965732061
+            6363657074207375636365737320636865636B2066726F6D2049636F6E204761
+            6C6C65727920687474703A2F2F69636F6E67616C2E636F6D2F929D1323000000
+            2574455874646174653A63726561746500323031312D30382D32315431343A31
+            303A31322D30363A30302A9BDE8A0000002574455874646174653A6D6F646966
+            7900323031312D30382D32315431343A31303A31322D30363A30305BC6663600
+            00001974455874536F6674776172650041646F626520496D6167655265616479
+            71C9653C0000000049454E44AE426082}
           ShowHint = True
+          OnClick = imgApprovalClick
+          OnMouseDown = imgAssessmentMouseDown
+          OnMouseUp = imgAssessmentMouseUp
         end
       end
-      object pnlIdentInfoBtn: TRzPanel
+      object pnlReleaseLoan: TRzPanel
         Left = 13
         Top = 99
         Width = 40
@@ -1762,78 +757,91 @@ inherited frmLoanMain: TfrmLoanMain
         BorderWidth = 1
         Color = 12955288
         TabOrder = 2
-        ExplicitLeft = 69
-        object imgIdentInfo: TImage
+        object imgReleaseLoan: TImage
           Left = 4
           Top = 4
           Width = 32
           Height = 32
           Cursor = crHandPoint
-          Hint = 'Show client indentity information'
+          Hint = 'Release loan'
           AutoSize = True
           ParentShowHint = False
           Picture.Data = {
             0954506E67496D61676589504E470D0A1A0A0000000D49484452000000200000
             00200806000000737A7AF400000006624B474400FF00FF00FFA0BDA793000000
             097048597300000048000000480046C96B3E0000000976704167000000200000
-            00200087FA9C9D000005C24944415478DAED97696C545514C7FFF7CDDECE94EE
-            8BD89652284BA929B518148A8052DA4E0582317C51E2062E18C337134A0A65B3
-            90102231516A881A8C02891123A50918400465A986A2586984D6B4653A94CE74
-            A6EDECEF3DCF7D33D3E93203FD827CD09B9C74DEBDEF9EF3BB67BBAF4C96653C
-            CCC1FE0778E80024EACCBAC6632E9199FD22877990400C1A15439C4A6EECD962
-            5E4513010E604AA83DE174D455FE6BA79EB4A509CE6D5509F4738003A4196A1A
-            EFB87654A1B1AD870805A848649516B2A083C4D48A9B180210442F20FA204912
-            B8B7E80FF96B821E9383BE5D313313719B4FC0BDD39C4E8FBD5C77BAA1E6B8D5
-            B5C38CD31DBDD8FDB50D5ABD1E6ADB5F48FB611D72351DF07865744B79702CFB
-            04BEC469F0793DA8793E05BEC0C4C325C95C64544C4F27804602A8CEA0E93BA3
-            002E74DEC517675DD0C59B207E5E8EB2A95D484CCB45BF13B8D27C0B839A5CE8
-            D79F847768006B97C44314019520040F48CAC3F9AC1258D02F72C43F2211F849
-            96E4A58E07D013809B007EEEEAC3A9AB7EE88CC9E8DDA4C3C2A5854848C987DD
-            21E0CAA55658DA6E60CEA71E7806ECA898ABA5B030CCDB7D06EB16E543947948
-            64BC5B968792FAD3CA9C34028087EC8D2773B02027050602F04403B8DC6D43CB
-            2D40674AC6A55719A617E5207FF613985A3813D6DB1634EC3C88EAEF64789D36
-            144FE56A05A805160EB1E266C5036C38EC9135EE0151C2FCECE4D800CDB7FB61
-            ED53411367C291D50C072F1C81C7D2077B5F3FDC434E6C5A5F8FD74FC9F05108
-            B2524552CC1356A518E021602C6C39683AF8CC9444E5892B12C0BCC9936203FC
-            6AE987ECD741A333E0DCFEB7B0E19559B0F60EA2DFEEC0A0C3866BDD59285DBB
-            0D018F1B82D60726A871B2612F72E6CCC5ECB26771F2C05E6417162BC60ACB96
-            296BFC99FB801B9FB96029E666986203B4581DC88A3342AB51A1F7AE0DDDE7EB
-            91932CC0E170E2F70E2796AC3B04A39EC1EF17D1E31A824009C8C803C3A76642
-            A4DE107C660896AA4C501CAC28FD1E0037FA06509064C2F6262B5A6D0C2FE7B6
-            007F7E89F68E4EF4673E87EBA92F627A6200B5951968B30D40662A825005FBE9
-            7015F05008E39A00CF014912312BD5181BA0D3E9C6C6437F63E9AC243C5D9481
-            47EDC7F1C7C5A368BFD50E6376190A56EFC299AB569C69B563DFDA290848020E
-            7FF03E0A8A4BE9841C4042E9339538BABF1ED31E2BC1F03D230773A064F172E4
-            27E9A3006C22809D66F4BABD78E9C356D4AD9E86E39D2ABC566240AE091872B9
-            70DDEA46539711D5D901BCB0BF05CDF5A570F9B89B55E0B9268FF500C3A86B45
-            0901014E9944003504B02B0A80D3EF47795D3336AE9881F35D229518B0CF6CC4
-            0001D49EA52C96181665ABF04EC32FB8F9D1620C7A250520D288A82EC878B8FA
-            235501C503DC43934DBAD8001E59C48CB74F63C3CA39F8CDE22583745D49411D
-            1C864BD1237A6CFDEC326C5F5513808C037B76A0B0641E247AB96C79151AF66C
-            C7ECE2C751566EA6B5EDCA1A1D5FA98285CB2A901EA7890D1080848435C7503E
-            BF00596909A10A0E8EA047192C779DF8FE621BEC8757853C10CC74DEF5780C18
-            6FCD616F84DB7428047C3ED9700F002FBDF4E3B53B58B3FB3C6C3D0341AB636E
-            B4E44C6A52EF2DC482A2747803D270FF1F0D1AF93D622B384EA25E3D1E404700
-            1E0270934235F5510D1B6B79F4F093555F40522E98B1838D8C7D383742BF059A
-            376A55D01380371A8057941457F217F977C1C86AE64AFC52D0B5D2889B6FAC71
-            35EDD3081100BE27407AF9EBFC96D4D1FA3880F0758C502C85D009167DFC130C
-            1A016EBF84736F3E35BC1E6BDC6F5F787DDC754C9F64D6689F64A186B1921AD5
-            B7EE10E044C6FDF6853EC9220059DB4EDC1C0AC0C8AF4BA5A5D32C0F814190ED
-            D6ADE6CA8CAD8D4D6E892585D7638D31FB2A32367F73C42DE8A68CD51BAFC6A0
-            A5B62A3F0C90489247921425716D24F6D05A32C6D745B411DE670BE94E01C6A5
-            13D7D94ED2CF156A48E249B45194F942A28DB11E6B84F76942FB5894F52112FF
-            444EF440C7C3FFCFE83F0FF00F1F103F394813697B0000003374455874636F6D
-            6D656E740056636172642066726F6D2049636F6E2047616C6C65727920687474
-            703A2F2F69636F6E67616C2E636F6D2FEA4AF576000000257445587464617465
-            3A63726561746500323031312D30382D32315431343A31333A33312D30363A30
-            30B26178690000002574455874646174653A6D6F6469667900323031312D3038
-            2D32315431343A31333A33312D30363A3030C33CC0D50000001974455874536F
-            6674776172650041646F626520496D616765526561647971C9653C0000000049
-            454E44AE426082}
+            00200087FA9C9D0000071B4944415478DAC5577B6C55F51DFF9CC73DF77D7B5B
+            7B6F5B404A2B2D0C1426735B1FB6D4296444EBB24C9D51224201879181897B24
+            4A9781CBF84393CD6C33034944E7329619974C1237B619A1169CB2610DB4173A
+            B0A50F2E97F6BE1FE79ED7BEBF73CED5766B8DB34D3CB9DFFB3DE7DEFBFDFE3E
+            DFF7F7728661E0F3BCB8CF2AF7C6932DB7BA1DDC630E9EBB83E350C10B2244B7
+            07C54C1A64D3A4A2EB7FCD2BC62FBEFE93DE1EFAFDAC567E1600C29B3F6AFD55
+            78D182ED158B17C2E5F7C170B9C03B4564AE44004D4020B808D9780293C3A3B8
+            3A3276E0B61FBFFD28C969F3014038F654CBFEBA958D4FD4AC6840219D40319F
+            83AF7E1532231F402F64019E94EA5E38BD6E0217C4F8B90BB874F6FC33EB9EEE
+            FDE14C20FE5F00DEDE7DB7669A1E7C08B1A13E70E47BADA8C27FC31A642FF741
+            531564AEA5E1AB0840941C140A1DA1DA5538F5CA4B68D9D3E323F9EC5C0154F6
+            EE6D8D353FDC85B1482F385E40F08616E4C62330E41C69E3A0D3A1BAAAD1E10A
+            055EC382652D38F9E221B474BF1D22F96B7305102600D1E64D9B31393A80D444
+            12E11BD74219EF87C1E9A48C33411432194C8E8DA0AAA11EE5350D38F51279A0
+            BBA78AE4AFCE19C0C9A7DBA28D6D6DA8A8ADC7C4E5F38847E374B800254FDED5
+            54E21948540D95B5B508D52DC778E43486FED187E6A74ECC0B80CA97777EE999
+            8605FE4D0DAD4DF057D54074B8C868DE72BFA280972440D750C851158C0C62E4
+            F400DEFF30F5DCF60367F692FCC45C0178896A5FD975CBFEFA4A5767A0268CF2
+            EBABE1F048307495E2AE41A7C3E54C16C9B149E462195CBA96FFD3033F7FEF07
+            243744949B2B0081A88C68E123EBEA3A6EBF29744F7599F366070FFFC71A39A8
+            9A911E4FCAFFFADB07B13FFCFAD8A537E9D351A224913E57002510CC131544E5
+            44ACBC1C5374B1AEA7106588E24493B0CA6F5E1AD1543976A88B8882CEDACFB4
+            8B595A242AD860E6AD158B27F6B5FF4E80FE2D7CDA21C69A15F857DBF61CBF9F
+            9ED4B902F053274C356FD946AAC8B0FF06C1711FABE46C2E8A3875E8009AF7F4
+            04E8293D57009527F7B5C556DFB501BCE8A476EB86E07493169E4A3007A59823
+            5C16D78A59A8C53C34AD80E15343D4078ECF4F273CB1B76D80D794725D2F25B4
+            315D15C7D9779CF562E07831DED67D7C3966694452575797CC1E5455C5E1C387
+            9DB01268A62BD4BBB7FD6AF33616020A2703614CA9AC4F0E41989E62330128EF
+            E9ED9D6486A814D76C4E3643AB29B93F570D7E3FCEF1D2529E3382A46FA965AD
+            0EB73F046FC522044375285BD86885805CAE289F1882595B7178F7E34F44354D
+            C39D776E406B4B8B995CEFF50D60B972049EEAD5E658F5D7ACB4CE2789F4F859
+            5A3ECE11EF478A3834D6099D3088EBAAC3F48AC1BCF32943F011808E8EB5E858
+            DB4EC206CE9C8D606DDD20794286262748298DD73C7950F4407087C0B942105C
+            55D4FB7D04A61FE9E800B2D1F328A6C7B070453BCA6B6FB4C243213879F0004D
+            C313B38620BCF3BB8F9B009A9ABE82F5EBD79BB13D73EE22DAFD87A1198E8F12
+            CA7A33ECF2B3B909280C8E8801528B322EBFFB5B68F909788295664826FE7D05
+            592D7BC4EBE2EB4501B730BFA886F0EA57779DB9DF04B0E3D19D513644BEB87A
+            353A3B3BCDA5E26CFF87680B1CB2014C85CC81E7ACB9CF00182520CCED448EF2
+            9B20041A70E12FCF9221321CBE6A78AE5B04C9530967A00AEEE0F5109D1E0CBC
+            DE8D959B8F074C00DB1FD911D5C8EA2F2C5B867BEEBD97A6A98673912174049E
+            876A48D3CFE77944DE396D725F59006CADF7044ADC6726696A220559A6ACBD63
+            37382D05A398A130529E2B3416D42CD2B121C446A258B5FD9D9009604BD736F2
+            8081254B1663E3C68D94B93A060687F135DF73D43BA5699D9CED81B95496924D
+            412E9926B0068A45C59A408AD569455AD16B572CB17B84618235E877A9781A89
+            581CA974F1CAFB97B22F3CF6CBC19F9900363DBC25CA1A4B381CC6D6AD5BCD99
+            1EB938862FE7BB21F9CBE0A495DBEABA86C9B9528D732C5D0CA8059948859C2F
+            987BA227E8A5AD4832334696552469514DC73318BA2ABF75EC9F89D79E3F3AF6
+            2E7D15251A37013CB8F1A12853ECF77BB16BD76EB3210D0E8D23F3F76D7F6CAC
+            0DDEEE1439BFA7CC0DB75B84CB2BC2419954FA4765B252F79B92AB99A48C74A2
+            40D6CAE9FEE1FCD1CDCF460ED237099B52B046B46C02B8EFDB0F303410041E9D
+            777F03AC22AEC4126F7D6FF7779E64EAD62CF555DFD71E6E5A55E7B9ADAA5CBA
+            599278CEED15E022401E2F5F6A0F505403D9948664BC88C9B472E1D8E9C46FF6
+            FF7E982D24A5BD80ED08D346B455053B7644AD56ACE0E0C11736D06DDE166075
+            CB02CBE63E5B42D844F3DEDD745DFD375B2BD72D0E3BD7043D62A3CB6385A490
+            37707E347FF4A747860FF55DCC8EDA07276D6BD9C133FE31615B4D9DCD33F6A1
+            CC456C3EE46C21B605B17A74DA4423D05CC3FCF6B360EB53EC034BD6E6EDB9F2
+            3FABD85400926D9DC35690C5ECC3A82423DA72927D5F9AAABA6D6901332C1FB3
+            29FB5CAFFF007E78478F564393060000003B74455874636F6D6D656E7400436F
+            696E732068616E6420696E2066726F6D2049636F6E2047616C6C657279206874
+            74703A2F2F69636F6E67616C2E636F6D2F955E45590000002574455874646174
+            653A63726561746500323031312D30382D32315431343A31303A33392D30363A
+            30306AB98D0D0000002574455874646174653A6D6F6469667900323031312D30
+            382D32315431343A31303A33392D30363A30301BE435B1000000197445587453
+            6F6674776172650041646F626520496D616765526561647971C9653C00000000
+            49454E44AE426082}
           ShowHint = True
+          OnClick = imgReleaseLoanClick
+          OnMouseDown = imgAssessmentMouseDown
+          OnMouseUp = imgAssessmentMouseUp
         end
       end
-      object pnlLoanHistoryBtn: TRzPanel
+      object pnlRejectLoan: TRzPanel
         Left = 13
         Top = 144
         Width = 40
@@ -1844,182 +852,166 @@ inherited frmLoanMain: TfrmLoanMain
         BorderWidth = 1
         Color = 12955288
         TabOrder = 3
-        ExplicitLeft = 69
-        object imgLoanHistory: TImage
+        object imgRejectLoan: TImage
           Left = 4
           Top = 4
           Width = 32
           Height = 32
           Cursor = crHandPoint
-          Hint = 'Show loan history'
+          Hint = 'Reject loan'
           AutoSize = True
           ParentShowHint = False
           Picture.Data = {
             0954506E67496D61676589504E470D0A1A0A0000000D49484452000000200000
             00200806000000737A7AF400000006624B474400FF00FF00FFA0BDA793000000
             097048597300000048000000480046C96B3E0000000976704167000000200000
-            00200087FA9C9D000007EF4944415478DACD977950D4E719C7BF7BB007084161
-            773954C004610111C11A116D25085E6882114D9B981A10D1E220543469A9B1D8
-            1033B94CF2879349A4691D9D2982C62301C724629C341E0876C2CAB994436421
-            186191BDAF3EEF8F5D025BACB1994EFA32CF2CF39E9FF7B9DEE7C773381CF829
-            1BEFFF0280C7E3FDA0B9A97FC26A08B0197CAC72F020E5B34EE7521FA10C0192
-            B998E5990C99405963B4DC3BB225EBD74768C8FE630178CB4AB08A27C6897045
-            B07871F8222803A2A0F091A16FB807DDDA2F70DB528BCE6F81477C012B1DB779
-            D62DB4B5B4E3B6E6364C2653516E4ED6C1FB813C084098F62A8EFB7A8B33B296
-            3C878880C770475B8F4BED4DA86955615003047BC8209F3B80489F7568535F81
-            FD5622E26665206D6532E472192E5CFC12BD9A3E4DF6E64D21B49FE5610004CB
-            4A51111B1A9AF1C2CF3331626C476DFB49543500529B1F9E897E070B952B21F5
-            92A2A7BB1B0E871DB32323D1D1A546637303AAABAB101E1E8EDCDC1CF4F70FE0
-            EAB55AF4F5F5CD2EFEDD1E35EDED78108030B5149573C2663CB925652DD4BDE7
-            D0D2DB8ED33780DF2C3C8827E717C064D3C166B740AFD78D02D05F44A492FB15
-            08F8100A853873E634CE9FFF0CFBF6ED255358F1F5E52BC8C9DE2CA1FD4DFF09
-            80F78B9790210F169D7831633D5A7BCF60583F82CA2BC08EA51FE089D9593059
-            EFC1E6B07217E1F3F92402EE7F9BCD065754B17E0F0F0F68341A1C3AF43EF2F2
-            B663707008DF34A81AB76DCD8E739963320049DA010CED58932276408D3B235D
-            B8D242B6F65C873DCB4F406F1E82DD6EE56ECAD6090402D4D5D5C1DBDB9B5339
-            83703506C134D1D9D98D0FCBCAB0A7A80875F5F550ABD5B92FEEDE759839A63B
-            006F491132A3E7F8963FFBC46C3469AE814C8BB26AE05CBE81E6D961B519B9C3
-            B9C9B44E2412E1D8B1A3502A95888B8B87D56AC1F8DCC220D89C0B5FD45054F4
-            226951122E5FBD6ADCBE357B1A0D1BDC01C42925A87C764554BA50DA06336DA6
-            EE21A7336762F7F2E33098B5B03B26DE502C16E3F0871F9056ECC8D99ACBC20E
-            EEC98D6989DDE4CD83EF62C3D34FA3A1B189C2B465E3FE92972BDC017C520FA0
-            7F476688E45B523DED8F2FEB800DD16548563E4FB6D771DE3E1EC0D3CB135BB2
-            B211A58C46E1AE42180C060E6682533935F5F9851A0CDE1D44585828AE5FAFFF
-            A4E8B73BD7BB03F813C040C1263FF40E7E0706FE490D509C7A09CAA044D2889E
-            34609F70B32964FB5F6EDC802953BCC9CE87A11BD18D018CD7049BDBDFD78FAA
-            EA73484C5C84BF7F7D5953B8332F7202C0A3C988487C46D0BC76B907B4062384
-            04F0B7D340458E01DE520939A0897CC03C7A2BFEE8ADC46211E2E3E33173E64C
-            9C3A758A1BB3DB2922AC360A531B07C384013073BDF9F6412C4B59C60090BF63
-            9BBF0B40B4E62D982C1459D315422C5DEA80CE64230F063EA26C6E27538C50E4
-            D6ED75C068D1930BDAA137E8514F1EDD78F3262A2B2BB99063EA97C964502814
-            884F4880422E47404020A2A222D1D4D4CC015FADAD436C6C2C1A1A5404B05DE1
-            02F05DFD063AE645097CD72D17A1AE9BEC48DAF316F3F0989C8FA3676D98EA48
-            C71FD69C254A02E03960D08D02A8542A94979773E166369BB9C3E5720512E68F
-            02280209209201347100FFF84645DA0A456B6B0B0AF2F3BE0720CD85A7BD822A
-            8A26FF790BE851B182F381AFBE024244EBB1F7A90A3ADC42716EE1920ECF9968
-            D8C1050585983AD59732DEBE319B3B48ED36A7FA99B8C2F1CF7F390299BF8CDE
-            0D357615E68F0178D01A194928419C7E3402FE8B1683BC96A8A41B50FC54392C
-            6607677F07264601DBF4E4C727E1E3E3C3D9D662F93E0F4CCC07020C0EDD45CD
-            C54BDC9A8E8ECEC1DDBB0A26382183F0671029AFE063AB000AA5F742FC7E6515
-            A6874EA5DB9B2784E078082ECEA9B12CE81E82AE30649A6276EFE8EC828ECCD7
-            DCD474F1D5D2FD99EE61C820E42F6CCADF9294B4F88FD34302C11758919ABA94
-            BBD9649BBB0E70BFB13B241B39FFD9E734978FB6D636CA03B505C78E1EF968B2
-            B7404A32737FC981E6B8F83808847C4A32910899319D4C60C3C39670AEDBABDB
-            FF89D636350C7A03548D8DD692978B95347C6B32005669C972B7E5BDAE8C543E
-            1F415E29160BB1E067F321954A392DFC1B846BBD5BBFEBB11A1ED6E21A851FCB
-            0F2AD54DDCA8AF2F3D76F4AFEFD1943BF7AB07BC48C2F6BC545C131313ED1F14
-            14C4259C84F879904A249C877310B48EE714970918208F4B547CAEDF6832A2B6
-            AE1E4683095D5DDD686E6EEE7AEB8DD756D0942E4CF2188D654E12BF79F10949
-            A9692B4EC6C4C450ECCE200D481042194F21978D4D1C1E1EE6F201DB27393979
-            C226BD540B74D2A106CAAA549641D5D080D75F2B7D9C86DA490631C9733CBE89
-            480294CAA8C757A7AF3DCE9EDBD0B050787979C1D3538AA04005A64DF383C968
-            2487BACE012C59B204164A200C4A43797F84DE05961DD564FBD6D6562AD33ECD
-            BCA96AB84CFB52097BFF8264CC8424620611332776417272CA21794080DF9C98
-            68F8F9F941221543E421E26CCCD4CD9293C33E5A15198D263AD88421ED20D9FB
-            06BD8077EFBEF7EEDB1934A993A41F0F28C926839093046FFCD5733B1532F946
-            7F02080A0A868C4CC13432EA7BA3FBE8743A0C0C0CA09BEA44AD568B9EDB3D87
-            4F549497318F674E4762C60F284ADD21587EF07582F8AD58959E1E1818944A87
-            CFB5B3D35DDECF1C12768B5E6F6CEAEBD39CAFFEF4EC59EAFDCEA9F2213C6459
-            3E9963B28A760AC9234EF172F6BB1A236125939E44EB947B2446FC971F269335
-            BED341254ECDB82F76386F6A74AAFB477F9AFD4FDB4FFE75FC2F523ACFF1172E
-            3F090000004174455874636F6D6D656E7400486973746F7279206672616D6520
-            636C6F636B2066726F6D2049636F6E2047616C6C65727920687474703A2F2F69
-            636F6E67616C2E636F6D2FE52C18F20000002574455874646174653A63726561
-            746500323031312D30382D32315431343A31303A35322D30363A3030AED1D070
-            0000002574455874646174653A6D6F6469667900323031312D30382D32315431
-            343A31303A35322D30363A3030DF8C68CC0000001974455874536F6674776172
-            650041646F626520496D616765526561647971C9653C0000000049454E44AE42
-            6082}
+            00200087FA9C9D000007184944415478DA9D577B6C537514FEDA8EAD5D297BB3
+            0D59642B4224C00820301E1A484C4097108908684402822183315C268A10C54C
+            02CCC943C906C8365E4691185163C23F9A48903708C41181C136BA32D6D98D76
+            6DB73EFD7EEDBDE5B6EBDCF02627F7F6DEDF7EDF77CEF9CEF99DA93080EB53E0
+            6D157060206BE54B037CB90158DBDF3A557F0B7600AB92D2D377BD5E56A68B4B
+            4CECBD201000FCFEE03DE0F3059FC5FD6475B5CBD4D4B4F73DA0EC7F13D806AC
+            4EC9C8A85C5C5CAC733637C376FB766FF0E02D107A964C979989E43163F0735D
+            9DEBBEC9B4F37DE0C32726B01D58933A74E88ED764F03B776282CBA0D124B482
+            C4A851F8F9F06197C96CAE20898F064C80E0C504DFB668DD3A5D576323EC77EF
+            8616AB548F3D5680F7454237742886188DF8E9E85197B9B5B59C24B6F64B8039
+            5F9F969555BE70EDDA4401DE75EF9EB4326A690CC0F03B4913C14808122346E0
+            E4D75FBBDADADA365398957D12A0E7A51959599FBC4A70E1B5A3A929042C9B32
+            FCB1BC1602547E937E8B4824E5E4E0876FBE71B6B7B76FA43077F72240F0B2CC
+            ECEC2D0BD6ACD1D91B1AD04570950CAC56431F17870CDAFD9E1EF8A240948452
+            B946CFBF6976B9C8274440989E9A306467E3E4F1E32E8BD55ACA7454850950ED
+            EF670D1BB679415151A2EDD62D38EEDF0F02CB04F48306219D1B38E7CE85F6BB
+            EFD062B7C31F83400AD7E99F79061EE65D7DEA144CD2BA30898C0C0CE63E274F
+            9C70591E3D2A66697C15244065044A3EFF1CD6AB57C3E0410292E769FC23EBA6
+            4D08B00FE82E5F86AEAE2E4C420E796A7C3CF42347A2A3AC0C018D06FAEFBF87
+            E6975FD0FCE85198808F640D4C47CA534F61DFFEFDD82827561058BF670F9A4E
+            9C08794D609984915ED9962F876BC68CE03761DA4B97A0ADAD450B3717E948D5
+            E9A067C9D94A4B83E041522498BD6E1DEE7475C1E9F586F5202C77EA5454EDDD
+            FB1F0414A6A10D4F4E8673C50AB8274E0C93886724120E1D82C3E984FED967D1
+            5552023F890B0095C381A46DDBF0805AB2F17B40910641246FCA14545555C520
+            C0FC2A732F979F9A1BE7300DDDCB96C13D61C2631257AE20E1D75F615FBF1E01
+            1135B19CE086CF3E83995AB2310A4A60F9396FF26454EFDB174560F7EE300119
+            5C4944CD7B0EEBD9BD74293CE3C7879B52C44570FDCE9D30DFBC095B6767A4E7
+            0A22C64993507DE0400C02C78F3F6E3AD14404097A397CF468F8162F86273F3F
+            9204CB2E91516CB9760DB68E8E0850BFC7033F75204CFC1E450DEC63FA2209EC
+            DA85C66FBF8DD4408C0E98C18662183B16AEA2A208021AE65B7BF830EACF9D43
+            B7C502AFCD061F23E225B160F845FF926CDCAC593878FA741401864E10086B20
+            1A9CCFA94F3F8D240AA8876950B13CA3CF071585892FBEC0F51F7F84875E2B41
+            6563D7403E2BEAE0993391044A2A2B7BA7208C4D70D6781243E77EE30DBAAB09
+            A643C5AEA862B87D14A8DCF5D414A6EAE041FCC9BD3C6E7704B0FC9C5F50809A
+            B367A30854548408C4087F1A6B3C69E64CF42C5C18F45C80ABB9B98639D798CD
+            F0B03A7C14A620214C7DFD3A70E408AE32CF1E92F44745217FDA34D432559104
+            B66F4723AB203AFCE9E3C6C1307D3A7A162C808A9E6B84F7DC544DD1361C3B06
+            1B3BE7B8952B1147125EF60341C0C789485D5F0F35FBCA45361C4142496002D3
+            587BE1422481E2AD5BF10F59395A5A22C29F3B7F3EFC0C99F7B9E7429E73B3B8
+            EA6A34D043EBDF7F0737D468B5C82F2E8666C912787916080201AB1543E8D01F
+            8CAC83A294C1457B1FCF8656C76E1A26C0C368CF08A371E5DC458BB49D0C9F93
+            610D0A4B6ACB39F3E64143E57A1966A1F406B6612B3D547AA5613B9EB06103D4
+            8C942F351571F4FE2AC1ED7448099E4B2D75B9DD81538D8DAA8D4A572B78460F
+            CFCB5B35B7B050DB4121D93988F8BABBE1652F0FB07E47B1EC92737371B3A606
+            D61B3762AA5BC3C36AF2962DD01A0C385F5E0EBBC914FEAE66EAF2189D0E97CB
+            FF5B73B3E85233399CDC8C1E487666A6A5BD5338678EAE8D39B27326903710CA
+            8F4F4B03C79A5EC0D191502724A05B7442199CC23512DCE270F87F6F6EB6B881
+            82CDC0BD5E139144A232332565F54BB367EB2CCC938D0369AC7A8E051ECB3404
+            CF63153DB0D97C674D2633DF4DA7E7A6708923C6C5B9B0223D39B9A8F0F9E775
+            16CE089D54FA93020B8BE3516E2478534787F782D97C8FC7D54CFE93D0A6C4EA
+            732C2F6724862525AD7E79C60C5D1B85D929E573A0E08338A018796EDCB658BC
+            975B5B6F5F015EE451D7128DD317013DCDF001F0B1D16078ABB0A040DBFAD75F
+            E85428FA3FC1A9819104AF7FF8D07BF1E1C35B35C09B4D21CFED349B2CABBE08
+            887706D94A810DA3070F5EF2CA0B2F24A844BB1533A0D4F11065F23BB1E67263
+            A3E782C552CFC9B3A41D68578077F64720A879DA10DA6061EF725C4F0756E009
+            2E27709EB37719513BF8D381D0DD2665B17F0D2888686522D273BC6483686AC5
+            1E62632FCD2D9953F2BA8BD61D0D3C5002B1D6AB256232B80A9105E2C363ADF6
+            7BFD0B0B77355D7451F8D70000003674455874636F6D6D656E740053746F7020
+            67746B2066726F6D2049636F6E2047616C6C65727920687474703A2F2F69636F
+            6E67616C2E636F6D2FFBE22F6A0000002574455874646174653A637265617465
+            00323031312D30382D32315431333A32303A30332D30363A3030A4D7B5F90000
+            002574455874646174653A6D6F6469667900323031312D30382D32315431333A
+            32303A30332D30363A3030D58A0D450000000049454E44AE426082}
           ShowHint = True
+          OnClick = imgRejectLoanClick
+          OnMouseDown = imgAssessmentMouseDown
+          OnMouseUp = imgAssessmentMouseUp
         end
       end
-      object pnlLoanClassAccess: TRzPanel
+      object pnlCancelLoan: TRzPanel
         Left = 13
         Top = 189
         Width = 40
         Height = 40
+        Hint = 'Cancel loan'
         Anchors = [akTop, akRight]
         BorderOuter = fsNone
         BorderColor = 6572079
         BorderWidth = 1
         Color = 12955288
         TabOrder = 4
-        ExplicitLeft = 69
-        object imgLoanClass: TImage
+        object imgCancelLoan: TImage
           Left = 4
           Top = 4
           Width = 32
           Height = 32
           Cursor = crHandPoint
-          Hint = 'Show loan classification accessibility'
+          Hint = 'Cancel loan'
           AutoSize = True
           ParentShowHint = False
           Picture.Data = {
             0954506E67496D61676589504E470D0A1A0A0000000D49484452000000200000
             00200806000000737A7AF400000006624B474400FF00FF00FFA0BDA793000000
             097048597300000048000000480046C96B3E0000000976704167000000200000
-            00200087FA9C9D000006114944415478DAAD976B6C14551886DF3333BBDB76CB
-            65B9947F2498683082919012909BD24463FC230A144AD11845A115C40B6AB9B4
-            B5943B72D38206132516E94D51A341052C84E085621A833F40834412130B1828
-            BD6CE9EECCF89E7366B7EC765B36D5B33D9DC9CEE99CE77BCFF7BDE75400B036
-            EFADFBCC011E755D17FD3737E56DFF4D40180206F0D5EB4BE73DC62FA2894F81
-            411BF7D6DD7863C9DC74DF38A0B6E9DD7A942C9D3798B76DC9002337ECA9BDCC
-            87185DF235827E1386102A4479350C139669C034054CC380C568E4BD7A26F83D
-            870A21C7EA97097EAFAE702005ED8A3838B2622A36EEA9C5AAE2F9397C742519
-            2087002D12E0EEB2231892617152703282F0C6E49B1580772FAF86BA0A35A99E
-            989F38800BFEF0DE854382B6AE083E2F9A120318C52197FB04B8A7FC28425926
-            7C96A5269711EAE88D9EE8E5C45E37859ED850137B005E824880A8EDA0ED6614
-            9F3C37295D8023189E1D2080E945AA01E20A989E0AC2834850C08D03082F43ED
-            A88DEB54A061716E7A00F7567C8761D97EF82DD39BBC67FDE57DCFE412042A0F
-            62916B905869F04AF9235107ED04A87966627A00132A8F23E40128C9E535AE80
-            8691CBA0CA4A6805CCA4E863F2CB928ED8365AC351D43C7D1F5869585594DF3F
-            C0C40D270810D0008C5898CC05A580059F8CDA129E0A12D04D50A0477A1DBD4C
-            409B00EDCC81838BC66113014AFA06A821403E72379F4428E8D749C83EDEFD1B
-            39F635441D57C5A5157611FFDD9F19093DDE964AD0E50403F19932B1F1250D69
-            363C434A0098B4F514866571097C26B50D6056E42C562C99FF3F1B52030D696E
-            DC901200266FFB1EC38212C007D7F46146F817BC52B400CB0FE452954C969B31
-            A0491D7E22D130762F6CC2863DF5585D3C2F6E48090053DEFA01C3830104FC1A
-            E0FE8E66BC4A80AA6FF398179954D5C0ADDB8510A9274C1EE3BA0EBA0950FCD0
-            B118403C171200A66DFF9165A80160F930A9F567AC2C2E40576B070204926FB3
-            990FAC2E560354422633C8B993C748A29B760419438204A823407E6A80E93B4E
-            D388FCC808F81165E64F6E3D43050A7067792382322F0820BDFDDC6B1330764B
-            33327C2AA912E5F6FCFFD63112A02362E3F7F2077BF98106A82240513E66EC6E
-            C2085905CC816E61615ADB19E640011EA86AC6A080A90677F0E5C716DF81BC7D
-            1791E5D79BD1ADCD264067776CCC1F6A8C94A5BDDB4663516F3F480098F97613
-            866705A8BE05DB600EDC384D808578BCFA027749430DEE8CBA68E0A6F644ED3F
-            C864742249022E37BA48D1903F12736AAF20C3D4EE10E69A7C3A7F742F3F4854
-            60571386CA2AE0FA3B961F535A7F620E2CC4A22FAE22D3D256C3E0F0419E8992
-            DA668CE8FC2B4506EADAE73EA4EC5A5A772C2F227297342CE5B07CA4FC200120
-            77DB696467FA7412FAFC9849054A9617D232C2507BB4F098E98415BB0EA2F4C5
-            C2FFE007FA80A200B82E2DA94E4415BBAAD52415FB8FA97D40787565D0A6BB5A
-            FE44199FDD55D6882C9F3E23DCD60FA8422773E8B737E3C998A300B6BC577F81
-            1265BB8E132F5EF9A09BDB69E9B205CA4A906442E53BAB51BEA2100FEFFB55E5
-            87296E0F2097A6836BF8CDE271F16A907F35947D0C7B0848286B5FE53B358759
-            B328FFF0A8DA1D853EF2A8ADB9ABE59202283874C52B477D8C13AEDE0D918247
-            9668980A1C983D8A7E504B3FD0005C7004D9FD49E343955535E756333752B5B5
-            DBABB1EEE542B47744B94B5A5A38D786698761093BB54BAA8DC9852F3B84F504
-            58E301F4D5FACC0D05B0E363AC7BA900D8C957F8B2F497D14EB43FEF6247FD09
-            BAA0DB0B425AB43CA6AD7D72565A00234BB7BE7F28337BF054DB71E2FE2EBC23
-            188D0D65CBE60107461020A425EFBE8E8E7C2E894B550C074861D40E010C7F46
-            5A0083D847B373065849CF7CEBAAEA0FAF299AC37F37C66800A5C035DC7CE422
-            367D749C0718B7D76EE5AA438A83D2A7F2D202909366B267A408254480730AE0
-            E458BACD103D227A1DD1E9E77BD1A66AEBAB08F042FF00FDB59CCAAABA96D545
-            CC8FB30410412FC47660FC7994EF6F64A520F54E4905CAD254A05F808D7BEB99
-            A07306F8E771271C3880362F64DBB1F3227A0EA5B77BA974CD70FB8D53152B9F
-            9D3D5080BECC2BDD260FA457D92F0D14A02FF34AB749A9BAD8C3FF02AF95A551
-            D07871ED0000003C74455874636F6D6D656E7400496E7365727420656C656D65
-            6E742066726F6D2049636F6E2047616C6C65727920687474703A2F2F69636F6E
-            67616C2E636F6D2F1987FE340000002574455874646174653A63726561746500
-            323031312D30382D32315431343A31323A35362D30363A30305E6B245E000000
-            2574455874646174653A6D6F6469667900323031312D30382D32315431343A31
-            323A35362D30363A30302F369CE20000001974455874536F6674776172650041
-            646F626520496D616765526561647971C9653C0000000049454E44AE426082}
+            00200087FA9C9D0000048E4944415478DAAD975F4CDB5514C7BFBF5F294C4619
+            DD80F1AF03627C01CC8C8B223E38F44187C401FD33E8D81ED4CCECC11897BD38
+            93FD3199DBA25BF6A07B30BAE80336A8B485F060D43121CC12071B11EB640B91
+            0183FE63D0F1A72D505ACFFDB5BF3986B8DF959EF6D7F69E7B6FCEE79E7BEEB9
+            A742341A8520084956BBBD957E5447231144C1236CB4005110B0BCBCDCB6C768
+            349222AC74B61007D010C08CBEB696CBF4C3E2F57A71E9F2657BA3D96CA2E632
+            0F40568BCDE635D4D561F8F6086B2B5F3FCD2F2E2A4493C5827D7BF7C2ED76A3
+            A3B3D3BACF6CAE57022103647F67B3798C0430323A260128816073D953B84D87
+            AF9B9B51F5CA2E6CD666C0E572E14A4F8F6B8FC15048C396B80046C7EE401445
+            C51E8850CC6CD315C04200B5BB6B30373F8FECAC4C09A2DBE198A8371A8BFE0B
+            6215C0D89D716E005D41BE04506F3222100821180A49106C3B180479624D8855
+            001344CE1303916804F9B979D216343634D0490863616109A18505693B58605E
+            71387C145FF9FF06F10F80D5EA31EAF57011352F405E4E2E7AFBFA706B6808F2
+            CC68DC3BFB29306DADAD20002DA9FC8F04707BBCDCA7202D7523D2341BD71CD3
+            62B7C3A4D76FA59FDE470278BC3E2E0019424E5EC2033A26395BB341471C2683
+            411980CF37C90DB01614932C0A462E80C9C9BB090190213233B7F001DC9D9E22
+            372608805E5BB49BF900A6FDD340820018823643CB07E0BF379320E331C9D894
+            CE073033339B5080F4740D1FC0ECEC5C02CCD216C6035993964A0094070C0AF3
+            00BB4CD6675B84A85203494952243DA6A2444499D05457A70C603E10588771AA
+            8C54C9589A9FC28D93A552FBB9B313B0B5FF00C3EE6A6500C160701D8B4F8298
+            A2C69F9FD623AF3847CA27536E3F9C79AFC35055A90C20145A0438ABC2FBAE57
+            ABE11FEC86ABED3D6C3F784A52FF71F104460A1A506D3EA80C805DA5FC0094BA
+            68DFA374335E3F5A86A71BDF45CAA6982797E634E8FBF6333CFFC15565008BE1
+            30CBA17CF64515542A11B7DB3E842A348E222ACD0C6F5F92BAAC175EC6D8CF5D
+            B8E1F8E9CB5D1FFF76000FD589AB00A8B4BE7F91285B3C0B3C1582BE51383FA9
+            45F93B67809193309EDF2E75B71C1A008A8FE3DAE767D0ED1C2D39D47473F041
+            17AF026045040F8040C659013770C10C5DF94BD0A6F603735D78EDDC4EA9BFFD
+            70179056897BE10A0C7C73DEF9C2A9EB3B48BDB81A205E9231510620C8B906AE
+            1E0BA607DA50F26A05306E0136A8B0F34899D4D775DA0984C8EBBAFDB8D9E1C4
+            F0EFBD47AACEF67F445D911500D6D6568FBEA6866FEFE3F2EB890A3CF3E60188
+            DEAFA8A596DED810897586C47825481FB96FE1EAC52F507EAC8B954F81150036
+            BB7D88D6AD89B0D52BF1001DBBA8980CED2D0B4ACBB291FBF85F648359228349
+            11349CAB9486351FEEA43F6A626CC1C929708F9660B0E3C7F6174FF7EA491996
+            0132A8514C8F167C77B1BAFF78E9F74FBDF104D9A5654784D86C9116A08A7B60
+            598CE9A3713D3BAA4D6EEC78FF9774D2CCCA00CC69CC2DC99CDED75E3BFAE460
+            5848A5EA981911E4C85A511DAFD08BECD40878F698238B349332C0FFDAFBB8C7
+            64CFF108AB7A86D9F77A0192E39E5373CE63C1C2AEDDC5BF01BA45973F5A6BD5
+            960000003E74455874636F6D6D656E74004572726F7220776869746520706167
+            652066726F6D2049636F6E2047616C6C65727920687474703A2F2F69636F6E67
+            616C2E636F6D2F9995B2160000002574455874646174653A6372656174650032
+            3031312D30382D32315431343A31303A34332D30363A3030C40CDB5A00000025
+            74455874646174653A6D6F6469667900323031312D30382D32315431343A3130
+            3A34332D30363A3030B55163E60000001974455874536F667477617265004164
+            6F626520496D616765526561647971C9653C0000000049454E44AE426082}
           ShowHint = True
+          OnClick = imgCancelLoanClick
+          OnMouseDown = imgAssessmentMouseDown
+          OnMouseUp = imgAssessmentMouseUp
         end
       end
-      object pnlTakePhoto: TRzPanel
+      object pnlReloan: TRzPanel
         Left = 13
-        Top = 234
+        Top = 250
         Width = 40
         Height = 40
         Anchors = [akTop, akRight]
@@ -2028,88 +1020,1412 @@ inherited frmLoanMain: TfrmLoanMain
         BorderWidth = 1
         Color = 12955288
         TabOrder = 5
-        ExplicitLeft = 69
-        object imgTakePhoto: TImage
+        object imgReloan: TImage
           Left = 4
           Top = 4
           Width = 32
           Height = 32
           Cursor = crHandPoint
-          Hint = 'Capture client photo'
+          Hint = 'Reloan'
           AutoSize = True
           ParentShowHint = False
           Picture.Data = {
             0954506E67496D61676589504E470D0A1A0A0000000D49484452000000200000
             00200806000000737A7AF400000006624B474400FF00FF00FFA0BDA793000000
             097048597300000048000000480046C96B3E0000000976704167000000200000
-            00200087FA9C9D000007624944415478DAC5970B70536516C7FF37B949FA481F
-            49DBF4411F98E290B6B4147764B524EDA25D6464C5F5CDCE2C30830EF22AA5D6
-            9599CA08EBB8CE2E3ACCE8B82E2CD607A88BC8820AA528149006DC9159288FA1
-            9195F45DFA48DA246D9A34CF3DDFBD490DA50C0547FD6EBEC9BDE7DEFB9DDF77
-            CEF9CE772E170C06F14B36EE36DEE1DF7CEB1F7BA452E9C38100830F8E0D2591
-            70F0FBFD9FAF5DB3F27112F86E17807F7DCB1BBBA2A2A21E0B0BDC6EF7BF9F7F
-            AE7211D3B6E9E55776DD3FF7378FEBF573E82A306E34098CC6936838767CCFA6
-            9736B0E7FD9301E0B7FEB3F6338EE3168833222117C926CA444F05513CB3103E
-            CF289C433620300E4022416C5C2278B9024DE72E5C373F66217279DD8AE54FFF
-            3E6C21F644DCB6EDB58EE5CF2C13B4B0830BBDC8CEC3666632EB8015CEE1610C
-            58ADE848BF1BD21FF88491D874B3AE9E863A2909CAB8382427258B1A42F0CC42
-            A40B2B963F134F82A13040CAF6DA0FFA9E7AF2315C6969813A3111430E070606
-            6DB0580730FF8172B4B6B5935538B1D30B0A1ED8D93F4D0088B41303589CF23D
-            46FDE2D0DD5D9D7093A5D8BD2865024A4B0DD8BAAD166B563DAB21517F1840B3
-            7275452FCFCB2097CB40BE17FA8C19332095F2B86F6E195A5B5BC700584BD324
-            23411903C9B80862C6B20F8FA0A7CF220CECF78EA2CE5B24DC7B903F8769D3F3
-            F04EED7BA858BD2295447D63006BD73DD72B97CB612833A0E94C9300C0F33C74
-            3A1D0CFA12026823FF49C44E1083761B3A3B3A61B158AEB140527232B2B23291
-            989048AEF343AD52411DAF14EE0DD8879090108FDAF7768256C9B5009555D502
-            00535A5858888E8E0EC865324C27807BEF994D001D640D8970BFD9D48C41AB45
-            70554C147B472200F87C018CB83D18B0D9A0494D436EEE3492F968A104845862
-            AAB4DA1CBCFFC147A8AC58353180817C74E6BF679031650A45F910747979B8FB
-            AE5968EFEA062F95C26C365300F62331291D475AE468B228E0F28816889603C5
-            C9A328BFC30D9BB5176A750AB4B95A961742AB2888A939D9D8F1E14758B776CD
-            E42CC0008A6716A18B009C234E982E5D822A6D2AB69D55222D43036D760AC543
-            BCA0A0A7CF01737B3F7ABAFBF0ECAC610CF6B442979F8F38651CB9232000E4E4
-            64E1E37F7D7263806B2C40CB8DC540E18C025CEDE985A9D904557C34769B3588
-            CFCC45665AD2D8C062EEE08418E9BC6AC568EF152CCCEA836DC885BCFC3CC10A
-            ECB96C8A8F4F767F8AAACA8A495880AEF3C802BAE977A2AFDF82C64623F4B38B
-            F1F7EFB5C8CA4826DFFA43792322A5B2952291A2A3DB82D5D3CC307EDB242C3D
-            2116E8D94C9AD8A77BF6A2BA6AEDE42CC00072B55A5829F1184F36A2BCB4046F
-            B5E81043FE964BAECFE30CC643C97184E262CD1D26349CF8067ABD08C060D3D3
-            D3B1F7F32FF0FC8D00C65B209F7C989D992944F649A3110BE695E1D54BB9D0C6
-            70E0B91F9260645EF791D03C12444DFE151C3CDC08BDC1003F010468DF48D568
-            B0FF401D685F999C0518407A5A1AEC76074E9D32E277F3EEC3C673536050C522
-            80C084009429D038E8C49F6776A1FE881165FA7202F0C31B70539E48405DFD41
-            FCA9BA6AF2164852AB31E41CC6594A50C505D371DE4FEB7B2415C9720EC1D021
-            0E241E164F107C4C2F66F266984C5DF870782932A2E3B1B2E81052D4493874A4
-            9E00D64DCE02050505502A95708DB8D07DB50B03967E2C7CB01C352794D04525
-            A228311AB104CD8671F903386773C1E4B6E155C310F6D71FC794D43BF1466B39
-            CA72808B3D2A6C2A6DC2E163FB515D3D993C40D70C80FD8F8E7AE0F57AF1DD65
-            136214723C34FF7E7CDCCC63F7450E1E5F14A4123962651C9E2C906091CE43CA
-            8FC04B7157A0BB0B35A775D8FAC717B0F3D4668CBA7E8BA9038B5159BD64E2BD
-            A0B4AC944C7D56D80B649488D88624A6599FB0C66D36BBB0C3715C10BFFED52C
-            E872F3B0ED9B45387CF9A8502F5036865FCCBA624D41E72C11D62EDB04ABF312
-            EACFEF4657CB6CEC58FFEDB500AB2B2A0500A654A15040410085A49C8178BD62
-            1211130D071B6D446C598E385D08B825A8935662D7CAB761F31C2085BC503988
-            3FA1F810A25F1E9C87E3972B5094B904872EEC80F13CF61DDB8827D88629006C
-            7E7D4B6F494909525353849DCCE1B06370D04ECAEC548E79421512C6B664B7C7
-            03A7C3098F4B8A77FB1FC5F6657F21052F0AB3992837842DC27A61C6327C75E1
-            5D9CBA80035FD6E011A120A9D9F0D23E0AB63991A935AC30F23F522EE1A4E083
-            71F822B81C5B96AEC2E9F6B72704080BC2855114AF8026818273EF451C7A01F1
-            4249463D9B3AD54FE0716B4D36F7AFA87F79F12368EEDB77C3123B5CBBB279B0
-            45D3DE0D7C6DC4D7475FC1A35C48693483C3AD97E9AA799B615ABFE41E743AFE
-            73FDCB41B14AF279C54B9E6AB8D64EE068034E9CF81B2A48D4723BDF05912DA5
-            7C23F6C96231677C812CE867CA69392EFD8378DED606341C169457D1ED76EAB6
-            1F0B7033F7C9E6938B962C062EFF8F665E47CA5F1B533E88D02AF831ED66EE53
-            2D780DA6397AE07803AC5F6DC003246B0B2B076EEFD3EC569A66E116F4520C38
-            0EAEC77CBA3653B720E28BE9A70650519F1AB25417C46F016FE4033F3500952E
-            88099D3BC72BFF39006EDAFE0FD7904A7F91A502E90000003774455874636F6D
-            6D656E740043616D65726120676F2066726F6D2049636F6E2047616C6C657279
-            20687474703A2F2F69636F6E67616C2E636F6D2FEF0ACC870000002574455874
-            646174653A63726561746500323031312D30382D32315431343A31323A31342D
-            30363A30304DBE3B8D0000002574455874646174653A6D6F6469667900323031
-            312D30382D32315431343A31323A31342D30363A30303CE38331000000197445
-            5874536F6674776172650041646F626520496D616765526561647971C9653C00
-            00000049454E44AE426082}
+            00200087FA9C9D0000071D4944415478DAA5970B50545518C7FF771F17905C34
+            1F692AA889636526A6BD7C62633ED05905CDC6D1516B9C1AC732F331A5586E21
+            9593C6588D33258C46354EC6C3847CE03341515331134D5C45D1059695856597
+            759FB7EF9CBD8BD0B2B23B1DE6ECE5DEF3F87EF77B9DEF0A9224411004552F5D
+            617EB3474872792400AC87D7940A0122BC7BEA3F9D319B6EDDA1AE136480CE9A
+            8F7EB734EAA6862DB8753B7CDD04EDF61379B62F92E7D0AD271C801E51EB0A8D
+            CD69D3F0DBD51A086C40103A5CCCD67AE9AA1DD20BC2BB3990B6A660DF3F7548
+            C92ACEB16F4A9E1B0A841FA067D4BA82DAE6B424145EAB819221840040042441
+            42D26002782F0FD7D64F427CB7475078D58839D967ABEDE9D3E368962B2C8083
+            D78D50903D4310CF3DC5EB95F0EAA09E1056E4C148EBEF58EC48E81D23439C31
+            D8D367F47F184400C0617D5DD800AF3CD18303B8366B09C0817ABB0B237A6BC8
+            1C26822835D836068768018824003B011CAB34412184073061407732412EA48C
+            64B8E9BEFE3ED0705FC0E04781237A0B419CACABD74DEDD31E440040F1AD7BDC
+            01C30118DBBF1B16EF2EC38E929BB4A382625283D19A89B8E34C4065DA79C46C
+            38028BEE95AE34BDA143805355F52102087C1EC947DFCE51E81B23B6191D9726
+            207120D0A7D77CAC3EB112960D098FD16363870067EE983B00F00956082A4A3E
+            11E42F3C66B836D855410A8850030B32047CBFF07DEC2ADD82BDFAC9285B7720
+            34807386461E814210E10A850A2A45249C2E1BF65D588773FA6CDC3635F8E6CB
+            EBC8873950D6920D303797A3E8EF5F50720979873E4640820A00B8586B914505
+            BC37095743AD8AC4FEF31B50A6CFC2F3839EC7982163D1491461F516D00C65CB
+            4AAFE445843419C72ADEC1F0BE8B70F0D20E945C46C1C1B5988556A93A00E06F
+            63533B00B435BDB948C2B71F4A46B4DA8A592F26C1642B81D176016E8F036EA9
+            AA257B4A92CF456DF77DF94C496649E8F726D6FE9889036BA0A1C1A6A000574D
+            D6167BFA1BB3B3A88CC2EE532BE070FC05ED8B1371D9F82D1A9DD55CDDCCEE2D
+            6693AF0CC2EBF5AD5792626E5703C78B71FC481A92E9517D50808A7BB636004C
+            F52A65240CF5E5D8BC77383E9CBB0C574C99B07BAC50A9809A3AA0A212A83400
+            0EA71F983A5DDF9CE3DBA7B28AF2C1611C3BBE09CBE9F666FB1A584B001B9370
+            C36C6BA37C05C575843A0A5F17CE42AFC72BD0BF9F1A35D632F205E08F52C07C
+            4F83F9E3B6A1BB2616CFC48DE16B22290AA65018BEB500D0EB813DA7A7E3426A
+            C1481ABA055F2E700705B8D5D0DC16806C1F4D4E3665A380D4B78793DAF57048
+            4DA8A3803A7D52836D4B1AB98ADD544778250F07EE14A1C0D4740113C70371EE
+            455859F201ACBA21B1B49D217814C80077E930695D8E28C9F3BDB479F26611AB
+            9669607759F8F8812260CEB09F30E1E97970B83DF078DD64772F01281145C089
+            3A01DA915AE892F311B1FE329C69433BC80332404DD3FD3600CC015D1E175666
+            F741656D438B6FB0C269EBA2620C8B1B4DF91F70BAE968F63865A713A15692EF
+            9023982DE7307FDB486E32C811212AD058B00A3DE8892B00C0D4ECE485865F12
+            453FD782481BA8140FCA0476658EA6CB9F89DFCEEEC1C94F24D89D6E1EFF829C
+            B0449540F9E267EC3CB11C5BE6EE4653F32DF28F28CCCB9CCBC2919F0D010016
+            873B200C3986E093EE4FB722D95D979702973517476F00A51F4B6876839F0D0C
+            8EC13AE8EC5BB04D89D9235EC7B8C153B1FFCF051451C0EECB64C2D5E0260908
+            C3DC72033F8E832462391BC620A77806348A7D58AF2DC0B48CE9F86CB1446600
+            EC0E336ACCA568B056A2E8C2528C887D0A2B26A5E3DCCDCF616C2C4595193876
+            11478EA681956CA6808264CFD56A280521A026F4E578910BFFB5588BCEEA022C
+            49CC604997DEF27D6E5BC9EB9BC82C38AC5F345E881F85B1F15A181A4EE35AED
+            2EDA17C83F0F5CCA415265098A69B625008015A53E80FFBC3D9940AD7C047927
+            53A089DC87D75E5885D29B5FE2B9D8F7B8BA7D5AF3B92FEDC8211C143146EB19
+            D4355DE26542D145E06E05B28BBF422A4DAB6EE3846D34807634403B88EA2E48
+            DD2162CB1B33515E93CFEDCD04458B5D69DCFF3DC16B6AD85C669EA699665886
+            3C5E06D4DEC589A3E9582A27242B5BD00AA0B09695E5F957AADB2DCBFD1AC83F
+            9582AE31FB111F2B3B9C9CEB15425B73B19F7B94F36E501ABE6150A2AEDCF3CD
+            992C64D2C86DEA8DFE84D402401F26B5A17E987C57B41006CF0F1818E713B633
+            D75784285ACD61EE30B44F3C66242CC1ACDC4498D68F7A961E110E3F07025371
+            6F5DE1759B47E8ECF2EBB5DD30A09C20A849AD5D10AF5E83992F1FC5A02780EC
+            5D94965D7AA8042B0179B929D89F572239D49592DB52FDD1F82769A046660BC8
+            845DE8FF01D4BB0221D5A33CE125AEC607939391585A42DEBD0A4C7DED95DEEC
+            6D28F8F82918B4282505229ABA88D05B04F59E9352F1B5A61B5ECA598121B2A0
+            F61ACBD1363CA42C0F43EE030DC81A7B5CBEAF7A0840D0F67F005863474C147C
+            FE6797DF34ACF62F1268704E03CE1E960000003A74455874636F6D6D656E7400
+            5061676520726566726573682066726F6D2049636F6E2047616C6C6572792068
+            7474703A2F2F69636F6E67616C2E636F6D2F9F38850C00000025744558746461
+            74653A63726561746500323031312D30382D32315431343A31313A32382D3036
+            3A3030EFA6ED190000002574455874646174653A6D6F6469667900323031312D
+            30382D32315431343A31313A32382D30363A30309EFB55A50000001974455874
+            536F6674776172650041646F626520496D616765526561647971C9653C000000
+            0049454E44AE426082}
           ShowHint = True
+          OnMouseDown = imgAssessmentMouseDown
+          OnMouseUp = imgAssessmentMouseUp
+        end
+      end
+      object pnlRestructure: TRzPanel
+        Left = 13
+        Top = 295
+        Width = 40
+        Height = 40
+        Anchors = [akTop, akRight]
+        BorderOuter = fsNone
+        BorderColor = 6572079
+        BorderWidth = 1
+        Color = 12955288
+        TabOrder = 6
+        object imgRestructure: TImage
+          Left = 4
+          Top = 4
+          Width = 32
+          Height = 32
+          Cursor = crHandPoint
+          Hint = 'Restructure loan'
+          AutoSize = True
+          ParentShowHint = False
+          Picture.Data = {
+            0954506E67496D61676589504E470D0A1A0A0000000D49484452000000200000
+            00200806000000737A7AF400000006624B474400FF00FF00FFA0BDA793000000
+            097048597300000048000000480046C96B3E0000000976704167000000200000
+            00200087FA9C9D0000058E4944415478DAAD977F4C535714C7BFF7B5E5A71511
+            7FB4E2CFE916CDB23FA6CE60FC1113A79B566541DD62B6289ACC6D09A26E2EC6
+            317FA040748BD338365DB6194563B219458855A2916C5187E8664674508ABF10
+            0652104AB17D85F6BDB7F35E0B565ACAABEE262F7DBDEFDEF7FD9C7BCEBDE73C
+            26491218635A43B6F98C4B60268F200190AFC89A8663888258D4BA6BF132FAEB
+            553B8FF901F403B79D73B4672F885838B05DBAD382D49F2E173AF7A42DA7BF42
+            24004363B3CC3657CE42145B1E81C90F18EB77B23C57A4DFD48906B0CC53900E
+            2CC5F9EA662C3D7CE514FF55DA7B6A20BA0186C5669D6D72E59860B63E824646
+            50014004A420C1F40A016C288475EB3CBC9C3400668B0DCB8FDD68E4F3168DA1
+            519E88002EDCB181237FAA905722451425CC9F300C6C63216C34BFDEC1E37563
+            821FE27A039FB7786C388820804B779B2306983B7EA802E0D99B4A009D68E5BB
+            3099204AC81DCB8E95373873FB86E8018821009E007E7BD0028E45063067DC10
+            72C16948FBD3E01545B4F15ED8DD1E7247BC1298CB8EDF68B6672F4C0E051104
+            70A5F6B112809100CC1A9B84D527FFC691ABF7D133D1F75009CCA86DE7E0D965
+            4AA41E7BBF006575ADAA01E426D2FC647D0C460F8AEB730CFBD20CE42E1A4EB7
+            B67E01AED7B74504A01C5BF40E49BE61010B20F99EA58C4A04CB3A8BBB097170
+            895EBCB6E5AD68EAEEEA13E0AF86766507AA05080409EA631CA618F4B0EEB808
+            FDE457D1EE72C279BB02537397F74004015434397C6411023CBBAE8C761207A6
+            D5E18F53C7E1123A618A99870EB7134F5C6EC4D45661DAFED50A4410C06D5BC7
+            8B0190D58CD3828B8AC6E55F8E62FAF469481C32083F171CC1DBDC9B6877F318
+            D8588594EF3E1E4CA3DB82002C2D4F203D2F00894313054469E1D8320435338F
+            61F68CC9B877B70616AB05D6FA0778DF360653BE5F9B42A3AD21016A1E3B9F0F
+            A0475C03DB66236664AE0446A523FFC43FD07A9CB0586E4188E690BFFBEBD934
+            9AF6ABB223025CF00501E49A70AFCDF902966BD0F0B9113333D381E40F81F29D
+            40CDAFD854974D5276ECDD93F78CB832B53740ADDD15B9CF15710E0F3F23F1F5
+            B2F85AA02C8716B908643E0A2B46222DBF32483C24C0BF944C549723DDE2D10C
+            F737F82D1F19204E7549C1CD64AC195B00216BEA78EAA80F140F09F0A8C3AD0E
+            C02FCE683359D71B312B7315897FF4545CF222FFDA70641CAD46DC8E52F0D973
+            FB3909FD002DAE2EE5640B1B858ACF7560647CD53A0389A707881793B807DF96
+            0DC3CA022B126878DCD6F3E07316AA0370747AC3EF023A64244E03510BDC5ED7
+            DB7212A78477902C5F75A45ACE451840ACB1940BDC6A73C1E9CA06251DF765B9
+            C4E9E0D50DC0887D6330635DA0CF8B159FFF503E1C23722C10F936089E4EA44D
+            32A803E82E488A2C8DD0C8C9280882F9C5F530EC1B8D948C5501D1FE543C39D7
+            02CEDD0ED1DB09819640AE17E30880570B2017A53E805E2369D9056D3C0CFBC7
+            E18D8C74BF786E4871081447242ED0BB97440AA0AC007AAD80EC778A78FE5621
+            A6C456E2A5B99B81DF3F2571CAF34CC0A1720392736471BB222EE74649F415AC
+            A9138D6A01CC4D72597EA6AA31B82C27EB255D3C124A3761CE9A3C080F2E50F8
+            9F84A6B60407CB47C018282EF936B15223D0EF3B9364807304600A0F401F264D
+            E13E4C1CD525F0361661F08459405315AACBAEE266451D56FC5883FE5AC2F6F3
+            70ECEC671B1AB3CD779C02D37B44A9C70A39F0048AFC2E4D1C3EA9DD0D435212
+            362E188813C5D77042BB047F26CDA7738D929740B5A62486DCB23AAAB0E33552
+            47E376D384700083E87E1C5D89083E02342BD6BCBB966F654B47EAEABA38BBE5
+            9B03175B4BA93F8462C8265BD3065F1EE8B328D5D17D3C5D51215E10BF2DE383
+            F2FA8795470F17DF9443BE59F60822F80085EFFC97D36C9F6579B8C97ABA64FF
+            717E0BE492A933821508DBD400C8AB23D76FC2FF29DCDDFE03B0A51C4E0D9C75
+            6B0000003774455874636F6D6D656E74004564697420706167652066726F6D20
+            49636F6E2047616C6C65727920687474703A2F2F69636F6E67616C2E636F6D2F
+            91ACB3760000002574455874646174653A63726561746500323031312D30382D
+            32315431343A31313A31302D30363A303052C6A49D0000002574455874646174
+            653A6D6F6469667900323031312D30382D32315431343A31313A31302D30363A
+            3030239B1C210000001974455874536F6674776172650041646F626520496D61
+            6765526561647971C9653C0000000049454E44AE426082}
+          ShowHint = True
+          OnMouseDown = imgAssessmentMouseDown
+          OnMouseUp = imgAssessmentMouseUp
+        end
+      end
+    end
+    object pcStatus: TRzPageControl
+      Left = 367
+      Top = 5
+      Width = 492
+      Height = 472
+      Hint = ''
+      ActivePage = tsAssessment
+      ActivePageDefault = tsAssessment
+      Anchors = [akLeft, akTop, akRight, akBottom]
+      FlatColor = 14273211
+      ShowFullFrame = False
+      ShowShadow = False
+      TabOrder = 2
+      TabStop = False
+      FixedDimension = 20
+      object tsAssessment: TRzTabSheet
+        Color = 14273211
+        TabVisible = False
+        Caption = 'Assessment'
+        ExplicitTop = 21
+        ExplicitWidth = 502
+        ExplicitHeight = 450
+        object pnlAssessment: TRzPanel
+          Tag = 200
+          Left = 0
+          Top = 0
+          Width = 492
+          Height = 471
+          Align = alClient
+          BorderOuter = fsNone
+          BorderColor = 8675134
+          BorderWidth = 1
+          Color = 14273211
+          TabOrder = 0
+          ExplicitTop = 1
+          ExplicitWidth = 502
+          ExplicitHeight = 450
+          DesignSize = (
+            492
+            471)
+          object JvLabel10: TJvLabel
+            Tag = -1
+            Left = 19
+            Top = 33
+            Width = 92
+            Height = 14
+            Caption = 'Date assessed:'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -12
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold]
+            ParentFont = False
+            Transparent = True
+            HotTrackFont.Charset = DEFAULT_CHARSET
+            HotTrackFont.Color = clWindowText
+            HotTrackFont.Height = -12
+            HotTrackFont.Name = 'Tahoma'
+            HotTrackFont.Style = []
+          end
+          object JvLabel11: TJvLabel
+            Tag = -1
+            Left = 229
+            Top = 33
+            Width = 148
+            Height = 14
+            Caption = 'Recommended amount:'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -12
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold]
+            ParentFont = False
+            Transparent = True
+            HotTrackFont.Charset = DEFAULT_CHARSET
+            HotTrackFont.Color = clWindowText
+            HotTrackFont.Height = -12
+            HotTrackFont.Name = 'Tahoma'
+            HotTrackFont.Style = []
+          end
+          object JvLabel24: TJvLabel
+            Tag = -1
+            Left = 19
+            Top = 56
+            Width = 58
+            Height = 14
+            Caption = 'Remarks:'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -12
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold]
+            ParentFont = False
+            Transparent = True
+            HotTrackFont.Charset = DEFAULT_CHARSET
+            HotTrackFont.Color = clWindowText
+            HotTrackFont.Height = -12
+            HotTrackFont.Name = 'Tahoma'
+            HotTrackFont.Style = []
+          end
+          object RzDBLabel1: TRzDBLabel
+            Left = 128
+            Top = 33
+            Width = 62
+            Height = 14
+            AutoSize = True
+            DataField = 'date_ass_f'
+            DataSource = dmLoan.dscLoanAss
+          end
+          object RzDBLabel2: TRzDBLabel
+            Left = 392
+            Top = 33
+            Width = 62
+            Height = 14
+            AutoSize = True
+            DataField = 'rec_amt_f'
+            DataSource = dmLoan.dscLoanAss
+          end
+          object RzDBLabel3: TRzDBLabel
+            Left = 96
+            Top = 56
+            Width = 377
+            Height = 36
+            WordWrap = True
+            DataField = 'remarks'
+            DataSource = dmLoan.dscLoanAss
+          end
+          object RzPanel3: TRzPanel
+            Left = 1
+            Top = 1
+            Width = 490
+            Height = 17
+            Align = alTop
+            BorderOuter = fsNone
+            BorderSides = [sdBottom]
+            BorderColor = clBlack
+            BorderWidth = 1
+            GradientColorStyle = gcsCustom
+            GradientColorStart = 6572079
+            GradientColorStop = 8675134
+            TabOrder = 0
+            VisualStyle = vsGradient
+            ExplicitWidth = 493
+            object RzLabel2: TRzLabel
+              Tag = -1
+              Left = 7
+              Top = 2
+              Width = 110
+              Height = 13
+              Caption = 'Assessment details'
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clWhite
+              Font.Height = -11
+              Font.Name = 'Tahoma'
+              Font.Style = [fsBold]
+              ParentFont = False
+              Transparent = True
+            end
+          end
+          object RzGroupBox4: TRzGroupBox
+            Tag = -1
+            Left = 19
+            Top = 101
+            Width = 453
+            Height = 22
+            Anchors = [akLeft, akTop, akRight]
+            BorderColor = 6572079
+            BorderSides = []
+            BorderWidth = 1
+            Caption = 'Financial information'
+            CaptionFont.Charset = DEFAULT_CHARSET
+            CaptionFont.Color = clRed
+            CaptionFont.Height = -12
+            CaptionFont.Name = 'Tahoma'
+            CaptionFont.Style = [fsBold]
+            Color = 14273211
+            FlatColor = 6572079
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = 6572079
+            Font.Height = -12
+            Font.Name = 'Tahoma'
+            Font.Style = []
+            GradientColorStyle = gcsCustom
+            GroupStyle = gsUnderline
+            ParentFont = False
+            TabOrder = 1
+          end
+          object grFinInfo: TRzDBGrid
+            Left = 19
+            Top = 122
+            Width = 453
+            Height = 141
+            Anchors = [akLeft, akTop, akRight]
+            Color = clWhite
+            Ctl3D = False
+            DataSource = dmLoan.dscFinInfo
+            DefaultDrawing = False
+            DrawingStyle = gdsGradient
+            FixedColor = 14273211
+            GradientEndColor = 12955288
+            GradientStartColor = 12955288
+            Options = [dgTitles, dgColumnResize, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
+            ParentCtl3D = False
+            ReadOnly = True
+            TabOrder = 2
+            TitleFont.Charset = DEFAULT_CHARSET
+            TitleFont.Color = clWindowText
+            TitleFont.Height = -12
+            TitleFont.Name = 'Tahoma'
+            TitleFont.Style = []
+            FrameColor = 8675134
+            FrameVisible = True
+            FramingPreference = fpCustomFraming
+            FixedLineColor = 14273211
+            LineColor = 14273211
+            AltRowShadingColor = 15854564
+            Columns = <
+              item
+                Expanded = False
+                FieldName = 'comp_name'
+                Font.Charset = DEFAULT_CHARSET
+                Font.Color = clWindowText
+                Font.Height = -12
+                Font.Name = 'Tahoma'
+                Font.Style = []
+                Title.Alignment = taCenter
+                Title.Caption = 'Company'
+                Title.Font.Charset = DEFAULT_CHARSET
+                Title.Font.Color = clWindowText
+                Title.Font.Height = -12
+                Title.Font.Name = 'Tahoma'
+                Title.Font.Style = [fsBold]
+                Width = 150
+                Visible = True
+              end
+              item
+                Alignment = taRightJustify
+                Expanded = False
+                FieldName = 'mon_due_f'
+                Font.Charset = DEFAULT_CHARSET
+                Font.Color = clWindowText
+                Font.Height = -12
+                Font.Name = 'Tahoma'
+                Font.Style = []
+                Title.Alignment = taRightJustify
+                Title.Caption = 'Monthly'
+                Title.Font.Charset = DEFAULT_CHARSET
+                Title.Font.Color = clWindowText
+                Title.Font.Height = -12
+                Title.Font.Name = 'Tahoma'
+                Title.Font.Style = [fsBold]
+                Width = 100
+                Visible = True
+              end
+              item
+                Alignment = taRightJustify
+                Expanded = False
+                FieldName = 'loan_bal_f'
+                Font.Charset = DEFAULT_CHARSET
+                Font.Color = clWindowText
+                Font.Height = -12
+                Font.Name = 'Tahoma'
+                Font.Style = []
+                Title.Alignment = taRightJustify
+                Title.Caption = 'Balance'
+                Title.Font.Charset = DEFAULT_CHARSET
+                Title.Font.Color = clWindowText
+                Title.Font.Height = -12
+                Title.Font.Name = 'Tahoma'
+                Title.Font.Style = [fsBold]
+                Width = 100
+                Visible = True
+              end>
+          end
+          object RzGroupBox5: TRzGroupBox
+            Tag = -1
+            Left = 19
+            Top = 277
+            Width = 453
+            Height = 22
+            Anchors = [akLeft, akTop, akRight]
+            BorderColor = 6572079
+            BorderSides = []
+            BorderWidth = 1
+            Caption = 'Monthly expenses'
+            CaptionFont.Charset = DEFAULT_CHARSET
+            CaptionFont.Color = 8675134
+            CaptionFont.Height = -12
+            CaptionFont.Name = 'Tahoma'
+            CaptionFont.Style = [fsBold]
+            Color = 14273211
+            FlatColor = 6572079
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = 6572079
+            Font.Height = -12
+            Font.Name = 'Tahoma'
+            Font.Style = []
+            GradientColorStyle = gcsCustom
+            GroupStyle = gsUnderline
+            ParentFont = False
+            TabOrder = 3
+          end
+          object grMonExp: TRzDBGrid
+            Left = 19
+            Top = 299
+            Width = 453
+            Height = 123
+            Anchors = [akLeft, akTop, akRight, akBottom]
+            Color = clWhite
+            Ctl3D = False
+            DataSource = dmLoan.dscMonExp
+            DrawingStyle = gdsGradient
+            FixedColor = 14273211
+            GradientEndColor = 12955288
+            GradientStartColor = 12955288
+            Options = [dgTitles, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
+            ParentCtl3D = False
+            ReadOnly = True
+            TabOrder = 4
+            TitleFont.Charset = DEFAULT_CHARSET
+            TitleFont.Color = clWindowText
+            TitleFont.Height = -12
+            TitleFont.Name = 'Tahoma'
+            TitleFont.Style = []
+            DisabledColor = 14273211
+            FrameColor = 8675134
+            FrameVisible = True
+            FramingPreference = fpCustomFraming
+            FixedLineColor = 14273211
+            LineColor = 14273211
+            AltRowShadingColor = 15854564
+            Columns = <
+              item
+                Expanded = False
+                FieldName = 'exp_name'
+                Title.Alignment = taCenter
+                Title.Caption = 'Expense'
+                Title.Font.Charset = DEFAULT_CHARSET
+                Title.Font.Color = clWindowText
+                Title.Font.Height = -12
+                Title.Font.Name = 'Tahoma'
+                Title.Font.Style = [fsBold]
+                Width = 160
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'monthly_f'
+                Title.Alignment = taRightJustify
+                Title.Caption = 'Monthly'
+                Title.Font.Charset = DEFAULT_CHARSET
+                Title.Font.Color = clWindowText
+                Title.Font.Height = -12
+                Title.Font.Name = 'Tahoma'
+                Title.Font.Style = [fsBold]
+                Width = 100
+                Visible = True
+              end>
+          end
+          object pnlEditAssessment: TRzPanel
+            Left = 435
+            Top = 442
+            Width = 50
+            Height = 22
+            Anchors = [akRight, akBottom]
+            BorderOuter = fsNone
+            BorderColor = 6572079
+            BorderWidth = 1
+            Color = 12955288
+            TabOrder = 5
+            OnClick = pnlEditAssessmentClick
+            ExplicitLeft = 445
+            ExplicitTop = 421
+            object btnEditAssessment: TRzShapeButton
+              Left = 0
+              Top = 0
+              Width = 50
+              Height = 22
+              Hint = 'Edit assessment'
+              BorderStyle = bsNone
+              Caption = 'Edit'
+              ParentShowHint = False
+              ShowHint = True
+              OnClick = btnEditAssessmentClick
+            end
+          end
+        end
+      end
+      object tsApproval: TRzTabSheet
+        Color = 14273211
+        TabVisible = False
+        Caption = 'Approval'
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
+        object pnlApproval: TRzPanel
+          Tag = 200
+          Left = 0
+          Top = 0
+          Width = 492
+          Height = 471
+          Align = alClient
+          BorderOuter = fsNone
+          BorderColor = 8675134
+          BorderWidth = 1
+          Color = 14273211
+          TabOrder = 0
+          ExplicitLeft = 19
+          ExplicitTop = 23
+          ExplicitWidth = 840
+          ExplicitHeight = 200
+          DesignSize = (
+            492
+            471)
+          object JvLabel13: TJvLabel
+            Tag = -1
+            Left = 19
+            Top = 33
+            Width = 97
+            Height = 14
+            Caption = 'Date approved:'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -12
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold]
+            ParentFont = False
+            Transparent = True
+            HotTrackFont.Charset = DEFAULT_CHARSET
+            HotTrackFont.Color = clWindowText
+            HotTrackFont.Height = -12
+            HotTrackFont.Name = 'Tahoma'
+            HotTrackFont.Style = []
+          end
+          object JvLabel14: TJvLabel
+            Tag = -1
+            Left = 19
+            Top = 56
+            Width = 118
+            Height = 14
+            Caption = 'Approved amount:'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -12
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold]
+            ParentFont = False
+            Transparent = True
+            HotTrackFont.Charset = DEFAULT_CHARSET
+            HotTrackFont.Color = clWindowText
+            HotTrackFont.Height = -12
+            HotTrackFont.Name = 'Tahoma'
+            HotTrackFont.Style = []
+          end
+          object JvLabel16: TJvLabel
+            Tag = -1
+            Left = 19
+            Top = 79
+            Width = 99
+            Height = 14
+            Caption = 'Approved term:'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -12
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold]
+            ParentFont = False
+            Transparent = True
+            HotTrackFont.Charset = DEFAULT_CHARSET
+            HotTrackFont.Color = clWindowText
+            HotTrackFont.Height = -12
+            HotTrackFont.Name = 'Tahoma'
+            HotTrackFont.Style = []
+          end
+          object JvLabel17: TJvLabel
+            Tag = -1
+            Left = 19
+            Top = 125
+            Width = 58
+            Height = 14
+            Caption = 'Remarks:'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -12
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold]
+            ParentFont = False
+            Transparent = True
+            HotTrackFont.Charset = DEFAULT_CHARSET
+            HotTrackFont.Color = clWindowText
+            HotTrackFont.Height = -12
+            HotTrackFont.Name = 'Tahoma'
+            HotTrackFont.Style = []
+          end
+          object JvLabel28: TJvLabel
+            Left = 19
+            Top = 102
+            Width = 113
+            Height = 14
+            Caption = 'Approval method:'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -12
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold]
+            ParentFont = False
+            Transparent = True
+            HotTrackFont.Charset = DEFAULT_CHARSET
+            HotTrackFont.Color = clWindowText
+            HotTrackFont.Height = -12
+            HotTrackFont.Name = 'Tahoma'
+            HotTrackFont.Style = []
+          end
+          object RzDBLabel4: TRzDBLabel
+            Left = 168
+            Top = 33
+            Width = 62
+            Height = 14
+            AutoSize = True
+            DataField = 'date_appv_f'
+            DataSource = dmLoan.dscLoanAppv
+          end
+          object RzDBLabel5: TRzDBLabel
+            Left = 168
+            Top = 56
+            Width = 62
+            Height = 14
+            AutoSize = True
+            DataField = 'amt_appv_f'
+            DataSource = dmLoan.dscLoanAppv
+          end
+          object RzDBLabel6: TRzDBLabel
+            Left = 168
+            Top = 79
+            Width = 62
+            Height = 14
+            AutoSize = True
+            DataField = 'terms'
+            DataSource = dmLoan.dscLoanAppv
+          end
+          object RzDBLabel7: TRzDBLabel
+            Left = 168
+            Top = 102
+            Width = 62
+            Height = 14
+            AutoSize = True
+            DataField = 'method_name'
+            DataSource = dmLoan.dscLoanAppv
+          end
+          object RzDBLabel8: TRzDBLabel
+            Left = 96
+            Top = 125
+            Width = 377
+            Height = 72
+            WordWrap = True
+            DataField = 'remarks'
+            DataSource = dmLoan.dscLoanAppv
+          end
+          object RzPanel5: TRzPanel
+            Left = 1
+            Top = 1
+            Width = 490
+            Height = 17
+            Align = alTop
+            BorderOuter = fsNone
+            BorderSides = [sdBottom]
+            BorderColor = clBlack
+            BorderWidth = 1
+            GradientColorStyle = gcsCustom
+            GradientColorStart = 6572079
+            GradientColorStop = 8675134
+            TabOrder = 0
+            VisualStyle = vsGradient
+            ExplicitWidth = 848
+            object RzLabel3: TRzLabel
+              Tag = -1
+              Left = 7
+              Top = 2
+              Width = 92
+              Height = 13
+              Caption = 'Approval details'
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clWhite
+              Font.Height = -11
+              Font.Name = 'Tahoma'
+              Font.Style = [fsBold]
+              ParentFont = False
+              Transparent = True
+            end
+          end
+          object pnlEditApproval: TRzPanel
+            Left = 435
+            Top = 442
+            Width = 50
+            Height = 22
+            Anchors = [akRight, akBottom]
+            BorderOuter = fsNone
+            BorderColor = 6572079
+            BorderWidth = 1
+            Color = 12955288
+            TabOrder = 1
+            object btnEditApproval: TRzShapeButton
+              Left = 0
+              Top = 0
+              Width = 50
+              Height = 22
+              Hint = 'Edit approval details'
+              BorderStyle = bsNone
+              Caption = 'Edit'
+              ParentShowHint = False
+              ShowHint = True
+              OnClick = btnEditApprovalClick
+            end
+          end
+        end
+      end
+      object tsReleased: TRzTabSheet
+        Color = 14273211
+        TabVisible = False
+        Caption = 'Released'
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
+        object pnlRelease: TRzPanel
+          Tag = -1
+          Left = 0
+          Top = 0
+          Width = 492
+          Height = 471
+          Align = alClient
+          BorderOuter = fsNone
+          BorderColor = 8675134
+          BorderWidth = 1
+          Color = 14273211
+          TabOrder = 0
+          ExplicitLeft = 16
+          ExplicitTop = 41
+          ExplicitWidth = 840
+          ExplicitHeight = 135
+          DesignSize = (
+            492
+            471)
+          object RzPanel7: TRzPanel
+            Left = 1
+            Top = 1
+            Width = 490
+            Height = 17
+            Align = alTop
+            BorderOuter = fsNone
+            BorderSides = [sdBottom]
+            BorderColor = clBlack
+            BorderWidth = 1
+            GradientColorStyle = gcsCustom
+            GradientColorStart = 6572079
+            GradientColorStop = 8675134
+            TabOrder = 0
+            VisualStyle = vsGradient
+            ExplicitWidth = 838
+            object RzLabel4: TRzLabel
+              Tag = -1
+              Left = 7
+              Top = 2
+              Width = 86
+              Height = 13
+              Caption = 'Release details'
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clWhite
+              Font.Height = -11
+              Font.Name = 'Tahoma'
+              Font.Style = [fsBold]
+              ParentFont = False
+              Transparent = True
+            end
+          end
+          object grRecipients: TRzDBGrid
+            Left = 19
+            Top = 55
+            Width = 453
+            Height = 154
+            Anchors = [akLeft, akTop, akRight]
+            Ctl3D = False
+            DataSource = dmLoan.dscLoanRelease
+            DrawingStyle = gdsGradient
+            FixedColor = 14273211
+            GradientEndColor = 12955288
+            GradientStartColor = 12955288
+            Options = [dgTitles, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
+            ParentCtl3D = False
+            ReadOnly = True
+            TabOrder = 1
+            TitleFont.Charset = DEFAULT_CHARSET
+            TitleFont.Color = clWindowText
+            TitleFont.Height = -12
+            TitleFont.Name = 'Tahoma'
+            TitleFont.Style = []
+            DisabledColor = clWhite
+            FrameColor = 8675134
+            FrameHotColor = clWhite
+            FrameHotStyle = fsNone
+            FrameVisible = True
+            FramingPreference = fpCustomFraming
+            FixedLineColor = 14273211
+            LineColor = 14273211
+            AltRowShadingColor = 15854564
+            Columns = <
+              item
+                Color = clWhite
+                Expanded = False
+                FieldName = 'date_rel_f'
+                Title.Alignment = taCenter
+                Title.Caption = 'Date'
+                Title.Font.Charset = DEFAULT_CHARSET
+                Title.Font.Color = clWindowText
+                Title.Font.Height = -12
+                Title.Font.Name = 'Tahoma'
+                Title.Font.Style = [fsBold]
+                Width = 80
+                Visible = True
+              end
+              item
+                Color = clWhite
+                Expanded = False
+                FieldName = 'recipient_name'
+                Title.Alignment = taCenter
+                Title.Caption = 'Recipient'
+                Title.Font.Charset = DEFAULT_CHARSET
+                Title.Font.Color = clWindowText
+                Title.Font.Height = -12
+                Title.Font.Name = 'Tahoma'
+                Title.Font.Style = [fsBold]
+                Width = 170
+                Visible = True
+              end
+              item
+                Color = clWhite
+                Expanded = False
+                FieldName = 'method_name'
+                Title.Alignment = taCenter
+                Title.Caption = 'Method'
+                Title.Font.Charset = DEFAULT_CHARSET
+                Title.Font.Color = clWindowText
+                Title.Font.Height = -12
+                Title.Font.Name = 'Tahoma'
+                Title.Font.Style = [fsBold]
+                Width = 100
+                Visible = True
+              end
+              item
+                Alignment = taRightJustify
+                Color = clWhite
+                Expanded = False
+                FieldName = 'rel_amt_f'
+                Title.Alignment = taRightJustify
+                Title.Caption = 'Amount'
+                Title.Font.Charset = DEFAULT_CHARSET
+                Title.Font.Color = clWindowText
+                Title.Font.Height = -12
+                Title.Font.Name = 'Tahoma'
+                Title.Font.Style = [fsBold]
+                Width = 80
+                Visible = True
+              end>
+          end
+          object grCharges: TRzDBGrid
+            Left = 19
+            Top = 247
+            Width = 453
+            Height = 154
+            Anchors = [akLeft, akTop, akRight]
+            Ctl3D = False
+            DataSource = dmLoan.dscMonExp
+            DrawingStyle = gdsGradient
+            FixedColor = 14273211
+            GradientEndColor = 12955288
+            GradientStartColor = 12955288
+            Options = [dgTitles, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
+            ParentCtl3D = False
+            TabOrder = 2
+            TitleFont.Charset = DEFAULT_CHARSET
+            TitleFont.Color = clWindowText
+            TitleFont.Height = -12
+            TitleFont.Name = 'Tahoma'
+            TitleFont.Style = []
+            FrameColor = 8675134
+            FrameVisible = True
+            FramingPreference = fpCustomFraming
+            FixedLineColor = 14273211
+            AltRowShadingColor = 15854564
+            Columns = <
+              item
+                Color = clWhite
+                Expanded = False
+                FieldName = 'exp_name'
+                Title.Alignment = taCenter
+                Title.Caption = 'Charge'
+                Title.Font.Charset = DEFAULT_CHARSET
+                Title.Font.Color = clWindowText
+                Title.Font.Height = -12
+                Title.Font.Name = 'Tahoma'
+                Title.Font.Style = [fsBold]
+                Width = 150
+                Visible = True
+              end
+              item
+                Alignment = taRightJustify
+                Color = clWhite
+                Expanded = False
+                FieldName = 'monthly_f'
+                Title.Alignment = taRightJustify
+                Title.Caption = 'Amount'
+                Title.Font.Charset = DEFAULT_CHARSET
+                Title.Font.Color = clWindowText
+                Title.Font.Height = -12
+                Title.Font.Name = 'Tahoma'
+                Title.Font.Style = [fsBold]
+                Width = 100
+                Visible = True
+              end>
+          end
+          object RzGroupBox6: TRzGroupBox
+            Tag = -1
+            Left = 19
+            Top = 33
+            Width = 453
+            Height = 22
+            Anchors = [akLeft, akTop, akRight]
+            BorderColor = 6572079
+            BorderSides = []
+            BorderWidth = 1
+            Caption = 'Recipients'
+            CaptionFont.Charset = DEFAULT_CHARSET
+            CaptionFont.Color = clRed
+            CaptionFont.Height = -12
+            CaptionFont.Name = 'Tahoma'
+            CaptionFont.Style = [fsBold]
+            Color = 14273211
+            FlatColor = 6572079
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = 6572079
+            Font.Height = -12
+            Font.Name = 'Tahoma'
+            Font.Style = []
+            GradientColorStyle = gcsCustom
+            GroupStyle = gsUnderline
+            ParentFont = False
+            TabOrder = 3
+          end
+          object RzGroupBox7: TRzGroupBox
+            Tag = -1
+            Left = 19
+            Top = 225
+            Width = 453
+            Height = 22
+            Anchors = [akLeft, akTop, akRight]
+            BorderColor = 6572079
+            BorderSides = []
+            BorderWidth = 1
+            Caption = 'Charges'
+            CaptionFont.Charset = DEFAULT_CHARSET
+            CaptionFont.Color = clRed
+            CaptionFont.Height = -12
+            CaptionFont.Name = 'Tahoma'
+            CaptionFont.Style = [fsBold]
+            Color = 14273211
+            FlatColor = 6572079
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = 6572079
+            Font.Height = -12
+            Font.Name = 'Tahoma'
+            Font.Style = []
+            GradientColorStyle = gcsCustom
+            GroupStyle = gsUnderline
+            ParentFont = False
+            TabOrder = 4
+          end
+          object RzPanel2: TRzPanel
+            Left = 435
+            Top = 442
+            Width = 50
+            Height = 22
+            Anchors = [akRight, akBottom]
+            BorderOuter = fsNone
+            BorderColor = 6572079
+            BorderWidth = 1
+            Color = 12955288
+            TabOrder = 5
+            OnClick = pnlEditRejectionClick
+            object RzShapeButton1: TRzShapeButton
+              Left = 0
+              Top = 0
+              Width = 50
+              Height = 22
+              Hint = 'Edit approval details'
+              BorderStyle = bsNone
+              Caption = 'Edit'
+              ParentShowHint = False
+              ShowHint = True
+              OnClick = btnEditApprovalClick
+            end
+          end
+        end
+      end
+      object tsRejected: TRzTabSheet
+        Color = 14273211
+        TabVisible = False
+        Caption = 'Rejected'
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
+        object pnlRejection: TRzPanel
+          Tag = -1
+          Left = 0
+          Top = 0
+          Width = 492
+          Height = 471
+          Align = alClient
+          BorderOuter = fsNone
+          BorderColor = 8675134
+          BorderWidth = 1
+          Color = 14273211
+          TabOrder = 0
+          ExplicitLeft = 8
+          ExplicitTop = 125
+          ExplicitWidth = 481
+          ExplicitHeight = 120
+          DesignSize = (
+            492
+            471)
+          object JvLabel3: TJvLabel
+            Tag = -1
+            Left = 19
+            Top = 33
+            Width = 89
+            Height = 14
+            Caption = 'Date rejected:'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -12
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold]
+            ParentFont = False
+            Transparent = True
+            HotTrackFont.Charset = DEFAULT_CHARSET
+            HotTrackFont.Color = clWindowText
+            HotTrackFont.Height = -12
+            HotTrackFont.Name = 'Tahoma'
+            HotTrackFont.Style = []
+          end
+          object RzDBLabel12: TRzDBLabel
+            Left = 136
+            Top = 33
+            Width = 69
+            Height = 14
+            AutoSize = True
+            DataField = 'date_rejected_f'
+            DataSource = dmLoan.dscLoanReject
+          end
+          object RzDBLabel13: TRzDBLabel
+            Left = 136
+            Top = 56
+            Width = 69
+            Height = 14
+            AutoSize = True
+            DataField = 'reason_name'
+            DataSource = dmLoan.dscLoanReject
+          end
+          object RzDBLabel14: TRzDBLabel
+            Left = 96
+            Top = 79
+            Width = 353
+            Height = 72
+            WordWrap = True
+            DataField = 'remarks'
+            DataSource = dmLoan.dscLoanReject
+          end
+          object JvLabel8: TJvLabel
+            Tag = -1
+            Left = 19
+            Top = 79
+            Width = 58
+            Height = 14
+            Caption = 'Remarks:'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -12
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold]
+            ParentFont = False
+            Transparent = True
+            HotTrackFont.Charset = DEFAULT_CHARSET
+            HotTrackFont.Color = clWindowText
+            HotTrackFont.Height = -12
+            HotTrackFont.Name = 'Tahoma'
+            HotTrackFont.Style = []
+          end
+          object JvLabel25: TJvLabel
+            Tag = -1
+            Left = 19
+            Top = 56
+            Width = 51
+            Height = 14
+            Caption = 'Reason:'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -12
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold]
+            ParentFont = False
+            Transparent = True
+            HotTrackFont.Charset = DEFAULT_CHARSET
+            HotTrackFont.Color = clWindowText
+            HotTrackFont.Height = -12
+            HotTrackFont.Name = 'Tahoma'
+            HotTrackFont.Style = []
+          end
+          object RzPanel11: TRzPanel
+            Left = 1
+            Top = 1
+            Width = 490
+            Height = 17
+            Align = alTop
+            BorderOuter = fsNone
+            BorderSides = [sdBottom]
+            BorderColor = clBlack
+            BorderWidth = 1
+            GradientColorStyle = gcsCustom
+            GradientColorStart = 6572079
+            GradientColorStop = 8675134
+            TabOrder = 0
+            VisualStyle = vsGradient
+            ExplicitWidth = 479
+            object RzLabel6: TRzLabel
+              Tag = -1
+              Left = 7
+              Top = 2
+              Width = 95
+              Height = 13
+              Caption = 'Rejection details'
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clWhite
+              Font.Height = -11
+              Font.Name = 'Tahoma'
+              Font.Style = [fsBold]
+              ParentFont = False
+              Transparent = True
+            end
+          end
+          object pnlEditRejection: TRzPanel
+            Left = 435
+            Top = 442
+            Width = 50
+            Height = 22
+            Anchors = [akRight, akBottom]
+            BorderOuter = fsNone
+            BorderColor = 6572079
+            BorderWidth = 1
+            Color = 12955288
+            TabOrder = 1
+            OnClick = pnlEditRejectionClick
+            object btnEditRejection: TRzShapeButton
+              Left = 0
+              Top = 0
+              Width = 50
+              Height = 22
+              Hint = 'Edit approval details'
+              BorderStyle = bsNone
+              Caption = 'Edit'
+              ParentShowHint = False
+              ShowHint = True
+              OnClick = btnEditApprovalClick
+            end
+          end
+        end
+      end
+      object tsCancelled: TRzTabSheet
+        Color = 14273211
+        TabVisible = False
+        Caption = 'Cancelled'
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
+        object pnlCancellation: TRzPanel
+          Tag = -1
+          Left = 0
+          Top = 0
+          Width = 492
+          Height = 471
+          Align = alClient
+          BorderOuter = fsNone
+          BorderColor = 8675134
+          BorderWidth = 1
+          Color = 14273211
+          TabOrder = 0
+          ExplicitTop = -9
+          ExplicitHeight = 451
+          DesignSize = (
+            492
+            471)
+          object JvLabel18: TJvLabel
+            Tag = -1
+            Left = 19
+            Top = 33
+            Width = 94
+            Height = 14
+            Caption = 'Date cancelled:'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -12
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold]
+            ParentFont = False
+            Transparent = True
+            HotTrackFont.Charset = DEFAULT_CHARSET
+            HotTrackFont.Color = clWindowText
+            HotTrackFont.Height = -12
+            HotTrackFont.Name = 'Tahoma'
+            HotTrackFont.Style = []
+          end
+          object JvLabel19: TJvLabel
+            Tag = -1
+            Left = 19
+            Top = 79
+            Width = 58
+            Height = 14
+            Caption = 'Remarks:'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -12
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold]
+            ParentFont = False
+            Transparent = True
+            HotTrackFont.Charset = DEFAULT_CHARSET
+            HotTrackFont.Color = clWindowText
+            HotTrackFont.Height = -12
+            HotTrackFont.Name = 'Tahoma'
+            HotTrackFont.Style = []
+          end
+          object JvLabel23: TJvLabel
+            Tag = -1
+            Left = 19
+            Top = 56
+            Width = 51
+            Height = 14
+            Caption = 'Reason:'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -12
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold]
+            ParentFont = False
+            Transparent = True
+            HotTrackFont.Charset = DEFAULT_CHARSET
+            HotTrackFont.Color = clWindowText
+            HotTrackFont.Height = -12
+            HotTrackFont.Name = 'Tahoma'
+            HotTrackFont.Style = []
+          end
+          object RzDBLabel9: TRzDBLabel
+            Left = 136
+            Top = 33
+            Width = 62
+            Height = 14
+            AutoSize = True
+            DataField = 'cancelled_date_f'
+            DataSource = dmLoan.dscLoanCancel
+          end
+          object RzDBLabel10: TRzDBLabel
+            Left = 136
+            Top = 56
+            Width = 69
+            Height = 14
+            AutoSize = True
+            DataField = 'reason_name'
+            DataSource = dmLoan.dscLoanCancel
+          end
+          object RzDBLabel11: TRzDBLabel
+            Left = 96
+            Top = 79
+            Width = 353
+            Height = 72
+            WordWrap = True
+            DataField = 'remarks'
+            DataSource = dmLoan.dscLoanCancel
+          end
+          object RzPanel9: TRzPanel
+            Left = 1
+            Top = 1
+            Width = 490
+            Height = 17
+            Align = alTop
+            BorderOuter = fsNone
+            BorderSides = [sdBottom]
+            BorderColor = clBlack
+            BorderWidth = 1
+            GradientColorStyle = gcsCustom
+            GradientColorStart = 6572079
+            GradientColorStop = 8675134
+            TabOrder = 0
+            VisualStyle = vsGradient
+            ExplicitWidth = 480
+            object RzLabel5: TRzLabel
+              Tag = -1
+              Left = 7
+              Top = 2
+              Width = 110
+              Height = 13
+              Caption = 'Cancellation details'
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clWhite
+              Font.Height = -11
+              Font.Name = 'Tahoma'
+              Font.Style = [fsBold]
+              ParentFont = False
+              Transparent = True
+            end
+          end
+          object pnlEditCancel: TRzPanel
+            Left = 435
+            Top = 442
+            Width = 50
+            Height = 22
+            Anchors = [akRight, akBottom]
+            BorderOuter = fsNone
+            BorderColor = 6572079
+            BorderWidth = 1
+            Color = 12955288
+            TabOrder = 1
+            object btnEditCancel: TRzShapeButton
+              Left = 0
+              Top = 0
+              Width = 50
+              Height = 22
+              Hint = 'Edit approval details'
+              BorderStyle = bsNone
+              Caption = 'Edit'
+              ParentShowHint = False
+              ShowHint = True
+              OnClick = btnEditCancelClick
+            end
+          end
         end
       end
     end

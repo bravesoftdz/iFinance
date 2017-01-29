@@ -1,17 +1,17 @@
 inherited frmLoanAppvDetail: TfrmLoanAppvDetail
   Caption = 'frmLoanAppvDetail'
-  ClientHeight = 258
-  ClientWidth = 411
+  ClientHeight = 265
+  ClientWidth = 443
   OnCreate = FormCreate
-  ExplicitWidth = 411
-  ExplicitHeight = 258
+  ExplicitWidth = 443
+  ExplicitHeight = 265
   PixelsPerInch = 96
-  TextHeight = 13
+  TextHeight = 14
   inherited pnlTitle: TRzPanel
-    Width = 411
+    Width = 443
     ExplicitWidth = 411
     inherited imgClose: TImage
-      Left = 390
+      Left = 422
       ExplicitLeft = 525
     end
     inherited lblCaption: TRzLabel
@@ -21,197 +21,215 @@ inherited frmLoanAppvDetail: TfrmLoanAppvDetail
     end
   end
   inherited pnlMain: TRzPanel
-    Width = 411
-    Height = 237
+    Width = 443
+    Height = 244
     ExplicitWidth = 411
     ExplicitHeight = 237
-    inherited pcDetail: TRzPageControl
-      Width = 394
-      Height = 183
-      ExplicitWidth = 394
-      ExplicitHeight = 183
-      FixedDimension = 19
-      inherited tsDetail: TRzTabSheet
-        ExplicitLeft = 1
-        ExplicitTop = 1
-        ExplicitWidth = 390
-        ExplicitHeight = 179
-        object JvLabel8: TJvLabel
-          Tag = -1
-          Left = 19
-          Top = 23
-          Width = 74
-          Height = 13
-          Caption = 'Date approved'
-          Transparent = True
-        end
-        object JvLabel14: TJvLabel
-          Tag = -1
-          Left = 19
-          Top = 47
-          Width = 88
-          Height = 13
-          Caption = 'Approved amount'
-          Transparent = True
-        end
-        object JvLabel10: TJvLabel
-          Tag = -1
-          Left = 19
-          Top = 71
-          Width = 74
-          Height = 13
-          Caption = 'Approved term'
-          Transparent = True
-        end
-        object JvLabel24: TJvLabel
-          Tag = -1
-          Left = 19
-          Top = 119
-          Width = 43
-          Height = 13
-          Caption = 'Remarks'
-          Transparent = True
-        end
-        object JvLabel16: TJvLabel
-          Tag = -1
-          Left = 19
-          Top = 95
-          Width = 84
-          Height = 13
-          Caption = 'Approval method'
-          Transparent = True
-        end
-        object JvLabel1: TJvLabel
-          Tag = -1
-          Left = 217
-          Top = 47
-          Width = 88
-          Height = 13
-          Caption = 'Recommendation:'
-          Transparent = True
-        end
-        object urlRecommendedAmount: TRzURLLabel
-          Tag = 1
-          Left = 310
-          Top = 47
-          Width = 22
-          Height = 13
-          Caption = '0.00'
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clGreen
-          Font.Height = -11
-          Font.Name = 'Tahoma'
-          Font.Style = [fsUnderline]
-          ParentFont = False
-          OnClick = urlRecommendedAmountClick
-        end
-        object JvLabel2: TJvLabel
-          Tag = -1
-          Left = 217
-          Top = 71
-          Width = 67
-          Height = 13
-          Caption = 'Desired term:'
-          Transparent = True
-        end
-        object urlDesiredTerm: TRzURLLabel
-          Tag = 1
-          Left = 310
-          Top = 71
-          Width = 6
-          Height = 13
-          Caption = '0'
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clGreen
-          Font.Height = -11
-          Font.Name = 'Tahoma'
-          Font.Style = [fsUnderline]
-          ParentFont = False
-          OnClick = urlDesiredTermClick
-        end
-        object edAppvTerm: TRzDBNumericEdit
-          Tag = 5
-          Left = 122
-          Top = 65
-          Width = 80
-          Height = 21
-          DataSource = dmLoan.dscLoanAppv
-          DataField = 'terms'
-          Alignment = taLeftJustify
-          DisabledColor = clWhite
-          TabOnEnter = True
-          TabOrder = 2
-          DisplayFormat = '0'
-        end
-        object edAppvAmount: TRzDBNumericEdit
-          Tag = 5
-          Left = 122
-          Top = 41
-          Width = 80
-          Height = 21
-          DataSource = dmLoan.dscLoanAppv
-          DataField = 'amt_appv'
-          Alignment = taLeftJustify
-          DisabledColor = clWhite
-          TabOnEnter = True
-          TabOrder = 1
-          IntegersOnly = False
-          DisplayFormat = '###,##0.00'
-        end
-        object dteDateApproved: TRzDBDateTimeEdit
-          Tag = 5
-          Left = 122
-          Top = 17
-          Width = 80
-          Height = 21
-          DataSource = dmLoan.dscLoanAppv
-          DataField = 'date_appv'
-          DisabledColor = clWhite
-          TabOnEnter = True
-          TabOrder = 0
-          EditType = etDate
-          Format = 'mm/dd/yyyy'
-        end
-        object dbluAppvMethod: TRzDBLookupComboBox
-          Tag = 5
-          Left = 122
-          Top = 89
-          Width = 247
-          Height = 21
-          DataField = 'appv_method'
-          DataSource = dmLoan.dscLoanAppv
-          KeyField = 'value'
-          ListField = 'display'
-          ListSource = dmLoansAux.dscAppvMethod
-          TabOrder = 3
-          DisabledColor = clWhite
-          FrameColor = clBlack
-          FrameHotColor = clBlack
-          TabOnEnter = True
-        end
-        object mmRemarks: TRzDBMemo
-          Left = 122
-          Top = 113
-          Width = 247
-          Height = 45
-          DataField = 'remarks'
-          DataSource = dmLoan.dscLoanAppv
-          TabOrder = 4
-          TabOnEnter = True
+    inherited pnlDetail: TRzPanel
+      Width = 426
+      Height = 198
+      ExplicitWidth = 393
+      inherited pcDetail: TRzPageControl
+        Width = 424
+        Height = 196
+        FixedDimension = 20
+        inherited tsDetail: TRzTabSheet
+          ExplicitWidth = 514
+          ExplicitHeight = 181
+          object JvLabel8: TJvLabel
+            Tag = -1
+            Left = 19
+            Top = 23
+            Width = 83
+            Height = 14
+            Caption = 'Date approved'
+            Transparent = True
+          end
+          object JvLabel14: TJvLabel
+            Tag = -1
+            Left = 19
+            Top = 47
+            Width = 101
+            Height = 14
+            Caption = 'Approved amount'
+            Transparent = True
+          end
+          object JvLabel10: TJvLabel
+            Tag = -1
+            Left = 19
+            Top = 71
+            Width = 85
+            Height = 14
+            Caption = 'Approved term'
+            Transparent = True
+          end
+          object JvLabel24: TJvLabel
+            Tag = -1
+            Left = 19
+            Top = 119
+            Width = 47
+            Height = 14
+            Caption = 'Remarks'
+            Transparent = True
+          end
+          object JvLabel16: TJvLabel
+            Tag = -1
+            Left = 19
+            Top = 95
+            Width = 96
+            Height = 14
+            Caption = 'Approval method'
+            Transparent = True
+          end
+          object JvLabel1: TJvLabel
+            Tag = -1
+            Left = 217
+            Top = 47
+            Width = 101
+            Height = 14
+            Caption = 'Recommendation:'
+            Transparent = True
+          end
+          object urlRecommendedAmount: TRzURLLabel
+            Tag = 1
+            Left = 327
+            Top = 47
+            Width = 25
+            Height = 14
+            Caption = '0.00'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clGreen
+            Font.Height = -12
+            Font.Name = 'Tahoma'
+            Font.Style = [fsUnderline]
+            ParentFont = False
+            OnClick = urlRecommendedAmountClick
+          end
+          object JvLabel2: TJvLabel
+            Tag = -1
+            Left = 217
+            Top = 71
+            Width = 76
+            Height = 14
+            Caption = 'Desired term:'
+            Transparent = True
+          end
+          object urlDesiredTerm: TRzURLLabel
+            Tag = 1
+            Left = 327
+            Top = 71
+            Width = 7
+            Height = 14
+            Caption = '0'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clGreen
+            Font.Height = -12
+            Font.Name = 'Tahoma'
+            Font.Style = [fsUnderline]
+            ParentFont = False
+            OnClick = urlDesiredTermClick
+          end
+          object edAppvTerm: TRzDBNumericEdit
+            Tag = 5
+            Left = 122
+            Top = 65
+            Width = 80
+            Height = 22
+            DataSource = dmLoan.dscLoanAppv
+            DataField = 'terms'
+            Alignment = taLeftJustify
+            DisabledColor = clWhite
+            FrameColor = 8675134
+            FrameVisible = True
+            FramingPreference = fpCustomFraming
+            TabOnEnter = True
+            TabOrder = 2
+            DisplayFormat = '0'
+          end
+          object edAppvAmount: TRzDBNumericEdit
+            Tag = 5
+            Left = 122
+            Top = 41
+            Width = 80
+            Height = 22
+            DataSource = dmLoan.dscLoanAppv
+            DataField = 'amt_appv'
+            Alignment = taLeftJustify
+            DisabledColor = clWhite
+            FrameColor = 8675134
+            FrameVisible = True
+            FramingPreference = fpCustomFraming
+            TabOnEnter = True
+            TabOrder = 1
+            IntegersOnly = False
+            DisplayFormat = '###,##0.00'
+          end
+          object dteDateApproved: TRzDBDateTimeEdit
+            Tag = 5
+            Left = 122
+            Top = 17
+            Width = 80
+            Height = 22
+            DataSource = dmLoan.dscLoanAppv
+            DataField = 'date_appv'
+            DisabledColor = clWhite
+            FrameColor = 8675134
+            FrameVisible = True
+            FramingPreference = fpCustomFraming
+            TabOnEnter = True
+            TabOrder = 0
+            EditType = etDate
+            Format = 'mm/dd/yyyy'
+            FlatButtons = True
+          end
+          object dbluAppvMethod: TRzDBLookupComboBox
+            Tag = 5
+            Left = 122
+            Top = 89
+            Width = 279
+            Height = 22
+            Ctl3D = False
+            DataField = 'appv_method'
+            DataSource = dmLoan.dscLoanAppv
+            KeyField = 'value'
+            ListField = 'display'
+            ListSource = dmLoansAux.dscAppvMethod
+            ParentCtl3D = False
+            TabOrder = 3
+            DisabledColor = clWhite
+            FrameColor = 8675134
+            FrameHotColor = clBlack
+            FrameVisible = True
+            FramingPreference = fpCustomFraming
+            TabOnEnter = True
+          end
+          object mmRemarks: TRzDBMemo
+            Left = 122
+            Top = 113
+            Width = 279
+            Height = 64
+            DataField = 'remarks'
+            DataSource = dmLoan.dscLoanAppv
+            TabOrder = 4
+            FrameColor = 8675134
+            FrameVisible = True
+            FramingPreference = fpCustomFraming
+            TabOnEnter = True
+          end
         end
       end
     end
-    inherited btnSave: TRzButton
-      Left = 245
-      Top = 202
-      ExplicitLeft = 245
-      ExplicitTop = 202
+    inherited pnlCancel: TRzPanel
+      Left = 384
+      Top = 214
+      ExplicitLeft = 351
+      ExplicitTop = 199
     end
-    inherited btnCancel: TRzButton
-      Left = 326
-      Top = 202
-      ExplicitLeft = 326
-      ExplicitTop = 202
+    inherited pnlSave: TRzPanel
+      Left = 328
+      Top = 214
+      ExplicitLeft = 295
+      ExplicitTop = 199
     end
   end
 end

@@ -308,7 +308,6 @@ begin
         intf.SetLoanId;
         intf.RefreshDropDownSources;
         intf.SetUnboundControls;
-        intf.DisplayLoanStateDetails;
       end;
     end
     else

@@ -1,12 +1,12 @@
 inherited frmLoanAssessmentDetail: TfrmLoanAssessmentDetail
   Caption = 'frmLoanAssessmentDetail'
-  ClientHeight = 381
+  ClientHeight = 383
   ClientWidth = 441
   OnShow = FormShow
   ExplicitWidth = 441
-  ExplicitHeight = 381
+  ExplicitHeight = 383
   PixelsPerInch = 96
-  TextHeight = 13
+  TextHeight = 14
   inherited pnlTitle: TRzPanel
     Width = 441
     ExplicitWidth = 441
@@ -22,202 +22,277 @@ inherited frmLoanAssessmentDetail: TfrmLoanAssessmentDetail
   end
   inherited pnlMain: TRzPanel
     Width = 441
-    Height = 360
+    Height = 362
     ExplicitWidth = 441
     ExplicitHeight = 360
-    inherited pcDetail: TRzPageControl
+    inherited pnlDetail: TRzPanel
       Width = 424
-      Height = 306
-      ExplicitWidth = 424
-      ExplicitHeight = 306
-      FixedDimension = 19
-      inherited tsDetail: TRzTabSheet
-        ExplicitLeft = 1
-        ExplicitTop = 1
-        ExplicitWidth = 420
-        ExplicitHeight = 302
-        object JvLabel4: TJvLabel
-          Tag = -1
-          Left = 19
-          Top = 23
-          Width = 72
-          Height = 13
-          Caption = 'Date assessed'
-          Transparent = True
-        end
-        object JvLabel11: TJvLabel
-          Tag = -1
-          Left = 20
-          Top = 47
-          Width = 111
-          Height = 13
-          Caption = 'Recommended amount'
-          Transparent = True
-        end
-        object JvLabel1: TJvLabel
-          Tag = -1
-          Left = 238
-          Top = 47
-          Width = 80
-          Height = 13
-          Caption = 'Applied amount:'
-          Transparent = True
-        end
-        object urlAppliedAmount: TRzURLLabel
-          Tag = 1
-          Left = 324
-          Top = 47
-          Width = 22
-          Height = 13
-          Caption = '0.00'
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clGreen
-          Font.Height = -11
-          Font.Name = 'Tahoma'
-          Font.Style = [fsUnderline]
-          ParentFont = False
-          OnClick = urlAppliedAmountClick
-        end
-        object JvLabel2: TJvLabel
-          Tag = -1
-          Left = 20
-          Top = 71
-          Width = 43
-          Height = 13
-          Caption = 'Remarks'
-          Transparent = True
-        end
-        object dteDateAssessed: TRzDBDateTimeEdit
-          Tag = 3
-          Left = 137
-          Top = 17
-          Width = 85
-          Height = 21
-          DataSource = dmLoan.dscLoanAss
-          DataField = 'date_ass'
-          DisabledColor = clWhite
-          TabOnEnter = True
-          TabOrder = 0
-          EditType = etDate
-          Format = 'mm/dd/yyyy'
-        end
-        object edRecAmount: TRzDBNumericEdit
-          Tag = 3
-          Left = 137
-          Top = 41
-          Width = 85
-          Height = 21
-          DataSource = dmLoan.dscLoanAss
-          DataField = 'rec_amt'
-          Alignment = taLeftJustify
-          DisabledColor = clWhite
-          TabOnEnter = True
-          TabOrder = 1
-          IntegersOnly = False
-          DisplayFormat = '###,##0.00'
-        end
-        object pcAssessment: TRzPageControl
-          Tag = 3
-          Left = 19
-          Top = 116
-          Width = 378
-          Height = 147
-          Hint = ''
-          ActivePage = tsFinInfo
-          ActivePageDefault = tsFinInfo
-          TabOverlap = 0
-          TabIndex = 0
-          TabOrder = 3
-          TabStyle = tsRoundCorners
-          FixedDimension = 19
-          object tsFinInfo: TRzTabSheet
-            Color = 15000804
-            Caption = 'Financial info'
-            object grFinInfo: TRzStringGrid
-              Left = 5
-              Top = 5
-              Width = 364
-              Height = 111
-              ColCount = 3
-              FixedCols = 0
-              RowCount = 1
-              FixedRows = 0
-              Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goRowSelect]
-              TabOrder = 0
-              OnDblClick = grFinInfoDblClick
-              ColWidths = (
-                60
-                60
-                60)
-              RowHeights = (
-                18)
+      Height = 312
+      ExplicitWidth = 433
+      ExplicitHeight = 329
+      inherited pcDetail: TRzPageControl
+        Width = 422
+        Height = 310
+        ExplicitWidth = 760
+        ExplicitHeight = 327
+        FixedDimension = 20
+        inherited tsDetail: TRzTabSheet
+          ExplicitWidth = 514
+          ExplicitHeight = 181
+          object JvLabel4: TJvLabel
+            Tag = -1
+            Left = 19
+            Top = 23
+            Width = 79
+            Height = 14
+            Caption = 'Date assessed'
+            Transparent = True
+          end
+          object JvLabel11: TJvLabel
+            Tag = -1
+            Left = 20
+            Top = 47
+            Width = 72
+            Height = 14
+            Caption = 'Rec. amount'
+            Transparent = True
+          end
+          object JvLabel1: TJvLabel
+            Tag = -1
+            Left = 222
+            Top = 47
+            Width = 92
+            Height = 14
+            Caption = 'Applied amount:'
+            Transparent = True
+          end
+          object urlAppliedAmount: TRzURLLabel
+            Tag = 1
+            Left = 324
+            Top = 47
+            Width = 25
+            Height = 14
+            Caption = '0.00'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clGreen
+            Font.Height = -12
+            Font.Name = 'Tahoma'
+            Font.Style = [fsUnderline]
+            ParentFont = False
+            OnClick = urlAppliedAmountClick
+          end
+          object JvLabel2: TJvLabel
+            Tag = -1
+            Left = 20
+            Top = 71
+            Width = 47
+            Height = 14
+            Caption = 'Remarks'
+            Transparent = True
+          end
+          object dteDateAssessed: TRzDBDateTimeEdit
+            Tag = 3
+            Left = 112
+            Top = 17
+            Width = 97
+            Height = 22
+            DataSource = dmLoan.dscLoanAss
+            DataField = 'date_ass'
+            DisabledColor = clWhite
+            FrameColor = 8675134
+            FrameVisible = True
+            FramingPreference = fpCustomFraming
+            TabOnEnter = True
+            TabOrder = 0
+            EditType = etDate
+            Format = 'mm/dd/yyyy'
+            PopupButtonColor = 14273211
+            FlatButtons = True
+          end
+          object edRecAmount: TRzDBNumericEdit
+            Tag = 3
+            Left = 112
+            Top = 41
+            Width = 97
+            Height = 22
+            DataSource = dmLoan.dscLoanAss
+            DataField = 'rec_amt'
+            Alignment = taLeftJustify
+            DisabledColor = clWhite
+            FrameColor = 8675134
+            FrameVisible = True
+            FramingPreference = fpCustomFraming
+            TabOnEnter = True
+            TabOrder = 1
+            IntegersOnly = False
+            DisplayFormat = '###,##0.00'
+          end
+          object pcAssessment: TRzPageControl
+            Tag = 3
+            Left = 19
+            Top = 116
+            Width = 378
+            Height = 147
+            Hint = ''
+            ActivePage = tsMonExp
+            ActivePageDefault = tsFinInfo
+            ButtonColor = 14273211
+            FlatColor = 8675134
+            ShowShadow = False
+            TabOverlap = 0
+            TabColors.HighlightBar = 14273211
+            TabColors.Shadow = 14273211
+            TabColors.Unselected = 14273211
+            TabIndex = 1
+            TabOrder = 3
+            TabStyle = tsRoundCorners
+            FixedDimension = 20
+            object tsFinInfo: TRzTabSheet
+              Color = 14273211
+              Caption = 'Financial info'
+              ExplicitWidth = 374
+              ExplicitHeight = 120
+              DesignSize = (
+                376
+                122)
+              object grFinInfo: TRzStringGrid
+                Left = 6
+                Top = 6
+                Width = 364
+                Height = 111
+                Anchors = [akLeft, akTop, akRight, akBottom]
+                ColCount = 3
+                Ctl3D = False
+                DrawingStyle = gdsGradient
+                FixedColor = 14273211
+                FixedCols = 0
+                RowCount = 1
+                FixedRows = 0
+                GradientEndColor = 12955288
+                GradientStartColor = 12955288
+                Options = [goFixedVertLine, goFixedHorzLine, goRowSelect]
+                ParentCtl3D = False
+                TabOrder = 0
+                OnDblClick = grFinInfoDblClick
+                FrameColor = 8675134
+                FrameVisible = True
+                FramingPreference = fpCustomFraming
+                FixedLineColor = 14273211
+                ColWidths = (
+                  60
+                  60
+                  60)
+                RowHeights = (
+                  18)
+              end
+            end
+            object tsMonExp: TRzTabSheet
+              Color = 14273211
+              Caption = 'Monthly expenses'
+              ExplicitWidth = 374
+              ExplicitHeight = 120
+              object grMonExp: TRzStringGrid
+                Left = 6
+                Top = 6
+                Width = 364
+                Height = 111
+                ColCount = 2
+                Ctl3D = False
+                DrawingStyle = gdsGradient
+                FixedColor = 14273211
+                FixedCols = 0
+                RowCount = 1
+                FixedRows = 0
+                GradientEndColor = 12955288
+                GradientStartColor = 12955288
+                Options = [goFixedVertLine, goFixedHorzLine, goRowSelect]
+                ParentCtl3D = False
+                TabOrder = 0
+                OnDblClick = grMonExpDblClick
+                FrameColor = 8675134
+                FrameVisible = True
+                FramingPreference = fpCustomFraming
+                FixedLineColor = 14273211
+                ColWidths = (
+                  60
+                  60)
+                RowHeights = (
+                  18)
+              end
             end
           end
-          object tsMonExp: TRzTabSheet
-            Color = 15000804
-            Caption = 'Monthly expenses'
-            object grMonExp: TRzStringGrid
-              Left = 5
-              Top = 5
-              Width = 364
-              Height = 111
-              ColCount = 2
-              FixedCols = 0
-              RowCount = 1
-              FixedRows = 0
-              Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goRowSelect]
-              TabOrder = 0
-              OnDblClick = grMonExpDblClick
-              ColWidths = (
-                60
-                60)
-              RowHeights = (
-                18)
+          object mmRemarks: TRzDBMemo
+            Left = 112
+            Top = 65
+            Width = 283
+            Height = 45
+            DataField = 'remarks'
+            DataSource = dmLoan.dscLoanAss
+            TabOrder = 2
+            FrameColor = 8675134
+            FrameVisible = True
+            FramingPreference = fpCustomFraming
+          end
+          object pnlAdd: TRzPanel
+            Left = 19
+            Top = 269
+            Width = 50
+            Height = 22
+            BorderOuter = fsNone
+            BorderColor = 6572079
+            BorderWidth = 1
+            Color = 12955288
+            TabOrder = 4
+            object btnAdd: TRzShapeButton
+              Left = 0
+              Top = 0
+              Width = 50
+              Height = 22
+              Hint = 'Add'
+              BorderStyle = bsNone
+              Caption = 'Add'
+              ParentShowHint = False
+              ShowHint = True
+              OnClick = btnAddClick
             end
           end
-        end
-        object btnAddAss: TRzButton
-          Tag = 3
-          Left = 19
-          Top = 269
-          Width = 57
-          Height = 20
-          Caption = 'Add'
-          TabOrder = 4
-          OnClick = btnAddAssClick
-        end
-        object btnRemoveAss: TRzButton
-          Tag = 3
-          Left = 82
-          Top = 269
-          Width = 57
-          Height = 20
-          Caption = 'Remove'
-          TabOrder = 5
-          OnClick = btnRemoveAssClick
-        end
-        object mmRemarks: TRzDBMemo
-          Left = 137
-          Top = 65
-          Width = 258
-          Height = 45
-          DataField = 'remarks'
-          DataSource = dmLoan.dscLoanAss
-          TabOrder = 2
+          object pnlRemoveComaker: TRzPanel
+            Left = 75
+            Top = 269
+            Width = 50
+            Height = 22
+            BorderOuter = fsNone
+            BorderColor = 6572079
+            BorderWidth = 1
+            Color = 12955288
+            TabOrder = 5
+            object btnRemove: TRzShapeButton
+              Left = 0
+              Top = 0
+              Width = 50
+              Height = 22
+              Hint = 'Remove'
+              BorderStyle = bsNone
+              Caption = 'Remove'
+              ParentShowHint = False
+              ShowHint = True
+              OnClick = btnRemoveClick
+            end
+          end
         end
       end
     end
-    inherited btnSave: TRzButton
-      Left = 275
-      Top = 325
-      ExplicitLeft = 275
-      ExplicitTop = 325
+    inherited pnlCancel: TRzPanel
+      Left = 382
+      Top = 329
+      ExplicitLeft = 391
+      ExplicitTop = 346
     end
-    inherited btnCancel: TRzButton
-      Left = 356
-      Top = 325
-      ExplicitLeft = 356
-      ExplicitTop = 325
+    inherited pnlSave: TRzPanel
+      Left = 326
+      Top = 329
+      ExplicitLeft = 335
+      ExplicitTop = 346
     end
   end
 end

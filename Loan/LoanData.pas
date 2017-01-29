@@ -3,7 +3,7 @@ unit LoanData;
 interface
 
 uses
-  System.SysUtils, System.Classes, Data.DB, Data.Win.ADODB, System.Rtti;
+  System.SysUtils, System.Classes, Data.DB, Data.Win.ADODB, System.Rtti, StrUtils;
 
 type
   TdmLoan = class(TDataModule)
@@ -81,6 +81,7 @@ type
     procedure dstLoanChargeAfterOpen(DataSet: TDataSet);
     procedure dstLoanReleaseNewRecord(DataSet: TDataSet);
     procedure dstLoanClassChargesBeforeOpen(DataSet: TDataSet);
+    procedure dstLoanReleaseAfterPost(DataSet: TDataSet);
   private
     { Private declarations }
     procedure SetLoanClassProperties;
@@ -217,6 +218,7 @@ procedure TdmLoan.dstLoanAppvAfterPost(DataSet: TDataSet);
 begin
   ln.AddLoanState(lsApproved);
   ln.ApprovedAmount := DataSet.FieldByName('amt_appv').AsFloat;
+  RefreshDataSet('','',DataSet);
 end;
 
 procedure TdmLoan.dstLoanAppvBeforeOpen(DataSet: TDataSet);
@@ -242,8 +244,12 @@ end;
 
 procedure TdmLoan.dstLoanAssAfterPost(DataSet: TDataSet);
 begin
-  ln.AddLoanState(lsAssessed);
-  ln.RecommendedAmount := DataSet.FieldByName('rec_amt').AsFloat;
+  with DataSet do
+  begin
+    ln.AddLoanState(lsAssessed);
+    ln.RecommendedAmount := FieldByName('rec_amt').AsFloat;
+    RefreshDataSet('','',DataSet);
+  end;
 end;
 
 procedure TdmLoan.dstLoanAssBeforeOpen(DataSet: TDataSet);
@@ -293,6 +299,7 @@ end;
 procedure TdmLoan.dstLoanCancelAfterPost(DataSet: TDataSet);
 begin
   ln.AddLoanState(lsCancelled);
+  RefreshDataSet('','',DataSet);
 end;
 
 procedure TdmLoan.dstLoanCancelBeforeOpen(DataSet: TDataSet);
@@ -391,12 +398,13 @@ begin
     end;
   end;
 
-  AddLoanClassCharges;
+  // AddLoanClassCharges;
 end;
 
 procedure TdmLoan.dstLoanClassBeforeOpen(DataSet: TDataSet);
 begin
   (DataSet as TADODataSet).Parameters.ParamByName('@entity_id').Value := ln.Client.Id;
+  (DataSet as TADODataSet).Parameters.ParamByName('@new_loan').Value := StrToInt(IfThen(ln.New,'1','0'));
 end;
 
 procedure TdmLoan.dstLoanClassChargesBeforeOpen(DataSet: TDataSet);
@@ -445,6 +453,7 @@ end;
 procedure TdmLoan.dstLoanRejectAfterPost(DataSet: TDataSet);
 begin
   ln.AddLoanState(lsRejected);
+  RefreshDataSet('','',DataSet);
 end;
 
 procedure TdmLoan.dstLoanRejectBeforeOpen(DataSet: TDataSet);
@@ -489,6 +498,11 @@ begin
       Next;
     end;
   end;
+end;
+
+procedure TdmLoan.dstLoanReleaseAfterPost(DataSet: TDataSet);
+begin
+  RefreshDataSet('','',DataSet);
 end;
 
 procedure TdmLoan.dstLoanReleaseBeforeOpen(DataSet: TDataSet);

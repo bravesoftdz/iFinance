@@ -43,8 +43,7 @@ uses
 procedure TfrmBasePopupDetail.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
   inherited;
-  if ModalResult = mrCancel then
-    Cancel;
+  if ModalResult = mrCancel then Cancel;
 end;
 
 procedure TfrmBasePopupDetail.btnCancelClick(Sender: TObject);
