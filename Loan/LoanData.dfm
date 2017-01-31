@@ -391,7 +391,6 @@ object dmLoan: TdmLoan
     BeforeOpen = dstLoanReleaseBeforeOpen
     AfterOpen = dstLoanReleaseAfterOpen
     BeforePost = dstLoanReleaseBeforePost
-    AfterPost = dstLoanReleaseAfterPost
     OnNewRecord = dstLoanReleaseNewRecord
     CommandText = 'sp_ln_get_loan_release;1'
     CommandType = cmdStoredProc
@@ -425,7 +424,6 @@ object dmLoan: TdmLoan
     LockType = ltBatchOptimistic
     BeforeOpen = dstLoanChargeBeforeOpen
     AfterOpen = dstLoanChargeAfterOpen
-    BeforePost = dstLoanChargeBeforePost
     CommandText = 'sp_ln_get_loan_charges;1'
     CommandType = cmdStoredProc
     Parameters = <
@@ -434,7 +432,7 @@ object dmLoan: TdmLoan
         DataType = ftInteger
         Direction = pdReturnValue
         Precision = 10
-        Value = Null
+        Value = 0
       end
       item
         Name = '@loan_id'

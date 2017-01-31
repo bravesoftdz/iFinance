@@ -19,9 +19,11 @@ type
     FValidFrom: TDate;
     FValidUntil: TDate;
     FClassCharges: array of TLoanClassCharge;
+    FMaxConcurrent: integer;
 
     function GetComakersNotRequired: boolean;
     function GetClassCharge(const i: integer): TLoanClassCharge;
+    function GetClassChargesCount: integer;
 
   public
     procedure AddClassCharge(cg: TLoanClassCharge);
@@ -42,10 +44,12 @@ type
     property ValidUntil: TDate read FValidUntil write FValidUntil;
     property ComakersNotRequired: boolean read GetComakersNotRequired;
     property ClassCharge[const i: integer]: TLoanClassCharge read GetClassCharge;
+    property MaxConcurrent: integer read FMaxConcurrent write FMaxConcurrent;
+    property ClassChargesCount: integer read GetClassChargesCount;
 
     constructor Create(const classificationId, groupId: integer; const classificationName: string;
         const interest: real; const term: integer; const loanType: string; const maxLoan: real;
-        const comakers: integer; const validFrom, validUntil: TDate);
+        const comakers: integer; const validFrom, validUntil: TDate; const concurrent: integer);
   end;
 
 var
@@ -55,7 +59,7 @@ implementation
 
 constructor TLoanClassification.Create(const classificationId, groupId: integer; const classificationName: string;
         const interest: real; const term: integer; const loanType: string; const maxLoan: real;
-        const comakers: integer; const validFrom, validUntil: TDate);
+        const comakers: integer; const validFrom, validUntil: TDate; const concurrent: integer);
 begin
   FClassificationId := classificationId;
   FGroupId := groupId;
@@ -67,6 +71,7 @@ begin
   FComakers := comakers;
   FValidFrom := validFrom;
   FValidUntil := validUntil;
+  FMaxConcurrent := concurrent;
 end;
 
 procedure TLoanClassification.AddClassCharge(cg: TLoanClassCharge);
@@ -128,6 +133,11 @@ begin
       Exit;
     end;
   end;
+end;
+
+function TLoanClassification.GetClassChargesCount: integer;
+begin
+  Result := Length(FClassCharges);
 end;
 
 end.

@@ -5,7 +5,7 @@ interface
 uses
   SysUtils, Entity, LoanClient, AppConstants, DB, System.Rtti, ADODB, Variants,
   LoanClassification, Comaker, FinInfo, MonthlyExpense, ReleaseRecipient,
-  LoanCharge;
+  LoanCharge, LoanClassCharge;
 
 type
   TLoanAction = (laNone,laCreating,laAssessing,laApproving,laRejecting,laReleasing,laCancelling);
@@ -38,7 +38,6 @@ type
     procedure SaveCancellation;
     procedure SaveRejection;
     procedure SaveRelease;
-    procedure ChangeLoanStatus;
 
     function GetIsPending: boolean;
     function GetIsAssessed: boolean;
@@ -62,6 +61,7 @@ type
     function GetLoanCharge(const i: integer): TLoanCharge;
     function GetLoanChargeCount: integer;
     function GetIsFinalised: boolean;
+    function GetTotalCharges: real;
 
   public
     procedure Add; override;
@@ -83,12 +83,13 @@ type
     procedure AddLoanState(const loanState: TLoanState);
     procedure GetAlerts;
     procedure AddReleaseRecipient(const rec: TReleaseRecipient; const overwrite: boolean = false);
-    procedure AppendReleaseRecipient;
+    procedure AppendReleaseRecipient(const rec: TReleaseRecipient = nil);
     procedure ClearReleaseRecipients;
-    procedure AddLoanCharge(const charge: TLoanCharge; const overwrite: boolean = false);
+    procedure AddLoanCharge(const charge: TLoanCharge; const append: boolean = false);
     procedure ClearLoanCharges;
     procedure ComputeCharges;
     procedure RemoveReleaseRecipient(const rec: TReleaseRecipient);
+    procedure ChangeLoanStatus;
 
     function ComakerExists(cmk: TComaker): boolean;
     function FinancialInfoExists(const compId: integer): boolean;
@@ -96,6 +97,7 @@ type
     function ReleaseRecipientExists(const recipient, method: string): boolean;
     function LoanChargeExists(const charge: TLoanCharge): boolean;
     function LoanStateExists(const state: TLoanState): boolean;
+    function HasLoanState(const ls: TLoanState): boolean;
 
     property Client: TLoanClient read FClient write FClient;
     property Status: string read FStatus write FStatus;
@@ -126,6 +128,7 @@ type
     property DesiredTerm: integer read FDesiredTerm write FDesiredTerm;
     property RecommendedAmount: real read FRecommendedAmount write FRecommendedAmount;
     property IsFinalised: boolean read GetIsFinalised;
+    property TotalCharges: real read GetTotalCharges;
 
     constructor Create;
     destructor Destroy; reintroduce;
@@ -189,8 +192,6 @@ begin
   else if ln.Action = laReleasing then
     SaveRelease;
 
-  ChangeLoanStatus;
-
   ln.Action := laNone;
 end;
 
@@ -211,12 +212,12 @@ begin
       dstLoanComaker.CancelBatch;
 
       // close loan class
-      dstLoanClass.Close;
+      if ln.Action = laCreating then dstLoanClass.Close;
     end;
 
     if ln.Action = laAssessing then
     begin
-      dstLoanClass.Cancel;
+      dstLoanAss.Cancel;
 
       dstFinInfo.Close;
       dstFinInfo.Open;
@@ -245,9 +246,11 @@ begin
         dstLoanRelease.Cancel;
 
       dstLoanRelease.CancelBatch;
+      dstLoanCharge.CancelBatch;
     end;
   end;
 
+  ln.Action := laNone;
 end;
 
 procedure TLoan.Retrieve(const closeDataSources: boolean = false);
@@ -504,6 +507,7 @@ begin
     dstMonExp.UpdateBatch;
 
     // requery to refresh dataset
+    dstLoanAss.Requery;
     dstFinInfo.Requery;
     dstMonExp.Requery;
   end;
@@ -541,14 +545,19 @@ end;
 
 procedure TLoan.SaveRelease;
 begin
-  with dmLoan.dstLoanRelease do
+  with dmLoan do
   begin
-    if State in [dsInsert,dsEdit] then
-      Post;
+    dstLoanRelease.UpdateBatch;
+    dstLoanCharge.UpdateBatch;
 
-    UpdateBatch;
+    dstLoanRelease.Requery;
+    dstLoanCharge.Requery;
 
-    AddLoanState(lsActive);
+    if not ln.HasLoanState(lsActive) then
+    begin
+      ln.ChangeLoanStatus;
+      ln.AddLoanState(lsActive);
+    end
   end;
 end;
 
@@ -623,10 +632,21 @@ begin
   end;
 end;
 
-procedure TLoan.AppendReleaseRecipient;
+procedure TLoan.AppendReleaseRecipient(const rec: TReleaseRecipient = nil);
 begin
-  with dmLoan.dstLoanRelease do
+  with dmLoan.dstLoanRelease, rec do
+  begin
     Append;
+
+    if Assigned(rec) then
+    begin
+      FieldByName('recipient').AsString := Recipient.Id;
+      FieldByName('rel_method').AsString := ReleaseMethod.Id;
+      FieldByName('rel_amt').AsFloat := Amount;
+      FieldByName('date_rel').AsDateTime := rec.Date;
+      Post;
+    end;
+  end;
 end;
 
 procedure TLoan.ClearReleaseRecipients;
@@ -634,22 +654,25 @@ begin
   FReleaseRecipients := [];
 end;
 
-procedure TLoan.AddLoanCharge(const charge: TLoanCharge; const overwrite: boolean);
-var
-  index: integer;
+procedure TLoan.AddLoanCharge(const charge: TLoanCharge; const append: boolean);
 begin
   if not LoanChargeExists(charge) then
   begin
     SetLength(FLoanCharges,Length(FLoanCharges) + 1);
     FLoanCharges[Length(FLoanCharges) - 1] := charge;
-  end
-  else if overwrite then
-  begin
-    with dmLoan.dstLoanCharge do
-      index := RecNo;
 
-    FLoanCharges[index - 1] := charge;
-  end;
+    if append then
+    begin
+      with dmLoan.dstLoanCharge do
+      begin
+        Append;
+        FieldByName('loan_id').AsString := FId;
+        FieldByName('charge_type').AsString := charge.ChargeType;
+        FieldByName('charge_amt').AsFloat := charge.Amount;
+        Post;
+      end;
+    end;
+  end
 end;
 
 procedure TLoan.ClearLoanCharges;
@@ -658,8 +681,27 @@ begin
 end;
 
 procedure TLoan.ComputeCharges;
+var
+  i, cnt: integer;
+  charge: TLoanCharge;
+  classCharge: TLoanClassCharge;
 begin
+  cnt := FLoanClass.ClassChargesCount - 1;
 
+  for i := 0 to cnt do
+  begin
+    classCharge := FLoanClass.ClassCharge[i];
+
+    charge := TLoanCharge.Create;
+
+    charge.ChargeType := classCharge.ChargeType;
+    charge.ChargeName := classCharge.ChargeName;
+
+    if classCharge.ValueType = vtFixed then charge.Amount := classCharge.ChargeValue
+    else charge.Amount := (classCharge.ChargeValue * FApprovedAmount) / 100;
+
+    AddLoanCharge(charge,true);
+  end;
 end;
 
 procedure TLoan.RemoveReleaseRecipient(const rec: TReleaseRecipient);
@@ -684,6 +726,23 @@ begin
   // remove from db
   with dmLoan.dstLoanRelease do
     Delete;
+end;
+
+function TLoan.HasLoanState(const ls: TLoanState): boolean;
+var
+  i, len: integer;
+begin
+  Result := false;
+
+  len := Length(FLoanStatusHistory);
+  for i := 0 to len - 1 do
+  begin
+    if FLoanStatusHistory[i] = ls then
+    begin
+      Result := true;
+      Exit;
+    end;
+  end;
 end;
 
 function TLoan.GetIsPending: boolean;
@@ -914,6 +973,20 @@ end;
 function TLoan.GetIsFinalised: boolean;
 begin
   Result := IsRejected or IsCancelled or IsActive;
+end;
+
+function TLoan.GetTotalCharges: real;
+var
+  i, cnt: integer;
+  total: real;
+begin
+  cnt := GetLoanChargeCount - 1;
+
+  total := 0;
+
+  for i := 0 to cnt do total := FLoanCharges[i].Amount + total;
+
+  Result := total;
 end;
 
 end.

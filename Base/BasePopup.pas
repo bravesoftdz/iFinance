@@ -14,6 +14,7 @@ type
     pnlMain: TRzPanel;
     lblCaption: TRzLabel;
     procedure imgCloseClick(Sender: TObject);
+    procedure FormKeyPress(Sender: TObject; var Key: Char);
   private
     { Private declarations }
   public
@@ -26,6 +27,12 @@ var
 implementation
 
 {$R *.dfm}
+
+procedure TfrmBasePopup.FormKeyPress(Sender: TObject; var Key: Char);
+begin
+  // escape key
+  if Key = #27 then  ModalResult := mrClose;
+end;
 
 procedure TfrmBasePopup.imgCloseClick(Sender: TObject);
 begin

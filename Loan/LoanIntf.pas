@@ -8,11 +8,7 @@ type
     procedure SetLoanId;
     procedure SetUnboundControls;
     procedure RefreshDropDownSources;
-    procedure ApproveLoan;
-    procedure AssessLoan;
-    procedure RejectLoan;
-    procedure CancelLoan;
-    procedure ReleaseLoan;
+    procedure InitForm;
   end;
 
 implementation

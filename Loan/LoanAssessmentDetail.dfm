@@ -1,17 +1,17 @@
 inherited frmLoanAssessmentDetail: TfrmLoanAssessmentDetail
   Caption = 'frmLoanAssessmentDetail'
-  ClientHeight = 383
-  ClientWidth = 441
+  ClientHeight = 398
+  ClientWidth = 439
   OnShow = FormShow
-  ExplicitWidth = 441
-  ExplicitHeight = 383
+  ExplicitWidth = 439
+  ExplicitHeight = 398
   PixelsPerInch = 96
   TextHeight = 14
   inherited pnlTitle: TRzPanel
-    Width = 441
-    ExplicitWidth = 441
+    Width = 439
+    ExplicitWidth = 439
     inherited imgClose: TImage
-      Left = 420
+      Left = 418
       ExplicitLeft = 420
     end
     inherited lblCaption: TRzLabel
@@ -21,24 +21,24 @@ inherited frmLoanAssessmentDetail: TfrmLoanAssessmentDetail
     end
   end
   inherited pnlMain: TRzPanel
-    Width = 441
-    Height = 362
-    ExplicitWidth = 441
-    ExplicitHeight = 360
+    Width = 439
+    Height = 377
+    ExplicitWidth = 439
+    ExplicitHeight = 377
     inherited pnlDetail: TRzPanel
-      Width = 424
-      Height = 312
-      ExplicitWidth = 433
-      ExplicitHeight = 329
+      Width = 422
+      Height = 327
+      ExplicitWidth = 422
+      ExplicitHeight = 327
       inherited pcDetail: TRzPageControl
-        Width = 422
-        Height = 310
-        ExplicitWidth = 760
-        ExplicitHeight = 327
+        Width = 420
+        Height = 325
+        ExplicitWidth = 420
+        ExplicitHeight = 325
         FixedDimension = 20
         inherited tsDetail: TRzTabSheet
-          ExplicitWidth = 514
-          ExplicitHeight = 181
+          ExplicitWidth = 420
+          ExplicitHeight = 325
           object JvLabel4: TJvLabel
             Tag = -1
             Left = 19
@@ -130,11 +130,11 @@ inherited frmLoanAssessmentDetail: TfrmLoanAssessmentDetail
           object pcAssessment: TRzPageControl
             Tag = 3
             Left = 19
-            Top = 116
+            Top = 132
             Width = 378
             Height = 147
             Hint = ''
-            ActivePage = tsMonExp
+            ActivePage = tsFinInfo
             ActivePageDefault = tsFinInfo
             ButtonColor = 14273211
             FlatColor = 8675134
@@ -143,15 +143,13 @@ inherited frmLoanAssessmentDetail: TfrmLoanAssessmentDetail
             TabColors.HighlightBar = 14273211
             TabColors.Shadow = 14273211
             TabColors.Unselected = 14273211
-            TabIndex = 1
+            TabIndex = 0
             TabOrder = 3
             TabStyle = tsRoundCorners
             FixedDimension = 20
             object tsFinInfo: TRzTabSheet
               Color = 14273211
               Caption = 'Financial info'
-              ExplicitWidth = 374
-              ExplicitHeight = 120
               DesignSize = (
                 376
                 122)
@@ -162,7 +160,7 @@ inherited frmLoanAssessmentDetail: TfrmLoanAssessmentDetail
                 Height = 111
                 Anchors = [akLeft, akTop, akRight, akBottom]
                 ColCount = 3
-                Ctl3D = False
+                Ctl3D = True
                 DrawingStyle = gdsGradient
                 FixedColor = 14273211
                 FixedCols = 0
@@ -170,7 +168,7 @@ inherited frmLoanAssessmentDetail: TfrmLoanAssessmentDetail
                 FixedRows = 0
                 GradientEndColor = 12955288
                 GradientStartColor = 12955288
-                Options = [goFixedVertLine, goFixedHorzLine, goRowSelect]
+                Options = [goRowSelect]
                 ParentCtl3D = False
                 TabOrder = 0
                 OnDblClick = grFinInfoDblClick
@@ -189,15 +187,15 @@ inherited frmLoanAssessmentDetail: TfrmLoanAssessmentDetail
             object tsMonExp: TRzTabSheet
               Color = 14273211
               Caption = 'Monthly expenses'
-              ExplicitWidth = 374
-              ExplicitHeight = 120
               object grMonExp: TRzStringGrid
                 Left = 6
                 Top = 6
                 Width = 364
                 Height = 111
+                BevelInner = bvNone
+                BevelOuter = bvNone
                 ColCount = 2
-                Ctl3D = False
+                Ctl3D = True
                 DrawingStyle = gdsGradient
                 FixedColor = 14273211
                 FixedCols = 0
@@ -205,7 +203,7 @@ inherited frmLoanAssessmentDetail: TfrmLoanAssessmentDetail
                 FixedRows = 0
                 GradientEndColor = 12955288
                 GradientStartColor = 12955288
-                Options = [goFixedVertLine, goFixedHorzLine, goRowSelect]
+                Options = [goRowSelect]
                 ParentCtl3D = False
                 TabOrder = 0
                 OnDblClick = grMonExpDblClick
@@ -225,7 +223,7 @@ inherited frmLoanAssessmentDetail: TfrmLoanAssessmentDetail
             Left = 112
             Top = 65
             Width = 283
-            Height = 45
+            Height = 56
             DataField = 'remarks'
             DataSource = dmLoan.dscLoanAss
             TabOrder = 2
@@ -235,7 +233,7 @@ inherited frmLoanAssessmentDetail: TfrmLoanAssessmentDetail
           end
           object pnlAdd: TRzPanel
             Left = 19
-            Top = 269
+            Top = 286
             Width = 50
             Height = 22
             BorderOuter = fsNone
@@ -258,7 +256,7 @@ inherited frmLoanAssessmentDetail: TfrmLoanAssessmentDetail
           end
           object pnlRemoveComaker: TRzPanel
             Left = 75
-            Top = 269
+            Top = 286
             Width = 50
             Height = 22
             BorderOuter = fsNone
@@ -283,16 +281,16 @@ inherited frmLoanAssessmentDetail: TfrmLoanAssessmentDetail
       end
     end
     inherited pnlCancel: TRzPanel
-      Left = 382
-      Top = 329
-      ExplicitLeft = 391
-      ExplicitTop = 346
+      Left = 380
+      Top = 344
+      ExplicitLeft = 380
+      ExplicitTop = 344
     end
     inherited pnlSave: TRzPanel
-      Left = 326
-      Top = 329
-      ExplicitLeft = 335
-      ExplicitTop = 346
+      Left = 324
+      Top = 344
+      ExplicitLeft = 324
+      ExplicitTop = 344
     end
   end
 end

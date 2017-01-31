@@ -7,18 +7,24 @@ type
   private
     FChargeType: string;
     FChargeName: string;
-    FAmount: string;
+    FAmount: real;
   public
     property ChargeType: string read FChargeType write FChargeType;
     property ChargeName: string read FChargeName write FChargeName;
-    property Amount: string read FAmount write FAmount;
+    property Amount: real read FAmount write FAmount;
 
-    constructor Create(const chargeType, chargeName, amt: string);
+    constructor Create; overload;
+    constructor Create(const chargeType, chargeName: string; const amt: real); overload;
   end;
 
 implementation
 
-constructor TLoanCharge.Create(const chargeType: string; const chargeName: string; const amt: string);
+constructor TLoanCharge.Create;
+begin
+  inherited;
+end;
+
+constructor TLoanCharge.Create(const chargeType, chargeName: string; const amt: real);
 begin
   FChargeType := chargeType;
   FChargeName := chargeName;

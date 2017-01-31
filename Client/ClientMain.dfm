@@ -40,13 +40,13 @@ inherited frmClientMain: TfrmClientMain
     Width = 860
     Height = 552
     Hint = ''
-    ActivePage = tsClientInfo
+    ActivePage = tsLoansHistory
     Anchors = [akLeft, akTop, akRight, akBottom]
     BoldCurrentTab = True
     FlatColor = 6572079
     ShowFullFrame = False
     ShowShadow = False
-    TabIndex = 0
+    TabIndex = 3
     TabOrder = 1
     TabOrientation = toBottom
     TabStyle = tsRoundCorners
@@ -1320,6 +1320,11 @@ inherited frmClientMain: TfrmClientMain
               FieldName = 'name'
               Title.Alignment = taCenter
               Title.Caption = 'Name'
+              Title.Font.Charset = DEFAULT_CHARSET
+              Title.Font.Color = clWindowText
+              Title.Font.Height = -12
+              Title.Font.Name = 'Tahoma'
+              Title.Font.Style = [fsBold]
               Width = 250
               Visible = True
             end
@@ -1329,6 +1334,11 @@ inherited frmClientMain: TfrmClientMain
               FieldName = 'ref_name'
               Title.Alignment = taCenter
               Title.Caption = 'Relation'
+              Title.Font.Charset = DEFAULT_CHARSET
+              Title.Font.Color = clWindowText
+              Title.Font.Height = -12
+              Title.Font.Name = 'Tahoma'
+              Title.Font.Style = [fsBold]
               Width = 200
               Visible = True
             end>
@@ -1790,6 +1800,11 @@ inherited frmClientMain: TfrmClientMain
               FieldName = 'ident_name'
               Title.Alignment = taCenter
               Title.Caption = 'Type'
+              Title.Font.Charset = DEFAULT_CHARSET
+              Title.Font.Color = clWindowText
+              Title.Font.Height = -12
+              Title.Font.Name = 'Tahoma'
+              Title.Font.Style = [fsBold]
               Width = 120
               Visible = True
             end
@@ -1798,14 +1813,24 @@ inherited frmClientMain: TfrmClientMain
               FieldName = 'ident_no'
               Title.Alignment = taCenter
               Title.Caption = 'ID Number'
+              Title.Font.Charset = DEFAULT_CHARSET
+              Title.Font.Color = clWindowText
+              Title.Font.Height = -12
+              Title.Font.Name = 'Tahoma'
+              Title.Font.Style = [fsBold]
               Width = 150
               Visible = True
             end
             item
               Expanded = False
-              FieldName = 'exp_date'
+              FieldName = 'exp_date_f'
               Title.Alignment = taCenter
               Title.Caption = 'Expiry '
+              Title.Font.Charset = DEFAULT_CHARSET
+              Title.Font.Color = clWindowText
+              Title.Font.Height = -12
+              Title.Font.Name = 'Tahoma'
+              Title.Font.Style = [fsBold]
               Width = 150
               Visible = True
             end>
@@ -2020,7 +2045,7 @@ inherited frmClientMain: TfrmClientMain
       object pnlLoans: TRzPanel
         Left = 8
         Top = 9
-        Width = 570
+        Width = 852
         Height = 513
         Anchors = [akLeft, akTop, akRight, akBottom]
         BorderOuter = fsNone
@@ -2031,7 +2056,7 @@ inherited frmClientMain: TfrmClientMain
         object grLoans: TRzDBGrid
           Left = 1
           Top = 1
-          Width = 568
+          Width = 850
           Height = 511
           Align = alClient
           BorderStyle = bsNone
@@ -2049,73 +2074,47 @@ inherited frmClientMain: TfrmClientMain
           TitleFont.Style = []
           FrameStyle = fsNone
           FramingPreference = fpCustomFraming
-          AltRowShading = True
           AltRowShadingColor = 15854564
           Columns = <
             item
               Expanded = False
               FieldName = 'loan_id'
+              Title.Alignment = taCenter
               Title.Caption = 'Loan ID'
-              Width = 85
+              Title.Font.Charset = DEFAULT_CHARSET
+              Title.Font.Color = clWindowText
+              Title.Font.Height = -12
+              Title.Font.Name = 'Tahoma'
+              Title.Font.Style = [fsBold]
+              Width = 100
               Visible = True
             end
             item
               Expanded = False
               FieldName = 'class_name'
+              Title.Alignment = taCenter
               Title.Caption = 'Loan class'
+              Title.Font.Charset = DEFAULT_CHARSET
+              Title.Font.Color = clWindowText
+              Title.Font.Height = -12
+              Title.Font.Name = 'Tahoma'
+              Title.Font.Style = [fsBold]
               Width = 200
               Visible = True
             end
             item
               Expanded = False
               FieldName = 'status_name'
+              Title.Alignment = taCenter
               Title.Caption = 'Status'
+              Title.Font.Charset = DEFAULT_CHARSET
+              Title.Font.Color = clWindowText
+              Title.Font.Height = -12
+              Title.Font.Name = 'Tahoma'
+              Title.Font.Style = [fsBold]
               Width = 150
               Visible = True
             end>
-        end
-      end
-      object RzPanel1: TRzPanel
-        Left = 584
-        Top = 9
-        Width = 276
-        Height = 513
-        Anchors = [akTop, akRight, akBottom]
-        BorderOuter = fsNone
-        BorderColor = 8675134
-        BorderWidth = 1
-        ParentColor = True
-        TabOrder = 1
-        object RzPanel5: TRzPanel
-          Left = 1
-          Top = 1
-          Width = 274
-          Height = 19
-          Align = alTop
-          BorderOuter = fsNone
-          BorderSides = [sdBottom]
-          BorderColor = clBlack
-          BorderWidth = 1
-          Color = 8675134
-          GradientColorStyle = gcsCustom
-          GradientColorStart = 6572079
-          GradientColorStop = 8675134
-          TabOrder = 0
-          VisualStyle = vsGradient
-          object RzLabel2: TRzLabel
-            Left = 7
-            Top = 2
-            Width = 41
-            Height = 14
-            Caption = 'Details'
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clWhite
-            Font.Height = -12
-            Font.Name = 'Tahoma'
-            Font.Style = [fsBold]
-            ParentFont = False
-            Transparent = True
-          end
         end
       end
     end
@@ -2487,7 +2486,7 @@ inherited frmClientMain: TfrmClientMain
         Width = 32
         Height = 32
         Cursor = crHandPoint
-        Hint = 'Show main client window'
+        Hint = 'Main'
         AutoSize = True
         ParentShowHint = False
         Picture.Data = {
@@ -2589,7 +2588,7 @@ inherited frmClientMain: TfrmClientMain
         Width = 32
         Height = 32
         Cursor = crHandPoint
-        Hint = 'Show client family and references'
+        Hint = 'Family and reference'
         AutoSize = True
         ParentShowHint = False
         Picture.Data = {
@@ -2693,7 +2692,7 @@ inherited frmClientMain: TfrmClientMain
         Width = 32
         Height = 32
         Cursor = crHandPoint
-        Hint = 'Show client indentity information'
+        Hint = 'Identity information'
         AutoSize = True
         ParentShowHint = False
         Picture.Data = {
@@ -2777,7 +2776,7 @@ inherited frmClientMain: TfrmClientMain
         Width = 32
         Height = 32
         Cursor = crHandPoint
-        Hint = 'Show loan history'
+        Hint = 'Loan history'
         AutoSize = True
         ParentShowHint = False
         Picture.Data = {
@@ -2879,7 +2878,7 @@ inherited frmClientMain: TfrmClientMain
         Width = 32
         Height = 32
         Cursor = crHandPoint
-        Hint = 'Show loan classification accessibility'
+        Hint = 'Loan class access'
         AutoSize = True
         ParentShowHint = False
         Picture.Data = {

@@ -10,7 +10,7 @@ inherited frmMonthlyExpDetail: TfrmMonthlyExpDetail
   TextHeight = 14
   inherited pnlTitle: TRzPanel
     Width = 297
-    ExplicitWidth = 303
+    ExplicitWidth = 297
     inherited imgClose: TImage
       Left = 276
       ExplicitLeft = 282
@@ -24,20 +24,22 @@ inherited frmMonthlyExpDetail: TfrmMonthlyExpDetail
   inherited pnlMain: TRzPanel
     Width = 297
     Height = 131
-    ExplicitWidth = 303
-    ExplicitHeight = 145
+    ExplicitWidth = 297
+    ExplicitHeight = 131
     inherited pnlDetail: TRzPanel
       Width = 281
       Height = 85
       ExplicitWidth = 281
-      ExplicitHeight = 89
+      ExplicitHeight = 85
       inherited pcDetail: TRzPageControl
         Width = 279
         Height = 83
+        ExplicitWidth = 279
+        ExplicitHeight = 83
         FixedDimension = 20
         inherited tsDetail: TRzTabSheet
-          ExplicitWidth = 514
-          ExplicitHeight = 181
+          ExplicitWidth = 279
+          ExplicitHeight = 83
           object JvLabel1: TJvLabel
             Left = 19
             Top = 23
@@ -68,6 +70,7 @@ inherited frmMonthlyExpDetail: TfrmMonthlyExpDetail
             TabOrder = 0
             AllowNull = True
             FlatButtons = True
+            DisabledColor = clWhite
             FrameColor = 8675134
             FrameHotColor = clBlack
             FrameVisible = True
@@ -97,13 +100,13 @@ inherited frmMonthlyExpDetail: TfrmMonthlyExpDetail
       Left = 240
       Top = 101
       ExplicitLeft = 240
-      ExplicitTop = 105
+      ExplicitTop = 101
     end
     inherited pnlSave: TRzPanel
       Left = 184
       Top = 101
       ExplicitLeft = 184
-      ExplicitTop = 105
+      ExplicitTop = 101
     end
   end
 end

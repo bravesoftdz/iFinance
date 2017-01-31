@@ -178,9 +178,6 @@ type
     cmbIdType: TRzDBLookupComboBox;
     edIdNo: TRzDBEdit;
     dteExpiry: TRzDBDateTimeEdit;
-    RzPanel1: TRzPanel;
-    RzPanel5: TRzPanel;
-    RzLabel2: TRzLabel;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure FormCreate(Sender: TObject);

@@ -257,6 +257,7 @@ inherited frmLoanMain: TfrmLoanMain
         Top = 201
         Width = 49
         Height = 22
+        TabStop = False
         DataSource = dmLoan.dscLoanClass
         DataField = 'int_rate'
         ReadOnly = True
@@ -327,6 +328,7 @@ inherited frmLoanMain: TfrmLoanMain
         Width = 87
         Height = 22
         Hint = 'Maximum loanable amout'
+        TabStop = False
         DataSource = dmLoan.dscLoanClass
         DataField = 'max_loan'
         ReadOnly = True
@@ -349,6 +351,7 @@ inherited frmLoanMain: TfrmLoanMain
         Width = 49
         Height = 22
         Hint = 'Maximum allowed term'
+        TabStop = False
         DataSource = dmLoan.dscLoanClass
         DataField = 'term'
         ReadOnly = True
@@ -536,10 +539,120 @@ inherited frmLoanMain: TfrmLoanMain
           Hint = 'Remove comaker'
           BorderStyle = bsNone
           Caption = 'Remove'
-          Enabled = False
           ParentShowHint = False
           ShowHint = True
           OnClick = btnRemoveComakerClick
+        end
+      end
+      object pnlClientRecord: TRzPanel
+        Tag = -1
+        Left = 309
+        Top = 17
+        Width = 20
+        Height = 20
+        BorderOuter = fsNone
+        BorderColor = 6572079
+        BorderWidth = 1
+        Color = 12955288
+        TabOrder = 17
+        object imgClientRecord: TImage
+          Left = 2
+          Top = 2
+          Width = 16
+          Height = 16
+          Cursor = crHandPoint
+          Hint = 'Client record'
+          AutoSize = True
+          ParentShowHint = False
+          Picture.Data = {
+            0954506E67496D61676589504E470D0A1A0A0000000D49484452000000100000
+            001008060000001FF3FF6100000006624B474400FF00FF00FFA0BDA793000000
+            097048597300000048000000480046C96B3E0000000976704167000000100000
+            0010005CC6ADC3000002254944415478DAA5935148536114C7FF9F6EC9BAE476
+            E7DAD68C353768CA2A228AC2E18A1E929E8C9EDA7CB087C4ACC8A422A8A7A820
+            28A808DAAC8746506A0FA524442F619610A92BD431296DB174F3DED9EEEE2AB7
+            4BB3AFAB2114DCD1A0038703E77CE777CEF7FFF808A514FF63E44F002164299E
+            DCC53A880A834683C6949328522989539752F795E7C2D462FDAF1E25C0F13A76
+            DC5D6B70B1AC094206187E1747664E0877BC1136140538BD474F6BB75BB18AB5
+            222D96626878127C621A774302290AD0B6B39C56D90DB03BB7C0E1AA06379B44
+            F06627EE8D668A03346F2BA3B707BA21C5E21084342449C2B9C397713F221507
+            68DAAC7E107C12F072331CD2B208B95C0ED72F0402C150AEB52880D366ACBE73
+            C917596B62208A2226267978CF3CB4C8A5C43F01EE86D64EBDD172E0E0EE7230
+            D930A29F62887E33E343763D9289CF5DAF7AFCDE8200CFBE16FE27C56AE9C702
+            DA4F1C816FFA229057E3DACA267477F562859AA08494A0FFD12DA208F01D3B4F
+            753A2D426FC3604D6BF0B451053016D4FB3FE26B6A0E951613783E89178F03CA
+            80FD87CE52BBDD8AA1915164B20BF05B0741353A1C7DEF02234FDFB4D189B1B1
+            090CF4742803F636B6538F672B66E27170BC085EF88E7C9EA2425B864AB31E36
+            9B157D7DFD78D95B0050D7D0426B6AD6816134CBAACABE24BBECC0FC7C169148
+            4CDEA0C0155C3BEADB2ACC5557E59C4AF1E71192FF321B3D157EFDEC46A167D4
+            CAC181DF73956CF1F094DC232E277E014D8117F0A787AF080000003774455874
+            636F6D6D656E74005375697420757365722066726F6D2049636F6E2047616C6C
+            65727920687474703A2F2F69636F6E67616C2E636F6D2F6F1927920000002574
+            455874646174653A63726561746500323031312D30382D32315431343A31323A
+            33372D30363A30303E73266D0000002574455874646174653A6D6F6469667900
+            323031312D30382D32315431343A31323A33372D30363A30304F2E9ED1000000
+            1974455874536F6674776172650041646F626520496D616765526561647971C9
+            653C0000000049454E44AE426082}
+          ShowHint = True
+          OnClick = imgClientRecordClick
+          OnMouseDown = imgAssessmentMouseDown
+          OnMouseUp = imgAssessmentMouseUp
+        end
+      end
+      object pnlAlerts: TRzPanel
+        Tag = -1
+        Left = 285
+        Top = 17
+        Width = 20
+        Height = 20
+        BorderOuter = fsNone
+        BorderColor = 6572079
+        BorderWidth = 1
+        Color = 12955288
+        TabOrder = 18
+        object imgAlerts: TImage
+          Left = 2
+          Top = 2
+          Width = 16
+          Height = 16
+          Cursor = crHandPoint
+          Hint = 'Client alerts'
+          AutoSize = True
+          ParentShowHint = False
+          Picture.Data = {
+            0954506E67496D61676589504E470D0A1A0A0000000D49484452000000100000
+            001008060000001FF3FF6100000006624B474400FF00FF00FFA0BDA793000000
+            097048597300000048000000480046C96B3E0000000976704167000000100000
+            0010005CC6ADC3000002354944415478DAA5934F48545114C6BF7BDF7B339115
+            449696363013811A84FF1693124CE62C5B0C1518648B0C37A126B488DA0C92D2
+            2230B536522D3248A89845CB3113DA588D3A04A910CDC0A4A56504955133EFDD
+            DBB9D76782F417DFE6DD77BEC3EF9EEFBC739894126B7958A2B3F6978210C26F
+            B06C4A9D1DE90970CED3FF0C9042C0CE6527CAC29172F53D198F254DCB53C138
+            FF3B40599276AE6563A1AFB7A4A155C7A6077BF1792ED3CA4CAB8F31F6678070
+            9CF58CF1C5EA93E7907EBDA063FE9DF948DCBC447091C70DE3EB6F01AA74874A
+            0F840E976FDDEBC391F6511DBFD71DC4FBE719A446EE278D5556560054BA63E7
+            1A361404EE941D6F03A6CEE2684FA596EEB68D03A5973179BB075FE653C70CD3
+            1A846BE527804A878429AB9B3BC167BA81EF533874A54E6B0FCE0C03DE5288E2
+            7624FA2F80C166646505E0961EF71D68ACDF5E487F6BE131B08E2314D53F0123
+            D124F04D00F9FBF176CE8FCCA38121B212565658E2620D956ED7E715EC8EEF89
+            1C04D2FD84B5E846E0DD874D1AB06DCB27AA48D9CC51479BF122F6108BF32FC3
+            86690EB1671DFB20E09115274EC1FA7883924C025093BC0291AE2A0D889D1F23
+            00575D26CD466E7313266E5D074796B127D1E0D5A260DDE9A25DD340565D4389
+            AA3F1E81504BF19285BE19D21440778B342F665F95607674F81A1BEBAA95958D
+            3BDC21708744BD548F4C774F6C0A387001EA8EA5C3F8C01BB0A71D355238347D
+            42BA09CB1009EE1E9504B93C8152A73012B9C17476D57FADDFEA5D58EB3AFF00
+            FAD9DED5BEC910D80000004274455874636F6D6D656E74004572726F72207761
+            726E696E672068617A6172642066726F6D2049636F6E2047616C6C6572792068
+            7474703A2F2F69636F6E67616C2E636F6D2F3439FB8D00000025744558746461
+            74653A63726561746500323031312D30382D32315431343A31303A32312D3036
+            3A303095FCC3F40000002574455874646174653A6D6F6469667900323031312D
+            30382D32315431343A31303A32312D30363A3030E4A17B480000001974455874
+            536F6674776172650041646F626520496D616765526561647971C9653C000000
+            0049454E44AE426082}
+          ShowHint = True
+          OnClick = imgAlertsClick
+          OnMouseDown = imgAssessmentMouseDown
+          OnMouseUp = imgAssessmentMouseUp
         end
       end
     end
@@ -555,6 +668,7 @@ inherited frmLoanMain: TfrmLoanMain
       BorderWidth = 1
       Color = 14273211
       TabOrder = 1
+      Visible = False
       DesignSize = (
         69
         482)
@@ -1191,8 +1305,8 @@ inherited frmLoanMain: TfrmLoanMain
       Width = 492
       Height = 472
       Hint = ''
-      ActivePage = tsAssessment
-      ActivePageDefault = tsAssessment
+      ActivePage = tsReleased
+      ActivePageDefault = tsPending
       Anchors = [akLeft, akTop, akRight, akBottom]
       FlatColor = 14273211
       ShowFullFrame = False
@@ -1204,9 +1318,6 @@ inherited frmLoanMain: TfrmLoanMain
         Color = 14273211
         TabVisible = False
         Caption = 'Assessment'
-        ExplicitTop = 21
-        ExplicitWidth = 502
-        ExplicitHeight = 450
         object pnlAssessment: TRzPanel
           Tag = 200
           Left = 0
@@ -1219,9 +1330,6 @@ inherited frmLoanMain: TfrmLoanMain
           BorderWidth = 1
           Color = 14273211
           TabOrder = 0
-          ExplicitTop = 1
-          ExplicitWidth = 502
-          ExplicitHeight = 450
           DesignSize = (
             492
             471)
@@ -1327,7 +1435,6 @@ inherited frmLoanMain: TfrmLoanMain
             GradientColorStop = 8675134
             TabOrder = 0
             VisualStyle = vsGradient
-            ExplicitWidth = 493
             object RzLabel2: TRzLabel
               Tag = -1
               Left = 7
@@ -1379,7 +1486,7 @@ inherited frmLoanMain: TfrmLoanMain
             Height = 141
             Anchors = [akLeft, akTop, akRight]
             Color = clWhite
-            Ctl3D = False
+            Ctl3D = True
             DataSource = dmLoan.dscFinInfo
             DefaultDrawing = False
             DrawingStyle = gdsGradient
@@ -1405,11 +1512,6 @@ inherited frmLoanMain: TfrmLoanMain
               item
                 Expanded = False
                 FieldName = 'comp_name'
-                Font.Charset = DEFAULT_CHARSET
-                Font.Color = clWindowText
-                Font.Height = -12
-                Font.Name = 'Tahoma'
-                Font.Style = []
                 Title.Alignment = taCenter
                 Title.Caption = 'Company'
                 Title.Font.Charset = DEFAULT_CHARSET
@@ -1424,11 +1526,6 @@ inherited frmLoanMain: TfrmLoanMain
                 Alignment = taRightJustify
                 Expanded = False
                 FieldName = 'mon_due_f'
-                Font.Charset = DEFAULT_CHARSET
-                Font.Color = clWindowText
-                Font.Height = -12
-                Font.Name = 'Tahoma'
-                Font.Style = []
                 Title.Alignment = taRightJustify
                 Title.Caption = 'Monthly'
                 Title.Font.Charset = DEFAULT_CHARSET
@@ -1443,11 +1540,6 @@ inherited frmLoanMain: TfrmLoanMain
                 Alignment = taRightJustify
                 Expanded = False
                 FieldName = 'loan_bal_f'
-                Font.Charset = DEFAULT_CHARSET
-                Font.Color = clWindowText
-                Font.Height = -12
-                Font.Name = 'Tahoma'
-                Font.Style = []
                 Title.Alignment = taRightJustify
                 Title.Caption = 'Balance'
                 Title.Font.Charset = DEFAULT_CHARSET
@@ -1494,7 +1586,7 @@ inherited frmLoanMain: TfrmLoanMain
             Height = 123
             Anchors = [akLeft, akTop, akRight, akBottom]
             Color = clWhite
-            Ctl3D = False
+            Ctl3D = True
             DataSource = dmLoan.dscMonExp
             DrawingStyle = gdsGradient
             FixedColor = 14273211
@@ -1531,6 +1623,7 @@ inherited frmLoanMain: TfrmLoanMain
                 Visible = True
               end
               item
+                Alignment = taRightJustify
                 Expanded = False
                 FieldName = 'monthly_f'
                 Title.Alignment = taRightJustify
@@ -1556,8 +1649,6 @@ inherited frmLoanMain: TfrmLoanMain
             Color = 12955288
             TabOrder = 5
             OnClick = pnlEditAssessmentClick
-            ExplicitLeft = 445
-            ExplicitTop = 421
             object btnEditAssessment: TRzShapeButton
               Left = 0
               Top = 0
@@ -1577,9 +1668,6 @@ inherited frmLoanMain: TfrmLoanMain
         Color = 14273211
         TabVisible = False
         Caption = 'Approval'
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
         object pnlApproval: TRzPanel
           Tag = 200
           Left = 0
@@ -1592,10 +1680,6 @@ inherited frmLoanMain: TfrmLoanMain
           BorderWidth = 1
           Color = 14273211
           TabOrder = 0
-          ExplicitLeft = 19
-          ExplicitTop = 23
-          ExplicitWidth = 840
-          ExplicitHeight = 200
           DesignSize = (
             492
             471)
@@ -1758,7 +1842,6 @@ inherited frmLoanMain: TfrmLoanMain
             GradientColorStop = 8675134
             TabOrder = 0
             VisualStyle = vsGradient
-            ExplicitWidth = 848
             object RzLabel3: TRzLabel
               Tag = -1
               Left = 7
@@ -1805,9 +1888,6 @@ inherited frmLoanMain: TfrmLoanMain
         Color = 14273211
         TabVisible = False
         Caption = 'Released'
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
         object pnlRelease: TRzPanel
           Tag = -1
           Left = 0
@@ -1820,13 +1900,38 @@ inherited frmLoanMain: TfrmLoanMain
           BorderWidth = 1
           Color = 14273211
           TabOrder = 0
-          ExplicitLeft = 16
-          ExplicitTop = 41
-          ExplicitWidth = 840
-          ExplicitHeight = 135
           DesignSize = (
             492
             471)
+          object JvLabel15: TJvLabel
+            Tag = -1
+            Left = 19
+            Top = 33
+            Width = 118
+            Height = 14
+            Caption = 'Approved amount:'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -12
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold]
+            ParentFont = False
+            Transparent = True
+            HotTrackFont.Charset = DEFAULT_CHARSET
+            HotTrackFont.Color = clWindowText
+            HotTrackFont.Height = -12
+            HotTrackFont.Name = 'Tahoma'
+            HotTrackFont.Style = []
+          end
+          object RzDBLabel15: TRzDBLabel
+            Left = 168
+            Top = 33
+            Width = 69
+            Height = 14
+            AutoSize = True
+            DataField = 'amt_appv_f'
+            DataSource = dmLoan.dscLoanAppv
+          end
           object RzPanel7: TRzPanel
             Left = 1
             Top = 1
@@ -1842,7 +1947,6 @@ inherited frmLoanMain: TfrmLoanMain
             GradientColorStop = 8675134
             TabOrder = 0
             VisualStyle = vsGradient
-            ExplicitWidth = 838
             object RzLabel4: TRzLabel
               Tag = -1
               Left = 7
@@ -1861,11 +1965,11 @@ inherited frmLoanMain: TfrmLoanMain
           end
           object grRecipients: TRzDBGrid
             Left = 19
-            Top = 55
+            Top = 87
             Width = 453
-            Height = 154
+            Height = 118
             Anchors = [akLeft, akTop, akRight]
-            Ctl3D = False
+            Ctl3D = True
             DataSource = dmLoan.dscLoanRelease
             DrawingStyle = gdsGradient
             FixedColor = 14273211
@@ -1952,10 +2056,10 @@ inherited frmLoanMain: TfrmLoanMain
             Left = 19
             Top = 247
             Width = 453
-            Height = 154
+            Height = 119
             Anchors = [akLeft, akTop, akRight]
-            Ctl3D = False
-            DataSource = dmLoan.dscMonExp
+            Ctl3D = True
+            DataSource = dmLoan.dscLoanCharge
             DrawingStyle = gdsGradient
             FixedColor = 14273211
             GradientEndColor = 12955288
@@ -1977,7 +2081,7 @@ inherited frmLoanMain: TfrmLoanMain
               item
                 Color = clWhite
                 Expanded = False
-                FieldName = 'exp_name'
+                FieldName = 'charge_name'
                 Title.Alignment = taCenter
                 Title.Caption = 'Charge'
                 Title.Font.Charset = DEFAULT_CHARSET
@@ -1992,7 +2096,7 @@ inherited frmLoanMain: TfrmLoanMain
                 Alignment = taRightJustify
                 Color = clWhite
                 Expanded = False
-                FieldName = 'monthly_f'
+                FieldName = 'charge_amt_f'
                 Title.Alignment = taRightJustify
                 Title.Caption = 'Amount'
                 Title.Font.Charset = DEFAULT_CHARSET
@@ -2007,7 +2111,7 @@ inherited frmLoanMain: TfrmLoanMain
           object RzGroupBox6: TRzGroupBox
             Tag = -1
             Left = 19
-            Top = 33
+            Top = 65
             Width = 453
             Height = 22
             Anchors = [akLeft, akTop, akRight]
@@ -2091,9 +2195,6 @@ inherited frmLoanMain: TfrmLoanMain
         Color = 14273211
         TabVisible = False
         Caption = 'Rejected'
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
         object pnlRejection: TRzPanel
           Tag = -1
           Left = 0
@@ -2106,10 +2207,6 @@ inherited frmLoanMain: TfrmLoanMain
           BorderWidth = 1
           Color = 14273211
           TabOrder = 0
-          ExplicitLeft = 8
-          ExplicitTop = 125
-          ExplicitWidth = 481
-          ExplicitHeight = 120
           DesignSize = (
             492
             471)
@@ -2215,7 +2312,6 @@ inherited frmLoanMain: TfrmLoanMain
             GradientColorStop = 8675134
             TabOrder = 0
             VisualStyle = vsGradient
-            ExplicitWidth = 479
             object RzLabel6: TRzLabel
               Tag = -1
               Left = 7
@@ -2263,9 +2359,6 @@ inherited frmLoanMain: TfrmLoanMain
         Color = 14273211
         TabVisible = False
         Caption = 'Cancelled'
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
         object pnlCancellation: TRzPanel
           Tag = -1
           Left = 0
@@ -2278,8 +2371,6 @@ inherited frmLoanMain: TfrmLoanMain
           BorderWidth = 1
           Color = 14273211
           TabOrder = 0
-          ExplicitTop = -9
-          ExplicitHeight = 451
           DesignSize = (
             492
             471)
@@ -2385,7 +2476,6 @@ inherited frmLoanMain: TfrmLoanMain
             GradientColorStop = 8675134
             TabOrder = 0
             VisualStyle = vsGradient
-            ExplicitWidth = 480
             object RzLabel5: TRzLabel
               Tag = -1
               Left = 7
@@ -2424,6 +2514,70 @@ inherited frmLoanMain: TfrmLoanMain
               ParentShowHint = False
               ShowHint = True
               OnClick = btnEditCancelClick
+            end
+          end
+        end
+      end
+      object tsPending: TRzTabSheet
+        Color = 14273211
+        TabVisible = False
+        Caption = 'Pending'
+        object pnlPending: TRzPanel
+          Tag = -1
+          Left = 0
+          Top = 0
+          Width = 492
+          Height = 471
+          Align = alClient
+          BorderOuter = fsNone
+          BorderColor = 8675134
+          BorderWidth = 1
+          Color = 14273211
+          TabOrder = 0
+          object JvLabel1: TJvLabel
+            Tag = -1
+            Left = 19
+            Top = 33
+            Width = 107
+            Height = 14
+            Caption = 'No details available.'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -12
+            Font.Name = 'Tahoma'
+            Font.Style = []
+            ParentFont = False
+            Transparent = True
+          end
+          object RzPanel4: TRzPanel
+            Left = 1
+            Top = 1
+            Width = 490
+            Height = 17
+            Align = alTop
+            BorderOuter = fsNone
+            BorderSides = [sdBottom]
+            BorderColor = clBlack
+            BorderWidth = 1
+            GradientColorStyle = gcsCustom
+            GradientColorStart = 6572079
+            GradientColorStop = 8675134
+            TabOrder = 0
+            VisualStyle = vsGradient
+            object RzLabel1: TRzLabel
+              Tag = -1
+              Left = 7
+              Top = 2
+              Width = 106
+              Height = 13
+              Caption = 'Status information'
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clWhite
+              Font.Height = -11
+              Font.Name = 'Tahoma'
+              Font.Style = [fsBold]
+              ParentFont = False
+              Transparent = True
             end
           end
         end

@@ -61,7 +61,7 @@ implementation
 {$R *.dfm}
 
 uses
-  FinInfoDetail, MonthlyExpenseDetail, Loan, LoanData, DecisionBox;
+  FinInfoDetail, MonthlyExpenseDetail, Loan, LoanData, DecisionBox, FormsUtil;
 
 procedure TfrmLoanAssessmentDetail.ClearRow(grid: TRzStringGrid; const row: Integer);
 var
@@ -254,7 +254,7 @@ begin
     Cells[2,0] := 'Balance';
 
     // widths
-    ColWidths[0] := 125;
+    ColWidths[0] := 180;
     ColWidths[1] := 70;
     ColWidths[2] := 70;
 
@@ -379,6 +379,9 @@ begin
   inherited;
   PopulateFinInfo;
   PopulateMonthlyExpense;
+
+  ExtendLastColumn(grFinInfo);
+  ExtendLastColumn(grMonExp);
 
   // applied amount
   urlAppliedAmount.Caption := FormatFloat('###,##0.00',ln.AppliedAmount);

@@ -11,25 +11,21 @@ uses
 
 type
   TfrmComakerDetail = class(TfrmBasePopupDetail)
-    JvGroupHeader1: TJvGroupHeader;
     JvLabel1: TJvLabel;
     JvLabel2: TJvLabel;
     JvLabel3: TJvLabel;
     edMiddlename: TRzDBEdit;
     edFirstname: TRzDBEdit;
     edLastname: TRzDBEdit;
-    JvGroupHeader3: TJvGroupHeader;
     JvLabel7: TJvLabel;
     dteBirthdate: TRzDBDateTimeEdit;
     JvLabel12: TJvLabel;
     RzDBLookupComboBox1: TRzDBLookupComboBox;
     JvLabel8: TJvLabel;
     RzDBLookupComboBox2: TRzDBLookupComboBox;
-    JvGroupHeader5: TJvGroupHeader;
     JvLabel22: TJvLabel;
     RzDBEdit11: TRzDBEdit;
     RzDBEdit10: TRzDBEdit;
-    JvGroupHeader2: TJvGroupHeader;
     JvLabel4: TJvLabel;
     JvLabel5: TJvLabel;
     RzDBEdit4: TRzDBEdit;
@@ -37,27 +33,36 @@ type
     JvLabel6: TJvLabel;
     RzDBLookupComboBox3: TRzDBLookupComboBox;
     urlCopyAddress: TRzURLLabel;
-    JvGroupHeader4: TJvGroupHeader;
     JvLabel9: TJvLabel;
     JvLabel10: TJvLabel;
     JvLabel11: TJvLabel;
     RzDBLookupComboBox4: TRzDBLookupComboBox;
     RzDBEdit7: TRzDBEdit;
     RzDBEdit6: TRzDBEdit;
-    JvGroupHeader6: TJvGroupHeader;
     JvLabel23: TJvLabel;
     bteEmployer: TRzButtonEdit;
     JvLabel24: TJvLabel;
     mmEmployerAddress: TRzMemo;
     JvLabel28: TJvLabel;
     RzDBEdit12: TRzDBEdit;
+    RzGroupBox2: TRzGroupBox;
+    RzGroupBox1: TRzGroupBox;
+    RzGroupBox3: TRzGroupBox;
+    RzGroupBox4: TRzGroupBox;
+    RzGroupBox5: TRzGroupBox;
+    RzGroupBox6: TRzGroupBox;
+    RzGroupBox7: TRzGroupBox;
+    RzGroupBox8: TRzGroupBox;
+    RzGroupBox9: TRzGroupBox;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure bteEmployerButtonClick(Sender: TObject);
     procedure bteEmployerAltBtnClick(Sender: TObject);
     procedure urlCopyAddressClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
   private
     { Private declarations }
+    procedure  SetUnboundControls;
   public
     { Public declarations }
   protected
@@ -91,7 +96,14 @@ begin
   dmComaker := TdmComaker.Create(self);
 
   OpenDropdownDataSources(tsDetail);
+
   inherited;
+end;
+
+procedure TfrmComakerDetail.FormShow(Sender: TObject);
+begin
+  inherited;
+  SetUnboundControls;
 end;
 
 procedure TfrmComakerDetail.Save;
@@ -140,6 +152,15 @@ end;
 procedure TfrmComakerDetail.Cancel;
 begin
   cm.Cancel;
+end;
+
+procedure TfrmComakerDetail.SetUnboundControls;
+begin
+  if Assigned(cm.Employer) then
+  begin
+    bteEmployer.Text := cm.Employer.Name;
+    mmEmployerAddress.Text := cm.Employer.Address;
+  end;
 end;
 
 function TfrmComakerDetail.ValidEntry;

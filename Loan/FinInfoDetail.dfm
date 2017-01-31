@@ -10,7 +10,7 @@ inherited frmFinInfoDetail: TfrmFinInfoDetail
   TextHeight = 14
   inherited pnlTitle: TRzPanel
     Width = 298
-    ExplicitWidth = 303
+    ExplicitWidth = 298
     inherited imgClose: TImage
       Left = 277
       ExplicitLeft = 282
@@ -24,8 +24,8 @@ inherited frmFinInfoDetail: TfrmFinInfoDetail
   inherited pnlMain: TRzPanel
     Width = 298
     Height = 162
-    ExplicitWidth = 303
-    ExplicitHeight = 163
+    ExplicitWidth = 298
+    ExplicitHeight = 162
     inherited pnlDetail: TRzPanel
       Width = 281
       Height = 113
@@ -35,8 +35,12 @@ inherited frmFinInfoDetail: TfrmFinInfoDetail
         Width = 279
         Height = 111
         Anchors = [akLeft, akTop]
+        ExplicitWidth = 279
+        ExplicitHeight = 111
         FixedDimension = 20
         inherited tsDetail: TRzTabSheet
+          ExplicitWidth = 279
+          ExplicitHeight = 111
           object JvLabel1: TJvLabel
             Left = 19
             Top = 23
@@ -67,7 +71,7 @@ inherited frmFinInfoDetail: TfrmFinInfoDetail
             Top = 17
             Width = 168
             Height = 22
-            Ctl3D = False
+            Ctl3D = True
             DataField = 'comp_id'
             DataSource = dmLoan.dscFinInfo
             KeyField = 'comp_id'
@@ -77,6 +81,7 @@ inherited frmFinInfoDetail: TfrmFinInfoDetail
             TabOrder = 0
             AllowNull = True
             FlatButtons = True
+            DisabledColor = clWhite
             FrameColor = 8675134
             FrameHotColor = clBlack
             FrameVisible = True

@@ -22,17 +22,17 @@ type
   private
     FRecipient: TRecipient;
     FReleaseMethod: TReleaseMethod;
-    FAmount: string; // why string over real/float? This is already formatted in the stored proc
-    FDate: string;   // see comment on FAmount
+    FAmount: real;
+    FDate: TDate;
   public
     property Recipient: TRecipient read FRecipient write FRecipient;
     property ReleaseMethod: TReleaseMethod read FReleaseMethod write FReleaseMethod;
-    property Amount: string read FAmount write FAmount;
-    property Date: string read FDate write FDate;
+    property Amount: real read FAmount write FAmount;
+    property Date: TDate read FDate write FDate;
 
     constructor Create; overload;
     constructor Create(const rpt: TRecipient; rm: TReleaseMethod;
-        const amt, dt: string);  overload;
+        const amt: real; const dt: TDate);  overload;
   end;
 
 var
@@ -52,7 +52,7 @@ begin
 end;
 
 constructor TReleaseRecipient.Create(const rpt: TRecipient; rm: TReleaseMethod;
-  const amt, dt: string);
+  const amt: real; const dt: TDate);
 begin
   FRecipient := rpt;
   FReleaseMethod := rm;

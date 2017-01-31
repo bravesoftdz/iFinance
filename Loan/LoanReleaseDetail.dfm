@@ -1,17 +1,17 @@
 inherited frmLoanReleaseDetail: TfrmLoanReleaseDetail
   Caption = 'frmLoanReleaseDetail'
-  ClientHeight = 270
-  ClientWidth = 451
+  ClientHeight = 306
+  ClientWidth = 527
   OnShow = FormShow
-  ExplicitWidth = 451
-  ExplicitHeight = 270
+  ExplicitWidth = 527
+  ExplicitHeight = 306
   PixelsPerInch = 96
-  TextHeight = 13
+  TextHeight = 14
   inherited pnlTitle: TRzPanel
-    Width = 451
+    Width = 527
     ExplicitWidth = 451
     inherited imgClose: TImage
-      Left = 430
+      Left = 506
       ExplicitLeft = 545
     end
     inherited lblCaption: TRzLabel
@@ -21,132 +21,188 @@ inherited frmLoanReleaseDetail: TfrmLoanReleaseDetail
     end
   end
   inherited pnlMain: TRzPanel
-    Width = 451
-    Height = 249
+    Width = 527
+    Height = 285
     ExplicitWidth = 451
     ExplicitHeight = 249
-    inherited pcDetail: TRzPageControl
-      Width = 434
-      Height = 195
-      ExplicitWidth = 434
-      ExplicitHeight = 195
-      FixedDimension = 19
-      inherited tsDetail: TRzTabSheet
-        ExplicitLeft = 1
-        ExplicitTop = 1
-        ExplicitWidth = 430
-        ExplicitHeight = 191
-        object urlReleaseToClient: TRzURLLabel
-          Tag = 1
-          Left = 330
-          Top = 158
-          Width = 79
-          Height = 13
-          Alignment = taRightJustify
-          Caption = 'Release to client'
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clGreen
-          Font.Height = -11
-          Font.Name = 'Tahoma'
-          Font.Style = [fsUnderline]
-          ParentFont = False
-        end
-        object btnAddRecipient: TRzButton
-          Tag = 7
-          Left = 19
-          Top = 158
-          Width = 57
-          Height = 20
-          Caption = 'Add'
-          TabOrder = 0
-          OnClick = btnAddRecipientClick
-        end
-        object btnRemoveRecipient: TRzButton
-          Tag = 7
-          Left = 81
-          Top = 158
-          Width = 57
-          Height = 20
-          Caption = 'Remove'
-          TabOrder = 1
-        end
-        object pcAssessment: TRzPageControl
-          Tag = 3
-          Left = 19
-          Top = 23
-          Width = 392
-          Height = 129
-          Hint = ''
-          ActivePage = tsRecipients
-          ActivePageDefault = tsRecipients
-          TabOverlap = 0
-          TabIndex = 0
-          TabOrder = 2
-          TabStyle = tsRoundCorners
-          FixedDimension = 19
-          object tsRecipients: TRzTabSheet
-            Color = 15000804
-            Caption = 'Recipients'
-            DesignSize = (
-              388
-              103)
-            object grReleaseRecipient: TRzStringGrid
-              Left = 7
-              Top = 3
-              Width = 378
-              Height = 93
-              Anchors = [akLeft, akTop, akRight, akBottom]
-              ColCount = 4
-              FixedCols = 0
-              RowCount = 1
-              FixedRows = 0
-              Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goRowSelect]
-              TabOrder = 0
-              OnDblClick = grReleaseRecipientDblClick
-              ColWidths = (
-                60
-                60
-                60
-                60)
-              RowHeights = (
-                18)
+    inherited pnlDetail: TRzPanel
+      Left = 7
+      Top = 7
+      Width = 512
+      Height = 238
+      inherited pcDetail: TRzPageControl
+        Width = 510
+        Height = 236
+        FixedDimension = 20
+        inherited tsDetail: TRzTabSheet
+          ExplicitWidth = 514
+          ExplicitHeight = 181
+          object urlReleaseToClient: TRzURLLabel
+            Tag = 1
+            Left = 403
+            Top = 198
+            Width = 90
+            Height = 14
+            Alignment = taRightJustify
+            Caption = 'Release to client'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = 8675134
+            Font.Height = -12
+            Font.Name = 'Tahoma'
+            Font.Style = [fsUnderline]
+            ParentFont = False
+            OnClick = urlReleaseToClientClick
+          end
+          object pcAssessment: TRzPageControl
+            Tag = 3
+            Left = 19
+            Top = 23
+            Width = 474
+            Height = 169
+            Hint = ''
+            ActivePage = tsRecipients
+            ActivePageDefault = tsRecipients
+            Anchors = [akLeft, akTop, akRight, akBottom]
+            ButtonColor = 14273211
+            FlatColor = 8675134
+            ShowShadow = False
+            TabOverlap = 0
+            TabColors.Shadow = 14273211
+            TabColors.Unselected = 14273211
+            TabIndex = 0
+            TabOrder = 0
+            TabStyle = tsRoundCorners
+            FixedDimension = 20
+            object tsRecipients: TRzTabSheet
+              Color = 14273211
+              Caption = 'Recipients'
+              ExplicitWidth = 388
+              ExplicitHeight = 102
+              DesignSize = (
+                472
+                144)
+              object grReleaseRecipient: TRzStringGrid
+                Left = 6
+                Top = 6
+                Width = 460
+                Height = 132
+                Anchors = [akLeft, akTop, akRight, akBottom]
+                ColCount = 4
+                Ctl3D = True
+                DrawingStyle = gdsGradient
+                FixedColor = 14273211
+                FixedCols = 0
+                RowCount = 1
+                FixedRows = 0
+                GradientEndColor = 12955288
+                GradientStartColor = 12955288
+                Options = [goRowSelect]
+                ParentCtl3D = False
+                TabOrder = 0
+                OnDblClick = grReleaseRecipientDblClick
+                FrameColor = 8675134
+                FrameVisible = True
+                FramingPreference = fpCustomFraming
+                FixedLineColor = 14273211
+                ColWidths = (
+                  60
+                  60
+                  60
+                  60)
+                RowHeights = (
+                  18)
+              end
+            end
+            object tsMonExp: TRzTabSheet
+              Color = 14273211
+              Caption = 'Charges'
+              ExplicitWidth = 388
+              ExplicitHeight = 102
+              DesignSize = (
+                472
+                144)
+              object grCharges: TRzStringGrid
+                Left = 6
+                Top = 6
+                Width = 460
+                Height = 132
+                Anchors = [akLeft, akTop, akRight, akBottom]
+                ColCount = 2
+                Ctl3D = True
+                DrawingStyle = gdsGradient
+                FixedColor = 14273211
+                FixedCols = 0
+                RowCount = 1
+                FixedRows = 0
+                GradientEndColor = 12955288
+                GradientStartColor = 12955288
+                Options = [goRowSelect]
+                ParentCtl3D = False
+                TabOrder = 0
+                FrameColor = 8675134
+                FrameVisible = True
+                FramingPreference = fpCustomFraming
+                FixedLineColor = 14273211
+                ColWidths = (
+                  60
+                  60)
+                RowHeights = (
+                  18)
+              end
             end
           end
-          object tsMonExp: TRzTabSheet
-            Color = 15000804
-            Caption = 'Charges'
-            object grCharges: TRzStringGrid
-              Left = 5
-              Top = 5
-              Width = 378
-              Height = 94
-              ColCount = 2
-              FixedCols = 0
-              RowCount = 1
-              FixedRows = 0
-              Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goRowSelect]
-              TabOrder = 0
-              ColWidths = (
-                60
-                60)
-              RowHeights = (
-                18)
+          object RzPanel1: TRzPanel
+            Left = 75
+            Top = 198
+            Width = 50
+            Height = 22
+            Anchors = [akRight, akBottom]
+            BorderOuter = fsNone
+            BorderColor = 6572079
+            BorderWidth = 1
+            Color = 14273211
+            TabOrder = 1
+            object btnRemove: TRzShapeButton
+              Left = 0
+              Top = 0
+              Width = 50
+              Height = 22
+              BorderStyle = bsNone
+              Caption = 'Remove'
+              OnClick = btnRemoveClick
+            end
+          end
+          object RzPanel2: TRzPanel
+            Left = 19
+            Top = 198
+            Width = 50
+            Height = 22
+            Anchors = [akRight, akBottom]
+            BorderOuter = fsNone
+            BorderColor = 6572079
+            BorderWidth = 1
+            Color = 14273211
+            TabOrder = 2
+            object btnAdd: TRzShapeButton
+              Left = 0
+              Top = 0
+              Width = 50
+              Height = 22
+              BorderStyle = bsNone
+              Caption = 'Add'
+              OnClick = btnAddClick
             end
           end
         end
       end
     end
-    inherited btnSave: TRzButton
-      Left = 285
-      Top = 214
-      ExplicitLeft = 285
-      ExplicitTop = 214
+    inherited pnlCancel: TRzPanel
+      Left = 469
+      Top = 254
     end
-    inherited btnCancel: TRzButton
-      Left = 366
-      Top = 214
-      ExplicitLeft = 366
-      ExplicitTop = 214
+    inherited pnlSave: TRzPanel
+      Left = 413
+      Top = 254
     end
   end
 end

@@ -1,17 +1,18 @@
 inherited frmComakerDetail: TfrmComakerDetail
   Caption = 'frmComakerDetail'
-  ClientHeight = 383
-  ClientWidth = 690
+  ClientHeight = 401
+  ClientWidth = 685
   OnCreate = FormCreate
-  ExplicitWidth = 690
-  ExplicitHeight = 383
+  OnShow = FormShow
+  ExplicitWidth = 685
+  ExplicitHeight = 401
   PixelsPerInch = 96
-  TextHeight = 13
+  TextHeight = 14
   inherited pnlTitle: TRzPanel
-    Width = 690
-    ExplicitWidth = 674
+    Width = 685
+    ExplicitWidth = 690
     inherited imgClose: TImage
-      Left = 669
+      Left = 664
       ExplicitLeft = 653
     end
     inherited lblCaption: TRzLabel
@@ -21,490 +22,707 @@ inherited frmComakerDetail: TfrmComakerDetail
     end
   end
   inherited pnlMain: TRzPanel
-    Width = 690
-    Height = 362
-    ExplicitWidth = 674
-    ExplicitHeight = 510
-    inherited pcDetail: TRzPageControl
-      Width = 673
-      Height = 308
-      TabOrientation = toBottom
-      ExplicitWidth = 657
-      ExplicitHeight = 456
-      FixedDimension = 19
-      inherited tsDetail: TRzTabSheet
-        Caption = 'Comaker details'
-        ExplicitLeft = 0
-        ExplicitTop = -9
-        ExplicitWidth = 648
-        ExplicitHeight = 379
-        object JvGroupHeader1: TJvGroupHeader
-          Left = 19
-          Top = 20
-          Width = 302
-          Height = 12
-          Caption = 'Comaker Name'
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = 9134911
-          Font.Height = -11
-          Font.Name = 'Tahoma'
-          Font.Style = []
-          ParentFont = False
-          Transparent = True
-        end
-        object JvLabel1: TJvLabel
-          Left = 35
-          Top = 40
-          Width = 48
-          Height = 13
-          Caption = 'Lastname'
-          Transparent = True
-        end
-        object JvLabel2: TJvLabel
-          Left = 35
-          Top = 64
-          Width = 49
-          Height = 13
-          Caption = 'Firstname'
-          Transparent = True
-        end
-        object JvLabel3: TJvLabel
-          Left = 35
-          Top = 88
-          Width = 32
-          Height = 13
-          Caption = 'Middle'
-          Transparent = True
-        end
-        object JvGroupHeader3: TJvGroupHeader
-          Left = 19
-          Top = 110
-          Width = 302
-          Height = 12
-          Caption = 'Personal Info'
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = 9134911
-          Font.Height = -11
-          Font.Name = 'Tahoma'
-          Font.Style = []
-          ParentFont = False
-          Transparent = True
-        end
-        object JvLabel7: TJvLabel
-          Left = 35
-          Top = 130
-          Width = 46
-          Height = 13
-          Caption = 'Birthdate'
-          Transparent = True
-        end
-        object JvLabel12: TJvLabel
-          Left = 35
-          Top = 154
-          Width = 54
-          Height = 13
-          Caption = 'Civil status'
-          Transparent = True
-        end
-        object JvLabel8: TJvLabel
-          Left = 223
-          Top = 154
-          Width = 20
-          Height = 13
-          Caption = 'Sex'
-          Transparent = True
-        end
-        object JvGroupHeader5: TJvGroupHeader
-          Left = 343
-          Top = 20
-          Width = 302
-          Height = 12
-          Caption = 'Contact Info'
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = 9134911
-          Font.Height = -11
-          Font.Name = 'Tahoma'
-          Font.Style = []
-          ParentFont = False
-          Transparent = True
-        end
-        object JvLabel22: TJvLabel
-          Left = 359
-          Top = 40
-          Width = 71
-          Height = 13
-          Caption = 'Mobile/tel. no.'
-          Transparent = True
-        end
-        object JvGroupHeader2: TJvGroupHeader
-          Left = 343
-          Top = 75
-          Width = 302
-          Height = 12
-          Caption = 'Present Address'
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = 9134911
-          Font.Height = -11
-          Font.Name = 'Tahoma'
-          Font.Style = []
-          ParentFont = False
-          Transparent = True
-        end
-        object JvLabel4: TJvLabel
-          Left = 359
-          Top = 95
-          Width = 32
-          Height = 13
-          Caption = 'Street'
-          Transparent = True
-        end
-        object JvLabel5: TJvLabel
-          Left = 359
-          Top = 119
-          Width = 48
-          Height = 13
-          Caption = 'Barangay'
-          Transparent = True
-        end
-        object JvLabel6: TJvLabel
-          Left = 359
-          Top = 143
-          Width = 61
-          Height = 13
-          Caption = 'City or town'
-          Transparent = True
-        end
-        object urlCopyAddress: TRzURLLabel
-          Left = 438
-          Top = 162
-          Width = 208
-          Height = 13
-          Caption = 'Copy present address to provincial address'
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clGreen
-          Font.Height = -11
-          Font.Name = 'Tahoma'
-          Font.Style = [fsUnderline]
-          ParentFont = False
-          OnClick = urlCopyAddressClick
-        end
-        object JvGroupHeader4: TJvGroupHeader
-          Left = 343
-          Top = 182
-          Width = 302
-          Height = 12
-          Caption = 'Provincial Address'
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = 9134911
-          Font.Height = -11
-          Font.Name = 'Tahoma'
-          Font.Style = []
-          ParentFont = False
-          Transparent = True
-        end
-        object JvLabel9: TJvLabel
-          Left = 359
-          Top = 202
-          Width = 32
-          Height = 13
-          Caption = 'Street'
-          Transparent = True
-        end
-        object JvLabel10: TJvLabel
-          Left = 359
-          Top = 226
-          Width = 48
-          Height = 13
-          Caption = 'Barangay'
-          Transparent = True
-        end
-        object JvLabel11: TJvLabel
-          Left = 359
-          Top = 250
-          Width = 61
-          Height = 13
-          Caption = 'City or town'
-          Transparent = True
-        end
-        object JvGroupHeader6: TJvGroupHeader
-          Left = 23
-          Top = 182
-          Width = 298
-          Height = 12
-          Caption = 'Employment Info'
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = 9134911
-          Font.Height = -11
-          Font.Name = 'Tahoma'
-          Font.Style = []
-          ParentFont = False
-          Transparent = True
-        end
-        object JvLabel23: TJvLabel
-          Left = 39
-          Top = 202
-          Width = 46
-          Height = 13
-          Caption = 'Employer'
-          Transparent = True
-        end
-        object JvLabel24: TJvLabel
-          Left = 39
-          Top = 226
-          Width = 41
-          Height = 13
-          Caption = 'Address'
-          Transparent = True
-        end
-        object JvLabel28: TJvLabel
-          Left = 39
-          Top = 268
-          Width = 67
-          Height = 13
-          Caption = 'Service years'
-          Transparent = True
-        end
-        object edMiddlename: TRzDBEdit
-          Left = 114
-          Top = 82
-          Width = 207
-          Height = 21
-          DataSource = dmComaker.dscPersonalInfo
-          DataField = 'middlename'
-          CharCase = ecUpperCase
-          TabOnEnter = True
-          TabOrder = 2
-        end
-        object edFirstname: TRzDBEdit
-          Left = 114
-          Top = 58
-          Width = 207
-          Height = 21
-          DataSource = dmComaker.dscPersonalInfo
-          DataField = 'firstname'
-          CharCase = ecUpperCase
-          TabOnEnter = True
-          TabOrder = 1
-        end
-        object edLastname: TRzDBEdit
-          Left = 114
-          Top = 34
-          Width = 207
-          Height = 21
-          DataSource = dmComaker.dscPersonalInfo
-          DataField = 'lastname'
-          CharCase = ecUpperCase
-          Ctl3D = True
-          ParentCtl3D = False
-          TabOnEnter = True
-          TabOrder = 0
-        end
-        object dteBirthdate: TRzDBDateTimeEdit
-          Left = 114
-          Top = 124
-          Width = 95
-          Height = 21
-          DataSource = dmComaker.dscPersonalInfo
-          DataField = 'birth_date'
-          TabOnEnter = True
-          TabOrder = 3
-          EditType = etDate
-        end
-        object RzDBLookupComboBox1: TRzDBLookupComboBox
-          Left = 114
-          Top = 148
-          Width = 95
-          Height = 21
-          DataField = 'civil_status'
-          DataSource = dmComaker.dscPersonalInfo
-          KeyField = 'value'
-          ListField = 'display'
-          ListSource = dmComaker.dscCivilStatus
-          TabOrder = 4
-          AllowNull = True
-          FrameColor = clBlack
-          FrameHotColor = clBlack
-          TabOnEnter = True
-        end
-        object RzDBLookupComboBox2: TRzDBLookupComboBox
-          Left = 255
-          Top = 148
-          Width = 66
-          Height = 21
-          DataField = 'gender'
-          DataSource = dmComaker.dscPersonalInfo
-          KeyField = 'value'
-          ListField = 'display'
-          ListSource = dmComaker.dscGender
-          TabOrder = 5
-          TabOnEnter = True
-        end
-        object RzDBEdit11: TRzDBEdit
-          Left = 438
-          Top = 34
-          Width = 100
-          Height = 21
-          DataSource = dmComaker.dscContactInfo
-          DataField = 'mobile_no'
-          Ctl3D = True
-          ParentCtl3D = False
-          TabOnEnter = True
-          TabOrder = 9
-        end
-        object RzDBEdit10: TRzDBEdit
-          Left = 541
-          Top = 34
-          Width = 104
-          Height = 21
-          DataSource = dmComaker.dscContactInfo
-          DataField = 'home_phone'
-          Ctl3D = True
-          ParentCtl3D = False
-          TabOnEnter = True
-          TabOrder = 10
-        end
-        object RzDBEdit4: TRzDBEdit
-          Left = 438
-          Top = 89
-          Width = 207
-          Height = 21
-          DataSource = dmComaker.dscAddressInfo
-          DataField = 'st'
-          Ctl3D = True
-          ParentCtl3D = False
-          TabOnEnter = True
-          TabOrder = 11
-        end
-        object RzDBEdit5: TRzDBEdit
-          Left = 438
-          Top = 113
-          Width = 207
-          Height = 21
-          DataSource = dmComaker.dscAddressInfo
-          DataField = 'brgy'
-          Ctl3D = True
-          ParentCtl3D = False
-          TabOnEnter = True
-          TabOrder = 12
-        end
-        object RzDBLookupComboBox3: TRzDBLookupComboBox
-          Left = 438
-          Top = 137
-          Width = 207
-          Height = 21
-          DataField = 'post_code'
-          DataSource = dmComaker.dscAddressInfo
-          KeyField = 'post_code'
-          ListField = 'town'
-          ListSource = dmAux.dscTowns
-          TabOrder = 13
-          AllowNull = True
-          FrameColor = clBlack
-          FrameHotColor = clBlack
-          TabOnEnter = True
-        end
-        object RzDBLookupComboBox4: TRzDBLookupComboBox
-          Left = 438
-          Top = 244
-          Width = 207
-          Height = 21
-          DataField = 'post_code'
-          DataSource = dmComaker.dscAddressInfo2
-          KeyField = 'post_code'
-          ListField = 'town'
-          ListSource = dmAux.dscTowns
-          TabOrder = 16
-          AllowNull = True
-          FrameColor = clBlack
-          FrameHotColor = clBlack
-          TabOnEnter = True
-        end
-        object RzDBEdit7: TRzDBEdit
-          Left = 438
-          Top = 220
-          Width = 207
-          Height = 21
-          DataSource = dmComaker.dscAddressInfo2
-          DataField = 'brgy'
-          Ctl3D = True
-          ParentCtl3D = False
-          TabOnEnter = True
-          TabOrder = 15
-        end
-        object RzDBEdit6: TRzDBEdit
-          Left = 438
-          Top = 196
-          Width = 207
-          Height = 21
-          DataSource = dmComaker.dscAddressInfo2
-          DataField = 'st'
-          Ctl3D = True
-          ParentCtl3D = False
-          TabOnEnter = True
-          TabOrder = 14
-        end
-        object bteEmployer: TRzButtonEdit
-          Tag = 1
-          Left = 114
-          Top = 196
-          Width = 207
-          Height = 21
-          Text = ''
-          Color = clInfoBk
-          ParentShowHint = False
-          ReadOnly = True
-          ShowHint = True
-          TabOnEnter = True
-          TabOrder = 6
-          AllowKeyEdit = False
-          AltBtnHint = 'Clear employer'
-          ButtonHint = 'Find employer'
-          AltBtnKind = bkReject
-          ButtonKind = bkFind
-          AltBtnVisible = True
-          AltBtnWidth = 15
-          ButtonWidth = 15
-          FlatButtons = True
-          HideButtonsOnReadOnly = False
-          OnAltBtnClick = bteEmployerAltBtnClick
-          OnButtonClick = bteEmployerButtonClick
-        end
-        object mmEmployerAddress: TRzMemo
-          Tag = 1
-          Left = 114
-          Top = 220
-          Width = 207
-          Height = 39
-          Color = clInfoBk
-          ReadOnly = True
-          TabOrder = 7
-          TabOnEnter = True
-        end
-        object RzDBEdit12: TRzDBEdit
-          Left = 114
-          Top = 262
-          Width = 59
-          Height = 21
-          DataSource = dmComaker.dscEmplInfo
-          DataField = 'serv_len'
-          Ctl3D = True
-          ParentCtl3D = False
-          TabOnEnter = True
-          TabOrder = 8
+    Width = 685
+    Height = 380
+    ExplicitWidth = 690
+    ExplicitHeight = 380
+    inherited pnlDetail: TRzPanel
+      Width = 669
+      Height = 334
+      ExplicitWidth = 674
+      ExplicitHeight = 334
+      inherited pcDetail: TRzPageControl
+        Width = 667
+        Height = 332
+        TabOrientation = toBottom
+        ExplicitWidth = 672
+        ExplicitHeight = 332
+        FixedDimension = 20
+        inherited tsDetail: TRzTabSheet
+          Caption = 'Comaker details'
+          ExplicitWidth = 672
+          ExplicitHeight = 333
+          object JvLabel1: TJvLabel
+            Left = 35
+            Top = 40
+            Width = 54
+            Height = 14
+            Caption = 'Lastname'
+            Transparent = True
+          end
+          object JvLabel2: TJvLabel
+            Left = 35
+            Top = 64
+            Width = 54
+            Height = 14
+            Caption = 'Firstname'
+            Transparent = True
+          end
+          object JvLabel3: TJvLabel
+            Left = 35
+            Top = 88
+            Width = 36
+            Height = 14
+            Caption = 'Middle'
+            Transparent = True
+          end
+          object JvLabel7: TJvLabel
+            Left = 35
+            Top = 146
+            Width = 52
+            Height = 14
+            Caption = 'Birthdate'
+            Transparent = True
+          end
+          object JvLabel12: TJvLabel
+            Left = 35
+            Top = 170
+            Width = 58
+            Height = 14
+            Caption = 'Civil status'
+            Transparent = True
+          end
+          object JvLabel8: TJvLabel
+            Left = 223
+            Top = 170
+            Width = 22
+            Height = 14
+            Caption = 'Sex'
+            Transparent = True
+          end
+          object JvLabel22: TJvLabel
+            Left = 359
+            Top = 40
+            Width = 68
+            Height = 14
+            Caption = 'Cell/Tel. no.'
+            Transparent = True
+          end
+          object JvLabel4: TJvLabel
+            Left = 359
+            Top = 103
+            Width = 37
+            Height = 14
+            Caption = 'Street'
+            Transparent = True
+          end
+          object JvLabel5: TJvLabel
+            Left = 359
+            Top = 127
+            Width = 51
+            Height = 14
+            Caption = 'Barangay'
+            Transparent = True
+          end
+          object JvLabel6: TJvLabel
+            Left = 359
+            Top = 151
+            Width = 70
+            Height = 14
+            Caption = 'City or town'
+            Transparent = True
+          end
+          object urlCopyAddress: TRzURLLabel
+            Left = 359
+            Top = 175
+            Width = 232
+            Height = 14
+            Caption = 'Copy present address to provincial address'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = 6572079
+            Font.Height = -12
+            Font.Name = 'Tahoma'
+            Font.Style = [fsUnderline]
+            ParentFont = False
+            OnClick = urlCopyAddressClick
+          end
+          object JvLabel9: TJvLabel
+            Left = 359
+            Top = 226
+            Width = 37
+            Height = 14
+            Caption = 'Street'
+            Transparent = True
+          end
+          object JvLabel10: TJvLabel
+            Left = 359
+            Top = 250
+            Width = 51
+            Height = 14
+            Caption = 'Barangay'
+            Transparent = True
+          end
+          object JvLabel11: TJvLabel
+            Left = 359
+            Top = 274
+            Width = 70
+            Height = 14
+            Caption = 'City or town'
+            Transparent = True
+          end
+          object JvLabel23: TJvLabel
+            Left = 39
+            Top = 226
+            Width = 52
+            Height = 14
+            Caption = 'Employer'
+            Transparent = True
+          end
+          object JvLabel24: TJvLabel
+            Left = 39
+            Top = 250
+            Width = 45
+            Height = 14
+            Caption = 'Address'
+            Transparent = True
+          end
+          object JvLabel28: TJvLabel
+            Left = 39
+            Top = 291
+            Width = 73
+            Height = 14
+            Caption = 'Service years'
+            Transparent = True
+          end
+          object edMiddlename: TRzDBEdit
+            Left = 114
+            Top = 82
+            Width = 207
+            Height = 22
+            DataSource = dmComaker.dscPersonalInfo
+            DataField = 'middlename'
+            CharCase = ecUpperCase
+            FrameColor = 8675134
+            FrameVisible = True
+            FramingPreference = fpCustomFraming
+            TabOnEnter = True
+            TabOrder = 2
+          end
+          object edFirstname: TRzDBEdit
+            Left = 114
+            Top = 58
+            Width = 207
+            Height = 22
+            DataSource = dmComaker.dscPersonalInfo
+            DataField = 'firstname'
+            CharCase = ecUpperCase
+            FrameColor = 8675134
+            FrameVisible = True
+            FramingPreference = fpCustomFraming
+            TabOnEnter = True
+            TabOrder = 1
+          end
+          object edLastname: TRzDBEdit
+            Left = 114
+            Top = 34
+            Width = 207
+            Height = 22
+            DataSource = dmComaker.dscPersonalInfo
+            DataField = 'lastname'
+            CharCase = ecUpperCase
+            Ctl3D = True
+            FrameColor = 8675134
+            FrameVisible = True
+            FramingPreference = fpCustomFraming
+            ParentCtl3D = False
+            TabOnEnter = True
+            TabOrder = 0
+          end
+          object dteBirthdate: TRzDBDateTimeEdit
+            Left = 114
+            Top = 140
+            Width = 95
+            Height = 22
+            DataSource = dmComaker.dscPersonalInfo
+            DataField = 'birth_date'
+            FrameColor = 8675134
+            FrameVisible = True
+            FramingPreference = fpCustomFraming
+            TabOnEnter = True
+            TabOrder = 3
+            EditType = etDate
+            Format = 'mm/dd/yyyy'
+            FlatButtons = True
+          end
+          object RzDBLookupComboBox1: TRzDBLookupComboBox
+            Left = 114
+            Top = 164
+            Width = 95
+            Height = 22
+            Ctl3D = True
+            DataField = 'civil_status'
+            DataSource = dmComaker.dscPersonalInfo
+            KeyField = 'value'
+            ListField = 'display'
+            ListSource = dmComaker.dscCivilStatus
+            ParentCtl3D = False
+            TabOrder = 4
+            AllowNull = True
+            FlatButtons = True
+            FrameColor = 8675134
+            FrameHotColor = clBlack
+            FrameVisible = True
+            FramingPreference = fpCustomFraming
+            TabOnEnter = True
+          end
+          object RzDBLookupComboBox2: TRzDBLookupComboBox
+            Left = 255
+            Top = 164
+            Width = 66
+            Height = 22
+            Ctl3D = True
+            DataField = 'gender'
+            DataSource = dmComaker.dscPersonalInfo
+            KeyField = 'value'
+            ListField = 'display'
+            ListSource = dmComaker.dscGender
+            ParentCtl3D = False
+            TabOrder = 5
+            FlatButtons = True
+            FrameColor = 8675134
+            FrameVisible = True
+            FramingPreference = fpCustomFraming
+            TabOnEnter = True
+          end
+          object RzDBEdit11: TRzDBEdit
+            Left = 438
+            Top = 34
+            Width = 100
+            Height = 22
+            DataSource = dmComaker.dscContactInfo
+            DataField = 'mobile_no'
+            Ctl3D = True
+            FrameColor = 8675134
+            FrameVisible = True
+            FramingPreference = fpCustomFraming
+            ParentCtl3D = False
+            TabOnEnter = True
+            TabOrder = 9
+          end
+          object RzDBEdit10: TRzDBEdit
+            Left = 541
+            Top = 34
+            Width = 104
+            Height = 22
+            DataSource = dmComaker.dscContactInfo
+            DataField = 'home_phone'
+            Ctl3D = True
+            FrameColor = 8675134
+            FrameVisible = True
+            FramingPreference = fpCustomFraming
+            ParentCtl3D = False
+            TabOnEnter = True
+            TabOrder = 10
+          end
+          object RzDBEdit4: TRzDBEdit
+            Left = 438
+            Top = 97
+            Width = 207
+            Height = 22
+            DataSource = dmComaker.dscAddressInfo
+            DataField = 'st'
+            Ctl3D = True
+            FrameColor = 8675134
+            FrameVisible = True
+            FramingPreference = fpCustomFraming
+            ParentCtl3D = False
+            TabOnEnter = True
+            TabOrder = 11
+          end
+          object RzDBEdit5: TRzDBEdit
+            Left = 438
+            Top = 121
+            Width = 207
+            Height = 22
+            DataSource = dmComaker.dscAddressInfo
+            DataField = 'brgy'
+            Ctl3D = True
+            FrameColor = 8675134
+            FrameVisible = True
+            FramingPreference = fpCustomFraming
+            ParentCtl3D = False
+            TabOnEnter = True
+            TabOrder = 12
+          end
+          object RzDBLookupComboBox3: TRzDBLookupComboBox
+            Left = 438
+            Top = 145
+            Width = 207
+            Height = 22
+            Ctl3D = True
+            DataField = 'post_code'
+            DataSource = dmComaker.dscAddressInfo
+            KeyField = 'post_code'
+            ListField = 'town'
+            ListSource = dmAux.dscTowns
+            ParentCtl3D = False
+            TabOrder = 13
+            AllowNull = True
+            FlatButtonColor = 8675134
+            FlatButtons = True
+            FrameColor = 8675134
+            FrameHotColor = clBlack
+            FrameVisible = True
+            FramingPreference = fpCustomFraming
+            TabOnEnter = True
+          end
+          object RzDBLookupComboBox4: TRzDBLookupComboBox
+            Left = 438
+            Top = 268
+            Width = 207
+            Height = 22
+            DataField = 'post_code'
+            DataSource = dmComaker.dscAddressInfo2
+            KeyField = 'post_code'
+            ListField = 'town'
+            ListSource = dmAux.dscTowns
+            TabOrder = 16
+            AllowNull = True
+            FlatButtons = True
+            FrameColor = 8675134
+            FrameHotColor = 8675134
+            FrameVisible = True
+            FramingPreference = fpCustomFraming
+            TabOnEnter = True
+          end
+          object RzDBEdit7: TRzDBEdit
+            Left = 438
+            Top = 244
+            Width = 207
+            Height = 22
+            DataSource = dmComaker.dscAddressInfo2
+            DataField = 'brgy'
+            Ctl3D = True
+            FrameColor = 8675134
+            FrameVisible = True
+            FramingPreference = fpCustomFraming
+            ParentCtl3D = False
+            TabOnEnter = True
+            TabOrder = 15
+          end
+          object RzDBEdit6: TRzDBEdit
+            Left = 438
+            Top = 220
+            Width = 207
+            Height = 22
+            DataSource = dmComaker.dscAddressInfo2
+            DataField = 'st'
+            Ctl3D = True
+            FrameColor = 8675134
+            FrameVisible = True
+            FramingPreference = fpCustomFraming
+            ParentCtl3D = False
+            TabOnEnter = True
+            TabOrder = 14
+          end
+          object bteEmployer: TRzButtonEdit
+            Tag = 1
+            Left = 114
+            Top = 220
+            Width = 207
+            Height = 22
+            Text = ''
+            Color = clWhite
+            FrameColor = 8675134
+            FrameVisible = True
+            FramingPreference = fpCustomFraming
+            ParentShowHint = False
+            ReadOnly = True
+            ReadOnlyColor = clWhite
+            ShowHint = True
+            TabOnEnter = True
+            TabOrder = 6
+            AllowKeyEdit = False
+            AltBtnHint = 'Clear employer'
+            ButtonHint = 'Find employer'
+            AltBtnKind = bkReject
+            ButtonKind = bkFind
+            AltBtnVisible = True
+            AltBtnWidth = 15
+            ButtonWidth = 15
+            FlatButtons = True
+            HideButtonsOnReadOnly = False
+            OnAltBtnClick = bteEmployerAltBtnClick
+            OnButtonClick = bteEmployerButtonClick
+          end
+          object mmEmployerAddress: TRzMemo
+            Tag = 1
+            Left = 114
+            Top = 244
+            Width = 207
+            Height = 39
+            Color = clWhite
+            ReadOnly = True
+            TabOrder = 7
+            FrameColor = 8675134
+            FrameVisible = True
+            FramingPreference = fpCustomFraming
+            ReadOnlyColor = clWhite
+            TabOnEnter = True
+          end
+          object RzDBEdit12: TRzDBEdit
+            Left = 114
+            Top = 285
+            Width = 59
+            Height = 22
+            DataSource = dmComaker.dscEmplInfo
+            DataField = 'serv_len'
+            Ctl3D = True
+            FrameColor = 8675134
+            FrameVisible = True
+            FramingPreference = fpCustomFraming
+            ParentCtl3D = False
+            TabOnEnter = True
+            TabOrder = 8
+          end
+          object RzGroupBox1: TRzGroupBox
+            Left = 19
+            Top = 118
+            Width = 302
+            Height = 22
+            BorderColor = 6572079
+            BorderSides = []
+            BorderWidth = 1
+            Caption = 'Personal info'
+            CaptionFont.Charset = DEFAULT_CHARSET
+            CaptionFont.Color = clRed
+            CaptionFont.Height = -12
+            CaptionFont.Name = 'Tahoma'
+            CaptionFont.Style = [fsBold]
+            Color = 14273211
+            FlatColor = 6572079
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = 6572079
+            Font.Height = -12
+            Font.Name = 'Tahoma'
+            Font.Style = []
+            GradientColorStyle = gcsCustom
+            GroupStyle = gsUnderline
+            ParentFont = False
+            TabOrder = 17
+          end
+          object RzGroupBox3: TRzGroupBox
+            Left = 19
+            Top = 198
+            Width = 302
+            Height = 22
+            BorderColor = 6572079
+            BorderSides = []
+            BorderWidth = 1
+            Caption = 'Personal info'
+            CaptionFont.Charset = DEFAULT_CHARSET
+            CaptionFont.Color = clRed
+            CaptionFont.Height = -12
+            CaptionFont.Name = 'Tahoma'
+            CaptionFont.Style = [fsBold]
+            Color = 14273211
+            FlatColor = 6572079
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = 6572079
+            Font.Height = -12
+            Font.Name = 'Tahoma'
+            Font.Style = []
+            GradientColorStyle = gcsCustom
+            GroupStyle = gsUnderline
+            ParentFont = False
+            TabOrder = 18
+          end
+          object RzGroupBox4: TRzGroupBox
+            Left = 343
+            Top = 12
+            Width = 302
+            Height = 22
+            BorderColor = 6572079
+            BorderSides = []
+            BorderWidth = 1
+            Caption = 'Contact info'
+            CaptionFont.Charset = DEFAULT_CHARSET
+            CaptionFont.Color = clRed
+            CaptionFont.Height = -12
+            CaptionFont.Name = 'Tahoma'
+            CaptionFont.Style = [fsBold]
+            Color = 14273211
+            FlatColor = 6572079
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = 6572079
+            Font.Height = -12
+            Font.Name = 'Tahoma'
+            Font.Style = []
+            GradientColorStyle = gcsCustom
+            GroupStyle = gsUnderline
+            ParentFont = False
+            TabOrder = 19
+            object RzGroupBox5: TRzGroupBox
+              Left = 0
+              Top = 88
+              Width = 302
+              Height = 22
+              BorderColor = 6572079
+              BorderSides = []
+              BorderWidth = 1
+              Caption = 'Contact info'
+              CaptionFont.Charset = DEFAULT_CHARSET
+              CaptionFont.Color = clRed
+              CaptionFont.Height = -12
+              CaptionFont.Name = 'Tahoma'
+              CaptionFont.Style = [fsBold]
+              Color = 14273211
+              FlatColor = 6572079
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = 6572079
+              Font.Height = -12
+              Font.Name = 'Tahoma'
+              Font.Style = []
+              GradientColorStyle = gcsCustom
+              GroupStyle = gsUnderline
+              ParentFont = False
+              TabOrder = 0
+            end
+          end
+          object RzGroupBox6: TRzGroupBox
+            Left = 343
+            Top = 75
+            Width = 302
+            Height = 22
+            BorderColor = 6572079
+            BorderSides = []
+            BorderWidth = 1
+            Caption = 'Present address'
+            CaptionFont.Charset = DEFAULT_CHARSET
+            CaptionFont.Color = clRed
+            CaptionFont.Height = -12
+            CaptionFont.Name = 'Tahoma'
+            CaptionFont.Style = [fsBold]
+            Color = 14273211
+            FlatColor = 6572079
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = 6572079
+            Font.Height = -12
+            Font.Name = 'Tahoma'
+            Font.Style = []
+            GradientColorStyle = gcsCustom
+            GroupStyle = gsUnderline
+            ParentFont = False
+            TabOrder = 20
+            object RzGroupBox7: TRzGroupBox
+              Left = 0
+              Top = 88
+              Width = 302
+              Height = 22
+              BorderColor = 6572079
+              BorderSides = []
+              BorderWidth = 1
+              Caption = 'Contact info'
+              CaptionFont.Charset = DEFAULT_CHARSET
+              CaptionFont.Color = clRed
+              CaptionFont.Height = -12
+              CaptionFont.Name = 'Tahoma'
+              CaptionFont.Style = [fsBold]
+              Color = 14273211
+              FlatColor = 6572079
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = 6572079
+              Font.Height = -12
+              Font.Name = 'Tahoma'
+              Font.Style = []
+              GradientColorStyle = gcsCustom
+              GroupStyle = gsUnderline
+              ParentFont = False
+              TabOrder = 0
+            end
+          end
+          object RzGroupBox8: TRzGroupBox
+            Left = 343
+            Top = 198
+            Width = 302
+            Height = 22
+            BorderColor = 6572079
+            BorderSides = []
+            BorderWidth = 1
+            Caption = 'Provincial address'
+            CaptionFont.Charset = DEFAULT_CHARSET
+            CaptionFont.Color = clRed
+            CaptionFont.Height = -12
+            CaptionFont.Name = 'Tahoma'
+            CaptionFont.Style = [fsBold]
+            Color = 14273211
+            FlatColor = 6572079
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = 6572079
+            Font.Height = -12
+            Font.Name = 'Tahoma'
+            Font.Style = []
+            GradientColorStyle = gcsCustom
+            GroupStyle = gsUnderline
+            ParentFont = False
+            TabOrder = 21
+            object RzGroupBox9: TRzGroupBox
+              Left = 0
+              Top = 88
+              Width = 302
+              Height = 22
+              BorderColor = 6572079
+              BorderSides = []
+              BorderWidth = 1
+              Caption = 'Contact info'
+              CaptionFont.Charset = DEFAULT_CHARSET
+              CaptionFont.Color = clRed
+              CaptionFont.Height = -12
+              CaptionFont.Name = 'Tahoma'
+              CaptionFont.Style = [fsBold]
+              Color = 14273211
+              FlatColor = 6572079
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = 6572079
+              Font.Height = -12
+              Font.Name = 'Tahoma'
+              Font.Style = []
+              GradientColorStyle = gcsCustom
+              GroupStyle = gsUnderline
+              ParentFont = False
+              TabOrder = 0
+            end
+          end
         end
       end
     end
-    inherited btnSave: TRzButton
-      Left = 524
-      Top = 327
-      ExplicitLeft = 508
-      ExplicitTop = 475
+    inherited pnlCancel: TRzPanel
+      Left = 627
+      Top = 349
+      ExplicitLeft = 632
+      ExplicitTop = 349
     end
-    inherited btnCancel: TRzButton
-      Left = 605
-      Top = 327
-      ExplicitLeft = 589
-      ExplicitTop = 475
+    inherited pnlSave: TRzPanel
+      Left = 571
+      Top = 349
+      ExplicitLeft = 576
+      ExplicitTop = 349
+    end
+    object RzGroupBox2: TRzGroupBox
+      Left = 28
+      Top = 21
+      Width = 302
+      Height = 22
+      BorderColor = 6572079
+      BorderSides = []
+      BorderWidth = 1
+      Caption = 'Comaker name'
+      CaptionFont.Charset = DEFAULT_CHARSET
+      CaptionFont.Color = clRed
+      CaptionFont.Height = -12
+      CaptionFont.Name = 'Tahoma'
+      CaptionFont.Style = [fsBold]
+      Color = 14273211
+      FlatColor = 6572079
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 6572079
+      Font.Height = -12
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      GradientColorStyle = gcsCustom
+      GroupStyle = gsUnderline
+      ParentFont = False
+      TabOrder = 3
     end
   end
 end

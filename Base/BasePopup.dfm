@@ -3,7 +3,9 @@ inherited frmBasePopup: TfrmBasePopup
   Caption = 'frmBasePopup'
   ClientHeight = 281
   ClientWidth = 543
+  KeyPreview = True
   Position = poMainFormCenter
+  OnKeyPress = FormKeyPress
   PixelsPerInch = 96
   TextHeight = 14
   object pnlTitle: TRzPanel

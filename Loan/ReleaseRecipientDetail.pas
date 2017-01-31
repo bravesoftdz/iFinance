@@ -70,8 +70,8 @@ begin
       Post;
     end;
 
-    rrp.Date := dteDateReleased.Text;
-    rrp.Amount := edAmount.Text;
+    rrp.Date := dteDateReleased.Date;
+    rrp.Amount := edAmount.Value;
     rrp.ReleaseMethod := TReleaseMethod.Create(dbluMethod.GetKeyValue,dbluMethod.Text);
 
     ln.AddReleaseRecipient(rrp,true);

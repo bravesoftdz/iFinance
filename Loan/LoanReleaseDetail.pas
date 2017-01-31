@@ -11,17 +11,22 @@ uses
 
 type
   TfrmLoanReleaseDetail = class(TfrmBasePopupDetail)
-    btnAddRecipient: TRzButton;
-    btnRemoveRecipient: TRzButton;
     urlReleaseToClient: TRzURLLabel;
     pcAssessment: TRzPageControl;
     tsRecipients: TRzTabSheet;
     tsMonExp: TRzTabSheet;
-    grCharges: TRzStringGrid;
+    RzPanel1: TRzPanel;
+    btnRemove: TRzShapeButton;
+    RzPanel2: TRzPanel;
+    btnAdd: TRzShapeButton;
     grReleaseRecipient: TRzStringGrid;
-    procedure btnAddRecipientClick(Sender: TObject);
+    grCharges: TRzStringGrid;
     procedure FormShow(Sender: TObject);
     procedure grReleaseRecipientDblClick(Sender: TObject);
+    procedure btnAddClick(Sender: TObject);
+    procedure urlReleaseToClientClick(Sender: TObject);
+    procedure btnCancelClick(Sender: TObject);
+    procedure btnRemoveClick(Sender: TObject);
   private
     { Private declarations }
     procedure AddRow(rec: TReleaseRecipient);
@@ -30,6 +35,8 @@ type
     procedure PopulateCharges;
     procedure ModifyRemove(const remove: boolean = false);
     procedure ClearRow(grid: TRzStringGrid; const row: integer);
+
+    function GetTotalReleased: real;
   public
     { Public declarations }
   protected
@@ -46,7 +53,8 @@ implementation
 {$R *.dfm}
 
 uses
-  Loan, ReleaseRecipientDetail, LoanData, DecisionBox;
+  Loan, ReleaseRecipientDetail, LoanData, DecisionBox, FormsUtil, IFinanceGlobal,
+  Recipient;
 
 procedure TfrmLoanReleaseDetail.ClearRow(grid: TRzStringGrid; const row: Integer);
 var
@@ -101,10 +109,10 @@ begin
       // update row
       if ModalResult = mrOk then
       begin
-        grReleaseRecipient.Cells[0,r] := ln.ReleaseRecipients[r-1].Date;
+        grReleaseRecipient.Cells[0,r] := FormatDateTime('mm/dd/yyyy',ln.ReleaseRecipients[r-1].Date);
         grReleaseRecipient.Cells[1,r] := ln.ReleaseRecipients[r-1].Recipient.Name;
         grReleaseRecipient.Cells[2,r] := ln.ReleaseRecipients[r-1].ReleaseMethod.Name;
-        grReleaseRecipient.Cells[2,r] := ln.ReleaseRecipients[r-1].Amount;
+        grReleaseRecipient.Cells[3,r] := FormatFloat('###,###,##0.00',ln.ReleaseRecipients[r-1].Amount);
 
         grReleaseRecipient.Objects[0,r] := ln.ReleaseRecipients[r-1];
       end;
@@ -144,10 +152,10 @@ begin
 
     r := RowCount - 2;
 
-    Cells[0,r] := rec.Date;
+    Cells[0,r] := FormatDateTime('mm/dd/yyyy',rec.Date);
     Cells[1,r] := rec.Recipient.Name;
     Cells[2,r] := rec.ReleaseMethod.Name;
-    Cells[3,r] := rec.Amount;
+    Cells[3,r] := FormatFloat('###,###,##0.00',rec.Amount);
 
     Objects[0,r] := rec;
 
@@ -165,10 +173,9 @@ begin
     r := RowCount - 2;
 
     Cells[0,r] := charge.ChargeName;
-    Cells[1,r] := charge.Amount;
+    Cells[1,r] := FormatFloat('###,###,##0.00',charge.Amount);
 
     Objects[0,r] := charge;
-
   end;
 end;
 
@@ -189,10 +196,10 @@ begin
     Cells[3,0] := 'Amount';
 
     // widths
-    ColWidths[0] := 70;
-    ColWidths[1] := 145;
+    ColWidths[0] := 80;
+    ColWidths[1] := 160;
     ColWidths[2] := 70;
-    ColWidths[3] := 60;
+    ColWidths[3] := 80;
 
     cnt := ln.ReleaseRecipientCount;
 
@@ -206,9 +213,9 @@ procedure TfrmLoanReleaseDetail.PopulateCharges;
 var
   i, cnt: integer;
 begin
-  ln.ComputeCharges;
+  if not ln.HasLoanState(lsActive) then ln.ComputeCharges;
 
-  with grReleaseRecipient do
+  with grCharges do
   begin
     RowCount := RowCount + 1;
 
@@ -219,14 +226,13 @@ begin
     Cells[1,0] := 'Amount';
 
     // widths
-    ColWidths[0] := 120;
-    ColWidths[1] := 70;
+    ColWidths[0] := 200;
+    ColWidths[1] := 80;
 
     cnt := ln.LoanChargeCount;
 
     for i := 0 to cnt - 1 do
       AddRowCharge(ln.LoanCharges[i]);
-
   end;
 end;
 
@@ -235,7 +241,37 @@ begin
   ln.Save;
 end;
 
-procedure TfrmLoanReleaseDetail.btnAddRecipientClick(Sender: TObject);
+procedure TfrmLoanReleaseDetail.urlReleaseToClientClick(Sender: TObject);
+var
+  error: string;
+begin
+  inherited;
+  if ln.Action = laReleasing then
+  begin
+    rrp := TReleaseRecipient.Create;
+
+    rrp.Recipient := TRecipient.Create(ln.Client.Id,ln.Client.Name);
+    rrp.Date := ifn.AppDate;
+    rrp.Amount := ln.ApprovedAmount - ln.TotalCharges;
+    rrp.ReleaseMethod := TReleaseMethod.Create('C','Cash');
+
+    if ln.ReleaseRecipientExists(rrp.Recipient.Id,rrp.ReleaseMethod.Id) then
+    begin
+      error := 'Recipient and release method already exists.';
+      CallErrorBox(error);
+    end
+    else
+    begin
+      ln.AppendReleaseRecipient(rrp);
+
+      ln.AddReleaseRecipient(rrp);
+
+      AddRow(rrp);
+    end;
+  end;
+end;
+
+procedure TfrmLoanReleaseDetail.btnAddClick(Sender: TObject);
 begin
   ln.AppendReleaseRecipient;
 
@@ -251,6 +287,20 @@ begin
   end;
 end;
 
+procedure TfrmLoanReleaseDetail.btnCancelClick(Sender: TObject);
+begin
+  ln.ClearReleaseRecipients;
+  ln.ClearLoanCharges;
+
+  inherited;
+end;
+
+procedure TfrmLoanReleaseDetail.btnRemoveClick(Sender: TObject);
+begin
+  inherited;
+  ModifyRemove(true);
+end;
+
 procedure TfrmLoanReleaseDetail.Cancel;
 begin
   ln.Cancel;
@@ -261,6 +311,9 @@ begin
   inherited;
   PopulateReleaseRecipient;
   PopulateCharges;
+
+  ExtendLastColumn(grReleaseRecipient);
+  ExtendLastColumn(grCharges);
 end;
 
 procedure TfrmLoanReleaseDetail.grReleaseRecipientDblClick(Sender: TObject);
@@ -273,11 +326,29 @@ var
   error: string;
 begin
   if ln.ReleaseRecipientCount = 0 then
-    error := 'Please add at least one recipient.';
+    error := 'Please add at least one recipient.'
+  else if GetTotalReleased > (ln.ApprovedAmount - ln.TotalCharges)  then
+    error := 'Total amount released is greater than the amount for release.'
+  else if GetTotalReleased < (ln.ApprovedAmount - ln.TotalCharges)  then
+    error := 'Total amount released is lesser than the amount for release.';
 
   Result := error = '';
 
   if not Result then CallErrorBox(error);
+end;
+
+function TfrmLoanReleaseDetail.GetTotalReleased: real;
+var
+  total: real;
+  i, cnt: integer;
+begin
+  total := 0;
+
+  cnt := ln.ReleaseRecipientCount - 1;
+
+  for i := 0 to cnt do total := total + ln.ReleaseRecipients[i].Amount;
+
+  Result := total;
 end;
 
 end.

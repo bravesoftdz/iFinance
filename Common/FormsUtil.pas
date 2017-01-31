@@ -3,7 +3,7 @@ unit FormsUtil;
 interface
 
 uses
-  Vcl.Controls, RzDBCmbo, RzDBGrid, DB, RzLstBox, RzChkLst, Vcl.ExtCtrls,
+  Vcl.Controls, RzDBCmbo, RzDBGrid, RzGrids, DB, RzLstBox, RzChkLst, Vcl.ExtCtrls,
   System.Classes;
 
 procedure OpenDropdownDataSources(const parentCtrl: TWinControl;
@@ -12,7 +12,8 @@ procedure OpenGridDataSources(const parentCtrl: TWinControl;
   const open: boolean = true);
 procedure ButtonDown(Sender: TObject);
 procedure ButtonUp(Sender: TObject);
-procedure ExtendLastColumn(grid: TRzDBGrid);
+procedure ExtendLastColumn(grid: TRzDBGrid); overload;
+procedure ExtendLastColumn(grid: TRzStringGrid); overload;
 
 implementation
 
@@ -92,6 +93,22 @@ begin
 
   //extend to the size of the grid
   grid.Columns[grid.Columns.Count - 1].Width := grid.Width - widths + 5;
+end;
+
+procedure ExtendLastColumn(grid: TRzStringGrid);
+var
+  widths, i: integer;
+begin
+  widths := 0;
+
+  // get total width
+  for i := 0 to grid.ColCount - 1 do widths := widths + grid.ColWidths[i];
+
+  // add extra column
+  grid.ColCount := grid.ColCount + 1;
+
+  //extend to the size of the grid
+  grid.ColWidths[grid.ColCount - 1] := grid.Width - widths - 4;
 end;
 
 end.

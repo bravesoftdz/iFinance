@@ -109,12 +109,7 @@ type
     procedure urlDeniedClick(Sender: TObject);
     procedure npMainChange(Sender: TObject);
     procedure tbCompetitorClick(Sender: TObject);
-    procedure tbApproveLoanClick(Sender: TObject);
-    procedure tbAssessLoanClick(Sender: TObject);
-    procedure tbCancelLoanClick(Sender: TObject);
-    procedure tbRejectLoanClick(Sender: TObject);
     procedure urlAssessedLoansClick(Sender: TObject);
-    procedure tbReleaseLoanClick(Sender: TObject);
     procedure tbAlertsClick(Sender: TObject);
     procedure pnlTitleMouseDown(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
@@ -308,6 +303,7 @@ begin
         intf.SetLoanId;
         intf.RefreshDropDownSources;
         intf.SetUnboundControls;
+        intf.InitForm;
       end;
     end
     else
@@ -341,38 +337,6 @@ begin
   DockForm(fmClientMain);
 end;
 
-procedure TfrmMain.tbApproveLoanClick(Sender: TObject);
-var
-  intf: ILoan;
-begin
-  try
-    if pnlDockMain.ControlCount > 0 then
-      if Supports(pnlDockMain.Controls[0] as TForm,ILoan,intf) then
-      begin
-        intf.ApproveLoan;
-      end;
-  except
-    on e:Exception do
-      ShowError(e.Message);
-  end;
-end;
-
-procedure TfrmMain.tbAssessLoanClick(Sender: TObject);
-var
-  intf: ILoan;
-begin
-  try
-    if pnlDockMain.ControlCount > 0 then
-      if Supports(pnlDockMain.Controls[0] as TForm,ILoan,intf) then
-      begin
-        intf.AssessLoan;
-      end;
-  except
-    on e:Exception do
-      ShowError(e.Message);
-  end;
-end;
-
 procedure TfrmMain.tbBanksClick(Sender: TObject);
 begin
   DockForm(fmBanksList);
@@ -388,22 +352,6 @@ begin
       begin
         intf.Cancel;
         // ShowConfirmation('Changes have been cancelled.');
-      end;
-  except
-    on e:Exception do
-      ShowError(e.Message);
-  end;
-end;
-
-procedure TfrmMain.tbCancelLoanClick(Sender: TObject);
-var
-  intf: ILoan;
-begin
-  try
-    if pnlDockMain.ControlCount > 0 then
-      if Supports(pnlDockMain.Controls[0] as TForm,ILoan,intf) then
-      begin
-        intf.CancelLoan;
       end;
   except
     on e:Exception do
@@ -439,38 +387,6 @@ end;
 procedure TfrmMain.tbNewLoanClick(Sender: TObject);
 begin
   DockForm(fmLoanMain);
-end;
-
-procedure TfrmMain.tbRejectLoanClick(Sender: TObject);
-var
-  intf: ILoan;
-begin
-  try
-    if pnlDockMain.ControlCount > 0 then
-      if Supports(pnlDockMain.Controls[0] as TForm,ILoan,intf) then
-      begin
-        intf.RejectLoan;
-      end;
-  except
-    on e:Exception do
-      ShowError(e.Message);
-  end;
-end;
-
-procedure TfrmMain.tbReleaseLoanClick(Sender: TObject);
-var
-  intf: ILoan;
-begin
-  try
-    if pnlDockMain.ControlCount > 0 then
-      if Supports(pnlDockMain.Controls[0] as TForm,ILoan,intf) then
-      begin
-        intf.ReleaseLoan;
-      end;
-  except
-    on e:Exception do
-      ShowError(e.Message);
-  end;
 end;
 
 procedure TfrmMain.tbSaveClick(Sender: TObject);
@@ -560,9 +476,6 @@ begin
     frm.ManualDock(pnlDockMain);
     frm.Show;
   end;
-
-  // clear the status bar message
-  // spMain.Caption := '';
 end;
 
 procedure TfrmMain.FormCreate(Sender: TObject);
@@ -594,8 +507,6 @@ end;
 
 procedure TfrmMain.ShowError(const error: string);
 begin
-  // spMain.Font.Color := clRed;
-  // spMain.Caption := error;
   with TfrmErrorBox.Create(self,error) do
   try
     ShowModal;
@@ -606,8 +517,6 @@ end;
 
 procedure TfrmMain.ShowConfirmation(const conf: string);
 begin
-  // spMain.Font.Color := clGreen;
-  // spMain.Caption := conf;
   with TfrmConfBox.Create(self,conf) do
   try
     ShowModal;
@@ -644,7 +553,10 @@ begin
     for ll in RecentLoans do
     begin
       if ll.Id = lln.Id then // update when found
+      begin
+        ll.Status := lln.Status;
         Exit;
+      end;
     end;
 
     ll := TRecentLoan.Create(lln.Id,lln.Status,lln.Client);

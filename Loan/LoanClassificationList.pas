@@ -50,6 +50,8 @@ type
     btnRemoveCharge: TRzShapeButton;
     pnlCharges: TRzPanel;
     grCharges: TRzDBGrid;
+    JvLabel11: TJvLabel;
+    RzDBEdit1: TRzDBEdit;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure urlRefreshListClick(Sender: TObject);

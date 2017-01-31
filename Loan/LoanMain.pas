@@ -128,6 +128,17 @@ type
     RzGroupBox7: TRzGroupBox;
     RzPanel2: TRzPanel;
     RzShapeButton1: TRzShapeButton;
+    tsPending: TRzTabSheet;
+    pnlPending: TRzPanel;
+    JvLabel1: TJvLabel;
+    RzPanel4: TRzPanel;
+    RzLabel1: TRzLabel;
+    pnlClientRecord: TRzPanel;
+    imgClientRecord: TImage;
+    pnlAlerts: TRzPanel;
+    imgAlerts: TImage;
+    JvLabel15: TJvLabel;
+    RzDBLabel15: TRzDBLabel;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure bteClientButtonClick(Sender: TObject);
@@ -148,6 +159,8 @@ type
     procedure btnEditCancelClick(Sender: TObject);
     procedure imgReleaseLoanClick(Sender: TObject);
     procedure btnEditAssessmentClick(Sender: TObject);
+    procedure imgClientRecordClick(Sender: TObject);
+    procedure imgAlertsClick(Sender: TObject);
   private
     { Private declarations }
     procedure ChangeControlState;
@@ -155,20 +168,35 @@ type
     procedure ShowAlerts;
     procedure PopulateComakers;
     procedure RetrieveLoan;
-    procedure SetActiveTab(const index: integer);
-  public
-    { Public declarations }
-    procedure SetLoanId;
-    procedure SetUnboundControls;
-    procedure RefreshDropDownSources;
-    function Save: boolean;
-    procedure Cancel;
+    procedure SetActiveTab(const index: integer); overload;
+    procedure SetActiveTab; overload;
+
     procedure ApproveLoan;
     procedure AssessLoan;
     procedure RejectLoan;
     procedure CancelLoan;
     procedure ReleaseLoan;
+
+    function LoanApplicationIsValid: boolean;
+  public
+    { Public declarations }
+    procedure SetLoanId;
+    procedure SetUnboundControls;
+    procedure RefreshDropDownSources;
+    procedure Cancel;
+    procedure InitForm;
+
+    function Save: boolean;
   end;
+
+// tab index
+const
+  ASSESSMENT = 0;
+  APPROVAL = 1;
+  RELEASED = 2;
+  REJECTION = 3;
+  CANCELLATION = 4;
+  PENDING = 5;
 
 var
   frmLoanMain: TfrmLoanMain;
@@ -181,7 +209,24 @@ uses
   LoanData, FormsUtil, LoanClient, ClientSearch, StatusIntf, DockIntf, IFinanceGlobal,
   Comaker, ComakerSearch, DecisionBox, ComakerDetail, FinInfoDetail, MonthlyExpenseDetail,
   LoansAuxData, LoanApprovalDetail, LoanAssessmentDetail, LoanCancellationDetail,
-  LoanRejectionDetail, Alert, Alerts, LoanReleaseDetail;
+  LoanRejectionDetail, Alert, Alerts, LoanReleaseDetail, Client, AppConstants;
+
+procedure TfrmLoanMain.SetActiveTab;
+var
+  index: integer;
+begin
+  index := 0;
+
+  // this routine set active tab based on current loan status
+  if (ln.IsPending) or (ln.New) then index := PENDING
+  else if ln.IsAssessed then index := ASSESSMENT
+  else if ln.IsApproved then index := APPROVAL
+  else if ln.IsActive then index := RELEASED
+  else if ln.IsRejected then index := REJECTION
+  else if ln.IsCancelled then index := CANCELLATION;
+       
+  SetActiveTab(index);
+end;
 
 procedure TfrmLoanMain.SetActiveTab(const index: Integer);
 begin
@@ -190,7 +235,8 @@ end;
 
 procedure TfrmLoanMain.ApproveLoan;
 begin
-  if ln.IsFinalised then
+  if not LoanApplicationIsValid then Exit
+  else if ln.IsFinalised then
   begin
     CallErrorBox('Loan has been finalised.');
     Exit;
@@ -205,7 +251,12 @@ begin
 
       ShowModal;
 
-      // if ModalResult = mrOk then DisplayLoanStateDetails;
+      if ModalResult = mrOk then
+      begin
+        SetLoanId;
+        ChangeControlState;
+        SetActiveTab(APPROVAL);
+      end;
 
       Free;
     except
@@ -217,7 +268,8 @@ end;
 
 procedure TfrmLoanMain.AssessLoan;
 begin
-  if ln.IsFinalised then
+  if not LoanApplicationIsValid then Exit
+  else if ln.IsFinalised then
   begin
     CallErrorBox('Loan has been finalised.');
     Exit;
@@ -236,6 +288,7 @@ begin
       begin
         SetLoanId;
         ChangeControlState;
+        SetActiveTab(ASSESSMENT);
       end;
 
       Free;
@@ -248,7 +301,8 @@ end;
 
 procedure TfrmLoanMain.RejectLoan;
 begin
-  if ln.IsFinalised then
+  if not LoanApplicationIsValid then Exit
+  else if ln.IsFinalised then
   begin
     CallErrorBox('Loan has been finalised.');
     Exit;
@@ -267,6 +321,7 @@ begin
       begin
         SetLoanId;
         ChangeControlState;
+        SetActiveTab(REJECTION);
       end;
 
       Free;
@@ -279,7 +334,8 @@ end;
 
 procedure TfrmLoanMain.CancelLoan;
 begin
-  if ln.IsFinalised then
+  if not LoanApplicationIsValid then Exit
+  else if ln.IsFinalised then
   begin
     CallErrorBox('Loan has been finalised.');
     Exit;
@@ -298,6 +354,7 @@ begin
       begin
         SetLoanId;
         ChangeControlState;
+        SetActiveTab(CANCELLATION);
       end;
 
       Free;
@@ -310,7 +367,8 @@ end;
 
 procedure TfrmLoanMain.ReleaseLoan;
 begin
-  if ln.IsFinalised then
+  if not LoanApplicationIsValid then Exit
+  else if ln.IsFinalised then
   begin
     CallErrorBox('Loan has been finalised.');
     Exit;
@@ -328,6 +386,7 @@ begin
       begin
         SetLoanId;
         ChangeControlState;
+        SetActiveTab(RELEASED);
       end;
 
       Free;
@@ -364,7 +423,8 @@ begin
     if pnlApplication.Controls[i].Tag <> -1 then
       pnlApplication.Controls[i].Enabled := pnlApplication.Controls[i].Tag in tags;
 
-  pcStatus.Visible := not ln.New;
+  pnlToolbar.Visible := not ln.New;
+  pnlAlerts.Visible := not ln.IsFinalised;
 end;
 
 procedure TfrmLoanMain.RefreshDropDownSources;
@@ -521,6 +581,18 @@ begin
 
 end;
 
+procedure TfrmLoanMain.InitForm;
+begin
+  ExtendLastColumn(grFinInfo);
+  ExtendLastColumn(grMonExp);
+  ExtendLastColumn(grRecipients);
+  ExtendLastColumn(grCharges);
+
+  ChangeControlState;
+
+  SetActiveTab;
+end;
+
 procedure TfrmLoanMain.FormClose(Sender: TObject; var Action: TCloseAction);
 var
   intf: IDock;
@@ -551,24 +623,27 @@ begin
   else
     RetrieveLoan;
 
-  ExtendLastColumn(grFinInfo);
-  ExtendLastColumn(grMonExp);
-  ExtendLastColumn(grRecipients);
-  ExtendLastColumn(grCharges);
+  InitForm;
+end;
 
-  ChangeControlState;
+procedure TfrmLoanMain.imgAlertsClick(Sender: TObject);
+begin
+  inherited;
+  ShowAlerts;
 end;
 
 procedure TfrmLoanMain.imgApprovalClick(Sender: TObject);
 begin
   inherited;
-  SetActiveTab(1);
+  if ln.HasLoanState(lsApproved) then SetActiveTab(APPROVAL)
+  else ApproveLoan;
 end;
 
 procedure TfrmLoanMain.imgAssessmentClick(Sender: TObject);
 begin
   inherited;
-  SetActiveTab(0);
+  if ln.HasLoanState(lsAssessed) then SetActiveTab(ASSESSMENT)
+  else AssessLoan;
 end;
 
 procedure TfrmLoanMain.imgAssessmentMouseDown(Sender: TObject;
@@ -588,19 +663,41 @@ end;
 procedure TfrmLoanMain.imgCancelLoanClick(Sender: TObject);
 begin
   inherited;
-  SetActiveTab(4);
+  if ln.HasLoanState(lsCancelled) then SetActiveTab(CANCELLATION)
+  else CancelLoan;
+end;
+
+procedure TfrmLoanMain.imgClientRecordClick(Sender: TObject);
+var
+  id, displayId: string;
+  intf: IDock;
+begin
+  if Assigned(ln.Client) then
+  begin
+    id := ln.Client.Id;
+    displayId := ln.Client.Id;
+
+    cln := TClient.Create;
+    cln.Id := id;
+    cln.DisplayId := displayId;
+
+    if Supports(Application.MainForm,IDock,intf) then
+      intf.DockForm(fmClientMain);
+  end;
 end;
 
 procedure TfrmLoanMain.imgRejectLoanClick(Sender: TObject);
 begin
   inherited;
-  SetActiveTab(3);
+  if ln.HasLoanState(lsRejected) then SetActiveTab(REJECTION)
+  else RejectLoan;
 end;
 
 procedure TfrmLoanMain.imgReleaseLoanClick(Sender: TObject);
 begin
   inherited;
-  SetActiveTab(2);
+  if ln.HasLoanState(lsActive) then SetActiveTab(RELEASED)
+  else ReleaseLoan;
 end;
 
 procedure TfrmLoanMain.RetrieveLoan;
@@ -659,7 +756,7 @@ begin
   PopulateComakers;
 end;
 
-function TfrmLoanMain.Save: Boolean;
+function TfrmLoanMain.LoanApplicationIsValid: boolean;
 var
   error: string;
 begin
@@ -690,19 +787,29 @@ begin
 
     Result := error = '';
 
+    if not Result then CallErrorBox(error);
+
+  finally
+
+  end;
+end;
+
+function TfrmLoanMain.Save: Boolean;
+begin
+  Result := false;
+
+  if (ln.New) or (ln.IsPending) then
+  begin
+    Result := LoanApplicationIsValid;
+
     if Result then
     begin
       ln.Save;
       SetLoanId;
       ChangeControlState;
       ln.Action := laNone;
-    end
-    else
-      CallErrorBox(error);
-  finally
-
+    end;
   end;
-
 end;
 
 procedure TfrmLoanMain.ShowAlerts;
