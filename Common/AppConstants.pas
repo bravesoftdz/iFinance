@@ -4,7 +4,7 @@ interface
 
 type TForms = (fmClientMain, fmClientList, fmGroupList, fmEmployerList,
                 fmBanksList, fmDesignationList, fmLoanClassList, fmLoanMain,
-                fmLoanList, fmCompetitorList);
+                fmLoanList, fmCompetitorList, fmPurposeList);
 
 {
 Entity types

@@ -40,13 +40,13 @@ inherited frmClientMain: TfrmClientMain
     Width = 860
     Height = 552
     Hint = ''
-    ActivePage = tsLoansHistory
+    ActivePage = tsReferences
     Anchors = [akLeft, akTop, akRight, akBottom]
     BoldCurrentTab = True
     FlatColor = 6572079
     ShowFullFrame = False
     ShowShadow = False
-    TabIndex = 3
+    TabIndex = 1
     TabOrder = 1
     TabOrientation = toBottom
     TabStyle = tsRoundCorners
@@ -1518,14 +1518,14 @@ inherited frmClientMain: TfrmClientMain
           DataField = 'lastname'
           ReadOnly = True
           CharCase = ecUpperCase
-          Color = clWhite
+          Color = 14273211
           Ctl3D = True
           DisabledColor = clWindow
           FrameColor = 8675134
           FrameVisible = True
           FramingPreference = fpCustomFraming
           ParentCtl3D = False
-          ReadOnlyColor = clWhite
+          ReadOnlyColor = 14273211
           TabOrder = 1
         end
         object RzDBEdit2: TRzDBEdit
@@ -1537,12 +1537,12 @@ inherited frmClientMain: TfrmClientMain
           DataField = 'firstname'
           ReadOnly = True
           CharCase = ecUpperCase
-          Color = clWhite
+          Color = 14273211
           DisabledColor = clWindow
           FrameColor = 8675134
           FrameVisible = True
           FramingPreference = fpCustomFraming
-          ReadOnlyColor = clWhite
+          ReadOnlyColor = 14273211
           TabOrder = 2
         end
         object RzDBEdit1: TRzDBEdit
@@ -1554,12 +1554,12 @@ inherited frmClientMain: TfrmClientMain
           DataField = 'middlename'
           ReadOnly = True
           CharCase = ecUpperCase
-          Color = clWhite
+          Color = 14273211
           DisabledColor = clWindow
           FrameColor = 8675134
           FrameVisible = True
           FramingPreference = fpCustomFraming
-          ReadOnlyColor = clWhite
+          ReadOnlyColor = 14273211
           TabOrder = 3
         end
         object RzDBLookupComboBox9: TRzDBLookupComboBox
@@ -2949,7 +2949,7 @@ inherited frmClientMain: TfrmClientMain
     end
     object pnlTakePhoto: TRzPanel
       Left = 16
-      Top = 234
+      Top = 250
       Width = 40
       Height = 40
       Anchors = [akTop, akRight]

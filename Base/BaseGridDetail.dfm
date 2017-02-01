@@ -87,24 +87,6 @@ inherited frmBaseGridDetail: TfrmBaseGridDetail
       OnChange = edSearchKeyChange
     end
   end
-  object pcDetail: TRzPageControl
-    Left = 27
-    Top = 232
-    Width = 271
-    Height = 218
-    Hint = ''
-    ActivePage = tsDetail
-    Anchors = [akTop, akRight, akBottom]
-    UseColoredTabs = True
-    TabIndex = 0
-    TabOrder = 3
-    TabStyle = tsSquareCorners
-    FixedDimension = 20
-    object tsDetail: TRzTabSheet
-      Color = 14273211
-      Caption = 'Change caption here'
-    end
-  end
   object pnlDetail: TRzPanel
     Left = 495
     Top = 65
@@ -115,7 +97,7 @@ inherited frmBaseGridDetail: TfrmBaseGridDetail
     BorderColor = 8675134
     BorderWidth = 1
     ParentColor = True
-    TabOrder = 4
+    TabOrder = 3
     DesignSize = (
       276
       403)

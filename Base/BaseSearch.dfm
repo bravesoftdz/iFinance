@@ -23,7 +23,7 @@ inherited frmBaseSearch: TfrmBaseSearch
     Width = 314
     Height = 321
     ExplicitWidth = 314
-    ExplicitHeight = 327
+    ExplicitHeight = 321
     DesignSize = (
       314
       321)
@@ -58,7 +58,6 @@ inherited frmBaseSearch: TfrmBaseSearch
       BorderWidth = 1
       Color = 14273211
       TabOrder = 1
-      ExplicitHeight = 251
       object grSearch: TRzDBGrid
         Left = 1
         Top = 1
@@ -66,11 +65,13 @@ inherited frmBaseSearch: TfrmBaseSearch
         Height = 243
         Align = alClient
         BorderStyle = bsNone
+        Ctl3D = False
         DrawingStyle = gdsGradient
         FixedColor = 12955288
         GradientEndColor = 12955288
         GradientStartColor = 12955288
         Options = [dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
+        ParentCtl3D = False
         TabOrder = 0
         TitleFont.Charset = DEFAULT_CHARSET
         TitleFont.Color = clWindowText
@@ -96,7 +97,6 @@ inherited frmBaseSearch: TfrmBaseSearch
       BorderWidth = 1
       Color = 14273211
       TabOrder = 2
-      ExplicitTop = 295
       object btnSelect: TRzShapeButton
         Left = 0
         Top = 0
@@ -120,7 +120,6 @@ inherited frmBaseSearch: TfrmBaseSearch
       BorderWidth = 1
       Color = 14273211
       TabOrder = 3
-      ExplicitTop = 295
       object btnNew: TRzShapeButton
         Left = 0
         Top = 0
@@ -144,7 +143,6 @@ inherited frmBaseSearch: TfrmBaseSearch
       BorderWidth = 1
       Color = 14273211
       TabOrder = 4
-      ExplicitTop = 295
       object btnCancel: TRzShapeButton
         Left = 0
         Top = 0

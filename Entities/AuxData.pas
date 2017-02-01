@@ -37,11 +37,14 @@ type
     dscPaymentFreq: TDataSource;
     dstCompetitors: TADODataSet;
     dscCompetitors: TDataSource;
+    dstPurpose: TADODataSet;
+    dscPurpose: TDataSource;
     procedure dstBranchesBeforePost(DataSet: TDataSet);
     procedure dstBanksAfterScroll(DataSet: TDataSet);
     procedure dstBranchesNewRecord(DataSet: TDataSet);
     procedure dstDesignationsBeforePost(DataSet: TDataSet);
     procedure dstCompetitorsBeforePost(DataSet: TDataSet);
+    procedure dstPurposeBeforePost(DataSet: TDataSet);
   private
     { Private declarations }
   public
@@ -102,6 +105,17 @@ begin
   begin
     id := GetDesignationId;
     DataSet.FieldByName('des_id').AsInteger := id;
+  end;
+end;
+
+procedure TdmAux.dstPurposeBeforePost(DataSet: TDataSet);
+var
+  id: integer;
+begin
+  if DataSet.State = dsInsert then
+  begin
+    id := GetPurposeId;
+    DataSet.FieldByName('purp_id').AsInteger := id;
   end;
 end;
 

@@ -87,6 +87,8 @@ type
     imgCompetitor: TImage;
     RzPanel12: TRzPanel;
     imgLoanClass: TImage;
+    RzPanel1: TRzPanel;
+    imgPurpose: TImage;
     procedure tbAddClientClick(Sender: TObject);
     procedure tbSaveClick(Sender: TObject);
     procedure lblRecentlyAddedClick(Sender: TObject);
@@ -110,7 +112,6 @@ type
     procedure npMainChange(Sender: TObject);
     procedure tbCompetitorClick(Sender: TObject);
     procedure urlAssessedLoansClick(Sender: TObject);
-    procedure tbAlertsClick(Sender: TObject);
     procedure pnlTitleMouseDown(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
     procedure imgCloseClick(Sender: TObject);
@@ -118,6 +119,7 @@ type
       Shift: TShiftState; X, Y: Integer);
     procedure imgAddClientMouseUp(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
+    procedure imgPurposeClick(Sender: TObject);
   private
     { Private declarations }
     RecentClients: TObjectList<TRecentClient>;
@@ -133,6 +135,9 @@ type
     procedure ShowConfirmation(const conf: string = 'Record saved successfully.');
   end;
 
+const
+  MAX_RECENT_ITEMS = 10;
+
 var
   frmMain: TfrmMain;
 
@@ -143,7 +148,8 @@ implementation
 uses
   ClientMain, SaveIntf, ClientList, DockedFormIntf, GroupList, EmployerList,
   BanksList, DesignationList, LoanClassificationList, ConfBox, ErrorBox, ClientIntf,
-  LoanMain, LoanList, LoanIntf, CompetitorList, AlertIntf, FormsUtil, IFinanceGlobal;
+  LoanMain, LoanList, LoanIntf, CompetitorList, AlertIntf, FormsUtil, IFinanceGlobal,
+  PurposeList;
 
 constructor TRecentClient.Create(const id, displayId, name: string);
 begin
@@ -240,37 +246,42 @@ procedure TfrmMain.lbxRecentDblClick(Sender: TObject);
 var
   obj: TObject;
   intf: IClient;
+  index: integer;
 begin
-  obj := lbxRecent.Items.Objects[lbxRecent.IndexOf(lbxRecent.SelectedItem)];
+  index := lbxRecent.IndexOf(lbxRecent.SelectedItem);
 
-  if obj is TRecentClient then
+  if index > -1 then
   begin
-    if Assigned(cln) then
+    obj := lbxRecent.Items.Objects[index];
+    if obj is TRecentClient then
     begin
-      AddRecentClient(cln);
-
-      cln.Destroy;
-
-      cln := TClient.Create;
-
-      cln.Id := TRecentClient(obj).Id;
-      cln.DisplayId := TRecentClient(obj).DisplayId;
-      cln.Name := TRecentClient(obj).Name;
-      cln.Retrieve(true);
-
-      if Supports(pnlDockMain.Controls[0] as TForm,IClient,intf) then
+      if Assigned(cln) then
       begin
-        intf.SetClientName;
-        intf.SetUnboundControls;
-        intf.LoadPhoto;
+        AddRecentClient(cln);
+
+        cln.Destroy;
+
+        cln := TClient.Create;
+
+        cln.Id := TRecentClient(obj).Id;
+        cln.DisplayId := TRecentClient(obj).DisplayId;
+        cln.Name := TRecentClient(obj).Name;
+        cln.Retrieve(true);
+
+        if Supports(pnlDockMain.Controls[0] as TForm,IClient,intf) then
+        begin
+          intf.SetClientName;
+          intf.SetUnboundControls;
+          intf.LoadPhoto;
+        end;
+      end
+      else
+      begin
+        cln := TClient.Create;
+        cln.Id := TRecentClient(obj).Id;
+        cln.DisplayId := TRecentClient(obj).DisplayId;
+        DockForm(fmClientMain);
       end;
-    end
-    else
-    begin
-      cln := TClient.Create;
-      cln.Id := TRecentClient(obj).Id;
-      cln.DisplayId := TRecentClient(obj).DisplayId;
-      DockForm(fmClientMain);
     end;
   end;
 end;
@@ -279,41 +290,46 @@ procedure TfrmMain.lbxRecentLoansDblClick(Sender: TObject);
 var
   obj: TObject;
   intf: ILoan;
+  index: integer;
 begin
-  obj := lbxRecentLoans.Items.Objects[lbxRecentLoans.IndexOf(lbxRecentLoans.SelectedItem)];
+  index := lbxRecentLoans.IndexOf(lbxRecentLoans.SelectedItem);
 
-  if obj is TRecentLoan then
+  if index > -1 then
   begin
-    if Assigned(ln) then
+    obj := lbxRecentLoans.Items.Objects[index];
+    if obj is TRecentLoan then
     begin
-      AddRecentLoan(ln);
-
-      ln.Destroy;
-
-      ln := TLoan.Create;
-
-      ln.Id := TRecentLoan(obj).Id;
-      ln.Client := TRecentLoan(obj).Client;
-      ln.Status := TRecentLoan(obj).Status;
-      ln.Action := laNone;
-      ln.Retrieve(true);
-
-      if Supports(pnlDockMain.Controls[0] as TForm,ILoan,intf) then
+      if Assigned(ln) then
       begin
-        intf.SetLoanId;
-        intf.RefreshDropDownSources;
-        intf.SetUnboundControls;
-        intf.InitForm;
+        AddRecentLoan(ln);
+
+        ln.Destroy;
+
+        ln := TLoan.Create;
+
+        ln.Id := TRecentLoan(obj).Id;
+        ln.Client := TRecentLoan(obj).Client;
+        ln.Status := TRecentLoan(obj).Status;
+        ln.Action := laNone;
+        ln.Retrieve(true);
+
+        if Supports(pnlDockMain.Controls[0] as TForm,ILoan,intf) then
+        begin
+          intf.SetLoanId;
+          intf.RefreshDropDownSources;
+          intf.SetUnboundControls;
+          intf.InitForm;
+        end;
+      end
+      else
+      begin
+        ln := TLoan.Create;
+        ln.Id := TRecentLoan(obj).Id;
+        ln.Client := TRecentLoan(obj).Client;
+        ln.Status := TRecentLoan(obj).Status;
+        ln.Action := laNone;
+        DockForm(fmLoanMain);
       end;
-    end
-    else
-    begin
-      ln := TLoan.Create;
-      ln.Id := TRecentLoan(obj).Id;
-      ln.Client := TRecentLoan(obj).Client;
-      ln.Status := TRecentLoan(obj).Status;
-      ln.Action := laNone;
-      DockForm(fmLoanMain);
     end;
   end;
 end;
@@ -349,10 +365,7 @@ begin
   try
     if pnlDockMain.ControlCount > 0 then
       if Supports(pnlDockMain.Controls[0] as TForm,ISave,intf) then
-      begin
         intf.Cancel;
-        // ShowConfirmation('Changes have been cancelled.');
-      end;
   except
     on e:Exception do
       ShowError(e.Message);
@@ -469,6 +482,7 @@ begin
       fmLoanMain: frm := TfrmLoanMain.Create(Application);
       fmLoanList: frm := TfrmLoanList.Create(Application);
       fmCompetitorList: frm := TfrmCompetitorList.Create(Application);
+      fmPurposeList: frm := TfrmPurposeList.Create(Application);
       else
         frm := TForm.Create(Application);
     end;
@@ -505,6 +519,11 @@ begin
   Application.Terminate;
 end;
 
+procedure TfrmMain.imgPurposeClick(Sender: TObject);
+begin
+  DockForm(fmPurposeList);
+end;
+
 procedure TfrmMain.ShowError(const error: string);
 begin
   with TfrmErrorBox.Create(self,error) do
@@ -539,6 +558,14 @@ begin
 
     rc := TRecentClient.Create(ct.Id, ct.DisplayId, ct.Name);
 
+    if (RecentClients.Count >= MAX_RECENT_ITEMS)
+        and (lbxRecent.IndexOf(lbxRecent.SelectedItem) > 0) then
+    begin
+      // remove topmost item
+      RecentClients.Remove(RecentClients.Items[0]);
+      lbxRecent.Delete(0);
+    end;
+
     RecentClients.Add(rc);
     lbxRecent.Items.AddObject(rc.Name,rc);
   end;
@@ -561,24 +588,15 @@ begin
 
     ll := TRecentLoan.Create(lln.Id,lln.Status,lln.Client);
 
+    if RecentLoans.Count >= MAX_RECENT_ITEMS then
+    begin
+      // remove topmost item
+      RecentLoans.Remove(RecentLoans.Items[0]);
+      lbxRecentLoans.Delete(0);
+    end;
+
     RecentLoans.Add(ll);
     lbxRecentLoans.Items.AddObject(ll.Id,ll);
-  end;
-end;
-
-procedure TfrmMain.tbAlertsClick(Sender: TObject);
-var
-  intf: IAlert;
-begin
-  try
-    if pnlDockMain.ControlCount > 0 then
-      if Supports(pnlDockMain.Controls[0] as TForm,IAlert,intf) then
-      begin
-        intf.ShowAlerts;
-      end;
-  except
-    on e:Exception do
-      ShowError(e.Message);
   end;
 end;
 

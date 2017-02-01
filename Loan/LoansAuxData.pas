@@ -26,6 +26,8 @@ type
     dscRejectReason: TDataSource;
     dstReleaseMethod: TADODataSet;
     dscReleaseMethod: TDataSource;
+    dstPurpose: TADODataSet;
+    dscPurpose: TDataSource;
     procedure dstLoanClassBeforePost(DataSet: TDataSet);
     procedure dstLoanClassAfterOpen(DataSet: TDataSet);
     procedure DataModuleDestroy(Sender: TObject);

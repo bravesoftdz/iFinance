@@ -23,13 +23,6 @@ inherited frmEmployerList: TfrmEmployerList
         end>
     end
   end
-  inherited pcDetail: TRzPageControl
-    Visible = False
-    FixedDimension = 20
-    inherited tsDetail: TRzTabSheet
-      Caption = 'Employer details'
-    end
-  end
   inherited pnlDetail: TRzPanel
     object JvLabel1: TJvLabel [0]
       Left = 13

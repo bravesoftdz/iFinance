@@ -327,9 +327,9 @@ var
 begin
   if ln.ReleaseRecipientCount = 0 then
     error := 'Please add at least one recipient.'
-  else if GetTotalReleased > (ln.ApprovedAmount - ln.TotalCharges)  then
+  else if GetTotalReleased > ln.TotalReleased  then
     error := 'Total amount released is greater than the amount for release.'
-  else if GetTotalReleased < (ln.ApprovedAmount - ln.TotalCharges)  then
+  else if GetTotalReleased < ln.TotalReleased  then
     error := 'Total amount released is lesser than the amount for release.';
 
   Result := error = '';

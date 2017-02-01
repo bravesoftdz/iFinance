@@ -13,8 +13,6 @@ type
   TfrmBaseGridDetail = class(TfrmBaseDocked,ISave)
     pnlList: TRzPanel;
     grList: TRzDBGrid;
-    pcDetail: TRzPageControl;
-    tsDetail: TRzTabSheet;
     pnlSearch: TRzPanel;
     Label1: TLabel;
     edSearchKey: TRzEdit;
@@ -93,6 +91,9 @@ procedure TfrmBaseGridDetail.sbtnNewClick(Sender: TObject);
 begin
   inherited;
   grList.DataSource.DataSet.Append;
+
+  // focus the first control
+  grList.DataSource.DataSet.FieldByName(grList.Columns[0].FieldName).FocusControl;
 end;
 
 procedure TfrmBaseGridDetail.Cancel;

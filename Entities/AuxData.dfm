@@ -237,4 +237,19 @@ object dmAux: TdmAux
     Left = 591
     Top = 150
   end
+  object dstPurpose: TADODataSet
+    Connection = dmApplication.acMain
+    CursorType = ctStatic
+    BeforePost = dstPurposeBeforePost
+    CommandText = 'sp_get_purpose;1'
+    CommandType = cmdStoredProc
+    Parameters = <>
+    Left = 527
+    Top = 206
+  end
+  object dscPurpose: TDataSource
+    DataSet = dstPurpose
+    Left = 591
+    Top = 206
+  end
 end

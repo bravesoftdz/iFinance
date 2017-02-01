@@ -62,6 +62,7 @@ type
     function GetLoanChargeCount: integer;
     function GetIsFinalised: boolean;
     function GetTotalCharges: real;
+    function GetTotalReleased: real;
 
   public
     procedure Add; override;
@@ -129,6 +130,7 @@ type
     property RecommendedAmount: real read FRecommendedAmount write FRecommendedAmount;
     property IsFinalised: boolean read GetIsFinalised;
     property TotalCharges: real read GetTotalCharges;
+    property TotalReleased: real read GetTotalReleased;
 
     constructor Create;
     destructor Destroy; reintroduce;
@@ -987,6 +989,11 @@ begin
   for i := 0 to cnt do total := FLoanCharges[i].Amount + total;
 
   Result := total;
+end;
+
+function TLoan.GetTotalReleased: real;
+begin
+  Result := FApprovedAmount - GetTotalCharges;
 end;
 
 end.

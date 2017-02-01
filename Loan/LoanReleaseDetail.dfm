@@ -9,7 +9,7 @@ inherited frmLoanReleaseDetail: TfrmLoanReleaseDetail
   TextHeight = 14
   inherited pnlTitle: TRzPanel
     Width = 527
-    ExplicitWidth = 451
+    ExplicitWidth = 527
     inherited imgClose: TImage
       Left = 506
       ExplicitLeft = 545
@@ -23,20 +23,26 @@ inherited frmLoanReleaseDetail: TfrmLoanReleaseDetail
   inherited pnlMain: TRzPanel
     Width = 527
     Height = 285
-    ExplicitWidth = 451
-    ExplicitHeight = 249
+    ExplicitWidth = 527
+    ExplicitHeight = 285
     inherited pnlDetail: TRzPanel
       Left = 7
       Top = 7
       Width = 512
       Height = 238
+      ExplicitLeft = 7
+      ExplicitTop = 7
+      ExplicitWidth = 512
+      ExplicitHeight = 238
       inherited pcDetail: TRzPageControl
         Width = 510
         Height = 236
+        ExplicitWidth = 510
+        ExplicitHeight = 236
         FixedDimension = 20
         inherited tsDetail: TRzTabSheet
-          ExplicitWidth = 514
-          ExplicitHeight = 181
+          ExplicitWidth = 510
+          ExplicitHeight = 236
           object urlReleaseToClient: TRzURLLabel
             Tag = 1
             Left = 403
@@ -76,8 +82,6 @@ inherited frmLoanReleaseDetail: TfrmLoanReleaseDetail
             object tsRecipients: TRzTabSheet
               Color = 14273211
               Caption = 'Recipients'
-              ExplicitWidth = 388
-              ExplicitHeight = 102
               DesignSize = (
                 472
                 144)
@@ -116,6 +120,8 @@ inherited frmLoanReleaseDetail: TfrmLoanReleaseDetail
             object tsMonExp: TRzTabSheet
               Color = 14273211
               Caption = 'Charges'
+              ExplicitLeft = 0
+              ExplicitTop = 0
               ExplicitWidth = 388
               ExplicitHeight = 102
               DesignSize = (
@@ -199,10 +205,14 @@ inherited frmLoanReleaseDetail: TfrmLoanReleaseDetail
     inherited pnlCancel: TRzPanel
       Left = 469
       Top = 254
+      ExplicitLeft = 469
+      ExplicitTop = 254
     end
     inherited pnlSave: TRzPanel
       Left = 413
       Top = 254
+      ExplicitLeft = 413
+      ExplicitTop = 254
     end
   end
 end

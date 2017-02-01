@@ -164,4 +164,19 @@ object dmLoansAux: TdmLoansAux
     Left = 431
     Top = 198
   end
+  object dstPurpose: TADODataSet
+    Connection = dmApplication.acMain
+    CursorType = ctStatic
+    LockType = ltReadOnly
+    CommandText = 'sp_dd_get_purpose;1'
+    CommandType = cmdStoredProc
+    Parameters = <>
+    Left = 199
+    Top = 198
+  end
+  object dscPurpose: TDataSource
+    DataSet = dstPurpose
+    Left = 271
+    Top = 198
+  end
 end

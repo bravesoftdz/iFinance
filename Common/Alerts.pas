@@ -10,6 +10,7 @@ uses
 type
   TfrmAlerts = class(TfrmBasePopup)
     mmAlerts: TRzMemo;
+    Image1: TImage;
     procedure FormCreate(Sender: TObject);
   private
     { Private declarations }

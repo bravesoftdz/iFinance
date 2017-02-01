@@ -22,7 +22,6 @@ type
     JvLabel5: TJvLabel;
     JvLabel9: TJvLabel;
     JvLabel6: TJvLabel;
-    edPurpose: TRzDBEdit;
     edDesiredTerm: TRzDBNumericEdit;
     edAppAmount: TRzDBNumericEdit;
     dteDateApplied: TRzDBDateTimeEdit;
@@ -139,6 +138,11 @@ type
     imgAlerts: TImage;
     JvLabel15: TJvLabel;
     RzDBLabel15: TRzDBLabel;
+    JvLabel26: TJvLabel;
+    lblTotalCharges: TJvLabel;
+    JvLabel27: TJvLabel;
+    lblTotalReleased: TJvLabel;
+    dbluPurpose: TRzDBLookupComboBox;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure bteClientButtonClick(Sender: TObject);
@@ -189,14 +193,17 @@ type
     function Save: boolean;
   end;
 
-// tab index
 const
+  // tab index
   ASSESSMENT = 0;
   APPROVAL = 1;
   RELEASED = 2;
   REJECTION = 3;
   CANCELLATION = 4;
-  PENDING = 5;
+  NOINFO = 5;
+
+  // finalised error message
+  FINALISED_MSG = 'Changes have been restricted. Loan application has been finalised.';
 
 var
   frmLoanMain: TfrmLoanMain;
@@ -218,7 +225,7 @@ begin
   index := 0;
 
   // this routine set active tab based on current loan status
-  if (ln.IsPending) or (ln.New) then index := PENDING
+  if (ln.IsPending) or (ln.New) then index := NOINFO
   else if ln.IsAssessed then index := ASSESSMENT
   else if ln.IsApproved then index := APPROVAL
   else if ln.IsActive then index := RELEASED
@@ -231,6 +238,12 @@ end;
 procedure TfrmLoanMain.SetActiveTab(const index: Integer);
 begin
   pcStatus.ActivePageIndex := index;
+
+  if index = RELEASED then
+  begin
+    lblTotalReleased.Caption := FormatFloat('###,###,##0.00',ln.TotalReleased);
+    lblTotalCharges.Caption := FormatFloat('###,###,##0.00',ln.TotalCharges);
+  end;
 end;
 
 procedure TfrmLoanMain.ApproveLoan;
@@ -238,7 +251,7 @@ begin
   if not LoanApplicationIsValid then Exit
   else if ln.IsFinalised then
   begin
-    CallErrorBox('Loan has been finalised.');
+    CallErrorBox(FINALISED_MSG);
     Exit;
   end;
 
@@ -271,7 +284,7 @@ begin
   if not LoanApplicationIsValid then Exit
   else if ln.IsFinalised then
   begin
-    CallErrorBox('Loan has been finalised.');
+    CallErrorBox(FINALISED_MSG);
     Exit;
   end;
 
@@ -304,7 +317,7 @@ begin
   if not LoanApplicationIsValid then Exit
   else if ln.IsFinalised then
   begin
-    CallErrorBox('Loan has been finalised.');
+    CallErrorBox(FINALISED_MSG);
     Exit;
   end;
 
@@ -337,7 +350,7 @@ begin
   if not LoanApplicationIsValid then Exit
   else if ln.IsFinalised then
   begin
-    CallErrorBox('Loan has been finalised.');
+    CallErrorBox(FINALISED_MSG);
     Exit;
   end;
 
@@ -370,7 +383,7 @@ begin
   if not LoanApplicationIsValid then Exit
   else if ln.IsFinalised then
   begin
-    CallErrorBox('Loan has been finalised.');
+    CallErrorBox(FINALISED_MSG);
     Exit;
   end;
 
@@ -424,7 +437,8 @@ begin
       pnlApplication.Controls[i].Enabled := pnlApplication.Controls[i].Tag in tags;
 
   pnlToolbar.Visible := not ln.New;
-  pnlAlerts.Visible := not ln.IsFinalised;
+  pnlClientRecord.Visible := Assigned(ln.Client);
+  pnlAlerts.Visible := (Assigned(ln.Client)) and (not ln.IsFinalised);
 end;
 
 procedure TfrmLoanMain.RefreshDropDownSources;

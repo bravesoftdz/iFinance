@@ -209,6 +209,7 @@ object dmEntities: TdmEntities
     Connection = dmApplication.acMain
     CursorType = ctStatic
     BeforePost = dstGroupsBeforePost
+    AfterPost = dstGroupsAfterPost
     OnNewRecord = dstGroupsNewRecord
     CommandText = 'sp_get_groups;1'
     CommandType = cmdStoredProc

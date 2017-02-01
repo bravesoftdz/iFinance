@@ -22,22 +22,6 @@ inherited frmGroupList: TfrmGroupList
         end>
     end
   end
-  inherited pcDetail: TRzPageControl
-    Left = 52
-    Top = 296
-    Width = 366
-    Height = 137
-    Visible = False
-    ExplicitLeft = 52
-    ExplicitTop = 296
-    ExplicitWidth = 366
-    ExplicitHeight = 137
-    FixedDimension = 20
-    inherited tsDetail: TRzTabSheet
-      ExplicitWidth = 362
-      ExplicitHeight = 110
-    end
-  end
   inherited pnlDetail: TRzPanel
     object JvLabel1: TJvLabel [0]
       Left = 13
@@ -47,11 +31,19 @@ inherited frmGroupList: TfrmGroupList
       Caption = 'Name'
       Transparent = True
     end
+    object JvLabel12: TJvLabel [1]
+      Left = 13
+      Top = 63
+      Width = 38
+      Height = 14
+      Caption = 'Parent'
+      Transparent = True
+    end
     inherited pnlAdd: TRzPanel
-      TabOrder = 4
+      TabOrder = 5
     end
     inherited pnlDetailHead: TRzPanel
-      TabOrder = 3
+      TabOrder = 4
     end
     object edGroupName: TRzDBEdit
       Left = 60
@@ -68,7 +60,7 @@ inherited frmGroupList: TfrmGroupList
     end
     object cbxPrivate: TRzDBCheckBox
       Left = 60
-      Top = 62
+      Top = 86
       Width = 56
       Height = 16
       DataField = 'is_gov'
@@ -77,11 +69,11 @@ inherited frmGroupList: TfrmGroupList
       ValueUnchecked = '0'
       Caption = 'Private'
       FrameColor = 8675134
-      TabOrder = 1
+      TabOrder = 2
     end
     object cbxActive: TRzDBCheckBox
       Left = 60
-      Top = 84
+      Top = 108
       Width = 53
       Height = 16
       DataField = 'is_active'
@@ -90,7 +82,27 @@ inherited frmGroupList: TfrmGroupList
       ValueUnchecked = '0'
       Caption = 'Active'
       FrameColor = 8675134
-      TabOrder = 2
+      TabOrder = 3
+    end
+    object dbluParentGroup: TRzDBLookupComboBox
+      Left = 60
+      Top = 57
+      Width = 204
+      Height = 22
+      DataField = 'par_grp_id'
+      DataSource = dmEntities.dscGroups
+      KeyField = 'grp_id'
+      ListField = 'grp_name'
+      ListSource = dmEntities.dscParGroup
+      TabOrder = 1
+      AllowNull = True
+      FlatButtonColor = 8675134
+      FlatButtons = True
+      FrameColor = 8675134
+      FrameHotColor = clBlack
+      FrameVisible = True
+      FramingPreference = fpCustomFraming
+      TabOnEnter = True
     end
   end
 end

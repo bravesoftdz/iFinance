@@ -56,6 +56,7 @@ type
     procedure dstRefPersonalBeforePost(DataSet: TDataSet);
     procedure dstRefContactBeforeOpen(DataSet: TDataSet);
     procedure dstRefContactBeforePost(DataSet: TDataSet);
+    procedure dstGroupsAfterPost(DataSet: TDataSet);
   private
     { Private declarations }
   public
@@ -95,6 +96,12 @@ begin
     id := GetEmployerId;
     DataSet.FieldByName('emp_id').AsString := id;
   end;
+end;
+
+procedure TdmEntities.dstGroupsAfterPost(DataSet: TDataSet);
+begin
+  // refresh the parent group
+  dstParGroup.Requery;
 end;
 
 procedure TdmEntities.dstGroupsBeforePost(DataSet: TDataSet);

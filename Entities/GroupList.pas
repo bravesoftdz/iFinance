@@ -16,6 +16,8 @@ type
     edGroupName: TRzDBEdit;
     cbxPrivate: TRzDBCheckBox;
     cbxActive: TRzDBCheckBox;
+    JvLabel12: TJvLabel;
+    dbluParentGroup: TRzDBLookupComboBox;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
@@ -62,11 +64,10 @@ var
 begin
   if Supports(Application.MainForm,IStatus,st) then
   begin
-    if Trim(edGroupName.Text) = '' then
-    begin
-      error := 'Please enter a group name.';
-      st.ShowError(error);
-    end;
+    if Trim(edGroupName.Text) = '' then  error := 'Please enter a group name.'
+    else if Trim(edGroupName.Text) = (dbluParentGroup.Text) then error := 'Parent group cannot be the same as group.';
+
+    if error <> '' then st.ShowError(error);
   end;
 
   Result := error = '';

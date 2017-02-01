@@ -7,7 +7,7 @@ uses
 
 type
   TSequenceObject = (soEntity,soGroup,soEmployer,soBankBranch,soDesignation,
-                        soLoanClass,soLoan,soCompetitor);
+                        soLoanClass,soLoan,soCompetitor,soPurpose);
 
 procedure RefreshDataSet(const key: integer; const keyField: string; DataSet: TDataSet); overload;
 procedure RefreshDataSet(const key, keyField: string; DataSet: TDataSet); overload;
@@ -22,6 +22,7 @@ function GetDesignationId: integer;
 function GetLoanClassId: integer;
 function GetLoanId: string;
 function GetCompetitorId: integer;
+function GetPurposeId: integer;
 
 implementation
 
@@ -74,6 +75,7 @@ begin
     soLoanClass: parm := 'LNC';
     soLoan: parm := 'LON';
     soCompetitor: parm := 'CMP';
+    soPurpose: parm := 'PRP';
     else parm := '';
   end;
 
@@ -125,6 +127,11 @@ end;
 function GetCompetitorId: integer;
 begin
   Result := GetSequenceID(soCompetitor);
+end;
+
+function GetPurposeId: integer;
+begin
+  Result := GetSequenceID(soPurpose);
 end;
 
 
