@@ -106,9 +106,6 @@ Coordinates=185,535,66,36
 [RzDBEdit10]
 Coordinates=96,535,84,36
 
-[RzDBLookupComboBox6]
-Coordinates=1322,1,160,36
-
 [RzDBEdit12]
 Coordinates=0,499,84,36
 
@@ -150,9 +147,6 @@ Coordinates=1243,609,73,36
 
 [JvLabel13]
 Coordinates=1164,609,73,36
-
-[RzDBLookupComboBox5]
-Coordinates=995,609,160,36
 
 [dmClient.dscEmpStatus]
 Coordinates=0,0,152,36
@@ -294,4 +288,10 @@ Coordinates=1520,56,77,36
 
 [dmClient.]
 Coordinates=24,365,132,36
+
+[dbluResStatusPres]
+Coordinates=995,609,160,36
+
+[dbluResStatusProv]
+Coordinates=1322,1,160,36
 

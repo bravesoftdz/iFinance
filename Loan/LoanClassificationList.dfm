@@ -203,6 +203,14 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
       Caption = 'Concurrent'
       Transparent = True
     end
+    object JvLabel14: TJvLabel
+      Left = 150
+      Top = 183
+      Width = 51
+      Height = 14
+      Caption = 'Max. age'
+      Transparent = True
+    end
     object pnlAdd: TRzPanel
       Left = 8
       Top = 476
@@ -337,12 +345,12 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
       Top = 249
       Width = 176
       Height = 22
-      DataField = 'acct_type'
+      DataField = 'loc_code'
       DataSource = dmLoansAux.dscLoanClass
-      KeyField = 'acct_type'
-      ListField = 'acct_name'
-      ListSource = dmAux.dscAcctType
-      TabOrder = 13
+      KeyField = 'location_code'
+      ListField = 'location_name'
+      ListSource = dmLoansAux.dscBranches
+      TabOrder = 14
       FlatButtons = True
       DisabledColor = clWhite
       FrameColor = 8675134
@@ -361,7 +369,7 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
       KeyField = 'value'
       ListField = 'display'
       ListSource = dmAux.dscCompMethod
-      TabOrder = 11
+      TabOrder = 12
       FlatButtons = True
       DisabledColor = clWhite
       FrameColor = 8675134
@@ -380,7 +388,7 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
       KeyField = 'value'
       ListField = 'display'
       ListSource = dmAux.dscPaymentFreq
-      TabOrder = 12
+      TabOrder = 13
       FlatButtons = True
       DisabledColor = clWhite
       FrameColor = 8675134
@@ -465,7 +473,7 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
       FrameVisible = True
       FramingPreference = fpCustomFraming
       TabOnEnter = True
-      TabOrder = 14
+      TabOrder = 15
       EditType = etDate
       Format = 'mm/dd/yyyy'
       FlatButtons = True
@@ -481,7 +489,7 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
       FrameVisible = True
       FramingPreference = fpCustomFraming
       TabOnEnter = True
-      TabOrder = 15
+      TabOrder = 16
       EditType = etDate
       Format = 'mm/dd/yyyy'
       FlatButtons = True
@@ -511,7 +519,7 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
       GradientColorStyle = gcsCustom
       GroupStyle = gsUnderline
       ParentFont = False
-      TabOrder = 17
+      TabOrder = 18
     end
     object RzPanel1: TRzPanel
       Left = 157
@@ -523,7 +531,7 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
       BorderColor = 6572079
       BorderWidth = 1
       Color = 12955288
-      TabOrder = 18
+      TabOrder = 19
       object btnAddCharge: TRzShapeButton
         Left = 0
         Top = 0
@@ -547,7 +555,7 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
       BorderColor = 6572079
       BorderWidth = 1
       Color = 12955288
-      TabOrder = 19
+      TabOrder = 20
       object btnRemoveCharge: TRzShapeButton
         Left = 0
         Top = 0
@@ -571,7 +579,7 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
       BorderColor = 6572079
       BorderWidth = 1
       Color = 14273211
-      TabOrder = 16
+      TabOrder = 17
       object grCharges: TRzDBGrid
         Tag = -1
         Left = 1
@@ -624,6 +632,21 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
       FramingPreference = fpCustomFraming
       TabOnEnter = True
       TabOrder = 10
+    end
+    object RzDBEdit2: TRzDBEdit
+      Left = 223
+      Top = 177
+      Width = 41
+      Height = 22
+      DataSource = dmLoansAux.dscLoanClass
+      DataField = 'max_age'
+      CharCase = ecUpperCase
+      DisabledColor = clWhite
+      FrameColor = 8675134
+      FrameVisible = True
+      FramingPreference = fpCustomFraming
+      TabOnEnter = True
+      TabOrder = 11
     end
   end
 end

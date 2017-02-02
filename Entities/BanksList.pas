@@ -43,7 +43,7 @@ implementation
 {$R *.dfm}
 
 uses
-  AuxData, FormsUtil, StatusIntf;
+  AuxData, FormsUtil, IFinanceDialogs;
 
 procedure TfrmBanksList.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
@@ -99,17 +99,12 @@ end;
 
 function TfrmBanksList.EntryIsValid: boolean;
 var
-  st: IStatus;
   error: string;
 begin
-  if Supports(Application.MainForm,IStatus,st) then
-  begin
-    if Trim(mmBranch.Text) = '' then
-    begin
-      error := 'Please enter branch.';
-      st.ShowError(error);
-    end;
-  end;
+  if Trim(mmBranch.Text) = '' then error := 'Please enter branch.';
+
+  if error <> '' then ShowErrorBox(error);
+
 
   Result := error = '';
 end;

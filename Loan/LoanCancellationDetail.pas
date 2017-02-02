@@ -35,7 +35,7 @@ implementation
 {$R *.dfm}
 
 uses
-  LoanData, FormsUtil, Loan, LoansAuxData;
+  LoanData, FormsUtil, Loan, LoansAuxData, IFinanceDialogs;
 
 procedure TfrmLoanCancellationDetail.FormCreate(Sender: TObject);
 begin
@@ -64,7 +64,7 @@ begin
 
   Result := error = '';
 
-  if not Result then CallErrorBox(error);
+  if not Result then ShowErrorBox(error);
 end;
 
 end.

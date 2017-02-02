@@ -40,7 +40,7 @@ type
   end;
 
 type
-  TfrmMain = class(TForm,IStatus,IDock)
+  TfrmMain = class(TForm,IDock)
     pnlTitle: TRzPanel;
     imgClose: TImage;
     lblCaption: TRzLabel;
@@ -131,8 +131,6 @@ type
     procedure DockForm(const fm: TForms; const title: string = '');
     procedure AddRecentClient(ct: TClient);
     procedure AddRecentLoan(lln: TLoan);
-    procedure ShowError(const error: string);
-    procedure ShowConfirmation(const conf: string = 'Record saved successfully.');
   end;
 
 const
@@ -149,7 +147,7 @@ uses
   ClientMain, SaveIntf, ClientList, DockedFormIntf, GroupList, EmployerList,
   BanksList, DesignationList, LoanClassificationList, ConfBox, ErrorBox, ClientIntf,
   LoanMain, LoanList, LoanIntf, CompetitorList, AlertIntf, FormsUtil, IFinanceGlobal,
-  PurposeList;
+  PurposeList, IFinanceDialogs;
 
 constructor TRecentClient.Create(const id, displayId, name: string);
 begin
@@ -273,6 +271,8 @@ begin
           intf.SetClientName;
           intf.SetUnboundControls;
           intf.LoadPhoto;
+          intf.SetLandLordControlsPres;
+          intf.SetLandLordControlsProv;
         end;
       end
       else
@@ -368,7 +368,7 @@ begin
         intf.Cancel;
   except
     on e:Exception do
-      ShowError(e.Message);
+      ShowErrorBox(e.Message);
   end;
 end;
 
@@ -411,11 +411,11 @@ begin
       if Supports(pnlDockMain.Controls[0] as TForm,ISave,intf) then
       begin
         if intf.Save then
-          ShowConfirmation;
+          ShowConfirmationBox;
       end;
   except
     on e:Exception do
-      ShowError(e.Message);
+      ShowErrorBox(e.Message);
   end;
 end;
 
@@ -522,26 +522,6 @@ end;
 procedure TfrmMain.imgPurposeClick(Sender: TObject);
 begin
   DockForm(fmPurposeList);
-end;
-
-procedure TfrmMain.ShowError(const error: string);
-begin
-  with TfrmErrorBox.Create(self,error) do
-  try
-    ShowModal;
-  finally
-    Free;
-  end;
-end;
-
-procedure TfrmMain.ShowConfirmation(const conf: string);
-begin
-  with TfrmConfBox.Create(self,conf) do
-  try
-    ShowModal;
-  finally
-    Free;
-  end;
 end;
 
 procedure TfrmMain.AddRecentClient(ct: TClient);

@@ -27,9 +27,13 @@ inherited frmReferenceDetail: TfrmReferenceDetail
     inherited pnlDetail: TRzPanel
       Width = 345
       Height = 133
+      ExplicitWidth = 345
+      ExplicitHeight = 133
       inherited pcDetail: TRzPageControl
         Width = 343
         Height = 131
+        ExplicitWidth = 343
+        ExplicitHeight = 131
         FixedDimension = 20
         inherited tsDetail: TRzTabSheet
           Caption = 'Reference details'
@@ -145,10 +149,14 @@ inherited frmReferenceDetail: TfrmReferenceDetail
     inherited pnlCancel: TRzPanel
       Left = 303
       Top = 150
+      ExplicitLeft = 303
+      ExplicitTop = 150
     end
     inherited pnlSave: TRzPanel
       Left = 247
       Top = 150
+      ExplicitLeft = 247
+      ExplicitTop = 150
     end
   end
 end

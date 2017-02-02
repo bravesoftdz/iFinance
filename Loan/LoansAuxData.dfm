@@ -2,7 +2,7 @@ object dmLoansAux: TdmLoansAux
   OldCreateOrder = False
   OnDestroy = DataModuleDestroy
   Height = 312
-  Width = 595
+  Width = 669
   object dscLoanClass: TDataSource
     DataSet = dstLoanClass
     Left = 112
@@ -178,5 +178,20 @@ object dmLoansAux: TdmLoansAux
     DataSet = dstPurpose
     Left = 271
     Top = 198
+  end
+  object dstBranches: TADODataSet
+    Connection = dmApplication.acCore
+    CursorType = ctStatic
+    LockType = ltReadOnly
+    CommandText = 'hris_dd_get_locations;1'
+    CommandType = cmdStoredProc
+    Parameters = <>
+    Left = 527
+    Top = 30
+  end
+  object dscBranches: TDataSource
+    DataSet = dstBranches
+    Left = 599
+    Top = 30
   end
 end

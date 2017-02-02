@@ -19,6 +19,8 @@ delete LoanCharge
 delete LoanReject
 delete LoanRelease
 delete Loan
+delete LoanClassCharge
+delete EntityLoanClass
 delete LoanClass
 delete [Group]
 delete entity

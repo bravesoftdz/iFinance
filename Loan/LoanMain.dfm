@@ -1312,7 +1312,7 @@ inherited frmLoanMain: TfrmLoanMain
       Width = 492
       Height = 472
       Hint = ''
-      ActivePage = tsAssessment
+      ActivePage = tsPending
       ActivePageDefault = tsPending
       Anchors = [akLeft, akTop, akRight, akBottom]
       FlatColor = 14273211

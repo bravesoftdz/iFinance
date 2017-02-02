@@ -37,7 +37,7 @@ implementation
 {$R *.dfm}
 
 uses
-  RefData, Reference;
+  RefData, Reference, IFinanceDialogs;
 
 procedure TfrmReferenceDetail.Cancel;
 begin
@@ -61,7 +61,7 @@ begin
 
   Result := error = '';
 
-  if not Result then CallErrorBox(error);
+  if not Result then ShowErrorBox(error);
 end;
 
 end.

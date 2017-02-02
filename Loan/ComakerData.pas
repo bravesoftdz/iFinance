@@ -55,7 +55,7 @@ implementation
 {$R *.dfm}
 
 uses
-  AppData, Comaker, DBUtil, AppConstants, Employer;
+  AppData, Comaker, DBUtil, AppConstants, Employer, IFinanceGlobal;
 
 procedure TdmComaker.dstAddressInfo2BeforeOpen(DataSet: TDataSet);
 begin
@@ -140,6 +140,7 @@ begin
     DataSet.FieldByName('entity_id').AsString := id;
     DataSet.FieldByName('entity_type').AsString :=
       TRttiEnumerationType.GetName<TEntityTypes>(TEntityTypes.CK);
+    DataSet.FieldByName('loc_code').AsString := ifn.LocationCode;
 
     SetCreatedFields(DataSet);
 

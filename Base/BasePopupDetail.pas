@@ -22,7 +22,6 @@ type
   private
     { Private declarations }
   protected
-    procedure CallErrorBox(const error: string);
     procedure Save; virtual; abstract;
     procedure Cancel; virtual; abstract;
     function ValidEntry: boolean; virtual; abstract;
@@ -38,7 +37,7 @@ implementation
 {$R *.dfm}
 
 uses
-  ErrorBox;
+  IFinanceDialogs;
 
 procedure TfrmBasePopupDetail.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
@@ -60,21 +59,9 @@ begin
     try
       Save;
       ModalResult := mrOK;
-
     except
-      on e: Exception do
-        CallErrorBox(e.Message);
+      on e: Exception do ShowErrorBox(e.Message);
     end;
-  end;
-end;
-
-procedure TfrmBasePopupDetail.CallErrorBox(const error: string);
-begin
-  with TfrmErrorBox.Create(self,error) do
-  try
-    ShowModal;
-  finally
-    Free;
   end;
 end;
 

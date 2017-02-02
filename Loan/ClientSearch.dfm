@@ -10,9 +10,7 @@ inherited frmClientSearch: TfrmClientSearch
     end
   end
   inherited pnlMain: TRzPanel
-    ExplicitHeight = 321
     inherited pnlSearch: TRzPanel
-      ExplicitHeight = 245
       inherited grSearch: TRzDBGrid
         DataSource = dmLoan.dscClients
         Columns = <
@@ -24,18 +22,11 @@ inherited frmClientSearch: TfrmClientSearch
           end>
       end
     end
-    inherited pnlSelect: TRzPanel
-      ExplicitTop = 289
-    end
     inherited pnlNew: TRzPanel
       Visible = False
-      ExplicitTop = 289
       inherited btnNew: TRzShapeButton
         Visible = False
       end
-    end
-    inherited pnlCancel: TRzPanel
-      ExplicitTop = 289
     end
   end
 end

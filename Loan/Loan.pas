@@ -91,6 +91,7 @@ type
     procedure ComputeCharges;
     procedure RemoveReleaseRecipient(const rec: TReleaseRecipient);
     procedure ChangeLoanStatus;
+    procedure ClearComakers;
 
     function ComakerExists(cmk: TComaker): boolean;
     function FinancialInfoExists(const compId: integer): boolean;
@@ -376,8 +377,11 @@ begin
   // delete from db
   with dmLoan.dstLoanComaker do
   begin
-    Locate('entity_id',cmk.Id,[]);
-    Delete;
+    if RecordCount > 0 then
+    begin
+      Locate('entity_id',cmk.Id,[]);
+      Delete;
+    end;
   end;
 end;
 
@@ -728,6 +732,11 @@ begin
   // remove from db
   with dmLoan.dstLoanRelease do
     Delete;
+end;
+
+procedure TLoan.ClearComakers;
+begin
+  FComakers := [];
 end;
 
 function TLoan.HasLoanState(const ls: TLoanState): boolean;

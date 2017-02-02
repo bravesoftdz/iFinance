@@ -32,7 +32,6 @@ inherited frmLandlordDetail: TfrmLandlordDetail
       inherited pcDetail: TRzPageControl
         Width = 351
         Height = 139
-        TabStop = False
         ExplicitWidth = 351
         ExplicitHeight = 139
         FixedDimension = 20

@@ -40,7 +40,7 @@ type
     RzDBLookupComboBox3: TRzDBLookupComboBox;
     urlCopyAddress: TRzURLLabel;
     JvLabel14: TJvLabel;
-    RzDBLookupComboBox5: TRzDBLookupComboBox;
+    dbluResStatusPres: TRzDBLookupComboBox;
     JvLabel15: TJvLabel;
     bteLandlord: TRzButtonEdit;
     edLandlordContact: TRzEdit;
@@ -52,7 +52,7 @@ type
     JvLabel11: TJvLabel;
     RzDBLookupComboBox4: TRzDBLookupComboBox;
     JvLabel17: TJvLabel;
-    RzDBLookupComboBox6: TRzDBLookupComboBox;
+    dbluResStatusProv: TRzDBLookupComboBox;
     JvLabel18: TJvLabel;
     bteLandlord2: TRzButtonEdit;
     JvLabel19: TJvLabel;
@@ -139,8 +139,6 @@ type
     RzDBLookupComboBox9: TRzDBLookupComboBox;
     RzDBCheckBox1: TRzDBCheckBox;
     RzDBCheckBox2: TRzDBCheckBox;
-    JvLabel48: TJvLabel;
-    RzDBLookupComboBox11: TRzDBLookupComboBox;
     urlCopyClientAddress: TRzURLLabel;
     RzDBLookupComboBox10: TRzDBLookupComboBox;
     JvLabel45: TJvLabel;
@@ -215,6 +213,8 @@ type
     procedure sbtnRemoveFamRefClick(Sender: TObject);
     procedure sbtnRemIdentDocClick(Sender: TObject);
     procedure sbtnNewIdentDocClick(Sender: TObject);
+    procedure dbluResStatusPresClick(Sender: TObject);
+    procedure dbluResStatusProvClick(Sender: TObject);
   private
     { Private declarations }
     procedure CopyAddress;
@@ -222,7 +222,6 @@ type
     procedure ChangeControlState;
     procedure ChangeIdentControlState;
     procedure ChangeFamRefControlState;
-    procedure CallErrorBox(const error: string);
     procedure HideTabs;
     procedure SetActiveTab(const tabIndex: integer);
 
@@ -234,6 +233,8 @@ type
     procedure SetClientName;
     procedure SetUnboundControls(const changeTab: boolean = true);
     procedure LoadPhoto;
+    procedure SetLandLordControlsPres;
+    procedure SetLandLordControlsProv;
 
     function Save: boolean;
   end;
@@ -248,7 +249,7 @@ uses
   ImmediateHead, RefereeSearch, Referee, AuxData, DockIntf, RefData,
   EmployerSearch, Employer, Bank, BanksSearch, IdentityDoc, IFinanceGlobal,
   ReferenceSearch, Reference, DecisionBox, LoansAuxData, LoanClassification,
-  DBUtil;
+  DBUtil, IFinanceDialogs;
 
 {$R *.dfm}
 
@@ -272,8 +273,7 @@ begin
 
   Result := error;
 
-  if Result <> '' then
-    CallErrorBox(error);
+  if Result <> '' then ShowErrorBox(error);
 end;
 
 function TfrmClientMain.CheckIdentInfo: string;
@@ -293,16 +293,41 @@ begin
 
   Result := error;
 
-  if Result <> '' then
-    CallErrorBox(error);
+  if Result <> '' then ShowErrorBox(error);
 end;
 
-procedure TfrmClientMain.CallErrorBox(const error: string);
+procedure TfrmClientMain.SetLandLordControlsPres;
 var
-  intf: IStatus;
+  rentingPres: boolean;
 begin
-  if Supports(Application.MainForm,IStatus,intf) then
-    intf.ShowError(error);
+  // present adddress
+  rentingPres := dbluResStatusPres.GetKeyValue = 'R';
+  bteLandlord.Enabled := rentingPres;
+  edLandlordContact.Enabled := rentingPres;
+
+  if not rentingPres then
+  begin
+    bteLandlord.Clear;
+    edLandlordContact.Clear;
+    cln.LandlordPres := nil;
+  end;
+end;
+
+procedure TfrmClientMain.SetLandLordControlsProv;
+var
+  rentingProv: boolean;
+begin
+  // provincial adddress
+  rentingProv := dbluResStatusProv.GetKeyValue = 'R';
+  bteLandlord2.Enabled := rentingProv;
+  edLandlordContact2.Enabled := rentingProv;
+
+  if not rentingProv then
+  begin
+    bteLandlord2.Clear;
+    edLandlordContact2.Clear;
+    cln.LandlordProv := nil;
+  end;
 end;
 
 procedure TfrmClientMain.cmbIdTypeClick(Sender: TObject);
@@ -406,7 +431,7 @@ begin
       if ModalResult = mrOK then
       begin
         if Trim(immHead.Id) = Trim(cln.Id)  then
-          CallErrorBox('Immediate head cannot be the same as client.')
+          ShowErrorBox('Immediate head cannot be the same as client.')
         else
         begin
           bteImmHead.Text := immHead.Name;
@@ -417,7 +442,7 @@ begin
       Free;
     except
       on e: Exception do
-        CallErrorBox(e.Message);
+        ShowErrorBox(e.Message);
     end;
   end;
 end;
@@ -448,13 +473,13 @@ begin
           cln.LandlordProv := llord;
         end
         else
-          CallErrorBox('Landlord cannot be the same as client.');
+          ShowErrorBox('Landlord cannot be the same as client.');
       end;
 
       Free;
     except
       on e: Exception do
-        CallErrorBox(e.Message);
+        ShowErrorBox(e.Message);
     end;
   end;
 end;
@@ -485,13 +510,13 @@ begin
           cln.LandlordPres := llord;
         end
         else
-          CallErrorBox('Landlord cannot be the same as client.');
+          ShowErrorBox('Landlord cannot be the same as client.');
       end;
 
       Free;
     except
       on e: Exception do
-        CallErrorBox(e.Message);
+        ShowErrorBox(e.Message);
     end;
   end;
 end;
@@ -521,11 +546,11 @@ begin
             cln.Referee := ref;
           end
           else
-            CallErrorBox('Referred by cannot be the same as client.');
+            ShowErrorBox('Referred by cannot be the same as client.');
         end;
       except
         on e: Exception do
-          ShowMessage(e.Message);
+          ShowErrorBox(e.Message);
       end;
     finally
       Free;
@@ -553,7 +578,7 @@ begin
     end;
   except
     on e: Exception do
-      CallErrorBox(e.Message);
+      ShowErrorBox(e.Message);
   end;
 end;
 
@@ -566,7 +591,7 @@ begin
   if grAccessList.DataSource.DataSet.RecordCount > 0 then
   begin
   if (Assigned(cln.Employer)) and (lnc.GroupId = cln.Employer.GroupId) then
-    CallErrorBox('Cannot remove the loan class. Loan class belongs to the client''s employer group.')
+    ShowErrorBox('Cannot remove the loan class. Loan class belongs to the client''s employer group.')
   else
     with TfrmDecisionBox.Create(nil, CONF) do
     begin
@@ -587,7 +612,7 @@ begin
         end;
       except
         on e: Exception do
-          ShowMessage(e.Message);
+          ShowErrorBox(e.Message);
       end;
     end;
   end;
@@ -611,6 +636,7 @@ begin
   if PhotoLauncher.Running then
     SendMessage(FindWindow(nil,'PhotoUtil'),WM_CLOSE,0,0);
 
+  Application.BringToFront;
   inherited;
 end;
 
@@ -710,7 +736,7 @@ begin
     end;
   except
     on e: Exception do
-      CallErrorBox(e.Message);
+      ShowErrorBox(e.Message);
   end;
 end;
 
@@ -741,6 +767,9 @@ begin
   inherited;
   OpenDropdownDataSources(tsClientInfo);
   LoadPhoto;
+
+  SetLandLordControlsPres;
+  SetLandLordControlsProv;
 end;
 
 function TfrmClientMain.Save: boolean;
@@ -790,9 +819,9 @@ begin
         with grRefList.DataSource.DataSet do
         begin
           if Trim(cln.Id) = Trim(refc.Id) then
-            CallErrorBox('Client cannot be declared as a reference.')
+            ShowErrorBox('Client cannot be declared as a reference.')
           else if cln.ReferenceExists(refc) then
-            CallErrorBox('Reference already exists.')
+            ShowErrorBox('Reference already exists.')
           else
           begin
             Append;
@@ -809,7 +838,7 @@ begin
       Free;
     except
       on e: Exception do
-        ShowMessage(e.Message);
+        ShowErrorBox(e.Message);
     end;
   end;
 end;
@@ -853,7 +882,7 @@ begin
       end;
     except
       on e: Exception do
-        ShowMessage(e.Message);
+        ShowErrorBox(e.Message);
     end;
   end;
 end;
@@ -884,7 +913,7 @@ begin
       end;
     except
       on e: Exception do
-        ShowMessage(e.Message);
+        ShowErrorBox(e.Message);
     end;
   end;
 end;
@@ -1025,6 +1054,17 @@ begin
     bteLandlord2.Clear;
     edLandlordContact2.Clear;
   end;
+end;
+
+procedure TfrmClientMain.dbluResStatusPresClick(Sender: TObject);
+begin
+  SetLandLordControlsPres;
+end;
+
+procedure TfrmClientMain.dbluResStatusProvClick(Sender: TObject);
+begin
+  inherited;
+  SetLandLordControlsProv;
 end;
 
 procedure TfrmClientMain.GetAge;

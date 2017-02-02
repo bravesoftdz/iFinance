@@ -168,7 +168,6 @@ type
   private
     { Private declarations }
     procedure ChangeControlState;
-    procedure CallErrorBox(const error: string);
     procedure ShowAlerts;
     procedure PopulateComakers;
     procedure RetrieveLoan;
@@ -216,7 +215,8 @@ uses
   LoanData, FormsUtil, LoanClient, ClientSearch, StatusIntf, DockIntf, IFinanceGlobal,
   Comaker, ComakerSearch, DecisionBox, ComakerDetail, FinInfoDetail, MonthlyExpenseDetail,
   LoansAuxData, LoanApprovalDetail, LoanAssessmentDetail, LoanCancellationDetail,
-  LoanRejectionDetail, Alert, Alerts, LoanReleaseDetail, Client, AppConstants;
+  LoanRejectionDetail, Alert, Alerts, LoanReleaseDetail, Client, AppConstants,
+  IFinanceDialogs;
 
 procedure TfrmLoanMain.SetActiveTab;
 var
@@ -249,9 +249,14 @@ end;
 procedure TfrmLoanMain.ApproveLoan;
 begin
   if not LoanApplicationIsValid then Exit
+  else if ln.IsPending then
+  begin
+    ShowErrorBox('Approval restricted. Assessment details not found.');
+    Exit;
+  end
   else if ln.IsFinalised then
   begin
-    CallErrorBox(FINALISED_MSG);
+    ShowErrorBox(FINALISED_MSG);
     Exit;
   end;
 
@@ -274,7 +279,7 @@ begin
       Free;
     except
       on e: Exception do
-        CallErrorBox(e.Message);
+        ShowErrorBox(e.Message);
     end;
   end;
 end;
@@ -284,7 +289,7 @@ begin
   if not LoanApplicationIsValid then Exit
   else if ln.IsFinalised then
   begin
-    CallErrorBox(FINALISED_MSG);
+    ShowErrorBox(FINALISED_MSG);
     Exit;
   end;
 
@@ -307,7 +312,7 @@ begin
       Free;
     except
       on e: Exception do
-        CallErrorBox(e.Message);
+        ShowErrorBox(e.Message);
     end;
   end;
 end;
@@ -317,7 +322,7 @@ begin
   if not LoanApplicationIsValid then Exit
   else if ln.IsFinalised then
   begin
-    CallErrorBox(FINALISED_MSG);
+    ShowErrorBox(FINALISED_MSG);
     Exit;
   end;
 
@@ -340,7 +345,7 @@ begin
       Free;
     except
       on e: Exception do
-        CallErrorBox(e.Message);
+        ShowErrorBox(e.Message);
     end;
   end;
 end;
@@ -350,7 +355,7 @@ begin
   if not LoanApplicationIsValid then Exit
   else if ln.IsFinalised then
   begin
-    CallErrorBox(FINALISED_MSG);
+    ShowErrorBox(FINALISED_MSG);
     Exit;
   end;
 
@@ -373,7 +378,7 @@ begin
       Free;
     except
       on e: Exception do
-        CallErrorBox(e.Message);
+        ShowErrorBox(e.Message);
     end;
   end;
 end;
@@ -381,9 +386,14 @@ end;
 procedure TfrmLoanMain.ReleaseLoan;
 begin
   if not LoanApplicationIsValid then Exit
+  else if not ln.HasLoanState(lsApproved) then
+  begin
+    ShowErrorBox('Releasing restricted. Approval details not found.');
+    Exit;
+  end
   else if ln.IsFinalised then
   begin
-    CallErrorBox(FINALISED_MSG);
+    ShowErrorBox(FINALISED_MSG);
     Exit;
   end;
 
@@ -405,17 +415,9 @@ begin
       Free;
     except
       on e: Exception do
-        CallErrorBox(e.Message);
+        ShowErrorBox(e.Message);
     end;
   end;
-end;
-
-procedure TfrmLoanMain.CallErrorBox(const error: string);
-var
-  intf: IStatus;
-begin
-  if Supports(Application.MainForm,IStatus,intf) then
-    intf.ShowError(error);
 end;
 
 procedure TfrmLoanMain.ChangeControlState;
@@ -469,7 +471,7 @@ begin
         end;
       except
         on e: Exception do
-          CallErrorBox(e.Message);
+          ShowErrorBox(e.Message);
       end;
     finally
       Free;
@@ -480,11 +482,11 @@ end;
 procedure TfrmLoanMain.btnAddComakerClick(Sender: TObject);
 begin
   if dbluLoanClass.Text = '' then
-    CallErrorBox('Please select a loan class.')
+    ShowErrorBox('Please select a loan class.')
   else if ln.LoanClass.ComakersNotRequired then
-    CallErrorBox('No comakers required.')
+    ShowErrorBox('No comakers required.')
   else if ln.ComakerCount >= ln.LoanClass.Comakers then
-    CallErrorBox('Number of comakers has already been met. ' +
+    ShowErrorBox('Number of comakers has already been met. ' +
         'If a comaker has been mistakenly declared, remove the comaker and add again.')
   else
   with TfrmComakerSearch.Create(self) do
@@ -497,11 +499,11 @@ begin
       if ModalResult = mrOK then
       begin
         if Trim(ln.Client.Id) = Trim(cm.Id) then
-          CallErrorBox('Client cannot be declared as a comaker.')
+          ShowErrorBox('Client cannot be declared as a comaker.')
         else if ln.ComakerExists(cm) then
-          CallErrorBox('Comaker already exists.')
+          ShowErrorBox('Comaker already exists.')
         else if cm.ComakeredLoans >= ifn.MaxComakeredLoans then
-          CallErrorBox('Comaker has reached the maximum allowable comakered loans.')
+          ShowErrorBox('Comaker has reached the maximum allowable comakered loans.')
         else
         begin
           lbxComakers.Items.AddObject(cm.Name,cm);
@@ -514,7 +516,7 @@ begin
       // cm.Free;
     except
       on e: Exception do
-        CallErrorBox(e.Message);
+        ShowErrorBox(e.Message);
     end;
   end;
 end;
@@ -577,19 +579,27 @@ end;
 
 procedure TfrmLoanMain.Cancel;
 begin
-  ln.Cancel;
-
-  // clear the client box
   if ln.Action = laCreating then
   begin
     bteClient.Clear;
     mmAddress.Clear;
     mmEmployer.Clear;
 
+    lbxComakers.Clear;
+
     ln.Client := nil;
+    ln.ClearComakers;
+    ln.LoanClass := nil;
+
+    ln.Cancel;
+
+    ln.Action := laCreating;
   end
   else
+  begin
+    ln.Cancel;
     RetrieveLoan;
+  end;
 
   ChangeControlState;
 
@@ -728,17 +738,22 @@ end;
 procedure TfrmLoanMain.lbxComakersDblClick(Sender: TObject);
 var
   obj: TObject;
+  index: integer;
 begin
-  obj := lbxComakers.Items.Objects[lbxComakers.IndexOf(lbxComakers.SelectedItem)];
+  index := lbxComakers.IndexOf(lbxComakers.SelectedItem);
 
-  if Assigned(obj) then
-    if obj is TComaker then
-    with TfrmComakerDetail.Create(self) do
-    begin
-      cm := obj as TComaker;
-      cm.Retrieve;
-      ShowModal;
-      Free;
+  if index > -1 then
+  begin
+    obj := lbxComakers.Items.Objects[index];
+    if Assigned(obj) then
+      if obj is TComaker then
+      with TfrmComakerDetail.Create(self) do
+      begin
+        cm := obj as TComaker;
+        cm.Retrieve;
+        ShowModal;
+        Free;
+      end;
     end;
 end;
 
@@ -793,6 +808,8 @@ begin
         error := 'Amount applied exceeds the maximum loanable amount for the selected loan class.'
       else if edDesiredTerm.Value > ln.LoanClass.Term then
         error := 'Term applied exceeds the maximum allowed term for the selected loan class.'
+      else if (ln.LoanClass.MaxAge > 0) and ((edDesiredTerm.Value / 12) + ln.Client.Age > ln.LoanClass.MaxAge) then
+        error := 'Term exceeds the maximum age limit for the selected loan class.'
       else if ln.ComakerCount < ln.LoanClass.Comakers then
         error := 'Number of required comakers has not been entered.'
       else if ln.ComakerCount > ln.LoanClass.Comakers then
@@ -801,7 +818,7 @@ begin
 
     Result := error = '';
 
-    if not Result then CallErrorBox(error);
+    if not Result then ShowErrorBox(error);
 
   finally
 
@@ -837,7 +854,9 @@ begin
       begin
         ShowModal;
         Free;
-      end;
+      end
+    else
+      ShowInfoBox('No alerts found.');
   end;
 end;
 

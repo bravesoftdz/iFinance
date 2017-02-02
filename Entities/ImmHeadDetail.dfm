@@ -1,9 +1,9 @@
 inherited frmImmHeadDetail: TfrmImmHeadDetail
   Caption = 'frmImmHeadDetail'
-  ClientHeight = 208
+  ClientHeight = 176
   ClientWidth = 370
   ExplicitWidth = 370
-  ExplicitHeight = 208
+  ExplicitHeight = 176
   PixelsPerInch = 96
   TextHeight = 14
   inherited pnlTitle: TRzPanel
@@ -21,18 +21,17 @@ inherited frmImmHeadDetail: TfrmImmHeadDetail
   end
   inherited pnlMain: TRzPanel
     Width = 370
-    Height = 187
+    Height = 155
     ExplicitWidth = 370
     ExplicitHeight = 187
     inherited pnlDetail: TRzPanel
       Width = 353
-      Height = 141
+      Height = 109
       ExplicitWidth = 353
       ExplicitHeight = 141
       inherited pcDetail: TRzPageControl
         Width = 351
-        Height = 139
-        TabStop = False
+        Height = 107
         ExplicitWidth = 351
         ExplicitHeight = 139
         FixedDimension = 20
@@ -63,44 +62,6 @@ inherited frmImmHeadDetail: TfrmImmHeadDetail
             Height = 14
             Caption = 'Middle'
             Transparent = True
-          end
-          object JvLabel22: TJvLabel
-            Left = 19
-            Top = 95
-            Width = 65
-            Height = 14
-            Caption = 'Cell/tel. no.'
-            Transparent = True
-          end
-          object RzDBEdit11: TRzDBEdit
-            Left = 114
-            Top = 89
-            Width = 102
-            Height = 22
-            DataSource = dmEntities.dscIHContact
-            DataField = 'mobile_no'
-            Ctl3D = True
-            FrameColor = 8675134
-            FrameVisible = True
-            FramingPreference = fpCustomFraming
-            ParentCtl3D = False
-            TabOnEnter = True
-            TabOrder = 3
-          end
-          object RzDBEdit10: TRzDBEdit
-            Left = 219
-            Top = 89
-            Width = 102
-            Height = 22
-            DataSource = dmEntities.dscIHContact
-            DataField = 'home_phone'
-            Ctl3D = True
-            FrameColor = 8675134
-            FrameVisible = True
-            FramingPreference = fpCustomFraming
-            ParentCtl3D = False
-            TabOnEnter = True
-            TabOrder = 4
           end
           object edMiddle: TRzDBEdit
             Left = 114
@@ -149,13 +110,13 @@ inherited frmImmHeadDetail: TfrmImmHeadDetail
     end
     inherited pnlCancel: TRzPanel
       Left = 311
-      Top = 157
+      Top = 125
       ExplicitLeft = 311
       ExplicitTop = 157
     end
     inherited pnlSave: TRzPanel
       Left = 255
-      Top = 157
+      Top = 125
       ExplicitLeft = 255
       ExplicitTop = 157
     end

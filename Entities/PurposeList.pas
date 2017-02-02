@@ -31,22 +31,16 @@ implementation
 {$R *.dfm}
 
 uses
-  AuxData, StatusIntf;
+  AuxData, IFinanceDialogs;
 
 function TfrmPurposeList.EntryIsValid: boolean;
 var
-  st: IStatus;
   error: string;
 begin
-  if Supports(Application.MainForm,IStatus,st) then
-  begin
-    if Trim(edPurpose.Text) = '' then
-    begin
-      error := 'Please enter purpose.';
-      st.ShowError(error);
-    end;
-  end;
+  if Trim(edPurpose.Text) = '' then error := 'Please enter purpose.';
 
+  if error <> '' then ShowErrorBox(error);
+  
   Result := error = '';
 end;
 

@@ -55,16 +55,17 @@ contains
   IFinanceGlobal in 'IFinanceGlobal.pas',
   User in 'User.pas',
   ConnUtil in 'ConnUtil.pas',
-  StatusIntf in 'StatusIntf.pas',
   DockIntf in 'DockIntf.pas',
   ConfBox in 'ConfBox.pas' {frmConfBox},
   ErrorBox in 'ErrorBox.pas' {frmErrorBox},
   DecisionBox in 'DecisionBox.pas' {frmDecisionBox},
-  BasePopup in '..\Base\BasePopup.pas' {frmBasePopup1},
   Branch in 'Branch.pas',
   Alerts in 'Alerts.pas' {frmAlerts},
   Alert in 'Alert.pas',
-  AlertIntf in 'AlertIntf.pas';
+  AlertIntf in 'AlertIntf.pas',
+  BasePopup in '..\Base\BasePopup.pas' {frmBasePopup},
+  InfoBox in 'InfoBox.pas' {frmInfoBox},
+  IFinanceDialogs in 'IFinanceDialogs.pas';
 
 end.
 

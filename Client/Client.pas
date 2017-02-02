@@ -149,7 +149,11 @@ begin
     for i:=0 to ComponentCount - 1 do
       if Components[i] is TADODataSet then
         if (Components[i] as TADODataSet).State in [dsInsert,dsEdit] then
+        begin
           (Components[i] as TADODataSet).Post;
+          (Components[i] as TADODataSet).Edit; // set to edit mode to trigger before post during save routine
+        end;
+
   end;
 
   with dmRef do

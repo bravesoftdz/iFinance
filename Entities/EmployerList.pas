@@ -37,7 +37,7 @@ implementation
 {$R *.dfm}
 
 uses
-  EntitiesData, StatusIntf;
+  EntitiesData, IFinanceDialogs;
 
 procedure TfrmEmployerList.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
@@ -53,16 +53,12 @@ end;
 
 function TfrmEmployerList.EntryIsValid: boolean;
 var
-  st: IStatus;
   error: string;
 begin
-  if Supports(Application.MainForm,IStatus,st) then
-  begin
-    if Trim(edEmployerName.Text) = '' then error := 'Please enter an employer name.'
-    else if Trim(dbluGroup.Text) = '' then error := 'Please select a group.';
-  end;
+  if Trim(edEmployerName.Text) = '' then error := 'Please enter an employer name.'
+  else if Trim(dbluGroup.Text) = '' then error := 'Please select a group.';
 
-  if error <> '' then st.ShowError(error);
+  if error <> '' then ShowErrorBox(error);
 
   Result := error = '';
 end;

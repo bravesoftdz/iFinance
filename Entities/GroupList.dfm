@@ -56,6 +56,7 @@ inherited frmGroupList: TfrmGroupList
       FrameColor = 8675134
       FrameVisible = True
       FramingPreference = fpCustomFraming
+      TabOnEnter = True
       TabOrder = 0
     end
     object cbxPrivate: TRzDBCheckBox
@@ -69,6 +70,7 @@ inherited frmGroupList: TfrmGroupList
       ValueUnchecked = '0'
       Caption = 'Private'
       FrameColor = 8675134
+      TabOnEnter = True
       TabOrder = 2
     end
     object cbxActive: TRzDBCheckBox
@@ -82,6 +84,7 @@ inherited frmGroupList: TfrmGroupList
       ValueUnchecked = '0'
       Caption = 'Active'
       FrameColor = 8675134
+      TabOnEnter = True
       TabOrder = 3
     end
     object dbluParentGroup: TRzDBLookupComboBox

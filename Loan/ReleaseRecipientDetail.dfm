@@ -28,9 +28,13 @@ inherited frmReleaseRecipientDetail: TfrmReleaseRecipientDetail
     inherited pnlDetail: TRzPanel
       Width = 314
       Height = 135
+      ExplicitWidth = 314
+      ExplicitHeight = 135
       inherited pcDetail: TRzPageControl
         Width = 312
         Height = 133
+        ExplicitWidth = 312
+        ExplicitHeight = 133
         FixedDimension = 20
         inherited tsDetail: TRzTabSheet
           ExplicitWidth = 514
@@ -91,7 +95,7 @@ inherited frmReleaseRecipientDetail: TfrmReleaseRecipientDetail
             Top = 65
             Width = 175
             Height = 22
-            Ctl3D = False
+            Ctl3D = True
             DataField = 'rel_method'
             DataSource = dmLoan.dscLoanRelease
             KeyField = 'value'
@@ -157,10 +161,14 @@ inherited frmReleaseRecipientDetail: TfrmReleaseRecipientDetail
     inherited pnlCancel: TRzPanel
       Left = 272
       Top = 152
+      ExplicitLeft = 272
+      ExplicitTop = 152
     end
     inherited pnlSave: TRzPanel
       Left = 216
       Top = 152
+      ExplicitLeft = 216
+      ExplicitTop = 152
     end
   end
 end

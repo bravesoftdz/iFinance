@@ -65,7 +65,7 @@ inherited frmBaseSearch: TfrmBaseSearch
         Height = 243
         Align = alClient
         BorderStyle = bsNone
-        Ctl3D = False
+        Ctl3D = True
         DrawingStyle = gdsGradient
         FixedColor = 12955288
         GradientEndColor = 12955288

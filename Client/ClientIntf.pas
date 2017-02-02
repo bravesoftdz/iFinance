@@ -8,6 +8,8 @@ type
   procedure SetClientName;
   procedure SetUnboundControls(const changeTab: boolean = true);
   procedure LoadPhoto;
+  procedure SetLandLordControlsPres;
+  procedure SetLandLordControlsProv;
   end;
 
 implementation

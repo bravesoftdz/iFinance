@@ -54,7 +54,7 @@ implementation
 
 uses
   Loan, ReleaseRecipientDetail, LoanData, DecisionBox, FormsUtil, IFinanceGlobal,
-  Recipient;
+  Recipient, IFinanceDialogs;
 
 procedure TfrmLoanReleaseDetail.ClearRow(grid: TRzStringGrid; const row: Integer);
 var
@@ -136,7 +136,7 @@ begin
         Free;
       except
         on e: Exception do
-          CallErrorBox(e.Message);
+          ShowErrorBox(e.Message);
       end;
     end;
   end;
@@ -258,7 +258,7 @@ begin
     if ln.ReleaseRecipientExists(rrp.Recipient.Id,rrp.ReleaseMethod.Id) then
     begin
       error := 'Recipient and release method already exists.';
-      CallErrorBox(error);
+      ShowErrorBox(error);
     end
     else
     begin
@@ -334,7 +334,7 @@ begin
 
   Result := error = '';
 
-  if not Result then CallErrorBox(error);
+  if not Result then ShowErrorBox(error);
 end;
 
 function TfrmLoanReleaseDetail.GetTotalReleased: real;

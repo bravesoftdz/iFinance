@@ -188,7 +188,7 @@ end;
 
 procedure TdmClient.dstClientLoanClassAfterScroll(DataSet: TDataSet);
 var
-  clId, term, comakers, groupId, concurrent: integer;
+  clId, term, comakers, groupId, concurrent, age: integer;
   clName, loanType: string;
   interest, maxLoan: real;
   validFrom, validUntil: TDate;
@@ -206,11 +206,12 @@ begin
     validFrom := FieldByName('valid_from').AsDateTime;
     validUntil := FieldByName('valid_until').AsDateTime;
     concurrent := FieldByName('max_concurrent').AsInteger;
+    age := FieldByName('max_age').AsInteger;
   end;
 
   if not Assigned(lnc) then
     lnc := TLoanClassification.Create(clId, groupId, clName, interest,
-        term, loanType, maxLoan, comakers, validFrom, validUntil, concurrent)
+        term, loanType, maxLoan, comakers, validFrom, validUntil, concurrent, age)
   else
   begin
     lnc.ClassificationId := clId;
@@ -224,6 +225,7 @@ begin
     lnc.ValidFrom := validFrom;
     lnc.ValidUntil := validUntil;
     lnc.MaxConcurrent := concurrent;
+    lnc.MaxAge := age;
   end;
 end;
 
@@ -320,6 +322,7 @@ begin
   begin
     id := GetEntityId;
     DataSet.FieldByName('entity_id').AsString := id;
+    DataSet.FieldByName('loc_code').AsString := ifn.LocationCode;
 
     SetCreatedFields(DataSet);
 

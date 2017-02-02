@@ -37,7 +37,7 @@ implementation
 {$R *.dfm}
 
 uses
-  EntitiesData, Referee;
+  EntitiesData, Referee, IFinanceDialogs;
 
 procedure TfrmRefereeDetail.Cancel;
 begin
@@ -59,7 +59,7 @@ begin
 
   Result := error = '';
 
-  if not Result then CallErrorBox(error);
+  if not Result then ShowErrorBox(error);
 end;
 
 end.

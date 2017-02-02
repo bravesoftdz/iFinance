@@ -41,7 +41,7 @@ implementation
 
 uses
   LoanData, LoansAuxData, FormsUtil, RecipientSearch, Recipient, ReleaseRecipient,
-  Loan;
+  Loan, IFinanceDialogs;
 
 procedure TfrmReleaseRecipientDetail.PopulateUnboundFields;
 begin
@@ -96,7 +96,7 @@ begin
 
       except
         on e: Exception do
-          CallErrorBox(e.Message);
+          ShowErrorBox(e.Message);
       end;
     finally
       Free;
@@ -131,7 +131,7 @@ begin
 
   Result := error = '';
 
-  if not Result then CallErrorBox(error);
+  if not Result then ShowErrorBox(error);
 end;
 
 end.

@@ -114,7 +114,6 @@
         <DCCReference Include="IFinanceGlobal.pas"/>
         <DCCReference Include="User.pas"/>
         <DCCReference Include="ConnUtil.pas"/>
-        <DCCReference Include="StatusIntf.pas"/>
         <DCCReference Include="DockIntf.pas"/>
         <DCCReference Include="ConfBox.pas">
             <Form>frmConfBox</Form>
@@ -128,10 +127,6 @@
             <Form>frmDecisionBox</Form>
             <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="..\Base\BasePopup.pas">
-            <Form>frmBasePopup1</Form>
-            <FormType>dfm</FormType>
-        </DCCReference>
         <DCCReference Include="Branch.pas"/>
         <DCCReference Include="Alerts.pas">
             <Form>frmAlerts</Form>
@@ -139,6 +134,15 @@
         </DCCReference>
         <DCCReference Include="Alert.pas"/>
         <DCCReference Include="AlertIntf.pas"/>
+        <DCCReference Include="..\Base\BasePopup.pas">
+            <Form>frmBasePopup</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="InfoBox.pas">
+            <Form>frmInfoBox</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="IFinanceDialogs.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

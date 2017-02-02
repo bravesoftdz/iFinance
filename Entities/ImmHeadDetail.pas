@@ -13,9 +13,6 @@ type
     JvLabel1: TJvLabel;
     JvLabel2: TJvLabel;
     JvLabel3: TJvLabel;
-    JvLabel22: TJvLabel;
-    RzDBEdit11: TRzDBEdit;
-    RzDBEdit10: TRzDBEdit;
     edMiddle: TRzDBEdit;
     edFirstname: TRzDBEdit;
     edLastname: TRzDBEdit;
@@ -33,7 +30,7 @@ var
 implementation
 
 uses
-  EntitiesData, ImmediateHead;
+  EntitiesData, ImmediateHead, IFinanceDialogs;
 
 {$R *.dfm}
 
@@ -59,7 +56,7 @@ begin
 
   Result := error = '';
 
-  if not Result then CallErrorBox(error);
+  if not Result then ShowErrorBox(error);
 end;
 
 end.

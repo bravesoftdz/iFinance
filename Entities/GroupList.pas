@@ -37,7 +37,7 @@ implementation
 {$R *.dfm}
 
 uses
-  EntitiesData, StatusIntf;
+  EntitiesData, IFinanceDialogs;
 
 procedure TfrmGroupList.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
@@ -59,16 +59,13 @@ end;
 
 function TfrmGroupList.EntryIsValid: boolean;
 var
-  st: IStatus;
   error: string;
 begin
-  if Supports(Application.MainForm,IStatus,st) then
-  begin
-    if Trim(edGroupName.Text) = '' then  error := 'Please enter a group name.'
-    else if Trim(edGroupName.Text) = (dbluParentGroup.Text) then error := 'Parent group cannot be the same as group.';
+  if Trim(edGroupName.Text) = '' then  error := 'Please enter a group name.'
+  else if Trim(edGroupName.Text) = (dbluParentGroup.Text) then
+    error := 'Parent group cannot be the same as group.';
 
-    if error <> '' then st.ShowError(error);
-  end;
+  if error <> '' then ShowErrorBox(error);
 
   Result := error = '';
 end;

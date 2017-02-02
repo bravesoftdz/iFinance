@@ -52,6 +52,8 @@ type
     grCharges: TRzDBGrid;
     JvLabel11: TJvLabel;
     RzDBEdit1: TRzDBEdit;
+    JvLabel14: TJvLabel;
+    RzDBEdit2: TRzDBEdit;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure urlRefreshListClick(Sender: TObject);
@@ -78,7 +80,7 @@ implementation
 {$R *.dfm}
 
 uses
-  LoansAuxData, FormsUtil, StatusIntf, AuxData, LoanClassChargeDetail, DecisionBox,
+  LoansAuxData, FormsUtil, IFinanceDialogs, AuxData, LoanClassChargeDetail, DecisionBox,
   LoanClassification;
 
 function TfrmLoanClassificationList.Save: boolean;
@@ -137,58 +139,20 @@ end;
 
 function TfrmLoanClassificationList.EntryIsValid: boolean;
 var
-  st: IStatus;
   error: string;
 begin
-  if Supports(Application.MainForm,IStatus,st) then
-  begin
-    if Trim(dbluGroup.Text) = '' then
-    begin
-      error := 'Please select a group.';
-      st.ShowError(error);
-    end
-    else if Trim(edClassName.Text) = '' then
-    begin
-      error := 'Please enter a class name.';
-      st.ShowError(error);
-    end
-    else if dbluLoanType.Text = '' then
-    begin
-      error := 'Please select a loan type.';
-      st.ShowError(error);
-    end
-    else if dbluAcctType.Text = '' then
-    begin
-      error := 'Please select an account type.';
-      st.ShowError(error);
-    end
-    else if edInterest.Text = '' then
-    begin
-      error := 'Please enter an interest rate.';
-      st.ShowError(error);
-    end
-    else if edTerm.Text = '' then
-    begin
-      error := 'Please enter a term.';
-      st.ShowError(error);
-    end
-    else if dbluCompMethod.Text = '' then
-    begin
-      error := 'Please select a computation method.';
-      st.ShowError(error);
-    end
-    else if dbluPayFreq.Text = '' then
-    begin
-      error := 'Please select a payment frequency.';
-      st.ShowError(error);
-    end
-    else if dbluBranch.Text = '' then
-    begin
-      error := 'Please select a branch.';
-      st.ShowError(error);
-    end;
+  if Trim(dbluGroup.Text) = '' then error := 'Please select a group.'
+  else if Trim(edClassName.Text) = '' then error := 'Please enter a class name.'
+  else if dbluLoanType.Text = '' then error := 'Please select a loan type.'
+  else if dbluAcctType.Text = '' then error := 'Please select an account type.'
+  else if edInterest.Text = '' then error := 'Please enter an interest rate.'
+  else if edTerm.Text = '' then error := 'Please enter a term.'
+  else if dbluCompMethod.Text = '' then error := 'Please select a computation method.'
+  else if dbluPayFreq.Text = '' then error := 'Please select a payment frequency.'
+  else if dbluBranch.Text = '' then error := 'Please select a branch.'
+  else if dteFrom.Text = '' then error := 'Please specify a start date.';
 
-  end;
+  if error <> '' then ShowErrorBox(error);
 
   Result := error = '';
 end;

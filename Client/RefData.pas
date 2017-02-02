@@ -145,6 +145,7 @@ begin
     DataSet.FieldByName('entity_id').AsString := id;
     DataSet.FieldByName('entity_type').AsString :=
       TRttiEnumerationType.GetName<TEntityTypes>(TEntityTypes.RF);
+    DataSet.FieldByName('loc_code').AsString := ifn.LocationCode;
 
     SetCreatedFields(DataSet);
 

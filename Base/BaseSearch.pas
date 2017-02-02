@@ -27,6 +27,7 @@ type
     procedure FormCreate(Sender: TObject);
     procedure btnSelectClick(Sender: TObject);
     procedure btnCancelClick(Sender: TObject);
+    procedure FormKeyPress(Sender: TObject; var Key: Char);
   private
     { Private declarations }
     procedure EnableControls;
@@ -87,6 +88,14 @@ begin
       grSearch.DataSource.DataSet.Open;
       EnableControls;
     end;
+end;
+
+procedure TfrmBaseSearch.FormKeyPress(Sender: TObject; var Key: Char);
+begin
+  inherited;
+
+  if Key = #13 then ModalResult := mrOK;
+  
 end;
 
 procedure TfrmBaseSearch.grSearchDblClick(Sender: TObject);

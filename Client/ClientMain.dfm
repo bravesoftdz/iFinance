@@ -40,13 +40,13 @@ inherited frmClientMain: TfrmClientMain
     Width = 860
     Height = 552
     Hint = ''
-    ActivePage = tsReferences
+    ActivePage = tsClientInfo
     Anchors = [akLeft, akTop, akRight, akBottom]
     BoldCurrentTab = True
     FlatColor = 6572079
     ShowFullFrame = False
     ShowShadow = False
-    TabIndex = 1
+    TabIndex = 0
     TabOrder = 1
     TabOrientation = toBottom
     TabStyle = tsRoundCorners
@@ -537,7 +537,7 @@ inherited frmClientMain: TfrmClientMain
         FramingPreference = fpCustomFraming
         TabOnEnter = True
       end
-      object RzDBLookupComboBox5: TRzDBLookupComboBox
+      object dbluResStatusPres: TRzDBLookupComboBox
         Left = 114
         Top = 412
         Width = 207
@@ -548,6 +548,7 @@ inherited frmClientMain: TfrmClientMain
         ListField = 'display'
         ListSource = dmClient.dscResStatus
         TabOrder = 15
+        OnClick = dbluResStatusPresClick
         AllowNull = True
         FlatButtonColor = 8675134
         FlatButtons = True
@@ -564,7 +565,9 @@ inherited frmClientMain: TfrmClientMain
         Width = 207
         Height = 22
         Text = ''
-        Color = clWhite
+        DisabledColor = 14273211
+        Enabled = False
+        FocusColor = clWhite
         FrameColor = 8675134
         FrameVisible = True
         FramingPreference = fpCustomFraming
@@ -594,12 +597,13 @@ inherited frmClientMain: TfrmClientMain
         Width = 207
         Height = 22
         Text = ''
-        Color = clWhite
+        DisabledColor = 14273211
+        Enabled = False
         FrameColor = 8675134
         FrameVisible = True
         FramingPreference = fpCustomFraming
         ReadOnly = True
-        ReadOnlyColor = clWhite
+        ReadOnlyColor = 14273211
         TabOnEnter = True
         TabOrder = 17
       end
@@ -652,7 +656,7 @@ inherited frmClientMain: TfrmClientMain
         FramingPreference = fpCustomFraming
         TabOnEnter = True
       end
-      object RzDBLookupComboBox6: TRzDBLookupComboBox
+      object dbluResStatusProv: TRzDBLookupComboBox
         Left = 427
         Top = 106
         Width = 187
@@ -663,6 +667,7 @@ inherited frmClientMain: TfrmClientMain
         ListField = 'display'
         ListSource = dmClient.dscResStatus
         TabOrder = 21
+        OnClick = dbluResStatusProvClick
         AllowNull = True
         FlatButtons = True
         FrameColor = 8675134
@@ -678,6 +683,8 @@ inherited frmClientMain: TfrmClientMain
         Width = 187
         Height = 22
         Text = ''
+        DisabledColor = 14273211
+        Enabled = False
         FrameColor = 8675134
         FrameVisible = True
         FramingPreference = fpCustomFraming
@@ -707,12 +714,13 @@ inherited frmClientMain: TfrmClientMain
         Width = 187
         Height = 22
         Text = ''
-        Color = clWhite
+        DisabledColor = 14273211
+        Enabled = False
         FrameColor = 8675134
         FrameVisible = True
         FramingPreference = fpCustomFraming
         ReadOnly = True
-        ReadOnlyColor = clWhite
+        ReadOnlyColor = 14273211
         TabOnEnter = True
         TabOrder = 23
       end
@@ -784,7 +792,7 @@ inherited frmClientMain: TfrmClientMain
         Height = 22
         Text = ''
         Color = clWhite
-        FrameColor = 6572079
+        FrameColor = 8675134
         FrameVisible = True
         FramingPreference = fpCustomFraming
         ParentShowHint = False
@@ -820,7 +828,7 @@ inherited frmClientMain: TfrmClientMain
         AllowNull = True
         FlatButtonColor = 6572079
         FlatButtons = True
-        FrameColor = 6572079
+        FrameColor = 8675134
         FrameHotColor = clBlack
         FrameVisible = True
         FramingPreference = fpCustomFraming
@@ -832,13 +840,14 @@ inherited frmClientMain: TfrmClientMain
         Top = 262
         Width = 187
         Height = 52
-        Color = clWhite
+        Color = 14273211
         ReadOnly = True
         TabOrder = 25
-        FrameColor = 6572079
+        DisabledColor = 14273211
+        FrameColor = 8675134
         FrameVisible = True
         FramingPreference = fpCustomFraming
-        ReadOnlyColor = clWhite
+        ReadOnlyColor = 14273211
         TabOnEnter = True
       end
       object bteImmHead: TRzButtonEdit
@@ -849,7 +858,7 @@ inherited frmClientMain: TfrmClientMain
         Height = 22
         Text = ''
         Color = clWhite
-        FrameColor = 6572079
+        FrameColor = 8675134
         FrameVisible = True
         FramingPreference = fpCustomFraming
         ParentShowHint = False
@@ -878,7 +887,7 @@ inherited frmClientMain: TfrmClientMain
         DataSource = dmClient.dscEmplInfo
         DataField = 'serv_len'
         Ctl3D = True
-        FrameColor = 6572079
+        FrameColor = 8675134
         FrameVisible = True
         FramingPreference = fpCustomFraming
         ParentCtl3D = False
@@ -893,7 +902,7 @@ inherited frmClientMain: TfrmClientMain
         DataSource = dmClient.dscAcctInfo
         DataField = 'acct_no'
         Ctl3D = True
-        FrameColor = 6572079
+        FrameColor = 8675134
         FrameVisible = True
         FramingPreference = fpCustomFraming
         ParentCtl3D = False
@@ -908,7 +917,7 @@ inherited frmClientMain: TfrmClientMain
         DataSource = dmClient.dscAcctInfo
         DataField = 'card_no'
         Ctl3D = True
-        FrameColor = 6572079
+        FrameColor = 8675134
         FrameVisible = True
         FramingPreference = fpCustomFraming
         ParentCtl3D = False
@@ -929,7 +938,7 @@ inherited frmClientMain: TfrmClientMain
         AllowNull = True
         FlatButtonColor = 6572079
         FlatButtons = True
-        FrameColor = 6572079
+        FrameColor = 8675134
         FrameHotColor = clBlack
         FrameVisible = True
         FramingPreference = fpCustomFraming
@@ -943,7 +952,7 @@ inherited frmClientMain: TfrmClientMain
         Height = 22
         Text = ''
         Color = clWhite
-        FrameColor = 6572079
+        FrameColor = 8675134
         FrameVisible = True
         FramingPreference = fpCustomFraming
         ParentShowHint = False
@@ -971,13 +980,14 @@ inherited frmClientMain: TfrmClientMain
         Top = 262
         Width = 160
         Height = 52
-        Color = clWhite
+        Color = 14273211
         ReadOnly = True
         TabOrder = 33
-        FrameColor = 6572079
+        DisabledColor = 14273211
+        FrameColor = 8675134
         FrameVisible = True
         FramingPreference = fpCustomFraming
-        ReadOnlyColor = clWhite
+        ReadOnlyColor = 14273211
         TabOnEnter = True
       end
       object RzDBNumericEdit1: TRzDBNumericEdit
@@ -988,7 +998,7 @@ inherited frmClientMain: TfrmClientMain
         DataSource = dmClient.dscEmplInfo
         DataField = 'gross_pay'
         Alignment = taLeftJustify
-        FrameColor = 6572079
+        FrameColor = 8675134
         FrameVisible = True
         FramingPreference = fpCustomFraming
         TabOnEnter = True
@@ -1004,7 +1014,7 @@ inherited frmClientMain: TfrmClientMain
         DataSource = dmClient.dscEmplInfo
         DataField = 'net_pay'
         Alignment = taLeftJustify
-        FrameColor = 6572079
+        FrameColor = 8675134
         FrameVisible = True
         FramingPreference = fpCustomFraming
         TabOnEnter = True
@@ -1037,7 +1047,7 @@ inherited frmClientMain: TfrmClientMain
         DataField = 'oth_income'
         DataSource = dmClient.dscPersonalInfo
         TabOrder = 36
-        FrameColor = 6572079
+        FrameColor = 8675134
         FrameVisible = True
         FramingPreference = fpCustomFraming
         TabOnEnter = True
@@ -1251,6 +1261,8 @@ inherited frmClientMain: TfrmClientMain
     object tsReferences: TRzTabSheet
       Color = 14273211
       Caption = 'Family and references'
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       DesignSize = (
         860
         529)
@@ -1390,18 +1402,10 @@ inherited frmClientMain: TfrmClientMain
           Caption = 'Relation'
           Transparent = True
         end
-        object JvLabel48: TJvLabel
-          Left = 13
-          Top = 182
-          Width = 56
-          Height = 14
-          Caption = 'Education'
-          Transparent = True
-        end
         object urlCopyClientAddress: TRzURLLabel
           Tag = 1
           Left = 95
-          Top = 276
+          Top = 252
           Width = 105
           Height = 14
           Caption = 'Copy client address'
@@ -1416,7 +1420,7 @@ inherited frmClientMain: TfrmClientMain
         end
         object JvLabel45: TJvLabel
           Left = 13
-          Top = 206
+          Top = 182
           Width = 70
           Height = 14
           Caption = 'City or town'
@@ -1424,7 +1428,7 @@ inherited frmClientMain: TfrmClientMain
         end
         object JvLabel44: TJvLabel
           Left = 13
-          Top = 230
+          Top = 206
           Width = 51
           Height = 14
           Caption = 'Barangay'
@@ -1432,7 +1436,7 @@ inherited frmClientMain: TfrmClientMain
         end
         object JvLabel43: TJvLabel
           Left = 13
-          Top = 254
+          Top = 230
           Width = 37
           Height = 14
           Caption = 'Street'
@@ -1440,7 +1444,7 @@ inherited frmClientMain: TfrmClientMain
         end
         object JvLabel47: TJvLabel
           Left = 13
-          Top = 332
+          Top = 308
           Width = 36
           Height = 14
           Caption = 'Mobile'
@@ -1448,7 +1452,7 @@ inherited frmClientMain: TfrmClientMain
         end
         object JvLabel46: TJvLabel
           Left = 13
-          Top = 308
+          Top = 284
           Width = 61
           Height = 14
           Caption = 'Telephone'
@@ -1464,7 +1468,7 @@ inherited frmClientMain: TfrmClientMain
           BorderColor = 6572079
           BorderWidth = 1
           Color = 12955288
-          TabOrder = 14
+          TabOrder = 13
           object sbtnNewFamRef: TRzShapeButton
             Left = 0
             Top = 0
@@ -1614,31 +1618,10 @@ inherited frmClientMain: TfrmClientMain
           TabOnEnter = True
           TabOrder = 6
         end
-        object RzDBLookupComboBox11: TRzDBLookupComboBox
-          Tag = 1
-          Left = 95
-          Top = 176
-          Width = 168
-          Height = 22
-          DataField = 'educ_code'
-          DataSource = dmRef.dscRefInfo
-          KeyField = 'value'
-          ListField = 'display'
-          ListSource = dmRef.dscEducCode
-          TabOrder = 7
-          AllowNull = True
-          FlatButtons = True
-          DisabledColor = clWindow
-          FrameColor = 8675134
-          FrameHotColor = clBlack
-          FrameVisible = True
-          FramingPreference = fpCustomFraming
-          TabOnEnter = True
-        end
         object RzDBLookupComboBox10: TRzDBLookupComboBox
           Tag = 1
           Left = 95
-          Top = 200
+          Top = 176
           Width = 168
           Height = 22
           DataField = 'post_code'
@@ -1646,7 +1629,7 @@ inherited frmClientMain: TfrmClientMain
           KeyField = 'post_code'
           ListField = 'town'
           ListSource = dmAux.dscTowns
-          TabOrder = 8
+          TabOrder = 7
           AllowNull = True
           FlatButtons = True
           DisabledColor = clWindow
@@ -1659,7 +1642,7 @@ inherited frmClientMain: TfrmClientMain
         object RzDBEdit13: TRzDBEdit
           Tag = 1
           Left = 95
-          Top = 224
+          Top = 200
           Width = 168
           Height = 22
           DataSource = dmRef.dscAddressInfo
@@ -1671,12 +1654,12 @@ inherited frmClientMain: TfrmClientMain
           FramingPreference = fpCustomFraming
           ParentCtl3D = False
           TabOnEnter = True
-          TabOrder = 9
+          TabOrder = 8
         end
         object RzDBEdit14: TRzDBEdit
           Tag = 1
           Left = 95
-          Top = 248
+          Top = 224
           Width = 168
           Height = 22
           DataSource = dmRef.dscAddressInfo
@@ -1688,12 +1671,12 @@ inherited frmClientMain: TfrmClientMain
           FramingPreference = fpCustomFraming
           ParentCtl3D = False
           TabOnEnter = True
-          TabOrder = 10
+          TabOrder = 9
         end
         object RzDBEdit20: TRzDBEdit
           Tag = 1
           Left = 95
-          Top = 326
+          Top = 302
           Width = 168
           Height = 22
           DataSource = dmRef.dscContactInfo
@@ -1705,12 +1688,12 @@ inherited frmClientMain: TfrmClientMain
           FramingPreference = fpCustomFraming
           ParentCtl3D = False
           TabOnEnter = True
-          TabOrder = 11
+          TabOrder = 10
         end
         object RzDBEdit19: TRzDBEdit
           Tag = 1
           Left = 95
-          Top = 302
+          Top = 278
           Width = 168
           Height = 22
           DataSource = dmRef.dscContactInfo
@@ -1722,7 +1705,7 @@ inherited frmClientMain: TfrmClientMain
           FramingPreference = fpCustomFraming
           ParentCtl3D = False
           TabOnEnter = True
-          TabOrder = 12
+          TabOrder = 11
         end
         object pnlRemoveFamRef: TRzPanel
           Left = 217
@@ -1734,7 +1717,7 @@ inherited frmClientMain: TfrmClientMain
           BorderColor = 6572079
           BorderWidth = 1
           Color = 12955288
-          TabOrder = 13
+          TabOrder = 12
           object sbtnRemoveFamRef: TRzShapeButton
             Left = 0
             Top = 0
@@ -1753,6 +1736,8 @@ inherited frmClientMain: TfrmClientMain
     object tsIdentityInfo: TRzTabSheet
       Color = 14273211
       Caption = 'Identity information'
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       DesignSize = (
         860
         529)
@@ -2039,6 +2024,8 @@ inherited frmClientMain: TfrmClientMain
     object tsLoansHistory: TRzTabSheet
       Color = 14273211
       Caption = 'Loans history'
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       DesignSize = (
         860
         529)
@@ -2121,6 +2108,8 @@ inherited frmClientMain: TfrmClientMain
     object tsLoanClassAccess: TRzTabSheet
       Color = 14273211
       Caption = 'Loan class accessibility'
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       DesignSize = (
         860
         529)

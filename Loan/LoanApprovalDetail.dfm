@@ -9,7 +9,7 @@ inherited frmLoanAppvDetail: TfrmLoanAppvDetail
   TextHeight = 14
   inherited pnlTitle: TRzPanel
     Width = 443
-    ExplicitWidth = 411
+    ExplicitWidth = 443
     inherited imgClose: TImage
       Left = 422
       ExplicitLeft = 525
@@ -23,19 +23,22 @@ inherited frmLoanAppvDetail: TfrmLoanAppvDetail
   inherited pnlMain: TRzPanel
     Width = 443
     Height = 244
-    ExplicitWidth = 411
-    ExplicitHeight = 237
+    ExplicitWidth = 443
+    ExplicitHeight = 244
     inherited pnlDetail: TRzPanel
       Width = 426
       Height = 198
-      ExplicitWidth = 393
+      ExplicitWidth = 426
+      ExplicitHeight = 198
       inherited pcDetail: TRzPageControl
         Width = 424
         Height = 196
+        ExplicitWidth = 424
+        ExplicitHeight = 196
         FixedDimension = 20
         inherited tsDetail: TRzTabSheet
-          ExplicitWidth = 514
-          ExplicitHeight = 181
+          ExplicitWidth = 424
+          ExplicitHeight = 196
           object JvLabel8: TJvLabel
             Tag = -1
             Left = 19
@@ -188,14 +191,13 @@ inherited frmLoanAppvDetail: TfrmLoanAppvDetail
             Top = 89
             Width = 279
             Height = 22
-            Ctl3D = False
             DataField = 'appv_method'
             DataSource = dmLoan.dscLoanAppv
             KeyField = 'value'
             ListField = 'display'
             ListSource = dmLoansAux.dscAppvMethod
-            ParentCtl3D = False
             TabOrder = 3
+            FlatButtons = True
             DisabledColor = clWhite
             FrameColor = 8675134
             FrameHotColor = clBlack
@@ -222,14 +224,14 @@ inherited frmLoanAppvDetail: TfrmLoanAppvDetail
     inherited pnlCancel: TRzPanel
       Left = 384
       Top = 214
-      ExplicitLeft = 351
-      ExplicitTop = 199
+      ExplicitLeft = 384
+      ExplicitTop = 214
     end
     inherited pnlSave: TRzPanel
       Left = 328
       Top = 214
-      ExplicitLeft = 295
-      ExplicitTop = 199
+      ExplicitLeft = 328
+      ExplicitTop = 214
     end
   end
 end

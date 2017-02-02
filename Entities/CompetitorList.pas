@@ -32,22 +32,16 @@ implementation
 {$R *.dfm}
 
 uses
-  AuxData, StatusIntf;
+  AuxData, IFinanceDialogs;
 
 function TfrmCompetitorList.EntryIsValid: boolean;
 var
-  st: IStatus;
   error: string;
 begin
-  if Supports(Application.MainForm,IStatus,st) then
-  begin
-    if Trim(edCompName.Text) = '' then
-    begin
-      error := 'Please enter name.';
-      st.ShowError(error);
-    end;
-  end;
+  if Trim(edCompName.Text) = '' then error := 'Please enter name.';
 
+  if error <> '' then ShowErrorBox(error);
+  
   Result := error = '';
 end;
 

@@ -8,8 +8,10 @@ inherited frmRefereeDetail: TfrmRefereeDetail
   TextHeight = 14
   inherited pnlTitle: TRzPanel
     Width = 370
+    ExplicitWidth = 370
     inherited imgClose: TImage
       Left = 349
+      ExplicitLeft = 349
     end
     inherited lblCaption: TRzLabel
       Width = 45
@@ -20,13 +22,18 @@ inherited frmRefereeDetail: TfrmRefereeDetail
   inherited pnlMain: TRzPanel
     Width = 370
     Height = 187
+    ExplicitWidth = 370
+    ExplicitHeight = 187
     inherited pnlDetail: TRzPanel
       Width = 353
       Height = 138
+      ExplicitWidth = 353
+      ExplicitHeight = 138
       inherited pcDetail: TRzPageControl
         Width = 351
         Height = 136
-        TabStop = False
+        ExplicitWidth = 351
+        ExplicitHeight = 136
         FixedDimension = 20
         inherited tsDetail: TRzTabSheet
           object JvLabel1: TJvLabel
@@ -139,10 +146,14 @@ inherited frmRefereeDetail: TfrmRefereeDetail
     inherited pnlCancel: TRzPanel
       Left = 311
       Top = 155
+      ExplicitLeft = 311
+      ExplicitTop = 155
     end
     inherited pnlSave: TRzPanel
       Left = 255
       Top = 155
+      ExplicitLeft = 255
+      ExplicitTop = 155
     end
   end
 end

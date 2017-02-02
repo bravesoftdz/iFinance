@@ -71,13 +71,11 @@ inherited frmFinInfoDetail: TfrmFinInfoDetail
             Top = 17
             Width = 168
             Height = 22
-            Ctl3D = True
             DataField = 'comp_id'
             DataSource = dmLoan.dscFinInfo
             KeyField = 'comp_id'
             ListField = 'comp_name'
             ListSource = dmLoansAux.dscCompetitors
-            ParentCtl3D = False
             TabOrder = 0
             AllowNull = True
             FlatButtons = True

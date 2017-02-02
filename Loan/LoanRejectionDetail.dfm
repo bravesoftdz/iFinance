@@ -28,9 +28,13 @@ inherited frmLoanRejectionDetail: TfrmLoanRejectionDetail
     inherited pnlDetail: TRzPanel
       Width = 331
       Height = 131
+      ExplicitWidth = 331
+      ExplicitHeight = 131
       inherited pcDetail: TRzPageControl
         Width = 329
         Height = 129
+        ExplicitWidth = 329
+        ExplicitHeight = 129
         FixedDimension = 20
         inherited tsDetail: TRzTabSheet
           ExplicitWidth = 514
@@ -124,6 +128,8 @@ inherited frmLoanRejectionDetail: TfrmLoanRejectionDetail
     inherited pnlSave: TRzPanel
       Left = 233
       Top = 148
+      ExplicitLeft = 233
+      ExplicitTop = 148
     end
   end
 end

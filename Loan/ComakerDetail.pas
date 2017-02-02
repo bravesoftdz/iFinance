@@ -79,7 +79,7 @@ implementation
 {$R *.dfm}
 
 uses
-  ComakerData, AuxData, FormsUtil, Comaker, EmployerSearch, Employer;
+  ComakerData, AuxData, FormsUtil, Comaker, EmployerSearch, Employer, IFinanceDialogs;
 
 procedure TfrmComakerDetail.FormClose(Sender: TObject;
   var Action: TCloseAction);
@@ -174,7 +174,7 @@ begin
 
   Result := error = '';
 
-  if not Result then CallErrorBox(error);
+  if not Result then ShowErrorBox(error);
 end;
 
 end.

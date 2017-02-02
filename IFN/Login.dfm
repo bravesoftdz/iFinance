@@ -3,7 +3,6 @@ inherited frmLogin: TfrmLogin
   Caption = ''
   ClientHeight = 204
   ClientWidth = 434
-  KeyPreview = True
   Position = poScreenCenter
   OnCreate = FormCreate
   OnShow = FormShow
@@ -121,8 +120,8 @@ inherited frmLogin: TfrmLogin
       Visible = False
     end
     object imgLogo: TImage
-      Left = 13
-      Top = 21
+      Left = 9
+      Top = 27
       Width = 128
       Height = 128
       AutoSize = True
