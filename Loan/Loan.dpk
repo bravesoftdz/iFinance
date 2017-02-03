@@ -53,12 +53,10 @@ contains
   Loan in 'Loan.pas',
   LoanData in 'LoanData.pas' {dmLoan: TDataModule},
   LoanList in 'LoanList.pas' {frmLoanList},
-  BaseDocked in '..\Base\BaseDocked.pas' {frmBaseDocked},
   LoanListIntf in 'LoanListIntf.pas',
   ClientSearch in 'ClientSearch.pas' {frmClientSearch},
   LoanClient in 'LoanClient.pas',
   LoanIntf in 'LoanIntf.pas',
-  BaseForm in '..\Base\BaseForm.pas' {frmBase},
   Comaker in 'Comaker.pas',
   ComakerSearch in 'ComakerSearch.pas' {frmComakerSearch},
   ComakerDetail in 'ComakerDetail.pas' {frmComakerDetail},
@@ -78,6 +76,12 @@ contains
   ReleaseRecipient in 'ReleaseRecipient.pas',
   BasePopupDetail in '..\Base\BasePopupDetail.pas' {frmBasePopupDetail},
   ReleaseRecipientDetail in 'ReleaseRecipientDetail.pas' {frmReleaseRecipientDetail},
-  LoanCharge in 'LoanCharge.pas';
+  LoanCharge in 'LoanCharge.pas',
+  AccountType in 'AccountType.pas',
+  BaseForm in '..\Base\BaseForm.pas' {frmBase},
+  BaseDocked in '..\Base\BaseDocked.pas' {frmBaseDocked},
+  LoanTypeList in 'LoanTypeList.pas' {frmLoanTypeList},
+  AccountTypeList in 'AccountTypeList.pas' {frmAccountTypeList},
+  BaseGridDetail in '..\Base\BaseGridDetail.pas' {frmBaseGridDetail};
 
 end.

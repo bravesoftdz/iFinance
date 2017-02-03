@@ -9,7 +9,7 @@ uses
   Vcl.ImgList, Vcl.ComCtrls, Vcl.ToolWin, AppConstants, Vcl.StdCtrls, RzLabel,
   JvImageList, RzStatus, StatusIntf, DockIntf, RzLstBox, Client, Vcl.AppEvnts,
   ClientListIntf, Generics.Collections, LoanListIntf, Loan, LoanClient, RzTabs,
-  Vcl.Imaging.pngimage;
+  Vcl.Imaging.pngimage, System.Actions, Vcl.ActnList, Vcl.Buttons;
 
 type
   TRecentClient = class
@@ -89,12 +89,24 @@ type
     imgLoanClass: TImage;
     RzPanel1: TRzPanel;
     imgPurpose: TImage;
+    mmMain: TMainMenu;
+    File1: TMenuItem;
+    Save1: TMenuItem;
+    alMain: TActionList;
+    acSave: TAction;
+    acAddClient: TAction;
+    Newclient1: TMenuItem;
+    acNewLoan: TAction;
+    Newloan1: TMenuItem;
+    acGenericNew: TAction;
+    New1: TMenuItem;
+    RzPanel2: TRzPanel;
+    imgAcctType: TImage;
+    RzPanel3: TRzPanel;
+    imgLoanType: TImage;
     procedure tbAddClientClick(Sender: TObject);
-    procedure tbSaveClick(Sender: TObject);
     procedure lblRecentlyAddedClick(Sender: TObject);
     procedure lbxRecentDblClick(Sender: TObject);
-    procedure tbGroupsClick(Sender: TObject);
-    procedure tbCancelClick(Sender: TObject);
     procedure tbEmployerClick(Sender: TObject);
     procedure tbBanksClick(Sender: TObject);
     procedure tbDesignationListClick(Sender: TObject);
@@ -120,6 +132,13 @@ type
     procedure imgAddClientMouseUp(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
     procedure imgPurposeClick(Sender: TObject);
+    procedure Save1Click(Sender: TObject);
+    procedure imgSaveClick(Sender: TObject);
+    procedure imgCancelClick(Sender: TObject);
+    procedure acGenericNewExecute(Sender: TObject);
+    procedure imgGroupsClick(Sender: TObject);
+    procedure imgLoanTypeClick(Sender: TObject);
+    procedure imgAcctTypeClick(Sender: TObject);
   private
     { Private declarations }
     RecentClients: TObjectList<TRecentClient>;
@@ -146,8 +165,8 @@ implementation
 uses
   ClientMain, SaveIntf, ClientList, DockedFormIntf, GroupList, EmployerList,
   BanksList, DesignationList, LoanClassificationList, ConfBox, ErrorBox, ClientIntf,
-  LoanMain, LoanList, LoanIntf, CompetitorList, AlertIntf, FormsUtil, IFinanceGlobal,
-  PurposeList, IFinanceDialogs;
+  LoanMain, LoanList, LoanIntf, CompetitorList, FormsUtil, IFinanceGlobal,
+  PurposeList, IFinanceDialogs, NewIntf, LoanTypeList, AccountTypeList;
 
 constructor TRecentClient.Create(const id, displayId, name: string);
 begin
@@ -199,7 +218,7 @@ begin
     lftApproved: title := 'Approved loans';
     lftActive: title := 'Active loans';
     lftCancelled: title := 'Cancelled loans';
-    lftDenied: title := 'Denied loans';
+    lftRejected: title := 'Rejected loans';
   end;
 
   if (pnlDockMain.ControlCount = 0)
@@ -223,6 +242,11 @@ begin
     ReleaseCapture;
     Perform(WM_SYSCOMMAND, SC_DRAGMOVE, 0);
   end;
+end;
+
+procedure TfrmMain.Save1Click(Sender: TObject);
+begin
+  imgSave.OnClick(Sender);
 end;
 
 procedure TfrmMain.lblActiveClientsClick(Sender: TObject);
@@ -358,20 +382,6 @@ begin
   DockForm(fmBanksList);
 end;
 
-procedure TfrmMain.tbCancelClick(Sender: TObject);
-var
-  intf: ISave;
-begin
-  try
-    if pnlDockMain.ControlCount > 0 then
-      if Supports(pnlDockMain.Controls[0] as TForm,ISave,intf) then
-        intf.Cancel;
-  except
-    on e:Exception do
-      ShowErrorBox(e.Message);
-  end;
-end;
-
 procedure TfrmMain.tbCompetitorClick(Sender: TObject);
 begin
   DockForm(fmCompetitorList);
@@ -387,11 +397,6 @@ begin
   DockForm(fmEmployerList);
 end;
 
-procedure TfrmMain.tbGroupsClick(Sender: TObject);
-begin
-  DockForm(fmGroupList);
-end;
-
 procedure TfrmMain.tbLoanClassClick(Sender: TObject);
 begin
   DockForm(fmLoanClassList);
@@ -400,23 +405,6 @@ end;
 procedure TfrmMain.tbNewLoanClick(Sender: TObject);
 begin
   DockForm(fmLoanMain);
-end;
-
-procedure TfrmMain.tbSaveClick(Sender: TObject);
-var
-  intf: ISave;
-begin
-  try
-    if pnlDockMain.ControlCount > 0 then
-      if Supports(pnlDockMain.Controls[0] as TForm,ISave,intf) then
-      begin
-        if intf.Save then
-          ShowConfirmationBox;
-      end;
-  except
-    on e:Exception do
-      ShowErrorBox(e.Message);
-  end;
 end;
 
 procedure TfrmMain.urlActiveLoansClick(Sender: TObject);
@@ -441,7 +429,7 @@ end;
 
 procedure TfrmMain.urlDeniedClick(Sender: TObject);
 begin
-  OpenLoanList(lftDenied);
+  OpenLoanList(lftRejected);
 end;
 
 procedure TfrmMain.urlPendingLoansClick(Sender: TObject);
@@ -483,6 +471,8 @@ begin
       fmLoanList: frm := TfrmLoanList.Create(Application);
       fmCompetitorList: frm := TfrmCompetitorList.Create(Application);
       fmPurposeList: frm := TfrmPurposeList.Create(Application);
+      fmLoanTypeList: frm := TfrmLoanTypeList.Create(Application);
+      fmAcctTypeList: frm := TfrmAccountTypeList.Create(Application);
       else
         frm := TForm.Create(Application);
     end;
@@ -494,12 +484,20 @@ end;
 
 procedure TfrmMain.FormCreate(Sender: TObject);
 begin
+  // hide menu bar
+  Self.Menu := nil;
+
   RecentClients := TObjectList<TRecentClient>.Create;
   RecentLoans := TObjectList<TRecentLoan>.Create;
 
   npMain.ActivePage := nppClient;
 
   lblWelcome.Caption := 'Welcome back ' + ifn.User.Name + '.';
+end;
+
+procedure TfrmMain.imgAcctTypeClick(Sender: TObject);
+begin
+  DockForm(fmAcctTypeList);
 end;
 
 procedure TfrmMain.imgAddClientMouseDown(Sender: TObject; Button: TMouseButton;
@@ -514,14 +512,66 @@ begin
   ButtonUp(Sender);
 end;
 
+procedure TfrmMain.imgCancelClick(Sender: TObject);
+var
+  intf: ISave;
+begin
+  try
+    if pnlDockMain.ControlCount > 0 then
+      if Supports(pnlDockMain.Controls[0] as TForm,ISave,intf) then
+        intf.Cancel;
+  except
+    on e:Exception do
+      ShowErrorBox(e.Message);
+  end;
+end;
+
 procedure TfrmMain.imgCloseClick(Sender: TObject);
 begin
   Application.Terminate;
 end;
 
+procedure TfrmMain.imgGroupsClick(Sender: TObject);
+begin
+  DockForm(fmGroupList);
+end;
+
+procedure TfrmMain.imgLoanTypeClick(Sender: TObject);
+begin
+  DockForm(fmLoanTypeList);
+end;
+
 procedure TfrmMain.imgPurposeClick(Sender: TObject);
 begin
   DockForm(fmPurposeList);
+end;
+
+procedure TfrmMain.imgSaveClick(Sender: TObject);
+var
+  intf: ISave;
+begin
+  try
+    if pnlDockMain.ControlCount > 0 then
+      if Supports(pnlDockMain.Controls[0] as TForm,ISave,intf) then
+        if intf.Save then ShowConfirmationBox;
+  except
+    on e:Exception do
+      ShowErrorBox(e.Message);
+  end;
+end;
+
+procedure TfrmMain.acGenericNewExecute(Sender: TObject);
+var
+  intf: INew;
+begin
+  try
+    if pnlDockMain.ControlCount > 0 then
+      if Supports(pnlDockMain.Controls[0] as TForm,INew,intf) then
+        intf.New;
+  except
+    on e:Exception do
+      ShowErrorBox(e.Message);
+  end;
 end;
 
 procedure TfrmMain.AddRecentClient(ct: TClient);

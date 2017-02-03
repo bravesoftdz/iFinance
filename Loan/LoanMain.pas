@@ -173,6 +173,7 @@ type
     procedure RetrieveLoan;
     procedure SetActiveTab(const index: integer); overload;
     procedure SetActiveTab; overload;
+    procedure SelectClient;
 
     procedure ApproveLoan;
     procedure AssessLoan;
@@ -249,14 +250,14 @@ end;
 procedure TfrmLoanMain.ApproveLoan;
 begin
   if not LoanApplicationIsValid then Exit
-  else if ln.IsPending then
-  begin
-    ShowErrorBox('Approval restricted. Assessment details not found.');
-    Exit;
-  end
   else if ln.IsFinalised then
   begin
     ShowErrorBox(FINALISED_MSG);
+    Exit;
+  end
+  else if ln.IsPending then
+  begin
+    ShowErrorBox('Approval restricted. Assessment details not found.');
     Exit;
   end;
 
@@ -386,14 +387,14 @@ end;
 procedure TfrmLoanMain.ReleaseLoan;
 begin
   if not LoanApplicationIsValid then Exit
-  else if not ln.HasLoanState(lsApproved) then
-  begin
-    ShowErrorBox('Releasing restricted. Approval details not found.');
-    Exit;
-  end
   else if ln.IsFinalised then
   begin
     ShowErrorBox(FINALISED_MSG);
+    Exit;
+  end
+  else if not ln.HasLoanState(lsApproved) then
+  begin
+    ShowErrorBox('Releasing restricted. Approval details not found.');
     Exit;
   end;
 
@@ -448,7 +449,7 @@ begin
   OpenDropdownDataSources(pnlMain);
 end;
 
-procedure TfrmLoanMain.bteClientButtonClick(Sender: TObject);
+procedure TfrmLoanMain.SelectClient;
 begin
   with TfrmClientSearch.Create(self) do
   begin
@@ -477,6 +478,11 @@ begin
       Free;
     end;
   end;
+end;
+
+procedure TfrmLoanMain.bteClientButtonClick(Sender: TObject);
+begin
+  SelectClient;
 end;
 
 procedure TfrmLoanMain.btnAddComakerClick(Sender: TObject);

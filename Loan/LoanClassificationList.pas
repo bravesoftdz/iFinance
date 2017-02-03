@@ -7,10 +7,10 @@ uses
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, BaseDocked, Data.DB, RzButton, RzRadChk,
   RzDBChk, Vcl.DBCtrls, RzDBCmbo, Vcl.StdCtrls, Vcl.Mask, RzEdit, RzDBEdit,
   JvExControls, JvLabel, RzTabs, Vcl.Grids, Vcl.DBGrids, RzDBGrid, RzLabel,
-  Vcl.ExtCtrls, RzPanel, SaveIntf, RzLstBox, RzChkLst;
+  Vcl.ExtCtrls, RzPanel, SaveIntf, RzLstBox, RzChkLst, NewIntf;
 
 type
-  TfrmLoanClassificationList = class(TfrmBaseDocked,ISave)
+  TfrmLoanClassificationList = class(TfrmBaseDocked,ISave,INew)
     pnlList: TRzPanel;
     grList: TRzDBGrid;
     JvLabel1: TJvLabel;
@@ -50,8 +50,6 @@ type
     btnRemoveCharge: TRzShapeButton;
     pnlCharges: TRzPanel;
     grCharges: TRzDBGrid;
-    JvLabel11: TJvLabel;
-    RzDBEdit1: TRzDBEdit;
     JvLabel14: TJvLabel;
     RzDBEdit2: TRzDBEdit;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -70,6 +68,7 @@ type
     { Public declarations }
     function Save: boolean;
     procedure Cancel;
+    procedure New;
   end;
 
 var
@@ -102,11 +101,16 @@ end;
 
 procedure TfrmLoanClassificationList.sbtnNewClick(Sender: TObject);
 begin
-  inherited;
+  New;
+end;
+
+procedure TfrmLoanClassificationList.New;
+begin
   grList.DataSource.DataSet.Append;
   ChangeControlState;
 
-  dbluGroup.SetFocus;
+  // focus the first control
+  dbluGroup.SetFocus;;
 end;
 
 procedure TfrmLoanClassificationList.urlRefreshListClick(Sender: TObject);

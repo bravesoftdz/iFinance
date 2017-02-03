@@ -33,6 +33,7 @@ type
     { Public declarations }
     function Save: boolean;
     procedure Cancel;
+    procedure New;
   end;
 
 var
@@ -84,8 +85,7 @@ end;
 
 procedure TfrmBanksList.sbtnNewClick(Sender: TObject);
 begin
-  inherited;
-  grBranches.DataSource.DataSet.Append;
+  New;
 end;
 
 procedure TfrmBanksList.Cancel;
@@ -95,6 +95,14 @@ begin
   if State in [dsInsert,dsEdit] then
     Cancel;
   end;
+end;
+
+procedure TfrmBanksList.New;
+begin
+  grBranches.DataSource.DataSet.Append;
+
+  // focus the first control
+  grBranches.DataSource.DataSet.FieldByName(grBranches.Columns[0].FieldName).FocusControl;
 end;
 
 function TfrmBanksList.EntryIsValid: boolean;

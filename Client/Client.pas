@@ -20,6 +20,7 @@ type
     FBank: TBank;
     FIdentityDocs: array of TIdentityDoc;
     FReferences: array of TReference;
+    FPhoto: string;
 
     function CheckId: boolean;
     function GetIdentityDoc(const i: integer): TIdentityDoc;
@@ -52,6 +53,7 @@ type
     property IdentityDocs[const i: integer]: TIdentityDoc read GetIdentityDoc;
     property References[const i: integer]: TReference read GetReference;
     property HasId: boolean read CheckId;
+    property Photo: string read FPhoto write FPhoto;
 
     constructor Create;
     destructor Destroy; reintroduce;
@@ -206,7 +208,7 @@ begin
   begin
     if dstAddressInfo2.RecordCount > 0 then
       dstAddressInfo2.Edit
-    else
+    else if dstAddressInfo2.State <> dsInsert then
       dstAddressInfo2.Append;
 
     for i := 0 to FieldCount - 1 do

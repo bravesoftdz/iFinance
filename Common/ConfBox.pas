@@ -14,6 +14,7 @@ type
     pnlClose: TRzPanel;
     btnClose: TRzShapeButton;
     procedure btnCloseClick(Sender: TObject);
+    procedure FormKeyPress(Sender: TObject; var Key: Char);
   private
     { Private declarations }
   public
@@ -38,6 +39,12 @@ constructor TfrmConfBox.Create(AOwner: TComponent; const confMessage: string);
 begin
   inherited Create(AOwner);
   lblMessage.Caption := confMessage;
+end;
+
+procedure TfrmConfBox.FormKeyPress(Sender: TObject; var Key: Char);
+begin
+  inherited;
+  if Key = #13 then ModalResult := mrClose;
 end;
 
 procedure TfrmConfBox.btnCloseClick(Sender: TObject);

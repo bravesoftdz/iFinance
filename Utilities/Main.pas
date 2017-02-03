@@ -20,17 +20,21 @@ type
     imgClose: TImage;
     ListBox: TListBox;
     ListBox2: TListBox;
-    btnGetPhoto: TButton;
-    btnClose: TButton;
     imgSnapshot: TImage;
     lblStatus: TLabel;
     Shape1: TShape;
+    pnlCapture: TPanel;
+    pnlClose: TPanel;
+    shCapture: TShape;
+    shClose: TShape;
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
-    procedure btnGetPhotoClick(Sender: TObject);
-    procedure btnCloseClick(Sender: TObject);
     procedure pnlTitleMouseDown(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
+    procedure pnlCaptureClick(Sender: TObject);
+    procedure pnlCloseClick(Sender: TObject);
+    procedure imgCloseClick(Sender: TObject);
+    procedure FormKeyPress(Sender: TObject; var Key: Char);
   private
     { Private declarations }
     procedure SetImageDevice;
@@ -67,7 +71,22 @@ begin
 
   imgSnapShot.Picture.SaveToFile(path + filename);
 
-  Application.Terminate;
+  self.Close;
+end;
+
+procedure TfrmMain.imgCloseClick(Sender: TObject);
+begin
+  Close;
+end;
+
+procedure TfrmMain.pnlCaptureClick(Sender: TObject);
+begin
+  GetSnapshot;
+end;
+
+procedure TfrmMain.pnlCloseClick(Sender: TObject);
+begin
+  self.Close;
 end;
 
 procedure TfrmMain.pnlTitleMouseDown(Sender: TObject; Button: TMouseButton;
@@ -82,16 +101,6 @@ begin
   end;
 end;
 
-procedure TfrmMain.btnCloseClick(Sender: TObject);
-begin
-  Application.Terminate;
-end;
-
-procedure TfrmMain.btnGetPhotoClick(Sender: TObject);
-begin
-  GetSnapshot;
-end;
-
 procedure TfrmMain.FormCreate(Sender: TObject);
 var
   i: integer;
@@ -101,6 +110,12 @@ begin
    ListBox.Items.Add(VideoDevice.Filters[i].FriendlyName);
 
  VideoMediaTypes := TEnumMediaType.Create;
+end;
+
+procedure TfrmMain.FormKeyPress(Sender: TObject; var Key: Char);
+begin
+  // escape key
+  if Key = #27 then  ModalResult := mrClose;
 end;
 
 procedure TfrmMain.FormShow(Sender: TObject);

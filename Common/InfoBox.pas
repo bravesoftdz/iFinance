@@ -14,6 +14,7 @@ type
     Image1: TImage;
     lblMessage: TJvLabel;
     procedure btnCloseClick(Sender: TObject);
+    procedure FormKeyPress(Sender: TObject; var Key: Char);
   private
     { Private declarations }
   public
@@ -44,6 +45,12 @@ constructor TfrmInfoBox.Create(AOwner: TComponent; const infoMessage: string);
 begin
   inherited Create(AOwner);
   lblMessage.Caption := infoMessage;
+end;
+
+procedure TfrmInfoBox.FormKeyPress(Sender: TObject; var Key: Char);
+begin
+  inherited;
+  if Key = #13 then ModalResult := mrClose;
 end;
 
 end.

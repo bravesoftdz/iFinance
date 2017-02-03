@@ -14,6 +14,7 @@ type
     pnlClose: TRzPanel;
     btnClose: TRzShapeButton;
     procedure btnCloseClick(Sender: TObject);
+    procedure FormKeyPress(Sender: TObject; var Key: Char);
   private
     { Private declarations }
   public
@@ -40,6 +41,12 @@ begin
   lblMessage.Caption := errMessage;
 end;
 
+
+procedure TfrmErrorBox.FormKeyPress(Sender: TObject; var Key: Char);
+begin
+  inherited;
+  if Key = #13 then ModalResult := mrClose;
+end;
 
 procedure TfrmErrorBox.btnCloseClick(Sender: TObject);
 begin

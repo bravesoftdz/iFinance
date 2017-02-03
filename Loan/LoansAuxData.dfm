@@ -112,12 +112,12 @@ object dmLoansAux: TdmLoansAux
     CommandType = cmdStoredProc
     Parameters = <>
     Left = 359
-    Top = 30
+    Top = 22
   end
   object dscAppvMethod: TDataSource
     DataSet = dstAppvMethod
     Left = 431
-    Top = 30
+    Top = 22
   end
   object dstCancelReason: TADODataSet
     Connection = dmApplication.acMain
@@ -187,11 +187,42 @@ object dmLoansAux: TdmLoansAux
     CommandType = cmdStoredProc
     Parameters = <>
     Left = 527
-    Top = 30
+    Top = 22
   end
   object dscBranches: TDataSource
     DataSet = dstBranches
     Left = 599
-    Top = 30
+    Top = 22
+  end
+  object dstLoanTypes: TADODataSet
+    Connection = dmApplication.acMain
+    CursorType = ctStatic
+    BeforePost = dstLoanTypesBeforePost
+    CommandText = 'sp_get_loan_types;1'
+    CommandType = cmdStoredProc
+    Parameters = <>
+    Left = 527
+    Top = 78
+  end
+  object dscLoanTypes: TDataSource
+    DataSet = dstLoanTypes
+    Left = 599
+    Top = 78
+  end
+  object dstAcctTypes: TADODataSet
+    Connection = dmApplication.acMain
+    CursorType = ctStatic
+    BeforePost = dstAcctTypesBeforePost
+    AfterPost = dstAcctTypesAfterPost
+    CommandText = 'sp_get_acct_types;1'
+    CommandType = cmdStoredProc
+    Parameters = <>
+    Left = 527
+    Top = 134
+  end
+  object dscAcctTypes: TDataSource
+    DataSet = dstAcctTypes
+    Left = 599
+    Top = 134
   end
 end

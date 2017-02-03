@@ -362,7 +362,7 @@ end;
 
 procedure TdmLoan.dstLoanClassAfterScroll(DataSet: TDataSet);
 var
-  clId, term, comakers, groupId, concurrent, age: integer;
+  clId, term, comakers, groupId, age: integer;
   clName, loanType: string;
   interest, maxLoan: real;
   validFrom, validUntil: TDate;
@@ -379,13 +379,12 @@ begin
     comakers := FieldByName('comakers').AsInteger;
     validFrom := FieldByName('valid_from').AsDateTime;
     validUntil := FieldByName('valid_until').AsDateTime;
-    concurrent := FieldByName('max_concurrent').AsInteger;
     age := FieldByName('max_age').AsInteger;
   end;
 
   if not Assigned(ln.LoanClass) then
     ln.LoanClass := TLoanClassification.Create(clId, groupId, clName, interest,
-        term, loanType, maxLoan, comakers, validFrom, validUntil, concurrent,age)
+        term, loanType, maxLoan, comakers, validFrom, validUntil, age)
   else
   begin
     with ln do
@@ -400,7 +399,6 @@ begin
       LoanClass.Comakers := comakers;
       LoanClass.ValidFrom := validFrom;
       LoanClass.ValidUntil := validUntil;
-      LoanClass.MaxConcurrent := concurrent;
       LoanClass.MaxAge := age;
     end;
   end;

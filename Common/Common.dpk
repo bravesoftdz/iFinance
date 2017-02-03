@@ -42,7 +42,8 @@ requires
   RaizeComponentsVcl,
   RaizeComponentsVclDb,
   RESTComponents,
-  LockBox3DR;
+  LockBox3DR,
+  FireDAC;
 
 contains
   SaveIntf in 'SaveIntf.pas',
@@ -62,10 +63,10 @@ contains
   Branch in 'Branch.pas',
   Alerts in 'Alerts.pas' {frmAlerts},
   Alert in 'Alert.pas',
-  AlertIntf in 'AlertIntf.pas',
   BasePopup in '..\Base\BasePopup.pas' {frmBasePopup},
   InfoBox in 'InfoBox.pas' {frmInfoBox},
-  IFinanceDialogs in 'IFinanceDialogs.pas';
+  IFinanceDialogs in 'IFinanceDialogs.pas',
+  NewIntf in 'NewIntf.pas';
 
 end.
 

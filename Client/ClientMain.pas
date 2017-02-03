@@ -9,10 +9,10 @@ uses
   RzEdit, RzDBEdit, JvLabel, JvExControls, Vcl.DBCtrls, RzDBCmbo,
   Vcl.ComCtrls, RzDTP, RzDBDTP, RzButton, RzRadChk, RzDBChk, Data.DB, Vcl.Grids,
   Vcl.DBGrids, RzDBGrid, RzBtnEdt, RzLaunch, ClientIntf, Vcl.Imaging.pngimage,
-  RzCmboBx, RzLstBox, RzDBList;
+  RzCmboBx, RzLstBox, RzDBList, NewIntf;
 
 type
-  TfrmClientMain = class(TfrmBaseDocked, ISave, IClient)
+  TfrmClientMain = class(TfrmBaseDocked, ISave, IClient, INew)
     lblClientName: TRzLabel;
     pcClient: TRzPageControl;
     tsClientInfo: TRzTabSheet;
@@ -47,7 +47,7 @@ type
     JvLabel16: TJvLabel;
     JvLabel9: TJvLabel;
     JvLabel10: TJvLabel;
-    RzDBEdit6: TRzDBEdit;
+    edStreeProv: TRzDBEdit;
     RzDBEdit7: TRzDBEdit;
     JvLabel11: TJvLabel;
     RzDBLookupComboBox4: TRzDBLookupComboBox;
@@ -224,12 +224,15 @@ type
     procedure ChangeFamRefControlState;
     procedure HideTabs;
     procedure SetActiveTab(const tabIndex: integer);
+    procedure NewFamRef;
+    procedure NewIdentity;
 
     function CheckClientInfo: string;
     function CheckIdentInfo: string;
   public
     { Public declarations }
     procedure Cancel;
+
     procedure SetClientName;
     procedure SetUnboundControls(const changeTab: boolean = true);
     procedure LoadPhoto;
@@ -237,6 +240,7 @@ type
     procedure SetLandLordControlsProv;
 
     function Save: boolean;
+    procedure New;
   end;
 
 var
@@ -327,6 +331,14 @@ begin
     bteLandlord2.Clear;
     edLandlordContact2.Clear;
     cln.LandlordProv := nil;
+  end;
+end;
+
+procedure TfrmClientMain.New;
+begin
+  case pcClient.ActivePageIndex of
+    FAMREF: NewFamRef;
+    IDENT: NewIdentity;
   end;
 end;
 
@@ -650,6 +662,9 @@ end;
 
 procedure TfrmClientMain.SetActiveTab(const tabIndex: Integer);
 begin
+  // cancel changes prior to changing tab
+  cln.Cancel;
+
   pcClient.ActivePageIndex := tabIndex;
 
   case tabIndex of
@@ -697,7 +712,7 @@ procedure TfrmClientMain.imgClientMainMouseUp(Sender: TObject;
   Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
 begin
   inherited;
-    ButtonUp(Sender);
+  ButtonUp(Sender);
 end;
 
 procedure TfrmClientMain.imgFamRefClick(Sender: TObject);
@@ -725,12 +740,18 @@ begin
 end;
 
 procedure TfrmClientMain.imgTakePhotoClick(Sender: TObject);
+var
+  fileName: string;
 begin
   inherited;
   try
     if not PhotoLauncher.Running then
     begin
-      PhotoLauncher.Parameters := ifn.PhotoPath + ' ' + Trim(cln.Id);
+      fileName := FormatDateTime('mmddyyyhhmmss',Now);
+
+      cln.Photo := fileName + '.bmp';
+
+      PhotoLauncher.Parameters := ifn.PhotoPath + ' ' + Trim(fileName);
       PhotoLauncher.Launch;
       Application.MainForm.Enabled := false;
     end;
@@ -807,7 +828,7 @@ begin
   end;
 end;
 
-procedure TfrmClientMain.sbtnNewFamRefClick(Sender: TObject);
+procedure TfrmClientMain.NewFamRef;
 begin
   with TfrmReferenceSearch.Create(nil) do
   begin
@@ -843,17 +864,27 @@ begin
   end;
 end;
 
-procedure TfrmClientMain.sbtnNewIdentDocClick(Sender: TObject);
+procedure TfrmClientMain.NewIdentity;
 begin
-  inherited;
   with grIdentityList.DataSource.DataSet do
   begin
     if State = dsBrowse then
     begin
       Append;
       ChangeIdentControlState;
+      grIdentityList.DataSource.DataSet.Fields[0].FocusControl;
     end;
   end;
+end;
+
+procedure TfrmClientMain.sbtnNewFamRefClick(Sender: TObject);
+begin
+  NewFamRef;
+end;
+
+procedure TfrmClientMain.sbtnNewIdentDocClick(Sender: TObject);
+begin
+  NewIdentity;
 end;
 
 procedure TfrmClientMain.sbtnRemIdentDocClick(Sender: TObject);
@@ -1039,20 +1070,28 @@ end;
 
 procedure TfrmClientMain.CopyAddress;
 begin
-  cln.CopyAddress;
+  try
+    // transfer the focus to "post" the changes
+    // this is a hack
+    edStreeProv.SetFocus;
 
-  // set unbound controls
-  if Assigned(cln.LandlordPres) then
-  begin
-    cln.LandLordProv := cln.LandlordPres;
-    bteLandlord2.Text := cln.LandlordPres.Name;
-    edLandlordContact2.Text := cln.LandlordPres.Contact;
-  end
-  else
-  begin
-    cln.LandLordProv := nil;
-    bteLandlord2.Clear;
-    edLandlordContact2.Clear;
+    cln.CopyAddress;
+
+    // set unbound controls
+    if Assigned(cln.LandlordPres) then
+    begin
+      cln.LandLordProv := cln.LandlordPres;
+      bteLandlord2.Text := cln.LandlordPres.Name;
+      edLandlordContact2.Text := cln.LandlordPres.Contact;
+    end
+    else
+    begin
+      cln.LandLordProv := nil;
+      bteLandlord2.Clear;
+      edLandlordContact2.Clear;
+    end;
+  except
+    on e: Exception do ShowErrorBox(e.Message);
   end;
 end;
 
@@ -1115,7 +1154,7 @@ procedure TfrmClientMain.LoadPhoto;
 var
   filename: string;
 begin
-  filename := ifn.PhotoPath + Trim(cln.Id) + '.bmp';
+  filename := ifn.PhotoPath + Trim(cln.Photo);
 
   if FileExists(fileName) then
   begin

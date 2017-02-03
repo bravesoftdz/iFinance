@@ -24,3 +24,6 @@ delete EntityLoanClass
 delete LoanClass
 delete [Group]
 delete entity
+
+delete T_LoanType
+delete T_AccountType

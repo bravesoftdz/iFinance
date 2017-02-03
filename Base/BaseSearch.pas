@@ -61,7 +61,6 @@ end;
 
 procedure TfrmBaseSearch.edSearchKeyChange(Sender: TObject);
 begin
-  inherited;
   SearchList;
 end;
 
@@ -77,6 +76,9 @@ begin
         grSearch.DataSource.DataSet.Close;
       end;
   end;
+
+  // remove any filters
+  grSearch.DataSource.DataSet.Filter := '';
 end;
 
 procedure TfrmBaseSearch.FormCreate(Sender: TObject);
@@ -92,10 +94,8 @@ end;
 
 procedure TfrmBaseSearch.FormKeyPress(Sender: TObject; var Key: Char);
 begin
-  inherited;
-
   if Key = #13 then ModalResult := mrOK;
-  
+  inherited;
 end;
 
 procedure TfrmBaseSearch.grSearchDblClick(Sender: TObject);

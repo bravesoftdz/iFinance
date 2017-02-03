@@ -4,9 +4,6 @@ Coordinates=946,155,73,36
 [JvLabel31]
 Coordinates=946,265,73,36
 
-[RzDBEdit6]
-Coordinates=946,320,77,36
-
 [JvLabel7]
 Coordinates=946,375,66,36
 
@@ -294,4 +291,7 @@ Coordinates=995,609,160,36
 
 [dbluResStatusProv]
 Coordinates=1322,1,160,36
+
+[edStreeProv]
+Coordinates=946,320,77,36
 
