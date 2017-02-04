@@ -91,7 +91,9 @@ begin
   else if edAppvTerm.Value <= 0 then
     error := 'Invalid value for approved term.'
   else if dbluAppvMethod.Text = '' then
-    error := 'Please select approval method.';
+    error := 'Please select approval method.'
+  else if edAppvTerm.Value > ln.DesiredTerm then
+    error := 'Approved term exceeds the desired term.';
 
   Result := error = '';
 

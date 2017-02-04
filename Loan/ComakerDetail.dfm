@@ -1,16 +1,16 @@
 inherited frmComakerDetail: TfrmComakerDetail
   Caption = 'frmComakerDetail'
-  ClientHeight = 401
+  ClientHeight = 393
   ClientWidth = 685
   OnCreate = FormCreate
   OnShow = FormShow
   ExplicitWidth = 685
-  ExplicitHeight = 401
+  ExplicitHeight = 393
   PixelsPerInch = 96
   TextHeight = 14
   inherited pnlTitle: TRzPanel
     Width = 685
-    ExplicitWidth = 690
+    ExplicitWidth = 685
     inherited imgClose: TImage
       Left = 664
       ExplicitLeft = 653
@@ -23,24 +23,24 @@ inherited frmComakerDetail: TfrmComakerDetail
   end
   inherited pnlMain: TRzPanel
     Width = 685
-    Height = 380
-    ExplicitWidth = 690
+    Height = 372
+    ExplicitWidth = 685
     ExplicitHeight = 380
     inherited pnlDetail: TRzPanel
       Width = 669
-      Height = 334
-      ExplicitWidth = 674
+      Height = 326
+      ExplicitWidth = 669
       ExplicitHeight = 334
       inherited pcDetail: TRzPageControl
         Width = 667
-        Height = 332
+        Height = 324
         TabOrientation = toBottom
-        ExplicitWidth = 672
+        ExplicitWidth = 667
         ExplicitHeight = 332
         FixedDimension = 20
         inherited tsDetail: TRzTabSheet
           Caption = 'Comaker details'
-          ExplicitWidth = 672
+          ExplicitWidth = 667
           ExplicitHeight = 333
           object JvLabel1: TJvLabel
             Left = 35
@@ -682,14 +682,14 @@ inherited frmComakerDetail: TfrmComakerDetail
     end
     inherited pnlCancel: TRzPanel
       Left = 627
-      Top = 349
-      ExplicitLeft = 632
+      Top = 341
+      ExplicitLeft = 627
       ExplicitTop = 349
     end
     inherited pnlSave: TRzPanel
       Left = 571
-      Top = 349
-      ExplicitLeft = 576
+      Top = 341
+      ExplicitLeft = 571
       ExplicitTop = 349
     end
     object RzGroupBox2: TRzGroupBox

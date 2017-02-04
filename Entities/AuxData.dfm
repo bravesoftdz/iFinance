@@ -196,6 +196,7 @@ object dmAux: TdmAux
     Connection = dmApplication.acMain
     CursorType = ctStatic
     LockType = ltReadOnly
+    AfterScroll = dstAcctTypeAfterScroll
     CommandText = 'sp_dd_get_acct_type;1'
     CommandType = cmdStoredProc
     Parameters = <>

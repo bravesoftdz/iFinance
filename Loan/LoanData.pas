@@ -95,7 +95,8 @@ implementation
 
 uses
   AppData, Loan, DBUtil, IFinanceGlobal, LoanClassification, Comaker, FinInfo,
-  MonthlyExpense, Alert, ReleaseRecipient, Recipient, LoanCharge, LoanClassCharge;
+  MonthlyExpense, Alert, ReleaseRecipient, Recipient, LoanCharge, LoanClassCharge,
+  AccountType;
 
 {%CLASSGROUP 'Vcl.Controls.TControl'}
 
@@ -355,6 +356,7 @@ end;
 
 procedure TdmLoan.dstLoanClassAfterOpen(DataSet: TDataSet);
 begin
+  // select the topmost loan class as default
   if ln.Action = laCreating then
     if DataSet.RecordCount > 0 then
       dstLoan.FieldByName('class_id').AsInteger := DataSet.FieldByName('class_id').AsInteger;
@@ -362,9 +364,9 @@ end;
 
 procedure TdmLoan.dstLoanClassAfterScroll(DataSet: TDataSet);
 var
-  clId, term, comakers, groupId, age: integer;
-  clName, loanType: string;
-  interest, maxLoan: real;
+  clId, term, comakers, groupId, age, concurrent: integer;
+  clName, loanType, acctType, acctName: string;
+  interest, maxLoan, maxTotalAmount: real;
   validFrom, validUntil: TDate;
 begin
   with DataSet do
@@ -380,6 +382,14 @@ begin
     validFrom := FieldByName('valid_from').AsDateTime;
     validUntil := FieldByName('valid_until').AsDateTime;
     age := FieldByName('max_age').AsInteger;
+
+    // account type variables
+    acctType := FieldByName('acct_type').AsString;
+    acctName := FieldByName('acct_type_name').AsString;
+    concurrent := FieldByName('max_concurrent').AsInteger;
+    maxTotalAmount := FieldByName('max_tot_amt').AsFloat;
+
+    atype := TAccountType.Create(acctType,acctName,concurrent,maxTotalAmount);
   end;
 
   if not Assigned(ln.LoanClass) then
@@ -402,6 +412,8 @@ begin
       LoanClass.MaxAge := age;
     end;
   end;
+
+  ln.LoanClass.AccountType := atype;
 
   AddLoanClassCharges;
 end;

@@ -27,7 +27,10 @@ implementation
 
 constructor TAccountType.Create;
 begin
-  inherited;
+  if atype <> nil then
+    Exit
+  else
+    atype := self;
 end;
 
 constructor TAccountType.Create(const code: string; const name: string; const concurrent: Integer; const total: Real);

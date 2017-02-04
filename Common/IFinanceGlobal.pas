@@ -8,6 +8,8 @@ uses
 type
   TIFinance = class(TObject)
   private
+    FAppName: string;
+    FAppDescription: string;
     FAppDate: TDate;
     FLocationCode: string;
     FLocationPrefix: string;
@@ -17,6 +19,7 @@ type
     FControlDisabledColor: TColor;
     FMaxComakeredLoans: integer;
     FAppImagesPath: string;
+    FVersion: string;
   public
     property AppDate: TDate read FAppDate write FAppDate;
     property LocationCode: string read FLocationCode write FLocationCode;
@@ -27,6 +30,9 @@ type
     property ControlDisabledColor: TColor read FControlDisabledColor write FControlDisabledColor;
     property MaxComakeredLoans: integer read FMaxComakeredLoans write FMaxComakeredLoans;
     property AppImagesPath: string read FAppImagesPath write FAppImagesPath;
+    property Version: string read FVersion write FVersion;
+    property AppName: string read FAppName write FAppName;
+    property AppDescription: string read FAppDescription write FAppDescription;
 
     constructor Create;
     destructor Destroy; override;
@@ -45,6 +51,9 @@ begin
     Abort
   else
   begin
+    FAppName := 'i-Finance';
+    FAppDescription := 'Integrated Financial Management Information System';
+
     FPhotoUtility := 'PhotoUtil.exe.';
     FControlDisabledColor := clWhite;
     FMaxComakeredLoans := 3;

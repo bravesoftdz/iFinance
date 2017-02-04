@@ -130,8 +130,6 @@ type
     tsPending: TRzTabSheet;
     pnlPending: TRzPanel;
     JvLabel1: TJvLabel;
-    RzPanel4: TRzPanel;
-    RzLabel1: TRzLabel;
     pnlClientRecord: TRzPanel;
     imgClientRecord: TImage;
     pnlAlerts: TRzPanel;
@@ -143,6 +141,12 @@ type
     JvLabel27: TJvLabel;
     lblTotalReleased: TJvLabel;
     dbluPurpose: TRzDBLookupComboBox;
+    JvLabel29: TJvLabel;
+    JvLabel30: TJvLabel;
+    JvLabel31: TJvLabel;
+    JvLabel32: TJvLabel;
+    JvLabel33: TJvLabel;
+    pnlStatus: TRzPanel;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure bteClientButtonClick(Sender: TObject);
@@ -238,12 +242,23 @@ end;
 
 procedure TfrmLoanMain.SetActiveTab(const index: Integer);
 begin
-  pcStatus.ActivePageIndex := index;
-
   if index = RELEASED then
   begin
     lblTotalReleased.Caption := FormatFloat('###,###,##0.00',ln.TotalReleased);
     lblTotalCharges.Caption := FormatFloat('###,###,##0.00',ln.TotalCharges);
+  end;
+
+  with pcStatus do
+  begin
+    ActivePageIndex := index;
+    case ActivePageIndex of
+      ASSESSMENT: pnlAssessment.Visible := ln.HasLoanState(lsAssessed);
+      APPROVAL: pnlApproval.Visible := ln.HasLoanState(lsApproved);
+      RELEASED: pnlRelease.Visible := ln.HasLoanState(lsActive);
+      REJECTION: pnlRejection.Visible := ln.HasLoanState(lsRejected);
+      CANCELLATION: pnlCancellation.Visible := ln.HasLoanState(lsCancelled);
+    end;
+
   end;
 end;
 
@@ -291,6 +306,11 @@ begin
   else if ln.IsFinalised then
   begin
     ShowErrorBox(FINALISED_MSG);
+    Exit;
+  end
+  else if ln.IsApproved then
+  begin
+    ShowErrorBox('Assessment changes have been restricted. Loan has been approved.');
     Exit;
   end;
 
@@ -665,14 +685,14 @@ end;
 procedure TfrmLoanMain.imgApprovalClick(Sender: TObject);
 begin
   inherited;
-  if ln.HasLoanState(lsApproved) then SetActiveTab(APPROVAL)
+  if (ln.HasLoanState(lsApproved)) or (ln.IsFinalised) then SetActiveTab(APPROVAL)
   else ApproveLoan;
 end;
 
 procedure TfrmLoanMain.imgAssessmentClick(Sender: TObject);
 begin
   inherited;
-  if ln.HasLoanState(lsAssessed) then SetActiveTab(ASSESSMENT)
+  if (ln.HasLoanState(lsAssessed)) or (ln.IsFinalised) then SetActiveTab(ASSESSMENT)
   else AssessLoan;
 end;
 
@@ -693,7 +713,7 @@ end;
 procedure TfrmLoanMain.imgCancelLoanClick(Sender: TObject);
 begin
   inherited;
-  if ln.HasLoanState(lsCancelled) then SetActiveTab(CANCELLATION)
+  if (ln.HasLoanState(lsCancelled)) or (ln.IsFinalised) then SetActiveTab(CANCELLATION)
   else CancelLoan;
 end;
 
@@ -719,14 +739,14 @@ end;
 procedure TfrmLoanMain.imgRejectLoanClick(Sender: TObject);
 begin
   inherited;
-  if ln.HasLoanState(lsRejected) then SetActiveTab(REJECTION)
+  if (ln.HasLoanState(lsRejected)) or (ln.IsFinalised) then SetActiveTab(REJECTION)
   else RejectLoan;
 end;
 
 procedure TfrmLoanMain.imgReleaseLoanClick(Sender: TObject);
 begin
   inherited;
-  if ln.HasLoanState(lsActive) then SetActiveTab(RELEASED)
+  if (ln.HasLoanState(lsActive)) or (ln.IsFinalised) then SetActiveTab(RELEASED)
   else ReleaseLoan;
 end;
 
@@ -814,7 +834,7 @@ begin
         error := 'Amount applied exceeds the maximum loanable amount for the selected loan class.'
       else if edDesiredTerm.Value > ln.LoanClass.Term then
         error := 'Term applied exceeds the maximum allowed term for the selected loan class.'
-      else if (ln.LoanClass.MaxAge > 0) and ((edDesiredTerm.Value / 12) + ln.Client.Age > ln.LoanClass.MaxAge) then
+      else if (ln.LoanClass.HasMaxAge) and ((edDesiredTerm.Value / 12) + ln.Client.Age > ln.LoanClass.MaxAge) then
         error := 'Term exceeds the maximum age limit for the selected loan class.'
       else if ln.ComakerCount < ln.LoanClass.Comakers then
         error := 'Number of required comakers has not been entered.'

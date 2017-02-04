@@ -80,7 +80,7 @@ implementation
 
 uses
   LoansAuxData, FormsUtil, IFinanceDialogs, AuxData, LoanClassChargeDetail, DecisionBox,
-  LoanClassification;
+  AccountType, LoanClassification;
 
 function TfrmLoanClassificationList.Save: boolean;
 begin
@@ -151,10 +151,13 @@ begin
   else if dbluAcctType.Text = '' then error := 'Please select an account type.'
   else if edInterest.Text = '' then error := 'Please enter an interest rate.'
   else if edTerm.Text = '' then error := 'Please enter a term.'
+  else if edMaxLoan.Value <= 0 then error := 'Please enter a maximum loan.'
   else if dbluCompMethod.Text = '' then error := 'Please select a computation method.'
   else if dbluPayFreq.Text = '' then error := 'Please select a payment frequency.'
   else if dbluBranch.Text = '' then error := 'Please select a branch.'
-  else if dteFrom.Text = '' then error := 'Please specify a start date.';
+  else if dteFrom.Text = '' then error := 'Please specify a start date.'
+  else if edMaxLoan.Value > atype.MaxTotalAmount then
+    error := 'Maximum loan exceeds the maximum total amount for the selected account type.';
 
   if error <> '' then ShowErrorBox(error);
 

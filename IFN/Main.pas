@@ -85,9 +85,9 @@ type
     imgDesignationList: TImage;
     pnlCompetitor: TRzPanel;
     imgCompetitor: TImage;
-    RzPanel12: TRzPanel;
+    pnlLoanClass: TRzPanel;
     imgLoanClass: TImage;
-    RzPanel1: TRzPanel;
+    pnlPurpose: TRzPanel;
     imgPurpose: TImage;
     mmMain: TMainMenu;
     File1: TMenuItem;
@@ -100,10 +100,14 @@ type
     Newloan1: TMenuItem;
     acGenericNew: TAction;
     New1: TMenuItem;
-    RzPanel2: TRzPanel;
+    pnlAcctType: TRzPanel;
     imgAcctType: TImage;
-    RzPanel3: TRzPanel;
+    pnlLoanType: TRzPanel;
     imgLoanType: TImage;
+    Label1: TLabel;
+    Label2: TLabel;
+    lblDate: TLabel;
+    lblVersion: TLabel;
     procedure tbAddClientClick(Sender: TObject);
     procedure lblRecentlyAddedClick(Sender: TObject);
     procedure lbxRecentDblClick(Sender: TObject);
@@ -139,6 +143,7 @@ type
     procedure imgGroupsClick(Sender: TObject);
     procedure imgLoanTypeClick(Sender: TObject);
     procedure imgAcctTypeClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
   private
     { Private declarations }
     RecentClients: TObjectList<TRecentClient>;
@@ -491,8 +496,14 @@ begin
   RecentLoans := TObjectList<TRecentLoan>.Create;
 
   npMain.ActivePage := nppClient;
+end;
 
+procedure TfrmMain.FormShow(Sender: TObject);
+begin
+  lblCaption.Caption := ifn.AppName + ' - ' + ifn.AppDescription;
   lblWelcome.Caption := 'Welcome back ' + ifn.User.Name + '.';
+  lblDate.Caption := 'Today is ' + FormatDateTime('mmmm dd, yyyy.',ifn.AppDate);
+  lblVersion.Caption :=  'Version ' + ifn.Version;
 end;
 
 procedure TfrmMain.imgAcctTypeClick(Sender: TObject);

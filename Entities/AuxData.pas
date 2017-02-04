@@ -45,6 +45,7 @@ type
     procedure dstDesignationsBeforePost(DataSet: TDataSet);
     procedure dstCompetitorsBeforePost(DataSet: TDataSet);
     procedure dstPurposeBeforePost(DataSet: TDataSet);
+    procedure dstAcctTypeAfterScroll(DataSet: TDataSet);
   private
     { Private declarations }
   public
@@ -57,11 +58,33 @@ var
 implementation
 
 uses
-  AppData, DBUtil;
+  AppData, DBUtil, AccountType;
 
 {%CLASSGROUP 'Vcl.Controls.TControl'}
 
 {$R *.dfm}
+
+procedure TdmAux.dstAcctTypeAfterScroll(DataSet: TDataSet);
+var
+  typeCode, typeName: string;
+  concurrent: integer;
+  maxTotal: real;
+begin
+  with DataSet do
+  begin
+    atype := TAccountType.Create;
+
+    typeCode := FieldByName('acct_type').AsString;
+    typeName := FieldByName('acct_type_name').AsString;
+    concurrent := FieldByName('max_concurrent').AsInteger;
+    maxTotal := FieldByName('max_tot_amt').AsFloat;
+
+    atype.TypeCode := typeCode;
+    atype.Name := typeName;
+    atype.MaxConcurrent := concurrent;
+    atype.MaxTotalAmount := maxTotal;
+  end;
+end;
 
 procedure TdmAux.dstBanksAfterScroll(DataSet: TDataSet);
 begin

@@ -3,7 +3,7 @@ unit LoanClassification;
 interface
 
 uses
-  LoanClassCharge;
+  LoanClassCharge, AccountType;
 
 type
   TLoanClassification = class
@@ -20,10 +20,12 @@ type
     FValidUntil: TDate;
     FClassCharges: array of TLoanClassCharge;
     FMaxAge: integer;
+    FAccountType: TAccountType;
 
     function GetComakersNotRequired: boolean;
     function GetClassCharge(const i: integer): TLoanClassCharge;
     function GetClassChargesCount: integer;
+    function GetHasMaxAge: boolean;
 
   public
     procedure AddClassCharge(cg: TLoanClassCharge);
@@ -46,6 +48,8 @@ type
     property ClassCharge[const i: integer]: TLoanClassCharge read GetClassCharge;
     property ClassChargesCount: integer read GetClassChargesCount;
     property MaxAge: integer read FMaxAge write FMaxAge;
+    property HasMaxAge: boolean read GetHasMaxAge;
+    property AccountType: TAccountType read FAccountType write FAccountType;
 
     constructor Create(const classificationId, groupId: integer; const classificationName: string;
         const interest: real; const term: integer; const loanType: string; const maxLoan: real;
@@ -138,6 +142,11 @@ end;
 function TLoanClassification.GetClassChargesCount: integer;
 begin
   Result := Length(FClassCharges);
+end;
+
+function TLoanClassification.GetHasMaxAge: boolean;
+begin
+  Result := FMaxAge > 0;
 end;
 
 end.

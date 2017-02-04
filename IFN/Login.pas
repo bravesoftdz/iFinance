@@ -12,7 +12,6 @@ type
   TfrmLogin = class(TfrmBasePopup)
     Label4: TLabel;
     Label5: TLabel;
-    lblVersion: TLabel;
     Label1: TLabel;
     Label2: TLabel;
     edUsername: TRzEdit;
@@ -25,6 +24,7 @@ type
     btnClose: TRzShapeButton;
     pnlLogin: TRzPanel;
     btnLogin: TRzShapeButton;
+    lblVersion: TLabel;
     procedure FormShow(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure edUsernameChange(Sender: TObject);
@@ -51,7 +51,7 @@ var
 
 const
   LIMITGLOBAL = 6;
-  TICK = 100;
+  TICK = 80;
   INCREMENT = 16;
 
 implementation
@@ -59,7 +59,7 @@ implementation
 {$R *.dfm}
 
 uses
-  AppData, AppUtil, IFinanceGlobal;
+  AppData, AppUtil, IFinanceGlobal, IFinanceDialogs;
 
 class function TfrmLogin.LoggedIn: boolean;
 begin
@@ -85,16 +85,14 @@ begin
 
     Result := RecordCount > 0;
 
-    if not Result then
-      lbErrorMessage.Caption := 'Invalid username or password.';
+    if not Result then lbErrorMessage.Caption := 'Invalid username or password.';
   end;
 end;
 
 procedure TfrmLogin.edPasswordKeyPress(Sender: TObject; var Key: Char);
 begin
   inherited;
-  if Key = #13 then
-    btnLogin.Click;
+  if Key = #13 then btnLogin.Click;
 end;
 
 procedure TfrmLogin.edUsernameChange(Sender: TObject);
@@ -108,8 +106,7 @@ begin
   inherited;
   dmApplication := TdmApplication.Create(Application);
 
-  // get version
-  lblVersion.Caption := 'Version ' + GetAppVersionStr(ParamStr(0));
+  lblVersion.Caption := 'Version ' + GetAppVersionStr(ParamStr(0));;
 end;
 
 procedure TfrmLogin.FormShow(Sender: TObject);
@@ -153,6 +150,8 @@ if (UserExists) and (PasswordIsValid) then
         btnLogin.Enabled := false;
         btnClose.Enabled := false;
 
+        lblVersion.Visible := false;
+
         lblStatus.Visible := true;
         prbStatus.Visible := true;
         lbErrorMessage.Visible := false;
@@ -169,10 +168,9 @@ if (UserExists) and (PasswordIsValid) then
       except
         on e: Exception do
         begin
-          MessageDlg('An exception has been detected and the application needs to close. ' +
+          ShowErrorBox('An exception has been detected and the application needs to close. ' +
             'Please contact the administrator with the message below.' + #13#10 + #13#10 +
-            e.Message,
-            mtError,[mbOK],0);
+            e.Message);
           Application.Terminate;
         end;
       end;
@@ -221,6 +219,8 @@ begin
     Locate('sysconfig_code','LOCATION_PREFIX',[]);
     ifn.LocationPrefix := FieldbyName('sysconfig_value').AsString;
 
+    Close;
+
     // photo path
     ifn.PhotoPath := ExtractFilePath(Application.ExeName) + 'photos\';
     if not DirectoryExists(ifn.PhotoPath) then
@@ -229,7 +229,8 @@ begin
     // application images path
     ifn.AppImagesPath := ExtractFilePath(Application.ExeName) + '_images\';
 
-    Close;
+    // version
+    ifn.Version := GetAppVersionStr(ParamStr(0));
   end;
 
   while i <= limit do

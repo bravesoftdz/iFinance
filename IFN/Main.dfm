@@ -4,7 +4,7 @@ object frmMain: TfrmMain
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsNone
   Caption = 'i-Finance - Integrated Financial Management Information System'
-  ClientHeight = 680
+  ClientHeight = 700
   ClientWidth = 1180
   Color = 14273211
   Font.Charset = DEFAULT_CHARSET
@@ -17,6 +17,7 @@ object frmMain: TfrmMain
   OldCreateOrder = False
   Position = poScreenCenter
   OnCreate = FormCreate
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object pnlTitle: TRzPanel
@@ -92,7 +93,7 @@ object frmMain: TfrmMain
     Left = 0
     Top = 21
     Width = 1180
-    Height = 659
+    Height = 679
     Align = alClient
     BorderOuter = fsNone
     BorderSides = [sdLeft, sdRight, sdBottom]
@@ -102,9 +103,9 @@ object frmMain: TfrmMain
     TabOrder = 1
     DesignSize = (
       1180
-      659)
+      679)
     object lblWelcome: TRzLabel
-      Left = 1032
+      Left = 1026
       Top = 11
       Width = 133
       Height = 14
@@ -117,7 +118,64 @@ object frmMain: TfrmMain
       Font.Name = 'Tahoma'
       Font.Style = [fsBold]
       ParentFont = False
-      ExplicitLeft = 1062
+    end
+    object Label1: TLabel
+      Left = 17
+      Top = 651
+      Width = 89
+      Height = 14
+      Anchors = [akLeft, akBottom]
+      Caption = 'F2 - Add client'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -12
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object Label2: TLabel
+      Left = 145
+      Top = 651
+      Width = 83
+      Height = 14
+      Anchors = [akLeft, akBottom]
+      Caption = 'F3 - New loan'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -12
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object lblDate: TLabel
+      Left = 1015
+      Top = 59
+      Width = 144
+      Height = 14
+      Alignment = taRightJustify
+      Anchors = [akTop, akRight]
+      Caption = 'Today is January 01, 2017'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 6572079
+      Font.Height = -12
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+    end
+    object lblVersion: TLabel
+      Left = 1075
+      Top = 651
+      Width = 84
+      Height = 14
+      Alignment = taRightJustify
+      Anchors = [akRight, akBottom]
+      Caption = 'Version 1.0.0.0'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 6572079
+      Font.Height = -12
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
     end
     object pnlNavBar: TRzPanel
       Left = 17
@@ -128,7 +186,7 @@ object frmMain: TfrmMain
       BorderOuter = fsNone
       BorderColor = 6572079
       BorderWidth = 1
-      Color = 14273211
+      Color = 12955288
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
       Font.Height = -12
@@ -1285,7 +1343,7 @@ object frmMain: TfrmMain
         OnMouseUp = imgAddClientMouseUp
       end
     end
-    object RzPanel12: TRzPanel
+    object pnlLoanClass: TRzPanel
       Left = 575
       Top = 11
       Width = 40
@@ -1383,7 +1441,7 @@ object frmMain: TfrmMain
         OnMouseUp = imgAddClientMouseUp
       end
     end
-    object RzPanel1: TRzPanel
+    object pnlPurpose: TRzPanel
       Left = 432
       Top = 11
       Width = 40
@@ -1484,7 +1542,7 @@ object frmMain: TfrmMain
         OnMouseUp = imgAddClientMouseUp
       end
     end
-    object RzPanel2: TRzPanel
+    object pnlAcctType: TRzPanel
       Left = 532
       Top = 11
       Width = 40
@@ -1567,7 +1625,7 @@ object frmMain: TfrmMain
         OnMouseUp = imgAddClientMouseUp
       end
     end
-    object RzPanel3: TRzPanel
+    object pnlLoanType: TRzPanel
       Left = 489
       Top = 11
       Width = 40
