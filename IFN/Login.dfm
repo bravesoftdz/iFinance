@@ -16,6 +16,7 @@ inherited frmLogin: TfrmLogin
     ExplicitWidth = 434
     inherited imgClose: TImage
       Left = 412
+      Hint = 'Cancel login'
       ExplicitLeft = 410
     end
     inherited lblCaption: TRzLabel
@@ -719,10 +720,11 @@ inherited frmLogin: TfrmLogin
       ParentFont = False
     end
     object lblVersion: TLabel
-      Left = 11
+      Left = 347
       Top = 165
       Width = 74
       Height = 13
+      Alignment = taRightJustify
       Caption = 'Version 1.0.0.0'
       Color = clWhite
       Font.Charset = ANSI_CHARSET

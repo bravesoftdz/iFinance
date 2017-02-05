@@ -40,13 +40,13 @@ inherited frmClientMain: TfrmClientMain
     Width = 860
     Height = 552
     Hint = ''
-    ActivePage = tsLoanClassAccess
+    ActivePage = tsIdentityInfo
     Anchors = [akLeft, akTop, akRight, akBottom]
     BoldCurrentTab = True
     FlatColor = 6572079
     ShowFullFrame = False
     ShowShadow = False
-    TabIndex = 4
+    TabIndex = 2
     TabOrder = 1
     TabOrientation = toBottom
     TabStop = False
