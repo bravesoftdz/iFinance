@@ -39,6 +39,10 @@ type
     dscCompetitors: TDataSource;
     dstPurpose: TADODataSet;
     dscPurpose: TDataSource;
+    dstLoanCancelReasons: TADODataSet;
+    dscLoanCancelReasons: TDataSource;
+    dstLoanRejectReasons: TADODataSet;
+    dscLoanRejectReasons: TDataSource;
     procedure dstBranchesBeforePost(DataSet: TDataSet);
     procedure dstBanksAfterScroll(DataSet: TDataSet);
     procedure dstBranchesNewRecord(DataSet: TDataSet);
@@ -46,6 +50,8 @@ type
     procedure dstCompetitorsBeforePost(DataSet: TDataSet);
     procedure dstPurposeBeforePost(DataSet: TDataSet);
     procedure dstAcctTypeAfterScroll(DataSet: TDataSet);
+    procedure dstLoanCancelReasonsBeforePost(DataSet: TDataSet);
+    procedure dstLoanRejectReasonsBeforePost(DataSet: TDataSet);
   private
     { Private declarations }
   public
@@ -128,6 +134,28 @@ begin
   begin
     id := GetDesignationId;
     DataSet.FieldByName('des_id').AsInteger := id;
+  end;
+end;
+
+procedure TdmAux.dstLoanCancelReasonsBeforePost(DataSet: TDataSet);
+var
+  id: integer;
+begin
+  if DataSet.State = dsInsert then
+  begin
+    id := GetLoanCancellationReasonId;
+    DataSet.FieldByName('reason_id').AsInteger := id;
+  end;
+end;
+
+procedure TdmAux.dstLoanRejectReasonsBeforePost(DataSet: TDataSet);
+var
+  id: integer;
+begin
+  if DataSet.State = dsInsert then
+  begin
+    id := GetLoanRejectionReasonId;
+    DataSet.FieldByName('reason_id').AsInteger := id;
   end;
 end;
 

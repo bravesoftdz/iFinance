@@ -1,6 +1,6 @@
 object dmAux: TdmAux
   OldCreateOrder = False
-  Height = 329
+  Height = 516
   Width = 709
   object dscTowns: TDataSource
     DataSet = dstTowns
@@ -53,7 +53,7 @@ object dmAux: TdmAux
   object dscDesignations: TDataSource
     DataSet = dstDesignations
     Left = 112
-    Top = 208
+    Top = 216
   end
   object dstDesignations: TADODataSet
     Connection = dmApplication.acMain
@@ -63,7 +63,7 @@ object dmAux: TdmAux
     CommandType = cmdStoredProc
     Parameters = <>
     Left = 48
-    Top = 208
+    Top = 216
   end
   object dscIdentType: TDataSource
     DataSet = dstIdentType
@@ -113,7 +113,7 @@ object dmAux: TdmAux
   object dscLoanType: TDataSource
     DataSet = dstLoanType
     Left = 272
-    Top = 208
+    Top = 216
   end
   object dstLoanType: TADODataSet
     Connection = dmApplication.acMain
@@ -123,7 +123,7 @@ object dmAux: TdmAux
     CommandType = cmdStoredProc
     Parameters = <>
     Left = 208
-    Top = 208
+    Top = 216
   end
   object dscCompMethod: TDataSource
     DataSet = dstCompMethod
@@ -185,12 +185,12 @@ object dmAux: TdmAux
         Value = 0
       end>
     Left = 368
-    Top = 208
+    Top = 216
   end
   object dscGender: TDataSource
     DataSet = dstGender
     Left = 440
-    Top = 208
+    Top = 216
   end
   object dstAcctType: TADODataSet
     Connection = dmApplication.acMain
@@ -246,11 +246,41 @@ object dmAux: TdmAux
     CommandType = cmdStoredProc
     Parameters = <>
     Left = 527
-    Top = 206
+    Top = 214
   end
   object dscPurpose: TDataSource
     DataSet = dstPurpose
     Left = 591
-    Top = 206
+    Top = 214
+  end
+  object dstLoanCancelReasons: TADODataSet
+    Connection = dmApplication.acMain
+    CursorType = ctStatic
+    BeforePost = dstLoanCancelReasonsBeforePost
+    CommandText = 'sp_get_loan_cancel_reasons;1'
+    CommandType = cmdStoredProc
+    Parameters = <>
+    Left = 47
+    Top = 278
+  end
+  object dscLoanCancelReasons: TDataSource
+    DataSet = dstLoanCancelReasons
+    Left = 111
+    Top = 278
+  end
+  object dstLoanRejectReasons: TADODataSet
+    Connection = dmApplication.acMain
+    CursorType = ctStatic
+    BeforePost = dstLoanRejectReasonsBeforePost
+    CommandText = 'sp_get_loan_reject_reasons;1'
+    CommandType = cmdStoredProc
+    Parameters = <>
+    Left = 47
+    Top = 342
+  end
+  object dscLoanRejectReasons: TDataSource
+    DataSet = dstLoanRejectReasons
+    Left = 111
+    Top = 342
   end
 end

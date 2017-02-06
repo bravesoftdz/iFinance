@@ -108,6 +108,10 @@ type
     Label2: TLabel;
     lblDate: TLabel;
     lblVersion: TLabel;
+    pnlLoanCancellationReasonList: TRzPanel;
+    imgLoanCancellationReasonList: TImage;
+    pnlRejectionReasonList: TRzPanel;
+    imgRejectionReasonList: TImage;
     procedure tbAddClientClick(Sender: TObject);
     procedure lblRecentlyAddedClick(Sender: TObject);
     procedure lbxRecentDblClick(Sender: TObject);
@@ -144,6 +148,8 @@ type
     procedure imgLoanTypeClick(Sender: TObject);
     procedure imgAcctTypeClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure imgLoanCancellationReasonListClick(Sender: TObject);
+    procedure imgRejectionReasonListClick(Sender: TObject);
   private
     { Private declarations }
     RecentClients: TObjectList<TRecentClient>;
@@ -171,7 +177,8 @@ uses
   ClientMain, SaveIntf, ClientList, DockedFormIntf, GroupList, EmployerList,
   BanksList, DesignationList, LoanClassificationList, ConfBox, ErrorBox, ClientIntf,
   LoanMain, LoanList, LoanIntf, CompetitorList, FormsUtil, IFinanceGlobal,
-  PurposeList, IFinanceDialogs, NewIntf, LoanTypeList, AccountTypeList;
+  PurposeList, IFinanceDialogs, NewIntf, LoanTypeList, AccountTypeList,
+  LoanCancellationReasonList, LoanRejectionReasonList;
 
 constructor TRecentClient.Create(const id, displayId, name: string);
 begin
@@ -478,6 +485,8 @@ begin
       fmPurposeList: frm := TfrmPurposeList.Create(Application);
       fmLoanTypeList: frm := TfrmLoanTypeList.Create(Application);
       fmAcctTypeList: frm := TfrmAccountTypeList.Create(Application);
+      fmLoanCancelReasonList: frm := TfrmLoanCancelReasonList.Create(Application);
+      fmLoanRejectReasonList: frm := TfrmLoanRejectionReasonList.Create(Application);
       else
         frm := TForm.Create(Application);
     end;
@@ -547,6 +556,11 @@ begin
   DockForm(fmGroupList);
 end;
 
+procedure TfrmMain.imgLoanCancellationReasonListClick(Sender: TObject);
+begin
+  DockForm(fmLoanCancelReasonList);
+end;
+
 procedure TfrmMain.imgLoanTypeClick(Sender: TObject);
 begin
   DockForm(fmLoanTypeList);
@@ -555,6 +569,11 @@ end;
 procedure TfrmMain.imgPurposeClick(Sender: TObject);
 begin
   DockForm(fmPurposeList);
+end;
+
+procedure TfrmMain.imgRejectionReasonListClick(Sender: TObject);
+begin
+  DockForm(fmLoanRejectReasonList);
 end;
 
 procedure TfrmMain.imgSaveClick(Sender: TObject);
