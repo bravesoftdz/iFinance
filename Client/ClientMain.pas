@@ -872,7 +872,7 @@ begin
     begin
       Append;
       ChangeIdentControlState;
-      grIdentityList.DataSource.DataSet.Fields[0].FocusControl;
+      grIdentityList.DataSource.DataSet.FieldByName(grIdentityList.Columns[0].FieldName).FocusControl;
     end;
   end;
 end;

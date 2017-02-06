@@ -55,3 +55,4 @@ _dcp/Base.lib
 _dcp/Client.lib
 *.lib
 *.bmp
+*.identcache
