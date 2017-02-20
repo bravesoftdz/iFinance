@@ -49,9 +49,9 @@ inherited frmLoanList: TfrmLoanList
     end
   end
   object pnlList: TRzPanel
-    Left = 8
+    Left = 6
     Top = 65
-    Width = 583
+    Width = 585
     Height = 170
     Anchors = [akLeft, akTop, akRight, akBottom]
     BorderOuter = fsNone
@@ -62,7 +62,7 @@ inherited frmLoanList: TfrmLoanList
     object grList: TRzDBGrid
       Left = 1
       Top = 1
-      Width = 581
+      Width = 583
       Height = 168
       Align = alClient
       BorderStyle = bsNone
@@ -95,6 +95,11 @@ inherited frmLoanList: TfrmLoanList
           FieldName = 'loan_id'
           Title.Alignment = taCenter
           Title.Caption = 'Loan ID'
+          Title.Font.Charset = DEFAULT_CHARSET
+          Title.Font.Color = clWindowText
+          Title.Font.Height = -12
+          Title.Font.Name = 'Tahoma'
+          Title.Font.Style = [fsBold]
           Width = 120
           Visible = True
         end
@@ -103,6 +108,11 @@ inherited frmLoanList: TfrmLoanList
           FieldName = 'name'
           Title.Alignment = taCenter
           Title.Caption = 'Name'
+          Title.Font.Charset = DEFAULT_CHARSET
+          Title.Font.Color = clWindowText
+          Title.Font.Height = -12
+          Title.Font.Name = 'Tahoma'
+          Title.Font.Style = [fsBold]
           Width = 250
           Visible = True
         end
@@ -111,6 +121,11 @@ inherited frmLoanList: TfrmLoanList
           FieldName = 'class_name'
           Title.Alignment = taCenter
           Title.Caption = 'Loan class'
+          Title.Font.Charset = DEFAULT_CHARSET
+          Title.Font.Color = clWindowText
+          Title.Font.Height = -12
+          Title.Font.Name = 'Tahoma'
+          Title.Font.Style = [fsBold]
           Width = 150
           Visible = True
         end>

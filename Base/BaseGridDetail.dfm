@@ -16,9 +16,9 @@ inherited frmBaseGridDetail: TfrmBaseGridDetail
     ExplicitWidth = 778
   end
   object pnlList: TRzPanel
-    Left = 8
+    Left = 6
     Top = 65
-    Width = 481
+    Width = 483
     Height = 403
     Anchors = [akLeft, akTop, akRight, akBottom]
     BorderOuter = fsNone
@@ -29,7 +29,7 @@ inherited frmBaseGridDetail: TfrmBaseGridDetail
     object grList: TRzDBGrid
       Left = 1
       Top = 1
-      Width = 479
+      Width = 481
       Height = 401
       Align = alClient
       BorderStyle = bsNone

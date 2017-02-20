@@ -86,10 +86,6 @@ type
     btnAddComaker: TRzShapeButton;
     pnlRemoveComaker: TRzPanel;
     btnRemoveComaker: TRzShapeButton;
-    RzGroupBox4: TRzGroupBox;
-    grFinInfo: TRzDBGrid;
-    RzGroupBox5: TRzGroupBox;
-    grMonExp: TRzDBGrid;
     RzDBLabel1: TRzDBLabel;
     RzDBLabel2: TRzDBLabel;
     RzDBLabel3: TRzDBLabel;
@@ -147,6 +143,25 @@ type
     JvLabel32: TJvLabel;
     JvLabel33: TJvLabel;
     pnlStatus: TRzPanel;
+    JvLabel34: TJvLabel;
+    edNetPay: TRzNumericEdit;
+    pcAssessment: TRzPageControl;
+    tsFinInfo: TRzTabSheet;
+    tsMonExp: TRzTabSheet;
+    grFinInfo: TRzDBGrid;
+    grMonExp: TRzDBGrid;
+    JvLabel35: TJvLabel;
+    RzDBLabel16: TRzDBLabel;
+    JvLabel36: TJvLabel;
+    RzDBLabel17: TRzDBLabel;
+    JvLabel37: TJvLabel;
+    RzDBLabel18: TRzDBLabel;
+    JvLabel38: TJvLabel;
+    RzDBLabel19: TRzDBLabel;
+    JvLabel39: TJvLabel;
+    RzDBLabel20: TRzDBLabel;
+    JvLabel40: TJvLabel;
+    RzDBLabel21: TRzDBLabel;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure bteClientButtonClick(Sender: TObject);
@@ -177,7 +192,6 @@ type
     procedure RetrieveLoan;
     procedure SetActiveTab(const index: integer); overload;
     procedure SetActiveTab; overload;
-    procedure SelectClient;
 
     procedure ApproveLoan;
     procedure AssessLoan;
@@ -193,13 +207,14 @@ type
     procedure RefreshDropDownSources;
     procedure Cancel;
     procedure InitForm;
+    procedure SelectClient;
 
     function Save: boolean;
   end;
 
 const
   // tab index
-  ASSESSMENT = 0;
+  ASSESSED = 0;
   APPROVAL = 1;
   RELEASED = 2;
   REJECTION = 3;
@@ -220,7 +235,7 @@ uses
   LoanData, FormsUtil, LoanClient, ClientSearch, StatusIntf, DockIntf, IFinanceGlobal,
   Comaker, ComakerSearch, DecisionBox, ComakerDetail, FinInfoDetail, MonthlyExpenseDetail,
   LoansAuxData, LoanApprovalDetail, LoanAssessmentDetail, LoanCancellationDetail,
-  LoanRejectionDetail, Alert, Alerts, LoanReleaseDetail, Client, AppConstants,
+  LoanRejectionDetail, Alert, Alerts, LoanReleaseDetail, Client, AppConstants, Assessment,
   IFinanceDialogs;
 
 procedure TfrmLoanMain.SetActiveTab;
@@ -229,9 +244,9 @@ var
 begin
   index := 0;
 
-  // this routine set active tab based on current loan status
+  // this routine sets the active tab based on current loan status
   if (ln.IsPending) or (ln.New) then index := NOINFO
-  else if ln.IsAssessed then index := ASSESSMENT
+  else if ln.IsAssessed then index := ASSESSED
   else if ln.IsApproved then index := APPROVAL
   else if ln.IsActive then index := RELEASED
   else if ln.IsRejected then index := REJECTION
@@ -252,7 +267,7 @@ begin
   begin
     ActivePageIndex := index;
     case ActivePageIndex of
-      ASSESSMENT: pnlAssessment.Visible := ln.HasLoanState(lsAssessed);
+      ASSESSED: pnlAssessment.Visible := ln.HasLoanState(lsAssessed);
       APPROVAL: pnlApproval.Visible := ln.HasLoanState(lsApproved);
       RELEASED: pnlRelease.Visible := ln.HasLoanState(lsActive);
       REJECTION: pnlRejection.Visible := ln.HasLoanState(lsRejected);
@@ -274,6 +289,12 @@ begin
   begin
     ShowErrorBox('Approval restricted. Assessment details not found.');
     Exit;
+  end
+  else if Assigned(ln.Assessment) and (ln.Assessment.Recommendation = rcReject)
+    and (not ln.LoanStateExists(lsApproved)) then
+  begin
+    if ShowDecisionBox('Application has been recommended for REJECTION.' +
+        ' Do you wish to continue with the approval?') <> mrYes then Exit;
   end;
 
   with TfrmLoanAppvDetail.Create(self) do
@@ -327,7 +348,7 @@ begin
       begin
         SetLoanId;
         ChangeControlState;
-        SetActiveTab(ASSESSMENT);
+        SetActiveTab(ASSESSED);
       end;
 
       Free;
@@ -345,6 +366,12 @@ begin
   begin
     ShowErrorBox(FINALISED_MSG);
     Exit;
+  end
+  else if Assigned(ln.Assessment) and (ln.Assessment.Recommendation = rcApprove)
+    and (not ln.LoanStateExists(lsRejected)) then
+  begin
+    if ShowDecisionBox('Application has been recommended for APPROVAL.' +
+        ' Do you wish to continue with the rejection?') <> mrYes then Exit;
   end;
 
   with TfrmLoanRejectionDetail.Create(self) do
@@ -471,6 +498,7 @@ end;
 
 procedure TfrmLoanMain.SelectClient;
 begin
+  if (ln.Action = laCreating) or (ln.IsPending) then
   with TfrmClientSearch.Create(self) do
   begin
     try
@@ -482,6 +510,7 @@ begin
             bteClient.Text := lnc.Name;
             mmAddress.Text := lnc.Address;
             mmEmployer.Text := lnc.Employer.Name;
+            edNetPay.Value := lnc.NetPay;
 
             ln.Client := lnc;
 
@@ -692,7 +721,7 @@ end;
 procedure TfrmLoanMain.imgAssessmentClick(Sender: TObject);
 begin
   inherited;
-  if (ln.HasLoanState(lsAssessed)) or (ln.IsFinalised) then SetActiveTab(ASSESSMENT)
+  if (ln.HasLoanState(lsAssessed)) or (ln.IsFinalised) then SetActiveTab(ASSESSED)
   else AssessLoan;
 end;
 

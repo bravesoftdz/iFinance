@@ -29,6 +29,7 @@ object frmMain: TfrmMain
     BorderOuter = fsNone
     BorderColor = clBlack
     BorderWidth = 1
+    Color = 14273211
     GradientColorStyle = gcsCustom
     GradientColorStart = 6572079
     GradientColorStop = 8675134
@@ -101,7 +102,6 @@ object frmMain: TfrmMain
     BorderWidth = 1
     Color = 12955288
     TabOrder = 1
-    ExplicitTop = 23
     DesignSize = (
       1180
       679)
@@ -1894,6 +1894,15 @@ object frmMain: TfrmMain
         Action = acGenericNew
       end
     end
+    object Client1: TMenuItem
+      Caption = '&Client'
+    end
+    object Loan1: TMenuItem
+      Caption = '&Loan'
+      object Selectclient1: TMenuItem
+        Caption = '&Select client'
+      end
+    end
   end
   object alMain: TActionList
     Left = 272
@@ -1917,6 +1926,11 @@ object frmMain: TfrmMain
       Caption = 'New'
       ShortCut = 16462
       OnExecute = acGenericNewExecute
+    end
+    object acSelectClient: TAction
+      Caption = 'acSelectClient'
+      ShortCut = 16497
+      OnExecute = acSelectClientExecute
     end
   end
 end

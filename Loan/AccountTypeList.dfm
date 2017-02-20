@@ -18,7 +18,7 @@ inherited frmAccountTypeList: TfrmAccountTypeList
           FieldName = 'acct_type_name'
           Title.Alignment = taCenter
           Title.Caption = 'Name'
-          Width = 150
+          Width = 200
           Visible = True
         end
         item
@@ -26,23 +26,7 @@ inherited frmAccountTypeList: TfrmAccountTypeList
           FieldName = 'acct_type_desc'
           Title.Alignment = taCenter
           Title.Caption = 'Description'
-          Width = 200
-          Visible = True
-        end
-        item
-          Alignment = taRightJustify
-          Expanded = False
-          FieldName = 'max_tot_amt_f'
-          Title.Alignment = taRightJustify
-          Title.Caption = 'Maximum total'
-          Width = 100
-          Visible = True
-        end
-        item
-          Expanded = False
-          FieldName = 'max_concurrent'
-          Title.Caption = 'Concurrent'
-          Width = 70
+          Width = 300
           Visible = True
         end>
     end
@@ -64,27 +48,11 @@ inherited frmAccountTypeList: TfrmAccountTypeList
       Caption = 'Description'
       Transparent = True
     end
-    object JvLabel5: TJvLabel [2]
-      Left = 166
-      Top = 111
-      Width = 63
-      Height = 14
-      Caption = 'Concurrent'
-      Transparent = True
-    end
-    object JvLabel14: TJvLabel [3]
-      Left = 14
-      Top = 111
-      Width = 56
-      Height = 14
-      Caption = 'Max. total'
-      Transparent = True
-    end
     inherited pnlAdd: TRzPanel
-      TabOrder = 4
+      TabOrder = 2
     end
     inherited pnlDetailHead: TRzPanel
-      TabOrder = 5
+      TabOrder = 3
     end
     object edTypeName: TRzDBEdit
       Left = 80
@@ -112,38 +80,6 @@ inherited frmAccountTypeList: TfrmAccountTypeList
       FrameVisible = True
       FramingPreference = fpCustomFraming
       TabOnEnter = True
-    end
-    object edConcurrent: TRzDBEdit
-      Left = 233
-      Top = 105
-      Width = 31
-      Height = 22
-      DataSource = dmLoansAux.dscAcctTypes
-      DataField = 'max_concurrent'
-      CharCase = ecUpperCase
-      DisabledColor = clWhite
-      FrameColor = 8675134
-      FrameVisible = True
-      FramingPreference = fpCustomFraming
-      TabOnEnter = True
-      TabOrder = 3
-    end
-    object edMaxTotal: TRzDBNumericEdit
-      Left = 80
-      Top = 105
-      Width = 81
-      Height = 22
-      DataSource = dmLoansAux.dscAcctTypes
-      DataField = 'max_tot_amt'
-      Alignment = taLeftJustify
-      DisabledColor = clWhite
-      FrameColor = 8675134
-      FrameVisible = True
-      FramingPreference = fpCustomFraming
-      TabOnEnter = True
-      TabOrder = 2
-      DisplayFormat = '###,##0.00'
-      FlatButtons = True
     end
   end
 end

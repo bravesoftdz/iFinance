@@ -36,17 +36,17 @@ inherited frmClientMain: TfrmClientMain
   end
   object pcClient: TRzPageControl
     Left = 0
-    Top = 28
+    Top = 29
     Width = 860
     Height = 552
     Hint = ''
-    ActivePage = tsIdentityInfo
+    ActivePage = tsBankAcctInfo
     Anchors = [akLeft, akTop, akRight, akBottom]
     BoldCurrentTab = True
     FlatColor = 6572079
     ShowFullFrame = False
     ShowShadow = False
-    TabIndex = 2
+    TabIndex = 5
     TabOrder = 1
     TabOrientation = toBottom
     TabStop = False
@@ -294,67 +294,35 @@ inherited frmClientMain: TfrmClientMain
         Transparent = True
       end
       object JvLabel28: TJvLabel
-        Left = 352
-        Top = 394
+        Left = 656
+        Top = 244
         Width = 73
         Height = 14
         Caption = 'Service years'
         Transparent = True
       end
       object JvLabel29: TJvLabel
-        Left = 352
-        Top = 418
+        Left = 656
+        Top = 268
         Width = 74
         Height = 14
         Caption = 'Gross income'
         Transparent = True
       end
       object JvLabel30: TJvLabel
-        Left = 352
-        Top = 442
+        Left = 656
+        Top = 292
         Width = 45
         Height = 14
         Caption = 'Net pay'
         Transparent = True
       end
       object JvLabel31: TJvLabel
-        Left = 643
-        Top = 394
+        Left = 646
+        Top = 322
         Width = 77
         Height = 14
         Caption = 'Other income'
-        Transparent = True
-      end
-      object JvLabel32: TJvLabel
-        Left = 643
-        Top = 322
-        Width = 53
-        Height = 14
-        Caption = 'Acct. no.'
-        Transparent = True
-      end
-      object JvLabel33: TJvLabel
-        Left = 643
-        Top = 346
-        Width = 48
-        Height = 14
-        Caption = 'Card no.'
-        Transparent = True
-      end
-      object JvLabel34: TJvLabel
-        Left = 643
-        Top = 244
-        Width = 28
-        Height = 14
-        Caption = 'Bank'
-        Transparent = True
-      end
-      object JvLabel36: TJvLabel
-        Left = 643
-        Top = 268
-        Width = 39
-        Height = 14
-        Caption = 'Branch'
         Transparent = True
       end
       object edLastname: TRzDBEdit
@@ -881,8 +849,8 @@ inherited frmClientMain: TfrmClientMain
         OnButtonClick = bteImmHeadButtonClick
       end
       object RzDBEdit12: TRzDBEdit
-        Left = 427
-        Top = 388
+        Left = 763
+        Top = 238
         Width = 59
         Height = 22
         DataSource = dmClient.dscEmplInfo
@@ -894,36 +862,6 @@ inherited frmClientMain: TfrmClientMain
         ParentCtl3D = False
         TabOnEnter = True
         TabOrder = 29
-      end
-      object RzDBEdit15: TRzDBEdit
-        Left = 699
-        Top = 316
-        Width = 160
-        Height = 22
-        DataSource = dmClient.dscAcctInfo
-        DataField = 'acct_no'
-        Ctl3D = True
-        FrameColor = 8675134
-        FrameVisible = True
-        FramingPreference = fpCustomFraming
-        ParentCtl3D = False
-        TabOnEnter = True
-        TabOrder = 34
-      end
-      object RzDBEdit16: TRzDBEdit
-        Left = 699
-        Top = 340
-        Width = 160
-        Height = 22
-        DataSource = dmClient.dscAcctInfo
-        DataField = 'card_no'
-        Ctl3D = True
-        FrameColor = 8675134
-        FrameVisible = True
-        FramingPreference = fpCustomFraming
-        ParentCtl3D = False
-        TabOnEnter = True
-        TabOrder = 35
       end
       object RzDBLookupComboBox8: TRzDBLookupComboBox
         Left = 427
@@ -945,56 +883,10 @@ inherited frmClientMain: TfrmClientMain
         FramingPreference = fpCustomFraming
         TabOnEnter = True
       end
-      object bteBank: TRzButtonEdit
-        Tag = 1
-        Left = 699
-        Top = 238
-        Width = 160
-        Height = 22
-        Text = ''
-        Color = clWhite
-        FrameColor = 8675134
-        FrameVisible = True
-        FramingPreference = fpCustomFraming
-        ParentShowHint = False
-        ReadOnly = True
-        ReadOnlyColor = clWhite
-        ShowHint = True
-        TabOnEnter = True
-        TabOrder = 32
-        AllowKeyEdit = False
-        AltBtnHint = 'Clear bank'
-        ButtonHint = 'Find bank'
-        AltBtnKind = bkReject
-        ButtonKind = bkFind
-        AltBtnVisible = True
-        AltBtnWidth = 15
-        ButtonWidth = 15
-        FlatButtons = True
-        HideButtonsOnReadOnly = False
-        OnAltBtnClick = bteBankAltBtnClick
-        OnButtonClick = bteBankButtonClick
-      end
-      object mmBranch: TRzMemo
-        Tag = 1
-        Left = 699
-        Top = 262
-        Width = 160
-        Height = 52
-        Color = 14273211
-        ReadOnly = True
-        TabOrder = 33
-        DisabledColor = 14273211
-        FrameColor = 8675134
-        FrameVisible = True
-        FramingPreference = fpCustomFraming
-        ReadOnlyColor = 14273211
-        TabOnEnter = True
-      end
       object RzDBNumericEdit1: TRzDBNumericEdit
-        Left = 427
-        Top = 412
-        Width = 187
+        Left = 763
+        Top = 262
+        Width = 97
         Height = 22
         DataSource = dmClient.dscEmplInfo
         DataField = 'gross_pay'
@@ -1008,9 +900,9 @@ inherited frmClientMain: TfrmClientMain
         DisplayFormat = '###,##0.00'
       end
       object RzDBNumericEdit2: TRzDBNumericEdit
-        Left = 427
-        Top = 436
-        Width = 187
+        Left = 763
+        Top = 286
+        Width = 97
         Height = 22
         DataSource = dmClient.dscEmplInfo
         DataField = 'net_pay'
@@ -1041,13 +933,13 @@ inherited frmClientMain: TfrmClientMain
         FlatButtons = True
       end
       object RzDBMemo1: TRzDBMemo
-        Left = 643
-        Top = 412
-        Width = 216
+        Left = 646
+        Top = 340
+        Width = 214
         Height = 46
         DataField = 'oth_income'
         DataSource = dmClient.dscPersonalInfo
-        TabOrder = 36
+        TabOrder = 32
         FrameColor = 8675134
         FrameVisible = True
         FramingPreference = fpCustomFraming
@@ -1077,7 +969,7 @@ inherited frmClientMain: TfrmClientMain
         GradientColorStyle = gcsCustom
         GroupStyle = gsUnderline
         ParentFont = False
-        TabOrder = 37
+        TabOrder = 33
       end
       object RzGroupBox3: TRzGroupBox
         Left = 19
@@ -1103,7 +995,7 @@ inherited frmClientMain: TfrmClientMain
         GradientColorStyle = gcsCustom
         GroupStyle = gsUnderline
         ParentFont = False
-        TabOrder = 38
+        TabOrder = 34
       end
       object RzGroupBox4: TRzGroupBox
         Left = 19
@@ -1129,7 +1021,7 @@ inherited frmClientMain: TfrmClientMain
         GradientColorStyle = gcsCustom
         GroupStyle = gsUnderline
         ParentFont = False
-        TabOrder = 39
+        TabOrder = 35
       end
       object RzGroupBox5: TRzGroupBox
         Left = 19
@@ -1155,7 +1047,7 @@ inherited frmClientMain: TfrmClientMain
         GradientColorStyle = gcsCustom
         GroupStyle = gsUnderline
         ParentFont = False
-        TabOrder = 40
+        TabOrder = 36
       end
       object RzGroupBox6: TRzGroupBox
         Left = 336
@@ -1181,12 +1073,12 @@ inherited frmClientMain: TfrmClientMain
         GradientColorStyle = gcsCustom
         GroupStyle = gsUnderline
         ParentFont = False
-        TabOrder = 41
+        TabOrder = 37
       end
       object RzGroupBox7: TRzGroupBox
         Left = 336
         Top = 216
-        Width = 278
+        Width = 524
         Height = 22
         BorderColor = 6572079
         BorderSides = []
@@ -1207,33 +1099,7 @@ inherited frmClientMain: TfrmClientMain
         GradientColorStyle = gcsCustom
         GroupStyle = gsUnderline
         ParentFont = False
-        TabOrder = 42
-      end
-      object RzGroupBox8: TRzGroupBox
-        Left = 627
-        Top = 216
-        Width = 232
-        Height = 22
-        BorderColor = 6572079
-        BorderSides = []
-        BorderWidth = 1
-        Caption = 'Bank account info'
-        CaptionFont.Charset = DEFAULT_CHARSET
-        CaptionFont.Color = clRed
-        CaptionFont.Height = -12
-        CaptionFont.Name = 'Tahoma'
-        CaptionFont.Style = [fsBold]
-        Color = 14273211
-        FlatColor = 6572079
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = 6572079
-        Font.Height = -12
-        Font.Name = 'Tahoma'
-        Font.Style = []
-        GradientColorStyle = gcsCustom
-        GroupStyle = gsUnderline
-        ParentFont = False
-        TabOrder = 43
+        TabOrder = 38
       end
       object pnlPhoto: TRzPanel
         Left = 627
@@ -1244,7 +1110,7 @@ inherited frmClientMain: TfrmClientMain
         BorderColor = 6572079
         BorderWidth = 1
         Color = 12955288
-        TabOrder = 44
+        TabOrder = 39
         object imgClient: TImage
           Left = 1
           Top = 1
@@ -1266,10 +1132,10 @@ inherited frmClientMain: TfrmClientMain
         860
         529)
       object pnlFamRef: TRzPanel
-        Left = 8
-        Top = 9
-        Width = 570
-        Height = 513
+        Left = 6
+        Top = 6
+        Width = 572
+        Height = 516
         Anchors = [akLeft, akTop, akRight, akBottom]
         BorderOuter = fsNone
         BorderColor = 8675134
@@ -1278,10 +1144,10 @@ inherited frmClientMain: TfrmClientMain
         ParentColor = True
         TabOrder = 0
         DesignSize = (
-          570
-          513)
+          572
+          516)
         object urlRefreshRefList: TRzURLLabel
-          Left = -1
+          Left = 1
           Top = 179
           Width = 38
           Height = 13
@@ -1302,8 +1168,8 @@ inherited frmClientMain: TfrmClientMain
         object grRefList: TRzDBGrid
           Left = 1
           Top = 1
-          Width = 568
-          Height = 511
+          Width = 570
+          Height = 514
           Align = alClient
           BorderStyle = bsNone
           DataSource = dmRef.dscRefInfo
@@ -1357,9 +1223,9 @@ inherited frmClientMain: TfrmClientMain
       end
       object pnlFamRefDetail: TRzPanel
         Left = 584
-        Top = 9
+        Top = 6
         Width = 276
-        Height = 513
+        Height = 516
         Anchors = [akTop, akRight, akBottom]
         BorderOuter = fsNone
         BorderColor = 8675134
@@ -1368,7 +1234,7 @@ inherited frmClientMain: TfrmClientMain
         TabOrder = 1
         DesignSize = (
           276
-          513)
+          516)
         object JvLabel40: TJvLabel
           Left = 13
           Top = 39
@@ -1459,7 +1325,7 @@ inherited frmClientMain: TfrmClientMain
         end
         object pnlAddFamRef: TRzPanel
           Left = 8
-          Top = 483
+          Top = 486
           Width = 50
           Height = 22
           Anchors = [akLeft, akBottom]
@@ -1468,6 +1334,7 @@ inherited frmClientMain: TfrmClientMain
           BorderWidth = 1
           Color = 12955288
           TabOrder = 13
+          ExplicitTop = 483
           object sbtnNewFamRef: TRzShapeButton
             Left = 0
             Top = 0
@@ -1708,7 +1575,7 @@ inherited frmClientMain: TfrmClientMain
         end
         object pnlRemoveFamRef: TRzPanel
           Left = 217
-          Top = 483
+          Top = 486
           Width = 50
           Height = 22
           Anchors = [akLeft, akBottom]
@@ -1717,6 +1584,7 @@ inherited frmClientMain: TfrmClientMain
           BorderWidth = 1
           Color = 12955288
           TabOrder = 12
+          ExplicitTop = 483
           object sbtnRemoveFamRef: TRzShapeButton
             Left = 0
             Top = 0
@@ -1739,10 +1607,10 @@ inherited frmClientMain: TfrmClientMain
         860
         529)
       object pnlIdentity: TRzPanel
-        Left = 8
-        Top = 9
-        Width = 570
-        Height = 513
+        Left = 6
+        Top = 6
+        Width = 572
+        Height = 516
         Anchors = [akLeft, akTop, akRight, akBottom]
         BorderOuter = fsNone
         BorderColor = 8675134
@@ -1752,8 +1620,8 @@ inherited frmClientMain: TfrmClientMain
         object grIdentityList: TRzDBGrid
           Left = 1
           Top = 1
-          Width = 568
-          Height = 511
+          Width = 570
+          Height = 514
           Align = alClient
           BorderStyle = bsNone
           DataSource = dmClient.dscIdentInfo
@@ -1820,9 +1688,9 @@ inherited frmClientMain: TfrmClientMain
       end
       object pnlIdentDocDetail: TRzPanel
         Left = 584
-        Top = 9
+        Top = 6
         Width = 276
-        Height = 513
+        Height = 516
         Anchors = [akTop, akRight, akBottom]
         BorderOuter = fsNone
         BorderColor = 8675134
@@ -1831,7 +1699,7 @@ inherited frmClientMain: TfrmClientMain
         TabOrder = 1
         DesignSize = (
           276
-          513)
+          516)
         object JvLabel49: TJvLabel
           Left = 13
           Top = 39
@@ -1878,7 +1746,7 @@ inherited frmClientMain: TfrmClientMain
         end
         object pnlIdentDoc: TRzPanel
           Left = 8
-          Top = 483
+          Top = 486
           Width = 50
           Height = 22
           Anchors = [akLeft, akBottom]
@@ -1887,6 +1755,7 @@ inherited frmClientMain: TfrmClientMain
           BorderWidth = 1
           Color = 12955288
           TabOrder = 3
+          ExplicitTop = 483
           object sbtnNewIdentDoc: TRzShapeButton
             Left = 0
             Top = 0
@@ -1933,7 +1802,7 @@ inherited frmClientMain: TfrmClientMain
         end
         object pnlRemIdentDoc: TRzPanel
           Left = 217
-          Top = 483
+          Top = 486
           Width = 50
           Height = 22
           Anchors = [akLeft, akBottom]
@@ -1942,6 +1811,7 @@ inherited frmClientMain: TfrmClientMain
           BorderWidth = 1
           Color = 12955288
           TabOrder = 4
+          ExplicitTop = 483
           object sbtnRemIdentDoc: TRzShapeButton
             Left = 0
             Top = 0
@@ -2025,10 +1895,10 @@ inherited frmClientMain: TfrmClientMain
         860
         529)
       object pnlLoans: TRzPanel
-        Left = 8
-        Top = 9
-        Width = 852
-        Height = 513
+        Left = 6
+        Top = 6
+        Width = 854
+        Height = 516
         Anchors = [akLeft, akTop, akRight, akBottom]
         BorderOuter = fsNone
         BorderColor = 8675134
@@ -2038,8 +1908,8 @@ inherited frmClientMain: TfrmClientMain
         object grLoans: TRzDBGrid
           Left = 1
           Top = 1
-          Width = 850
-          Height = 511
+          Width = 852
+          Height = 514
           Align = alClient
           BorderStyle = bsNone
           DataSource = dmClient.dscLoans
@@ -2174,7 +2044,7 @@ inherited frmClientMain: TfrmClientMain
               FieldName = 'grp_name'
               Title.Alignment = taCenter
               Title.Caption = 'Group'
-              Width = 100
+              Width = 140
               Visible = True
             end
             item
@@ -2191,14 +2061,6 @@ inherited frmClientMain: TfrmClientMain
               Title.Alignment = taCenter
               Title.Caption = 'Loan type'
               Width = 100
-              Visible = True
-            end
-            item
-              Expanded = False
-              FieldName = 'acct_type_name'
-              Title.Alignment = taCenter
-              Title.Caption = 'Account type'
-              Width = 80
               Visible = True
             end
             item
@@ -2336,7 +2198,7 @@ inherited frmClientMain: TfrmClientMain
               FieldName = 'grp_name'
               Title.Alignment = taCenter
               Title.Caption = 'Group'
-              Width = 100
+              Width = 140
               Visible = True
             end
             item
@@ -2353,14 +2215,6 @@ inherited frmClientMain: TfrmClientMain
               Title.Alignment = taCenter
               Title.Caption = 'Loan type'
               Width = 100
-              Visible = True
-            end
-            item
-              Expanded = False
-              FieldName = 'acct_type_name'
-              Title.Alignment = taCenter
-              Title.Caption = 'Account type'
-              Width = 80
               Visible = True
             end
             item
@@ -2431,6 +2285,319 @@ inherited frmClientMain: TfrmClientMain
           ParentShowHint = False
           ShowHint = True
           OnClick = btnRemoveAccessibilityClick
+        end
+      end
+    end
+    object tsBankAcctInfo: TRzTabSheet
+      Color = 14273211
+      Caption = 'Bank account info'
+      DesignSize = (
+        860
+        529)
+      object pnlAccounts: TRzPanel
+        Left = 6
+        Top = 6
+        Width = 572
+        Height = 517
+        Anchors = [akLeft, akTop, akRight, akBottom]
+        BorderOuter = fsNone
+        BorderColor = 8675134
+        BorderWidth = 1
+        ParentColor = True
+        TabOrder = 0
+        object grAccounts: TRzDBGrid
+          Left = 1
+          Top = 1
+          Width = 570
+          Height = 515
+          Align = alClient
+          BorderStyle = bsNone
+          DataSource = dmClient.dscAcctInfo
+          DrawingStyle = gdsGradient
+          FixedColor = 12955288
+          GradientEndColor = 12955288
+          GradientStartColor = 12955288
+          Options = [dgTitles, dgIndicator, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
+          TabOrder = 0
+          TitleFont.Charset = DEFAULT_CHARSET
+          TitleFont.Color = clWindowText
+          TitleFont.Height = -12
+          TitleFont.Name = 'Tahoma'
+          TitleFont.Style = []
+          FramingPreference = fpCustomFraming
+          QuickCompare.FieldName = 'expiry'
+          QuickCompare.FieldValue = 42644d
+          QuickCompare.Operation = qcoLessThan
+          QuickCompare.Color = 14277119
+          QuickCompare.FontColor = clRed
+          AltRowShadingColor = 15854564
+          AltRowShadingFixed = False
+          Columns = <
+            item
+              Expanded = False
+              FieldName = 'bank_name'
+              Title.Alignment = taCenter
+              Title.Caption = 'Bank'
+              Title.Font.Charset = DEFAULT_CHARSET
+              Title.Font.Color = clWindowText
+              Title.Font.Height = -12
+              Title.Font.Name = 'Tahoma'
+              Title.Font.Style = [fsBold]
+              Width = 250
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'acct_no'
+              Title.Alignment = taCenter
+              Title.Caption = 'Account no.'
+              Title.Font.Charset = DEFAULT_CHARSET
+              Title.Font.Color = clWindowText
+              Title.Font.Height = -12
+              Title.Font.Name = 'Tahoma'
+              Title.Font.Style = [fsBold]
+              Width = 100
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'card_no'
+              Title.Alignment = taCenter
+              Title.Caption = 'Card no.'
+              Title.Font.Charset = DEFAULT_CHARSET
+              Title.Font.Color = clWindowText
+              Title.Font.Height = -12
+              Title.Font.Name = 'Tahoma'
+              Title.Font.Style = [fsBold]
+              Width = 100
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'card_expiry_f'
+              Title.Alignment = taCenter
+              Title.Caption = 'Card expiry'
+              Title.Font.Charset = DEFAULT_CHARSET
+              Title.Font.Color = clWindowText
+              Title.Font.Height = -12
+              Title.Font.Name = 'Tahoma'
+              Title.Font.Style = [fsBold]
+              Width = 80
+              Visible = True
+            end>
+        end
+      end
+      object pnlAcctDetails: TRzPanel
+        Left = 584
+        Top = 6
+        Width = 276
+        Height = 517
+        Anchors = [akTop, akRight, akBottom]
+        BorderOuter = fsNone
+        BorderColor = 8675134
+        BorderWidth = 1
+        ParentColor = True
+        TabOrder = 1
+        DesignSize = (
+          276
+          517)
+        object JvLabel37: TJvLabel
+          Left = 13
+          Top = 39
+          Width = 28
+          Height = 14
+          Caption = 'Bank'
+          Transparent = True
+        end
+        object JvLabel48: TJvLabel
+          Left = 13
+          Top = 111
+          Width = 53
+          Height = 14
+          Caption = 'Acct. no.'
+          Transparent = True
+        end
+        object JvLabel34: TJvLabel
+          Left = 13
+          Top = 159
+          Width = 34
+          Height = 14
+          Caption = 'Expiry'
+          Transparent = True
+        end
+        object JvLabel33: TJvLabel
+          Left = 13
+          Top = 135
+          Width = 48
+          Height = 14
+          Caption = 'Card no.'
+          Transparent = True
+        end
+        object RzPanel5: TRzPanel
+          Left = 8
+          Top = 487
+          Width = 50
+          Height = 22
+          Anchors = [akLeft, akBottom]
+          BorderOuter = fsNone
+          BorderColor = 6572079
+          BorderWidth = 1
+          Color = 12955288
+          TabOrder = 5
+          ExplicitTop = 484
+          object sbtnNewBankAccount: TRzShapeButton
+            Left = 0
+            Top = 0
+            Width = 50
+            Height = 22
+            Hint = 'Add a new record'
+            BorderStyle = bsNone
+            Caption = 'New'
+            ParentShowHint = False
+            ShowHint = True
+            OnClick = sbtnNewBankAccountClick
+          end
+        end
+        object RzPanel6: TRzPanel
+          Left = 1
+          Top = 1
+          Width = 274
+          Height = 19
+          Align = alTop
+          BorderOuter = fsNone
+          BorderSides = [sdBottom]
+          BorderColor = clBlack
+          BorderWidth = 1
+          Color = 8675134
+          GradientColorStyle = gcsCustom
+          GradientColorStart = 6572079
+          GradientColorStop = 8675134
+          TabOrder = 7
+          VisualStyle = vsGradient
+          object RzLabel2: TRzLabel
+            Left = 7
+            Top = 2
+            Width = 41
+            Height = 14
+            Caption = 'Details'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWhite
+            Font.Height = -12
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold]
+            ParentFont = False
+            Transparent = True
+          end
+        end
+        object RzPanel7: TRzPanel
+          Left = 217
+          Top = 487
+          Width = 50
+          Height = 22
+          Anchors = [akLeft, akBottom]
+          BorderOuter = fsNone
+          BorderColor = 6572079
+          BorderWidth = 1
+          Color = 12955288
+          TabOrder = 6
+          ExplicitTop = 484
+          object sbtnRemoveBankAccount: TRzShapeButton
+            Left = 0
+            Top = 0
+            Width = 50
+            Height = 22
+            Hint = 'Remove record'
+            BorderStyle = bsNone
+            Caption = 'Remove'
+            ParentShowHint = False
+            ShowHint = True
+            OnClick = sbtnRemoveBankAccountClick
+          end
+        end
+        object edCardNo: TRzDBEdit
+          Left = 72
+          Top = 129
+          Width = 113
+          Height = 22
+          DataSource = dmClient.dscAcctInfo
+          DataField = 'card_no'
+          Ctl3D = True
+          DisabledColor = 14273211
+          FrameColor = 8675134
+          FrameVisible = True
+          FramingPreference = fpCustomFraming
+          ParentCtl3D = False
+          TabOnEnter = True
+          TabOrder = 3
+        end
+        object edAccount: TRzDBEdit
+          Left = 72
+          Top = 105
+          Width = 113
+          Height = 22
+          DataSource = dmClient.dscAcctInfo
+          DataField = 'acct_no'
+          Ctl3D = True
+          DisabledColor = 14273211
+          FrameColor = 8675134
+          FrameVisible = True
+          FramingPreference = fpCustomFraming
+          ParentCtl3D = False
+          TabOnEnter = True
+          TabOrder = 2
+        end
+        object dteCardExpiry: TRzDBDateTimeEdit
+          Left = 72
+          Top = 153
+          Width = 113
+          Height = 22
+          DataSource = dmClient.dscAcctInfo
+          DataField = 'card_expiry'
+          DisabledColor = clWhite
+          FrameColor = 8675134
+          FrameVisible = True
+          FramingPreference = fpCustomFraming
+          TabOnEnter = True
+          TabOrder = 4
+          EditType = etDate
+          Format = 'mm/dd/yyyy'
+          FlatButtons = True
+        end
+        object mmBank: TRzDBMemo
+          Left = 72
+          Top = 57
+          Width = 191
+          Height = 46
+          Color = 14273211
+          DataField = 'bank_name'
+          DataSource = dmClient.dscAcctInfo
+          ReadOnly = True
+          TabOrder = 1
+          FrameColor = 8675134
+          FrameVisible = True
+          FramingPreference = fpCustomFraming
+          ReadOnlyColor = 14273211
+          TabOnEnter = True
+        end
+        object dbluBank: TRzDBLookupComboBox
+          Left = 72
+          Top = 33
+          Width = 191
+          Height = 22
+          DataField = 'bank_id'
+          DataSource = dmClient.dscAcctInfo
+          KeyField = 'bank_id'
+          ListField = 'bank_name'
+          ListSource = dmAux.dscBankBranches
+          TabOrder = 0
+          AllowNull = True
+          FlatButtonColor = 6572079
+          FlatButtons = True
+          FrameColor = 8675134
+          FrameHotColor = clBlack
+          FrameVisible = True
+          FramingPreference = fpCustomFraming
+          TabOnEnter = True
         end
       end
     end
@@ -2747,7 +2914,7 @@ inherited frmClientMain: TfrmClientMain
     end
     object pnlLoanHistoryBtn: TRzPanel
       Left = 16
-      Top = 144
+      Top = 189
       Width = 40
       Height = 40
       Anchors = [akTop, akRight]
@@ -2833,7 +3000,7 @@ inherited frmClientMain: TfrmClientMain
     end
     object pnlLoanClassAccess: TRzPanel
       Left = 16
-      Top = 213
+      Top = 234
       Width = 40
       Height = 40
       Anchors = [akTop, akRight]
@@ -2919,10 +3086,10 @@ inherited frmClientMain: TfrmClientMain
     end
     object pnlTakePhoto: TRzPanel
       Left = 16
-      Top = 282
+      Top = 482
       Width = 40
       Height = 40
-      Anchors = [akTop, akRight]
+      Anchors = [akRight, akBottom]
       BorderOuter = fsNone
       BorderColor = 6572079
       BorderWidth = 1
@@ -3010,6 +3177,97 @@ inherited frmClientMain: TfrmClientMain
           00000049454E44AE426082}
         ShowHint = True
         OnClick = imgTakePhotoClick
+        OnMouseDown = imgClientMainMouseDown
+        OnMouseUp = imgClientMainMouseUp
+      end
+    end
+    object RzPanel8: TRzPanel
+      Left = 16
+      Top = 144
+      Width = 40
+      Height = 40
+      Anchors = [akTop, akRight]
+      BorderOuter = fsNone
+      BorderColor = 6572079
+      BorderWidth = 1
+      Color = 12955288
+      TabOrder = 6
+      object imgBankAccount: TImage
+        Left = 4
+        Top = 4
+        Width = 32
+        Height = 32
+        Cursor = crHandPoint
+        Hint = 'Bank account info'
+        AutoSize = True
+        ParentShowHint = False
+        Picture.Data = {
+          0954506E67496D61676589504E470D0A1A0A0000000D49484452000000200000
+          00200806000000737A7AF400000006624B474400FF00FF00FFA0BDA793000000
+          097048597300000048000000480046C96B3E0000000976704167000000200000
+          00200087FA9C9D000006A54944415478DAED577B50545518FFDDBB0F16D84503
+          112588649415F085A622A999280FD93464C9241D2D1B4753F3D1434B1B6B6C46
+          9D46CB74B4F7988E940909B63C5C15958A08D34C454A113411BDF808D90516F6
+          EEBD7DE75E3035B5A619A63FEAEC9C3973CE3DDF777EDFE3F79DB39C2CCBF837
+          1BF73F80FF01B48DDABE8B13B2C0F313808E06C44196A4DC13ABED569A880C80
+          36EA85F89DB1317196F090702800E43F6070B7CAFEBD26DFDD0C8E74381DD791
+          BBFF2B5BC5DAA254A6D214F9D298066B723A56E4AF2749129524C0CB573DB0A5
+          519564F3D6E69B0E91156D5A831122DBC3E6CA1A7DD3FB002EA72AD32E4FFB78
+          DA2F918E65E3E622BB60072ADEDAE7C7B6079A178DAE4B4D4EC3AA3DEFC3366D
+          3D5A45114E7713E9E2E0215B78DAD4C9CB88B20B27D18914D5B7383034381A17
+          9D5770EACA799CBC528D3943ACA86F76E0E4E5B308F1EB82EEA640B0FCF26320
+          A895D59E444C5004C66D998B256366626741367E595BD49501E8DA6BC128617C
+          F2446C2AFD028593DF81B7C1071B0E6C012F73481D9080F29A9F715F277F4549
+          6F53307CBD7C10196CC6D6C339D0EB0DA869B88C8C3E6351DFE880436C42303B
+          9C1457D49D416C587F94561E465CC410343537E2C95DCBF1E2C869C82DF812A7
+          DF3910A400E839FF11C192FC38369666C15D7D0EF078A0E9E24F142197391C80
+          4EA786DFE0058FAB05B2D80234523802EFA37091D70D06C8D7AE83D76AC1F1BC
+          222F91F5BC410FA9D945A30152138D1A1EDA07EEC7ECA156D80A7250B9EEA00A
+          207CDE08615CF2046C3E62834E434AB83B641B9924CA1E68E9FBE498448CEC11
+          A3849CA75E5C750499C7EC103D2234BCE6AEB9CA42E2A63DD3075A905F908BAA
+          F55FAB001E7C6EB89068B160FB513B01D0DD51814796E8700D963C3A1DF65D76
+          14E417A8A9DE4D8FE4D14918FBF023585DBC05A244DEE3F8BB9043053089C2BA
+          DB66C3D98DDFB4019815278C4E49414EF9FE5B2C90DB98C72C75CB847C900517
+          0E9FC18E9D3988EA654675CD39440C884279E73A4CEC320CDD7B86E2D3A379D0
+          715A856EF29F11285E4C8D7E1445797938FB5E890AE08199B1C2284B32F27EF9
+          46719344D6FAEABC1519A7BB1926A255436B23368C5F8C99B3E691156E4C1E9F
+          8AF4C4C7E06975C35E75083927F6639575219E2F58A3D28DF418990EC67BA29E
+          51EF4DEB3C9ADC2EA4F41E8183B67CFCFAC1F72A809067870AC32D89283CFD2D
+          3E4C5882F30D753052A69B48C145E755440684216DD7526C497F03D68C29D0E9
+          754AB26D786315CCA13DB0AD7C0F6CB5DFE1ED11F3307DD70A7C92B414DE5A1D
+          AB780A951B44173A131D7544E885C51BD03FB837BEB5ED46CD476D00829F192C
+          C44D484051E5216C1BFB2A2EB4D4E3C8B9E394ED22CC2166F8491ACC2F7B1F9B
+          272E47DAA40C7899BC1119D6132B5F7E0D266F1F2CC85C8D4B5D5AB076C41CCC
+          2B5C83EDC9AF2B54FEB8E47305E8A49814145794E01AD58FCCDA128C0A1F8492
+          DC3DA8FDE4900AA0DBF44142ECE309283B5F0E5765254099AE35191537C2E582
+          2452628585605DD242CC98310BBA287F0C088DC4BBB3966173EE767C7A660FF4
+          6E1E6B9E5E8205F675102BCF40A264D30775A3904A90EA89A23E3E5435BDA00D
+          08C4E0D02894E6D87169F3611540D0D41861485A028ED79E2687F14A89BD9909
+          0A7D2437A6F44D42D5A19FB1F3D401C8A71A2036BBD5CC724B48B75A111E1785
+          6D270A892D3A95CA6D95F98F64663C90D037B817CAB2ED10B6FEA802087C6A80
+          F050DA189CA232CADD46C276051E49AD018B8665C0B6E32BE4D9F2C853BC726F
+          A410852DE98FE1ED924C85661A9EBB7173B5CBB7DF1F54DB1011F8207EC8DE8B
+          CBDB8EAA000226F713065AE35175B546E13163016B2C6B3564898704591D6016
+          F8EA0C488F8E476C489F1BDA4B2F9423BBBC082D622BD927A9A1BB4D9EE96473
+          2DD13C3C200447B2F6E1EA67C75400FE93A285FE4FC4E3DCB58BC84D789338EF
+          511468390D2C85AFC096B45201C00ACC84DD4B29484433C52ED5B9EC109E7E04
+          1D39F790D73279FB3284F977C74F5FECC3B5EDE52A80CED668A15FC668D45DBF
+          8AA6B3955452D5AB9593C8E288083457535291AB795A374698D530DDF4926A2F
+          DD0C149377DF43DED76C4657BF001CCB2C427D561B804E6991429FA963E0703A
+          55BD3795C25B62A87CBAD76B837DE2EE2D4F0B26A31127B6EEC5F5EC0A0540A0
+          715CCFACD0F87E234DE1414AF1E8C8C6EA82A34AC0F97DC78A9DF99556E54544
+          BD874F628F4D9C411BD7D18F54162ED9259634EDAE9E4DD36AE54D489D2E7674
+          6F1BB51D8A80EE23EABF51BFC8C61BAF62EAECF631E0EF3F3DFF69632E765167
+          0F4CB1A30FFBCBF6EFFF31F9CF03F81D2115F8BD6841D22C0000003D74455874
+          636F6D6D656E7400477265656E206361726420616D65782066726F6D2049636F
+          6E2047616C6C65727920687474703A2F2F69636F6E67616C2E636F6D2FDC8893
+          030000002574455874646174653A63726561746500323031312D30382D323154
+          31343A31313A32362D30363A3030BF9996440000002574455874646174653A6D
+          6F6469667900323031312D30382D32315431343A31313A32362D30363A3030CE
+          C42EF80000001974455874536F6674776172650041646F626520496D61676552
+          6561647971C9653C0000000049454E44AE426082}
+        ShowHint = True
+        OnClick = imgBankAccountClick
         OnMouseDown = imgClientMainMouseDown
         OnMouseUp = imgClientMainMouseUp
       end

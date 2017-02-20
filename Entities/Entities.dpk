@@ -41,7 +41,8 @@ requires
   RaizeComponentsVcl,
   RaizeComponentsVclDb,
   LockBox3DR,
-  RESTComponents;
+  RESTComponents,
+  FireDAC;
 
 contains
   Entity in 'Entity.pas',
@@ -78,6 +79,7 @@ contains
   PurposeList in 'PurposeList.pas' {frmPurposeList},
   LoanCancellationReasonList in 'LoanCancellationReasonList.pas' {frmLoanCancelReasonList},
   BaseGridDetail in '..\Base\BaseGridDetail.pas' {frmBaseGridDetail},
-  LoanRejectionReasonList in 'LoanRejectionReasonList.pas' {frmLoanRejectionReasonList};
+  LoanRejectionReasonList in 'LoanRejectionReasonList.pas' {frmLoanRejectionReasonList},
+  BankAccount in 'BankAccount.pas';
 
 end.

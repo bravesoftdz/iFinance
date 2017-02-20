@@ -1,17 +1,18 @@
 inherited frmLoanAssessmentDetail: TfrmLoanAssessmentDetail
   Caption = 'frmLoanAssessmentDetail'
-  ClientHeight = 398
-  ClientWidth = 439
+  ClientHeight = 381
+  ClientWidth = 699
+  OnCreate = FormCreate
   OnShow = FormShow
-  ExplicitWidth = 439
-  ExplicitHeight = 398
+  ExplicitWidth = 699
+  ExplicitHeight = 381
   PixelsPerInch = 96
   TextHeight = 14
   inherited pnlTitle: TRzPanel
-    Width = 439
-    ExplicitWidth = 439
+    Width = 699
+    ExplicitWidth = 699
     inherited imgClose: TImage
-      Left = 418
+      Left = 678
       ExplicitLeft = 420
     end
     inherited lblCaption: TRzLabel
@@ -21,24 +22,24 @@ inherited frmLoanAssessmentDetail: TfrmLoanAssessmentDetail
     end
   end
   inherited pnlMain: TRzPanel
-    Width = 439
-    Height = 377
-    ExplicitWidth = 439
-    ExplicitHeight = 377
+    Width = 699
+    Height = 360
+    ExplicitWidth = 699
+    ExplicitHeight = 389
     inherited pnlDetail: TRzPanel
-      Width = 422
-      Height = 327
-      ExplicitWidth = 422
-      ExplicitHeight = 327
+      Width = 682
+      Height = 310
+      ExplicitWidth = 682
+      ExplicitHeight = 339
       inherited pcDetail: TRzPageControl
-        Width = 420
-        Height = 325
-        ExplicitWidth = 420
-        ExplicitHeight = 325
+        Width = 680
+        Height = 308
+        ExplicitWidth = 680
+        ExplicitHeight = 337
         FixedDimension = 20
         inherited tsDetail: TRzTabSheet
-          ExplicitWidth = 420
-          ExplicitHeight = 325
+          ExplicitWidth = 680
+          ExplicitHeight = 337
           object JvLabel4: TJvLabel
             Tag = -1
             Left = 19
@@ -50,8 +51,8 @@ inherited frmLoanAssessmentDetail: TfrmLoanAssessmentDetail
           end
           object JvLabel11: TJvLabel
             Tag = -1
-            Left = 20
-            Top = 47
+            Left = 19
+            Top = 71
             Width = 72
             Height = 14
             Caption = 'Rec. amount'
@@ -59,20 +60,32 @@ inherited frmLoanAssessmentDetail: TfrmLoanAssessmentDetail
           end
           object JvLabel1: TJvLabel
             Tag = -1
-            Left = 222
+            Left = 241
             Top = 47
-            Width = 92
+            Width = 100
             Height = 14
-            Caption = 'Applied amount:'
+            Caption = 'Applied amount'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -12
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold]
+            ParentFont = False
             Transparent = True
+            HotTrackFont.Charset = DEFAULT_CHARSET
+            HotTrackFont.Color = clWindowText
+            HotTrackFont.Height = -12
+            HotTrackFont.Name = 'Tahoma'
+            HotTrackFont.Style = []
           end
           object urlAppliedAmount: TRzURLLabel
             Tag = 1
-            Left = 324
-            Top = 47
+            Left = 241
+            Top = 71
             Width = 25
             Height = 14
             Caption = '0.00'
+            Enabled = False
             Font.Charset = DEFAULT_CHARSET
             Font.Color = clGreen
             Font.Height = -12
@@ -83,16 +96,70 @@ inherited frmLoanAssessmentDetail: TfrmLoanAssessmentDetail
           end
           object JvLabel2: TJvLabel
             Tag = -1
-            Left = 20
-            Top = 71
+            Left = 366
+            Top = 23
             Width = 47
             Height = 14
-            Caption = 'Remarks'
+            Caption = 'Capacity'
+            Transparent = True
+          end
+          object JvLabel3: TJvLabel
+            Tag = -1
+            Left = 366
+            Top = 68
+            Width = 54
+            Height = 14
+            Caption = 'Character'
+            Transparent = True
+          end
+          object JvLabel5: TJvLabel
+            Tag = -1
+            Left = 366
+            Top = 113
+            Width = 37
+            Height = 14
+            Caption = 'Capital'
+            Transparent = True
+          end
+          object JvLabel6: TJvLabel
+            Tag = -1
+            Left = 366
+            Top = 158
+            Width = 58
+            Height = 14
+            Caption = 'Conditions'
+            Transparent = True
+          end
+          object JvLabel7: TJvLabel
+            Tag = -1
+            Left = 366
+            Top = 203
+            Width = 50
+            Height = 14
+            Caption = 'Collateral'
+            Transparent = True
+          end
+          object JvLabel8: TJvLabel
+            Tag = -1
+            Left = 366
+            Top = 248
+            Width = 49
+            Height = 14
+            Caption = 'Comaker'
+            Transparent = True
+          end
+          object JvLabel9: TJvLabel
+            Tag = -1
+            Left = 19
+            Top = 47
+            Width = 97
+            Height = 14
+            Caption = 'Recommendation'
             Transparent = True
           end
           object dteDateAssessed: TRzDBDateTimeEdit
             Tag = 3
-            Left = 112
+            Left = 120
             Top = 17
             Width = 97
             Height = 22
@@ -111,8 +178,8 @@ inherited frmLoanAssessmentDetail: TfrmLoanAssessmentDetail
           end
           object edRecAmount: TRzDBNumericEdit
             Tag = 3
-            Left = 112
-            Top = 41
+            Left = 120
+            Top = 65
             Width = 97
             Height = 22
             DataSource = dmLoan.dscLoanAss
@@ -123,16 +190,16 @@ inherited frmLoanAssessmentDetail: TfrmLoanAssessmentDetail
             FrameVisible = True
             FramingPreference = fpCustomFraming
             TabOnEnter = True
-            TabOrder = 1
+            TabOrder = 2
             IntegersOnly = False
             DisplayFormat = '###,##0.00'
           end
           object pcAssessment: TRzPageControl
             Tag = 3
-            Left = 19
-            Top = 132
-            Width = 378
-            Height = 147
+            Left = 20
+            Top = 104
+            Width = 325
+            Height = 163
             Hint = ''
             ActivePage = tsFinInfo
             ActivePageDefault = tsFinInfo
@@ -150,18 +217,15 @@ inherited frmLoanAssessmentDetail: TfrmLoanAssessmentDetail
             object tsFinInfo: TRzTabSheet
               Color = 14273211
               Caption = 'Financial info'
-              ExplicitLeft = 0
-              ExplicitTop = 0
-              ExplicitWidth = 0
-              ExplicitHeight = 0
+              ExplicitHeight = 158
               DesignSize = (
-                376
-                122)
+                323
+                138)
               object grFinInfo: TRzStringGrid
                 Left = 6
                 Top = 6
-                Width = 364
-                Height = 111
+                Width = 311
+                Height = 127
                 Anchors = [akLeft, akTop, akRight, akBottom]
                 ColCount = 3
                 Ctl3D = True
@@ -180,6 +244,7 @@ inherited frmLoanAssessmentDetail: TfrmLoanAssessmentDetail
                 FrameVisible = True
                 FramingPreference = fpCustomFraming
                 FixedLineColor = 14273211
+                ExplicitHeight = 147
                 ColWidths = (
                   60
                   60
@@ -191,15 +256,16 @@ inherited frmLoanAssessmentDetail: TfrmLoanAssessmentDetail
             object tsMonExp: TRzTabSheet
               Color = 14273211
               Caption = 'Monthly expenses'
-              ExplicitLeft = 0
-              ExplicitTop = 0
-              ExplicitWidth = 0
-              ExplicitHeight = 0
+              ExplicitHeight = 158
+              DesignSize = (
+                323
+                138)
               object grMonExp: TRzStringGrid
                 Left = 6
                 Top = 6
-                Width = 364
-                Height = 111
+                Width = 311
+                Height = 127
+                Anchors = [akLeft, akTop, akRight, akBottom]
                 BevelInner = bvNone
                 BevelOuter = bvNone
                 ColCount = 2
@@ -219,6 +285,7 @@ inherited frmLoanAssessmentDetail: TfrmLoanAssessmentDetail
                 FrameVisible = True
                 FramingPreference = fpCustomFraming
                 FixedLineColor = 14273211
+                ExplicitHeight = 147
                 ColWidths = (
                   60
                   60)
@@ -228,20 +295,21 @@ inherited frmLoanAssessmentDetail: TfrmLoanAssessmentDetail
             end
           end
           object mmRemarks: TRzDBMemo
-            Left = 112
-            Top = 65
-            Width = 283
-            Height = 56
-            DataField = 'remarks'
+            Left = 432
+            Top = 17
+            Width = 217
+            Height = 43
+            DataField = 'capacity'
             DataSource = dmLoan.dscLoanAss
-            TabOrder = 2
+            MaxLength = 200
+            TabOrder = 6
             FrameColor = 8675134
             FrameVisible = True
             FramingPreference = fpCustomFraming
           end
           object pnlAdd: TRzPanel
             Left = 19
-            Top = 286
+            Top = 273
             Width = 50
             Height = 22
             BorderOuter = fsNone
@@ -264,7 +332,7 @@ inherited frmLoanAssessmentDetail: TfrmLoanAssessmentDetail
           end
           object pnlRemoveComaker: TRzPanel
             Left = 75
-            Top = 286
+            Top = 273
             Width = 50
             Height = 22
             BorderOuter = fsNone
@@ -285,20 +353,106 @@ inherited frmLoanAssessmentDetail: TfrmLoanAssessmentDetail
               OnClick = btnRemoveClick
             end
           end
+          object RzDBMemo1: TRzDBMemo
+            Left = 432
+            Top = 62
+            Width = 217
+            Height = 43
+            DataField = 'character'
+            DataSource = dmLoan.dscLoanAss
+            MaxLength = 200
+            TabOrder = 7
+            FrameColor = 8675134
+            FrameVisible = True
+            FramingPreference = fpCustomFraming
+          end
+          object RzDBMemo2: TRzDBMemo
+            Left = 432
+            Top = 107
+            Width = 217
+            Height = 43
+            DataField = 'capital'
+            DataSource = dmLoan.dscLoanAss
+            MaxLength = 200
+            TabOrder = 8
+            FrameColor = 8675134
+            FrameVisible = True
+            FramingPreference = fpCustomFraming
+          end
+          object RzDBMemo3: TRzDBMemo
+            Left = 432
+            Top = 152
+            Width = 217
+            Height = 43
+            DataField = 'conditions'
+            DataSource = dmLoan.dscLoanAss
+            MaxLength = 200
+            TabOrder = 9
+            FrameColor = 8675134
+            FrameVisible = True
+            FramingPreference = fpCustomFraming
+          end
+          object RzDBMemo4: TRzDBMemo
+            Left = 432
+            Top = 197
+            Width = 217
+            Height = 43
+            DataField = 'collateral'
+            DataSource = dmLoan.dscLoanAss
+            MaxLength = 200
+            TabOrder = 10
+            FrameColor = 8675134
+            FrameVisible = True
+            FramingPreference = fpCustomFraming
+          end
+          object RzDBMemo5: TRzDBMemo
+            Left = 432
+            Top = 242
+            Width = 217
+            Height = 43
+            DataField = 'comaker'
+            DataSource = dmLoan.dscLoanAss
+            MaxLength = 200
+            TabOrder = 11
+            FrameColor = 8675134
+            FrameVisible = True
+            FramingPreference = fpCustomFraming
+          end
+          object dbluRecommendation: TRzDBLookupComboBox
+            Tag = 1
+            Left = 120
+            Top = 41
+            Width = 97
+            Height = 22
+            DataField = 'rec_code'
+            DataSource = dmLoan.dscLoanAss
+            KeyField = 'value'
+            ListField = 'display'
+            ListSource = dmLoansAux.dscRecommendation
+            TabOrder = 1
+            OnClick = dbluRecommendationClick
+            FlatButtons = True
+            DisabledColor = clWhite
+            FrameColor = 8675134
+            FrameHotColor = clBlack
+            FrameVisible = True
+            FramingPreference = fpCustomFraming
+            TabOnEnter = True
+          end
         end
       end
     end
     inherited pnlCancel: TRzPanel
-      Left = 380
-      Top = 344
-      ExplicitLeft = 380
-      ExplicitTop = 344
+      Left = 640
+      Top = 327
+      ExplicitLeft = 640
+      ExplicitTop = 356
     end
     inherited pnlSave: TRzPanel
-      Left = 324
-      Top = 344
-      ExplicitLeft = 324
-      ExplicitTop = 344
+      Left = 584
+      Top = 327
+      ExplicitLeft = 584
+      ExplicitTop = 356
     end
   end
 end

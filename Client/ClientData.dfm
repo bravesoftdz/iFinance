@@ -253,12 +253,13 @@ object dmClient: TdmClient
     Top = 240
   end
   object dstAcctInfo: TADODataSet
-    Tag = 1
     Connection = dmApplication.acMain
     CursorType = ctStatic
     BeforeOpen = dstAcctInfoBeforeOpen
     AfterOpen = dstAcctInfoAfterOpen
     BeforePost = dstAcctInfoBeforePost
+    AfterPost = dstAcctInfoAfterPost
+    BeforeDelete = dstAcctInfoBeforeDelete
     CommandText = 'sp_cl_get_acct_info;1'
     CommandType = cmdStoredProc
     Parameters = <

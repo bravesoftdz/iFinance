@@ -37,6 +37,7 @@ type
     procedure ClearRow(grid: TRzStringGrid; const row: integer);
 
     function GetTotalReleased: real;
+    function ConfirmRelease: string;
   public
     { Public declarations }
   protected
@@ -53,7 +54,7 @@ implementation
 {$R *.dfm}
 
 uses
-  Loan, ReleaseRecipientDetail, LoanData, DecisionBox, FormsUtil, IFinanceGlobal,
+  Loan, ReleaseRecipientDetail, LoanData, FormsUtil, IFinanceGlobal,
   Recipient, IFinanceDialogs;
 
 procedure TfrmLoanReleaseDetail.ClearRow(grid: TRzStringGrid; const row: Integer);
@@ -122,22 +123,10 @@ begin
   end
   else
   begin
-    with TfrmDecisionBox.Create(nil,CONF) do
+    if ShowDecisionBox(CONF) = mrYes then
     begin
-      try
-        ShowModal;
-
-        if ModalResult = mrYes then
-        begin
-          ln.RemoveReleaseRecipient(rec);
-          ClearRow(grReleaseRecipient,r);
-        end;
-
-        Free;
-      except
-        on e: Exception do
-          ShowErrorBox(e.Message);
-      end;
+      ln.RemoveReleaseRecipient(rec);
+      ClearRow(grReleaseRecipient,r);
     end;
   end;
 end;
@@ -330,7 +319,7 @@ begin
   else if GetTotalReleased > ln.TotalReleased  then
     error := 'Total amount released is greater than the amount for release.'
   else if GetTotalReleased < ln.TotalReleased  then
-    error := 'Total amount released is lesser than the amount for release.';
+    error := ConfirmRelease;
 
   Result := error = '';
 
@@ -349,6 +338,16 @@ begin
   for i := 0 to cnt do total := total + ln.ReleaseRecipients[i].Amount;
 
   Result := total;
+end;
+
+function TfrmLoanReleaseDetail.ConfirmRelease: string;
+var
+  msg: string;
+begin
+  msg := 'Amount to be released is less than the approved amount. Do you wish to proceed?';
+
+  if ShowDecisionBox(msg) = mrYes then Result := ''
+  else Result := 'Releasing process cancelled.';
 end;
 
 end.

@@ -51,7 +51,7 @@ object dmLoan: TdmLoan
         DataType = ftInteger
         Direction = pdReturnValue
         Precision = 10
-        Value = Null
+        Value = 0
       end
       item
         Name = '@entity_id'

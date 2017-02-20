@@ -6,7 +6,7 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, BaseGridDetail, Data.DB, RzButton,
   Vcl.StdCtrls, Vcl.Mask, RzEdit, Vcl.Grids, Vcl.DBGrids, RzDBGrid, RzLabel,
-  Vcl.ExtCtrls, RzPanel, Vcl.DBCtrls, RzDBEdit, JvExControls, JvLabel;
+  Vcl.ExtCtrls, RzPanel, Vcl.DBCtrls, RzDBEdit, JvExControls, JvLabel, RzDBCmbo;
 
 type
   TfrmLoanTypeList = class(TfrmBaseGridDetail)
@@ -14,6 +14,12 @@ type
     edTypeName: TRzDBEdit;
     JvLabel2: TJvLabel;
     RzDBMemo1: TRzDBMemo;
+    JvLabel14: TJvLabel;
+    edMaxTotal: TRzDBNumericEdit;
+    JvLabel5: TJvLabel;
+    edConcurrent: TRzDBEdit;
+    JvLabel3: TJvLabel;
+    dbluAccountType: TRzDBLookupComboBox;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
@@ -45,7 +51,8 @@ function TfrmLoanTypeList.EntryIsValid: boolean;
 var
   error: string;
 begin
-  if Trim(edTypeName.Text) = '' then  error := 'Please enter a type name.';
+  if Trim(edTypeName.Text) = '' then  error := 'Please enter a name.'
+  else if Trim(dbluAccountType.Text) = '' then  error := 'Please select an account.';
 
   if error <> '' then ShowErrorBox(error);
 

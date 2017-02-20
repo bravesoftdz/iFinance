@@ -119,6 +119,7 @@ object dmAux: TdmAux
     Connection = dmApplication.acMain
     CursorType = ctStatic
     LockType = ltReadOnly
+    AfterScroll = dstLoanTypeAfterScroll
     CommandText = 'sp_dd_get_loan_type;1'
     CommandType = cmdStoredProc
     Parameters = <>
@@ -196,7 +197,6 @@ object dmAux: TdmAux
     Connection = dmApplication.acMain
     CursorType = ctStatic
     LockType = ltReadOnly
-    AfterScroll = dstAcctTypeAfterScroll
     CommandText = 'sp_dd_get_acct_type;1'
     CommandType = cmdStoredProc
     Parameters = <>
@@ -282,5 +282,21 @@ object dmAux: TdmAux
     DataSet = dstLoanRejectReasons
     Left = 111
     Top = 342
+  end
+  object dstBankBranches: TADODataSet
+    Connection = dmApplication.acMain
+    CursorType = ctStatic
+    LockType = ltReadOnly
+    BeforePost = dstLoanRejectReasonsBeforePost
+    CommandText = 'sp_dd_get_banks;1'
+    CommandType = cmdStoredProc
+    Parameters = <>
+    Left = 207
+    Top = 278
+  end
+  object dscBankBranches: TDataSource
+    DataSet = dstBankBranches
+    Left = 271
+    Top = 278
   end
 end

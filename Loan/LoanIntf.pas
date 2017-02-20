@@ -9,6 +9,7 @@ type
     procedure SetUnboundControls;
     procedure RefreshDropDownSources;
     procedure InitForm;
+    procedure SelectClient;
   end;
 
 implementation

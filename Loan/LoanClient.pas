@@ -13,17 +13,19 @@ type
     FEmployer: TEmployer;
     FAddress: string;
     FAge: integer;
+    FNetPay: real;
   public
     property Id: string read FId write FId;
     property Name: string read FName write FName;
     property Employer: TEmployer read FEmployer write FEmployer;
     property Address: string read FAddress write FAddress;
     property Age: integer read FAge write FAge;
+    property NetPay: real read FNetPay write FNetPay;
 
     constructor Create; overload;
     constructor Create(const id, name: string; emp: TEmployer; const addr: string); overload;
     constructor Create(const id, name: string; emp: TEmployer; const addr: string;
-        const age: integer); overload;
+        const age: integer; const netPay: real); overload;
     destructor Destroy; override;
   end;
 
@@ -49,7 +51,7 @@ begin
 end;
 
 constructor TLoanClient.Create(const id, name: string; emp: TEmployer; const addr: string;
-        const age: integer);
+        const age: integer; const netPay: real);
 begin
   inherited Create;
 
@@ -58,6 +60,7 @@ begin
   FEmployer := emp;
   FAddress := addr;
   FAge := age;
+  FNetPay := netPay;
 end;
 
 destructor TLoanClient.Destroy;

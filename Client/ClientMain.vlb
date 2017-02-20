@@ -1,9 +1,6 @@
 ﻿[JvLabel28]
 Coordinates=946,155,73,36
 
-[JvLabel31]
-Coordinates=946,265,73,36
-
 [JvLabel7]
 Coordinates=946,375,66,36
 
@@ -15,12 +12,6 @@ Coordinates=556,78,155,36
 
 [dmClient.dscAddressInfo]
 Coordinates=600,365,158,36
-
-[JvLabel36]
-Coordinates=619,461,73,36
-
-[JvLabel32]
-Coordinates=540,461,73,36
 
 [JvLabel15]
 Coordinates=461,461,73,36
@@ -45,9 +36,6 @@ Coordinates=1143,56,73,36
 
 [dmClient.dstEntity]
 Coordinates=759,1,119,58
-
-[RzDBEdit16]
-Coordinates=1143,166,84,36
 
 [JvLabel2]
 Coordinates=1143,221,66,36
@@ -78,9 +66,6 @@ Coordinates=907,535,66,36
 
 [dmClient.dstPersonalInfo]
 Coordinates=946,78,159,58
-
-[JvLabel34]
-Coordinates=828,535,73,36
 
 [JvLabel17]
 Coordinates=749,535,73,36
@@ -157,17 +142,11 @@ Coordinates=40,269,115,36
 [JvLabel25]
 Coordinates=847,609,73,36
 
-[JvLabel33]
-Coordinates=649,609,73,36
-
 [pcClient]
 Coordinates=0,425,61,36
 
 [RzDBEdit5]
 Coordinates=570,609,77,36
-
-[RzDBEdit15]
-Coordinates=481,609,84,36
 
 [RzDBEdit9]
 Coordinates=402,609,77,36
@@ -254,7 +233,7 @@ Coordinates=863,683,111,124
 Coordinates=724,683,136,36
 
 []
-Coordinates=258,173,95,58
+Coordinates=946,265,73,36
 
 [edLastname]
 Coordinates=353,535,77,36

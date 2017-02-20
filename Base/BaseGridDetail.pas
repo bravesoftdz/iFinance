@@ -33,7 +33,7 @@ type
     function EntryIsValid: boolean; virtual; abstract;
   public
     { Public declarations }
-    function Save: boolean;
+    function Save: boolean; virtual;
     procedure Cancel;
     procedure New;
   end;

@@ -11,6 +11,7 @@ inherited frmPurposeList: TfrmPurposeList
   end
   inherited pnlList: TRzPanel
     inherited grList: TRzDBGrid
+      DataSource = dmAux.dscPurpose
       Columns = <
         item
           Expanded = False

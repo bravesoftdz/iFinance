@@ -7,7 +7,7 @@ uses
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, BasePopupDetail, Data.DB, Vcl.Grids,
   Vcl.DBGrids, RzDBGrid, RzDBEdit, Vcl.StdCtrls, Vcl.Mask, RzEdit, JvExControls,
   JvLabel, RzButton, RzTabs, RzLabel, Vcl.Imaging.pngimage, Vcl.ExtCtrls,
-  RzPanel, RzGrids, FinInfo, MonthlyExpense, Vcl.DBCtrls;
+  RzPanel, RzGrids, FinInfo, MonthlyExpense, Vcl.DBCtrls, RzDBCmbo;
 
 type
   TfrmLoanAssessmentDetail = class(TfrmBasePopupDetail)
@@ -28,12 +28,26 @@ type
     btnAdd: TRzShapeButton;
     pnlRemoveComaker: TRzPanel;
     btnRemove: TRzShapeButton;
+    JvLabel3: TJvLabel;
+    RzDBMemo1: TRzDBMemo;
+    JvLabel5: TJvLabel;
+    RzDBMemo2: TRzDBMemo;
+    JvLabel6: TJvLabel;
+    RzDBMemo3: TRzDBMemo;
+    JvLabel7: TJvLabel;
+    RzDBMemo4: TRzDBMemo;
+    JvLabel8: TJvLabel;
+    RzDBMemo5: TRzDBMemo;
+    JvLabel9: TJvLabel;
+    dbluRecommendation: TRzDBLookupComboBox;
     procedure FormShow(Sender: TObject);
     procedure grFinInfoDblClick(Sender: TObject);
     procedure grMonExpDblClick(Sender: TObject);
     procedure urlAppliedAmountClick(Sender: TObject);
     procedure btnAddClick(Sender: TObject);
     procedure btnRemoveClick(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure dbluRecommendationClick(Sender: TObject);
   private
     { Private declarations }
     procedure AddFinancialInfo;
@@ -61,7 +75,8 @@ implementation
 {$R *.dfm}
 
 uses
-  FinInfoDetail, MonthlyExpenseDetail, Loan, LoanData, DecisionBox, FormsUtil, IFinanceDialogs;
+  FinInfoDetail, MonthlyExpenseDetail, Loan, LoanData, DecisionBox, FormsUtil,
+  IFinanceDialogs, LoansAuxData, Assessment;
 
 procedure TfrmLoanAssessmentDetail.ClearRow(grid: TRzStringGrid; const row: Integer);
 var
@@ -79,6 +94,16 @@ begin
 
   // decrease row count
   grid.RowCount := grid.RowCount - 1;
+end;
+
+procedure TfrmLoanAssessmentDetail.dbluRecommendationClick(Sender: TObject);
+begin
+  inherited;
+  urlAppliedAmount.Enabled := ln.Assessment.Recommendation = rcApprove;
+  edRecAmount.Enabled := ln.Assessment.Recommendation = rcApprove;
+
+  if ln.Assessment.Recommendation = rcReject then edRecAmount.Clear;
+
 end;
 
 procedure TfrmLoanAssessmentDetail.ModifyRemove(const remove: boolean);
@@ -254,7 +279,7 @@ begin
     Cells[2,0] := 'Balance';
 
     // widths
-    ColWidths[0] := 180;
+    ColWidths[0] := 150;
     ColWidths[1] := 70;
     ColWidths[2] := 70;
 
@@ -366,12 +391,19 @@ end;
 procedure TfrmLoanAssessmentDetail.urlAppliedAmountClick(Sender: TObject);
 begin
   inherited;
-  if (ln.Action = laAssessing) and (ln.IsPending) then edRecAmount.Value := ln.AppliedAmount;
+  if ((ln.Action = laAssessing) or (ln.IsPending)) and (ln.Assessment.Recommendation = rcApprove) then
+    edRecAmount.Value := ln.AppliedAmount;
 end;
 
 procedure TfrmLoanAssessmentDetail.Cancel;
 begin
   ln.Cancel;
+end;
+
+procedure TfrmLoanAssessmentDetail.FormCreate(Sender: TObject);
+begin
+  inherited;
+  OpenDropdownDataSources(tsDetail);
 end;
 
 procedure TfrmLoanAssessmentDetail.FormShow(Sender: TObject);
@@ -393,8 +425,12 @@ var
 begin
   if dteDateAssessed.Text = '' then
     error := 'Please enter date assessed.'
-  else if edRecAmount.Value <= 0 then
-    error := 'Invalid value for recommended amount.';
+  else if dbluRecommendation.Text = '' then
+    error := 'Please select a recommendation.'
+  else if (ln.Assessment.Recommendation = rcApprove) and  (edRecAmount.Value <= 0) then
+    error := 'Invalid value for recommended amount.'
+  else if edRecAmount.Value > ln.LoanClass.MaxLoan then
+    error := 'Recommended amount exceeds the maximum loanable amount for the selected loan class.';
 
   Result := error = '';
 

@@ -82,10 +82,6 @@ inherited frmLoanReleaseDetail: TfrmLoanReleaseDetail
             object tsRecipients: TRzTabSheet
               Color = 14273211
               Caption = 'Recipients'
-              ExplicitLeft = 0
-              ExplicitTop = 0
-              ExplicitWidth = 0
-              ExplicitHeight = 0
               DesignSize = (
                 472
                 144)
@@ -124,10 +120,6 @@ inherited frmLoanReleaseDetail: TfrmLoanReleaseDetail
             object tsMonExp: TRzTabSheet
               Color = 14273211
               Caption = 'Charges'
-              ExplicitLeft = 0
-              ExplicitTop = 0
-              ExplicitWidth = 388
-              ExplicitHeight = 102
               DesignSize = (
                 472
                 144)

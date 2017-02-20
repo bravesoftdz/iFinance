@@ -5,7 +5,7 @@ interface
 uses
   SysUtils, Entity, LoanClient, AppConstants, DB, System.Rtti, ADODB, Variants,
   LoanClassification, Comaker, FinInfo, MonthlyExpense, ReleaseRecipient,
-  LoanCharge, LoanClassCharge;
+  LoanCharge, LoanClassCharge, Assessment;
 
 type
   TLoanAction = (laNone,laCreating,laAssessing,laApproving,laRejecting,laReleasing,laCancelling);
@@ -13,6 +13,17 @@ type
 type TLoanState = (lsNone,lsAssessed,lsApproved,lsActive,lsCancelled,lsRejected);
 
 type TLoanStatus = (A,C,P,R,F,J,S);
+
+{ ****** Loan Status *****
+	-- 0 = all
+	-- 1 = pending = P
+	-- 2 = assessed = S
+	-- 3 = approved = A
+	-- 4 = active / released = R
+	-- 5 = cancelled = C
+	-- 6 = denied / rejected = J
+
+  ***** Loan Status ***** }
 
 type
   TLoan = class(TEntity)
@@ -30,7 +41,7 @@ type
     FLoanCharges: array of TLoanCharge;
     FApprovedAmount: real;
     FDesiredTerm: integer;
-    FRecommendedAmount: real;
+    FAssessment: TAssessment;
 
     procedure SaveComakers;
     procedure SaveAssessments;
@@ -128,10 +139,10 @@ type
     property LoanChargeCount: integer read GetLoanChargeCount;
     property ApprovedAmount: real read FApprovedAmount write FApprovedAmount;
     property DesiredTerm: integer read FDesiredTerm write FDesiredTerm;
-    property RecommendedAmount: real read FRecommendedAmount write FRecommendedAmount;
     property IsFinalised: boolean read GetIsFinalised;
     property TotalCharges: real read GetTotalCharges;
     property TotalReleased: real read GetTotalReleased;
+    property Assessment: TAssessment read FAssessment write FAssessment;
 
     constructor Create;
     destructor Destroy; reintroduce;

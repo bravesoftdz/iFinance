@@ -198,6 +198,7 @@ object dmLoansAux: TdmLoansAux
     Connection = dmApplication.acMain
     CursorType = ctStatic
     BeforePost = dstLoanTypesBeforePost
+    AfterPost = dstLoanTypesAfterPost
     CommandText = 'sp_get_loan_types;1'
     CommandType = cmdStoredProc
     Parameters = <>
@@ -224,5 +225,21 @@ object dmLoansAux: TdmLoansAux
     DataSet = dstAcctTypes
     Left = 599
     Top = 134
+  end
+  object dstRecommendation: TADODataSet
+    Connection = dmApplication.acMain
+    CursorType = ctStatic
+    LockType = ltReadOnly
+    AfterScroll = dstRecommendationAfterScroll
+    CommandText = 'sp_dd_get_recommendation;1'
+    CommandType = cmdStoredProc
+    Parameters = <>
+    Left = 527
+    Top = 198
+  end
+  object dscRecommendation: TDataSource
+    DataSet = dstRecommendation
+    Left = 599
+    Top = 198
   end
 end

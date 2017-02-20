@@ -292,8 +292,8 @@ inherited frmLogin: TfrmLogin
       ParentFont = False
     end
     object lblVersion: TLabel
-      Left = 344
-      Top = 164
+      Left = 346
+      Top = 165
       Width = 74
       Height = 13
       Caption = 'Version 1.0.0.0'

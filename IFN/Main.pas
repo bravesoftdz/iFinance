@@ -112,6 +112,10 @@ type
     imgLoanCancellationReasonList: TImage;
     pnlRejectionReasonList: TRzPanel;
     imgRejectionReasonList: TImage;
+    Client1: TMenuItem;
+    Loan1: TMenuItem;
+    Selectclient1: TMenuItem;
+    acSelectClient: TAction;
     procedure tbAddClientClick(Sender: TObject);
     procedure lblRecentlyAddedClick(Sender: TObject);
     procedure lbxRecentDblClick(Sender: TObject);
@@ -150,6 +154,7 @@ type
     procedure FormShow(Sender: TObject);
     procedure imgLoanCancellationReasonListClick(Sender: TObject);
     procedure imgRejectionReasonListClick(Sender: TObject);
+    procedure acSelectClientExecute(Sender: TObject);
   private
     { Private declarations }
     RecentClients: TObjectList<TRecentClient>;
@@ -598,6 +603,20 @@ begin
     if pnlDockMain.ControlCount > 0 then
       if Supports(pnlDockMain.Controls[0] as TForm,INew,intf) then
         intf.New;
+  except
+    on e:Exception do
+      ShowErrorBox(e.Message);
+  end;
+end;
+
+procedure TfrmMain.acSelectClientExecute(Sender: TObject);
+var
+  intf: ILoan;
+begin
+  try
+    if pnlDockMain.ControlCount > 0 then
+      if Supports(pnlDockMain.Controls[0] as TForm,ILoan,intf) then
+        intf.SelectClient;
   except
     on e:Exception do
       ShowErrorBox(e.Message);

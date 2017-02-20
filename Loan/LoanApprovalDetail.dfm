@@ -88,14 +88,25 @@ inherited frmLoanAppvDetail: TfrmLoanAppvDetail
             Tag = -1
             Left = 217
             Top = 47
-            Width = 101
+            Width = 84
             Height = 14
-            Caption = 'Recommendation:'
+            Caption = 'Rec. amount:'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -12
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold]
+            ParentFont = False
             Transparent = True
+            HotTrackFont.Charset = DEFAULT_CHARSET
+            HotTrackFont.Color = clWindowText
+            HotTrackFont.Height = -12
+            HotTrackFont.Name = 'Tahoma'
+            HotTrackFont.Style = []
           end
           object urlRecommendedAmount: TRzURLLabel
             Tag = 1
-            Left = 327
+            Left = 311
             Top = 47
             Width = 25
             Height = 14
@@ -112,14 +123,25 @@ inherited frmLoanAppvDetail: TfrmLoanAppvDetail
             Tag = -1
             Left = 217
             Top = 71
-            Width = 76
+            Width = 84
             Height = 14
             Caption = 'Desired term:'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -12
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold]
+            ParentFont = False
             Transparent = True
+            HotTrackFont.Charset = DEFAULT_CHARSET
+            HotTrackFont.Color = clWindowText
+            HotTrackFont.Height = -12
+            HotTrackFont.Name = 'Tahoma'
+            HotTrackFont.Style = []
           end
           object urlDesiredTerm: TRzURLLabel
             Tag = 1
-            Left = 327
+            Left = 311
             Top = 71
             Width = 7
             Height = 14

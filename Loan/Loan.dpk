@@ -77,11 +77,12 @@ contains
   BasePopupDetail in '..\Base\BasePopupDetail.pas' {frmBasePopupDetail},
   ReleaseRecipientDetail in 'ReleaseRecipientDetail.pas' {frmReleaseRecipientDetail},
   LoanCharge in 'LoanCharge.pas',
-  AccountType in 'AccountType.pas',
+  LoanType in 'LoanType.pas',
   BaseForm in '..\Base\BaseForm.pas' {frmBase},
   BaseDocked in '..\Base\BaseDocked.pas' {frmBaseDocked},
   LoanTypeList in 'LoanTypeList.pas' {frmLoanTypeList},
   AccountTypeList in 'AccountTypeList.pas' {frmAccountTypeList},
-  BaseGridDetail in '..\Base\BaseGridDetail.pas' {frmBaseGridDetail};
+  BaseGridDetail in '..\Base\BaseGridDetail.pas' {frmBaseGridDetail},
+  Assessment in 'Assessment.pas';
 
 end.
