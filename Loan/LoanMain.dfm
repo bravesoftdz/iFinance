@@ -1348,6 +1348,8 @@ inherited frmLoanMain: TfrmLoanMain
       BorderColor = 8675134
       BorderWidth = 1
       Color = 14273211
+      Ctl3D = False
+      ParentCtl3D = False
       TabOrder = 2
       DesignSize = (
         492
@@ -1358,7 +1360,7 @@ inherited frmLoanMain: TfrmLoanMain
         Width = 490
         Height = 500
         Hint = ''
-        ActivePage = tsPending
+        ActivePage = tsReleased
         ActivePageDefault = tsPending
         Anchors = [akLeft, akTop, akRight, akBottom]
         FlatColor = 8675134
@@ -2172,6 +2174,8 @@ inherited frmLoanMain: TfrmLoanMain
             BorderOuter = fsNone
             BorderColor = 8675134
             Color = 14273211
+            Ctl3D = False
+            ParentCtl3D = False
             TabOrder = 0
             DesignSize = (
               490
@@ -2300,7 +2304,7 @@ inherited frmLoanMain: TfrmLoanMain
               Width = 451
               Height = 118
               Anchors = [akLeft, akTop, akRight]
-              Ctl3D = True
+              Ctl3D = False
               DataSource = dmLoan.dscLoanRelease
               DrawingStyle = gdsGradient
               FixedColor = 14273211
@@ -2336,7 +2340,7 @@ inherited frmLoanMain: TfrmLoanMain
                   Title.Font.Height = -12
                   Title.Font.Name = 'Tahoma'
                   Title.Font.Style = [fsBold]
-                  Width = 80
+                  Width = 75
                   Visible = True
                 end
                 item
@@ -2350,7 +2354,20 @@ inherited frmLoanMain: TfrmLoanMain
                   Title.Font.Height = -12
                   Title.Font.Name = 'Tahoma'
                   Title.Font.Style = [fsBold]
-                  Width = 170
+                  Width = 140
+                  Visible = True
+                end
+                item
+                  Expanded = False
+                  FieldName = 'loc_name'
+                  Title.Alignment = taCenter
+                  Title.Caption = 'Branch'
+                  Title.Font.Charset = DEFAULT_CHARSET
+                  Title.Font.Color = clWindowText
+                  Title.Font.Height = -12
+                  Title.Font.Name = 'Tahoma'
+                  Title.Font.Style = [fsBold]
+                  Width = 75
                   Visible = True
                 end
                 item
@@ -2364,7 +2381,7 @@ inherited frmLoanMain: TfrmLoanMain
                   Title.Font.Height = -12
                   Title.Font.Name = 'Tahoma'
                   Title.Font.Style = [fsBold]
-                  Width = 100
+                  Width = 60
                   Visible = True
                 end
                 item
@@ -2389,7 +2406,7 @@ inherited frmLoanMain: TfrmLoanMain
               Width = 451
               Height = 119
               Anchors = [akLeft, akTop, akRight]
-              Ctl3D = True
+              Ctl3D = False
               DataSource = dmLoan.dscLoanCharge
               DrawingStyle = gdsGradient
               FixedColor = 14273211
@@ -2407,6 +2424,7 @@ inherited frmLoanMain: TfrmLoanMain
               FrameVisible = True
               FramingPreference = fpCustomFraming
               FixedLineColor = 14273211
+              LineColor = clWhite
               AltRowShadingColor = 15854564
               Columns = <
                 item

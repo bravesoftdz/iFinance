@@ -8,7 +8,7 @@ uses
   System.ImageList, Vcl.ImgList, Vcl.StdCtrls, Vcl.Mask, RzEdit,
   RzButton, RzTabs, Vcl.Grids, Vcl.DBGrids, RzDBGrid, RzLabel, Vcl.ExtCtrls,
   RzPanel, RzRadChk, RzDBChk, Vcl.DBCtrls, RzDBCmbo, JvExControls, JvLabel,
-  RzDBEdit, Vcl.Imaging.pngimage, Vcl.ComCtrls, RzTreeVw, Group;
+  RzDBEdit, Vcl.Imaging.pngimage, Vcl.ComCtrls, RzTreeVw, Group, Vcl.Menus;
 
 type
   TfrmGroupList = class(TfrmBaseGridDetail)
@@ -22,6 +22,9 @@ type
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure tvGroupChange(Sender: TObject; Node: TTreeNode);
+    procedure tvGroupDragDrop(Sender, Source: TObject; X, Y: Integer);
+    procedure tvGroupDragOver(Sender, Source: TObject; X, Y: Integer;
+      State: TDragState; var Accept: Boolean);
   private
     { Private declarations }
     GroupList: array of TGroup;
@@ -104,6 +107,7 @@ begin
       gp.GroupName := FieldByName('grp_name').AsString;
       gp.ParentGroupId := FieldByName('par_grp_id').AsInteger;
       gp.IsGov := FieldByName('is_gov').AsInteger;
+      gp.IsActive := FieldByName('is_active').AsInteger;
 
       SetLength(GroupList,Length(GroupList) + 1);
       GroupList[Length(GroupList)-1] := gp;
@@ -143,6 +147,31 @@ var
 begin
   groupId := TGroup(Node.Data).GroupId;
   grList.DataSource.DataSet.Locate('grp_id',groupId,[]);
+end;
+
+procedure TfrmGroupList.tvGroupDragDrop(Sender, Source: TObject; X, Y: Integer);
+var
+  src, dst: TTreeNode;
+begin
+  src := tvGroup.Selected;
+  dst := tvGroup.GetNodeAt(X,Y);
+  src.MoveTo(dst, naAddChild);
+
+  // apply destination properties to source
+  TGroup(src.Data).ParentGroupId := TGroup(dst.Data).GroupId;
+  TGroup(src.Data).IsGov := TGroup(dst.Data).IsGov;
+  TGroup(src.Data).IsActive := TGroup(dst.Data).IsActive;
+  TGroup(src.Data).SaveChanges(src.Data);
+end;
+
+procedure TfrmGroupList.tvGroupDragOver(Sender, Source: TObject; X, Y: Integer;
+  State: TDragState; var Accept: Boolean);
+var
+  src, dst: TTreeNode;
+begin
+  src := tvGroup.Selected;
+  dst := tvGroup.GetNodeAt(X,Y);
+  Accept := Assigned(dst) and (src<>dst);
 end;
 
 function TfrmGroupList.EntryIsValid: boolean;

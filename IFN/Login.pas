@@ -39,6 +39,7 @@ type
     procedure LoadSettings;
     procedure SettingAccessRights;
     procedure PauseWindow(timer: integer);
+    procedure GetLocations;
     function UserExists: boolean;
     function PasswordIsValid: boolean;
   public
@@ -59,7 +60,7 @@ implementation
 {$R *.dfm}
 
 uses
-  AppData, AppUtil, IFinanceGlobal, IFinanceDialogs;
+  AppData, AppUtil, IFinanceGlobal, IFinanceDialogs, Location;
 
 class function TfrmLogin.LoggedIn: boolean;
 begin
@@ -231,6 +232,9 @@ begin
 
     // version
     ifn.Version := GetAppVersionStr(ParamStr(0));
+
+    // get all locations
+    GetLocations;
   end;
 
   while i <= limit do
@@ -313,6 +317,31 @@ begin
 
     if not Result then
       lbErrorMessage.Caption := 'Invalid username or password.';
+  end;
+end;
+
+procedure TfrmLogin.GetLocations;
+var
+  loc: TLocation;
+begin
+  with dmApplication.dstLocation do
+  begin
+    DisableControls;
+    Open;
+
+    while not Eof do
+    begin
+      loc := TLocation.Create;
+
+      loc.LocationCode := FieldByName('location_code').AsString;
+      loc.LocationName := FieldByName('location_name').AsString;
+
+      ifn.AddLocation(loc);
+
+      Next;
+    end;
+
+    Close;
   end;
 end;
 

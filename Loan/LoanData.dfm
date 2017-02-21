@@ -391,6 +391,7 @@ object dmLoan: TdmLoan
     BeforeOpen = dstLoanReleaseBeforeOpen
     AfterOpen = dstLoanReleaseAfterOpen
     BeforePost = dstLoanReleaseBeforePost
+    OnCalcFields = dstLoanReleaseCalcFields
     OnNewRecord = dstLoanReleaseNewRecord
     CommandText = 'sp_ln_get_loan_release;1'
     CommandType = cmdStoredProc
@@ -411,6 +412,63 @@ object dmLoan: TdmLoan
       end>
     Left = 47
     Top = 350
+    object dstLoanReleaseloan_id: TStringField
+      FieldName = 'loan_id'
+      FixedChar = True
+      Size = 13
+    end
+    object dstLoanReleaserecipient: TStringField
+      FieldName = 'recipient'
+      FixedChar = True
+      Size = 10
+    end
+    object dstLoanReleaserel_method: TStringField
+      FieldName = 'rel_method'
+      FixedChar = True
+      Size = 1
+    end
+    object dstLoanReleaserel_amt: TBCDField
+      FieldName = 'rel_amt'
+      Precision = 10
+      Size = 2
+    end
+    object dstLoanReleasedate_rel: TDateTimeField
+      FieldName = 'date_rel'
+    end
+    object dstLoanReleaserel_by: TStringField
+      FieldName = 'rel_by'
+      Size = 12
+    end
+    object dstLoanReleaseloc_code: TStringField
+      FieldName = 'loc_code'
+      FixedChar = True
+      Size = 3
+    end
+    object dstLoanReleaserel_amt_f: TStringField
+      FieldName = 'rel_amt_f'
+      ReadOnly = True
+      Size = 12
+    end
+    object dstLoanReleasedate_rel_f: TStringField
+      FieldName = 'date_rel_f'
+      ReadOnly = True
+      Size = 10
+    end
+    object dstLoanReleasemethod_name: TStringField
+      FieldName = 'method_name'
+      Size = 25
+    end
+    object dstLoanReleaserecipient_name: TStringField
+      FieldName = 'recipient_name'
+      ReadOnly = True
+      Size = 102
+    end
+    object dstLoanReleaseloc_name: TStringField
+      FieldKind = fkCalculated
+      FieldName = 'loc_name'
+      Size = 50
+      Calculated = True
+    end
   end
   object dscLoanRelease: TDataSource
     DataSet = dstLoanRelease

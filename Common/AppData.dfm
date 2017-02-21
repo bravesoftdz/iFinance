@@ -5,6 +5,7 @@ object dmApplication: TdmApplication
   Height = 276
   Width = 446
   object acMain: TADOConnection
+    Connected = True
     ConnectionString = 
       'Provider=SQLNCLI11.1;Integrated Security=SSPI;Persist Security I' +
       'nfo=False;User ID="";Initial Catalog=iFinance;Data Source=BRYAN\' +
@@ -60,6 +61,7 @@ object dmApplication: TdmApplication
     Top = 80
   end
   object acCore: TADOConnection
+    Connected = True
     ConnectionString = 
       'Provider=SQLNCLI11.1;Integrated Security=SSPI;Persist Security I' +
       'nfo=False;User ID="";Initial Catalog=HRIS;Data Source=BRYAN\DEVE' +
@@ -145,5 +147,14 @@ object dmApplication: TdmApplication
     DataSet = dstLoans
     Left = 296
     Top = 80
+  end
+  object dstLocation: TADODataSet
+    Connection = acCore
+    LockType = ltReadOnly
+    CommandText = 'location'
+    CommandType = cmdTableDirect
+    Parameters = <>
+    Left = 224
+    Top = 136
   end
 end

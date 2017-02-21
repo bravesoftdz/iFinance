@@ -1,17 +1,17 @@
 inherited frmLoanReleaseDetail: TfrmLoanReleaseDetail
   Caption = 'frmLoanReleaseDetail'
   ClientHeight = 306
-  ClientWidth = 527
+  ClientWidth = 541
   OnShow = FormShow
-  ExplicitWidth = 527
+  ExplicitWidth = 541
   ExplicitHeight = 306
   PixelsPerInch = 96
   TextHeight = 14
   inherited pnlTitle: TRzPanel
-    Width = 527
+    Width = 541
     ExplicitWidth = 527
     inherited imgClose: TImage
-      Left = 506
+      Left = 520
       ExplicitLeft = 545
     end
     inherited lblCaption: TRzLabel
@@ -21,21 +21,21 @@ inherited frmLoanReleaseDetail: TfrmLoanReleaseDetail
     end
   end
   inherited pnlMain: TRzPanel
-    Width = 527
+    Width = 541
     Height = 285
     ExplicitWidth = 527
     ExplicitHeight = 285
     inherited pnlDetail: TRzPanel
       Left = 7
       Top = 7
-      Width = 512
+      Width = 526
       Height = 238
       ExplicitLeft = 7
       ExplicitTop = 7
       ExplicitWidth = 512
       ExplicitHeight = 238
       inherited pcDetail: TRzPageControl
-        Width = 510
+        Width = 524
         Height = 236
         ExplicitWidth = 510
         ExplicitHeight = 236
@@ -45,7 +45,7 @@ inherited frmLoanReleaseDetail: TfrmLoanReleaseDetail
           ExplicitHeight = 236
           object urlReleaseToClient: TRzURLLabel
             Tag = 1
-            Left = 403
+            Left = 417
             Top = 198
             Width = 90
             Height = 14
@@ -63,10 +63,10 @@ inherited frmLoanReleaseDetail: TfrmLoanReleaseDetail
             Tag = 3
             Left = 19
             Top = 23
-            Width = 474
+            Width = 488
             Height = 169
             Hint = ''
-            ActivePage = tsRecipients
+            ActivePage = tsMonExp
             ActivePageDefault = tsRecipients
             Anchors = [akLeft, akTop, akRight, akBottom]
             ButtonColor = 14273211
@@ -75,24 +75,25 @@ inherited frmLoanReleaseDetail: TfrmLoanReleaseDetail
             TabOverlap = 0
             TabColors.Shadow = 14273211
             TabColors.Unselected = 14273211
-            TabIndex = 0
+            TabIndex = 1
             TabOrder = 0
             TabStyle = tsRoundCorners
+            ExplicitWidth = 474
             FixedDimension = 20
             object tsRecipients: TRzTabSheet
               Color = 14273211
               Caption = 'Recipients'
+              ExplicitWidth = 472
               DesignSize = (
-                472
+                486
                 144)
               object grReleaseRecipient: TRzStringGrid
                 Left = 6
                 Top = 6
-                Width = 460
+                Width = 474
                 Height = 132
                 Anchors = [akLeft, akTop, akRight, akBottom]
-                ColCount = 4
-                Ctl3D = True
+                Ctl3D = False
                 DrawingStyle = gdsGradient
                 FixedColor = 14273211
                 FixedCols = 0
@@ -112,6 +113,7 @@ inherited frmLoanReleaseDetail: TfrmLoanReleaseDetail
                   60
                   60
                   60
+                  60
                   60)
                 RowHeights = (
                   18)
@@ -120,17 +122,18 @@ inherited frmLoanReleaseDetail: TfrmLoanReleaseDetail
             object tsMonExp: TRzTabSheet
               Color = 14273211
               Caption = 'Charges'
+              ExplicitWidth = 472
               DesignSize = (
-                472
+                486
                 144)
               object grCharges: TRzStringGrid
                 Left = 6
                 Top = 6
-                Width = 460
+                Width = 474
                 Height = 132
                 Anchors = [akLeft, akTop, akRight, akBottom]
                 ColCount = 2
-                Ctl3D = True
+                Ctl3D = False
                 DrawingStyle = gdsGradient
                 FixedColor = 14273211
                 FixedCols = 0
@@ -158,7 +161,7 @@ inherited frmLoanReleaseDetail: TfrmLoanReleaseDetail
             Top = 198
             Width = 50
             Height = 22
-            Anchors = [akRight, akBottom]
+            Anchors = [akLeft, akBottom]
             BorderOuter = fsNone
             BorderColor = 6572079
             BorderWidth = 1
@@ -179,7 +182,7 @@ inherited frmLoanReleaseDetail: TfrmLoanReleaseDetail
             Top = 198
             Width = 50
             Height = 22
-            Anchors = [akRight, akBottom]
+            Anchors = [akLeft, akBottom]
             BorderOuter = fsNone
             BorderColor = 6572079
             BorderWidth = 1
@@ -199,13 +202,13 @@ inherited frmLoanReleaseDetail: TfrmLoanReleaseDetail
       end
     end
     inherited pnlCancel: TRzPanel
-      Left = 469
+      Left = 483
       Top = 254
       ExplicitLeft = 469
       ExplicitTop = 254
     end
     inherited pnlSave: TRzPanel
-      Left = 413
+      Left = 427
       Top = 254
       ExplicitLeft = 413
       ExplicitTop = 254

@@ -1,15 +1,15 @@
 inherited frmReleaseRecipientDetail: TfrmReleaseRecipientDetail
   Caption = 'frmReleaseRecipientDetail'
-  ClientHeight = 204
+  ClientHeight = 221
   ClientWidth = 330
   OnCreate = FormCreate
   ExplicitWidth = 330
-  ExplicitHeight = 204
+  ExplicitHeight = 221
   PixelsPerInch = 96
   TextHeight = 14
   inherited pnlTitle: TRzPanel
     Width = 330
-    ExplicitWidth = 327
+    ExplicitWidth = 330
     inherited imgClose: TImage
       Left = 309
       ExplicitLeft = 306
@@ -22,26 +22,26 @@ inherited frmReleaseRecipientDetail: TfrmReleaseRecipientDetail
   end
   inherited pnlMain: TRzPanel
     Width = 330
-    Height = 183
-    ExplicitWidth = 327
-    ExplicitHeight = 193
+    Height = 200
+    ExplicitWidth = 330
+    ExplicitHeight = 200
     inherited pnlDetail: TRzPanel
       Width = 314
-      Height = 135
+      Height = 152
       ExplicitWidth = 314
-      ExplicitHeight = 135
+      ExplicitHeight = 152
       inherited pcDetail: TRzPageControl
         Width = 312
-        Height = 133
+        Height = 150
         ExplicitWidth = 312
-        ExplicitHeight = 133
+        ExplicitHeight = 150
         FixedDimension = 20
         inherited tsDetail: TRzTabSheet
-          ExplicitWidth = 514
-          ExplicitHeight = 181
+          ExplicitWidth = 312
+          ExplicitHeight = 150
           object JvLabel1: TJvLabel
             Left = 19
-            Top = 71
+            Top = 95
             Width = 44
             Height = 14
             Caption = 'Method'
@@ -49,7 +49,7 @@ inherited frmReleaseRecipientDetail: TfrmReleaseRecipientDetail
           end
           object JvLabel2: TJvLabel
             Left = 19
-            Top = 95
+            Top = 119
             Width = 46
             Height = 14
             Caption = 'Amount'
@@ -73,9 +73,18 @@ inherited frmReleaseRecipientDetail: TfrmReleaseRecipientDetail
             Caption = 'Date released'
             Transparent = True
           end
+          object JvLabel9: TJvLabel
+            Tag = -1
+            Left = 19
+            Top = 71
+            Width = 39
+            Height = 14
+            Caption = 'Branch'
+            Transparent = True
+          end
           object edAmount: TRzDBNumericEdit
             Left = 107
-            Top = 89
+            Top = 113
             Width = 175
             Height = 22
             DataSource = dmLoan.dscLoanRelease
@@ -85,24 +94,22 @@ inherited frmReleaseRecipientDetail: TfrmReleaseRecipientDetail
             FrameVisible = True
             FramingPreference = fpCustomFraming
             TabOnEnter = True
-            TabOrder = 3
+            TabOrder = 4
             IntegersOnly = False
             DisplayFormat = '###,##0.00'
           end
           object dbluMethod: TRzDBLookupComboBox
             Tag = 1
             Left = 107
-            Top = 65
+            Top = 89
             Width = 175
             Height = 22
-            Ctl3D = True
             DataField = 'rel_method'
             DataSource = dmLoan.dscLoanRelease
             KeyField = 'value'
             ListField = 'display'
             ListSource = dmLoansAux.dscReleaseMethod
-            ParentCtl3D = False
-            TabOrder = 2
+            TabOrder = 3
             AllowNull = True
             FlatButtons = True
             FrameColor = 8675134
@@ -155,20 +162,40 @@ inherited frmReleaseRecipientDetail: TfrmReleaseRecipientDetail
             Format = 'mm/dd/yyyy'
             FlatButtons = True
           end
+          object dbluBranch: TRzDBLookupComboBox
+            Tag = 1
+            Left = 107
+            Top = 65
+            Width = 175
+            Height = 22
+            DataField = 'loc_code'
+            DataSource = dmLoan.dscLoanRelease
+            KeyField = 'location_code'
+            ListField = 'location_name'
+            ListSource = dmLoansAux.dscBranches
+            TabOrder = 2
+            FlatButtons = True
+            DisabledColor = clWhite
+            FrameColor = 8675134
+            FrameHotColor = clBlack
+            FrameVisible = True
+            FramingPreference = fpCustomFraming
+            TabOnEnter = True
+          end
         end
       end
     end
     inherited pnlCancel: TRzPanel
       Left = 272
-      Top = 152
+      Top = 169
       ExplicitLeft = 272
-      ExplicitTop = 152
+      ExplicitTop = 169
     end
     inherited pnlSave: TRzPanel
       Left = 216
-      Top = 152
+      Top = 169
       ExplicitLeft = 216
-      ExplicitTop = 152
+      ExplicitTop = 169
     end
   end
 end

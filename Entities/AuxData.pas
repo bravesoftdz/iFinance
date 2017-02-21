@@ -66,7 +66,7 @@ var
 implementation
 
 uses
-  AppData, DBUtil, Loantype;
+  AppData, DBUtil, Loantype, IFinanceGlobal;
 
 {%CLASSGROUP 'Vcl.Controls.TControl'}
 
@@ -97,12 +97,13 @@ end;
 
 procedure TdmAux.dstCompetitorsBeforePost(DataSet: TDataSet);
 var
-  id: integer;
+  id: string;
 begin
   if DataSet.State = dsInsert then
   begin
     id := GetCompetitorId;
-    DataSet.FieldByName('comp_id').AsInteger := id;
+    DataSet.FieldByName('comp_id').AsString := id;
+    DataSet.FieldByName('loc_code').AsString := ifn.LocationCode;
   end;
 end;
 

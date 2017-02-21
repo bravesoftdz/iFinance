@@ -22,7 +22,7 @@ function GetBankBranchId: string;
 function GetDesignationId: integer;
 function GetLoanClassId: integer;
 function GetLoanId: string;
-function GetCompetitorId: integer;
+function GetCompetitorId: string;
 function GetPurposeId: integer;
 function GetLoanTypeId: integer;
 function GetAccountTypeId: integer;
@@ -131,9 +131,9 @@ begin
   Result := ifn.LocationPrefix + '-' + IntToStr(GetSequenceID(soLoan));
 end;
 
-function GetCompetitorId: integer;
+function GetCompetitorId: string;
 begin
-  Result := GetSequenceID(soCompetitor);
+  Result := ifn.LocationPrefix + '-' + IntToStr(GetSequenceID(soCompetitor));
 end;
 
 function GetPurposeId: integer;

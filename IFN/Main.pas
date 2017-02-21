@@ -116,6 +116,7 @@ type
     Loan1: TMenuItem;
     Selectclient1: TMenuItem;
     acSelectClient: TAction;
+    lblLocation: TLabel;
     procedure tbAddClientClick(Sender: TObject);
     procedure lblRecentlyAddedClick(Sender: TObject);
     procedure lbxRecentDblClick(Sender: TObject);
@@ -517,6 +518,7 @@ begin
   lblCaption.Caption := ifn.AppName + ' - ' + ifn.AppDescription;
   lblWelcome.Caption := 'Welcome back ' + ifn.User.Name + '.';
   lblDate.Caption := 'Today is ' + FormatDateTime('mmmm dd, yyyy.',ifn.AppDate);
+  lblLocation.Caption := 'Location: ' + ifn.GetLocationNameByCode(ifn.LocationCode);
   lblVersion.Caption :=  'Version ' + ifn.Version;
 end;
 

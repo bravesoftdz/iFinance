@@ -38,6 +38,18 @@ type
     dscLoanCharge: TDataSource;
     dscLoanClassCharges: TDataSource;
     dstLoanClassCharges: TADODataSet;
+    dstLoanReleaseloan_id: TStringField;
+    dstLoanReleaserecipient: TStringField;
+    dstLoanReleaserel_method: TStringField;
+    dstLoanReleaserel_amt: TBCDField;
+    dstLoanReleasedate_rel: TDateTimeField;
+    dstLoanReleaserel_by: TStringField;
+    dstLoanReleaseloc_code: TStringField;
+    dstLoanReleaserel_amt_f: TStringField;
+    dstLoanReleasedate_rel_f: TStringField;
+    dstLoanReleasemethod_name: TStringField;
+    dstLoanReleaserecipient_name: TStringField;
+    dstLoanReleaseloc_name: TStringField;
     procedure dstLoanBeforeOpen(DataSet: TDataSet);
     procedure dstLoanClassBeforeOpen(DataSet: TDataSet);
     procedure dstLoanBeforePost(DataSet: TDataSet);
@@ -81,6 +93,7 @@ type
     procedure dstLoanChargeAfterOpen(DataSet: TDataSet);
     procedure dstLoanReleaseNewRecord(DataSet: TDataSet);
     procedure dstLoanClassChargesBeforeOpen(DataSet: TDataSet);
+    procedure dstLoanReleaseCalcFields(DataSet: TDataSet);
   private
     { Private declarations }
     procedure SetLoanClassProperties;
@@ -97,7 +110,7 @@ implementation
 uses
   AppData, Loan, DBUtil, IFinanceGlobal, LoanClassification, Comaker, FinInfo,
   MonthlyExpense, Alert, ReleaseRecipient, Recipient, LoanCharge, LoanClassCharge,
-  LoanType, Assessment;
+  LoanType, Assessment, Location;
 
 {%CLASSGROUP 'Vcl.Controls.TControl'}
 
@@ -501,7 +514,7 @@ var
   amt: real;
   dt: TDate;
   relId, relName: string;
-  recipientId, recipientName: string;
+  recipientId, recipientName, locCode: string;
 begin
   (DataSet as TADODataSet).Properties['Unique table'].Value := 'LoanRelease';
 
@@ -515,6 +528,7 @@ begin
     begin
       amt := FieldByName('rel_amt').AsFloat;
       dt := FieldByName('date_rel').AsDateTime;
+      locCode := FieldByName('loc_code').AsString;
       relId := FieldByName('rel_method').AsString;
       relName := FieldByName('method_name').AsString;
       recipientId := FieldByName('recipient').AsString;
@@ -523,8 +537,8 @@ begin
       ln.AddReleaseRecipient(TReleaseRecipient.Create(
           TRecipient.Create(recipientId,recipientName),
           TReleaseMethod.Create(relId,relName),
+          locCode,ifn.GetLocationNameByCode(locCode),
           amt,dt));
-
       Next;
     end;
   end;
@@ -541,12 +555,20 @@ begin
   DataSet.FieldByName('rel_by').AsString := ifn.User.UserId;
 end;
 
+procedure TdmLoan.dstLoanReleaseCalcFields(DataSet: TDataSet);
+begin
+  with DataSet do
+    FieldByName('loc_name').AsString :=
+        ifn.GetLocationNameByCode(Trim(FieldByName('loc_code').AsString));
+end;
+
 procedure TdmLoan.dstLoanReleaseNewRecord(DataSet: TDataSet);
 begin
   with DataSet do
   begin
     FieldByName('date_rel').AsDateTime := ifn.AppDate;
     FieldByName('rel_by').AsString := ifn.User.UserId;
+    FieldByName('loc_code').AsString := ifn.LocationCode;
   end;
 end;
 

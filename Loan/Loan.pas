@@ -107,7 +107,7 @@ type
     function ComakerExists(cmk: TComaker): boolean;
     function FinancialInfoExists(const compId: integer): boolean;
     function MonthlyExpenseExists(const expType: string): boolean;
-    function ReleaseRecipientExists(const recipient, method: string): boolean;
+    function ReleaseRecipientExists(const recipient, location, method: string): boolean;
     function LoanChargeExists(const charge: TLoanCharge): boolean;
     function LoanStateExists(const state: TLoanState): boolean;
     function HasLoanState(const ls: TLoanState): boolean;
@@ -633,7 +633,7 @@ procedure TLoan.AddReleaseRecipient(const rec: TReleaseRecipient; const overwrit
 var
   index: integer;
 begin
-  if not ReleaseRecipientExists(rec.Recipient.Id,rec.ReleaseMethod.Id) then
+  if not ReleaseRecipientExists(rec.Recipient.Id,rec.LocationCode, rec.ReleaseMethod.Id) then
   begin
     SetLength(FReleaseRecipients,Length(FReleaseRecipients) + 1);
     FReleaseRecipients[Length(FReleaseRecipients) - 1] := rec;
@@ -912,7 +912,7 @@ begin
   Result := Length(FLoanStatusHistory);
 end;
 
-function TLoan.ReleaseRecipientExists(const recipient, method: string): boolean;
+function TLoan.ReleaseRecipientExists(const recipient, location, method: string): boolean;
 var
   i, len: integer;
   rcp: TReleaseRecipient;
@@ -924,7 +924,9 @@ begin
   for i := 0 to len - 1 do
   begin
     rcp := FReleaseRecipients[i];
-    if (rcp.Recipient.Id = recipient) and (rcp.ReleaseMethod.Id = method) then
+    if (rcp.Recipient.Id = recipient) and
+        (rcp.LocationCode = location) and
+        (rcp.ReleaseMethod.Id = method) then
     begin
       Result := true;
       Exit;

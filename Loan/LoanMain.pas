@@ -401,6 +401,15 @@ end;
 procedure TfrmLoanMain.CancelLoan;
 begin
   if not LoanApplicationIsValid then Exit
+  else if ln.IsActive then
+  begin
+    if ShowDecisionBox('Loan is already ACTIVE. ' +
+        'Do you wish to continue with the cancellation?') <> mrYes then
+    begin
+      SetActiveTab(CANCELLATION);
+      Exit;
+    end;
+  end
   else if ln.IsFinalised then
   begin
     ShowErrorBox(FINALISED_MSG);
@@ -742,7 +751,7 @@ end;
 procedure TfrmLoanMain.imgCancelLoanClick(Sender: TObject);
 begin
   inherited;
-  if (ln.HasLoanState(lsCancelled)) or (ln.IsFinalised) then SetActiveTab(CANCELLATION)
+  if (ln.HasLoanState(lsCancelled)) then SetActiveTab(CANCELLATION)
   else CancelLoan;
 end;
 

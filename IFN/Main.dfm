@@ -102,12 +102,13 @@ object frmMain: TfrmMain
     BorderWidth = 1
     Color = 12955288
     TabOrder = 1
+    ExplicitTop = 23
     DesignSize = (
       1180
       679)
     object lblWelcome: TRzLabel
       Left = 1026
-      Top = 11
+      Top = 7
       Width = 133
       Height = 14
       Alignment = taRightJustify
@@ -149,12 +150,12 @@ object frmMain: TfrmMain
       ParentFont = False
     end
     object lblDate: TLabel
-      Left = 1015
-      Top = 59
+      Left = 591
+      Top = 651
       Width = 144
       Height = 14
       Alignment = taRightJustify
-      Anchors = [akTop, akRight]
+      Anchors = [akRight, akBottom]
       Caption = 'Today is January 01, 2017'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = 6572079
@@ -171,6 +172,21 @@ object frmMain: TfrmMain
       Alignment = taRightJustify
       Anchors = [akRight, akBottom]
       Caption = 'Version 1.0.0.0'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 6572079
+      Font.Height = -12
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+    end
+    object lblLocation: TLabel
+      Left = 849
+      Top = 651
+      Width = 118
+      Height = 14
+      Alignment = taRightJustify
+      Anchors = [akRight, akBottom]
+      Caption = 'Location: Dumaguete'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = 6572079
       Font.Height = -12

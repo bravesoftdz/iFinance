@@ -63,6 +63,7 @@ type
   private
     { Private declarations }
     procedure  SetUnboundControls;
+    procedure ChangeControlState;
   public
     { Public declarations }
   protected
@@ -79,7 +80,8 @@ implementation
 {$R *.dfm}
 
 uses
-  ComakerData, AuxData, FormsUtil, Comaker, EmployerSearch, Employer, IFinanceDialogs;
+  ComakerData, AuxData, FormsUtil, Comaker, EmployerSearch, Employer, IFinanceDialogs,
+  Loan;
 
 procedure TfrmComakerDetail.FormClose(Sender: TObject;
   var Action: TCloseAction);
@@ -97,6 +99,8 @@ begin
 
   OpenDropdownDataSources(tsDetail);
 
+  ChangeControlState;
+
   inherited;
 end;
 
@@ -104,6 +108,13 @@ procedure TfrmComakerDetail.FormShow(Sender: TObject);
 begin
   inherited;
   SetUnboundControls;
+end;
+
+procedure TfrmComakerDetail.ChangeControlState;
+begin
+  edLastname.ReadOnly := (not ln.IsPending) and (ln.Action <> laCreating);
+  edFirstname.ReadOnly := (not ln.IsPending) and (ln.Action <> laCreating);
+  edMiddlename.ReadOnly := (not ln.IsPending) and (ln.Action <> laCreating);
 end;
 
 procedure TfrmComakerDetail.Save;

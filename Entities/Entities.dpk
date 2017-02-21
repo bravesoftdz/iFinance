@@ -80,6 +80,7 @@ contains
   LoanCancellationReasonList in 'LoanCancellationReasonList.pas' {frmLoanCancelReasonList},
   BaseGridDetail in '..\Base\BaseGridDetail.pas' {frmBaseGridDetail},
   LoanRejectionReasonList in 'LoanRejectionReasonList.pas' {frmLoanRejectionReasonList},
-  BankAccount in 'BankAccount.pas';
+  BankAccount in 'BankAccount.pas',
+  Location in 'Location.pas';
 
 end.

@@ -3,7 +3,7 @@ unit IFinanceGlobal;
 interface
 
 uses
-  SysUtils, User, Vcl.Graphics;
+  SysUtils, User, Vcl.Graphics, Location;
 
 type
   TIFinance = class(TObject)
@@ -20,7 +20,15 @@ type
     FMaxComakeredLoans: integer;
     FAppImagesPath: string;
     FVersion: string;
+    FLocations: array of TLocation;
+
+    function GetLocation(const i: integer): TLocation;
+
   public
+    procedure AddLocation(const loc: TLocation);
+
+    function GetLocationNameByCode(const code: string): string;
+
     property AppDate: TDate read FAppDate write FAppDate;
     property LocationCode: string read FLocationCode write FLocationCode;
     property LocationPrefix: string read FLocationPrefix write FLocationPrefix;
@@ -33,6 +41,7 @@ type
     property Version: string read FVersion write FVersion;
     property AppName: string read FAppName write FAppName;
     property AppDescription: string read FAppDescription write FAppDescription;
+    property Locations[const i: integer]: TLocation read GetLocation;
 
     constructor Create;
     destructor Destroy; override;
@@ -69,6 +78,31 @@ begin
   if ifn = self then
     ifn := nil;
   inherited Destroy;
+end;
+
+procedure TIFinance.AddLocation(const loc: TLocation);
+begin
+  SetLength(FLocations,Length(FLocations) + 1);
+  FLocations[Length(FLocations) - 1] := loc;
+end;
+
+function TIFinance.GetLocation(const i: Integer): TLocation;
+begin
+  Result := FLocations[i];
+end;
+
+function TIFinance.GetLocationNameByCode(const code: string): string;
+var
+  loc: TLocation;
+begin
+  Result := 'Unknown';
+
+  for loc in FLocations do
+    if code = Trim(loc.LocationCode) then
+    begin
+      Result := loc.LocationName;
+      Exit;
+    end;
 end;
 
 end.

@@ -80,7 +80,7 @@ const
   CONF = 'Are you sure you want to remove the selected recipient?';
 var
   r: integer;
-  recipient, method: string;
+  recipient, method, locationCode, locationName: string;
   rec: TReleaseRecipient;
 begin
   inherited;
@@ -94,6 +94,8 @@ begin
     rec := (Objects[0,r] as TReleaseRecipient);
     recipient := (Objects[0,r] as TReleaseRecipient).Recipient.Id;
     method := (Objects[0,r] as TReleaseRecipient).ReleaseMethod.Id;
+    locationCode := (Objects[0,r] as TReleaseRecipient).LocationCode;
+    locationName := (Objects[0,r] as TReleaseRecipient).LocationName;
 
     // locate the record in the dataset
     Locate('recipient;rel_method',VarArrayOf([recipient,method]),[]);
@@ -112,8 +114,9 @@ begin
       begin
         grReleaseRecipient.Cells[0,r] := FormatDateTime('mm/dd/yyyy',ln.ReleaseRecipients[r-1].Date);
         grReleaseRecipient.Cells[1,r] := ln.ReleaseRecipients[r-1].Recipient.Name;
-        grReleaseRecipient.Cells[2,r] := ln.ReleaseRecipients[r-1].ReleaseMethod.Name;
-        grReleaseRecipient.Cells[3,r] := FormatFloat('###,###,##0.00',ln.ReleaseRecipients[r-1].Amount);
+        grReleaseRecipient.Cells[2,r] := ln.ReleaseRecipients[r-1].LocationName;
+        grReleaseRecipient.Cells[3,r] := ln.ReleaseRecipients[r-1].ReleaseMethod.Name;
+        grReleaseRecipient.Cells[4,r] := FormatFloat('###,###,##0.00',ln.ReleaseRecipients[r-1].Amount);
 
         grReleaseRecipient.Objects[0,r] := ln.ReleaseRecipients[r-1];
       end;
@@ -143,8 +146,9 @@ begin
 
     Cells[0,r] := FormatDateTime('mm/dd/yyyy',rec.Date);
     Cells[1,r] := rec.Recipient.Name;
-    Cells[2,r] := rec.ReleaseMethod.Name;
-    Cells[3,r] := FormatFloat('###,###,##0.00',rec.Amount);
+    Cells[2,r] := rec.LocationName;
+    Cells[3,r] := rec.ReleaseMethod.Name;
+    Cells[4,r] := FormatFloat('###,###,##0.00',rec.Amount);
 
     Objects[0,r] := rec;
 
@@ -181,14 +185,16 @@ begin
     // headers
     Cells[0,0] := 'Date';
     Cells[1,0] := 'Recipient';
-    Cells[2,0] := 'Method';
-    Cells[3,0] := 'Amount';
+    Cells[2,0] := 'Branch';
+    Cells[3,0] := 'Method';
+    Cells[4,0] := 'Amount';
 
     // widths
     ColWidths[0] := 80;
-    ColWidths[1] := 160;
-    ColWidths[2] := 70;
-    ColWidths[3] := 80;
+    ColWidths[1] := 150;
+    ColWidths[2] := 100;
+    ColWidths[3] := 60;
+    ColWidths[4] := 75;
 
     cnt := ln.ReleaseRecipientCount;
 
@@ -243,10 +249,12 @@ begin
     rrp.Date := ifn.AppDate;
     rrp.Amount := ln.ApprovedAmount - ln.TotalCharges;
     rrp.ReleaseMethod := TReleaseMethod.Create('C','Cash');
+    rrp.LocationCode := ifn.LocationCode;
+    rrp.LocationName := ifn.GetLocationNameByCode(ifn.LocationCode);
 
-    if ln.ReleaseRecipientExists(rrp.Recipient.Id,rrp.ReleaseMethod.Id) then
+    if ln.ReleaseRecipientExists(rrp.Recipient.Id,rrp.LocationCode,rrp.ReleaseMethod.Id) then
     begin
-      error := 'Recipient and release method already exists.';
+      error := 'Release details already exists.';
       ShowErrorBox(error);
     end
     else

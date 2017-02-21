@@ -29,6 +29,7 @@ inherited frmGroupList: TfrmGroupList
       SelectionPen.Color = clBtnShadow
       Align = alClient
       BorderStyle = bsNone
+      DragMode = dmAutomatic
       FramingPreference = fpCustomFraming
       Indent = 19
       ReadOnly = True
@@ -36,6 +37,8 @@ inherited frmGroupList: TfrmGroupList
       SortType = stText
       TabOrder = 1
       OnChange = tvGroupChange
+      OnDragDrop = tvGroupDragDrop
+      OnDragOver = tvGroupDragOver
     end
   end
   inherited pnlDetail: TRzPanel
