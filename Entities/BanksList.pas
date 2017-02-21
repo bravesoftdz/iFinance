@@ -6,13 +6,12 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, BaseDocked, Data.DB, RzTabs, Vcl.Grids,
   Vcl.DBGrids, RzDBGrid, Vcl.StdCtrls, RzLabel, Vcl.ExtCtrls, RzPanel, RzButton,
-  Vcl.DBCtrls, RzDBEdit, Vcl.Mask, RzEdit, JvExControls, JvLabel, SaveIntf;
+  Vcl.DBCtrls, RzDBEdit, Vcl.Mask, RzEdit, JvExControls, JvLabel, SaveIntf, NewIntf;
 
 type
-  TfrmBanksList = class(TfrmBaseDocked, ISave)
+  TfrmBanksList = class(TfrmBaseDocked, ISave, INew)
     pnlList: TRzPanel;
     grList: TRzDBGrid;
-    grBranches: TRzDBGrid;
     JvLabel1: TJvLabel;
     edBankName: TRzDBEdit;
     mmBranch: TRzDBMemo;
@@ -23,6 +22,7 @@ type
     pnlDetailHead: TRzPanel;
     lblDetailHeadCaption: TRzLabel;
     pnlBranches: TRzPanel;
+    grBranches: TRzDBGrid;
     procedure FormShow(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure sbtnNewClick(Sender: TObject);
@@ -101,8 +101,7 @@ procedure TfrmBanksList.New;
 begin
   grBranches.DataSource.DataSet.Append;
 
-  // focus the first control
-  grBranches.DataSource.DataSet.FieldByName(grBranches.Columns[0].FieldName).FocusControl;
+  mmBranch.SetFocus;
 end;
 
 function TfrmBanksList.EntryIsValid: boolean;
@@ -112,7 +111,6 @@ begin
   if Trim(mmBranch.Text) = '' then error := 'Please enter branch.';
 
   if error <> '' then ShowErrorBox(error);
-
 
   Result := error = '';
 end;

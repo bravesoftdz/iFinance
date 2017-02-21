@@ -69,6 +69,8 @@ type
     procedure dstClientLoanClassBeforeOpen(DataSet: TDataSet);
     procedure dstLoanClassAvailBeforeOpen(DataSet: TDataSet);
     procedure dstClientLoanClassAfterScroll(DataSet: TDataSet);
+    procedure dstAcctInfoAfterPost(DataSet: TDataSet);
+    procedure dstAcctInfoBeforeDelete(DataSet: TDataSet);
   private
     { Private declarations }
   public
@@ -82,22 +84,54 @@ implementation
 
 uses
   AppData, DBUtil, Client, IFinanceGlobal, AppConstants, Referee, Landlord,
-  Employer, ImmediateHead, Bank, IdentityDoc, LoanClassification;
+  Employer, ImmediateHead, BankAccount, IdentityDoc, LoanClassification, Bank;
 
 {%CLASSGROUP 'Vcl.Controls.TControl'}
 
 {$R *.dfm}
 
 procedure TdmClient.dstAcctInfoAfterOpen(DataSet: TDataSet);
+var
+  acct: TBankAccount;
+  bk: TBank;
 begin
-  if (cln.HasId) and (DataSet.FieldByName('bank_id').AsString <> '') then
+  (DataSet as TADODataSet).Properties['Unique table'].Value := 'AcctInfo';
+  with DataSet do
   begin
-    cln.Bank := TBank.Create;
-    cln.Bank.Id := DataSet.FieldByName('bank_id').AsString;
-    cln.Bank.BankName := DataSet.FieldByName('bank_name').AsString;
-    cln.Bank.BankCode := DataSet.FieldByName('bank_code').AsString;
-    cln.Bank.Branch := DataSet.FieldByName('branch').AsString;
-  end
+    cln.ClearBankAccounts;
+
+    while not Eof do
+    begin
+      bk := TBank.Create;
+      bk.Id := FieldByName('bank_id').AsString;
+      bk.BankName := FieldByName('bank_name').AsString;
+      bk.BankCode := FieldByName('bank_code').AsString;
+      bk.Branch := FieldByName('branch').AsString;
+
+      acct := TBankAccount.Create;
+      acct.Bank := bk;
+      acct.AccountNo := FieldByName('acct_no').AsString;
+      acct.CardNo := FieldByName('card_no').AsString;
+      acct.CardExpiry := FieldByName('card_expiry').AsDateTime;
+
+      cln.AddBankAccount(acct);
+
+      Next;
+    end;
+  end;
+end;
+
+procedure TdmClient.dstAcctInfoAfterPost(DataSet: TDataSet);
+var
+  bankId: string;
+begin
+  bankId := DataSet.FieldByName('bank_id').AsString;
+  RefreshDataSet(bankId,'bank_id',DataSet);
+end;
+
+procedure TdmClient.dstAcctInfoBeforeDelete(DataSet: TDataSet);
+begin
+  cln.RemoveBankAccountByAccountNo(DataSet.FieldByName('acct_no').AsString);
 end;
 
 procedure TdmClient.dstAcctInfoBeforeOpen(DataSet: TDataSet);
@@ -109,11 +143,6 @@ procedure TdmClient.dstAcctInfoBeforePost(DataSet: TDataSet);
 begin
   if DataSet.State = dsInsert then
     DataSet.FieldByName('entity_id').AsString := cln.Id;
-
-  if Assigned(cln.Bank) then
-    DataSet.FieldByName('bank_id').AsString := cln.Bank.Id
-  else
-    DataSet.FieldByName('bank_id').Value := null;
 end;
 
 procedure TdmClient.dstAddressInfo2AfterOpen(DataSet: TDataSet);
@@ -189,7 +218,7 @@ end;
 procedure TdmClient.dstClientLoanClassAfterScroll(DataSet: TDataSet);
 var
   clId, term, comakers, groupId, age: integer;
-  clName, loanType: string;
+  clName: string;
   interest, maxLoan: real;
   validFrom, validUntil: TDate;
 begin
@@ -200,7 +229,6 @@ begin
     clName := FieldByName('class_name').AsString;
     interest := FieldByName('int_rate').AsFloat;
     term := FieldByName('term').AsInteger;
-    loanType := FieldByName('loan_type').AsString;
     maxLoan := FieldByName('max_loan').AsFloat;
     comakers := FieldByName('comakers').AsInteger;
     validFrom := FieldByName('valid_from').AsDateTime;
@@ -210,7 +238,7 @@ begin
 
   if not Assigned(lnc) then
     lnc := TLoanClassification.Create(clId, groupId, clName, interest,
-        term, loanType, maxLoan, comakers, validFrom, validUntil, age)
+        term, maxLoan, comakers, validFrom, validUntil, age, nil)
   else
   begin
     lnc.ClassificationId := clId;
@@ -218,7 +246,6 @@ begin
     lnc.ClassificationName := clName;
     lnc.Interest := interest;
     lnc.Term := term;
-    lnc.LoanType := loanType;
     lnc.MaxLoan := maxLoan;
     lnc.Comakers := comakers;
     lnc.ValidFrom := validFrom;

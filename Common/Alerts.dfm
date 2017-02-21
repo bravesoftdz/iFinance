@@ -9,7 +9,7 @@ inherited frmAlerts: TfrmAlerts
   TextHeight = 14
   inherited pnlTitle: TRzPanel
     Width = 527
-    Color = 6572079
+    Color = 2960895
     GradientColorStart = 2960895
     GradientColorStop = 4737279
     ExplicitWidth = 527

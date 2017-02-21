@@ -45,7 +45,7 @@ implementation
 {$R *.dfm}
 
 uses
-  LoanData, LoansAuxData, Loan, FormsUtil, IFinanceDialogs;
+  LoanData, LoansAuxData, Loan, FormsUtil, IFinanceDialogs, Assessment;
 
 procedure TfrmLoanAppvDetail.FormCreate(Sender: TObject);
 begin
@@ -53,7 +53,7 @@ begin
   OpenDropdownDataSources(tsDetail);
 
   // recommended amount
-  urlRecommendedAmount.Caption := FormatFloat('###,##0.00',ln.RecommendedAmount);
+  urlRecommendedAmount.Caption := FormatFloat('###,##0.00',ln.Assessment.RecommendedAmount);
   // desired term
   urlDesiredTerm.Caption := IntToStr(ln.DesiredTerm);
 end;
@@ -72,7 +72,8 @@ end;
 procedure TfrmLoanAppvDetail.urlRecommendedAmountClick(Sender: TObject);
 begin
   inherited;
-  if (ln.Action = laApproving) and (ln.IsAssessed) then edAppvAmount.Value := ln.RecommendedAmount;
+  if (ln.Action = laApproving) and (ln.IsAssessed) and (ln.Assessment.Recommendation = rcApprove) then
+    edAppvAmount.Value := ln.Assessment.RecommendedAmount;
 end;
 
 procedure TfrmLoanAppvDetail.Cancel;
@@ -93,7 +94,9 @@ begin
   else if dbluAppvMethod.Text = '' then
     error := 'Please select approval method.'
   else if edAppvTerm.Value > ln.DesiredTerm then
-    error := 'Approved term exceeds the desired term.';
+    error := 'Approved term exceeds the desired term.'
+  else if edAppvAmount.Value > ln.LoanClass.MaxLoan then
+    error := 'Approved amount exceeds the maximum loanable amount for the selected loan class.';
 
   Result := error = '';
 

@@ -39,7 +39,6 @@ inherited frmPurposeList: TfrmPurposeList
       Height = 22
       DataSource = dmAux.dscPurpose
       DataField = 'purpose'
-      CharCase = ecUpperCase
       DisabledColor = clWhite
       FrameColor = 8675134
       FrameVisible = True

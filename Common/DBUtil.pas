@@ -8,7 +8,7 @@ uses
 type
   TSequenceObject = (soEntity,soGroup,soEmployer,soBankBranch,soDesignation,
                         soLoanClass,soLoan,soCompetitor,soPurpose, soLoanType,
-                        soAcctType);
+                        soAcctType,soLoanCancelReason,soLoanRejectReason);
 
 procedure RefreshDataSet(const key: integer; const keyField: string; DataSet: TDataSet); overload;
 procedure RefreshDataSet(const key, keyField: string; DataSet: TDataSet); overload;
@@ -22,10 +22,12 @@ function GetBankBranchId: string;
 function GetDesignationId: integer;
 function GetLoanClassId: integer;
 function GetLoanId: string;
-function GetCompetitorId: integer;
+function GetCompetitorId: string;
 function GetPurposeId: integer;
 function GetLoanTypeId: integer;
 function GetAccountTypeId: integer;
+function GetLoanCancellationReasonId: integer;
+function GetLoanRejectionReasonId: integer;
 
 implementation
 
@@ -129,9 +131,9 @@ begin
   Result := ifn.LocationPrefix + '-' + IntToStr(GetSequenceID(soLoan));
 end;
 
-function GetCompetitorId: integer;
+function GetCompetitorId: string;
 begin
-  Result := GetSequenceID(soCompetitor);
+  Result := ifn.LocationPrefix + '-' + IntToStr(GetSequenceID(soCompetitor));
 end;
 
 function GetPurposeId: integer;
@@ -147,6 +149,16 @@ end;
 function GetAccountTypeId: integer;
 begin
   Result := GetSequenceID(soAcctType);
+end;
+
+function GetLoanCancellationReasonId: integer;
+begin
+  Result := GetSequenceID(soLoanCancelReason);
+end;
+
+function GetLoanRejectionReasonId: integer;
+begin
+  Result := GetSequenceID(soLoanRejectReason);
 end;
 
 

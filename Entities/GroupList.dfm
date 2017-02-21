@@ -21,6 +21,25 @@ inherited frmGroupList: TfrmGroupList
           Visible = True
         end>
     end
+    object tvGroup: TRzTreeView
+      Left = 1
+      Top = 1
+      Width = 481
+      Height = 401
+      SelectionPen.Color = clBtnShadow
+      Align = alClient
+      BorderStyle = bsNone
+      DragMode = dmAutomatic
+      FramingPreference = fpCustomFraming
+      Indent = 19
+      ReadOnly = True
+      RowSelect = True
+      SortType = stText
+      TabOrder = 1
+      OnChange = tvGroupChange
+      OnDragDrop = tvGroupDragDrop
+      OnDragOver = tvGroupDragOver
+    end
   end
   inherited pnlDetail: TRzPanel
     object JvLabel1: TJvLabel [0]
@@ -66,8 +85,8 @@ inherited frmGroupList: TfrmGroupList
       Height = 16
       DataField = 'is_gov'
       DataSource = dmEntities.dscGroups
-      ValueChecked = '1'
-      ValueUnchecked = '0'
+      ValueChecked = '0'
+      ValueUnchecked = '1'
       Caption = 'Private'
       FrameColor = 8675134
       TabOnEnter = True

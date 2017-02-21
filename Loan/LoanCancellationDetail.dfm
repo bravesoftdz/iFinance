@@ -1,15 +1,15 @@
 inherited frmLoanCancellationDetail: TfrmLoanCancellationDetail
   Caption = 'frmLoanCancellationDetail'
-  ClientHeight = 200
+  ClientHeight = 196
   ClientWidth = 347
   OnCreate = FormCreate
   ExplicitWidth = 347
-  ExplicitHeight = 200
+  ExplicitHeight = 196
   PixelsPerInch = 96
   TextHeight = 14
   inherited pnlTitle: TRzPanel
     Width = 347
-    ExplicitWidth = 346
+    ExplicitWidth = 347
     inherited imgClose: TImage
       Left = 326
       ExplicitLeft = 334
@@ -22,23 +22,23 @@ inherited frmLoanCancellationDetail: TfrmLoanCancellationDetail
   end
   inherited pnlMain: TRzPanel
     Width = 347
-    Height = 179
-    ExplicitWidth = 346
-    ExplicitHeight = 190
+    Height = 175
+    ExplicitWidth = 347
+    ExplicitHeight = 179
     inherited pnlDetail: TRzPanel
       Width = 331
-      Height = 132
+      Height = 128
       ExplicitWidth = 331
       ExplicitHeight = 132
       inherited pcDetail: TRzPageControl
         Width = 329
-        Height = 130
+        Height = 126
         ExplicitWidth = 329
         ExplicitHeight = 130
         FixedDimension = 20
         inherited tsDetail: TRzTabSheet
-          ExplicitWidth = 514
-          ExplicitHeight = 181
+          ExplicitWidth = 329
+          ExplicitHeight = 130
           object JvLabel17: TJvLabel
             Tag = -1
             Left = 19
@@ -120,13 +120,13 @@ inherited frmLoanCancellationDetail: TfrmLoanCancellationDetail
     end
     inherited pnlCancel: TRzPanel
       Left = 289
-      Top = 149
+      Top = 145
       ExplicitLeft = 289
       ExplicitTop = 149
     end
     inherited pnlSave: TRzPanel
       Left = 233
-      Top = 149
+      Top = 145
       ExplicitLeft = 233
       ExplicitTop = 149
     end

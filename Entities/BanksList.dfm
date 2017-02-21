@@ -17,11 +17,11 @@ inherited frmBanksList: TfrmBanksList
     end
   end
   object pnlList: TRzPanel
-    Left = 8
-    Top = 37
-    Width = 297
-    Height = 455
-    Anchors = [akLeft, akTop, akBottom]
+    Left = 6
+    Top = 35
+    Width = 581
+    Height = 230
+    Anchors = [akLeft, akTop, akRight]
     BorderOuter = fsNone
     BorderColor = 8675134
     BorderWidth = 1
@@ -30,8 +30,8 @@ inherited frmBanksList: TfrmBanksList
     object grList: TRzDBGrid
       Left = 1
       Top = 1
-      Width = 295
-      Height = 453
+      Width = 579
+      Height = 228
       Align = alClient
       BorderStyle = bsNone
       DataSource = dmAux.dscBanks
@@ -54,7 +54,12 @@ inherited frmBanksList: TfrmBanksList
           FieldName = 'bank_code'
           Title.Alignment = taCenter
           Title.Caption = 'Code'
-          Width = 45
+          Title.Font.Charset = DEFAULT_CHARSET
+          Title.Font.Color = clWindowText
+          Title.Font.Height = -12
+          Title.Font.Name = 'Tahoma'
+          Title.Font.Style = [fsBold]
+          Width = 60
           Visible = True
         end
         item
@@ -62,16 +67,21 @@ inherited frmBanksList: TfrmBanksList
           FieldName = 'bank_name'
           Title.Alignment = taCenter
           Title.Caption = 'Name'
-          Width = 215
+          Title.Font.Charset = DEFAULT_CHARSET
+          Title.Font.Color = clWindowText
+          Title.Font.Height = -12
+          Title.Font.Name = 'Tahoma'
+          Title.Font.Style = [fsBold]
+          Width = 200
           Visible = True
         end>
     end
   end
   object pnlDetail: TRzPanel
     Left = 594
-    Top = 37
+    Top = 35
     Width = 276
-    Height = 455
+    Height = 457
     Anchors = [akTop, akRight, akBottom]
     BorderOuter = fsNone
     BorderColor = 8675134
@@ -80,7 +90,7 @@ inherited frmBanksList: TfrmBanksList
     TabOrder = 2
     DesignSize = (
       276
-      455)
+      457)
     object JvLabel1: TJvLabel
       Left = 13
       Top = 39
@@ -99,7 +109,7 @@ inherited frmBanksList: TfrmBanksList
     end
     object pnlAdd: TRzPanel
       Left = 8
-      Top = 425
+      Top = 427
       Width = 50
       Height = 22
       Anchors = [akLeft, akBottom]
@@ -183,10 +193,10 @@ inherited frmBanksList: TfrmBanksList
     end
   end
   object pnlBranches: TRzPanel
-    Left = 312
-    Top = 37
-    Width = 275
-    Height = 455
+    Left = 6
+    Top = 271
+    Width = 581
+    Height = 221
     Anchors = [akLeft, akTop, akRight, akBottom]
     BorderOuter = fsNone
     BorderColor = 8675134
@@ -196,8 +206,8 @@ inherited frmBanksList: TfrmBanksList
     object grBranches: TRzDBGrid
       Left = 1
       Top = 1
-      Width = 273
-      Height = 453
+      Width = 579
+      Height = 219
       Align = alClient
       BorderStyle = bsNone
       DataSource = dmAux.dscBranches
@@ -212,10 +222,7 @@ inherited frmBanksList: TfrmBanksList
       TitleFont.Height = -12
       TitleFont.Name = 'Tahoma'
       TitleFont.Style = []
-      FrameStyle = fsNone
       FramingPreference = fpCustomFraming
-      FixedLineColor = 12955288
-      LineColor = 8675134
       AltRowShadingColor = 15854564
       Columns = <
         item
@@ -223,7 +230,12 @@ inherited frmBanksList: TfrmBanksList
           FieldName = 'branch'
           Title.Alignment = taCenter
           Title.Caption = 'Branch'
-          Width = 240
+          Title.Font.Charset = DEFAULT_CHARSET
+          Title.Font.Color = clWindowText
+          Title.Font.Height = -12
+          Title.Font.Name = 'Tahoma'
+          Title.Font.Style = [fsBold]
+          Width = 300
           Visible = True
         end>
     end

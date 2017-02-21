@@ -3,7 +3,7 @@ unit LoanClassification;
 interface
 
 uses
-  LoanClassCharge, AccountType;
+  LoanClassCharge, LoanType;
 
 type
   TLoanClassification = class
@@ -13,14 +13,13 @@ type
     FClassificationName: string;
     FInterest: real;
     FTerm: integer;
-    FLoanType: string;
+    FLoanType: TLoanType;
     FMaxLoan: real;
     FComakers: integer;
     FValidFrom: TDate;
     FValidUntil: TDate;
     FClassCharges: array of TLoanClassCharge;
     FMaxAge: integer;
-    FAccountType: TAccountType;
 
     function GetComakersNotRequired: boolean;
     function GetClassCharge(const i: integer): TLoanClassCharge;
@@ -39,7 +38,7 @@ type
     property ClassificationName: string read FClassificationName write FClassificationName;
     property Interest: real read FInterest write FInterest;
     property Term: integer read FTerm write FTerm;
-    property LoanType: string read FLoanType write FLoanType;
+    property LoanType: TLoanType read FLoanType write FLoanType;
     property MaxLoan: real read FMaxLoan write FMaxLoan;
     property Comakers: integer read FComakers write FComakers;
     property ValidFrom: TDate read FValidFrom write FVAlidFrom;
@@ -49,11 +48,11 @@ type
     property ClassChargesCount: integer read GetClassChargesCount;
     property MaxAge: integer read FMaxAge write FMaxAge;
     property HasMaxAge: boolean read GetHasMaxAge;
-    property AccountType: TAccountType read FAccountType write FAccountType;
 
     constructor Create(const classificationId, groupId: integer; const classificationName: string;
-        const interest: real; const term: integer; const loanType: string; const maxLoan: real;
-        const comakers: integer; const validFrom, validUntil: TDate; const age: integer);
+        const interest: real; const term: integer; const maxLoan: real;
+        const comakers: integer; const validFrom, validUntil: TDate; const age: integer;
+        const lt: TLoanType);
   end;
 
 var
@@ -62,20 +61,20 @@ var
 implementation
 
 constructor TLoanClassification.Create(const classificationId, groupId: integer; const classificationName: string;
-        const interest: real; const term: integer; const loanType: string; const maxLoan: real;
-        const comakers: integer; const validFrom, validUntil: TDate; const age: integer);
+        const interest: real; const term: integer; const maxLoan: real; const comakers: integer;
+        const validFrom, validUntil: TDate; const age: integer; const lt: TLoanType);
 begin
   FClassificationId := classificationId;
   FGroupId := groupId;
   FClassificationName := classificationName;
   FInterest := interest;
   FTerm := term;
-  FLoanType := loanType;
   FMaxLoan := maxLoan;
   FComakers := comakers;
   FValidFrom := validFrom;
   FValidUntil := validUntil;
   FMaxAge := age;
+  FLoanType := lt;
 end;
 
 procedure TLoanClassification.AddClassCharge(cg: TLoanClassCharge);

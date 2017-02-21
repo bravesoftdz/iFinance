@@ -16,6 +16,7 @@ type
     dscClients: TDataSource;
     dstLoans: TADODataSet;
     dscLoans: TDataSource;
+    dstLocation: TADODataSet;
     procedure DataModuleCreate(Sender: TObject);
     procedure acMainBeforeConnect(Sender: TObject);
     procedure DataModuleDestroy(Sender: TObject);

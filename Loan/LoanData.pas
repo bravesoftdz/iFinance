@@ -3,7 +3,8 @@ unit LoanData;
 interface
 
 uses
-  System.SysUtils, System.Classes, Data.DB, Data.Win.ADODB, System.Rtti, StrUtils;
+  System.SysUtils, System.Classes, Data.DB, Data.Win.ADODB, System.Rtti, StrUtils,
+  System.Variants;
 
 type
   TdmLoan = class(TDataModule)
@@ -37,6 +38,18 @@ type
     dscLoanCharge: TDataSource;
     dscLoanClassCharges: TDataSource;
     dstLoanClassCharges: TADODataSet;
+    dstLoanReleaseloan_id: TStringField;
+    dstLoanReleaserecipient: TStringField;
+    dstLoanReleaserel_method: TStringField;
+    dstLoanReleaserel_amt: TBCDField;
+    dstLoanReleasedate_rel: TDateTimeField;
+    dstLoanReleaserel_by: TStringField;
+    dstLoanReleaseloc_code: TStringField;
+    dstLoanReleaserel_amt_f: TStringField;
+    dstLoanReleasedate_rel_f: TStringField;
+    dstLoanReleasemethod_name: TStringField;
+    dstLoanReleaserecipient_name: TStringField;
+    dstLoanReleaseloc_name: TStringField;
     procedure dstLoanBeforeOpen(DataSet: TDataSet);
     procedure dstLoanClassBeforeOpen(DataSet: TDataSet);
     procedure dstLoanBeforePost(DataSet: TDataSet);
@@ -80,6 +93,7 @@ type
     procedure dstLoanChargeAfterOpen(DataSet: TDataSet);
     procedure dstLoanReleaseNewRecord(DataSet: TDataSet);
     procedure dstLoanClassChargesBeforeOpen(DataSet: TDataSet);
+    procedure dstLoanReleaseCalcFields(DataSet: TDataSet);
   private
     { Private declarations }
     procedure SetLoanClassProperties;
@@ -96,7 +110,7 @@ implementation
 uses
   AppData, Loan, DBUtil, IFinanceGlobal, LoanClassification, Comaker, FinInfo,
   MonthlyExpense, Alert, ReleaseRecipient, Recipient, LoanCharge, LoanClassCharge,
-  AccountType;
+  LoanType, Assessment, Location;
 
 {%CLASSGROUP 'Vcl.Controls.TControl'}
 
@@ -244,7 +258,8 @@ begin
   if not DataSet.IsEmpty then
   begin
     ln.AddLoanState(lsAssessed);
-    ln.RecommendedAmount := DataSet.FieldByName('rec_amt').AsFloat;
+    ln.Assessment := TAssessment.Create(DataSet.FieldByName('rec_code').AsInteger,
+                                DataSet.FieldByName('rec_amt').AsFloat);
   end;
 end;
 
@@ -256,8 +271,10 @@ begin
     begin
       ln.ChangeLoanStatus;
       ln.AddLoanState(lsAssessed);
-      ln.RecommendedAmount := FieldByName('rec_amt').AsFloat;
     end;
+
+    ln.Assessment := TAssessment.Create(DataSet.FieldByName('rec_code').AsInteger,
+                                DataSet.FieldByName('rec_amt').AsFloat);
   end;
 end;
 
@@ -270,6 +287,9 @@ procedure TdmLoan.dstLoanAssBeforePost(DataSet: TDataSet);
 begin
   if DataSet.State = dsInsert then
   begin
+    if ln.Assessment.Recommendation = rcReject then
+      DataSet.FieldByName('rec_amt').Value := null;
+
     DataSet.FieldByName('loan_id').AsString := ln.Id;
     DataSet.FieldByName('ass_by').AsString := ifn.User.UserId;
     SetCreatedFields(DataSet);
@@ -364,8 +384,8 @@ end;
 
 procedure TdmLoan.dstLoanClassAfterScroll(DataSet: TDataSet);
 var
-  clId, term, comakers, groupId, age, concurrent: integer;
-  clName, loanType, acctType, acctName: string;
+  clId, term, comakers, groupId, age, concurrent, loanType: integer;
+  clName, loanTypeName: string;
   interest, maxLoan, maxTotalAmount: real;
   validFrom, validUntil: TDate;
 begin
@@ -376,25 +396,24 @@ begin
     clName := FieldByName('class_name').AsString;
     interest := FieldByName('int_rate').AsFloat;
     term := FieldByName('term').AsInteger;
-    loanType := FieldByName('loan_type').AsString;
     maxLoan := FieldByName('max_loan').AsFloat;
     comakers := FieldByName('comakers').AsInteger;
     validFrom := FieldByName('valid_from').AsDateTime;
     validUntil := FieldByName('valid_until').AsDateTime;
     age := FieldByName('max_age').AsInteger;
 
-    // account type variables
-    acctType := FieldByName('acct_type').AsString;
-    acctName := FieldByName('acct_type_name').AsString;
+    // loan type variables
+    loanType := FieldByName('loan_type').AsInteger;
+    loanTypeName := FieldByName('loan_type_name').AsString;
     concurrent := FieldByName('max_concurrent').AsInteger;
     maxTotalAmount := FieldByName('max_tot_amt').AsFloat;
 
-    atype := TAccountType.Create(acctType,acctName,concurrent,maxTotalAmount);
+    ltype := TLoanType.Create(loanType,loanTypeName,concurrent,maxTotalAmount);
   end;
 
   if not Assigned(ln.LoanClass) then
     ln.LoanClass := TLoanClassification.Create(clId, groupId, clName, interest,
-        term, loanType, maxLoan, comakers, validFrom, validUntil, age)
+        term, maxLoan, comakers, validFrom, validUntil, age, ltype)
   else
   begin
     with ln do
@@ -404,16 +423,14 @@ begin
       LoanClass.ClassificationName := clName;
       LoanClass.Interest := interest;
       LoanClass.Term := term;
-      LoanClass.LoanType := loanType;
       LoanClass.MaxLoan := maxLoan;
       LoanClass.Comakers := comakers;
       LoanClass.ValidFrom := validFrom;
       LoanClass.ValidUntil := validUntil;
       LoanClass.MaxAge := age;
+      ln.LoanClass.LoanType := ltype;
     end;
   end;
-
-  ln.LoanClass.AccountType := atype;
 
   AddLoanClassCharges;
 end;
@@ -497,7 +514,7 @@ var
   amt: real;
   dt: TDate;
   relId, relName: string;
-  recipientId, recipientName: string;
+  recipientId, recipientName, locCode: string;
 begin
   (DataSet as TADODataSet).Properties['Unique table'].Value := 'LoanRelease';
 
@@ -511,6 +528,7 @@ begin
     begin
       amt := FieldByName('rel_amt').AsFloat;
       dt := FieldByName('date_rel').AsDateTime;
+      locCode := FieldByName('loc_code').AsString;
       relId := FieldByName('rel_method').AsString;
       relName := FieldByName('method_name').AsString;
       recipientId := FieldByName('recipient').AsString;
@@ -519,8 +537,8 @@ begin
       ln.AddReleaseRecipient(TReleaseRecipient.Create(
           TRecipient.Create(recipientId,recipientName),
           TReleaseMethod.Create(relId,relName),
+          locCode,ifn.GetLocationNameByCode(locCode),
           amt,dt));
-
       Next;
     end;
   end;
@@ -537,12 +555,20 @@ begin
   DataSet.FieldByName('rel_by').AsString := ifn.User.UserId;
 end;
 
+procedure TdmLoan.dstLoanReleaseCalcFields(DataSet: TDataSet);
+begin
+  with DataSet do
+    FieldByName('loc_name').AsString :=
+        ifn.GetLocationNameByCode(Trim(FieldByName('loc_code').AsString));
+end;
+
 procedure TdmLoan.dstLoanReleaseNewRecord(DataSet: TDataSet);
 begin
   with DataSet do
   begin
     FieldByName('date_rel').AsDateTime := ifn.AppDate;
     FieldByName('rel_by').AsString := ifn.User.UserId;
+    FieldByName('loc_code').AsString := ifn.LocationCode;
   end;
 end;
 

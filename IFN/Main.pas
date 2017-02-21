@@ -108,6 +108,15 @@ type
     Label2: TLabel;
     lblDate: TLabel;
     lblVersion: TLabel;
+    pnlLoanCancellationReasonList: TRzPanel;
+    imgLoanCancellationReasonList: TImage;
+    pnlRejectionReasonList: TRzPanel;
+    imgRejectionReasonList: TImage;
+    Client1: TMenuItem;
+    Loan1: TMenuItem;
+    Selectclient1: TMenuItem;
+    acSelectClient: TAction;
+    lblLocation: TLabel;
     procedure tbAddClientClick(Sender: TObject);
     procedure lblRecentlyAddedClick(Sender: TObject);
     procedure lbxRecentDblClick(Sender: TObject);
@@ -144,6 +153,9 @@ type
     procedure imgLoanTypeClick(Sender: TObject);
     procedure imgAcctTypeClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure imgLoanCancellationReasonListClick(Sender: TObject);
+    procedure imgRejectionReasonListClick(Sender: TObject);
+    procedure acSelectClientExecute(Sender: TObject);
   private
     { Private declarations }
     RecentClients: TObjectList<TRecentClient>;
@@ -171,7 +183,8 @@ uses
   ClientMain, SaveIntf, ClientList, DockedFormIntf, GroupList, EmployerList,
   BanksList, DesignationList, LoanClassificationList, ConfBox, ErrorBox, ClientIntf,
   LoanMain, LoanList, LoanIntf, CompetitorList, FormsUtil, IFinanceGlobal,
-  PurposeList, IFinanceDialogs, NewIntf, LoanTypeList, AccountTypeList;
+  PurposeList, IFinanceDialogs, NewIntf, LoanTypeList, AccountTypeList,
+  LoanCancellationReasonList, LoanRejectionReasonList;
 
 constructor TRecentClient.Create(const id, displayId, name: string);
 begin
@@ -478,6 +491,8 @@ begin
       fmPurposeList: frm := TfrmPurposeList.Create(Application);
       fmLoanTypeList: frm := TfrmLoanTypeList.Create(Application);
       fmAcctTypeList: frm := TfrmAccountTypeList.Create(Application);
+      fmLoanCancelReasonList: frm := TfrmLoanCancelReasonList.Create(Application);
+      fmLoanRejectReasonList: frm := TfrmLoanRejectionReasonList.Create(Application);
       else
         frm := TForm.Create(Application);
     end;
@@ -503,6 +518,7 @@ begin
   lblCaption.Caption := ifn.AppName + ' - ' + ifn.AppDescription;
   lblWelcome.Caption := 'Welcome back ' + ifn.User.Name + '.';
   lblDate.Caption := 'Today is ' + FormatDateTime('mmmm dd, yyyy.',ifn.AppDate);
+  lblLocation.Caption := 'Location: ' + ifn.GetLocationNameByCode(ifn.LocationCode);
   lblVersion.Caption :=  'Version ' + ifn.Version;
 end;
 
@@ -547,6 +563,11 @@ begin
   DockForm(fmGroupList);
 end;
 
+procedure TfrmMain.imgLoanCancellationReasonListClick(Sender: TObject);
+begin
+  DockForm(fmLoanCancelReasonList);
+end;
+
 procedure TfrmMain.imgLoanTypeClick(Sender: TObject);
 begin
   DockForm(fmLoanTypeList);
@@ -555,6 +576,11 @@ end;
 procedure TfrmMain.imgPurposeClick(Sender: TObject);
 begin
   DockForm(fmPurposeList);
+end;
+
+procedure TfrmMain.imgRejectionReasonListClick(Sender: TObject);
+begin
+  DockForm(fmLoanRejectReasonList);
 end;
 
 procedure TfrmMain.imgSaveClick(Sender: TObject);
@@ -579,6 +605,20 @@ begin
     if pnlDockMain.ControlCount > 0 then
       if Supports(pnlDockMain.Controls[0] as TForm,INew,intf) then
         intf.New;
+  except
+    on e:Exception do
+      ShowErrorBox(e.Message);
+  end;
+end;
+
+procedure TfrmMain.acSelectClientExecute(Sender: TObject);
+var
+  intf: ILoan;
+begin
+  try
+    if pnlDockMain.ControlCount > 0 then
+      if Supports(pnlDockMain.Controls[0] as TForm,ILoan,intf) then
+        intf.SelectClient;
   except
     on e:Exception do
       ShowErrorBox(e.Message);

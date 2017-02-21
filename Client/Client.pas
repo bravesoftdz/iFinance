@@ -4,7 +4,7 @@ interface
 
 uses
   SysUtils, ClientData, DB, Entity, ADODB, LandLord, ImmediateHead,
-  Referee, Employer, Bank, IdentityDoc, Reference, RefData;
+  Referee, Employer, BankAccount, IdentityDoc, Reference, RefData;
 
 type
   TClient = class(TEntity)
@@ -17,14 +17,15 @@ type
     FLandLordProv: TLandLord;
     FImmediateHead: TImmediateHead;
     FEmployer: TEmployer;
-    FBank: TBank;
     FIdentityDocs: array of TIdentityDoc;
     FReferences: array of TReference;
     FPhoto: string;
+    FBankAccounts: array of TBankAccount;
 
     function CheckId: boolean;
     function GetIdentityDoc(const i: integer): TIdentityDoc;
     function GetReference(const i: integer): TReference;
+    function GetBankAccount(const i: integer): TBankAccount;
 
   public
     procedure Add; override;
@@ -37,9 +38,14 @@ type
     procedure AddReference(reference: TReference);
     procedure RemoveIdentityDoc(const idType: string);
     procedure RemoveReference(const id: string);
+    procedure AddBankAccount(const bkAcct: TBankAccount);
+    procedure RemoveBankAccountByAccountNo(const acctNo: string);
+    procedure ClearBankAccounts;
 
     function IdentityDocExists(const idType: string): boolean;
     function ReferenceExists(const reference: TReference): boolean;
+    function AccountNoExists(const accountNo: string): boolean;
+    function CardNoExists(const cardNo: string): boolean;
 
     property DisplayId: string read FDisplayId write FDisplayId;
     property Name: string read FName write FName;
@@ -49,11 +55,11 @@ type
     property LandLordProv: TLandLord read FLandLordProv write FLandLordProv;
     property ImmediateHead: TImmediateHead read FImmediateHead write FImmediateHead;
     property Employer: TEmployer read FEmployer write FEmployer;
-    property Bank: TBank read FBank write FBank;
     property IdentityDocs[const i: integer]: TIdentityDoc read GetIdentityDoc;
     property References[const i: integer]: TReference read GetReference;
     property HasId: boolean read CheckId;
     property Photo: string read FPhoto write FPhoto;
+    property BankAccounts[const i: integer]: TBankAccount read GetBankAccount;
 
     constructor Create;
     destructor Destroy; reintroduce;
@@ -195,6 +201,32 @@ begin
   end;
 end;
 
+procedure TClient.AddBankAccount(const bkAcct: TBankAccount);
+begin
+  if not AccountNoExists(bkAcct.AccountNo) then
+  begin
+    SetLength(FBankAccounts,Length(FBankAccounts) + 1);
+    FBankAccounts[Length(FBankAccounts) - 1] := bkAcct;
+  end;
+end;
+
+procedure TClient.RemoveBankAccountByAccountNo(const acctNo: string);
+var
+  i, len: integer;
+  acct: TBankAccount;
+begin
+  len := Length(FBankAccounts);
+
+  for i := 0 to len - 1 do
+  begin
+    acct := FBankAccounts[i];
+    if acct.AccountNo <> acctNo then
+      FBankAccounts[i] := acct;
+  end;
+
+  SetLength(FBankAccounts,Length(FBankAccounts) - 1);
+end;
+
 function TClient.CheckId: boolean;
 begin
   Result := FId <> '';
@@ -282,6 +314,11 @@ begin
   end;
 end;
 
+procedure TClient.ClearBankAccounts;
+begin
+  FBankAccounts := [];
+end;
+
 function TClient.GetReference(const i: Integer): TReference;
 begin
   Result := FReferences[i];
@@ -319,6 +356,57 @@ begin
   end;
 
   SetLength(FReferences,Length(FReferences) - 1);
+end;
+
+function TClient.AccountNoExists(const accountNo: string): boolean;
+var
+  i, len: integer;
+  acct: TBankAccount;
+begin
+  Result := false;
+
+  if dmClient.dstAcctInfo.State = dsInsert then
+  begin
+    len := Length(FBankAccounts);
+
+    for i := 0 to len - 1 do
+    begin
+      acct := FBankAccounts[i];
+      if acct.AccountNo = accountNo then
+      begin
+        Result := true;
+        Exit;
+      end;
+    end;
+  end;
+end;
+
+function TClient.CardNoExists(const cardNo: string): boolean;
+var
+  i, len: integer;
+  acct: TBankAccount;
+begin
+  Result := false;
+
+  if dmClient.dstAcctInfo.State = dsInsert then
+  begin
+    len := Length(FBankAccounts);
+
+    for i := 0 to len - 1 do
+    begin
+      acct := FBankAccounts[i];
+      if acct.CardNo = cardNo then
+      begin
+        Result := true;
+        Exit;
+      end;
+    end;
+  end;
+end;
+
+function TClient.GetBankAccount(const i: integer): TBankAccount;
+begin
+  Result := FBankAccounts[i];
 end;
 
 end.

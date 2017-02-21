@@ -19,6 +19,8 @@ type
     bteRecipient: TRzButtonEdit;
     JvLabel17: TJvLabel;
     dteDateReleased: TRzDBDateTimeEdit;
+    JvLabel9: TJvLabel;
+    dbluBranch: TRzDBLookupComboBox;
     procedure FormCreate(Sender: TObject);
     procedure bteRecipientButtonClick(Sender: TObject);
   private
@@ -71,6 +73,8 @@ begin
     end;
 
     rrp.Date := dteDateReleased.Date;
+    rrp.LocationCode := dbluBranch.GetKeyValue;
+    rrp.LocationName := dbluBranch.Text;
     rrp.Amount := edAmount.Value;
     rrp.ReleaseMethod := TReleaseMethod.Create(dbluMethod.GetKeyValue,dbluMethod.Text);
 
@@ -121,11 +125,14 @@ begin
       error := 'Please enter date release.'
     else if bteRecipient.Text = '' then
       error := 'Please enter recipient.'
+    else if dbluBranch.Text = '' then
+      error := 'Please select a branch.'   
     else if dbluMethod.Text = '' then
-      error := 'Please select a release method'
+      error := 'Please select a release method.'
     else if edAmount.Value <= 0 then
       error := 'Invalid value for amount.'
-    else if (State = dsInsert) and (ln.ReleaseRecipientExists(rrp.Recipient.Id,dbluMethod.GetKeyValue)) then
+    else if (State = dsInsert) and
+        (ln.ReleaseRecipientExists(rrp.Recipient.Id,rrp.LocationCode,dbluMethod.GetKeyValue)) then
       error := 'Recipient and release method already exists.';
   end;
 

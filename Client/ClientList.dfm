@@ -57,9 +57,9 @@ inherited frmClientList: TfrmClientList
     end
   end
   object pnlList: TRzPanel
-    Left = 8
+    Left = 6
     Top = 65
-    Width = 553
+    Width = 557
     Height = 215
     Anchors = [akLeft, akTop, akRight, akBottom]
     BorderOuter = fsNone
@@ -70,7 +70,7 @@ inherited frmClientList: TfrmClientList
     object grList: TRzDBGrid
       Left = 1
       Top = 1
-      Width = 551
+      Width = 555
       Height = 213
       Align = alClient
       BorderStyle = bsNone
@@ -103,6 +103,11 @@ inherited frmClientList: TfrmClientList
           FieldName = 'display_id'
           Title.Alignment = taCenter
           Title.Caption = 'Client ID'
+          Title.Font.Charset = DEFAULT_CHARSET
+          Title.Font.Color = clWindowText
+          Title.Font.Height = -12
+          Title.Font.Name = 'Tahoma'
+          Title.Font.Style = [fsBold]
           Width = 100
           Visible = True
         end
@@ -111,6 +116,11 @@ inherited frmClientList: TfrmClientList
           FieldName = 'name'
           Title.Alignment = taCenter
           Title.Caption = 'Name'
+          Title.Font.Charset = DEFAULT_CHARSET
+          Title.Font.Color = clWindowText
+          Title.Font.Height = -12
+          Title.Font.Name = 'Tahoma'
+          Title.Font.Style = [fsBold]
           Width = 350
           Visible = True
         end>

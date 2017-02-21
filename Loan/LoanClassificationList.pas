@@ -30,7 +30,6 @@ type
     JvLabel8: TJvLabel;
     edMaxLoan: TRzDBNumericEdit;
     JvLabel9: TJvLabel;
-    dbluAcctType: TRzDBLookupComboBox;
     dbluBranch: TRzDBLookupComboBox;
     JvLabel10: TJvLabel;
     dteFrom: TRzDBDateTimeEdit;
@@ -42,7 +41,6 @@ type
     sbtnNew: TRzShapeButton;
     pnlDetailHead: TRzPanel;
     lblDetailHeadCaption: TRzLabel;
-    JvLabel13: TJvLabel;
     RzGroupBox1: TRzGroupBox;
     RzPanel1: TRzPanel;
     btnAddCharge: TRzShapeButton;
@@ -80,7 +78,7 @@ implementation
 
 uses
   LoansAuxData, FormsUtil, IFinanceDialogs, AuxData, LoanClassChargeDetail, DecisionBox,
-  AccountType, LoanClassification;
+  LoanType, LoanClassification;
 
 function TfrmLoanClassificationList.Save: boolean;
 begin
@@ -148,7 +146,6 @@ begin
   if Trim(dbluGroup.Text) = '' then error := 'Please select a group.'
   else if Trim(edClassName.Text) = '' then error := 'Please enter a class name.'
   else if dbluLoanType.Text = '' then error := 'Please select a loan type.'
-  else if dbluAcctType.Text = '' then error := 'Please select an account type.'
   else if edInterest.Text = '' then error := 'Please enter an interest rate.'
   else if edTerm.Text = '' then error := 'Please enter a term.'
   else if edMaxLoan.Value <= 0 then error := 'Please enter a maximum loan.'
@@ -156,8 +153,8 @@ begin
   else if dbluPayFreq.Text = '' then error := 'Please select a payment frequency.'
   else if dbluBranch.Text = '' then error := 'Please select a branch.'
   else if dteFrom.Text = '' then error := 'Please specify a start date.'
-  else if edMaxLoan.Value > atype.MaxTotalAmount then
-    error := 'Maximum loan exceeds the maximum total amount for the selected account type.';
+  else if edMaxLoan.Value > ltype.MaxTotalAmount then
+    error := 'Maximum loan exceeds the maximum total amount for the selected loan type.';
 
   if error <> '' then ShowErrorBox(error);
 

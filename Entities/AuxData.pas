@@ -39,13 +39,21 @@ type
     dscCompetitors: TDataSource;
     dstPurpose: TADODataSet;
     dscPurpose: TDataSource;
+    dstLoanCancelReasons: TADODataSet;
+    dscLoanCancelReasons: TDataSource;
+    dstLoanRejectReasons: TADODataSet;
+    dscLoanRejectReasons: TDataSource;
+    dstBankBranches: TADODataSet;
+    dscBankBranches: TDataSource;
     procedure dstBranchesBeforePost(DataSet: TDataSet);
     procedure dstBanksAfterScroll(DataSet: TDataSet);
     procedure dstBranchesNewRecord(DataSet: TDataSet);
     procedure dstDesignationsBeforePost(DataSet: TDataSet);
     procedure dstCompetitorsBeforePost(DataSet: TDataSet);
     procedure dstPurposeBeforePost(DataSet: TDataSet);
-    procedure dstAcctTypeAfterScroll(DataSet: TDataSet);
+    procedure dstLoanCancelReasonsBeforePost(DataSet: TDataSet);
+    procedure dstLoanRejectReasonsBeforePost(DataSet: TDataSet);
+    procedure dstLoanTypeAfterScroll(DataSet: TDataSet);
   private
     { Private declarations }
   public
@@ -58,33 +66,11 @@ var
 implementation
 
 uses
-  AppData, DBUtil, AccountType;
+  AppData, DBUtil, Loantype, IFinanceGlobal;
 
 {%CLASSGROUP 'Vcl.Controls.TControl'}
 
 {$R *.dfm}
-
-procedure TdmAux.dstAcctTypeAfterScroll(DataSet: TDataSet);
-var
-  typeCode, typeName: string;
-  concurrent: integer;
-  maxTotal: real;
-begin
-  with DataSet do
-  begin
-    atype := TAccountType.Create;
-
-    typeCode := FieldByName('acct_type').AsString;
-    typeName := FieldByName('acct_type_name').AsString;
-    concurrent := FieldByName('max_concurrent').AsInteger;
-    maxTotal := FieldByName('max_tot_amt').AsFloat;
-
-    atype.TypeCode := typeCode;
-    atype.Name := typeName;
-    atype.MaxConcurrent := concurrent;
-    atype.MaxTotalAmount := maxTotal;
-  end;
-end;
 
 procedure TdmAux.dstBanksAfterScroll(DataSet: TDataSet);
 begin
@@ -111,12 +97,13 @@ end;
 
 procedure TdmAux.dstCompetitorsBeforePost(DataSet: TDataSet);
 var
-  id: integer;
+  id: string;
 begin
   if DataSet.State = dsInsert then
   begin
     id := GetCompetitorId;
-    DataSet.FieldByName('comp_id').AsInteger := id;
+    DataSet.FieldByName('comp_id').AsString := id;
+    DataSet.FieldByName('loc_code').AsString := ifn.LocationCode;
   end;
 end;
 
@@ -128,6 +115,51 @@ begin
   begin
     id := GetDesignationId;
     DataSet.FieldByName('des_id').AsInteger := id;
+  end;
+end;
+
+procedure TdmAux.dstLoanCancelReasonsBeforePost(DataSet: TDataSet);
+var
+  id: integer;
+begin
+  if DataSet.State = dsInsert then
+  begin
+    id := GetLoanCancellationReasonId;
+    DataSet.FieldByName('reason_id').AsInteger := id;
+  end;
+end;
+
+procedure TdmAux.dstLoanRejectReasonsBeforePost(DataSet: TDataSet);
+var
+  id: integer;
+begin
+  if DataSet.State = dsInsert then
+  begin
+    id := GetLoanRejectionReasonId;
+    DataSet.FieldByName('reason_id').AsInteger := id;
+  end;
+end;
+
+procedure TdmAux.dstLoanTypeAfterScroll(DataSet: TDataSet);
+var
+  id: integer;
+  typeName: string;
+  concurrent: integer;
+  maxTotal: real;
+begin
+  with DataSet do
+  begin
+    ltype := TLoanType.Create;
+
+    id := FieldByName('loan_type').AsInteger;
+    typeName := FieldByName('loan_type_name').AsString;
+    concurrent := FieldByName('max_concurrent').AsInteger;
+    maxTotal := FieldByName('max_tot_amt').AsFloat;
+
+    ltype.Id := id;
+    ltype.Name := typeName;
+    ltype.MaxConcurrent := concurrent;
+    ltype.MaxTotalAmount := maxTotal;
   end;
 end;
 

@@ -14,4 +14,11 @@ Demo from 16 Jan 2017
 1. Acct type (Short-term, regular)
 
 Charges: formula..
+
+Demo from 7 Feb 2017
+
+1. Amortization
+2. Reloan - option to pay off balance
+3. Cancellation of release
+
    

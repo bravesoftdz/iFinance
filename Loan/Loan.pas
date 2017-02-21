@@ -5,7 +5,7 @@ interface
 uses
   SysUtils, Entity, LoanClient, AppConstants, DB, System.Rtti, ADODB, Variants,
   LoanClassification, Comaker, FinInfo, MonthlyExpense, ReleaseRecipient,
-  LoanCharge, LoanClassCharge;
+  LoanCharge, LoanClassCharge, Assessment;
 
 type
   TLoanAction = (laNone,laCreating,laAssessing,laApproving,laRejecting,laReleasing,laCancelling);
@@ -13,6 +13,17 @@ type
 type TLoanState = (lsNone,lsAssessed,lsApproved,lsActive,lsCancelled,lsRejected);
 
 type TLoanStatus = (A,C,P,R,F,J,S);
+
+{ ****** Loan Status *****
+	-- 0 = all
+	-- 1 = pending = P
+	-- 2 = assessed = S
+	-- 3 = approved = A
+	-- 4 = active / released = R
+	-- 5 = cancelled = C
+	-- 6 = denied / rejected = J
+
+  ***** Loan Status ***** }
 
 type
   TLoan = class(TEntity)
@@ -30,7 +41,7 @@ type
     FLoanCharges: array of TLoanCharge;
     FApprovedAmount: real;
     FDesiredTerm: integer;
-    FRecommendedAmount: real;
+    FAssessment: TAssessment;
 
     procedure SaveComakers;
     procedure SaveAssessments;
@@ -96,7 +107,7 @@ type
     function ComakerExists(cmk: TComaker): boolean;
     function FinancialInfoExists(const compId: integer): boolean;
     function MonthlyExpenseExists(const expType: string): boolean;
-    function ReleaseRecipientExists(const recipient, method: string): boolean;
+    function ReleaseRecipientExists(const recipient, location, method: string): boolean;
     function LoanChargeExists(const charge: TLoanCharge): boolean;
     function LoanStateExists(const state: TLoanState): boolean;
     function HasLoanState(const ls: TLoanState): boolean;
@@ -128,10 +139,10 @@ type
     property LoanChargeCount: integer read GetLoanChargeCount;
     property ApprovedAmount: real read FApprovedAmount write FApprovedAmount;
     property DesiredTerm: integer read FDesiredTerm write FDesiredTerm;
-    property RecommendedAmount: real read FRecommendedAmount write FRecommendedAmount;
     property IsFinalised: boolean read GetIsFinalised;
     property TotalCharges: real read GetTotalCharges;
     property TotalReleased: real read GetTotalReleased;
+    property Assessment: TAssessment read FAssessment write FAssessment;
 
     constructor Create;
     destructor Destroy; reintroduce;
@@ -622,7 +633,7 @@ procedure TLoan.AddReleaseRecipient(const rec: TReleaseRecipient; const overwrit
 var
   index: integer;
 begin
-  if not ReleaseRecipientExists(rec.Recipient.Id,rec.ReleaseMethod.Id) then
+  if not ReleaseRecipientExists(rec.Recipient.Id,rec.LocationCode, rec.ReleaseMethod.Id) then
   begin
     SetLength(FReleaseRecipients,Length(FReleaseRecipients) + 1);
     FReleaseRecipients[Length(FReleaseRecipients) - 1] := rec;
@@ -901,7 +912,7 @@ begin
   Result := Length(FLoanStatusHistory);
 end;
 
-function TLoan.ReleaseRecipientExists(const recipient, method: string): boolean;
+function TLoan.ReleaseRecipientExists(const recipient, location, method: string): boolean;
 var
   i, len: integer;
   rcp: TReleaseRecipient;
@@ -913,7 +924,9 @@ begin
   for i := 0 to len - 1 do
   begin
     rcp := FReleaseRecipients[i];
-    if (rcp.Recipient.Id = recipient) and (rcp.ReleaseMethod.Id = method) then
+    if (rcp.Recipient.Id = recipient) and
+        (rcp.LocationCode = location) and
+        (rcp.ReleaseMethod.Id = method) then
     begin
       Result := true;
       Exit;

@@ -9,7 +9,7 @@ uses
   RzEdit, RzDBEdit, JvLabel, JvExControls, Vcl.DBCtrls, RzDBCmbo,
   Vcl.ComCtrls, RzDTP, RzDBDTP, RzButton, RzRadChk, RzDBChk, Data.DB, Vcl.Grids,
   Vcl.DBGrids, RzDBGrid, RzBtnEdt, RzLaunch, ClientIntf, Vcl.Imaging.pngimage,
-  RzCmboBx, RzLstBox, RzDBList, NewIntf;
+  RzCmboBx, RzLstBox, RzDBList, NewIntf, RzGrids;
 
 type
   TfrmClientMain = class(TfrmBaseDocked, ISave, IClient, INew)
@@ -77,13 +77,6 @@ type
     RzDBEdit12: TRzDBEdit;
     JvLabel29: TJvLabel;
     JvLabel30: TJvLabel;
-    JvLabel31: TJvLabel;
-    JvLabel32: TJvLabel;
-    RzDBEdit15: TRzDBEdit;
-    JvLabel33: TJvLabel;
-    RzDBEdit16: TRzDBEdit;
-    JvLabel34: TJvLabel;
-    JvLabel36: TJvLabel;
     RzDBLookupComboBox8: TRzDBLookupComboBox;
     tsIdentityInfo: TRzTabSheet;
     pnlFamRef: TRzPanel;
@@ -94,8 +87,6 @@ type
     pnlLoans: TRzPanel;
     grLoans: TRzDBGrid;
     PhotoLauncher: TRzLauncher;
-    bteBank: TRzButtonEdit;
-    mmBranch: TRzMemo;
     RzDBNumericEdit1: TRzDBNumericEdit;
     RzDBNumericEdit2: TRzDBNumericEdit;
     urlRefreshRefList: TRzURLLabel;
@@ -119,7 +110,6 @@ type
     imgLoanClass: TImage;
     RzGroupBox6: TRzGroupBox;
     RzGroupBox7: TRzGroupBox;
-    RzGroupBox8: TRzGroupBox;
     pnlTakePhoto: TRzPanel;
     imgTakePhoto: TImage;
     pnlPhoto: TRzPanel;
@@ -176,6 +166,28 @@ type
     cmbIdType: TRzDBLookupComboBox;
     edIdNo: TRzDBEdit;
     dteExpiry: TRzDBDateTimeEdit;
+    tsBankAcctInfo: TRzTabSheet;
+    pnlAccounts: TRzPanel;
+    pnlAcctDetails: TRzPanel;
+    JvLabel37: TJvLabel;
+    JvLabel48: TJvLabel;
+    RzPanel5: TRzPanel;
+    sbtnNewBankAccount: TRzShapeButton;
+    RzPanel6: TRzPanel;
+    RzLabel2: TRzLabel;
+    RzPanel7: TRzPanel;
+    sbtnRemoveBankAccount: TRzShapeButton;
+    RzPanel8: TRzPanel;
+    imgBankAccount: TImage;
+    JvLabel34: TJvLabel;
+    JvLabel33: TJvLabel;
+    edCardNo: TRzDBEdit;
+    edAccount: TRzDBEdit;
+    JvLabel31: TJvLabel;
+    dteCardExpiry: TRzDBDateTimeEdit;
+    mmBank: TRzDBMemo;
+    grAccounts: TRzDBGrid;
+    dbluBank: TRzDBLookupComboBox;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -191,8 +203,6 @@ type
     procedure PhotoLauncherFinished(Sender: TObject);
     procedure bteImmHeadButtonClick(Sender: TObject);
     procedure bteImmHeadAltBtnClick(Sender: TObject);
-    procedure bteBankButtonClick(Sender: TObject);
-    procedure bteBankAltBtnClick(Sender: TObject);
     procedure urlRefreshRefListClick(Sender: TObject);
     procedure dteBirthdateChange(Sender: TObject);
     procedure cmbIdTypeClick(Sender: TObject);
@@ -215,6 +225,9 @@ type
     procedure sbtnNewIdentDocClick(Sender: TObject);
     procedure dbluResStatusPresClick(Sender: TObject);
     procedure dbluResStatusProvClick(Sender: TObject);
+    procedure imgBankAccountClick(Sender: TObject);
+    procedure sbtnNewBankAccountClick(Sender: TObject);
+    procedure sbtnRemoveBankAccountClick(Sender: TObject);
   private
     { Private declarations }
     procedure CopyAddress;
@@ -222,13 +235,16 @@ type
     procedure ChangeControlState;
     procedure ChangeIdentControlState;
     procedure ChangeFamRefControlState;
+    procedure ChangeAccntInfoControlState;
     procedure HideTabs;
     procedure SetActiveTab(const tabIndex: integer);
     procedure NewFamRef;
     procedure NewIdentity;
+    procedure NewAccount;
 
     function CheckClientInfo: string;
     function CheckIdentInfo: string;
+    function CheckAcctInfo: string;
   public
     { Public declarations }
     procedure Cancel;
@@ -251,8 +267,8 @@ implementation
 uses
   Client, ClientData, FormsUtil, LandlordSearch, ImmHeadSearch, Landlord,
   ImmediateHead, RefereeSearch, Referee, AuxData, DockIntf, RefData,
-  EmployerSearch, Employer, Bank, BanksSearch, IdentityDoc, IFinanceGlobal,
-  ReferenceSearch, Reference, DecisionBox, LoansAuxData, LoanClassification,
+  EmployerSearch, Employer, IdentityDoc, IFinanceGlobal,
+  ReferenceSearch, Reference, LoansAuxData, LoanClassification,
   DBUtil, IFinanceDialogs;
 
 {$R *.dfm}
@@ -265,6 +281,7 @@ const
   IDENT  = 2;
   LOANS  = 3;
   LOANCLASSACCESS = 4;
+  BANKACCOUNTS = 5;
 
 function TfrmClientMain.CheckClientInfo: string;
 var
@@ -294,6 +311,26 @@ begin
   else if inserting then
     if cln.IdentityDocExists(cmbIdType.GetKeyValue) then
       error := 'Identity type already exists.';
+
+  Result := error;
+
+  if Result <> '' then ShowErrorBox(error);
+end;
+
+function TfrmClientMain.CheckAcctInfo;
+var
+  error: string;
+begin
+  if dbluBank.Text = '' then
+    error := 'Please select a bank.'
+  else if Trim(edAccount.Text) = '' then
+    error := 'Please enter account number.'
+  else if Trim(edCardNo.Text) = '' then
+    error := 'Please enter card number.'
+  else if cln.AccountNoExists(Trim(edAccount.Text)) then
+    error := 'Account number already exists.'
+  else if cln.CardNoExists(Trim(edCardNo.Text)) then
+    error := 'Card number already exists.';
 
   Result := error;
 
@@ -339,6 +376,7 @@ begin
   case pcClient.ActivePageIndex of
     FAMREF: NewFamRef;
     IDENT: NewIdentity;
+    BANKACCOUNTS: NewAccount;
   end;
 end;
 
@@ -358,38 +396,6 @@ begin
   end;
 
   dteExpiry.Enabled := hasExpiry;
-end;
-
-procedure TfrmClientMain.bteBankAltBtnClick(Sender: TObject);
-begin
-  inherited;
-  cln.Bank := nil;
-  bteBank.Clear;
-  mmBranch.Clear;
-end;
-
-procedure TfrmClientMain.bteBankButtonClick(Sender: TObject);
-begin
-  with TfrmBankSearch.Create(nil) do
-  begin
-    try
-      bnk := TBank.Create;
-
-      ShowModal;
-
-      if ModalResult = mrOK then
-      begin
-        bteBank.Text := bnk.BankName;
-        mmBranch.Text := bnk.Branch;
-        cln.Bank := bnk;
-      end;
-
-      Free;
-    except
-      on e: Exception do
-        ShowMessage(e.Message);
-    end;
-  end;
 end;
 
 procedure TfrmClientMain.bteEmployerAltBtnClick(Sender: TObject);
@@ -602,26 +608,17 @@ var
 begin
   if grAccessList.DataSource.DataSet.RecordCount > 0 then
   begin
-  if (Assigned(cln.Employer)) and (lnc.GroupId = cln.Employer.GroupId) then
-    ShowErrorBox('Cannot remove the loan class. Loan class belongs to the client''s employer group.')
-  else
-    with TfrmDecisionBox.Create(nil, CONF) do
+    if (Assigned(cln.Employer)) and (lnc.GroupId = cln.Employer.GroupId) then
+      ShowErrorBox('Cannot remove the loan class. Loan class belongs to the client''s employer group.')
+    else if ShowDecisionBox(CONF) = mrYes then
     begin
       try
-        begin
-          ShowModal;
+        sql := 'DELETE ENTITYLOANCLASS WHERE ENTITY_ID = ' + QuotedStr(cln.Id) +
+            ' AND CLASS_ID = ' + IntToStr(lnc.ClassificationId);
+        ExecuteSQL(sql);
+        OpenGridDataSources(pnlAvailList);
+        OpenGridDataSources(pnlAccessList);
 
-          if ModalResult = mrYes then
-          begin
-            sql := 'DELETE ENTITYLOANCLASS WHERE ENTITY_ID = ' + QuotedStr(cln.Id) +
-                ' AND CLASS_ID = ' + IntToStr(lnc.ClassificationId);
-            ExecuteSQL(sql);
-            OpenGridDataSources(pnlAvailList);
-            OpenGridDataSources(pnlAccessList);
-          end;
-
-          Free;
-        end;
       except
         on e: Exception do
           ShowErrorBox(e.Message);
@@ -692,7 +689,19 @@ begin
         OpenGridDataSources(pnlAvailList);
         OpenGridDataSources(pnlAccessList);
       end;
+    BANKACCOUNTS:
+      begin
+        OpenGridDataSources(pnlAccounts);
+        OpenDropdownDataSources(pnlAcctDetails);
+        ChangeAccntInfoControlState;
+      end;
   end;
+end;
+
+procedure TfrmClientMain.imgBankAccountClick(Sender: TObject);
+begin
+  inherited;
+  SetActiveTab(BANKACCOUNTS);
 end;
 
 procedure TfrmClientMain.imgClientMainClick(Sender: TObject);
@@ -805,6 +814,7 @@ begin
 
       CLIENT: error := CheckClientInfo;
       IDENT : error := CheckIdentInfo;
+      BANKACCOUNTS: error := CheckAcctInfo;
 
     end;
 
@@ -877,6 +887,21 @@ begin
   end;
 end;
 
+procedure TfrmClientMain.NewAccount;
+begin
+  with grAccounts.DataSource.DataSet do
+  begin
+    Append;
+    ChangeAccntInfoControlState;
+    dbluBank.SetFocus;
+  end;
+end;
+
+procedure TfrmClientMain.sbtnNewBankAccountClick(Sender: TObject);
+begin
+  NewAccount;
+end;
+
 procedure TfrmClientMain.sbtnNewFamRefClick(Sender: TObject);
 begin
   NewFamRef;
@@ -893,27 +918,39 @@ const
 var
   idType: string;
 begin
-  with TfrmDecisionBox.Create(nil, CONF) do
-  begin
-    try
-      if grIdentityList.DataSource.DataSet.RecordCount > 0 then
+  try
+    if grIdentityList.DataSource.DataSet.RecordCount > 0 then
+    begin
+      idType := grIdentityList.DataSource.DataSet.FieldByName('ident_type').AsString;
+
+      if ShowDecisionBox(CONF) = mrYes then
       begin
-        idType := grIdentityList.DataSource.DataSet.FieldByName('ident_type').AsString;
-
-        ShowModal;
-
-        if ModalResult = mrYes then
-        begin
-          grIdentityList.DataSource.DataSet.Delete;
-          cln.RemoveIdentityDoc(idType);
-          ChangeIdentControlState;
-        end;
-
-        Free;
+        grIdentityList.DataSource.DataSet.Delete;
+        cln.RemoveIdentityDoc(idType);
+        ChangeIdentControlState;
       end;
-    except
-      on e: Exception do
-        ShowErrorBox(e.Message);
+
+    end;
+  except
+    on e: Exception do
+      ShowErrorBox(e.Message);
+  end;
+end;
+
+procedure TfrmClientMain.sbtnRemoveBankAccountClick(Sender: TObject);
+const
+  CONF = 'Are you sure you want to delete the selected bank account?';
+begin
+  with grAccounts.DataSource.DataSet do
+  begin
+    if RecordCount > 0 then
+    begin
+      try
+        if ShowDecisionBox(conf) = mrYes then Delete;
+      except
+        on e: Exception do
+          ShowErrorBox(e.Message);
+      end;
     end;
   end;
 end;
@@ -924,28 +961,22 @@ const
 var
   id: string;
 begin
-  with TfrmDecisionBox.Create(nil,CONF) do
-  begin
-    try
-      if grRefList.DataSource.DataSet.RecordCount > 0 then
+  try
+    if grRefList.DataSource.DataSet.RecordCount > 0 then
+    begin
+      id := grRefList.DataSource.DataSet.FieldByName('ref_entity_id').AsString;
+
+      if ShowDecisionBox(CONF) = mrYes then
       begin
-        id := grRefList.DataSource.DataSet.FieldByName('ref_entity_id').AsString;
-
-        ShowModal;
-
-        if ModalResult = mrYes then
-        begin
-          grRefList.DataSource.DataSet.Delete;
-          cln.RemoveReference(id);
-          ChangeFamRefControlState;
-        end;
-
-        Free;
+        grRefList.DataSource.DataSet.Delete;
+        cln.RemoveReference(id);
+        ChangeFamRefControlState;
       end;
-    except
-      on e: Exception do
-        ShowErrorBox(e.Message);
+
     end;
+  except
+    on e: Exception do
+      ShowErrorBox(e.Message);
   end;
 end;
 
@@ -959,6 +990,7 @@ begin
     CLIENT: Exit;
     FAMREF: ChangeFamRefControlState;
     IDENT : ChangeIdentControlState;
+    BANKACCOUNTS: ChangeAccntInfoControlState;
 
   end;
 end;
@@ -1035,13 +1067,6 @@ begin
   if Assigned(cln.ImmediateHead) then
   begin
     bteImmHead.Text := cln.ImmediateHead.Name;
-  end;
-
-  // bank
-  if Assigned(cln.Bank) then
-  begin
-    bteBank.Text := cln.Bank.BankName;
-    mmBranch.Text := cln.Bank.Branch;
   end;
 
 end;
@@ -1201,6 +1226,15 @@ begin
     cmbIdType.Readonly := not (State in [dsInsert]);
     edIdNo.Enabled := (RecordCount > 0) or (State in [dsInsert]);
     dteExpiry.Enabled := (RecordCount > 0) or (State in [dsInsert]);
+  end;
+end;
+
+procedure TfrmClientMain.ChangeAccntInfoControlState;
+begin
+  with grAccounts.DataSource.DataSet do
+  begin
+    edAccount.Enabled := State in [dsInsert];
+    edCardNo.Enabled := State in [dsInsert];
   end;
 end;
 

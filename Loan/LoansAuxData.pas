@@ -34,6 +34,8 @@ type
     dscLoanTypes: TDataSource;
     dstAcctTypes: TADODataSet;
     dscAcctTypes: TDataSource;
+    dstRecommendation: TADODataSet;
+    dscRecommendation: TDataSource;
     procedure dstLoanClassBeforePost(DataSet: TDataSet);
     procedure dstLoanClassAfterOpen(DataSet: TDataSet);
     procedure DataModuleDestroy(Sender: TObject);
@@ -47,6 +49,8 @@ type
     procedure dstLoanTypesBeforePost(DataSet: TDataSet);
     procedure dstAcctTypesBeforePost(DataSet: TDataSet);
     procedure dstAcctTypesAfterPost(DataSet: TDataSet);
+    procedure dstLoanTypesAfterPost(DataSet: TDataSet);
+    procedure dstRecommendationAfterScroll(DataSet: TDataSet);
   private
     { Private declarations }
   public
@@ -63,7 +67,8 @@ implementation
 {$R *.dfm}
 
 uses
-  AppData, DBUtil, LoanClassification, LoanClassCharge;
+  AppData, DBUtil, LoanClassification, LoanClassCharge, LoanType, Loan,
+  Assessment;
 
 procedure TdmLoansAux.DataModuleDestroy(Sender: TObject);
 var
@@ -167,9 +172,10 @@ end;
 procedure TdmLoansAux.dstLoanClassAfterScroll(DataSet: TDataSet);
 var
   clId, term, comakers, groupId, age: integer;
-  clName, loanType: string;
+  clName: string;
   interest, maxLoan: real;
   validFrom, validUntil: TDate;
+  lt: TLoanType;
 begin
   with DataSet do
   begin
@@ -178,17 +184,21 @@ begin
     clName := FieldByName('class_name').AsString;
     interest := FieldByName('int_rate').AsFloat;
     term := FieldByName('term').AsInteger;
-    loanType := FieldByName('loan_type').AsString;
     maxLoan := FieldByName('max_loan').AsFloat;
     comakers := FieldByName('comakers').AsInteger;
     validFrom := FieldByName('valid_from').AsDateTime;
     validUntil := FieldByName('valid_until').AsDateTime;
     age := FieldByName('max_age').AsInteger;
+
+    lt := TLoanType.Create(FieldByName('loan_type').AsInteger,
+        FieldByName('loan_type_name').AsString,
+        FieldByName('max_concurrent').AsInteger,
+        FieldByName('max_tot_amt').AsInteger);
   end;
 
   if not Assigned(lnc) then
     lnc := TLoanClassification.Create(clId, groupId, clName, interest,
-        term, loanType, maxLoan, comakers, validFrom, validUntil, age)
+        term, maxLoan, comakers, validFrom, validUntil, age,lt)
   else
   begin
     lnc.ClassificationId := clId;
@@ -196,12 +206,12 @@ begin
     lnc.ClassificationName := clName;
     lnc.Interest := interest;
     lnc.Term := term;
-    lnc.LoanType := loanType;
     lnc.MaxLoan := maxLoan;
     lnc.Comakers := comakers;
     lnc.ValidFrom := validFrom;
     lnc.ValidUntil := validUntil;
     lnc.MaxAge := age;
+    lnc.LoanType := lt;
 
     lnc.EmptyClassCharges;
   end;
@@ -218,10 +228,28 @@ begin
     DataSet.FieldByName('class_id').AsInteger := GetLoanClassId;
 end;
 
+procedure TdmLoansAux.dstLoanTypesAfterPost(DataSet: TDataSet);
+var
+  loanType: integer;
+begin
+  loanType := DataSet.FieldByName('loan_type').AsInteger;
+  RefreshDataSet(loanType,'loan_type',DataSet);
+end;
+
 procedure TdmLoansAux.dstLoanTypesBeforePost(DataSet: TDataSet);
 begin
   with DataSet do
     if State = dsInsert then FieldByName('loan_type').AsInteger := GetLoanTypeId;
+end;
+
+procedure TdmLoansAux.dstRecommendationAfterScroll(DataSet: TDataSet);
+var
+  rec: integer;
+begin
+  rec :=  DataSet.FieldbyName('value').AsInteger;
+
+  if not Assigned(ln.Assessment) then ln.Assessment := TAssessment.Create(rec,0)
+  else ln.Assessment.Recommendation := TRecommendation(rec);
 end;
 
 end.

@@ -96,6 +96,7 @@
         <DCCReference Include="RaizeComponentsVclDb.dcp"/>
         <DCCReference Include="LockBox3DR.dcp"/>
         <DCCReference Include="RESTComponents.dcp"/>
+        <DCCReference Include="FireDAC.dcp"/>
         <DCCReference Include="Entity.pas"/>
         <DCCReference Include="LandlordSearch.pas"/>
         <DCCReference Include="EntitiesData.pas">
@@ -191,10 +192,20 @@
             <Form>frmPurposeList</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="LoanCancellationReasonList.pas">
+            <Form>frmLoanCancelReasonList</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <DCCReference Include="..\Base\BaseGridDetail.pas">
             <Form>frmBaseGridDetail</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="LoanRejectionReasonList.pas">
+            <Form>frmLoanRejectionReasonList</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="BankAccount.pas"/>
+        <DCCReference Include="Location.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>
