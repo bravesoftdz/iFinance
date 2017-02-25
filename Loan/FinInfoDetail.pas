@@ -53,15 +53,14 @@ end;
 
 procedure TfrmFinInfoDetail.Save;
 var
-  compId: integer;
-  compName, balance, monthly: string;
+  compId, compName, balance, monthly: string;
 begin
   with dmLoan.dstFinInfo do
   begin
     if State in [dsInsert,dsEdit] then
       Post;
 
-    compId := FieldByName('comp_id').AsInteger;
+    compId := FieldByName('comp_id').AsString;
     compName := dbluCompany.Text;
     balance := edBalance.Text;
     monthly := edMonthly.Text;
@@ -89,7 +88,7 @@ begin
       error := 'Please enter monthly due.'
     else if Trim(edBalance.Text) = '' then
       error := 'Please enter balance.'
-    else if (State = dsInsert) and (ln.FinancialInfoExists(StrToInt(dbluCompany.GetKeyValue))) then
+    else if (State = dsInsert) and (ln.FinancialInfoExists(dbluCompany.GetKeyValue)) then
       error := 'Financial information already exists.';
   end;
 

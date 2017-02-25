@@ -66,7 +66,8 @@ contains
   BasePopup in '..\Base\BasePopup.pas' {frmBasePopup},
   InfoBox in 'InfoBox.pas' {frmInfoBox},
   IFinanceDialogs in 'IFinanceDialogs.pas',
-  NewIntf in 'NewIntf.pas';
+  NewIntf in 'NewIntf.pas',
+  WarningBox in 'WarningBox.pas' {frmWarningBox};
 
 end.
 

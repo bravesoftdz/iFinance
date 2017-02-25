@@ -7,8 +7,7 @@ uses
   LoanClassification, Comaker, FinInfo, MonthlyExpense, ReleaseRecipient,
   LoanCharge, LoanClassCharge, Assessment;
 
-type
-  TLoanAction = (laNone,laCreating,laAssessing,laApproving,laRejecting,laReleasing,laCancelling);
+type TLoanAction = (laNone,laCreating,laAssessing,laApproving,laRejecting,laReleasing,laCancelling);
 
 type TLoanState = (lsNone,lsAssessed,lsApproved,lsActive,lsCancelled,lsRejected);
 
@@ -42,6 +41,8 @@ type
     FApprovedAmount: real;
     FDesiredTerm: integer;
     FAssessment: TAssessment;
+    FReleaseAmount: real;
+    FApprovedTerm: integer;
 
     procedure SaveComakers;
     procedure SaveAssessments;
@@ -86,7 +87,7 @@ type
     procedure RemoveComaker(cmk: TComaker);
     procedure AppendFinancialInfo;
     procedure AddFinancialInfo(const financialInfo: TFinInfo; const overwrite: boolean = false);
-    procedure RemoveFinancialInfo(const compId: integer);
+    procedure RemoveFinancialInfo(const compId: string);
     procedure AppendMonthlyExpense;
     procedure AddMonthlyExpense(const monthExp: TMonthlyExpense; const overwrite: boolean = false);
     procedure RemoveMonthlyExpense(const expType: string);
@@ -105,7 +106,7 @@ type
     procedure ClearComakers;
 
     function ComakerExists(cmk: TComaker): boolean;
-    function FinancialInfoExists(const compId: integer): boolean;
+    function FinancialInfoExists(const compId: string): boolean;
     function MonthlyExpenseExists(const expType: string): boolean;
     function ReleaseRecipientExists(const recipient, location, method: string): boolean;
     function LoanChargeExists(const charge: TLoanCharge): boolean;
@@ -143,6 +144,8 @@ type
     property TotalCharges: real read GetTotalCharges;
     property TotalReleased: real read GetTotalReleased;
     property Assessment: TAssessment read FAssessment write FAssessment;
+    property ReleaseAmount: real read FReleaseAmount write FReleaseAmount;
+    property ApprovedTerm: integer read FApprovedTerm write FApprovedTerm;
 
     constructor Create;
     destructor Destroy; reintroduce;
@@ -426,7 +429,7 @@ begin
   end;
 end;
 
-procedure TLoan.RemoveFinancialInfo(const compId: integer);
+procedure TLoan.RemoveFinancialInfo(const compId: string);
 var
   i, len, ii: integer;
   fin: TFinInfo;
@@ -672,6 +675,8 @@ begin
 end;
 
 procedure TLoan.AddLoanCharge(const charge: TLoanCharge; const append: boolean);
+var
+  lc: TLoanCharge;
 begin
   if not LoanChargeExists(charge) then
   begin
@@ -690,6 +695,23 @@ begin
       end;
     end;
   end
+  else
+  begin
+    // update if charge exists
+    for lc in FLoanCharges do
+      if lc.ChargeType = charge.ChargeType then
+        lc.Amount := charge.Amount;
+
+    if append then
+    begin
+      with dmLoan.dstLoanCharge do
+      begin
+        Edit;
+        FieldByName('charge_amt').AsFloat := charge.Amount;
+        Post;
+      end;
+    end;
+  end;
 end;
 
 procedure TLoan.ClearLoanCharges;
@@ -714,8 +736,16 @@ begin
     charge.ChargeType := classCharge.ChargeType;
     charge.ChargeName := classCharge.ChargeName;
 
-    if classCharge.ValueType = vtFixed then charge.Amount := classCharge.ChargeValue
-    else charge.Amount := (classCharge.ChargeValue * FApprovedAmount) / 100;
+    if classCharge.ValueType = vtFixed then
+      charge.Amount := classCharge.ChargeValue
+    else if classCharge.ValueType = vtPercentage then
+      charge.Amount := (classCharge.ChargeValue * FReleaseAmount) / 100
+    else if classCharge.ValueType = vtRatio then
+    begin
+      charge.Amount := classCharge.ChargeValue * (FReleaseAmount / classCharge.RatioAmount) * FApprovedTerm;
+      if charge.Amount > classCharge.MaxAmount then
+        charge.Amount := classCharge.MaxAmount;
+    end;
 
     AddLoanCharge(charge,true);
   end;
@@ -847,7 +877,7 @@ begin
   else if IsRejected then Result := 'Rejected';
 end;
 
-function TLoan.FinancialInfoExists(const compId: Integer): boolean;
+function TLoan.FinancialInfoExists(const compId: string): boolean;
 var
   i, len: integer;
   fin: TFinInfo;
@@ -1014,8 +1044,16 @@ begin
 end;
 
 function TLoan.GetTotalReleased: real;
+var
+  rr: TReleaseRecipient;
+  total: real;
 begin
-  Result := FApprovedAmount - GetTotalCharges;
+  total := 0;
+
+  for rr in FReleaseRecipients do
+    total := total + rr.Amount;
+
+  Result := total;
 end;
 
 end.

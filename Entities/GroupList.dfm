@@ -41,6 +41,35 @@ inherited frmGroupList: TfrmGroupList
       OnDragOver = tvGroupDragOver
     end
   end
+  inherited pnlSearch: TRzPanel
+    inherited Label1: TLabel
+      Caption = 'Branch'
+    end
+    inherited edSearchKey: TRzEdit
+      Top = 41
+      TabStop = False
+      Enabled = False
+      Visible = False
+      ExplicitTop = 41
+    end
+    object cmbBranch: TRzComboBox
+      Left = 51
+      Top = 9
+      Width = 438
+      Height = 22
+      AllowEdit = False
+      Anchors = [akLeft, akTop, akRight]
+      Ctl3D = False
+      FrameColor = 6572079
+      FrameVisible = True
+      FramingPreference = fpCustomFraming
+      ParentCtl3D = False
+      ReadOnlyColor = clWhite
+      Sorted = True
+      TabOrder = 1
+      OnChange = cmbBranchChange
+    end
+  end
   inherited pnlDetail: TRzPanel
     object JvLabel1: TJvLabel [0]
       Left = 13

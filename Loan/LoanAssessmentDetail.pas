@@ -110,7 +110,8 @@ procedure TfrmLoanAssessmentDetail.ModifyRemove(const remove: boolean);
 const
   CONF = 'Are you sure you want to remove the selected financial information?';
 var
-  r, compId: integer;
+  r: integer;
+  compId: string;
 begin
   inherited;
 

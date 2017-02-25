@@ -5,7 +5,6 @@ object dmApplication: TdmApplication
   Height = 276
   Width = 446
   object acMain: TADOConnection
-    Connected = True
     ConnectionString = 
       'Provider=SQLNCLI11.1;Integrated Security=SSPI;Persist Security I' +
       'nfo=False;User ID="";Initial Catalog=iFinance;Data Source=BRYAN\' +
@@ -151,8 +150,8 @@ object dmApplication: TdmApplication
   object dstLocation: TADODataSet
     Connection = acCore
     LockType = ltReadOnly
-    CommandText = 'location'
-    CommandType = cmdTableDirect
+    CommandText = 'hris_get_locations;1'
+    CommandType = cmdStoredProc
     Parameters = <>
     Left = 224
     Top = 136

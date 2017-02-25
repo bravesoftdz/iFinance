@@ -162,6 +162,8 @@ type
     RzDBLabel20: TRzDBLabel;
     JvLabel40: TJvLabel;
     RzDBLabel21: TRzDBLabel;
+    lblReleaseAmount: TJvLabel;
+    JvLabel42: TJvLabel;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure bteClientButtonClick(Sender: TObject);
@@ -259,6 +261,7 @@ procedure TfrmLoanMain.SetActiveTab(const index: Integer);
 begin
   if index = RELEASED then
   begin
+    lblReleaseAmount.Caption := FormatFloat('###,###,##0.00',ln.TotalReleased + ln.TotalCharges);
     lblTotalReleased.Caption := FormatFloat('###,###,##0.00',ln.TotalReleased);
     lblTotalCharges.Caption := FormatFloat('###,###,##0.00',ln.TotalCharges);
   end;
@@ -522,6 +525,7 @@ begin
             edNetPay.Value := lnc.NetPay;
 
             ln.Client := lnc;
+            ln.Client.GetLoans;
 
             OpenDropdownDataSources(self.pnlApplication);
 
@@ -877,7 +881,15 @@ begin
       else if ln.ComakerCount < ln.LoanClass.Comakers then
         error := 'Number of required comakers has not been entered.'
       else if ln.ComakerCount > ln.LoanClass.Comakers then
-        error := 'Declared comakers exceeds the required number.';
+        error := 'Declared comakers exceeds the required number.'
+      else if ln.LoanClass.HasConcurrent then
+      begin
+        if ln.Client.GetLoanClassCount(ln.LoanClass.ClassificationId) >= ln.LoanClass.LoanType.MaxConcurrent then
+          error := 'The selected loan class has already reached the maximum concurrent loans allowed.'
+        else if edAppAmount.Value + ln.Client.GetLoanClassBalance(ln.LoanClass.ClassificationId) > ln.LoanClass.LoanType.MaxTotalAmount then
+          error := 'Amount applied exceeds the maximum total amount allowed for concurrent loans.'
+      end
+
     end;
 
     Result := error = '';

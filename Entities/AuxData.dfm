@@ -99,6 +99,7 @@ object dmAux: TdmAux
     Tag = 5
     Connection = dmApplication.acMain
     CursorType = ctStatic
+    LockType = ltReadOnly
     CommandText = 'sp_dd_get_group;1'
     CommandType = cmdStoredProc
     Parameters = <>
@@ -226,6 +227,7 @@ object dmAux: TdmAux
   object dstCompetitors: TADODataSet
     Connection = dmApplication.acMain
     CursorType = ctStatic
+    Filtered = True
     BeforePost = dstCompetitorsBeforePost
     CommandText = 'sp_get_competitors;1'
     CommandType = cmdStoredProc

@@ -5,17 +5,17 @@ interface
 type
   TFinInfo = class(TObject)
   private
-    FCompanyId: integer;
+    FCompanyId: string;
     FCompanyName: string;
     FMonthly: string;
     FBalance: string;
   public
-    property CompanyId: integer read FCompanyId write FCompanyId;
+    property CompanyId: string read FCompanyId write FCompanyId;
     property CompanyName: string read FCompanyName write FCompanyName;
     property Monthly: string read FMonthly write FMonthly;
     property Balance: string read FBalance write FBalance;
 
-    constructor Create(const companyId: integer; const companyName, monthly, balance: string); overload;
+    constructor Create(const companyId: string; const companyName, monthly, balance: string); overload;
   end;
 
 var
@@ -23,7 +23,7 @@ var
 
 implementation
 
-constructor TFinInfo.Create(const companyId: integer;
+constructor TFinInfo.Create(const companyId: string;
   const companyName: string; const monthly: string; const balance: string);
 begin
   FCompanyId := companyId;

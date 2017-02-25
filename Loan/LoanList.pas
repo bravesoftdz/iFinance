@@ -6,7 +6,9 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, BaseDocked, Vcl.StdCtrls, RzLabel,
   Vcl.ExtCtrls, RzPanel, Data.DB, Vcl.Mask, RzEdit, Vcl.Grids, Vcl.DBGrids,
-  RzDBGrid, LoanListIntf, DockedFormIntf, AppConstants, ADODB, System.Rtti;
+  RzDBGrid, LoanListIntf, DockedFormIntf, AppConstants, ADODB, System.Rtti,
+  Vcl.DBCtrls, RzDBCmbo, RzButton, RzRadChk, RzDBChk, RzDBEdit, JvExControls,
+  JvLabel, RzCmboBx;
 
 type
   TfrmLoanList = class(TfrmBaseDocked, ILoanListFilter, IDockedForm)
@@ -15,6 +17,13 @@ type
     edSearchKey: TRzEdit;
     pnlList: TRzPanel;
     grList: TRzDBGrid;
+    pnlDetail: TRzPanel;
+    JvLabel1: TJvLabel;
+    JvLabel12: TJvLabel;
+    pnlDetailHead: TRzPanel;
+    lblDetailHeadCaption: TRzLabel;
+    cmbBranch: TRzComboBox;
+    RzDateTimeEdit1: TRzDateTimeEdit;
     procedure grListDblClick(Sender: TObject);
     procedure edSearchKeyChange(Sender: TObject);
   private

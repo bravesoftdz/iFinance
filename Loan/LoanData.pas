@@ -50,6 +50,7 @@ type
     dstLoanReleasemethod_name: TStringField;
     dstLoanReleaserecipient_name: TStringField;
     dstLoanReleaseloc_name: TStringField;
+    dstClientLoans: TADODataSet;
     procedure dstLoanBeforeOpen(DataSet: TDataSet);
     procedure dstLoanClassBeforeOpen(DataSet: TDataSet);
     procedure dstLoanBeforePost(DataSet: TDataSet);
@@ -94,6 +95,7 @@ type
     procedure dstLoanReleaseNewRecord(DataSet: TDataSet);
     procedure dstLoanClassChargesBeforeOpen(DataSet: TDataSet);
     procedure dstLoanReleaseCalcFields(DataSet: TDataSet);
+    procedure dstClientLoansBeforeOpen(DataSet: TDataSet);
   private
     { Private declarations }
     procedure SetLoanClassProperties;
@@ -129,7 +131,7 @@ end;
 procedure TdmLoan.AddLoanClassCharges;
 var
   ct, cn: string;
-  cv: real;
+  cv, ratio, max: real;
   vt: TValueType;
 begin
   with dstLoanClassCharges, ln do
@@ -142,8 +144,10 @@ begin
       cn := FieldByName('charge_name').AsString;
       cv := FieldByName('charge_value').AsFloat;
       vt := TValueType(FieldByName('value_type').AsInteger);
+      ratio := FieldByName('ratio_amt').AsFloat;
+      max := FieldByName('max_amt').AsFloat;
 
-      LoanClass.AddClassCharge(TLoanClassCharge.Create(ct,cn,cv,vt));
+      LoanClass.AddClassCharge(TLoanClassCharge.Create(ct,cn,cv,vt,ratio,max));
 
       Next;
     end;
@@ -174,9 +178,14 @@ begin
   (DataSet as TADODataSet).Parameters.ParamByName('@loan_id').Value := ln.Id;
 end;
 
+procedure TdmLoan.dstClientLoansBeforeOpen(DataSet: TDataSet);
+begin
+  (DataSet as TADODataSet).Parameters.ParamByName('@entity_id').Value := ln.Client.Id;
+end;
+
 procedure TdmLoan.dstFinInfoAfterOpen(DataSet: TDataSet);
 var
-  compId: integer;
+  compId: string;
   compName, balance, monthly: string;
 begin
   (DataSet as TADODataSet).Properties['Unique table'].Value := 'LoanAssFinInfo';
@@ -187,7 +196,7 @@ begin
   begin
     while not Eof do
     begin
-      compId := FieldByName('comp_id').AsInteger;
+      compId := FieldByName('comp_id').AsString;
       compName := FieldByName('comp_name').AsString;
       balance := FieldByName('loan_bal_f').AsString;
       monthly := FieldByName('mon_due_f').AsString;
@@ -225,6 +234,7 @@ begin
   begin
     ln.AddLoanState(lsApproved);
     ln.ApprovedAmount := DataSet.FieldByName('amt_appv').AsFloat;
+    ln.ApprovedTerm := DataSet.FieldByName('terms').AsInteger;
   end;
 end;
 
@@ -236,7 +246,8 @@ begin
     begin
       ln.ChangeLoanStatus;
       ln.AddLoanState(lsApproved);
-      ln.ApprovedAmount := DataSet.FieldByName('amt_appv').AsFloat;
+      ln.ApprovedAmount := FieldByName('amt_appv').AsFloat;
+      ln.ApprovedTerm := FieldByName('terms').AsInteger;
     end;
   end;
 end;

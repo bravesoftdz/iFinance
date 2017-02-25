@@ -1784,6 +1784,7 @@ inherited frmLoanMain: TfrmLoanMain
                   TitleFont.Name = 'Tahoma'
                   TitleFont.Style = []
                   FrameColor = 8675134
+                  FrameHotStyle = fsNone
                   FrameVisible = True
                   FramingPreference = fpCustomFraming
                   FixedLineColor = 14273211
@@ -1863,6 +1864,7 @@ inherited frmLoanMain: TfrmLoanMain
                   TitleFont.Style = []
                   DisabledColor = 14273211
                   FrameColor = 8675134
+                  FrameHotStyle = fsNone
                   FrameVisible = True
                   FramingPreference = fpCustomFraming
                   FixedLineColor = 14273211
@@ -2201,7 +2203,7 @@ inherited frmLoanMain: TfrmLoanMain
               HotTrackFont.Style = []
             end
             object RzDBLabel15: TRzDBLabel
-              Left = 168
+              Left = 143
               Top = 33
               Width = 69
               Height = 14
@@ -2267,6 +2269,35 @@ inherited frmLoanMain: TfrmLoanMain
               Caption = '0.00'
               Transparent = True
             end
+            object lblReleaseAmount: TJvLabel
+              Tag = -1
+              Left = 387
+              Top = 33
+              Width = 27
+              Height = 14
+              Caption = '0.00'
+              Transparent = True
+            end
+            object JvLabel42: TJvLabel
+              Tag = -1
+              Left = 277
+              Top = 33
+              Width = 104
+              Height = 14
+              Caption = 'Release amount:'
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -12
+              Font.Name = 'Tahoma'
+              Font.Style = [fsBold]
+              ParentFont = False
+              Transparent = True
+              HotTrackFont.Charset = DEFAULT_CHARSET
+              HotTrackFont.Color = clWindowText
+              HotTrackFont.Height = -12
+              HotTrackFont.Name = 'Tahoma'
+              HotTrackFont.Style = []
+            end
             object RzPanel7: TRzPanel
               Left = 0
               Top = 0
@@ -2304,7 +2335,7 @@ inherited frmLoanMain: TfrmLoanMain
               Width = 451
               Height = 118
               Anchors = [akLeft, akTop, akRight]
-              Ctl3D = False
+              Ctl3D = True
               DataSource = dmLoan.dscLoanRelease
               DrawingStyle = gdsGradient
               FixedColor = 14273211
@@ -2406,7 +2437,7 @@ inherited frmLoanMain: TfrmLoanMain
               Width = 451
               Height = 119
               Anchors = [akLeft, akTop, akRight]
-              Ctl3D = False
+              Ctl3D = True
               DataSource = dmLoan.dscLoanCharge
               DrawingStyle = gdsGradient
               FixedColor = 14273211

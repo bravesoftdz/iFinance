@@ -7,7 +7,8 @@ uses
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, BaseDocked, Data.DB, RzButton, RzRadChk,
   RzDBChk, Vcl.DBCtrls, RzDBCmbo, Vcl.StdCtrls, Vcl.Mask, RzEdit, RzDBEdit,
   JvExControls, JvLabel, RzTabs, Vcl.Grids, Vcl.DBGrids, RzDBGrid, RzLabel,
-  Vcl.ExtCtrls, RzPanel, SaveIntf, RzLstBox, RzChkLst, NewIntf;
+  Vcl.ExtCtrls, RzPanel, SaveIntf, RzLstBox, RzChkLst, NewIntf, RzCmboBx,
+  RzGrids;
 
 type
   TfrmLoanClassificationList = class(TfrmBaseDocked,ISave,INew)
@@ -41,15 +42,20 @@ type
     sbtnNew: TRzShapeButton;
     pnlDetailHead: TRzPanel;
     lblDetailHeadCaption: TRzLabel;
+    JvLabel14: TJvLabel;
+    RzDBEdit2: TRzDBEdit;
+    Label1: TLabel;
+    cmbBranch: TRzComboBox;
+    Label2: TLabel;
+    cmbGroup: TRzComboBox;
+    RzCheckBox1: TRzCheckBox;
+    pnlCharges: TRzPanel;
+    grCharges: TRzDBGrid;
     RzGroupBox1: TRzGroupBox;
     RzPanel1: TRzPanel;
     btnAddCharge: TRzShapeButton;
     RzPanel2: TRzPanel;
     btnRemoveCharge: TRzShapeButton;
-    pnlCharges: TRzPanel;
-    grCharges: TRzDBGrid;
-    JvLabel14: TJvLabel;
-    RzDBEdit2: TRzDBEdit;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure urlRefreshListClick(Sender: TObject);
@@ -62,6 +68,7 @@ type
     { Private declarations }
     procedure ChangeControlState;
     function EntryIsValid: boolean;
+    function ConfirmDate: string;
   public
     { Public declarations }
     function Save: boolean;
@@ -95,6 +102,16 @@ begin
       end;
     end
   end;
+end;
+
+function TfrmLoanClassificationList.ConfirmDate;
+var
+  msg: string;
+begin
+  msg := 'Setting the end date will restrict making any changes to this classification. Do you want to proceed?';
+
+  if ShowWarningBox(msg) = mrYes then Result := ''
+  else Result := 'Saving has been cancelled.';
 end;
 
 procedure TfrmLoanClassificationList.sbtnNewClick(Sender: TObject);
@@ -154,7 +171,12 @@ begin
   else if dbluBranch.Text = '' then error := 'Please select a branch.'
   else if dteFrom.Text = '' then error := 'Please specify a start date.'
   else if edMaxLoan.Value > ltype.MaxTotalAmount then
-    error := 'Maximum loan exceeds the maximum total amount for the selected loan type.';
+    error := 'Maximum loan exceeds the maximum total amount for the selected loan type.'
+  else if dteUntil.Text <> '' then
+  begin
+    if dteUntil.Date <= dteFrom.Date then error := 'End date cannot be less than or equal to the start date.'
+    else error := ConfirmDate;
+  end;
 
   if error <> '' then ShowErrorBox(error);
 
@@ -181,6 +203,10 @@ begin
 
   OpenDropdownDataSources(pnlDetail);
   OpenGridDataSources(pnlList);
+  OpenGridDataSources(pnlCharges);
+
+  PopulateBranchComboBox(cmbBranch);
+  PopulateComboBox(dmAux.dstGroups,cmbGroup,'grp_id','grp_name');
 
   ChangeControlState;
 end;
@@ -205,6 +231,7 @@ const
 var
   cgType: string;
 begin
+
   with TfrmDecisionBox.Create(nil, CONF) do
   begin
     try

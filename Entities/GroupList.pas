@@ -8,7 +8,8 @@ uses
   System.ImageList, Vcl.ImgList, Vcl.StdCtrls, Vcl.Mask, RzEdit,
   RzButton, RzTabs, Vcl.Grids, Vcl.DBGrids, RzDBGrid, RzLabel, Vcl.ExtCtrls,
   RzPanel, RzRadChk, RzDBChk, Vcl.DBCtrls, RzDBCmbo, JvExControls, JvLabel,
-  RzDBEdit, Vcl.Imaging.pngimage, Vcl.ComCtrls, RzTreeVw, Group, Vcl.Menus;
+  RzDBEdit, Vcl.Imaging.pngimage, Vcl.ComCtrls, RzTreeVw, Group, Vcl.Menus,
+  RzCmboBx;
 
 type
   TfrmGroupList = class(TfrmBaseGridDetail)
@@ -19,18 +20,23 @@ type
     JvLabel12: TJvLabel;
     dbluParentGroup: TRzDBLookupComboBox;
     tvGroup: TRzTreeView;
+    cmbBranch: TRzComboBox;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure tvGroupChange(Sender: TObject; Node: TTreeNode);
     procedure tvGroupDragDrop(Sender, Source: TObject; X, Y: Integer);
     procedure tvGroupDragOver(Sender, Source: TObject; X, Y: Integer;
       State: TDragState; var Accept: Boolean);
+    procedure cmbBranchChange(Sender: TObject);
+    procedure FormShow(Sender: TObject);
   private
     { Private declarations }
     GroupList: array of TGroup;
 
     procedure PopulateTree;
     procedure PopulateGroupList;
+    procedure FilterList;
+    procedure UpdateTree;
   protected
     function EntryIsValid: boolean; override;
     procedure SearchList; override;
@@ -47,7 +53,7 @@ implementation
 {$R *.dfm}
 
 uses
-  EntitiesData, IFinanceDialogs;
+  EntitiesData, IFinanceDialogs, FormsUtil;
 
 procedure TfrmGroupList.PopulateTree;
 var
@@ -78,7 +84,7 @@ begin
       if not GroupList[i].HasParent then
         Items.AddObject(nil,GroupList[i].GroupName,GroupList[i]);
 
-    // loop through the list and insert items with parent
+    // loop through the list and insert child items (with parent)
     for i := 0 to cnt do
       if GroupList[i].HasParent then
         Items.AddChildObject(GetParentNode,GroupList[i].GroupName,GroupList[i]);
@@ -129,8 +135,21 @@ end;
 procedure TfrmGroupList.FormCreate(Sender: TObject);
 begin
   dmEntities := TdmEntities.Create(self);
-  inherited;
 
+  PopulateBranchComboBox(cmbBranch);
+
+  inherited;
+end;
+
+procedure TfrmGroupList.FormShow(Sender: TObject);
+begin
+  inherited;
+  UpdateTree;
+end;
+
+procedure TfrmGroupList.UpdateTree;
+begin
+  FilterList;
   PopulateGroupList;
   PopulateTree;
 end;
@@ -172,6 +191,24 @@ begin
   src := tvGroup.Selected;
   dst := tvGroup.GetNodeAt(X,Y);
   Accept := Assigned(dst) and (src<>dst);
+end;
+
+procedure TfrmGroupList.FilterList;
+var
+  filterStr: string;
+begin
+  if cmbBranch.ItemIndex > -1 then
+    filterStr := 'loc_code = ''' + cmbBranch.Value + ''''
+  else
+    filterStr := '';
+
+  grList.DataSource.DataSet.Filter := filterStr;
+end;
+
+procedure TfrmGroupList.cmbBranchChange(Sender: TObject);
+begin
+  inherited;
+  UpdateTree;
 end;
 
 function TfrmGroupList.EntryIsValid: boolean;

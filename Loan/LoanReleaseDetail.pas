@@ -14,19 +14,31 @@ type
     urlReleaseToClient: TRzURLLabel;
     pcAssessment: TRzPageControl;
     tsRecipients: TRzTabSheet;
-    tsMonExp: TRzTabSheet;
+    tsCharges: TRzTabSheet;
     RzPanel1: TRzPanel;
     btnRemove: TRzShapeButton;
     RzPanel2: TRzPanel;
     btnAdd: TRzShapeButton;
     grReleaseRecipient: TRzStringGrid;
     grCharges: TRzStringGrid;
+    JvLabel1: TJvLabel;
+    urlApprovedAmount: TRzURLLabel;
+    JvLabel14: TJvLabel;
+    edReleasedAmount: TRzNumericEdit;
+    JvLabel2: TJvLabel;
+    lblCharges: TJvLabel;
+    JvLabel4: TJvLabel;
+    lblTotalReleased: TJvLabel;
     procedure FormShow(Sender: TObject);
     procedure grReleaseRecipientDblClick(Sender: TObject);
     procedure btnAddClick(Sender: TObject);
     procedure urlReleaseToClientClick(Sender: TObject);
     procedure btnCancelClick(Sender: TObject);
     procedure btnRemoveClick(Sender: TObject);
+    procedure pcAssessmentChange(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure urlApprovedAmountClick(Sender: TObject);
+    procedure edReleasedAmountChange(Sender: TObject);
   private
     { Private declarations }
     procedure AddRow(rec: TReleaseRecipient);
@@ -134,6 +146,12 @@ begin
   end;
 end;
 
+procedure TfrmLoanReleaseDetail.pcAssessmentChange(Sender: TObject);
+begin
+  PopulateCharges;
+  ExtendLastColumn(grCharges);
+end;
+
 procedure TfrmLoanReleaseDetail.AddRow(rec: TReleaseRecipient);
 var
   r: integer;
@@ -208,7 +226,8 @@ procedure TfrmLoanReleaseDetail.PopulateCharges;
 var
   i, cnt: integer;
 begin
-  if not ln.HasLoanState(lsActive) then ln.ComputeCharges;
+  // clear rows
+  grCharges.RowCount := 1;
 
   with grCharges do
   begin
@@ -236,6 +255,21 @@ begin
   ln.Save;
 end;
 
+procedure TfrmLoanReleaseDetail.urlApprovedAmountClick(Sender: TObject);
+begin
+  inherited;
+  if (ln.Action = laReleasing) and (ln.IsApproved) then
+  begin
+    edReleasedAmount.Value := ln.ApprovedAmount;
+
+    ln.ReleaseAmount := ln.ApprovedAmount;
+
+    ln.ComputeCharges;
+    PopulateCharges;
+    ExtendLastColumn(grCharges);
+  end;
+end;
+
 procedure TfrmLoanReleaseDetail.urlReleaseToClientClick(Sender: TObject);
 var
   error: string;
@@ -243,45 +277,58 @@ begin
   inherited;
   if ln.Action = laReleasing then
   begin
-    rrp := TReleaseRecipient.Create;
-
-    rrp.Recipient := TRecipient.Create(ln.Client.Id,ln.Client.Name);
-    rrp.Date := ifn.AppDate;
-    rrp.Amount := ln.ApprovedAmount - ln.TotalCharges;
-    rrp.ReleaseMethod := TReleaseMethod.Create('C','Cash');
-    rrp.LocationCode := ifn.LocationCode;
-    rrp.LocationName := ifn.GetLocationNameByCode(ifn.LocationCode);
-
-    if ln.ReleaseRecipientExists(rrp.Recipient.Id,rrp.LocationCode,rrp.ReleaseMethod.Id) then
+    if edReleasedAmount.Value > 0 then
     begin
-      error := 'Release details already exists.';
-      ShowErrorBox(error);
+      ln.ReleaseAmount := edReleasedAmount.Value;
+      ln.ComputeCharges;
+
+      rrp := TReleaseRecipient.Create;
+
+      rrp.Recipient := TRecipient.Create(ln.Client.Id,ln.Client.Name);
+      rrp.Date := ifn.AppDate;
+      rrp.Amount := ln.ReleaseAmount - ln.TotalCharges;
+      rrp.ReleaseMethod := TReleaseMethod.Create('C','Cash');
+      rrp.LocationCode := ifn.LocationCode;
+      rrp.LocationName := ifn.GetLocationNameByCode(ifn.LocationCode);
+
+      if ln.ReleaseRecipientExists(rrp.Recipient.Id,rrp.LocationCode,rrp.ReleaseMethod.Id) then
+      begin
+        error := 'Release details already exists.';
+        ShowErrorBox(error);
+      end
+      else
+      begin
+        ln.AppendReleaseRecipient(rrp);
+
+        ln.AddReleaseRecipient(rrp);
+
+        AddRow(rrp);
+      end;
     end
-    else
-    begin
-      ln.AppendReleaseRecipient(rrp);
-
-      ln.AddReleaseRecipient(rrp);
-
-      AddRow(rrp);
-    end;
+    else ShowErrorBox('Pleae enter release amount.');
   end;
 end;
 
 procedure TfrmLoanReleaseDetail.btnAddClick(Sender: TObject);
 begin
-  ln.AppendReleaseRecipient;
-
-  with TfrmReleaseRecipientDetail.Create(self) do
+  if edReleasedAmount.Value > 0 then
   begin
-    rrp := TReleaseRecipient.Create;
+    ln.ReleaseAmount := edReleasedAmount.Value;
 
-    ShowModal;
+    ln.AppendReleaseRecipient;
 
-    if ModalResult = mrOk then AddRow(ln.ReleaseRecipients[ln.ReleaseRecipientCount - 1]);
+    with TfrmReleaseRecipientDetail.Create(self) do
+    begin
+      rrp := TReleaseRecipient.Create;
 
-    Free;
-  end;
+      ShowModal;
+
+      if ModalResult = mrOk then AddRow(ln.ReleaseRecipients[ln.ReleaseRecipientCount - 1]);
+
+      Free;
+    end;
+  end
+  else if edReleasedAmount.Value <= 0 then ShowErrorBox('Pleae enter release amount.');
 end;
 
 procedure TfrmLoanReleaseDetail.btnCancelClick(Sender: TObject);
@@ -303,14 +350,20 @@ begin
   ln.Cancel;
 end;
 
+procedure TfrmLoanReleaseDetail.FormCreate(Sender: TObject);
+begin
+  inherited;
+
+  // approved amount
+  urlApprovedAmount.Caption := FormatFloat('###,##0.00',ln.ApprovedAmount);
+end;
+
 procedure TfrmLoanReleaseDetail.FormShow(Sender: TObject);
 begin
   inherited;
   PopulateReleaseRecipient;
-  PopulateCharges;
 
   ExtendLastColumn(grReleaseRecipient);
-  ExtendLastColumn(grCharges);
 end;
 
 procedure TfrmLoanReleaseDetail.grReleaseRecipientDblClick(Sender: TObject);
@@ -324,9 +377,11 @@ var
 begin
   if ln.ReleaseRecipientCount = 0 then
     error := 'Please add at least one recipient.'
-  else if GetTotalReleased > ln.TotalReleased  then
-    error := 'Total amount released is greater than the amount for release.'
-  else if GetTotalReleased < ln.TotalReleased  then
+  else if ln.ReleaseAmount > ln.ApprovedAmount  then
+    error := 'Release amount is greater than the approved amount.'
+  else if GetTotalReleased <> ln.ReleaseAmount - ln.TotalCharges then
+    error := 'Total released amount is not equal to the release amount.'
+  else if ln.ReleaseAmount < ln.ApprovedAmount  then
     error := ConfirmRelease;
 
   Result := error = '';
@@ -352,10 +407,20 @@ function TfrmLoanReleaseDetail.ConfirmRelease: string;
 var
   msg: string;
 begin
-  msg := 'Amount to be released is less than the approved amount. Do you wish to proceed?';
+  msg := 'Amount to be released is less than the approved amount. Do you want to proceed?';
 
   if ShowDecisionBox(msg) = mrYes then Result := ''
   else Result := 'Releasing process cancelled.';
+end;
+
+procedure TfrmLoanReleaseDetail.edReleasedAmountChange(Sender: TObject);
+begin
+  ln.ReleaseAmount := edReleasedAmount.Value;
+
+  ln.ComputeCharges;
+
+  lblCharges.Caption := FormatFloat('###,###,##0.00',ln.TotalCharges);
+  lblTotalReleased.Caption := FormatFloat('###,###,##0.00',ln.ReleaseAmount - ln.TotalCharges);
 end;
 
 end.

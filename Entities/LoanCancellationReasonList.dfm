@@ -22,7 +22,7 @@ inherited frmLoanCancelReasonList: TfrmLoanCancelReasonList
           Title.Font.Color = clWindowText
           Title.Font.Height = -12
           Title.Font.Name = 'Tahoma'
-          Title.Font.Style = []
+          Title.Font.Style = [fsBold]
           Width = 250
           Visible = True
         end>

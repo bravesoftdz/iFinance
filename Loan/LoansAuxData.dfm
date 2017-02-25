@@ -12,6 +12,7 @@ object dmLoansAux: TdmLoansAux
     Tag = 1
     Connection = dmApplication.acMain
     CursorType = ctStatic
+    Filtered = True
     AfterOpen = dstLoanClassAfterOpen
     BeforePost = dstLoanClassBeforePost
     AfterPost = dstLoanClassAfterPost

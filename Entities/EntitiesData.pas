@@ -117,8 +117,12 @@ end;
 
 procedure TdmEntities.dstGroupsNewRecord(DataSet: TDataSet);
 begin
-  DataSet.FieldByName('is_gov').AsInteger := 1;
-  DataSet.FieldByName('is_active').AsInteger := 1;
+  with DataSet do
+  begin
+    FieldByName('is_gov').AsInteger := 1;
+    FieldByName('is_active').AsInteger := 1;
+    FieldByName('loc_code').AsString := ifn.LocationCode;
+  end;
 end;
 
 procedure TdmEntities.dstIHContactBeforeOpen(DataSet: TDataSet);

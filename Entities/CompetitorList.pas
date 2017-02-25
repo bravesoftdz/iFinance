@@ -7,16 +7,20 @@ uses
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, BaseGridDetail, Data.DB,
   System.ImageList, Vcl.ImgList, JvImageList, Vcl.StdCtrls, Vcl.Mask, RzEdit,
   RzButton, RzTabs, Vcl.Grids, Vcl.DBGrids, RzDBGrid, RzLabel, Vcl.ExtCtrls,
-  RzPanel, RzDBEdit, JvExControls, JvLabel;
+  RzPanel, RzDBEdit, JvExControls, JvLabel, RzCmboBx;
 
 type
   TfrmCompetitorList = class(TfrmBaseGridDetail)
     JvLabel1: TJvLabel;
     edCompName: TRzDBEdit;
+    cmbBranch: TRzComboBox;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
+    procedure cmbBranchChange(Sender: TObject);
+    procedure FormShow(Sender: TObject);
   private
     { Private declarations }
+    procedure FilterList;
   public
     { Public declarations }
   protected
@@ -32,7 +36,13 @@ implementation
 {$R *.dfm}
 
 uses
-  AuxData, IFinanceDialogs;
+  AuxData, IFinanceDialogs, FormsUtil;
+
+procedure TfrmCompetitorList.cmbBranchChange(Sender: TObject);
+begin
+  inherited;
+  FilterList;
+end;
 
 function TfrmCompetitorList.EntryIsValid: boolean;
 var
@@ -57,13 +67,33 @@ procedure TfrmCompetitorList.FormCreate(Sender: TObject);
 begin
   dmAux := TdmAux.Create(self);
 
+  PopulateBranchComboBox(cmbBranch);
+
   inherited;
+end;
+
+procedure TfrmCompetitorList.FormShow(Sender: TObject);
+begin
+  inherited;
+  FilterList;
 end;
 
 procedure TfrmCompetitorList.SearchList;
 begin
   grList.DataSource.DataSet.Locate('comp_name',edSearchKey.Text,
         [loPartialKey,loCaseInsensitive]);
+end;
+
+procedure TfrmCompetitorList.FilterList;
+var
+  filterStr: string;
+begin
+  if cmbBranch.ItemIndex > -1 then
+    filterStr := 'loc_code = ''' + cmbBranch.Value + ''''
+  else
+    filterStr := '';
+
+  grList.DataSource.DataSet.Filter := filterStr;
 end;
 
 end.

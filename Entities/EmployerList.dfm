@@ -18,6 +18,11 @@ inherited frmEmployerList: TfrmEmployerList
           FieldName = 'emp_name'
           Title.Alignment = taCenter
           Title.Caption = 'Name'
+          Title.Font.Charset = DEFAULT_CHARSET
+          Title.Font.Color = clWindowText
+          Title.Font.Height = -12
+          Title.Font.Name = 'Tahoma'
+          Title.Font.Style = [fsBold]
           Width = 400
           Visible = True
         end>

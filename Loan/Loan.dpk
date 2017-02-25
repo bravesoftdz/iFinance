@@ -83,6 +83,7 @@ contains
   LoanTypeList in 'LoanTypeList.pas' {frmLoanTypeList},
   AccountTypeList in 'AccountTypeList.pas' {frmAccountTypeList},
   BaseGridDetail in '..\Base\BaseGridDetail.pas' {frmBaseGridDetail},
-  Assessment in 'Assessment.pas';
+  Assessment in 'Assessment.pas',
+  ClientLoan in 'ClientLoan.pas';
 
 end.

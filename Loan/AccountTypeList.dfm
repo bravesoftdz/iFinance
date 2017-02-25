@@ -11,13 +11,17 @@ inherited frmAccountTypeList: TfrmAccountTypeList
   end
   inherited pnlList: TRzPanel
     inherited grList: TRzDBGrid
-      DataSource = dmLoansAux.dscAcctTypes
       Columns = <
         item
           Expanded = False
           FieldName = 'acct_type_name'
           Title.Alignment = taCenter
           Title.Caption = 'Name'
+          Title.Font.Charset = DEFAULT_CHARSET
+          Title.Font.Color = clWindowText
+          Title.Font.Height = -12
+          Title.Font.Name = 'Tahoma'
+          Title.Font.Style = [fsBold]
           Width = 200
           Visible = True
         end
@@ -26,6 +30,11 @@ inherited frmAccountTypeList: TfrmAccountTypeList
           FieldName = 'acct_type_desc'
           Title.Alignment = taCenter
           Title.Caption = 'Description'
+          Title.Font.Charset = DEFAULT_CHARSET
+          Title.Font.Color = clWindowText
+          Title.Font.Height = -12
+          Title.Font.Name = 'Tahoma'
+          Title.Font.Style = [fsBold]
           Width = 300
           Visible = True
         end>

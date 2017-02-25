@@ -2,12 +2,13 @@ unit IFinanceDialogs;
 
 interface
 
-uses InfoBox, ErrorBox, ConfBox, DecisionBox;
+uses InfoBox, ErrorBox, ConfBox, DecisionBox, WarningBox;
 
 procedure ShowInfoBox(const info: string);
 procedure ShowErrorBox(const error: string);
 procedure ShowConfirmationBox(const conf: string = 'Record saved successfully.');
 function ShowDecisionBox(const confMessage: string): integer;
+function ShowWarningBox(const confMessage: string): integer;
 
 implementation
 
@@ -44,6 +45,17 @@ end;
 function ShowDecisionBox(const confMessage: string): integer;
 begin
   with TfrmDecisionBox.Create(nil,confMessage) do
+  try
+    ShowModal;
+    Result := Integer(ModalResult);
+  finally
+    Free;
+  end;
+end;
+
+function ShowWarningBox(const confMessage: string): integer;
+begin
+  with TfrmWarningBox.Create(nil,confMessage) do
   try
     ShowModal;
     Result := Integer(ModalResult);

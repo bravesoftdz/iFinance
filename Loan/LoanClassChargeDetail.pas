@@ -16,8 +16,13 @@ type
     rbgValueType: TRzDBRadioGroup;
     dbluType: TRzDBLookupComboBox;
     edValue: TRzDBNumericEdit;
+    JvLabel3: TJvLabel;
+    edRatio: TRzDBNumericEdit;
+    edMaximum: TRzDBNumericEdit;
+    JvLabel4: TJvLabel;
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure rbgValueTypeChange(Sender: TObject);
   private
     { Private declarations }
   public
@@ -36,7 +41,7 @@ implementation
 {$R *.dfm}
 
 uses
-  LoansAuxData, FormsUtil, LoanClassification, IFinanceDialogs;
+  LoansAuxData, FormsUtil, LoanClassification, IFinanceDialogs, LoanClassCharge;
 
 procedure TfrmLoanClassChargeDetail.FormCreate(Sender: TObject);
 begin
@@ -49,6 +54,13 @@ begin
   inherited;
   // disable type on editing
   dbluType.Enabled := dbluType.DataSource.DataSet.State = dsInsert;
+end;
+
+procedure TfrmLoanClassChargeDetail.rbgValueTypeChange(Sender: TObject);
+begin
+  inherited;
+  edRatio.ReadOnly := TValueType(rbgValueType.ItemIndex) in [vtFixed,vtPercentage];
+  edMaximum.ReadOnly := TValueType(rbgValueType.ItemIndex) in [vtFixed,vtPercentage];
 end;
 
 procedure TfrmLoanClassChargeDetail.Save;
@@ -77,6 +89,17 @@ begin
       error := 'Please enter a value.'
     else if edValue.Value <= 0 then
       error := 'Invalid value entered.'
+    else if rbgValueType.ItemIndex = Integer(vtRatio) then
+    begin
+      if Trim(edRatio.Text) = '' then
+        error := 'Please enter a ratio.'
+      else if edRatio.Value <= 0 then
+        error := 'Invalid ratio entered.'
+      else if Trim(edMaximum.Text) = '' then
+        error := 'Please enter a maximum.'
+      else if edMaximum.Value <= 0 then
+        error := 'Invalid maximum entered.';
+    end
     else if (State = dsInsert) and (lnc.ClassChargeExists(dbluType.GetKeyValue)) then
       error := 'Type already exists.';
   end;

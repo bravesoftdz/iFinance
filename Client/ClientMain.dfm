@@ -40,13 +40,13 @@ inherited frmClientMain: TfrmClientMain
     Width = 860
     Height = 552
     Hint = ''
-    ActivePage = tsBankAcctInfo
+    ActivePage = tsLoanClassAccess
     Anchors = [akLeft, akTop, akRight, akBottom]
     BoldCurrentTab = True
     FlatColor = 6572079
     ShowFullFrame = False
     ShowShadow = False
-    TabIndex = 5
+    TabIndex = 4
     TabOrder = 1
     TabOrientation = toBottom
     TabStop = False
@@ -1334,7 +1334,6 @@ inherited frmClientMain: TfrmClientMain
           BorderWidth = 1
           Color = 12955288
           TabOrder = 13
-          ExplicitTop = 483
           object sbtnNewFamRef: TRzShapeButton
             Left = 0
             Top = 0
@@ -1584,7 +1583,6 @@ inherited frmClientMain: TfrmClientMain
           BorderWidth = 1
           Color = 12955288
           TabOrder = 12
-          ExplicitTop = 483
           object sbtnRemoveFamRef: TRzShapeButton
             Left = 0
             Top = 0
@@ -1755,7 +1753,6 @@ inherited frmClientMain: TfrmClientMain
           BorderWidth = 1
           Color = 12955288
           TabOrder = 3
-          ExplicitTop = 483
           object sbtnNewIdentDoc: TRzShapeButton
             Left = 0
             Top = 0
@@ -1811,7 +1808,6 @@ inherited frmClientMain: TfrmClientMain
           BorderWidth = 1
           Color = 12955288
           TabOrder = 4
-          ExplicitTop = 483
           object sbtnRemIdentDoc: TRzShapeButton
             Left = 0
             Top = 0
@@ -2044,7 +2040,12 @@ inherited frmClientMain: TfrmClientMain
               FieldName = 'grp_name'
               Title.Alignment = taCenter
               Title.Caption = 'Group'
-              Width = 140
+              Title.Font.Charset = DEFAULT_CHARSET
+              Title.Font.Color = clWindowText
+              Title.Font.Height = -12
+              Title.Font.Name = 'Tahoma'
+              Title.Font.Style = [fsBold]
+              Width = 160
               Visible = True
             end
             item
@@ -2052,7 +2053,12 @@ inherited frmClientMain: TfrmClientMain
               FieldName = 'class_name'
               Title.Alignment = taCenter
               Title.Caption = 'Class name'
-              Width = 160
+              Title.Font.Charset = DEFAULT_CHARSET
+              Title.Font.Color = clWindowText
+              Title.Font.Height = -12
+              Title.Font.Name = 'Tahoma'
+              Title.Font.Style = [fsBold]
+              Width = 180
               Visible = True
             end
             item
@@ -2060,6 +2066,11 @@ inherited frmClientMain: TfrmClientMain
               FieldName = 'loan_type_name'
               Title.Alignment = taCenter
               Title.Caption = 'Loan type'
+              Title.Font.Charset = DEFAULT_CHARSET
+              Title.Font.Color = clWindowText
+              Title.Font.Height = -12
+              Title.Font.Name = 'Tahoma'
+              Title.Font.Style = [fsBold]
               Width = 100
               Visible = True
             end
@@ -2069,6 +2080,11 @@ inherited frmClientMain: TfrmClientMain
               FieldName = 'int_rate_f'
               Title.Alignment = taCenter
               Title.Caption = 'Int %'
+              Title.Font.Charset = DEFAULT_CHARSET
+              Title.Font.Color = clWindowText
+              Title.Font.Height = -12
+              Title.Font.Name = 'Tahoma'
+              Title.Font.Style = [fsBold]
               Width = 40
               Visible = True
             end
@@ -2078,6 +2094,11 @@ inherited frmClientMain: TfrmClientMain
               FieldName = 'term'
               Title.Alignment = taCenter
               Title.Caption = 'Term'
+              Title.Font.Charset = DEFAULT_CHARSET
+              Title.Font.Color = clWindowText
+              Title.Font.Height = -12
+              Title.Font.Name = 'Tahoma'
+              Title.Font.Style = [fsBold]
               Width = 35
               Visible = True
             end
@@ -2087,6 +2108,11 @@ inherited frmClientMain: TfrmClientMain
               FieldName = 'comakers'
               Title.Alignment = taCenter
               Title.Caption = 'CM'
+              Title.Font.Charset = DEFAULT_CHARSET
+              Title.Font.Color = clWindowText
+              Title.Font.Height = -12
+              Title.Font.Name = 'Tahoma'
+              Title.Font.Style = [fsBold]
               Width = 35
               Visible = True
             end
@@ -2096,6 +2122,11 @@ inherited frmClientMain: TfrmClientMain
               FieldName = 'max_loan_f'
               Title.Alignment = taCenter
               Title.Caption = 'Maximum'
+              Title.Font.Charset = DEFAULT_CHARSET
+              Title.Font.Color = clWindowText
+              Title.Font.Height = -12
+              Title.Font.Name = 'Tahoma'
+              Title.Font.Style = [fsBold]
               Width = 80
               Visible = True
             end
@@ -2103,7 +2134,12 @@ inherited frmClientMain: TfrmClientMain
               Expanded = False
               FieldName = 'comp_method'
               Title.Alignment = taCenter
-              Title.Caption = 'Comp. method'
+              Title.Caption = 'Computation method'
+              Title.Font.Charset = DEFAULT_CHARSET
+              Title.Font.Color = clWindowText
+              Title.Font.Height = -12
+              Title.Font.Name = 'Tahoma'
+              Title.Font.Style = [fsBold]
               Width = 145
               Visible = True
             end>
@@ -2198,7 +2234,12 @@ inherited frmClientMain: TfrmClientMain
               FieldName = 'grp_name'
               Title.Alignment = taCenter
               Title.Caption = 'Group'
-              Width = 140
+              Title.Font.Charset = DEFAULT_CHARSET
+              Title.Font.Color = clWindowText
+              Title.Font.Height = -12
+              Title.Font.Name = 'Tahoma'
+              Title.Font.Style = [fsBold]
+              Width = 160
               Visible = True
             end
             item
@@ -2206,7 +2247,12 @@ inherited frmClientMain: TfrmClientMain
               FieldName = 'class_name'
               Title.Alignment = taCenter
               Title.Caption = 'Class name'
-              Width = 160
+              Title.Font.Charset = DEFAULT_CHARSET
+              Title.Font.Color = clWindowText
+              Title.Font.Height = -12
+              Title.Font.Name = 'Tahoma'
+              Title.Font.Style = [fsBold]
+              Width = 180
               Visible = True
             end
             item
@@ -2214,6 +2260,11 @@ inherited frmClientMain: TfrmClientMain
               FieldName = 'loan_type_name'
               Title.Alignment = taCenter
               Title.Caption = 'Loan type'
+              Title.Font.Charset = DEFAULT_CHARSET
+              Title.Font.Color = clWindowText
+              Title.Font.Height = -12
+              Title.Font.Name = 'Tahoma'
+              Title.Font.Style = [fsBold]
               Width = 100
               Visible = True
             end
@@ -2223,6 +2274,11 @@ inherited frmClientMain: TfrmClientMain
               FieldName = 'int_rate_f'
               Title.Alignment = taCenter
               Title.Caption = 'Int %'
+              Title.Font.Charset = DEFAULT_CHARSET
+              Title.Font.Color = clWindowText
+              Title.Font.Height = -12
+              Title.Font.Name = 'Tahoma'
+              Title.Font.Style = [fsBold]
               Width = 40
               Visible = True
             end
@@ -2232,6 +2288,11 @@ inherited frmClientMain: TfrmClientMain
               FieldName = 'term'
               Title.Alignment = taCenter
               Title.Caption = 'Term'
+              Title.Font.Charset = DEFAULT_CHARSET
+              Title.Font.Color = clWindowText
+              Title.Font.Height = -12
+              Title.Font.Name = 'Tahoma'
+              Title.Font.Style = [fsBold]
               Width = 35
               Visible = True
             end
@@ -2241,6 +2302,11 @@ inherited frmClientMain: TfrmClientMain
               FieldName = 'comakers'
               Title.Alignment = taCenter
               Title.Caption = 'CM'
+              Title.Font.Charset = DEFAULT_CHARSET
+              Title.Font.Color = clWindowText
+              Title.Font.Height = -12
+              Title.Font.Name = 'Tahoma'
+              Title.Font.Style = [fsBold]
               Width = 35
               Visible = True
             end
@@ -2250,6 +2316,11 @@ inherited frmClientMain: TfrmClientMain
               FieldName = 'max_loan_f'
               Title.Alignment = taCenter
               Title.Caption = 'Maximum'
+              Title.Font.Charset = DEFAULT_CHARSET
+              Title.Font.Color = clWindowText
+              Title.Font.Height = -12
+              Title.Font.Name = 'Tahoma'
+              Title.Font.Style = [fsBold]
               Width = 80
               Visible = True
             end
@@ -2258,6 +2329,11 @@ inherited frmClientMain: TfrmClientMain
               FieldName = 'comp_method'
               Title.Alignment = taCenter
               Title.Caption = 'Comp. method'
+              Title.Font.Charset = DEFAULT_CHARSET
+              Title.Font.Color = clWindowText
+              Title.Font.Height = -12
+              Title.Font.Name = 'Tahoma'
+              Title.Font.Style = [fsBold]
               Width = 145
               Visible = True
             end>
@@ -2444,7 +2520,6 @@ inherited frmClientMain: TfrmClientMain
           BorderWidth = 1
           Color = 12955288
           TabOrder = 5
-          ExplicitTop = 484
           object sbtnNewBankAccount: TRzShapeButton
             Left = 0
             Top = 0
@@ -2500,7 +2575,6 @@ inherited frmClientMain: TfrmClientMain
           BorderWidth = 1
           Color = 12955288
           TabOrder = 6
-          ExplicitTop = 484
           object sbtnRemoveBankAccount: TRzShapeButton
             Left = 0
             Top = 0
@@ -2603,8 +2677,8 @@ inherited frmClientMain: TfrmClientMain
     end
   end
   object pnlToolbar: TRzPanel
-    Left = 860
-    Top = 28
+    Left = 866
+    Top = 27
     Width = 128
     Height = 552
     Anchors = [akTop, akRight, akBottom]

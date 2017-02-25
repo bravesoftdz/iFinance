@@ -91,8 +91,11 @@ end;
 
 procedure TdmAux.dstBranchesNewRecord(DataSet: TDataSet);
 begin
-  DataSet.FieldByName('bank_code').AsString :=
-        dstBanks.FieldByName('bank_code').AsString;
+  with DataSet do
+  begin
+    FieldByName('bank_code').AsString := dstBanks.FieldByName('bank_code').AsString;
+    FieldByName('loc_code').AsString := ifn.LocationCode;
+  end;
 end;
 
 procedure TdmAux.dstCompetitorsBeforePost(DataSet: TDataSet);

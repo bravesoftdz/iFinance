@@ -208,6 +208,7 @@ object dmEntities: TdmEntities
     Tag = 5
     Connection = dmApplication.acMain
     CursorType = ctStatic
+    Filtered = True
     BeforePost = dstGroupsBeforePost
     AfterPost = dstGroupsAfterPost
     OnNewRecord = dstGroupsNewRecord

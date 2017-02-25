@@ -18,6 +18,11 @@ inherited frmLoanRejectionReasonList: TfrmLoanRejectionReasonList
           FieldName = 'reason_name'
           Title.Alignment = taCenter
           Title.Caption = 'Rejection reason'
+          Title.Font.Charset = DEFAULT_CHARSET
+          Title.Font.Color = clWindowText
+          Title.Font.Height = -12
+          Title.Font.Name = 'Tahoma'
+          Title.Font.Style = [fsBold]
           Width = 250
           Visible = True
         end>

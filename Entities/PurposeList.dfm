@@ -18,6 +18,11 @@ inherited frmPurposeList: TfrmPurposeList
           FieldName = 'purpose'
           Title.Alignment = taCenter
           Title.Caption = 'Purpose'
+          Title.Font.Charset = DEFAULT_CHARSET
+          Title.Font.Color = clWindowText
+          Title.Font.Height = -12
+          Title.Font.Name = 'Tahoma'
+          Title.Font.Style = [fsBold]
           Width = 250
           Visible = True
         end>

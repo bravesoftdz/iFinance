@@ -335,6 +335,7 @@ begin
 
       loc.LocationCode := FieldByName('location_code').AsString;
       loc.LocationName := FieldByName('location_name').AsString;
+      loc.LocationType := FieldByName('locationtype_code').AsString;
 
       ifn.AddLocation(loc);
 

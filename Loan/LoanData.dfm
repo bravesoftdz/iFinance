@@ -538,4 +538,29 @@ object dmLoan: TdmLoan
     Left = 208
     Top = 184
   end
+  object dstClientLoans: TADODataSet
+    Connection = dmApplication.acMain
+    CursorType = ctStatic
+    LockType = ltReadOnly
+    BeforeOpen = dstClientLoansBeforeOpen
+    CommandText = 'sp_ln_get_client_loans;1'
+    CommandType = cmdStoredProc
+    Parameters = <
+      item
+        Name = '@RETURN_VALUE'
+        DataType = ftInteger
+        Direction = pdReturnValue
+        Precision = 10
+        Value = Null
+      end
+      item
+        Name = '@entity_id'
+        Attributes = [paNullable]
+        DataType = ftString
+        Size = 10
+        Value = ''
+      end>
+    Left = 207
+    Top = 238
+  end
 end

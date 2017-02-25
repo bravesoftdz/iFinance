@@ -23,6 +23,7 @@ type
     FLocations: array of TLocation;
 
     function GetLocation(const i: integer): TLocation;
+    function GetLocationCount: integer;
 
   public
     procedure AddLocation(const loc: TLocation);
@@ -42,6 +43,7 @@ type
     property AppName: string read FAppName write FAppName;
     property AppDescription: string read FAppDescription write FAppDescription;
     property Locations[const i: integer]: TLocation read GetLocation;
+    property LocationCount: integer read GetLocationCount;
 
     constructor Create;
     destructor Destroy; override;
@@ -103,6 +105,11 @@ begin
       Result := loc.LocationName;
       Exit;
     end;
+end;
+
+function TIFinance.GetLocationCount: integer;
+begin
+  Result := Length(FLocations);
 end;
 
 end.

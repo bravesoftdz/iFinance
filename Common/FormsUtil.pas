@@ -4,7 +4,7 @@ interface
 
 uses
   Vcl.Controls, RzDBCmbo, RzDBGrid, RzGrids, DB, RzLstBox, RzChkLst, Vcl.ExtCtrls,
-  System.Classes;
+  System.Classes, RzCmboBx, IFinanceGlobal, Location;
 
 procedure OpenDropdownDataSources(const parentCtrl: TWinControl;
   const open: boolean = true);
@@ -14,6 +14,9 @@ procedure ButtonDown(Sender: TObject);
 procedure ButtonUp(Sender: TObject);
 procedure ExtendLastColumn(grid: TRzDBGrid); overload;
 procedure ExtendLastColumn(grid: TRzStringGrid); overload;
+procedure PopulateBranchComboBox(comboBox: TRzComboBox);
+procedure PopulateComboBox(source: TDataSet; comboBox: TRzComboBox;
+  const codeField, nameField: string); overload;
 
 implementation
 
@@ -109,6 +112,33 @@ begin
 
   //extend to the size of the grid
   grid.ColWidths[grid.ColCount - 1] := grid.Width - widths - 4;
+end;
+
+procedure PopulateBranchComboBox(comboBox: TRzComboBox);
+var
+  i, cnt: integer;
+begin
+  cnt := ifn.LocationCount - 1;
+  for i := 0 to cnt do
+    comboBox.AddItemValue(ifn.Locations[i].LocationName,ifn.Locations[i].LocationCode);
+
+  // set default
+  comboBox.FindItem(ifn.GetLocationNameByCode(ifn.LocationCode));
+end;
+
+procedure PopulateComboBox(source: TDataSet; comboBox: TRzComboBox;
+  const codeField, nameField: string); overload;
+begin
+  with source, comboBox do
+  begin
+    DisableControls;
+    while not Eof do
+    begin
+      AddItemValue(FieldByName(nameField).AsString,FieldByName(codeField).AsString);
+      Next;
+    end;
+    EnableControls;
+  end;
 end;
 
 end.
