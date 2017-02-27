@@ -11,6 +11,7 @@ inherited frmGroupList: TfrmGroupList
   end
   inherited pnlList: TRzPanel
     inherited grList: TRzDBGrid
+      Anchors = [akLeft, akTop, akRight]
       Columns = <
         item
           Expanded = False

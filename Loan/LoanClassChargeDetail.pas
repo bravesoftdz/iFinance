@@ -6,8 +6,8 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, BasePopupDetail, RzButton, RzTabs,
   Vcl.StdCtrls, RzLabel, Vcl.Imaging.pngimage, Vcl.ExtCtrls, RzPanel, Vcl.Mask,
-  RzEdit, RzDBEdit, JvExControls, JvLabel, RzRadGrp, RzDBRGrp, Vcl.DBCtrls,
-  RzDBCmbo, DB;
+  RzEdit, RzDBEdit, JvExControls, JvLabel, Vcl.DBCtrls, RzDBCmbo, DB, RzRadGrp,
+  RzDBRGrp, RzRadChk, RzDBChk;
 
 type
   TfrmLoanClassChargeDetail = class(TfrmBasePopupDetail)
@@ -20,6 +20,9 @@ type
     edRatio: TRzDBNumericEdit;
     edMaximum: TRzDBNumericEdit;
     JvLabel4: TJvLabel;
+    RzGroupBox2: TRzGroupBox;
+    chbForNew: TRzDBCheckBox;
+    chbForRenewal: TRzDBCheckBox;
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure rbgValueTypeChange(Sender: TObject);
@@ -59,8 +62,8 @@ end;
 procedure TfrmLoanClassChargeDetail.rbgValueTypeChange(Sender: TObject);
 begin
   inherited;
-  edRatio.ReadOnly := TValueType(rbgValueType.ItemIndex) in [vtFixed,vtPercentage];
-  edMaximum.ReadOnly := TValueType(rbgValueType.ItemIndex) in [vtFixed,vtPercentage];
+  edRatio.Enabled := TValueType(rbgValueType.ItemIndex) = vtRatio;
+  edMaximum.Enabled := TValueType(rbgValueType.ItemIndex) = vtRatio;
 end;
 
 procedure TfrmLoanClassChargeDetail.Save;
@@ -85,6 +88,9 @@ begin
   begin
     if Trim(dbluType.Text) = '' then
       error := 'Please select a type.'
+    else if (State = dsInsert) and (lnc.ClassChargeExists(dbluType.GetKeyValue,
+        chbForNew.Checked,chbForRenewal.Checked)) then
+      error := 'Type already exists.'
     else if Trim(edValue.Text) = '' then
       error := 'Please enter a value.'
     else if edValue.Value <= 0 then
@@ -100,8 +106,8 @@ begin
       else if edMaximum.Value <= 0 then
         error := 'Invalid maximum entered.';
     end
-    else if (State = dsInsert) and (lnc.ClassChargeExists(dbluType.GetKeyValue)) then
-      error := 'Type already exists.';
+    else if (not chbForNew.Checked) and (not chbForRenewal.Checked) then
+      error := 'No loan applicability selected.';
   end;
 
   Result := error = '';

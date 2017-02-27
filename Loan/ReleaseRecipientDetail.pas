@@ -132,7 +132,7 @@ begin
     else if edAmount.Value <= 0 then
       error := 'Invalid value for amount.'
     else if (State = dsInsert) and
-        (ln.ReleaseRecipientExists(rrp.Recipient.Id,rrp.LocationCode,dbluMethod.GetKeyValue)) then
+        (ln.ReleaseRecipientExists(rrp.Recipient.Id,dbluBranch.GetKeyValue,dbluMethod.GetKeyValue)) then
       error := 'Recipient and release method already exists.';
   end;
 

@@ -46,9 +46,6 @@ type
     RzDBEdit2: TRzDBEdit;
     Label1: TLabel;
     cmbBranch: TRzComboBox;
-    Label2: TLabel;
-    cmbGroup: TRzComboBox;
-    RzCheckBox1: TRzCheckBox;
     pnlCharges: TRzPanel;
     grCharges: TRzDBGrid;
     RzGroupBox1: TRzGroupBox;
@@ -56,6 +53,8 @@ type
     btnAddCharge: TRzShapeButton;
     RzPanel2: TRzPanel;
     btnRemoveCharge: TRzShapeButton;
+    cbxNew: TRzCheckBox;
+    cbxRenewal: TRzCheckBox;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure urlRefreshListClick(Sender: TObject);
@@ -64,9 +63,13 @@ type
     procedure sbtnNewClick(Sender: TObject);
     procedure btnAddChargesClick(Sender: TObject);
     procedure btnRemoveChargeClick(Sender: TObject);
+    procedure cbxNewClick(Sender: TObject);
+    procedure cbxRenewalClick(Sender: TObject);
+    procedure dbluBranchClick(Sender: TObject);
   private
     { Private declarations }
     procedure ChangeControlState;
+    procedure FilterCharges;
     function EntryIsValid: boolean;
     function ConfirmDate: string;
   public
@@ -114,6 +117,31 @@ begin
   else Result := 'Saving has been cancelled.';
 end;
 
+procedure TfrmLoanClassificationList.FilterCharges;
+var
+  filter: string;
+  filters: TStringList;
+  i, cnt: integer;
+begin
+  filters := TStringList.Create;
+
+  if cbxNew.Checked then filters.Add('(for_new = 1)');
+  if cbxRenewal.Checked then filters.Add('(for_renew = 1)');
+
+  cnt := filters.Count - 1;
+
+  for i := 0 to cnt do
+  begin
+    filter := filter + filters[i];
+
+    if i < filters.Count - 1 then filter := filter + ' or ';
+  end;
+
+  grCharges.DataSource.DataSet.Filter := filter;
+
+  filters.Free;
+end;
+
 procedure TfrmLoanClassificationList.sbtnNewClick(Sender: TObject);
 begin
   New;
@@ -125,7 +153,7 @@ begin
   ChangeControlState;
 
   // focus the first control
-  dbluGroup.SetFocus;;
+  dbluBranch.SetFocus;;
 end;
 
 procedure TfrmLoanClassificationList.urlRefreshListClick(Sender: TObject);
@@ -149,6 +177,27 @@ begin
   end;
 end;
 
+procedure TfrmLoanClassificationList.cbxNewClick(Sender: TObject);
+begin
+  FilterCharges;
+end;
+
+procedure TfrmLoanClassificationList.cbxRenewalClick(Sender: TObject);
+begin
+  FilterCharges;
+end;
+
+procedure TfrmLoanClassificationList.dbluBranchClick(Sender: TObject);
+begin
+  inherited;
+  // filter groups
+  with dbluGroup.ListSource.DataSet do
+  begin
+    Filter := 'loc_code = ''' + dbluBranch.GetKeyValue + '''';
+    Filtered := true;
+  end;
+end;
+
 procedure TfrmLoanClassificationList.dbluGroupClick(Sender: TObject);
 begin
   inherited;
@@ -160,7 +209,8 @@ function TfrmLoanClassificationList.EntryIsValid: boolean;
 var
   error: string;
 begin
-  if Trim(dbluGroup.Text) = '' then error := 'Please select a group.'
+  if dbluBranch.Text = '' then error := 'Please select a branch.'
+  else if Trim(dbluGroup.Text) = '' then error := 'Please select a group.'
   else if Trim(edClassName.Text) = '' then error := 'Please enter a class name.'
   else if dbluLoanType.Text = '' then error := 'Please select a loan type.'
   else if edInterest.Text = '' then error := 'Please enter an interest rate.'
@@ -168,7 +218,6 @@ begin
   else if edMaxLoan.Value <= 0 then error := 'Please enter a maximum loan.'
   else if dbluCompMethod.Text = '' then error := 'Please select a computation method.'
   else if dbluPayFreq.Text = '' then error := 'Please select a payment frequency.'
-  else if dbluBranch.Text = '' then error := 'Please select a branch.'
   else if dteFrom.Text = '' then error := 'Please specify a start date.'
   else if edMaxLoan.Value > ltype.MaxTotalAmount then
     error := 'Maximum loan exceeds the maximum total amount for the selected loan type.'
@@ -206,7 +255,6 @@ begin
   OpenGridDataSources(pnlCharges);
 
   PopulateBranchComboBox(cmbBranch);
-  PopulateComboBox(dmAux.dstGroups,cmbGroup,'grp_id','grp_name');
 
   ChangeControlState;
 end;

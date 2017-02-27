@@ -14,6 +14,8 @@ type
     FValueType: TValueType;
     FRatioAmount: real;
     FMaxAmount: real;
+    FForNew: boolean;
+    FForRenewal: boolean;
   public
 
     property ChargeType: string read FChargeType write FChargeType;
@@ -22,10 +24,12 @@ type
     property ValueType: TValueType read FValueType write FValueType;
     property RatioAmount: real read FRatioAmount write FRatioAmount;
     property MaxAmount: real read FMaxAmount write FMaxAmount;
+    property ForNew: boolean read FForNew write FForNew;
+    property ForRenewal: boolean read FForRenewal write FForRenewal;
 
     constructor Create(const ct: string; const cv: real; vt: TValueType); overload;
     constructor Create(const ct, cn: string; const cv: real; vt: TValueType;
-        const ratioAmt, maxAmt: real); overload;
+        const ratioAmt, maxAmt: real; const fn, fr: boolean); overload;
   end;
 
 var
@@ -41,7 +45,7 @@ begin
 end;
 
 constructor TLoanClassCharge.Create(const ct, cn: string; const cv: Real; vt: TValueType;
-  const ratioAmt, maxAmt: real);
+  const ratioAmt, maxAmt: real; const fn, fr: boolean);
 begin
   FChargeType := ct;
   FChargeName := cn;
@@ -49,6 +53,8 @@ begin
   FValueType := vt;
   FRatioAmount := ratioAmt;
   FMaxAmount := maxAmt;
+  FForNew := fn;
+  FForRenewal := fr;
 end;
 
 end.

@@ -45,6 +45,7 @@ inherited frmBaseGridDetail: TfrmBaseGridDetail
       TitleFont.Height = -12
       TitleFont.Name = 'Tahoma'
       TitleFont.Style = []
+      DisabledColor = clWhite
       FrameColor = 6572079
       FrameStyle = fsNone
       FramingPreference = fpCustomFraming

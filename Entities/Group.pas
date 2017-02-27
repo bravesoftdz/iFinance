@@ -5,9 +5,9 @@ interface
 type
   TGroup = class(TObject)
   private
-    FGroupId: integer;
+    FGroupId: string;
     FGroupName: string;
-    FParentGroupId: integer;
+    FParentGroupId: string;
     FIsGov: integer;
     FIsActive: integer;
 
@@ -17,9 +17,9 @@ type
   public
     procedure SaveChanges(const gr: TObject);
 
-    property GroupId: integer read FGroupId write FGroupId;
+    property GroupId: string read FGroupId write FGroupId;
     property GroupName: string read FGroupName write FGroupName;
-    property ParentGroupId: integer read FParentGroupId write FParentGroupId;
+    property ParentGroupId: string read FParentGroupId write FParentGroupId;
     property IsGov: integer read FIsGov write FIsGov;
     property IsPublic: boolean read GetIsGov;
     property HasParent: boolean read GetHasParent;
@@ -39,7 +39,7 @@ begin
   with dmEntities.dstGroups do
   begin
     Edit;
-    FieldByName('par_grp_id').AsInteger := TGroup(gr).FParentGroupId;
+    FieldByName('par_grp_id').AsString := TGroup(gr).FParentGroupId;
     FieldByName('is_gov').AsInteger := TGroup(gr).FIsGov;
     FieldByName('is_active').AsInteger := TGroup(gr).FIsActive;
     Post;
@@ -53,7 +53,7 @@ end;
 
 function TGroup.GetHasParent: boolean;
 begin
-  Result := FParentGroupId > 0;
+  Result := FParentGroupId <> '';
 end;
 
 end.

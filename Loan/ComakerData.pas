@@ -104,7 +104,7 @@ begin
       cm.Employer.Id := DataSet.FieldByName('emp_id').AsString;
       cm.Employer.Name := DataSet.FieldByName('emp_name').AsString;
       cm.Employer.Address := DataSet.FieldByName('emp_add').AsString;
-      cm.Employer.GroupId := DataSet.FieldByName('grp_id').AsInteger;
+      cm.Employer.GroupId := DataSet.FieldByName('grp_id').AsString;
     end;
   end;
 end;

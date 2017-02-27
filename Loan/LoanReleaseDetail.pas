@@ -73,6 +73,9 @@ procedure TfrmLoanReleaseDetail.ClearRow(grid: TRzStringGrid; const row: Integer
 var
   rw, cl: integer;
 begin
+  // clear the object in the deleted row
+  grid.Objects[0,row] := nil;
+
   // move up all rows
   for rw := row + 1 to grid.RowCount - 1 do
   begin
@@ -110,7 +113,7 @@ begin
     locationName := (Objects[0,r] as TReleaseRecipient).LocationName;
 
     // locate the record in the dataset
-    Locate('recipient;rel_method',VarArrayOf([recipient,method]),[]);
+    Locate('recipient;rel_method;loc_code',VarArrayOf([recipient,method,locationCode]),[]);
   end;
 
   if not remove then
@@ -124,13 +127,13 @@ begin
       // update row
       if ModalResult = mrOk then
       begin
-        grReleaseRecipient.Cells[0,r] := FormatDateTime('mm/dd/yyyy',ln.ReleaseRecipients[r-1].Date);
-        grReleaseRecipient.Cells[1,r] := ln.ReleaseRecipients[r-1].Recipient.Name;
-        grReleaseRecipient.Cells[2,r] := ln.ReleaseRecipients[r-1].LocationName;
-        grReleaseRecipient.Cells[3,r] := ln.ReleaseRecipients[r-1].ReleaseMethod.Name;
-        grReleaseRecipient.Cells[4,r] := FormatFloat('###,###,##0.00',ln.ReleaseRecipients[r-1].Amount);
+        grReleaseRecipient.Cells[0,r] := FormatDateTime('mm/dd/yyyy',rrp.Date);
+        grReleaseRecipient.Cells[1,r] := rrp.Recipient.Name;
+        grReleaseRecipient.Cells[2,r] := rrp.LocationName;
+        grReleaseRecipient.Cells[3,r] := rrp.ReleaseMethod.Name;
+        grReleaseRecipient.Cells[4,r] := FormatFloat('###,###,##0.00',rrp.Amount);
 
-        grReleaseRecipient.Objects[0,r] := ln.ReleaseRecipients[r-1];
+        grReleaseRecipient.Objects[0,r] := rrp;
       end;
 
       Free;
@@ -380,7 +383,7 @@ begin
   else if ln.ReleaseAmount > ln.ApprovedAmount  then
     error := 'Release amount is greater than the approved amount.'
   else if GetTotalReleased <> ln.ReleaseAmount - ln.TotalCharges then
-    error := 'Total released amount is not equal to the release amount.'
+    error := 'TOTAL amount released is not equal to the amount FOR release.'
   else if ln.ReleaseAmount < ln.ApprovedAmount  then
     error := ConfirmRelease;
 

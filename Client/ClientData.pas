@@ -217,15 +217,15 @@ end;
 
 procedure TdmClient.dstClientLoanClassAfterScroll(DataSet: TDataSet);
 var
-  clId, term, comakers, groupId, age: integer;
-  clName: string;
+  clId, term, comakers, age: integer;
+  clName, groupId: string;
   interest, maxLoan: real;
   validFrom, validUntil: TDate;
 begin
   with DataSet do
   begin
     clId := FieldByName('class_id').AsInteger;
-    groupId := FieldByName('grp_id').AsInteger;
+    groupId := FieldByName('grp_id').AsString;
     clName := FieldByName('class_name').AsString;
     interest := FieldByName('int_rate').AsFloat;
     term := FieldByName('term').AsInteger;
@@ -285,7 +285,7 @@ begin
       cln.Employer.Id := DataSet.FieldByName('emp_id').AsString;
       cln.Employer.Name := DataSet.FieldByName('emp_name').AsString;
       cln.Employer.Address := DataSet.FieldByName('emp_add').AsString;
-      cln.Employer.GroupId := DataSet.FieldByName('grp_id').AsInteger;
+      cln.Employer.GroupId := DataSet.FieldByName('grp_id').AsString;
     end;
 
     if DataSet.FieldByName('imm_head').AsString <> '' then

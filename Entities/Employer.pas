@@ -10,16 +10,16 @@ type
   protected
     FId: string;
     FName: string;
-    FGroupId: integer;
+    FGroupId: string;
     FAddress: string;
   public
     property Id: string read FId write FId;
     property Name: string read FName write FName;
-    property GroupId: integer read FGroupId write FGroupId;
+    property GroupId: string read FGroupId write FGroupId;
     property Address: string read FAddress write FAddress;
 
     constructor Create; overload;
-    constructor Create(const id, name: string; const grpId: integer; const addr: string); overload;
+    constructor Create(const id, name, grpId, addr: string); overload;
     destructor Destroy; override;
   end;
 
@@ -34,7 +34,7 @@ begin
     emp := self;
 end;
 
-constructor TEmployer.Create(const id: string; const name: string; const grpId: Integer; const addr: string);
+constructor TEmployer.Create(const id, name, grpId, addr: string);
 begin
   FId := id;
   FName := name;

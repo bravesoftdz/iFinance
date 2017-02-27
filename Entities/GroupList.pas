@@ -109,9 +109,9 @@ begin
     begin
       gp := TGroup.Create;
 
-      gp.GroupId := FieldByName('grp_id').AsInteger;
+      gp.GroupId := FieldByName('grp_id').AsString;
       gp.GroupName := FieldByName('grp_name').AsString;
-      gp.ParentGroupId := FieldByName('par_grp_id').AsInteger;
+      gp.ParentGroupId := FieldByName('par_grp_id').AsString;
       gp.IsGov := FieldByName('is_gov').AsInteger;
       gp.IsActive := FieldByName('is_active').AsInteger;
 
@@ -162,7 +162,7 @@ end;
 
 procedure TfrmGroupList.tvGroupChange(Sender: TObject; Node: TTreeNode);
 var
-  groupId: integer;
+  groupId: string;
 begin
   groupId := TGroup(Node.Data).GroupId;
   grList.DataSource.DataSet.Locate('grp_id',groupId,[]);

@@ -16,7 +16,7 @@ procedure SetCreatedFields(dataSet: TDataSet);
 procedure ExecuteSQL(const sql: string);
 
 function GetEntityId: string;
-function GetGroupId: integer;
+function GetGroupId: string;
 function GetEmployerId: string;
 function GetBankBranchId: string;
 function GetDesignationId: integer;
@@ -101,9 +101,9 @@ begin
   Result := ifn.LocationPrefix + '-' + IntToStr(GetSequenceID(soEntity));
 end;
 
-function GetGroupId: integer;
+function GetGroupId: string;
 begin
-  Result := GetSequenceID(soGroup);
+  Result := ifn.LocationPrefix + '-' + IntToStr(GetSequenceID(soGroup));
 end;
 
 function GetEmployerId: string;

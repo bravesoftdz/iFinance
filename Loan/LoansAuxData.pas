@@ -36,6 +36,21 @@ type
     dscAcctTypes: TDataSource;
     dstRecommendation: TADODataSet;
     dscRecommendation: TDataSource;
+    dstClassChargesclass_id: TIntegerField;
+    dstClassChargescharge_type: TStringField;
+    dstClassChargescharge_value: TBCDField;
+    dstClassChargesvalue_type: TWordField;
+    dstClassChargesratio_amt: TBCDField;
+    dstClassChargesmax_amt: TBCDField;
+    dstClassChargesfor_new: TWordField;
+    dstClassChargesfor_renew: TWordField;
+    dstClassChargescharge_name: TStringField;
+    dstClassChargescharge_value_f: TStringField;
+    dstClassChargesratio_amt_f: TStringField;
+    dstClassChargesmax_amt_f: TStringField;
+    dstClassChargesfor_new_f: TStringField;
+    dstClassChargesfor_renew_f: TStringField;
+    dstClassChargesvalue_type_desc: TStringField;
     procedure dstLoanClassBeforePost(DataSet: TDataSet);
     procedure dstLoanClassAfterOpen(DataSet: TDataSet);
     procedure DataModuleDestroy(Sender: TObject);
@@ -51,6 +66,7 @@ type
     procedure dstAcctTypesAfterPost(DataSet: TDataSet);
     procedure dstLoanTypesAfterPost(DataSet: TDataSet);
     procedure dstRecommendationAfterScroll(DataSet: TDataSet);
+    procedure dstClassChargesCalcFields(DataSet: TDataSet);
   private
     { Private declarations }
   public
@@ -99,9 +115,10 @@ end;
 
 procedure TdmLoansAux.dstClassChargesAfterOpen(DataSet: TDataSet);
 var
-  ct: string;
-  cv: real;
+  ct,cn: string;
+  cv, ratio, max: real;
   vt: TValueType;
+  forNew, forRenewal: boolean;
 begin
   (DataSet as TADODataSet).Properties['Unique Table'].Value := 'LoanClassCharge';
 
@@ -111,13 +128,20 @@ begin
     while not Eof do
     begin
       ct := FieldByName('charge_type').AsString;
+      cn := FieldByName('charge_name').AsString;
       cv := FieldByName('charge_value').AsFloat;
       vt := TValueType(FieldByName('value_type').AsInteger);
+      ratio := FieldByName('ratio_amt').AsFloat;
+      max := FieldByName('max_amt').AsFloat;
+      forNew := FieldByName('for_new').AsInteger = 1;
+      forRenewal := FieldByName('for_renew').AsInteger = 1;
 
-      lnc.AddClassCharge(TLoanClassCharge.Create(ct,cv,vt));
+      lnc.AddClassCharge(TLoanClassCharge.Create(ct,cn,cv,vt,ratio,max,
+        forNew,forRenewal));
 
       Next;
     end;
+    First;
     EnableControls;
   end;
 end;
@@ -142,13 +166,31 @@ end;
 
 procedure TdmLoansAux.dstClassChargesBeforeOpen(DataSet: TDataSet);
 begin
-  (DataSet as TADODataSet).Parameters.ParamByName('@class_id').Value := lnc.ClassificationId;
+  if Assigned(lnc) then
+    (DataSet as TADODataSet).Parameters.ParamByName('@class_id').Value := lnc.ClassificationId;
 end;
 
 procedure TdmLoansAux.dstClassChargesBeforePost(DataSet: TDataSet);
 begin
   if DataSet.State = dsInsert then
     DataSet.FieldByName('class_id').AsInteger := lnc.ClassificationId;
+end;
+
+procedure TdmLoansAux.dstClassChargesCalcFields(DataSet: TDataSet);
+var
+  desc: string;
+begin
+  with DataSet do
+  begin
+    if TValueType(FieldByName('value_type').AsInteger) = vtFixed  then
+      desc := 'Fixed amount'
+    else if TValueType(FieldByName('value_type').AsInteger) = vtPercentage  then
+      desc := 'Percentage'
+    else if TValueType(FieldByName('value_type').AsInteger) = vtRatio  then
+      desc := 'Ratio';
+
+    FieldByName('value_type_desc').AsString := desc;
+  end;
 end;
 
 procedure TdmLoansAux.dstClassChargesNewRecord(DataSet: TDataSet);
@@ -171,8 +213,8 @@ end;
 
 procedure TdmLoansAux.dstLoanClassAfterScroll(DataSet: TDataSet);
 var
-  clId, term, comakers, groupId, age: integer;
-  clName: string;
+  clId, term, comakers, age: integer;
+  clName, groupId: string;
   interest, maxLoan: real;
   validFrom, validUntil: TDate;
   lt: TLoanType;
@@ -180,7 +222,7 @@ begin
   with DataSet do
   begin
     clId := FieldByName('class_id').AsInteger;
-    groupId := FieldByName('grp_id').AsInteger;
+    groupId := FieldByName('grp_id').AsString;
     clName := FieldByName('class_name').AsString;
     interest := FieldByName('int_rate').AsFloat;
     term := FieldByName('term').AsInteger;

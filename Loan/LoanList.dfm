@@ -8,7 +8,7 @@ inherited frmLoanList: TfrmLoanList
   TextHeight = 14
   inherited pnlTitle: TRzPanel
     Width = 786
-    ExplicitWidth = 599
+    ExplicitWidth = 786
     inherited lblTitle: TRzLabel
       Width = 58
       Caption = 'Loans list'
@@ -26,7 +26,6 @@ inherited frmLoanList: TfrmLoanList
     BorderSides = []
     Color = 14273211
     TabOrder = 1
-    ExplicitWidth = 599
     DesignSize = (
       786
       33)
@@ -156,14 +155,6 @@ inherited frmLoanList: TfrmLoanList
       Caption = 'Branch'
       Transparent = True
     end
-    object JvLabel12: TJvLabel
-      Left = 13
-      Top = 63
-      Width = 28
-      Height = 14
-      Caption = 'Date'
-      Transparent = True
-    end
     object pnlDetailHead: TRzPanel
       Left = 1
       Top = 1
@@ -210,18 +201,6 @@ inherited frmLoanList: TfrmLoanList
       ReadOnlyColor = clWhite
       Sorted = True
       TabOrder = 1
-    end
-    object RzDateTimeEdit1: TRzDateTimeEdit
-      Left = 58
-      Top = 57
-      Width = 121
-      Height = 22
-      EditType = etDate
-      FlatButtons = True
-      FrameColor = 6572079
-      FrameVisible = True
-      FramingPreference = fpCustomFraming
-      TabOrder = 2
     end
   end
 end

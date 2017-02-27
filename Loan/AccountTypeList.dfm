@@ -11,6 +11,7 @@ inherited frmAccountTypeList: TfrmAccountTypeList
   end
   inherited pnlList: TRzPanel
     inherited grList: TRzDBGrid
+      DataSource = dmLoansAux.dscAcctTypes
       Columns = <
         item
           Expanded = False

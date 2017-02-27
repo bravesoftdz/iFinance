@@ -57,6 +57,7 @@ type
     procedure dstRefContactBeforeOpen(DataSet: TDataSet);
     procedure dstRefContactBeforePost(DataSet: TDataSet);
     procedure dstGroupsAfterPost(DataSet: TDataSet);
+    procedure dstEmployersNewRecord(DataSet: TDataSet);
   private
     { Private declarations }
   public
@@ -98,6 +99,14 @@ begin
   end;
 end;
 
+procedure TdmEntities.dstEmployersNewRecord(DataSet: TDataSet);
+begin
+  with DataSet do
+  begin
+    FieldByName('loc_code').AsString := ifn.LocationCode;
+  end;
+end;
+
 procedure TdmEntities.dstGroupsAfterPost(DataSet: TDataSet);
 begin
   // refresh the parent group
@@ -106,12 +115,12 @@ end;
 
 procedure TdmEntities.dstGroupsBeforePost(DataSet: TDataSet);
 var
-  id: integer;
+  id: string;
 begin
   if DataSet.State = dsInsert then
   begin
     id := GetGroupId;
-    DataSet.FieldByName('grp_id').AsInteger := id;
+    DataSet.FieldByName('grp_id').AsString := id;
   end;
 end;
 

@@ -56,7 +56,7 @@ begin
   begin
     empl := TEmployer.Create(FieldByName('emp_id').AsString,
                         FieldByName('emp_name').AsString,
-                        FieldByName('grp_id').AsInteger,
+                        FieldByName('grp_id').AsString,
                         FieldByName('emp_add').AsString);
 
     lnc := TLoanClient.Create;

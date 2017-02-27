@@ -56,7 +56,7 @@ begin
     emp.Id := FieldByName('emp_id').AsString;
     emp.Name := FieldByName('emp_name').AsString;
     emp.Address := FieldByName('emp_add').AsString;
-    emp.GroupId := FieldByName('grp_id').AsInteger;
+    emp.GroupId := FieldByName('grp_id').AsString;
   end;
 end;
 

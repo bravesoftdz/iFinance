@@ -83,6 +83,7 @@ begin
       if EntryIsValid then
       begin
         grList.DataSource.DataSet.Post;
+        grList.Enabled := true;
         Result := true;
       end
   end;
@@ -96,11 +97,15 @@ end;
 procedure TfrmBaseGridDetail.Cancel;
 begin
   grList.DataSource.DataSet.Cancel;
+  grList.Enabled := true;
 end;
 
 procedure TfrmBaseGridDetail.New;
 begin
   grList.DataSource.DataSet.Append;
+
+  // disable the grid
+  grList.Enabled := false;
 
   // focus the first control
   grList.DataSource.DataSet.FieldByName(grList.Columns[0].FieldName).FocusControl;

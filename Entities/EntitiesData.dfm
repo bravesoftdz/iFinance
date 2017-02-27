@@ -243,7 +243,9 @@ object dmEntities: TdmEntities
     Tag = 6
     Connection = dmApplication.acMain
     CursorType = ctStatic
+    Filtered = True
     BeforePost = dstEmployersBeforePost
+    OnNewRecord = dstEmployersNewRecord
     CommandText = 'sp_get_employers;1'
     CommandType = cmdStoredProc
     Parameters = <>

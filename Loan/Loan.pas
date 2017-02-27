@@ -374,16 +374,20 @@ end;
 
 procedure TLoan.RemoveComaker(cmk: TComaker);
 var
-  i, len: integer;
+  i, ii, len: integer;
   co: TComaker;
 begin
   len := Length(FComakers);
 
+  ii := 0;
   for i := 0 to len - 1 do
   begin
     co := FComakers[i];
     if co.Id <> cmk.Id then
-      FComakers[i] := co;
+    begin
+      FComakers[ii] := co;
+      Inc(ii);
+    end;
   end;
 
   SetLength(FComakers,Length(FComakers) - 1);
@@ -706,6 +710,7 @@ begin
     begin
       with dmLoan.dstLoanCharge do
       begin
+        Locate('charge_type',charge.ChargeType,[]);
         Edit;
         FieldByName('charge_amt').AsFloat := charge.Amount;
         Post;
@@ -757,15 +762,19 @@ var
   rcp: TReleaseRecipient;
 begin
   len := Length(FReleaseRecipients);
-  ii := -1;
+
+  ii := 0;
 
   for i := 0 to len - 1 do
   begin
     rcp := FReleaseRecipients[i];
-    if (rcp.Recipient.Id = rec.Recipient.Id) and (rcp.ReleaseMethod.Id = rec.ReleaseMethod.Id) then ii := i + 1
-    else Inc(ii);
-
-    FReleaseRecipients[i] := FReleaseRecipients[ii];
+    if (rcp.Recipient.Id = rec.Recipient.Id) and (rcp.ReleaseMethod.Id = rec.ReleaseMethod.Id) then
+      Continue
+    else
+    begin
+      FReleaseRecipients[ii] := rcp;
+      Inc(ii);
+    end;
   end;
 
   SetLength(FReleaseRecipients,Length(FReleaseRecipients) - 1);
@@ -955,7 +964,7 @@ begin
   begin
     rcp := FReleaseRecipients[i];
     if (rcp.Recipient.Id = recipient) and
-        (rcp.LocationCode = location) and
+        (Trim(rcp.LocationCode) = Trim(location)) and
         (rcp.ReleaseMethod.Id = method) then
     begin
       Result := true;

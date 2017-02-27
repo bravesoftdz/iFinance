@@ -192,7 +192,6 @@ inherited frmComakerDetail: TfrmComakerDetail
             DataSource = dmComaker.dscPersonalInfo
             DataField = 'middlename'
             CharCase = ecUpperCase
-            FocusColor = 14273211
             FrameColor = 8675134
             FrameVisible = True
             FramingPreference = fpCustomFraming
@@ -208,7 +207,6 @@ inherited frmComakerDetail: TfrmComakerDetail
             DataSource = dmComaker.dscPersonalInfo
             DataField = 'firstname'
             CharCase = ecUpperCase
-            FocusColor = 14273211
             FrameColor = 8675134
             FrameVisible = True
             FramingPreference = fpCustomFraming
@@ -225,7 +223,6 @@ inherited frmComakerDetail: TfrmComakerDetail
             DataField = 'lastname'
             CharCase = ecUpperCase
             Ctl3D = True
-            FocusColor = 14273211
             FrameColor = 8675134
             FrameVisible = True
             FramingPreference = fpCustomFraming

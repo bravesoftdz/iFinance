@@ -9,7 +9,7 @@ type
   TLoanClassification = class
   private
     FClassificationId: integer;
-    FGroupId: integer;
+    FGroupId: string;
     FClassificationName: string;
     FInterest: real;
     FTerm: integer;
@@ -36,10 +36,10 @@ type
     procedure RemoveClassCharge(const cgType: string);
     procedure EmptyClassCharges;
 
-    function ClassChargeExists(const cgType: string): boolean;
+    function ClassChargeExists(const cgType: string; const forNew, forRenewal: boolean): boolean;
 
     property ClassificationId: integer read FClassificationId write FClassificationId;
-    property GroupId: integer read FGroupId write FGroupId;
+    property GroupId: string read FGroupId write FGroupId;
     property ClassificationName: string read FClassificationName write FClassificationName;
     property Interest: real read FInterest write FInterest;
     property Term: integer read FTerm write FTerm;
@@ -55,7 +55,7 @@ type
     property HasMaxAge: boolean read GetHasMaxAge;
     property HasConcurrent: boolean read GetHasConcurrent;
 
-    constructor Create(const classificationId, groupId: integer; const classificationName: string;
+    constructor Create(const classificationId: integer; const groupId, classificationName: string;
         const interest: real; const term: integer; const maxLoan: real;
         const comakers: integer; const validFrom, validUntil: TDate; const age: integer;
         const lt: TLoanType);
@@ -66,7 +66,7 @@ var
 
 implementation
 
-constructor TLoanClassification.Create(const classificationId, groupId: integer; const classificationName: string;
+constructor TLoanClassification.Create(const classificationId: integer; const groupId, classificationName: string;
         const interest: real; const term: integer; const maxLoan: real; const comakers: integer;
         const validFrom, validUntil: TDate; const age: integer; const lt: TLoanType);
 begin
@@ -85,7 +85,7 @@ end;
 
 procedure TLoanClassification.AddClassCharge(cg: TLoanClassCharge);
 begin
-  if not ClassChargeExists(cg.ChargeType) then
+  if not ClassChargeExists(cg.ChargeType,cg.ForNew,cg.ForRenewal) then
   begin
     SetLength(FClassCharges,Length(FClassCharges) + 1);
     FClassCharges[Length(FClassCharges) - 1] := cg;
@@ -139,7 +139,7 @@ begin
   Result := FClassCharges[i];
 end;
 
-function TLoanClassification.ClassChargeExists(const cgType: string): boolean;
+function TLoanClassification.ClassChargeExists(const cgType: string; const forNew, forRenewal: boolean): boolean;
 var
   i, len: integer;
   ch: TLoanClassCharge;
@@ -153,8 +153,11 @@ begin
     ch := FClassCharges[i];
     if ch.ChargeType = cgType then
     begin
-      Result := true;
-      Exit;
+      if (ch.ForNew = forNew) or (ch.ForRenewal = forRenewal) then
+      begin
+        Result := true;
+        Exit;
+      end;
     end;
   end;
 end;

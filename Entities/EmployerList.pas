@@ -8,7 +8,7 @@ uses
   System.ImageList, Vcl.ImgList, JvImageList, RzButton, Vcl.StdCtrls, Vcl.Mask,
   RzEdit, RzTabs, Vcl.Grids, Vcl.DBGrids, RzDBGrid, RzLabel, Vcl.ExtCtrls,
   RzPanel, RzRadChk, RzDBChk, RzDBEdit, Vcl.DBCtrls, RzDBCmbo, JvExControls,
-  JvLabel, Vcl.Imaging.pngimage;
+  JvLabel, Vcl.Imaging.pngimage, RzCmboBx;
 
 type
   TfrmEmployerList = class(TfrmBaseGridDetail)
@@ -18,10 +18,13 @@ type
     edEmployerName: TRzDBEdit;
     JvLabel3: TJvLabel;
     RzDBMemo1: TRzDBMemo;
+    cmbBranch: TRzComboBox;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure cmbBranchChange(Sender: TObject);
   private
     { Private declarations }
+    procedure FilterList;
   public
     { Public declarations }
   protected
@@ -37,7 +40,7 @@ implementation
 {$R *.dfm}
 
 uses
-  EntitiesData, IFinanceDialogs;
+  EntitiesData, IFinanceDialogs, FormsUtil;
 
 procedure TfrmEmployerList.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
@@ -48,7 +51,26 @@ end;
 procedure TfrmEmployerList.FormCreate(Sender: TObject);
 begin
   dmEntities := TdmEntities.Create(self);
+  PopulateBranchComboBox(cmbBranch);
   inherited;
+end;
+
+procedure TfrmEmployerList.FilterList;
+var
+  filterStr: string;
+begin
+  if cmbBranch.ItemIndex > -1 then
+    filterStr := 'loc_code = ''' + cmbBranch.Value + ''''
+  else
+    filterStr := '';
+
+  grList.DataSource.DataSet.Filter := filterStr;
+end;
+
+procedure TfrmEmployerList.cmbBranchChange(Sender: TObject);
+begin
+  inherited;
+  FilterList;
 end;
 
 function TfrmEmployerList.EntryIsValid: boolean;

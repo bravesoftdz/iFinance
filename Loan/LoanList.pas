@@ -19,11 +19,9 @@ type
     grList: TRzDBGrid;
     pnlDetail: TRzPanel;
     JvLabel1: TJvLabel;
-    JvLabel12: TJvLabel;
     pnlDetailHead: TRzPanel;
     lblDetailHeadCaption: TRzLabel;
     cmbBranch: TRzComboBox;
-    RzDateTimeEdit1: TRzDateTimeEdit;
     procedure grListDblClick(Sender: TObject);
     procedure edSearchKeyChange(Sender: TObject);
   private
@@ -77,7 +75,7 @@ begin
     begin
       empl := TEmployer.Create(FieldByName('emp_id').AsString,
                         FieldByName('emp_name').AsString,
-                        FieldByName('grp_id').AsInteger,
+                        FieldByName('grp_id').AsString,
                         FieldByName('emp_add').AsString);
 
       id := FieldByName('loan_id').AsString;

@@ -117,6 +117,8 @@ type
     Selectclient1: TMenuItem;
     acSelectClient: TAction;
     lblLocation: TLabel;
+    pnlSettings: TRzPanel;
+    imgSettings: TImage;
     procedure tbAddClientClick(Sender: TObject);
     procedure lblRecentlyAddedClick(Sender: TObject);
     procedure lbxRecentDblClick(Sender: TObject);
@@ -156,6 +158,7 @@ type
     procedure imgLoanCancellationReasonListClick(Sender: TObject);
     procedure imgRejectionReasonListClick(Sender: TObject);
     procedure acSelectClientExecute(Sender: TObject);
+    procedure imgSettingsClick(Sender: TObject);
   private
     { Private declarations }
     RecentClients: TObjectList<TRecentClient>;
@@ -184,7 +187,7 @@ uses
   BanksList, DesignationList, LoanClassificationList, ConfBox, ErrorBox, ClientIntf,
   LoanMain, LoanList, LoanIntf, CompetitorList, FormsUtil, IFinanceGlobal,
   PurposeList, IFinanceDialogs, NewIntf, LoanTypeList, AccountTypeList,
-  LoanCancellationReasonList, LoanRejectionReasonList;
+  LoanCancellationReasonList, LoanRejectionReasonList, AppSettings;
 
 constructor TRecentClient.Create(const id, displayId, name: string);
 begin
@@ -493,6 +496,7 @@ begin
       fmAcctTypeList: frm := TfrmAccountTypeList.Create(Application);
       fmLoanCancelReasonList: frm := TfrmLoanCancelReasonList.Create(Application);
       fmLoanRejectReasonList: frm := TfrmLoanRejectionReasonList.Create(Application);
+      fmSettings: frm := TfrmAppSettings.Create(Application);
       else
         frm := TForm.Create(Application);
     end;
@@ -595,6 +599,11 @@ begin
     on e:Exception do
       ShowErrorBox(e.Message);
   end;
+end;
+
+procedure TfrmMain.imgSettingsClick(Sender: TObject);
+begin
+  DockForm(fmSettings);
 end;
 
 procedure TfrmMain.acGenericNewExecute(Sender: TObject);

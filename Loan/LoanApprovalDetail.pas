@@ -29,6 +29,7 @@ type
     procedure urlDesiredTermClick(Sender: TObject);
   private
     { Private declarations }
+    function ConfirmApproval: string;
   public
     { Public declarations }
   protected
@@ -96,11 +97,23 @@ begin
   else if edAppvTerm.Value > ln.DesiredTerm then
     error := 'Approved term exceeds the desired term.'
   else if edAppvAmount.Value > ln.LoanClass.MaxLoan then
-    error := 'Approved amount exceeds the maximum loanable amount for the selected loan class.';
+    error := 'Approved amount exceeds the maximum loanable amount for the selected loan class.'
+  else if edAppvAmount.Value > ln.Assessment.RecommendedAmount then
+    error := ConfirmApproval;
 
   Result := error = '';
 
   if not Result then ShowErrorBox(error);
+end;
+
+function TfrmLoanAppvDetail.ConfirmApproval: string;
+var
+  msg: string;
+begin
+  msg := 'Amount to be approved is greater than the recommended amount. Do you want to proceed?';
+
+  if ShowDecisionBox(msg) = mrYes then Result := ''
+  else Result := 'Approving process cancelled.';
 end;
 
 end.

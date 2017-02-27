@@ -1,16 +1,16 @@
 inherited frmLoanClassChargeDetail: TfrmLoanClassChargeDetail
   Caption = 'frmLoanClassChargeDetail'
-  ClientHeight = 261
+  ClientHeight = 313
   ClientWidth = 292
   OnCreate = FormCreate
   OnShow = FormShow
   ExplicitWidth = 292
-  ExplicitHeight = 261
+  ExplicitHeight = 313
   PixelsPerInch = 96
   TextHeight = 14
   inherited pnlTitle: TRzPanel
     Width = 292
-    ExplicitWidth = 303
+    ExplicitWidth = 292
     inherited imgClose: TImage
       Left = 271
       ExplicitLeft = 349
@@ -23,23 +23,23 @@ inherited frmLoanClassChargeDetail: TfrmLoanClassChargeDetail
   end
   inherited pnlMain: TRzPanel
     Width = 292
-    Height = 240
-    ExplicitWidth = 303
-    ExplicitHeight = 240
+    Height = 292
+    ExplicitWidth = 292
+    ExplicitHeight = 292
     inherited pnlDetail: TRzPanel
       Width = 276
-      Height = 194
-      ExplicitWidth = 287
-      ExplicitHeight = 194
+      Height = 246
+      ExplicitWidth = 276
+      ExplicitHeight = 246
       inherited pcDetail: TRzPageControl
         Width = 274
-        Height = 192
-        ExplicitWidth = 285
-        ExplicitHeight = 192
+        Height = 244
+        ExplicitWidth = 274
+        ExplicitHeight = 244
         FixedDimension = 20
         inherited tsDetail: TRzTabSheet
-          ExplicitWidth = 285
-          ExplicitHeight = 192
+          ExplicitWidth = 274
+          ExplicitHeight = 244
           object JvLabel1: TJvLabel
             Left = 19
             Top = 23
@@ -143,10 +143,10 @@ inherited frmLoanClassChargeDetail: TfrmLoanClassChargeDetail
             Height = 22
             DataSource = dmLoansAux.dscClassCharges
             DataField = 'ratio_amt'
-            ReadOnly = True
             Alignment = taLeftJustify
-            Color = clWhite
             DisabledColor = 14273211
+            Enabled = False
+            FocusColor = clWhite
             FrameColor = 8675134
             FrameVisible = True
             FramingPreference = fpCustomFraming
@@ -163,10 +163,10 @@ inherited frmLoanClassChargeDetail: TfrmLoanClassChargeDetail
             Height = 22
             DataSource = dmLoansAux.dscClassCharges
             DataField = 'max_amt'
-            ReadOnly = True
             Alignment = taLeftJustify
-            Color = clWhite
-            DisabledColor = clWindow
+            DisabledColor = 14273211
+            Enabled = False
+            FocusColor = clWhite
             FrameColor = 8675134
             FrameVisible = True
             FramingPreference = fpCustomFraming
@@ -176,20 +176,70 @@ inherited frmLoanClassChargeDetail: TfrmLoanClassChargeDetail
             IntegersOnly = False
             DisplayFormat = '###,##0.00'
           end
+          object RzGroupBox2: TRzGroupBox
+            Left = 19
+            Top = 190
+            Width = 230
+            Height = 22
+            BorderColor = 6572079
+            BorderSides = []
+            BorderWidth = 1
+            Caption = 'Loan applicability'
+            CaptionFont.Charset = DEFAULT_CHARSET
+            CaptionFont.Color = clRed
+            CaptionFont.Height = -12
+            CaptionFont.Name = 'Tahoma'
+            CaptionFont.Style = [fsBold]
+            Color = 14273211
+            FlatColor = 6572079
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = 6572079
+            Font.Height = -12
+            Font.Name = 'Tahoma'
+            Font.Style = []
+            GradientColorStyle = gcsCustom
+            GroupStyle = gsUnderline
+            ParentFont = False
+            TabOrder = 5
+          end
+          object chbForNew: TRzDBCheckBox
+            Left = 19
+            Top = 213
+            Width = 44
+            Height = 16
+            DataField = 'for_new'
+            DataSource = dmLoansAux.dscClassCharges
+            ValueChecked = '1'
+            ValueUnchecked = '0'
+            Caption = 'New'
+            TabOrder = 6
+          end
+          object chbForRenewal: TRzDBCheckBox
+            Left = 83
+            Top = 213
+            Width = 65
+            Height = 16
+            DataField = 'for_renew'
+            DataSource = dmLoansAux.dscClassCharges
+            ValueChecked = '1'
+            ValueUnchecked = '0'
+            Caption = 'Renewal'
+            TabOrder = 7
+          end
         end
       end
     end
     inherited pnlCancel: TRzPanel
       Left = 234
-      Top = 209
-      ExplicitLeft = 245
-      ExplicitTop = 209
+      Top = 261
+      ExplicitLeft = 234
+      ExplicitTop = 261
     end
     inherited pnlSave: TRzPanel
       Left = 179
-      Top = 209
-      ExplicitLeft = 190
-      ExplicitTop = 209
+      Top = 261
+      ExplicitLeft = 179
+      ExplicitTop = 261
     end
   end
 end

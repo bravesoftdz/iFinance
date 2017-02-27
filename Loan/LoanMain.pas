@@ -630,8 +630,8 @@ begin
 
             if ModalResult = mrYes then
             begin
+              ln.RemoveComaker(TComaker(obj));
               lbxComakers.Items.Delete(lbxComakers.IndexOf(lbxComakers.SelectedItem));
-              ln.RemoveComaker(TComaker.Create(id));
             end;
 
             Free;

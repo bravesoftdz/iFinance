@@ -133,6 +133,7 @@ var
   ct, cn: string;
   cv, ratio, max: real;
   vt: TValueType;
+  forNew, forRenewal: boolean;
 begin
   with dstLoanClassCharges, ln do
   begin
@@ -146,8 +147,11 @@ begin
       vt := TValueType(FieldByName('value_type').AsInteger);
       ratio := FieldByName('ratio_amt').AsFloat;
       max := FieldByName('max_amt').AsFloat;
+      forNew := FieldByName('for_new').AsInteger = 1;
+      forRenewal := FieldByName('for_renew').AsInteger = 1;
 
-      LoanClass.AddClassCharge(TLoanClassCharge.Create(ct,cn,cv,vt,ratio,max));
+      LoanClass.AddClassCharge(TLoanClassCharge.Create(ct,cn,cv,vt,ratio,max,
+        forNew, forRenewal));
 
       Next;
     end;
@@ -246,9 +250,10 @@ begin
     begin
       ln.ChangeLoanStatus;
       ln.AddLoanState(lsApproved);
-      ln.ApprovedAmount := FieldByName('amt_appv').AsFloat;
-      ln.ApprovedTerm := FieldByName('terms').AsInteger;
     end;
+
+    ln.ApprovedAmount := FieldByName('amt_appv').AsFloat;
+    ln.ApprovedTerm := FieldByName('terms').AsInteger;
   end;
 end;
 
@@ -395,15 +400,15 @@ end;
 
 procedure TdmLoan.dstLoanClassAfterScroll(DataSet: TDataSet);
 var
-  clId, term, comakers, groupId, age, concurrent, loanType: integer;
-  clName, loanTypeName: string;
+  clId, term, comakers, age, concurrent, loanType: integer;
+  clName, groupId, loanTypeName: string;
   interest, maxLoan, maxTotalAmount: real;
   validFrom, validUntil: TDate;
 begin
   with DataSet do
   begin
     clId := FieldByName('class_id').AsInteger;
-    groupId := FieldByName('grp_id').AsInteger;
+    groupId := FieldByName('grp_id').AsString;
     clName := FieldByName('class_name').AsString;
     interest := FieldByName('int_rate').AsFloat;
     term := FieldByName('term').AsInteger;

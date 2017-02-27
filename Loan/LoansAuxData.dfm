@@ -12,7 +12,6 @@ object dmLoansAux: TdmLoansAux
     Tag = 1
     Connection = dmApplication.acMain
     CursorType = ctStatic
-    Filtered = True
     AfterOpen = dstLoanClassAfterOpen
     BeforePost = dstLoanClassBeforePost
     AfterPost = dstLoanClassAfterPost
@@ -32,10 +31,12 @@ object dmLoansAux: TdmLoansAux
     Tag = 1
     Connection = dmApplication.acMain
     CursorType = ctStatic
+    Filtered = True
     BeforeOpen = dstClassChargesBeforeOpen
     AfterOpen = dstClassChargesAfterOpen
     BeforePost = dstClassChargesBeforePost
     AfterPost = dstClassChargesAfterPost
+    OnCalcFields = dstClassChargesCalcFields
     OnNewRecord = dstClassChargesNewRecord
     CommandText = 'sp_get_loan_class_charges;1'
     CommandType = cmdStoredProc
@@ -56,6 +57,73 @@ object dmLoansAux: TdmLoansAux
       end>
     Left = 48
     Top = 80
+    object dstClassChargesclass_id: TIntegerField
+      FieldName = 'class_id'
+    end
+    object dstClassChargescharge_type: TStringField
+      FieldName = 'charge_type'
+      FixedChar = True
+      Size = 2
+    end
+    object dstClassChargescharge_value: TBCDField
+      FieldName = 'charge_value'
+      Precision = 8
+      Size = 2
+    end
+    object dstClassChargesvalue_type: TWordField
+      FieldName = 'value_type'
+    end
+    object dstClassChargesratio_amt: TBCDField
+      FieldName = 'ratio_amt'
+      Precision = 8
+      Size = 2
+    end
+    object dstClassChargesmax_amt: TBCDField
+      FieldName = 'max_amt'
+      Precision = 8
+      Size = 2
+    end
+    object dstClassChargesfor_new: TWordField
+      FieldName = 'for_new'
+    end
+    object dstClassChargesfor_renew: TWordField
+      FieldName = 'for_renew'
+    end
+    object dstClassChargescharge_name: TStringField
+      FieldName = 'charge_name'
+      Size = 25
+    end
+    object dstClassChargescharge_value_f: TStringField
+      FieldName = 'charge_value_f'
+      ReadOnly = True
+      Size = 13
+    end
+    object dstClassChargesratio_amt_f: TStringField
+      FieldName = 'ratio_amt_f'
+      ReadOnly = True
+      Size = 12
+    end
+    object dstClassChargesmax_amt_f: TStringField
+      FieldName = 'max_amt_f'
+      ReadOnly = True
+      Size = 12
+    end
+    object dstClassChargesfor_new_f: TStringField
+      FieldName = 'for_new_f'
+      ReadOnly = True
+      Size = 3
+    end
+    object dstClassChargesfor_renew_f: TStringField
+      FieldName = 'for_renew_f'
+      ReadOnly = True
+      Size = 3
+    end
+    object dstClassChargesvalue_type_desc: TStringField
+      FieldKind = fkCalculated
+      FieldName = 'value_type_desc'
+      Size = 25
+      Calculated = True
+    end
   end
   object dscChargeType: TDataSource
     DataSet = dstChargeType
