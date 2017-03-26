@@ -55,7 +55,7 @@ implementation
 {$R *.dfm}
 
 uses
-  AppData, Comaker, DBUtil, AppConstants, Employer, IFinanceGlobal;
+  AppData, Comaker, DBUtil, AppConstants, Employer, IFinanceGlobal, Group;
 
 procedure TdmComaker.dstAddressInfo2BeforeOpen(DataSet: TDataSet);
 begin
@@ -95,16 +95,22 @@ begin
 end;
 
 procedure TdmComaker.dstEmplInfoAfterOpen(DataSet: TDataSet);
+var
+  gp: TGroup;
 begin
   if (cm.HasId) and (DataSet.RecordCount > 0) then
   begin
     if DataSet.FieldByName('emp_id').AsString <> '' then
     begin
+      gp := TGroup.Create;
+      gp.GroupId := DataSet.FieldByName('grp_id').AsString;
+      gp.GroupName := DataSet.FieldByName('grp_name').AsString;
+
       cm.Employer := TEmployer.Create;
       cm.Employer.Id := DataSet.FieldByName('emp_id').AsString;
       cm.Employer.Name := DataSet.FieldByName('emp_name').AsString;
       cm.Employer.Address := DataSet.FieldByName('emp_add').AsString;
-      cm.Employer.GroupId := DataSet.FieldByName('grp_id').AsString;
+      cm.Employer.Group := gp;
     end;
   end;
 end;

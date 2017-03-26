@@ -78,11 +78,6 @@ object dmLoansAux: TdmLoansAux
       Precision = 8
       Size = 2
     end
-    object dstClassChargesmax_amt: TBCDField
-      FieldName = 'max_amt'
-      Precision = 8
-      Size = 2
-    end
     object dstClassChargesfor_new: TWordField
       FieldName = 'for_new'
     end
@@ -103,11 +98,6 @@ object dmLoansAux: TdmLoansAux
       ReadOnly = True
       Size = 12
     end
-    object dstClassChargesmax_amt_f: TStringField
-      FieldName = 'max_amt_f'
-      ReadOnly = True
-      Size = 12
-    end
     object dstClassChargesfor_new_f: TStringField
       FieldName = 'for_new_f'
       ReadOnly = True
@@ -123,6 +113,35 @@ object dmLoansAux: TdmLoansAux
       FieldName = 'value_type_desc'
       Size = 25
       Calculated = True
+    end
+    object dstClassChargesfor_reloan: TWordField
+      FieldName = 'for_reloan'
+    end
+    object dstClassChargesfor_restructure: TWordField
+      FieldName = 'for_restructure'
+    end
+    object dstClassChargesfor_restructure_f: TStringField
+      FieldName = 'for_restructure_f'
+      ReadOnly = True
+      Size = 3
+    end
+    object dstClassChargesfor_reloan_f: TStringField
+      FieldName = 'for_reloan_f'
+      ReadOnly = True
+      Size = 3
+    end
+    object dstClassChargesmax_value: TBCDField
+      FieldName = 'max_value'
+      Precision = 8
+      Size = 2
+    end
+    object dstClassChargesmax_value_type: TWordField
+      FieldName = 'max_value_type'
+    end
+    object dstClassChargesmax_value_f: TStringField
+      FieldName = 'max_value_f'
+      ReadOnly = True
+      Size = 12
     end
   end
   object dscChargeType: TDataSource

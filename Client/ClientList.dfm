@@ -60,7 +60,7 @@ inherited frmClientList: TfrmClientList
     Left = 6
     Top = 65
     Width = 557
-    Height = 215
+    Height = 216
     Anchors = [akLeft, akTop, akRight, akBottom]
     BorderOuter = fsNone
     BorderColor = 8675134
@@ -71,11 +71,11 @@ inherited frmClientList: TfrmClientList
       Left = 1
       Top = 1
       Width = 555
-      Height = 213
+      Height = 214
       Align = alClient
       BorderStyle = bsNone
       Color = clWhite
-      Ctl3D = True
+      Ctl3D = False
       DataSource = dmApplication.dscClients
       DrawingStyle = gdsGradient
       FixedColor = 6572079
@@ -91,6 +91,7 @@ inherited frmClientList: TfrmClientList
       TitleFont.Style = []
       OnDblClick = grListDblClick
       FrameColor = 6572079
+      FrameSides = []
       FrameStyle = fsNone
       FramingPreference = fpCustomFraming
       FixedLineColor = 6572079

@@ -23,6 +23,9 @@ type
     RzGroupBox2: TRzGroupBox;
     chbForNew: TRzDBCheckBox;
     chbForRenewal: TRzDBCheckBox;
+    chbForRestructure: TRzDBCheckBox;
+    chbForReloan: TRzDBCheckBox;
+    rbgMaxValueType: TRzDBRadioGroup;
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure rbgValueTypeChange(Sender: TObject);
@@ -64,6 +67,7 @@ begin
   inherited;
   edRatio.Enabled := TValueType(rbgValueType.ItemIndex) = vtRatio;
   edMaximum.Enabled := TValueType(rbgValueType.ItemIndex) = vtRatio;
+  rbgMaxValueType.Enabled := TValueType(rbgValueType.ItemIndex) = vtRatio;
 end;
 
 procedure TfrmLoanClassChargeDetail.Save;
@@ -89,7 +93,8 @@ begin
     if Trim(dbluType.Text) = '' then
       error := 'Please select a type.'
     else if (State = dsInsert) and (lnc.ClassChargeExists(dbluType.GetKeyValue,
-        chbForNew.Checked,chbForRenewal.Checked)) then
+        chbForNew.Checked,chbForRenewal.Checked,
+        chbForRestructure.Checked,chbForReloan.Checked)) then
       error := 'Type already exists.'
     else if Trim(edValue.Text) = '' then
       error := 'Please enter a value.'
@@ -104,7 +109,9 @@ begin
       else if Trim(edMaximum.Text) = '' then
         error := 'Please enter a maximum.'
       else if edMaximum.Value <= 0 then
-        error := 'Invalid maximum entered.';
+        error := 'Invalid maximum entered.'
+      else if rbgMaxValueType.ItemIndex = -1 then
+        error := 'Please select maximum type.';
     end
     else if (not chbForNew.Checked) and (not chbForRenewal.Checked) then
       error := 'No loan applicability selected.';

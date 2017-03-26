@@ -747,9 +747,16 @@ begin
       charge.Amount := (classCharge.ChargeValue * FReleaseAmount) / 100
     else if classCharge.ValueType = vtRatio then
     begin
-      charge.Amount := classCharge.ChargeValue * (FReleaseAmount / classCharge.RatioAmount) * FApprovedTerm;
-      if charge.Amount > classCharge.MaxAmount then
-        charge.Amount := classCharge.MaxAmount;
+      if classCharge.MaxValueType = mvtAmount then
+      begin
+        charge.Amount := classCharge.ChargeValue * (FReleaseAmount / classCharge.RatioAmount) * FApprovedTerm;
+        if charge.Amount > classCharge.MaxValue then
+          charge.Amount := classCharge.MaxValue;
+      end
+      else
+      begin
+        charge.Amount := classCharge.ChargeValue * (FReleaseAmount / classCharge.RatioAmount) * classCharge.MaxValue;
+      end;
     end;
 
     AddLoanCharge(charge,true);

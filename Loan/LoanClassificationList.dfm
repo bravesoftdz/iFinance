@@ -3,6 +3,7 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
   ClientHeight = 549
   ClientWidth = 855
   OnCreate = FormCreate
+  OnShow = FormShow
   ExplicitWidth = 871
   ExplicitHeight = 588
   PixelsPerInch = 96
@@ -53,6 +54,8 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
       TitleFont.Height = -12
       TitleFont.Name = 'Tahoma'
       TitleFont.Style = []
+      OnCellClick = grListCellClick
+      OnKeyUp = grListKeyUp
       FrameStyle = fsNone
       FramingPreference = fpCustomFraming
       AltRowShadingColor = 15854564
@@ -100,7 +103,7 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
   end
   object pnlDetail: TRzPanel
     Left = 571
-    Top = 64
+    Top = 62
     Width = 276
     Height = 479
     Anchors = [akTop, akRight, akBottom]
@@ -196,9 +199,9 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
     object JvLabel10: TJvLabel
       Left = 13
       Top = 255
-      Width = 40
+      Width = 56
       Height = 14
-      Caption = 'Validity'
+      Caption = 'Valid from'
       Transparent = True
     end
     object JvLabel14: TJvLabel
@@ -207,6 +210,14 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
       Width = 73
       Height = 14
       Caption = 'Max. amount'
+      Transparent = True
+    end
+    object JvLabel11: TJvLabel
+      Left = 13
+      Top = 279
+      Width = 54
+      Height = 14
+      Caption = 'Valid until'
       Transparent = True
     end
     object pnlAdd: TRzPanel
@@ -263,25 +274,6 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
         ParentFont = False
         Transparent = True
       end
-    end
-    object dbluGroup: TRzDBLookupComboBox
-      Left = 88
-      Top = 57
-      Width = 176
-      Height = 22
-      DataField = 'grp_id'
-      DataSource = dmLoansAux.dscLoanClass
-      KeyField = 'grp_id'
-      ListField = 'grp_name'
-      ListSource = dmAux.dscGroups
-      TabOrder = 3
-      OnClick = dbluGroupClick
-      FlatButtons = True
-      FrameColor = 8675134
-      FrameHotColor = clBlack
-      FrameVisible = True
-      FramingPreference = fpCustomFraming
-      TabOnEnter = True
     end
     object edClassName: TRzDBEdit
       Left = 88
@@ -445,10 +437,12 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
     object dteFrom: TRzDBDateTimeEdit
       Left = 88
       Top = 249
-      Width = 86
+      Width = 105
       Height = 22
       DataSource = dmLoansAux.dscLoanClass
       DataField = 'valid_from'
+      DisabledColor = 14273211
+      Enabled = False
       FrameColor = 8675134
       FrameVisible = True
       FramingPreference = fpCustomFraming
@@ -459,12 +453,14 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
       FlatButtons = True
     end
     object dteUntil: TRzDBDateTimeEdit
-      Left = 178
-      Top = 249
-      Width = 86
+      Left = 88
+      Top = 273
+      Width = 105
       Height = 22
       DataSource = dmLoansAux.dscLoanClass
       DataField = 'valid_until'
+      DisabledColor = 14273211
+      Enabled = False
       FrameColor = 8675134
       FrameVisible = True
       FramingPreference = fpCustomFraming
@@ -488,6 +484,83 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
       FramingPreference = fpCustomFraming
       TabOnEnter = True
       TabOrder = 9
+    end
+    object bteGroup: TRzButtonEdit
+      Tag = 1
+      Left = 88
+      Top = 57
+      Width = 176
+      Height = 22
+      Text = ''
+      Color = clWhite
+      FrameColor = 8675134
+      FrameVisible = True
+      FramingPreference = fpCustomFraming
+      ParentShowHint = False
+      ReadOnly = True
+      ReadOnlyColor = clWhite
+      ShowHint = True
+      TabOnEnter = True
+      TabOrder = 3
+      AllowKeyEdit = False
+      AltBtnHint = 'Clear group'
+      ButtonHint = 'Find group'
+      AltBtnKind = bkReject
+      ButtonKind = bkFind
+      AltBtnWidth = 15
+      ButtonWidth = 15
+      FlatButtons = True
+      FlatButtonColor = 8675134
+      HideButtonsOnReadOnly = False
+      OnButtonClick = bteGroupButtonClick
+    end
+    object pnlActivate: TRzPanel
+      Left = 144
+      Top = 449
+      Width = 53
+      Height = 22
+      Anchors = [akRight, akBottom]
+      BorderOuter = fsNone
+      BorderColor = 6572079
+      BorderWidth = 1
+      Color = 12955288
+      TabOrder = 15
+      object sbtnActivate: TRzShapeButton
+        Left = 0
+        Top = 0
+        Width = 53
+        Height = 22
+        Hint = 'Add a new record'
+        BorderStyle = bsNone
+        Caption = 'Activate'
+        ParentShowHint = False
+        ShowHint = True
+        OnClick = sbtnActivateClick
+      end
+    end
+    object RzPanel3: TRzPanel
+      Left = 203
+      Top = 449
+      Width = 65
+      Height = 22
+      Anchors = [akRight, akBottom]
+      BorderOuter = fsNone
+      BorderColor = 6572079
+      BorderWidth = 1
+      Color = 12955288
+      TabOrder = 16
+      object RzShapeButton1: TRzShapeButton
+        Left = 0
+        Top = 0
+        Width = 65
+        Height = 22
+        Hint = 'Add a new record'
+        BorderStyle = bsNone
+        Caption = 'Deactivate'
+        ParentShowHint = False
+        ShowHint = True
+        OnClick = sbtnNewClick
+      end
     end
   end
   object cmbBranch: TRzComboBox
@@ -553,7 +626,7 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
           Title.Font.Height = -12
           Title.Font.Name = 'Tahoma'
           Title.Font.Style = [fsBold]
-          Width = 180
+          Width = 130
           Visible = True
         end
         item
@@ -567,7 +640,7 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
           Title.Font.Height = -12
           Title.Font.Name = 'Tahoma'
           Title.Font.Style = [fsBold]
-          Width = 80
+          Width = 60
           Visible = True
         end
         item
@@ -594,13 +667,13 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
           Title.Font.Height = -12
           Title.Font.Name = 'Tahoma'
           Title.Font.Style = [fsBold]
-          Width = 80
+          Width = 60
           Visible = True
         end
         item
           Alignment = taRightJustify
           Expanded = False
-          FieldName = 'max_amt_f'
+          FieldName = 'max_value_f'
           Title.Alignment = taCenter
           Title.Caption = 'Maximum'
           Title.Font.Charset = DEFAULT_CHARSET
@@ -608,33 +681,59 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
           Title.Font.Height = -12
           Title.Font.Name = 'Tahoma'
           Title.Font.Style = [fsBold]
-          Width = 80
+          Width = 65
           Visible = True
         end
         item
           Expanded = False
           FieldName = 'for_new_f'
           Title.Alignment = taCenter
-          Title.Caption = 'New'
+          Title.Caption = 'NW'
           Title.Font.Charset = DEFAULT_CHARSET
           Title.Font.Color = clWindowText
           Title.Font.Height = -12
           Title.Font.Name = 'Tahoma'
           Title.Font.Style = [fsBold]
-          Width = 50
+          Width = 30
           Visible = True
         end
         item
           Expanded = False
           FieldName = 'for_renew_f'
           Title.Alignment = taCenter
-          Title.Caption = 'Renew'
+          Title.Caption = 'RN'
           Title.Font.Charset = DEFAULT_CHARSET
           Title.Font.Color = clWindowText
           Title.Font.Height = -12
           Title.Font.Name = 'Tahoma'
           Title.Font.Style = [fsBold]
-          Width = 50
+          Width = 30
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'for_restructure_f'
+          Title.Alignment = taCenter
+          Title.Caption = 'RS'
+          Title.Font.Charset = DEFAULT_CHARSET
+          Title.Font.Color = clWindowText
+          Title.Font.Height = -12
+          Title.Font.Name = 'Tahoma'
+          Title.Font.Style = [fsBold]
+          Width = 30
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'for_reloan_f'
+          Title.Alignment = taCenter
+          Title.Caption = 'RL'
+          Title.Font.Charset = DEFAULT_CHARSET
+          Title.Font.Color = clWindowText
+          Title.Font.Height = -12
+          Title.Font.Name = 'Tahoma'
+          Title.Font.Style = [fsBold]
+          Width = 30
           Visible = True
         end>
     end

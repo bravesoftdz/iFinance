@@ -1,11 +1,11 @@
 inherited frmLoanClassChargeDetail: TfrmLoanClassChargeDetail
   Caption = 'frmLoanClassChargeDetail'
-  ClientHeight = 313
+  ClientHeight = 336
   ClientWidth = 292
   OnCreate = FormCreate
   OnShow = FormShow
   ExplicitWidth = 292
-  ExplicitHeight = 313
+  ExplicitHeight = 336
   PixelsPerInch = 96
   TextHeight = 14
   inherited pnlTitle: TRzPanel
@@ -23,23 +23,23 @@ inherited frmLoanClassChargeDetail: TfrmLoanClassChargeDetail
   end
   inherited pnlMain: TRzPanel
     Width = 292
-    Height = 292
+    Height = 315
     ExplicitWidth = 292
-    ExplicitHeight = 292
+    ExplicitHeight = 315
     inherited pnlDetail: TRzPanel
       Width = 276
-      Height = 246
+      Height = 269
       ExplicitWidth = 276
-      ExplicitHeight = 246
+      ExplicitHeight = 269
       inherited pcDetail: TRzPageControl
         Width = 274
-        Height = 244
+        Height = 267
         ExplicitWidth = 274
-        ExplicitHeight = 244
+        ExplicitHeight = 267
         FixedDimension = 20
         inherited tsDetail: TRzTabSheet
           ExplicitWidth = 274
-          ExplicitHeight = 244
+          ExplicitHeight = 267
           object JvLabel1: TJvLabel
             Left = 19
             Top = 23
@@ -58,7 +58,7 @@ inherited frmLoanClassChargeDetail: TfrmLoanClassChargeDetail
           end
           object JvLabel3: TJvLabel
             Left = 19
-            Top = 133
+            Top = 117
             Width = 33
             Height = 14
             Caption = 'Ratio '
@@ -66,7 +66,7 @@ inherited frmLoanClassChargeDetail: TfrmLoanClassChargeDetail
           end
           object JvLabel4: TJvLabel
             Left = 19
-            Top = 157
+            Top = 141
             Width = 52
             Height = 14
             Caption = 'Maximum'
@@ -75,8 +75,8 @@ inherited frmLoanClassChargeDetail: TfrmLoanClassChargeDetail
           object rbgValueType: TRzDBRadioGroup
             Left = 73
             Top = 65
-            Width = 196
-            Height = 56
+            Width = 176
+            Height = 40
             DataField = 'value_type'
             DataSource = dmLoansAux.dscClassCharges
             Items.Strings = (
@@ -92,6 +92,7 @@ inherited frmLoanClassChargeDetail: TfrmLoanClassChargeDetail
             BorderSides = []
             Caption = ''
             Color = 14273211
+            Columns = 2
             FlatColor = 14273211
             GroupStyle = gsCustom
             TabOnEnter = True
@@ -138,7 +139,7 @@ inherited frmLoanClassChargeDetail: TfrmLoanClassChargeDetail
           end
           object edRatio: TRzDBNumericEdit
             Left = 81
-            Top = 127
+            Top = 111
             Width = 168
             Height = 22
             DataSource = dmLoansAux.dscClassCharges
@@ -158,11 +159,11 @@ inherited frmLoanClassChargeDetail: TfrmLoanClassChargeDetail
           end
           object edMaximum: TRzDBNumericEdit
             Left = 81
-            Top = 151
+            Top = 135
             Width = 168
             Height = 22
             DataSource = dmLoansAux.dscClassCharges
-            DataField = 'max_amt'
+            DataField = 'max_value'
             Alignment = taLeftJustify
             DisabledColor = 14273211
             Enabled = False
@@ -200,7 +201,7 @@ inherited frmLoanClassChargeDetail: TfrmLoanClassChargeDetail
             GradientColorStyle = gcsCustom
             GroupStyle = gsUnderline
             ParentFont = False
-            TabOrder = 5
+            TabOrder = 6
           end
           object chbForNew: TRzDBCheckBox
             Left = 19
@@ -212,10 +213,10 @@ inherited frmLoanClassChargeDetail: TfrmLoanClassChargeDetail
             ValueChecked = '1'
             ValueUnchecked = '0'
             Caption = 'New'
-            TabOrder = 6
+            TabOrder = 7
           end
           object chbForRenewal: TRzDBCheckBox
-            Left = 83
+            Left = 115
             Top = 213
             Width = 65
             Height = 16
@@ -224,22 +225,73 @@ inherited frmLoanClassChargeDetail: TfrmLoanClassChargeDetail
             ValueChecked = '1'
             ValueUnchecked = '0'
             Caption = 'Renewal'
-            TabOrder = 7
+            TabOrder = 8
+          end
+          object chbForRestructure: TRzDBCheckBox
+            Left = 19
+            Top = 235
+            Width = 83
+            Height = 16
+            DataField = 'for_restructure'
+            DataSource = dmLoansAux.dscClassCharges
+            ValueChecked = '1'
+            ValueUnchecked = '0'
+            Caption = 'Restructure'
+            TabOrder = 9
+          end
+          object chbForReloan: TRzDBCheckBox
+            Left = 115
+            Top = 235
+            Width = 55
+            Height = 16
+            DataField = 'for_reloan'
+            DataSource = dmLoansAux.dscClassCharges
+            ValueChecked = '1'
+            ValueUnchecked = '0'
+            Caption = 'Reloan'
+            TabOrder = 10
+          end
+          object rbgMaxValueType: TRzDBRadioGroup
+            Left = 73
+            Top = 158
+            Width = 160
+            Height = 23
+            DataField = 'max_value_type'
+            DataSource = dmLoansAux.dscClassCharges
+            Items.Strings = (
+              'Months'
+              'Amount')
+            Values.Strings = (
+              '0'
+              '1'
+              '2')
+            OnChange = rbgValueTypeChange
+            BorderColor = 15263976
+            BorderSides = []
+            Caption = ''
+            Color = 14273211
+            Columns = 2
+            FlatColor = 14273211
+            GroupStyle = gsCustom
+            TabOnEnter = True
+            TabOrder = 5
+            TabStop = True
+            OnClick = rbgValueTypeChange
           end
         end
       end
     end
     inherited pnlCancel: TRzPanel
       Left = 234
-      Top = 261
+      Top = 284
       ExplicitLeft = 234
-      ExplicitTop = 261
+      ExplicitTop = 284
     end
     inherited pnlSave: TRzPanel
       Left = 179
-      Top = 261
+      Top = 284
       ExplicitLeft = 179
-      ExplicitTop = 261
+      ExplicitTop = 284
     end
   end
 end

@@ -8,25 +8,32 @@ uses
   System.ImageList, Vcl.ImgList, JvImageList, RzButton, Vcl.StdCtrls, Vcl.Mask,
   RzEdit, RzTabs, Vcl.Grids, Vcl.DBGrids, RzDBGrid, RzLabel, Vcl.ExtCtrls,
   RzPanel, RzRadChk, RzDBChk, RzDBEdit, Vcl.DBCtrls, RzDBCmbo, JvExControls,
-  JvLabel, Vcl.Imaging.pngimage, RzCmboBx;
+  JvLabel, Vcl.Imaging.pngimage, RzCmboBx, RzBtnEdt,  RzDBBnEd;
 
 type
   TfrmEmployerList = class(TfrmBaseGridDetail)
     JvLabel1: TJvLabel;
     JvLabel2: TJvLabel;
-    dbluGroup: TRzDBLookupComboBox;
     edEmployerName: TRzDBEdit;
     JvLabel3: TJvLabel;
     RzDBMemo1: TRzDBMemo;
     cmbBranch: TRzComboBox;
+    bteGroup: TRzButtonEdit;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure cmbBranchChange(Sender: TObject);
+    procedure sbtnNewClick(Sender: TObject);
+    procedure bteGroupButtonClick(Sender: TObject);
+    procedure grListCellClick(Column: TColumn);
+    procedure grListKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure FormShow(Sender: TObject);
   private
     { Private declarations }
     procedure FilterList;
+    procedure SetUnboundControls;
   public
     { Public declarations }
+    procedure Cancel; override;
   protected
     function EntryIsValid: boolean; override;
     procedure SearchList; override;
@@ -40,18 +47,86 @@ implementation
 {$R *.dfm}
 
 uses
-  EntitiesData, IFinanceDialogs, FormsUtil;
+  EntitiesData, IFinanceDialogs, FormsUtil, GroupSearch, Group, Employer;
 
 procedure TfrmEmployerList.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
   dmEntities.Free;
+
+  emp.Free;
+
   inherited;
+end;
+
+procedure TfrmEmployerList.SetUnboundControls;
+begin
+  bteGroup.Text := emp.Group.GroupName;
 end;
 
 procedure TfrmEmployerList.FormCreate(Sender: TObject);
 begin
   dmEntities := TdmEntities.Create(self);
+
   PopulateBranchComboBox(cmbBranch);
+
+  inherited;
+end;
+
+procedure TfrmEmployerList.FormShow(Sender: TObject);
+begin
+  inherited;
+  SetUnboundControls;
+end;
+
+procedure TfrmEmployerList.grListCellClick(Column: TColumn);
+begin
+  inherited;
+  SetUnboundControls;
+end;
+
+procedure TfrmEmployerList.grListKeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  inherited;
+  if Key in [VK_UP, VK_DOWN] then SetUnboundControls;
+end;
+
+procedure TfrmEmployerList.bteGroupButtonClick(Sender: TObject);
+begin
+  inherited;
+  with TfrmGroupSearch.Create(self) do
+  begin
+    try
+      try
+        grp := TGroup.Create;
+
+        ShowModal;
+
+        if ModalResult = mrOK then
+        begin
+          with grList.DataSource.DataSet do
+          begin
+            if State <> dsInsert then Edit;
+
+            FieldByName('grp_id').AsString := grp.GroupId;
+
+            bteGroup.Text := grp.GroupName;
+          end;
+        end;
+      except
+        on e: Exception do
+          ShowErrorBox(e.Message);
+      end;
+    finally
+      Free;
+    end;
+  end;
+end;
+
+procedure TfrmEmployerList.sbtnNewClick(Sender: TObject);
+begin
+  bteGroup.Clear;
+
   inherited;
 end;
 
@@ -65,6 +140,8 @@ begin
     filterStr := '';
 
   grList.DataSource.DataSet.Filter := filterStr;
+
+  SetUnboundControls;
 end;
 
 procedure TfrmEmployerList.cmbBranchChange(Sender: TObject);
@@ -78,7 +155,7 @@ var
   error: string;
 begin
   if Trim(edEmployerName.Text) = '' then error := 'Please enter an employer name.'
-  else if Trim(dbluGroup.Text) = '' then error := 'Please select a group.';
+  else if Trim(bteGroup.Text) = '' then error := 'Please select a group.';
 
   if error <> '' then ShowErrorBox(error);
 
@@ -89,6 +166,12 @@ procedure TfrmEmployerList.SearchList;
 begin
   grList.DataSource.DataSet.Locate('emp_name',edSearchKey.Text,
         [loPartialKey,loCaseInsensitive]);
+end;
+
+procedure TfrmEmployerList.Cancel;
+begin
+  inherited Cancel;
+  SetUnboundControls;
 end;
 
 end.

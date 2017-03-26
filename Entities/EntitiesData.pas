@@ -58,6 +58,9 @@ type
     procedure dstRefContactBeforePost(DataSet: TDataSet);
     procedure dstGroupsAfterPost(DataSet: TDataSet);
     procedure dstEmployersNewRecord(DataSet: TDataSet);
+    procedure dstEmployersAfterOpen(DataSet: TDataSet);
+    procedure dstEmployersAfterScroll(DataSet: TDataSet);
+    procedure dstEmployersAfterPost(DataSet: TDataSet);
   private
     { Private declarations }
   public
@@ -71,7 +74,7 @@ implementation
 
 uses
   AppData, Landlord, DBUtil, ImmediateHead, AppConstants,IFinanceGlobal,
-  Recipient, Referee;
+  Recipient, Referee, Employer, Group;
 
 {%CLASSGROUP 'Vcl.Controls.TControl'}
 
@@ -86,6 +89,35 @@ procedure TdmEntities.dstLlContactBeforePost(DataSet: TDataSet);
 begin
   if DataSet.State = dsInsert then
     DataSet.FieldByName('entity_id').AsString := llord.Id;
+end;
+
+procedure TdmEntities.dstEmployersAfterOpen(DataSet: TDataSet);
+begin
+  (DataSet as TADODataSet).Properties['Unique table'].Value := 'Employer';
+end;
+
+procedure TdmEntities.dstEmployersAfterPost(DataSet: TDataSet);
+var
+  grpId: string;
+begin
+  grpId := DataSet.FieldByName('grp_id').AsString;
+  RefreshDataSet(grpId,'grp_id',DataSet);
+end;
+
+procedure TdmEntities.dstEmployersAfterScroll(DataSet: TDataSet);
+begin
+  with DataSet do
+  begin
+    grp := TGroup.Create;
+    grp.GroupId := FieldByName('grp_id').AsString;
+    grp.GroupName := FieldByName('grp_name').AsString;
+
+    emp := TEmployer.Create;
+    emp.Id := FieldByName('emp_id').AsString;
+    emp.Name := FieldByName('emp_name').AsString;
+    emp.Address := FieldByName('emp_add').AsString;
+    emp.Group := grp;
+  end;
 end;
 
 procedure TdmEntities.dstEmployersBeforePost(DataSet: TDataSet);

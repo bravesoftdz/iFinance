@@ -112,7 +112,7 @@ implementation
 uses
   AppData, Loan, DBUtil, IFinanceGlobal, LoanClassification, Comaker, FinInfo,
   MonthlyExpense, Alert, ReleaseRecipient, Recipient, LoanCharge, LoanClassCharge,
-  LoanType, Assessment, Location;
+  LoanType, Assessment, Location, Group;
 
 {%CLASSGROUP 'Vcl.Controls.TControl'}
 
@@ -133,7 +133,8 @@ var
   ct, cn: string;
   cv, ratio, max: real;
   vt: TValueType;
-  forNew, forRenewal: boolean;
+  maxType: TMaxValueType;
+  forNew, forRenewal, forRestructure, forReloan: boolean;
 begin
   with dstLoanClassCharges, ln do
   begin
@@ -146,12 +147,15 @@ begin
       cv := FieldByName('charge_value').AsFloat;
       vt := TValueType(FieldByName('value_type').AsInteger);
       ratio := FieldByName('ratio_amt').AsFloat;
-      max := FieldByName('max_amt').AsFloat;
+      max := FieldByName('max_value').AsFloat;
+      maxType := TMaxValueType(FieldByName('max_value_type').AsInteger);
       forNew := FieldByName('for_new').AsInteger = 1;
       forRenewal := FieldByName('for_renew').AsInteger = 1;
+      forRestructure := FieldByName('for_restructure').AsInteger = 1;
+      forReloan := FieldByName('for_reloan').AsInteger = 1;
 
-      LoanClass.AddClassCharge(TLoanClassCharge.Create(ct,cn,cv,vt,ratio,max,
-        forNew, forRenewal));
+      LoanClass.AddClassCharge(TLoanClassCharge.Create(ct,cn,cv,vt,ratio,max,maxType,
+        forNew, forRenewal, forRestructure, forReloan));
 
       Next;
     end;
@@ -401,14 +405,14 @@ end;
 procedure TdmLoan.dstLoanClassAfterScroll(DataSet: TDataSet);
 var
   clId, term, comakers, age, concurrent, loanType: integer;
-  clName, groupId, loanTypeName: string;
+  clName, loanTypeName: string;
   interest, maxLoan, maxTotalAmount: real;
   validFrom, validUntil: TDate;
+  gp: TGroup;
 begin
   with DataSet do
   begin
     clId := FieldByName('class_id').AsInteger;
-    groupId := FieldByName('grp_id').AsString;
     clName := FieldByName('class_name').AsString;
     interest := FieldByName('int_rate').AsFloat;
     term := FieldByName('term').AsInteger;
@@ -425,26 +429,31 @@ begin
     maxTotalAmount := FieldByName('max_tot_amt').AsFloat;
 
     ltype := TLoanType.Create(loanType,loanTypeName,concurrent,maxTotalAmount);
+
+    // group
+    gp := TGroup.Create;
+    gp.GroupId := FieldByName('grp_id').AsString;
+    gp.GroupName := FieldByName('grp_name').AsString;
   end;
 
   if not Assigned(ln.LoanClass) then
-    ln.LoanClass := TLoanClassification.Create(clId, groupId, clName, interest,
-        term, maxLoan, comakers, validFrom, validUntil, age, ltype)
+    ln.LoanClass := TLoanClassification.Create(clId, clName, interest,
+        term, maxLoan, comakers, validFrom, validUntil, age, ltype, gp)
   else
   begin
-    with ln do
+    with ln.LoanClass do
     begin
-      LoanClass.ClassificationId := clId;
-      LoanClass.GroupId := groupId;
-      LoanClass.ClassificationName := clName;
-      LoanClass.Interest := interest;
-      LoanClass.Term := term;
-      LoanClass.MaxLoan := maxLoan;
-      LoanClass.Comakers := comakers;
-      LoanClass.ValidFrom := validFrom;
-      LoanClass.ValidUntil := validUntil;
-      LoanClass.MaxAge := age;
-      ln.LoanClass.LoanType := ltype;
+      ClassificationId := clId;
+      ClassificationName := clName;
+      Interest := interest;
+      Term := term;
+      MaxLoan := maxLoan;
+      Comakers := comakers;
+      ValidFrom := validFrom;
+      ValidUntil := validUntil;
+      MaxAge := age;
+      LoanType := ltype;
+      Group := gp;
     end;
   end;
 

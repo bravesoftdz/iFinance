@@ -193,6 +193,20 @@ object frmMain: TfrmMain
       Font.Style = []
       ParentFont = False
     end
+    object Label3: TLabel
+      Left = 265
+      Top = 651
+      Width = 111
+      Height = 14
+      Anchors = [akLeft, akBottom]
+      Caption = 'F4 - New payment'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -12
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
     object pnlNavBar: TRzPanel
       Left = 17
       Top = 86
@@ -215,7 +229,7 @@ object frmMain: TfrmMain
         Top = 1
         Width = 181
         Height = 548
-        ActivePage = nppClient
+        ActivePage = nppLoans
         Align = alClient
         BorderWidth = 0
         Background.Stretch = False
@@ -350,7 +364,7 @@ object frmMain: TfrmMain
           Background.Tile = False
           Background.Transparent = False
           Color = 14273211
-          Caption = 'Loans'
+          Caption = 'Loans and Payments'
           object urlCancelled: TRzURLLabel
             Left = 15
             Top = 90
@@ -397,7 +411,7 @@ object frmMain: TfrmMain
           end
           object RzLabel2: TRzLabel
             Left = 15
-            Top = 143
+            Top = 199
             Width = 43
             Height = 14
             Caption = 'Recent'
@@ -452,9 +466,9 @@ object frmMain: TfrmMain
           end
           object lbxRecentLoans: TRzListBox
             Left = 15
-            Top = 167
+            Top = 223
             Width = 146
-            Height = 178
+            Height = 132
             BorderStyle = bsNone
             Color = 14273211
             Font.Charset = DEFAULT_CHARSET
@@ -619,7 +633,7 @@ object frmMain: TfrmMain
       end
     end
     object pnlSave: TRzPanel
-      Left = 117
+      Left = 160
       Top = 11
       Width = 40
       Height = 40
@@ -715,7 +729,7 @@ object frmMain: TfrmMain
       end
     end
     object pnlCancel: TRzPanel
-      Left = 160
+      Left = 203
       Top = 11
       Width = 40
       Height = 40
@@ -960,7 +974,7 @@ object frmMain: TfrmMain
       end
     end
     object pnlGroups: TRzPanel
-      Left = 217
+      Left = 260
       Top = 11
       Width = 40
       Height = 40
@@ -1014,7 +1028,7 @@ object frmMain: TfrmMain
       end
     end
     object pnlEmployer: TRzPanel
-      Left = 260
+      Left = 303
       Top = 11
       Width = 40
       Height = 40
@@ -1120,7 +1134,7 @@ object frmMain: TfrmMain
       end
     end
     object pnlBank: TRzPanel
-      Left = 303
+      Left = 346
       Top = 11
       Width = 40
       Height = 40
@@ -1212,7 +1226,7 @@ object frmMain: TfrmMain
       end
     end
     object pnlDesignationList: TRzPanel
-      Left = 346
+      Left = 389
       Top = 11
       Width = 40
       Height = 40
@@ -1291,7 +1305,7 @@ object frmMain: TfrmMain
       end
     end
     object pnlCompetitor: TRzPanel
-      Left = 389
+      Left = 432
       Top = 11
       Width = 40
       Height = 40
@@ -1360,7 +1374,7 @@ object frmMain: TfrmMain
       end
     end
     object pnlLoanClass: TRzPanel
-      Left = 532
+      Left = 575
       Top = 11
       Width = 40
       Height = 40
@@ -1458,7 +1472,7 @@ object frmMain: TfrmMain
       end
     end
     object pnlPurpose: TRzPanel
-      Left = 575
+      Left = 618
       Top = 11
       Width = 40
       Height = 40
@@ -1559,7 +1573,7 @@ object frmMain: TfrmMain
       end
     end
     object pnlAcctType: TRzPanel
-      Left = 489
+      Left = 532
       Top = 11
       Width = 40
       Height = 40
@@ -1642,7 +1656,7 @@ object frmMain: TfrmMain
       end
     end
     object pnlLoanType: TRzPanel
-      Left = 446
+      Left = 489
       Top = 11
       Width = 40
       Height = 40
@@ -1725,7 +1739,7 @@ object frmMain: TfrmMain
       end
     end
     object pnlLoanCancellationReasonList: TRzPanel
-      Left = 618
+      Left = 661
       Top = 11
       Width = 40
       Height = 40
@@ -1807,7 +1821,7 @@ object frmMain: TfrmMain
       end
     end
     object pnlRejectionReasonList: TRzPanel
-      Left = 661
+      Left = 704
       Top = 11
       Width = 40
       Height = 40
@@ -1889,7 +1903,7 @@ object frmMain: TfrmMain
       end
     end
     object pnlSettings: TRzPanel
-      Left = 718
+      Left = 761
       Top = 11
       Width = 40
       Height = 40
@@ -1999,6 +2013,97 @@ object frmMain: TfrmMain
         OnMouseUp = imgAddClientMouseUp
       end
     end
+    object pnlPayment: TRzPanel
+      Left = 103
+      Top = 11
+      Width = 40
+      Height = 40
+      BorderOuter = fsNone
+      BorderColor = 6572079
+      BorderWidth = 1
+      Color = 14273211
+      TabOrder = 18
+      object imgNewPayment: TImage
+        Left = 4
+        Top = 4
+        Width = 32
+        Height = 32
+        Cursor = crHandPoint
+        Hint = 'New payment'
+        AutoSize = True
+        ParentShowHint = False
+        Picture.Data = {
+          0954506E67496D61676589504E470D0A1A0A0000000D49484452000000200000
+          00200806000000737A7AF400000006624B474400FF00FF00FFA0BDA793000000
+          097048597300000048000000480046C96B3E0000000976704167000000200000
+          00200087FA9C9D000006B84944415478DAED977D54CD771CC7DFBFFBBBF72A29
+          269525CD1C0F939131C3B479BC651EAE8A8E67624C9ECA4C9EB289118AA8E62C
+          E6501DCF246ED212239A878D469C3CCEB13C6CBF909496BA4FFB7C7FDF5BBB99
+          195B8E7FF63DE773EA7EBBDFCFE7F5797F3E9FEFEF9760369BF12A97F03F80D5
+          EFCAA018BF5D82601EF8B2A0044180D92CEC8D0F49194C1F0DD600E2C468ED4E
+          8D97C6EFAD661E30994C2F0540A150E0D2B53C646667A6AC9DA10BA02D230350
+          4E89F54F79AFEDDBFDDD5F7783C168C0CB5440292A91FFEB2DFC907B61DF9AE0
+          DD7E0CC03E387E507144E01A0AAEAF12C58CBF87102A85ABD4CF8CE73F43DF51
+          8A2ACC4B9882D8A06407B6EB343D7E70C1E2B17198F65520D42A35CC26332A0C
+          7A989EA20473A45008B29C2C23D9257D8F95CD64323F154241DF532B5510E85C
+          85BE02715313307FE334AC0EDAE5CC3C38CFF826400A1F1D8D88CDB3A052AA65
+          47DE5D3E80919C5A3BE4C11528292D41CEC58B2828BC2FEF3BD77744FB56AD60
+          6F672F833C7946A433074E1C93C1F5860ACC1B1189F0A419889EB0D34506085D
+          3F549A37621962762F846D2D1B52C1069E2D58331AAB5CB12F0AE488A9A33B7A
+          08AE0D1AC0A581A3FC37E9DE7DDCB9770FDA0F7BC9599A65883FCF291422CE5D
+          C9A3EC1FA3ACFC3142FC1750B27310357E1B0798BD61B8143A7411166C988961
+          1FF9C16030FE2513B644727426EF1C656180AB9353558998C477EEDE25F594E8
+          E0E149CA199F523605944A115BD353B070DC0A446DFB02CBC76DE1007313464A
+          9F06846171521802BC7DA9198D5501F9ECF21A8BA202BAC319F068DA8C97CA6C
+          B200286469F3AE5F83B6870F8C4653558FB0B395404A51C4CE037B307FF412AC
+          DAB9044B03377180F989A3A529834211B56511FC35BEE4C028074F3B7A0045C5
+          0F51CFA12EFA77F36673843D075329CB77AA295499E199BC9FE0D75B2B4FC5BE
+          2C3A5B4267EDEBA25F370DF74900C9997B103AFC73AC498EC2E231491CE08B4D
+          63A44FB49F21664704FC2C008C762F056373CBEE86811AAD1C2CF5900EED5BBF
+          0B93B13A00739E93974300FE72CDF764F2B32C7B5F82D2D35441614272C62E4C
+          0B988375BA955834329103846F1E2B8D1D108CF8DD51F0ED39480660B29ECC3D
+          8EB2B212D8DAD64167CFAEB2A4E9D9FBD1AAA9075434CBD6256013732DFF3A5A
+          366F88CC7389B8907F9940D888D29D4B1568EBDE029A7681C8BDF033C6FB8660
+          836E35168CD8C001BEDCFAB134AADF6424E8E230B077804CCBC84958A63AEF01
+          0A2650A00B57CECA93D0D0C995EFC9D92B5158F800595736A2A0F412FAB61F82
+          364DBAD244D59601CBCA4B917BE338D273B6C3417447D4840C6C2480B0A16B39
+          C092ED13A4E17D27227A53048C0613D5AD1EFCBD07C9D257DE74664BB733E18F
+          9DCC808B7363383BBACA500F8A0A9196B30206F10142FA47E256F1499CFF2D05
+          058F4AF93D51C70E6D1AFAC1CDA13356A5CE44BB267DA02E7F1333FD577180A5
+          3B82A4217DC762DD8E585E370A3C4C1B48E3A887D97AA0D96408221E5159AE5C
+          3F8FA287F7A9595528AE9070FAF61684FA47E2787E1C0A4A6EA29CD863FBF3C3
+          C1FB04D45252207B37BCDF38185129B3E0E932048B866DE70091BB2649BEDE63
+          B0236D3D0128E4A06CE498C44FDE054C729635EB7A567B956883133712D1AB43
+          1F3C164F53F61765B97EA79E8BE9C7CF86A409A8ADE249B839B482ADA923B2CE
+          1E41D2E47C0EB03265AA34A0F728184C1556F7BBD553E6694F040132482DA51D
+          464579226CD81464DDA0071AF5250D08CA08E0EB01FCFCA45401B62A76AFD05D
+          40D6BDC9344427C7E1C01CC8004E0B1326A438D4B3E9FAA28F61366E6AD10EDB
+          CF46609CB613F2A45358D6FBD93EE61C14D0BA61176CDE7F0219B339803D993B
+          59037659BD10015FAA5E1148F7F771C5EDA23B58D2F3D90061DF0970ABD708A9
+          076F23DD02C082DA92D9A0FA2BDAF3AED77C96E352772FC8F29793F47AFAF998
+          9A70B50F87999E21C086A2A848FE5A2A5E8663DF03FB677180FFBA9C34E1F8D6
+          B303DA3B3BF14B87F5006BC2881E1C60DE61DE84720F8840C15DE0DC19E46486
+          A34F4D00D4F518006D4B0D92BC3A51DB0A1C8229B0C08B032CCCE60AB0E0026D
+          659F022E6762745E2A743501A02673ED3E0B31CE4DA0EDD2913E51A67A02D05B
+          9ECA2A0AAC628526654EFC480ADC80EE48244268E74E4D005436F21BDD6662A9
+          6363F46BD91C7071A18C2D2D4DAF0F9024CAFA2A70FF26D2B256602E6DFF4256
+          5213006C89AC14648D9A6BE0E5DE09416A07B4B57E2DAA28466EFE29C45FCD44
+          36EDDC267B08CB6B794D2D066147561F7CA4EB58F6D862C57844768FAC90ACD4
+          B2F7AFC6EE9FCAC12E5D36D66A547F71AF202B23D3C3EA8AAD698017277ED5FF
+          9CFE01E331CDCE87E4311A0000003774455874636F6D6D656E7400416464206D
+          6F6E65792066726F6D2049636F6E2047616C6C65727920687474703A2F2F6963
+          6F6E67616C2E636F6D2F13EB34460000002574455874646174653A6372656174
+          6500323031312D30382D32315431343A31313A31302D30363A303052C6A49D00
+          00002574455874646174653A6D6F6469667900323031312D30382D3231543134
+          3A31313A31302D30363A3030239B1C210000001974455874536F667477617265
+          0041646F626520496D616765526561647971C9653C0000000049454E44AE4260
+          82}
+        ShowHint = True
+        OnClick = imgNewPaymentClick
+        OnMouseDown = imgAddClientMouseDown
+        OnMouseUp = imgAddClientMouseUp
+      end
+    end
   end
   object mmMain: TMainMenu
     Left = 232
@@ -2016,6 +2121,10 @@ object frmMain: TfrmMain
         Action = acNewLoan
         Caption = 'New Loan'
       end
+      object Newpayment1: TMenuItem
+        Caption = 'New payment'
+        ShortCut = 115
+      end
       object New1: TMenuItem
         Action = acGenericNew
       end
@@ -2027,6 +2136,12 @@ object frmMain: TfrmMain
       Caption = '&Loan'
       object Selectclient1: TMenuItem
         Caption = '&Select client'
+      end
+    end
+    object Payment1: TMenuItem
+      Caption = '&Payment'
+      object Selectclient2: TMenuItem
+        Caption = '&Add active loan'
       end
     end
   end
@@ -2057,6 +2172,16 @@ object frmMain: TfrmMain
       Caption = 'acSelectClient'
       ShortCut = 16497
       OnExecute = acSelectClientExecute
+    end
+    object acNewPayment: TAction
+      Caption = 'acNewPayment'
+      ShortCut = 115
+      OnExecute = imgNewPaymentClick
+    end
+    object acAddActiveLoan: TAction
+      Caption = 'Add Active Loan'
+      ShortCut = 16449
+      OnExecute = acAddActiveLoanExecute
     end
   end
 end

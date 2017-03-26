@@ -8,7 +8,7 @@ uses
   RzDBChk, Vcl.DBCtrls, RzDBCmbo, Vcl.StdCtrls, Vcl.Mask, RzEdit, RzDBEdit,
   JvExControls, JvLabel, RzTabs, Vcl.Grids, Vcl.DBGrids, RzDBGrid, RzLabel,
   Vcl.ExtCtrls, RzPanel, SaveIntf, RzLstBox, RzChkLst, NewIntf, RzCmboBx,
-  RzGrids;
+  RzGrids, RzBtnEdt;
 
 type
   TfrmLoanClassificationList = class(TfrmBaseDocked,ISave,INew)
@@ -24,7 +24,6 @@ type
     JvLabel5: TJvLabel;
     edComakers: TRzDBEdit;
     JvLabel6: TJvLabel;
-    dbluGroup: TRzDBLookupComboBox;
     JvLabel7: TJvLabel;
     dbluCompMethod: TRzDBLookupComboBox;
     edInterest: TRzDBNumericEdit;
@@ -55,10 +54,15 @@ type
     btnRemoveCharge: TRzShapeButton;
     cbxNew: TRzCheckBox;
     cbxRenewal: TRzCheckBox;
+    bteGroup: TRzButtonEdit;
+    pnlActivate: TRzPanel;
+    sbtnActivate: TRzShapeButton;
+    RzPanel3: TRzPanel;
+    RzShapeButton1: TRzShapeButton;
+    JvLabel11: TJvLabel;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure urlRefreshListClick(Sender: TObject);
-    procedure dbluGroupClick(Sender: TObject);
     procedure grChargesDblClick(Sender: TObject);
     procedure sbtnNewClick(Sender: TObject);
     procedure btnAddChargesClick(Sender: TObject);
@@ -66,12 +70,18 @@ type
     procedure cbxNewClick(Sender: TObject);
     procedure cbxRenewalClick(Sender: TObject);
     procedure dbluBranchClick(Sender: TObject);
+    procedure bteGroupButtonClick(Sender: TObject);
+    procedure grListCellClick(Column: TColumn);
+    procedure grListKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure FormShow(Sender: TObject);
+    procedure sbtnActivateClick(Sender: TObject);
   private
     { Private declarations }
     procedure ChangeControlState;
     procedure FilterCharges;
     function EntryIsValid: boolean;
     function ConfirmDate: string;
+    procedure SetUnboundControls;
   public
     { Public declarations }
     function Save: boolean;
@@ -88,7 +98,7 @@ implementation
 
 uses
   LoansAuxData, FormsUtil, IFinanceDialogs, AuxData, LoanClassChargeDetail, DecisionBox,
-  LoanType, LoanClassification;
+  LoanType, LoanClassification, Group, GroupUtils, GroupSearch;
 
 function TfrmLoanClassificationList.Save: boolean;
 begin
@@ -117,6 +127,11 @@ begin
   else Result := 'Saving has been cancelled.';
 end;
 
+procedure TfrmLoanClassificationList.SetUnboundControls;
+begin
+  bteGroup.Text := lnc.Group.GroupName;
+end;
+
 procedure TfrmLoanClassificationList.FilterCharges;
 var
   filter: string;
@@ -142,6 +157,12 @@ begin
   filters.Free;
 end;
 
+procedure TfrmLoanClassificationList.sbtnActivateClick(Sender: TObject);
+begin
+  inherited;
+  if not lnc.IsActive then ShowErrorBox('Loan class is already active.');
+end;
+
 procedure TfrmLoanClassificationList.sbtnNewClick(Sender: TObject);
 begin
   New;
@@ -152,8 +173,10 @@ begin
   grList.DataSource.DataSet.Append;
   ChangeControlState;
 
+  bteGroup.Clear;
+
   // focus the first control
-  dbluBranch.SetFocus;;
+  dbluBranch.SetFocus;
 end;
 
 procedure TfrmLoanClassificationList.urlRefreshListClick(Sender: TObject);
@@ -174,6 +197,8 @@ begin
       Cancel;
 
     ChangeControlState;
+
+    SetUnboundControls;
   end;
 end;
 
@@ -191,18 +216,12 @@ procedure TfrmLoanClassificationList.dbluBranchClick(Sender: TObject);
 begin
   inherited;
   // filter groups
-  with dbluGroup.ListSource.DataSet do
+  with dmAux.dstGroups do
   begin
     Filter := 'loc_code = ''' + dbluBranch.GetKeyValue + '''';
     Filtered := true;
+    PopulateGroupList(dmAux.dstGroups);
   end;
-end;
-
-procedure TfrmLoanClassificationList.dbluGroupClick(Sender: TObject);
-begin
-  inherited;
-  if dbluGroup.DataSource.DataSet.State in [dsInsert,dsEdit] then
-    edClassName.Text := dbluGroup.Text;
 end;
 
 function TfrmLoanClassificationList.EntryIsValid: boolean;
@@ -210,7 +229,7 @@ var
   error: string;
 begin
   if dbluBranch.Text = '' then error := 'Please select a branch.'
-  else if Trim(dbluGroup.Text) = '' then error := 'Please select a group.'
+  else if Trim(bteGroup.Text) = '' then error := 'Please select a group.'
   else if Trim(edClassName.Text) = '' then error := 'Please enter a class name.'
   else if dbluLoanType.Text = '' then error := 'Please select a loan type.'
   else if edInterest.Text = '' then error := 'Please enter an interest rate.'
@@ -259,6 +278,12 @@ begin
   ChangeControlState;
 end;
 
+procedure TfrmLoanClassificationList.FormShow(Sender: TObject);
+begin
+  inherited;
+  SetUnboundControls;
+end;
+
 procedure TfrmLoanClassificationList.grChargesDblClick(Sender: TObject);
 begin
   with TfrmLoanClassChargeDetail.Create(nil) do
@@ -271,6 +296,19 @@ begin
         ShowMessage(e.Message);
     end;
   end;
+end;
+
+procedure TfrmLoanClassificationList.grListCellClick(Column: TColumn);
+begin
+  inherited;
+  SetUnboundControls;
+end;
+
+procedure TfrmLoanClassificationList.grListKeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  inherited;
+  if Key in [VK_UP, VK_DOWN] then SetUnboundControls;
 end;
 
 procedure TfrmLoanClassificationList.btnRemoveChargeClick(Sender: TObject);
@@ -300,6 +338,38 @@ begin
     except
       on e: Exception do
         ShowMessage(e.Message);
+    end;
+  end;
+end;
+
+procedure TfrmLoanClassificationList.bteGroupButtonClick(Sender: TObject);
+begin
+  inherited;
+  with TfrmGroupSearch.Create(self) do
+  begin
+    try
+      try
+        grp := TGroup.Create;
+
+        ShowModal;
+
+        if ModalResult = mrOK then
+        begin
+          with grList.DataSource.DataSet do
+          begin
+            if State <> dsInsert then Edit;
+
+            FieldByName('grp_id').AsString := grp.GroupId;
+
+            bteGroup.Text := grp.GroupName;
+          end;
+        end;
+      except
+        on e: Exception do
+          ShowErrorBox(e.Message);
+      end;
+    finally
+      Free;
     end;
   end;
 end;

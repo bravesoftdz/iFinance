@@ -41,16 +41,21 @@ type
     dstClassChargescharge_value: TBCDField;
     dstClassChargesvalue_type: TWordField;
     dstClassChargesratio_amt: TBCDField;
-    dstClassChargesmax_amt: TBCDField;
     dstClassChargesfor_new: TWordField;
     dstClassChargesfor_renew: TWordField;
     dstClassChargescharge_name: TStringField;
     dstClassChargescharge_value_f: TStringField;
     dstClassChargesratio_amt_f: TStringField;
-    dstClassChargesmax_amt_f: TStringField;
     dstClassChargesfor_new_f: TStringField;
     dstClassChargesfor_renew_f: TStringField;
     dstClassChargesvalue_type_desc: TStringField;
+    dstClassChargesfor_reloan: TWordField;
+    dstClassChargesfor_restructure: TWordField;
+    dstClassChargesfor_restructure_f: TStringField;
+    dstClassChargesfor_reloan_f: TStringField;
+    dstClassChargesmax_value: TBCDField;
+    dstClassChargesmax_value_type: TWordField;
+    dstClassChargesmax_value_f: TStringField;
     procedure dstLoanClassBeforePost(DataSet: TDataSet);
     procedure dstLoanClassAfterOpen(DataSet: TDataSet);
     procedure DataModuleDestroy(Sender: TObject);
@@ -84,7 +89,7 @@ implementation
 
 uses
   AppData, DBUtil, LoanClassification, LoanClassCharge, LoanType, Loan,
-  Assessment;
+  Assessment, Group;
 
 procedure TdmLoansAux.DataModuleDestroy(Sender: TObject);
 var
@@ -118,7 +123,8 @@ var
   ct,cn: string;
   cv, ratio, max: real;
   vt: TValueType;
-  forNew, forRenewal: boolean;
+  maxType: TMaxValueType;
+  forNew, forRenewal, forRestructure, forReloan: boolean;
 begin
   (DataSet as TADODataSet).Properties['Unique Table'].Value := 'LoanClassCharge';
 
@@ -132,12 +138,15 @@ begin
       cv := FieldByName('charge_value').AsFloat;
       vt := TValueType(FieldByName('value_type').AsInteger);
       ratio := FieldByName('ratio_amt').AsFloat;
-      max := FieldByName('max_amt').AsFloat;
+      max := FieldByName('max_value').AsFloat;
+      maxType := TMaxValueType(FieldByName('max_value_type').AsInteger);
       forNew := FieldByName('for_new').AsInteger = 1;
       forRenewal := FieldByName('for_renew').AsInteger = 1;
+      forRestructure := FieldByName('for_restructure').AsInteger = 1;
+      forReloan := FieldByName('for_reloan').AsInteger = 1;
 
-      lnc.AddClassCharge(TLoanClassCharge.Create(ct,cn,cv,vt,ratio,max,
-        forNew,forRenewal));
+      lnc.AddClassCharge(TLoanClassCharge.Create(ct,cn,cv,vt,ratio,max,maxType,
+        forNew,forRenewal,forRestructure,forReloan));
 
       Next;
     end;
@@ -218,6 +227,7 @@ var
   interest, maxLoan: real;
   validFrom, validUntil: TDate;
   lt: TLoanType;
+  gp: TGroup;
 begin
   with DataSet do
   begin
@@ -236,15 +246,18 @@ begin
         FieldByName('loan_type_name').AsString,
         FieldByName('max_concurrent').AsInteger,
         FieldByName('max_tot_amt').AsInteger);
+
+    gp := TGroup.Create;
+    gp.GroupId := FieldByName('grp_id').AsString;
+    gp.GroupName := FieldByName('grp_name').AsString;
   end;
 
   if not Assigned(lnc) then
-    lnc := TLoanClassification.Create(clId, groupId, clName, interest,
-        term, maxLoan, comakers, validFrom, validUntil, age,lt)
+    lnc := TLoanClassification.Create(clId, clName, interest,
+        term, maxLoan, comakers, validFrom, validUntil, age,lt, gp)
   else
   begin
     lnc.ClassificationId := clId;
-    lnc.GroupId := groupId;
     lnc.ClassificationName := clName;
     lnc.Interest := interest;
     lnc.Term := term;
@@ -254,6 +267,7 @@ begin
     lnc.ValidUntil := validUntil;
     lnc.MaxAge := age;
     lnc.LoanType := lt;
+    lnc.Group := gp;
 
     lnc.EmptyClassCharges;
   end;

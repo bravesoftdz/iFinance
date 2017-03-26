@@ -18,6 +18,9 @@
         <Projects Include="Loan\Loan.dproj">
             <Dependencies/>
         </Projects>
+        <Projects Include="Payment\Payment.dproj">
+            <Dependencies/>
+        </Projects>
         <Projects Include="Tools\Tools.dproj">
             <Dependencies/>
         </Projects>
@@ -77,6 +80,15 @@
     <Target Name="Loan:Make">
         <MSBuild Projects="Loan\Loan.dproj" Targets="Make"/>
     </Target>
+    <Target Name="Payment">
+        <MSBuild Projects="Payment\Payment.dproj"/>
+    </Target>
+    <Target Name="Payment:Clean">
+        <MSBuild Projects="Payment\Payment.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="Payment:Make">
+        <MSBuild Projects="Payment\Payment.dproj" Targets="Make"/>
+    </Target>
     <Target Name="Tools">
         <MSBuild Projects="Tools\Tools.dproj"/>
     </Target>
@@ -96,13 +108,13 @@
         <MSBuild Projects="IFN\iFinance.dproj" Targets="Make"/>
     </Target>
     <Target Name="Build">
-        <CallTarget Targets="Base;Client;Common;Entities;Loan;Tools;iFinance"/>
+        <CallTarget Targets="Base;Client;Common;Entities;Loan;Payment;Tools;iFinance"/>
     </Target>
     <Target Name="Clean">
-        <CallTarget Targets="Base:Clean;Client:Clean;Common:Clean;Entities:Clean;Loan:Clean;Tools:Clean;iFinance:Clean"/>
+        <CallTarget Targets="Base:Clean;Client:Clean;Common:Clean;Entities:Clean;Loan:Clean;Payment:Clean;Tools:Clean;iFinance:Clean"/>
     </Target>
     <Target Name="Make">
-        <CallTarget Targets="Base:Make;Client:Make;Common:Make;Entities:Make;Loan:Make;Tools:Make;iFinance:Make"/>
+        <CallTarget Targets="Base:Make;Client:Make;Common:Make;Entities:Make;Loan:Make;Payment:Make;Tools:Make;iFinance:Make"/>
     </Target>
     <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
 </Project>

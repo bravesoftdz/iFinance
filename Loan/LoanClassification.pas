@@ -3,13 +3,15 @@ unit LoanClassification;
 interface
 
 uses
-  LoanClassCharge, LoanType, LoansAuxData;
+  LoanClassCharge, LoanType, LoansAuxData, Group;
+
+type TLoanClassAction = (lcaNone, lcaCreating, lcaActivating, lcaDeactivating);
 
 type
   TLoanClassification = class
   private
     FClassificationId: integer;
-    FGroupId: string;
+    FGroup: TGroup;
     FClassificationName: string;
     FInterest: real;
     FTerm: integer;
@@ -20,12 +22,16 @@ type
     FValidUntil: TDate;
     FClassCharges: array of TLoanClassCharge;
     FMaxAge: integer;
+    FAction: TLoanClassAction;
 
     function GetComakersNotRequired: boolean;
     function GetClassCharge(const i: integer): TLoanClassCharge;
     function GetClassChargesCount: integer;
     function GetHasMaxAge: boolean;
     function GetHasConcurrent: boolean;
+    function GetIsActive: boolean;
+    function GetIsActivated: boolean;
+    function GetIsDeactivated: boolean;
 
   public
     procedure Add;
@@ -36,10 +42,11 @@ type
     procedure RemoveClassCharge(const cgType: string);
     procedure EmptyClassCharges;
 
-    function ClassChargeExists(const cgType: string; const forNew, forRenewal: boolean): boolean;
+    function ClassChargeExists(const cgType: string;
+        const forNew, forRenewal, forRestructure, forReloan: boolean): boolean;
 
     property ClassificationId: integer read FClassificationId write FClassificationId;
-    property GroupId: string read FGroupId write FGroupId;
+    property Group: TGroup read FGroup write FGroup;
     property ClassificationName: string read FClassificationName write FClassificationName;
     property Interest: real read FInterest write FInterest;
     property Term: integer read FTerm write FTerm;
@@ -54,11 +61,15 @@ type
     property MaxAge: integer read FMaxAge write FMaxAge;
     property HasMaxAge: boolean read GetHasMaxAge;
     property HasConcurrent: boolean read GetHasConcurrent;
+    property IsActive: boolean read GetIsActive;
+    property IsActivated: boolean read GetIsActivated;
+    property IsDeactivated: boolean read GetIsDeactivated;
+    property Action: TLoanClassAction read FAction write FAction;
 
-    constructor Create(const classificationId: integer; const groupId, classificationName: string;
+    constructor Create(const classificationId: integer; classificationName: string;
         const interest: real; const term: integer; const maxLoan: real;
         const comakers: integer; const validFrom, validUntil: TDate; const age: integer;
-        const lt: TLoanType);
+        const lt: TLoanType; const gp: TGroup);
   end;
 
 var
@@ -66,12 +77,15 @@ var
 
 implementation
 
-constructor TLoanClassification.Create(const classificationId: integer; const groupId, classificationName: string;
-        const interest: real; const term: integer; const maxLoan: real; const comakers: integer;
-        const validFrom, validUntil: TDate; const age: integer; const lt: TLoanType);
+uses
+  IFinanceGlobal;
+
+constructor TLoanClassification.Create(const classificationId: integer; classificationName: string;
+        const interest: real; const term: integer; const maxLoan: real;
+        const comakers: integer; const validFrom, validUntil: TDate; const age: integer;
+        const lt: TLoanType; const gp: TGroup);
 begin
   FClassificationId := classificationId;
-  FGroupId := groupId;
   FClassificationName := classificationName;
   FInterest := interest;
   FTerm := term;
@@ -81,11 +95,16 @@ begin
   FValidUntil := validUntil;
   FMaxAge := age;
   FLoanType := lt;
+  FGroup := gp;
+
+  // set action
+  if IsActive then FAction := lcaNone
+  else FAction := lcaCreating;
 end;
 
 procedure TLoanClassification.AddClassCharge(cg: TLoanClassCharge);
 begin
-  if not ClassChargeExists(cg.ChargeType,cg.ForNew,cg.ForRenewal) then
+  if not ClassChargeExists(cg.ChargeType,cg.ForNew,cg.ForRenewal,cg.ForRestructure,cg.ForReloan) then
   begin
     SetLength(FClassCharges,Length(FClassCharges) + 1);
     FClassCharges[Length(FClassCharges) - 1] := cg;
@@ -139,7 +158,8 @@ begin
   Result := FClassCharges[i];
 end;
 
-function TLoanClassification.ClassChargeExists(const cgType: string; const forNew, forRenewal: boolean): boolean;
+function TLoanClassification.ClassChargeExists(const cgType: string;
+  const forNew, forRenewal, forRestructure, forReloan: boolean): boolean;
 var
   i, len: integer;
   ch: TLoanClassCharge;
@@ -153,7 +173,8 @@ begin
     ch := FClassCharges[i];
     if ch.ChargeType = cgType then
     begin
-      if (ch.ForNew = forNew) or (ch.ForRenewal = forRenewal) then
+      if (ch.ForNew = forNew) or (ch.ForRenewal = forRenewal) or
+         (ch.ForRestructure = forRestructure) or (ch.ForReloan = forReloan) then
       begin
         Result := true;
         Exit;
@@ -175,6 +196,22 @@ end;
 function TLoanClassification.GetHasConcurrent: boolean;
 begin
   Result := FLoanType.MaxConcurrent > 0;
+end;
+
+function TLoanClassification.GetIsActive: boolean;
+begin
+  Result := (FValidFrom <> 0) and
+            ((FValidFrom > ifn.AppDate) and (FValidUntil < ifn.AppDate));
+end;
+
+function TLoanClassification.GetIsActivated: boolean;
+begin
+  Result := (FValidFrom <> 0)
+end;
+
+function TLoanClassification.GetIsDeactivated: boolean;
+begin
+  Result := (FValidUntil <> 0)
 end;
 
 end.

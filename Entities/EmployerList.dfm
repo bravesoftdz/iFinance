@@ -12,6 +12,8 @@ inherited frmEmployerList: TfrmEmployerList
   inherited pnlList: TRzPanel
     inherited grList: TRzDBGrid
       DataSource = dmEntities.dscEmployers
+      OnCellClick = grListCellClick
+      OnKeyUp = grListKeyUp
       Columns = <
         item
           Expanded = False
@@ -23,7 +25,33 @@ inherited frmEmployerList: TfrmEmployerList
           Title.Font.Height = -12
           Title.Font.Name = 'Tahoma'
           Title.Font.Style = [fsBold]
-          Width = 400
+          Width = 230
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'emp_add'
+          Title.Alignment = taCenter
+          Title.Caption = 'Address'
+          Title.Font.Charset = DEFAULT_CHARSET
+          Title.Font.Color = clWindowText
+          Title.Font.Height = -12
+          Title.Font.Name = 'Tahoma'
+          Title.Font.Style = [fsBold]
+          Width = 230
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'grp_name'
+          Title.Alignment = taCenter
+          Title.Caption = 'Group'
+          Title.Font.Charset = DEFAULT_CHARSET
+          Title.Font.Color = clWindowText
+          Title.Font.Height = -12
+          Title.Font.Name = 'Tahoma'
+          Title.Font.Style = [fsBold]
+          Width = 150
           Visible = True
         end>
     end
@@ -86,26 +114,6 @@ inherited frmEmployerList: TfrmEmployerList
     inherited pnlDetailHead: TRzPanel
       TabOrder = 4
     end
-    object dbluGroup: TRzDBLookupComboBox
-      Left = 63
-      Top = 112
-      Width = 201
-      Height = 22
-      DataField = 'grp_id'
-      DataSource = dmEntities.dscEmployers
-      KeyField = 'grp_id'
-      ListField = 'grp_name'
-      ListSource = dmEntities.dscGroups
-      TabOrder = 2
-      FlatButtonColor = 8675134
-      FlatButtons = True
-      DisabledColor = clWhite
-      FrameColor = 8675134
-      FrameHotColor = clBlack
-      FrameVisible = True
-      FramingPreference = fpCustomFraming
-      TabOnEnter = True
-    end
     object edEmployerName: TRzDBEdit
       Left = 63
       Top = 33
@@ -134,6 +142,35 @@ inherited frmEmployerList: TfrmEmployerList
       FrameVisible = True
       FramingPreference = fpCustomFraming
       TabOnEnter = True
+    end
+    object bteGroup: TRzButtonEdit
+      Tag = 1
+      Left = 63
+      Top = 112
+      Width = 201
+      Height = 22
+      Text = ''
+      Color = clWhite
+      FrameColor = 8675134
+      FrameVisible = True
+      FramingPreference = fpCustomFraming
+      ParentShowHint = False
+      ReadOnly = True
+      ReadOnlyColor = clWhite
+      ShowHint = True
+      TabOnEnter = True
+      TabOrder = 2
+      AllowKeyEdit = False
+      AltBtnHint = 'Clear referee'
+      ButtonHint = 'Find group'
+      AltBtnKind = bkReject
+      ButtonKind = bkFind
+      AltBtnWidth = 15
+      ButtonWidth = 15
+      FlatButtons = True
+      FlatButtonColor = 8675134
+      HideButtonsOnReadOnly = False
+      OnButtonClick = bteGroupButtonClick
     end
   end
 end

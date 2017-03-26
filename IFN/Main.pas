@@ -119,6 +119,14 @@ type
     lblLocation: TLabel;
     pnlSettings: TRzPanel;
     imgSettings: TImage;
+    pnlPayment: TRzPanel;
+    imgNewPayment: TImage;
+    Newpayment1: TMenuItem;
+    acNewPayment: TAction;
+    Label3: TLabel;
+    Payment1: TMenuItem;
+    Selectclient2: TMenuItem;
+    acAddActiveLoan: TAction;
     procedure tbAddClientClick(Sender: TObject);
     procedure lblRecentlyAddedClick(Sender: TObject);
     procedure lbxRecentDblClick(Sender: TObject);
@@ -159,6 +167,8 @@ type
     procedure imgRejectionReasonListClick(Sender: TObject);
     procedure acSelectClientExecute(Sender: TObject);
     procedure imgSettingsClick(Sender: TObject);
+    procedure imgNewPaymentClick(Sender: TObject);
+    procedure acAddActiveLoanExecute(Sender: TObject);
   private
     { Private declarations }
     RecentClients: TObjectList<TRecentClient>;
@@ -187,7 +197,8 @@ uses
   BanksList, DesignationList, LoanClassificationList, ConfBox, ErrorBox, ClientIntf,
   LoanMain, LoanList, LoanIntf, CompetitorList, FormsUtil, IFinanceGlobal,
   PurposeList, IFinanceDialogs, NewIntf, LoanTypeList, AccountTypeList,
-  LoanCancellationReasonList, LoanRejectionReasonList, AppSettings;
+  LoanCancellationReasonList, LoanRejectionReasonList, AppSettings,
+  PaymentMain, PaymentIntf;
 
 constructor TRecentClient.Create(const id, displayId, name: string);
 begin
@@ -497,6 +508,7 @@ begin
       fmLoanCancelReasonList: frm := TfrmLoanCancelReasonList.Create(Application);
       fmLoanRejectReasonList: frm := TfrmLoanRejectionReasonList.Create(Application);
       fmSettings: frm := TfrmAppSettings.Create(Application);
+      fmPaymentMain: frm := TfrmPaymentMain.Create(Application);
       else
         frm := TForm.Create(Application);
     end;
@@ -577,6 +589,11 @@ begin
   DockForm(fmLoanTypeList);
 end;
 
+procedure TfrmMain.imgNewPaymentClick(Sender: TObject);
+begin
+  DockForm(fmPaymentMain);
+end;
+
 procedure TfrmMain.imgPurposeClick(Sender: TObject);
 begin
   DockForm(fmPurposeList);
@@ -614,6 +631,20 @@ begin
     if pnlDockMain.ControlCount > 0 then
       if Supports(pnlDockMain.Controls[0] as TForm,INew,intf) then
         intf.New;
+  except
+    on e:Exception do
+      ShowErrorBox(e.Message);
+  end;
+end;
+
+procedure TfrmMain.acAddActiveLoanExecute(Sender: TObject);
+var
+  intf: IPayment;
+begin
+  try
+    if pnlDockMain.ControlCount > 0 then
+      if Supports(pnlDockMain.Controls[0] as TForm,IPayment,intf) then
+        intf.AddActiveLoan;
   except
     on e:Exception do
       ShowErrorBox(e.Message);
@@ -686,7 +717,7 @@ begin
     end;
 
     RecentLoans.Add(ll);
-    lbxRecentLoans.Items.AddObject(ll.Id,ll);
+    lbxRecentLoans.Items.AddObject(ll.Client.Name,ll);
   end;
 end;
 

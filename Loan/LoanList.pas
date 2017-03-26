@@ -75,8 +75,7 @@ begin
     begin
       empl := TEmployer.Create(FieldByName('emp_id').AsString,
                         FieldByName('emp_name').AsString,
-                        FieldByName('grp_id').AsString,
-                        FieldByName('emp_add').AsString);
+                        FieldByName('emp_add').AsString,nil);
 
       id := FieldByName('loan_id').AsString;
 

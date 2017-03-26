@@ -1,7 +1,7 @@
 object dmEntities: TdmEntities
   OldCreateOrder = False
   Height = 379
-  Width = 859
+  Width = 721
   object dstEntities: TADODataSet
     Connection = dmApplication.acMain
     CursorType = ctStatic
@@ -244,7 +244,10 @@ object dmEntities: TdmEntities
     Connection = dmApplication.acMain
     CursorType = ctStatic
     Filtered = True
+    AfterOpen = dstEmployersAfterOpen
     BeforePost = dstEmployersBeforePost
+    AfterPost = dstEmployersAfterPost
+    AfterScroll = dstEmployersAfterScroll
     OnNewRecord = dstEmployersNewRecord
     CommandText = 'sp_get_employers;1'
     CommandType = cmdStoredProc

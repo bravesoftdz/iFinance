@@ -84,7 +84,8 @@ implementation
 
 uses
   AppData, DBUtil, Client, IFinanceGlobal, AppConstants, Referee, Landlord,
-  Employer, ImmediateHead, BankAccount, IdentityDoc, LoanClassification, Bank;
+  Employer, ImmediateHead, BankAccount, IdentityDoc, LoanClassification, Bank,
+  Group;
 
 {%CLASSGROUP 'Vcl.Controls.TControl'}
 
@@ -218,14 +219,13 @@ end;
 procedure TdmClient.dstClientLoanClassAfterScroll(DataSet: TDataSet);
 var
   clId, term, comakers, age: integer;
-  clName, groupId: string;
+  clName: string;
   interest, maxLoan: real;
   validFrom, validUntil: TDate;
 begin
   with DataSet do
   begin
     clId := FieldByName('class_id').AsInteger;
-    groupId := FieldByName('grp_id').AsString;
     clName := FieldByName('class_name').AsString;
     interest := FieldByName('int_rate').AsFloat;
     term := FieldByName('term').AsInteger;
@@ -237,12 +237,11 @@ begin
   end;
 
   if not Assigned(lnc) then
-    lnc := TLoanClassification.Create(clId, groupId, clName, interest,
-        term, maxLoan, comakers, validFrom, validUntil, age, nil)
+    lnc := TLoanClassification.Create(clId, clName, interest,
+        term, maxLoan, comakers, validFrom, validUntil, age, nil, nil)
   else
   begin
     lnc.ClassificationId := clId;
-    lnc.GroupId := groupId;
     lnc.ClassificationName := clName;
     lnc.Interest := interest;
     lnc.Term := term;
@@ -276,16 +275,22 @@ begin
 end;
 
 procedure TdmClient.dstEmplInfoAfterOpen(DataSet: TDataSet);
+var
+  gp: TGroup;
 begin
   if (cln.HasId) and (DataSet.RecordCount > 0) then
   begin
     if DataSet.FieldByName('emp_id').AsString <> '' then
     begin
+      gp := TGroup.Create;
+      gp.GroupId := DataSet.FieldByName('grp_id').AsString;
+      gp.GroupName := DataSet.FieldByName('grp_name').AsString;
+
       cln.Employer := TEmployer.Create;
       cln.Employer.Id := DataSet.FieldByName('emp_id').AsString;
       cln.Employer.Name := DataSet.FieldByName('emp_name').AsString;
       cln.Employer.Address := DataSet.FieldByName('emp_add').AsString;
-      cln.Employer.GroupId := DataSet.FieldByName('grp_id').AsString;
+      cln.Employer.Group := gp;
     end;
 
     if DataSet.FieldByName('imm_head').AsString <> '' then

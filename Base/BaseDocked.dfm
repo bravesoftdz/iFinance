@@ -1,6 +1,7 @@
 inherited frmBaseDocked: TfrmBaseDocked
   Align = alClient
   Caption = 'frmBaseDocked'
+  Color = 14273211
   OnClose = FormClose
   PixelsPerInch = 96
   TextHeight = 14

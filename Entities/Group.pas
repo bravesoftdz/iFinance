@@ -26,8 +26,11 @@ type
     property IsActive: integer read FIsActive write FIsActive;
   end;
 
+
+
 var
   grp: TGroup;
+  groups: array of TGroup;
 
 implementation
 

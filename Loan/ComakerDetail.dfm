@@ -506,7 +506,7 @@ inherited frmComakerDetail: TfrmComakerDetail
             BorderColor = 6572079
             BorderSides = []
             BorderWidth = 1
-            Caption = 'Personal info'
+            Caption = 'Employment info'
             CaptionFont.Charset = DEFAULT_CHARSET
             CaptionFont.Color = clRed
             CaptionFont.Height = -12

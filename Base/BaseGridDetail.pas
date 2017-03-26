@@ -34,7 +34,7 @@ type
   public
     { Public declarations }
     function Save: boolean; virtual;
-    procedure Cancel;
+    procedure Cancel; virtual;
     procedure New;
   end;
 

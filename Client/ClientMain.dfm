@@ -318,7 +318,7 @@ inherited frmClientMain: TfrmClientMain
         Transparent = True
       end
       object JvLabel31: TJvLabel
-        Left = 646
+        Left = 656
         Top = 322
         Width = 77
         Height = 14
@@ -933,9 +933,9 @@ inherited frmClientMain: TfrmClientMain
         FlatButtons = True
       end
       object RzDBMemo1: TRzDBMemo
-        Left = 646
+        Left = 656
         Top = 340
-        Width = 214
+        Width = 204
         Height = 46
         DataField = 'oth_income'
         DataSource = dmClient.dscPersonalInfo
@@ -2177,7 +2177,7 @@ inherited frmClientMain: TfrmClientMain
         BorderColor = 6572079
         BorderSides = []
         BorderWidth = 1
-        Caption = 'Available loan class'
+        Caption = 'Accessible loan class'
         CaptionFont.Charset = DEFAULT_CHARSET
         CaptionFont.Color = clRed
         CaptionFont.Height = -12
@@ -2374,7 +2374,7 @@ inherited frmClientMain: TfrmClientMain
         Left = 6
         Top = 6
         Width = 572
-        Height = 517
+        Height = 516
         Anchors = [akLeft, akTop, akRight, akBottom]
         BorderOuter = fsNone
         BorderColor = 8675134
@@ -2385,7 +2385,7 @@ inherited frmClientMain: TfrmClientMain
           Left = 1
           Top = 1
           Width = 570
-          Height = 515
+          Height = 514
           Align = alClient
           BorderStyle = bsNone
           DataSource = dmClient.dscAcctInfo
@@ -2467,7 +2467,7 @@ inherited frmClientMain: TfrmClientMain
         Left = 584
         Top = 6
         Width = 276
-        Height = 517
+        Height = 516
         Anchors = [akTop, akRight, akBottom]
         BorderOuter = fsNone
         BorderColor = 8675134
@@ -2476,7 +2476,7 @@ inherited frmClientMain: TfrmClientMain
         TabOrder = 1
         DesignSize = (
           276
-          517)
+          516)
         object JvLabel37: TJvLabel
           Left = 13
           Top = 39
@@ -2511,7 +2511,7 @@ inherited frmClientMain: TfrmClientMain
         end
         object RzPanel5: TRzPanel
           Left = 8
-          Top = 487
+          Top = 486
           Width = 50
           Height = 22
           Anchors = [akLeft, akBottom]
@@ -2566,7 +2566,7 @@ inherited frmClientMain: TfrmClientMain
         end
         object RzPanel7: TRzPanel
           Left = 217
-          Top = 487
+          Top = 486
           Width = 50
           Height = 22
           Anchors = [akLeft, akBottom]
@@ -2678,7 +2678,7 @@ inherited frmClientMain: TfrmClientMain
   end
   object pnlToolbar: TRzPanel
     Left = 866
-    Top = 27
+    Top = 28
     Width = 128
     Height = 552
     Anchors = [akTop, akRight, akBottom]

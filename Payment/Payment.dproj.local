@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2016/09/01 15:33:54.000.468,=rtl.dcp</Transaction>
+    <Transaction>2017/03/23 13:13:50.000.410,=rtl.dcp</Transaction>
+    <Transaction>2017/03/23 13:15:18.000.806,=C:\Users\BryanGarcia\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2017/03/23 13:15:30.000.299,=C:\_Projects\iFinance\Base\BaseDocked.pas</Transaction>
+    <Transaction>2017/03/23 13:15:30.000.339,=C:\Users\BryanGarcia\Documents\Embarcadero\Studio\Projects\Unit2.pas</Transaction>
+    <Transaction>2017/03/23 13:16:26.000.830,C:\Users\BryanGarcia\Documents\Embarcadero\Studio\Projects\Unit1.dfm=C:\_Projects\iFinance\Payment\PaymentMain.dfm</Transaction>
+    <Transaction>2017/03/23 13:16:26.000.830,C:\Users\BryanGarcia\Documents\Embarcadero\Studio\Projects\Unit1.pas=C:\_Projects\iFinance\Payment\PaymentMain.pas</Transaction>
+    <Transaction>2017/03/23 13:16:37.000.333,C:\Users\BryanGarcia\Documents\Embarcadero\Studio\Projects\Package1.dproj=C:\_Projects\iFinance\Payment\Payment.dproj</Transaction>
+    <Transaction>2017/03/24 23:52:38.000.904,=C:\_Projects\iFinance\Payment\Unit1.pas</Transaction>
+    <Transaction>2017/03/24 23:52:51.000.749,C:\_Projects\iFinance\Payment\Unit1.dfm=C:\_Projects\iFinance\Payment\PaymentData.dfm</Transaction>
+    <Transaction>2017/03/24 23:52:51.000.749,C:\_Projects\iFinance\Payment\Unit1.pas=C:\_Projects\iFinance\Payment\PaymentData.pas</Transaction>
+    <Transaction>2017/03/25 11:39:35.000.568,=JvCore.dcp</Transaction>
+    <Transaction>2017/03/25 11:39:35.000.517,=dbrtl.dcp</Transaction>
+    <Transaction>2017/03/25 11:39:35.000.543,=RaizeComponentsVcl.dcp</Transaction>
+    <Transaction>2017/03/25 11:39:35.000.490,=vclimg.dcp</Transaction>
+    <Transaction>2017/03/25 11:39:35.000.584,=JvStdCtrls.dcp</Transaction>
+    <Transaction>2017/03/25 11:39:35.000.556,=Jcl.dcp</Transaction>
+    <Transaction>2017/03/25 11:39:35.000.530,=adortl.dcp</Transaction>
+    <Transaction>2017/03/25 11:39:35.000.503,=vcl.dcp</Transaction>
+    <Transaction>2017/03/25 20:56:38.000.252,=RaizeComponentsVclDb.dcp</Transaction>
+    <Transaction>2017/03/25 20:56:38.000.223,=vcldb.dcp</Transaction>
+    <Transaction>2017/03/25 21:39:26.000.741,=C:\_Projects\iFinance\Payment\Unit1.pas</Transaction>
+    <Transaction>2017/03/25 21:40:52.000.227,C:\_Projects\iFinance\Payment\Payment.pas=C:\_Projects\iFinance\Payment\Unit1.pas</Transaction>
+    <Transaction>2017/03/25 22:31:20.000.086,=C:\_Projects\iFinance\Payment\Unit1.pas</Transaction>
+    <Transaction>2017/03/25 22:31:22.000.307,=C:\_Projects\iFinance\Base\BaseSearch.pas</Transaction>
+    <Transaction>2017/03/25 22:31:22.000.456,=C:\_Projects\iFinance\Payment\Unit2.pas</Transaction>
+    <Transaction>2017/03/25 22:32:10.000.739,C:\_Projects\iFinance\Payment\ActiveClientsSearch.pas=C:\_Projects\iFinance\Payment\Unit1.pas</Transaction>
+    <Transaction>2017/03/25 22:32:10.000.739,C:\_Projects\iFinance\Payment\ActiveClientsSearch.dfm=C:\_Projects\iFinance\Payment\Unit1.dfm</Transaction>
+    <Transaction>2017/03/25 22:43:32.000.154,=C:\_Projects\iFinance\Payment\Unit1.pas</Transaction>
+    <Transaction>2017/03/25 22:45:56.000.064,C:\_Projects\iFinance\Payment\ActiveClient.pas=C:\_Projects\iFinance\Payment\Unit1.pas</Transaction>
+    <Transaction>2017/03/26 08:16:29.000.062,=C:\_Projects\iFinance\Payment\Unit1.pas</Transaction>
+    <Transaction>2017/03/26 08:17:30.000.938,C:\_Projects\iFinance\Payment\Unit1.pas=C:\_Projects\iFinance\Payment\PaymentIntf.pas</Transaction>
+    <Transaction>2017/03/26 10:50:06.101,=C:\_Projects\iFinance\Payment\Unit2.pas</Transaction>
+    <Transaction>2017/03/26 10:50:06.325,=C:\_Projects\iFinance\Base\BasePopup.pas</Transaction>
+    <Transaction>2017/03/26 10:50:06.366,=C:\_Projects\iFinance\Payment\Unit3.pas</Transaction>
+    <Transaction>2017/03/26 10:51:11.071,C:\_Projects\iFinance\Payment\ActiveLoans.dfm=C:\_Projects\iFinance\Payment\Unit2.dfm</Transaction>
+    <Transaction>2017/03/26 10:51:11.071,C:\_Projects\iFinance\Payment\ActiveLoans.pas=C:\_Projects\iFinance\Payment\Unit2.pas</Transaction>
+    <Transaction>2017/03/26 16:48:34.880,=C:\_Projects\iFinance\Payment\Unit1.pas</Transaction>
+    <Transaction>2017/03/26 16:48:35.181,=C:\_Projects\iFinance\Base\BasePopupDetail.pas</Transaction>
+    <Transaction>2017/03/26 16:48:35.235,=C:\_Projects\iFinance\Payment\Unit2.pas</Transaction>
+    <Transaction>2017/03/26 16:48:57.822,C:\_Projects\iFinance\Payment\PaymentDetail.pas=C:\_Projects\iFinance\Payment\Unit1.pas</Transaction>
+    <Transaction>2017/03/26 16:48:57.822,C:\_Projects\iFinance\Payment\PaymentDetail.dfm=C:\_Projects\iFinance\Payment\Unit1.dfm</Transaction>
+  </Transactions>
+</BorlandProject>

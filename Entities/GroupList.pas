@@ -31,8 +31,6 @@ type
     procedure FormShow(Sender: TObject);
   private
     { Private declarations }
-    GroupList: array of TGroup;
-
     procedure PopulateTree;
     procedure PopulateGroupList;
     procedure FilterList;
@@ -65,7 +63,7 @@ var
   begin
     Result := nil;
     for n := 0 to tvGroup.Items.Count - 1 do
-      if TGroup(tvGroup.Items[n].Data).GroupId = GroupList[i].ParentGroupId then
+      if TGroup(tvGroup.Items[n].Data).GroupId = groups[i].ParentGroupId then
       begin
         Result := tvGroup.Items[n];
         Exit;
@@ -77,17 +75,17 @@ begin
   begin
     Items.Clear;
 
-    cnt := Length(GroupList) - 1;
+    cnt := Length(groups) - 1;
 
     // loop through the list and insert items with no parent first
     for i := 0 to cnt do
-      if not GroupList[i].HasParent then
-        Items.AddObject(nil,GroupList[i].GroupName,GroupList[i]);
+      if not groups[i].HasParent then
+        Items.AddObject(nil,groups[i].GroupName,groups[i]);
 
     // loop through the list and insert child items (with parent)
     for i := 0 to cnt do
-      if GroupList[i].HasParent then
-        Items.AddChildObject(GetParentNode,GroupList[i].GroupName,GroupList[i]);
+      if groups[i].HasParent then
+        Items.AddChildObject(GetParentNode,groups[i].GroupName,groups[i]);
 
     FullExpand;
   end;
@@ -97,7 +95,7 @@ procedure TfrmGroupList.PopulateGroupList;
 var
   gp: TGroup;
 begin
-  GroupList := [];
+  groups := [];
 
   with grList.DataSource.DataSet do
   begin
@@ -115,8 +113,8 @@ begin
       gp.IsGov := FieldByName('is_gov').AsInteger;
       gp.IsActive := FieldByName('is_active').AsInteger;
 
-      SetLength(GroupList,Length(GroupList) + 1);
-      GroupList[Length(GroupList)-1] := gp;
+      SetLength(groups,Length(groups) + 1);
+      groups[Length(groups)-1] := gp;
 
       Next;
     end;
@@ -226,7 +224,7 @@ end;
 
 function TfrmGroupList.Save: boolean;
 begin
-  inherited Save;
+  Result := inherited Save;
 
   PopulateGroupList;
   PopulateTree;

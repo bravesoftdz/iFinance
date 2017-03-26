@@ -91,7 +91,7 @@ inherited frmBaseGridDetail: TfrmBaseGridDetail
   object pnlDetail: TRzPanel
     Left = 495
     Top = 65
-    Width = 276
+    Width = 277
     Height = 403
     Anchors = [akTop, akRight, akBottom]
     BorderOuter = fsNone
@@ -100,7 +100,7 @@ inherited frmBaseGridDetail: TfrmBaseGridDetail
     ParentColor = True
     TabOrder = 3
     DesignSize = (
-      276
+      277
       403)
     object pnlAdd: TRzPanel
       Left = 8
@@ -129,7 +129,7 @@ inherited frmBaseGridDetail: TfrmBaseGridDetail
     object pnlDetailHead: TRzPanel
       Left = 1
       Top = 1
-      Width = 274
+      Width = 275
       Height = 19
       Align = alTop
       BorderOuter = fsNone
@@ -142,6 +142,7 @@ inherited frmBaseGridDetail: TfrmBaseGridDetail
       GradientColorStop = 8675134
       TabOrder = 1
       VisualStyle = vsGradient
+      ExplicitWidth = 274
       object lblDetailHeadCaption: TRzLabel
         Left = 7
         Top = 2

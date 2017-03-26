@@ -70,7 +70,7 @@
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1_Win32)'!=''">
         <VerInfo_Keys>CompanyName=;FileVersion=1.0.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductVersion=1.0.0.0;Comments=;ProgramID=com.embarcadero.$(MSBuildProjectName);FileDescription=$(MSBuildProjectName);ProductName=$(MSBuildProjectName)</VerInfo_Keys>
-        <DCC_UnitSearchPath>..\Loan;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
+        <DCC_UnitSearchPath>..\Loan;..\Base;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <VerInfo_Locale>1033</VerInfo_Locale>
         <DCC_RemoteDebug>false</DCC_RemoteDebug>
@@ -99,6 +99,7 @@
         <DCCReference Include="LockBox3DR.dcp"/>
         <DCCReference Include="RESTComponents.dcp"/>
         <DCCReference Include="FireDAC.dcp"/>
+        <DCCReference Include="JvDB.dcp"/>
         <DCCReference Include="Entity.pas"/>
         <DCCReference Include="LandlordSearch.pas"/>
         <DCCReference Include="EntitiesData.pas">
@@ -146,14 +147,6 @@
             <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="Bank.pas"/>
-        <DCCReference Include="..\Base\BaseForm.pas">
-            <Form>frmBase</Form>
-            <FormType>dfm</FormType>
-        </DCCReference>
-        <DCCReference Include="..\Base\BasePopup.pas">
-            <Form>frmBasePopup1</Form>
-            <FormType>dfm</FormType>
-        </DCCReference>
         <DCCReference Include="BanksSearch.pas">
             <Form>frmBankSearch</Form>
             <FormType>dfm</FormType>
@@ -176,10 +169,6 @@
         <DCCReference Include="Recipient.pas"/>
         <DCCReference Include="RecipientSearch.pas">
             <Form>frmRecipientSearch</Form>
-            <FormType>dfm</FormType>
-        </DCCReference>
-        <DCCReference Include="..\Base\BaseSearch.pas">
-            <Form>frmBaseSearch</Form>
             <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="RefereeDetail.pas">
@@ -208,6 +197,19 @@
         </DCCReference>
         <DCCReference Include="BankAccount.pas"/>
         <DCCReference Include="Location.pas"/>
+        <DCCReference Include="..\Base\BaseForm.pas">
+            <Form>frmBase</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\Base\BasePopup.pas">
+            <Form>frmBasePopup</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="GroupSearch.pas">
+            <Form>frmGroupSearch</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="GroupUtils.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>
@@ -282,16 +284,7 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployClass Name="DependencyModule">
-                    <Platform Name="Win32">
-                        <Operation>0</Operation>
-                        <Extensions>.dll;.bpl</Extensions>
-                    </Platform>
-                    <Platform Name="OSX32">
-                        <Operation>1</Operation>
-                        <Extensions>.dylib</Extensions>
-                    </Platform>
-                </DeployClass>
+                <DeployClass Name="ProjectiOSDeviceResourceRules"/>
                 <DeployClass Name="ProjectOSXResource">
                     <Platform Name="OSX32">
                         <RemoteDir>Contents\Resources</RemoteDir>
@@ -630,7 +623,16 @@
                         <Operation>1</Operation>
                     </Platform>
                 </DeployClass>
-                <DeployClass Name="ProjectiOSDeviceResourceRules"/>
+                <DeployClass Name="DependencyModule">
+                    <Platform Name="Win32">
+                        <Operation>0</Operation>
+                        <Extensions>.dll;.bpl</Extensions>
+                    </Platform>
+                    <Platform Name="OSX32">
+                        <Operation>1</Operation>
+                        <Extensions>.dylib</Extensions>
+                    </Platform>
+                </DeployClass>
                 <ProjectRoot Platform="iOSDevice64" Name="$(PROJECTNAME).app"/>
                 <ProjectRoot Platform="Win64" Name="$(PROJECTNAME)"/>
                 <ProjectRoot Platform="iOSDevice32" Name="$(PROJECTNAME).app"/>

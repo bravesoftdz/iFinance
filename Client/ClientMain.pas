@@ -608,7 +608,7 @@ var
 begin
   if grAccessList.DataSource.DataSet.RecordCount > 0 then
   begin
-    if (Assigned(cln.Employer)) and (lnc.GroupId = cln.Employer.GroupId) then
+    if (Assigned(cln.Employer)) and (lnc.Group.GroupId = cln.Employer.Group.GroupId) then
       ShowErrorBox('Cannot remove the loan class. Loan class belongs to the client''s employer group.')
     else if ShowDecisionBox(CONF) = mrYes then
     begin

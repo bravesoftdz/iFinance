@@ -28,7 +28,7 @@ implementation
 {$R *.dfm}
 
 uses
-  EntitiesData, Employer;
+  EntitiesData, Employer, Group;
 
 procedure TfrmEmployerSearch.FormCreate(Sender: TObject);
 begin
@@ -50,13 +50,19 @@ begin
 end;
 
 procedure TfrmEmployerSearch.SetReturn;
+var
+  gp: TGroup;
 begin
   with dmEntities.dstEmployers do
   begin
+    gp := TGroup.Create;
+    gp.GroupId := FieldByName('grp_id').AsString;
+    gp.GroupName := FieldByName('grp_name').AsString;
+
     emp.Id := FieldByName('emp_id').AsString;
     emp.Name := FieldByName('emp_name').AsString;
     emp.Address := FieldByName('emp_add').AsString;
-    emp.GroupId := FieldByName('grp_id').AsString;
+    emp.Group := gp;
   end;
 end;
 

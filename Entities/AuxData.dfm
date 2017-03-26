@@ -1,6 +1,6 @@
 object dmAux: TdmAux
   OldCreateOrder = False
-  Height = 516
+  Height = 426
   Width = 709
   object dscTowns: TDataSource
     DataSet = dstTowns

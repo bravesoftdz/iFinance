@@ -42,7 +42,8 @@ requires
   RaizeComponentsVclDb,
   LockBox3DR,
   RESTComponents,
-  FireDAC;
+  FireDAC,
+  JvDB;
 
 contains
   Entity in 'Entity.pas',
@@ -62,8 +63,6 @@ contains
   Employer in 'Employer.pas',
   BanksList in 'BanksList.pas' {frmBanksList},
   Bank in 'Bank.pas',
-  BaseForm in '..\Base\BaseForm.pas' {frmBase},
-  BasePopup in '..\Base\BasePopup.pas' {frmBasePopup1},
   BanksSearch in 'BanksSearch.pas' {frmBankSearch},
   DesignationList in 'DesignationList.pas' {frmDesignationList},
   IdentityDoc in 'IdentityDoc.pas',
@@ -73,7 +72,6 @@ contains
   CompetitorList in 'CompetitorList.pas' {frmCompetitorList},
   Recipient in 'Recipient.pas',
   RecipientSearch in 'RecipientSearch.pas' {frmRecipientSearch},
-  BaseSearch in '..\Base\BaseSearch.pas' {frmBaseSearch},
   RefereeDetail in 'RefereeDetail.pas' {frmRefereeDetail},
   BasePopupDetail in '..\Base\BasePopupDetail.pas' {frmBasePopupDetail},
   PurposeList in 'PurposeList.pas' {frmPurposeList},
@@ -81,6 +79,10 @@ contains
   BaseGridDetail in '..\Base\BaseGridDetail.pas' {frmBaseGridDetail},
   LoanRejectionReasonList in 'LoanRejectionReasonList.pas' {frmLoanRejectionReasonList},
   BankAccount in 'BankAccount.pas',
-  Location in 'Location.pas';
+  Location in 'Location.pas',
+  BaseForm in '..\Base\BaseForm.pas' {frmBase},
+  BasePopup in '..\Base\BasePopup.pas' {frmBasePopup},
+  GroupSearch in 'GroupSearch.pas' {frmGroupSearch},
+  GroupUtils in 'GroupUtils.pas';
 
 end.

@@ -54,7 +54,7 @@ inherited frmLoanList: TfrmLoanList
     Left = 6
     Top = 65
     Width = 491
-    Height = 437
+    Height = 438
     Anchors = [akLeft, akTop, akRight, akBottom]
     BorderOuter = fsNone
     BorderColor = 8675134
@@ -65,7 +65,7 @@ inherited frmLoanList: TfrmLoanList
       Left = 1
       Top = 1
       Width = 489
-      Height = 435
+      Height = 436
       Align = alClient
       BorderStyle = bsNone
       Color = clWhite
@@ -135,9 +135,9 @@ inherited frmLoanList: TfrmLoanList
   end
   object pnlDetail: TRzPanel
     Left = 503
-    Top = 64
+    Top = 65
     Width = 276
-    Height = 437
+    Height = 438
     Anchors = [akTop, akRight, akBottom]
     BorderOuter = fsNone
     BorderColor = 8675134
@@ -146,7 +146,7 @@ inherited frmLoanList: TfrmLoanList
     TabOrder = 3
     DesignSize = (
       276
-      437)
+      438)
     object JvLabel1: TJvLabel
       Left = 13
       Top = 39

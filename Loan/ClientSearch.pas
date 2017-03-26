@@ -28,7 +28,7 @@ implementation
 {$R *.dfm}
 
 uses
-  LoanData, LoanClient, Employer;
+  LoanData, LoanClient, Employer, Group;
 
 procedure TfrmClientSearch.Add;
 begin
@@ -51,13 +51,18 @@ end;
 procedure TfrmClientSearch.SetReturn;
 var
   empl: TEmployer;
+  gp: TGroup;
 begin
   with grSearch.DataSource.DataSet do
   begin
+    gp := TGroup.Create;
+    gp.GroupId := FieldByName('grp_id').AsString;
+    gp.GroupName := FieldByName('grp_name').AsString;
+
     empl := TEmployer.Create(FieldByName('emp_id').AsString,
                         FieldByName('emp_name').AsString,
-                        FieldByName('grp_id').AsString,
-                        FieldByName('emp_add').AsString);
+                        FieldByName('emp_add').AsString,
+                        gp);
 
     lnc := TLoanClient.Create;
     lnc.Id := FieldByName('entity_id').AsString;

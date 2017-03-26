@@ -406,7 +406,7 @@ begin
   if not LoanApplicationIsValid then Exit
   else if ln.IsActive then
   begin
-    if ShowDecisionBox('Loan is already ACTIVE. ' +
+    if ShowWarningBox('Loan is already ACTIVE. ' +
         'Do you wish to continue with the cancellation?') <> mrYes then
     begin
       SetActiveTab(CANCELLATION);
