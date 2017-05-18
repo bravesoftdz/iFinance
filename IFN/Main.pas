@@ -57,7 +57,6 @@ type
     urlCancelled: TRzURLLabel;
     urlPendingLoans: TRzURLLabel;
     urlApprovedLoans: TRzURLLabel;
-    RzLabel2: TRzLabel;
     urlActiveLoans: TRzURLLabel;
     urlDenied: TRzURLLabel;
     urlAssessedLoans: TRzURLLabel;
@@ -127,6 +126,11 @@ type
     Payment1: TMenuItem;
     Selectclient2: TMenuItem;
     acAddActiveLoan: TAction;
+    urlPayments: TRzURLLabel;
+    RzGroupBox3: TRzGroupBox;
+    RzGroupBox1: TRzGroupBox;
+    RzGroupBox2: TRzGroupBox;
+    urlWithdrawals: TRzURLLabel;
     procedure tbAddClientClick(Sender: TObject);
     procedure lblRecentlyAddedClick(Sender: TObject);
     procedure lbxRecentDblClick(Sender: TObject);
@@ -169,6 +173,8 @@ type
     procedure imgSettingsClick(Sender: TObject);
     procedure imgNewPaymentClick(Sender: TObject);
     procedure acAddActiveLoanExecute(Sender: TObject);
+    procedure urlPaymentsClick(Sender: TObject);
+    procedure urlWithdrawalsClick(Sender: TObject);
   private
     { Private declarations }
     RecentClients: TObjectList<TRecentClient>;
@@ -198,7 +204,7 @@ uses
   LoanMain, LoanList, LoanIntf, CompetitorList, FormsUtil, IFinanceGlobal,
   PurposeList, IFinanceDialogs, NewIntf, LoanTypeList, AccountTypeList,
   LoanCancellationReasonList, LoanRejectionReasonList, AppSettings,
-  PaymentMain, PaymentIntf;
+  PaymentMain, PaymentIntf, PaymentList, AccountingData, WithdrawalList;
 
 constructor TRecentClient.Create(const id, displayId, name: string);
 begin
@@ -348,7 +354,7 @@ var
   intf: ILoan;
   index: integer;
 begin
-  index := lbxRecentLoans.IndexOf(lbxRecentLoans.SelectedItem);
+  index := lbxRecentLoans.ItemIndex;
 
   if index > -1 then
   begin
@@ -464,9 +470,19 @@ begin
   OpenLoanList(lftRejected);
 end;
 
+procedure TfrmMain.urlPaymentsClick(Sender: TObject);
+begin
+  DockForm(fmPaymentList);
+end;
+
 procedure TfrmMain.urlPendingLoansClick(Sender: TObject);
 begin
   OpenLoanList(lftPending);
+end;
+
+procedure TfrmMain.urlWithdrawalsClick(Sender: TObject);
+begin
+  DockForm(fmWithdrawalList);
 end;
 
 procedure TfrmMain.DockForm(const fm: TForms; const title: string);
@@ -509,6 +525,8 @@ begin
       fmLoanRejectReasonList: frm := TfrmLoanRejectionReasonList.Create(Application);
       fmSettings: frm := TfrmAppSettings.Create(Application);
       fmPaymentMain: frm := TfrmPaymentMain.Create(Application);
+      fmPaymentList: frm := TfrmPaymentList.Create(Application);
+      fmWithdrawalList: frm := TfrmWithdrawalList.Create(Application);
       else
         frm := TForm.Create(Application);
     end;
@@ -520,6 +538,10 @@ end;
 
 procedure TfrmMain.FormCreate(Sender: TObject);
 begin
+  Height := 700; // for some reason form keeps on resizing...
+
+  dmAccounting := TdmAccounting.Create(Application);
+
   // hide menu bar
   Self.Menu := nil;
 

@@ -5,7 +5,7 @@ interface
 uses
   SysUtils, Entity, LoanClient, AppConstants, DB, System.Rtti, ADODB, Variants,
   LoanClassification, Comaker, FinInfo, MonthlyExpense, ReleaseRecipient,
-  LoanCharge, LoanClassCharge, Assessment;
+  LoanCharge, LoanClassCharge, Assessment, Posting;
 
 type TLoanAction = (laNone,laCreating,laAssessing,laApproving,laRejecting,laReleasing,laCancelling);
 
@@ -75,6 +75,7 @@ type
     function GetIsFinalised: boolean;
     function GetTotalCharges: real;
     function GetTotalReleased: real;
+    function GetNetProceeds: real;
 
   public
     procedure Add; override;
@@ -146,6 +147,7 @@ type
     property Assessment: TAssessment read FAssessment write FAssessment;
     property ReleaseAmount: real read FReleaseAmount write FReleaseAmount;
     property ApprovedTerm: integer read FApprovedTerm write FApprovedTerm;
+    property NetProceeds: real read GetNetProceeds;
 
     constructor Create;
     destructor Destroy; reintroduce;
@@ -581,6 +583,8 @@ begin
     begin
       ln.ChangeLoanStatus;
       ln.AddLoanState(lsActive);
+
+      TPosting.Post(TObject(self));
     end
   end;
 end;
@@ -598,8 +602,11 @@ begin
       FieldByName('status_id').AsString :=
           TRttiEnumerationType.GetName<TLoanStatus>(TLoanStatus.A)
     else if ln.Action = laReleasing then
+    begin
+      FieldByName('balance').AsFloat := FReleaseAmount;
       FieldByName('status_id').AsString :=
           TRttiEnumerationType.GetName<TLoanStatus>(TLoanStatus.R)
+    end
     else if ln.Action = laCancelling then
         FieldByName('status_id').AsString :=
           TRttiEnumerationType.GetName<TLoanStatus>(TLoanStatus.C)
@@ -754,9 +761,7 @@ begin
           charge.Amount := classCharge.MaxValue;
       end
       else
-      begin
         charge.Amount := classCharge.ChargeValue * (FReleaseAmount / classCharge.RatioAmount) * classCharge.MaxValue;
-      end;
     end;
 
     AddLoanCharge(charge,true);
@@ -876,6 +881,11 @@ begin
       Exit;
     end;
   end;
+end;
+
+function TLoan.GetNetProceeds: real;
+begin
+  Result := FReleaseAmount - GetTotalCharges;
 end;
 
 function TLoan.GetNew: boolean;
@@ -1073,3 +1083,4 @@ begin
 end;
 
 end.
+

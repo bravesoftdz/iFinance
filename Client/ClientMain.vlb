@@ -49,9 +49,6 @@ Coordinates=1143,331,73,36
 [edLandlordContact]
 Coordinates=1143,386,123,36
 
-[RzDBEdit11]
-Coordinates=1143,496,84,36
-
 [RzDBLookupComboBox1]
 Coordinates=1124,535,160,36
 
@@ -84,9 +81,6 @@ Coordinates=556,1,137,58
 
 [JvLabel1]
 Coordinates=185,535,66,36
-
-[RzDBEdit10]
-Coordinates=96,535,84,36
 
 [RzDBEdit12]
 Coordinates=0,499,84,36
@@ -273,4 +267,10 @@ Coordinates=1322,1,160,36
 
 [edStreeProv]
 Coordinates=946,320,77,36
+
+[edMobile]
+Coordinates=1143,496,84,36
+
+[edTelephone]
+Coordinates=96,535,84,36
 

@@ -1,7 +1,7 @@
 object dmClient: TdmClient
   OldCreateOrder = False
   Height = 316
-  Width = 669
+  Width = 609
   object dstEntity: TADODataSet
     Tag = 2
     Connection = dmApplication.acMain
@@ -347,12 +347,11 @@ object dmClient: TdmClient
     Left = 432
     Top = 184
   end
-  object dstClientLoanClass: TADODataSet
+  object dstGroups: TADODataSet
     Connection = dmApplication.acMain
     CursorType = ctStatic
-    BeforeOpen = dstClientLoanClassBeforeOpen
-    AfterScroll = dstClientLoanClassAfterScroll
-    CommandText = 'sp_cl_get_loan_class_access;1'
+    BeforeOpen = dstGroupsBeforeOpen
+    CommandText = 'sp_cl_get_groups;1'
     CommandType = cmdStoredProc
     Parameters = <
       item
@@ -360,7 +359,6 @@ object dmClient: TdmClient
         DataType = ftInteger
         Direction = pdReturnValue
         Precision = 10
-        Value = Null
       end
       item
         Name = '@entity_id'
@@ -370,41 +368,6 @@ object dmClient: TdmClient
         Value = ''
       end>
     Left = 528
-    Top = 72
-  end
-  object dscClientLoanClass: TDataSource
-    DataSet = dstClientLoanClass
-    Left = 592
-    Top = 72
-  end
-  object dstLoanClassAvail: TADODataSet
-    Connection = dmApplication.acMain
-    CursorType = ctStatic
-    LockType = ltReadOnly
-    BeforeOpen = dstLoanClassAvailBeforeOpen
-    CommandText = 'sp_cl_get_loan_class_avail;1'
-    CommandType = cmdStoredProc
-    Parameters = <
-      item
-        Name = '@RETURN_VALUE'
-        DataType = ftInteger
-        Direction = pdReturnValue
-        Precision = 10
-        Value = 0
-      end
-      item
-        Name = '@entity_id'
-        Attributes = [paNullable]
-        DataType = ftString
-        Size = 10
-        Value = ''
-      end>
-    Left = 528
-    Top = 16
-  end
-  object dscLoanClassAvail: TDataSource
-    DataSet = dstLoanClassAvail
-    Left = 592
     Top = 16
   end
 end

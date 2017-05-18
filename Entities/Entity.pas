@@ -10,13 +10,15 @@ type
   protected
     FId: string;
   public
+    property Id: string read FId write FId;
+
     procedure Add; virtual; abstract;
     procedure Save; virtual; abstract;
     procedure Edit; virtual; abstract;
     procedure Cancel; virtual; abstract;
+
     constructor Create;
     destructor Destroy; override;
-    property Id: string read FId write FId;
   end;
 
 var

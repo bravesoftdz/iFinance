@@ -103,7 +103,7 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
   end
   object pnlDetail: TRzPanel
     Left = 571
-    Top = 62
+    Top = 64
     Width = 276
     Height = 479
     Anchors = [akTop, akRight, akBottom]
@@ -129,14 +129,6 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
       Width = 61
       Height = 14
       Caption = 'Class name'
-      Transparent = True
-    end
-    object JvLabel2: TJvLabel
-      Left = 13
-      Top = 111
-      Width = 57
-      Height = 14
-      Caption = 'Loan type'
       Transparent = True
     end
     object JvLabel9: TJvLabel
@@ -166,7 +158,7 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
     end
     object JvLabel3: TJvLabel
       Left = 13
-      Top = 135
+      Top = 111
       Width = 62
       Height = 14
       Caption = 'Interest %'
@@ -174,7 +166,7 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
     end
     object JvLabel4: TJvLabel
       Left = 161
-      Top = 135
+      Top = 111
       Width = 31
       Height = 14
       Caption = 'Term'
@@ -182,18 +174,10 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
     end
     object JvLabel5: TJvLabel
       Left = 13
-      Top = 159
+      Top = 135
       Width = 54
       Height = 14
       Caption = 'Comakers'
-      Transparent = True
-    end
-    object JvLabel8: TJvLabel
-      Left = 142
-      Top = 159
-      Width = 51
-      Height = 14
-      Caption = 'Max. age'
       Transparent = True
     end
     object JvLabel10: TJvLabel
@@ -218,6 +202,14 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
       Width = 54
       Height = 14
       Caption = 'Valid until'
+      Transparent = True
+    end
+    object JvLabel13: TJvLabel
+      Left = 13
+      Top = 159
+      Width = 47
+      Height = 14
+      Caption = 'Max age'
       Transparent = True
     end
     object pnlAdd: TRzPanel
@@ -290,25 +282,6 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
       TabOnEnter = True
       TabOrder = 4
     end
-    object dbluLoanType: TRzDBLookupComboBox
-      Left = 88
-      Top = 105
-      Width = 176
-      Height = 22
-      DataField = 'loan_type'
-      DataSource = dmLoansAux.dscLoanClass
-      KeyField = 'loan_type'
-      ListField = 'loan_type_name'
-      ListSource = dmAux.dscLoanType
-      TabOrder = 5
-      FlatButtons = True
-      DisabledColor = clWhite
-      FrameColor = 8675134
-      FrameHotColor = clBlack
-      FrameVisible = True
-      FramingPreference = fpCustomFraming
-      TabOnEnter = True
-    end
     object dbluBranch: TRzDBLookupComboBox
       Tag = 1
       Left = 88
@@ -341,7 +314,7 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
       KeyField = 'value'
       ListField = 'display'
       ListSource = dmAux.dscCompMethod
-      TabOrder = 11
+      TabOrder = 10
       FlatButtons = True
       DisabledColor = clWhite
       FrameColor = 8675134
@@ -360,7 +333,7 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
       KeyField = 'value'
       ListField = 'display'
       ListSource = dmAux.dscPaymentFreq
-      TabOrder = 12
+      TabOrder = 11
       FlatButtons = True
       DisabledColor = clWhite
       FrameColor = 8675134
@@ -371,7 +344,7 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
     end
     object edInterest: TRzDBNumericEdit
       Left = 88
-      Top = 129
+      Top = 105
       Width = 57
       Height = 22
       DataSource = dmLoansAux.dscLoanClass
@@ -382,14 +355,14 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
       FrameVisible = True
       FramingPreference = fpCustomFraming
       TabOnEnter = True
-      TabOrder = 6
+      TabOrder = 5
       IntegersOnly = False
       DisplayFormat = '0.00'
       FlatButtons = True
     end
     object edTerm: TRzDBEdit
       Left = 207
-      Top = 129
+      Top = 105
       Width = 57
       Height = 22
       DataSource = dmLoansAux.dscLoanClass
@@ -400,12 +373,12 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
       FrameVisible = True
       FramingPreference = fpCustomFraming
       TabOnEnter = True
-      TabOrder = 7
+      TabOrder = 6
     end
     object edComakers: TRzDBEdit
       Left = 88
-      Top = 153
-      Width = 41
+      Top = 129
+      Width = 57
       Height = 22
       DataSource = dmLoansAux.dscLoanClass
       DataField = 'comakers'
@@ -415,7 +388,7 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
       FrameVisible = True
       FramingPreference = fpCustomFraming
       TabOnEnter = True
-      TabOrder = 8
+      TabOrder = 7
     end
     object edMaxLoan: TRzDBNumericEdit
       Left = 88
@@ -430,7 +403,7 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
       FrameVisible = True
       FramingPreference = fpCustomFraming
       TabOnEnter = True
-      TabOrder = 10
+      TabOrder = 9
       DisplayFormat = '###,##0.00'
       FlatButtons = True
     end
@@ -442,12 +415,11 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
       DataSource = dmLoansAux.dscLoanClass
       DataField = 'valid_from'
       DisabledColor = 14273211
-      Enabled = False
       FrameColor = 8675134
       FrameVisible = True
       FramingPreference = fpCustomFraming
       TabOnEnter = True
-      TabOrder = 13
+      TabOrder = 12
       EditType = etDate
       Format = 'mm/dd/yyyy'
       FlatButtons = True
@@ -460,18 +432,17 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
       DataSource = dmLoansAux.dscLoanClass
       DataField = 'valid_until'
       DisabledColor = 14273211
-      Enabled = False
       FrameColor = 8675134
       FrameVisible = True
       FramingPreference = fpCustomFraming
       TabOnEnter = True
-      TabOrder = 14
+      TabOrder = 13
       EditType = etDate
       Format = 'mm/dd/yyyy'
       FlatButtons = True
     end
     object RzDBEdit2: TRzDBEdit
-      Left = 207
+      Left = 88
       Top = 153
       Width = 57
       Height = 22
@@ -483,7 +454,7 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
       FrameVisible = True
       FramingPreference = fpCustomFraming
       TabOnEnter = True
-      TabOrder = 9
+      TabOrder = 8
     end
     object bteGroup: TRzButtonEdit
       Tag = 1
@@ -524,7 +495,7 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
       BorderColor = 6572079
       BorderWidth = 1
       Color = 12955288
-      TabOrder = 15
+      TabOrder = 14
       object sbtnActivate: TRzShapeButton
         Left = 0
         Top = 0
@@ -548,7 +519,7 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
       BorderColor = 6572079
       BorderWidth = 1
       Color = 12955288
-      TabOrder = 16
+      TabOrder = 15
       object RzShapeButton1: TRzShapeButton
         Left = 0
         Top = 0

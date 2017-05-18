@@ -13,6 +13,8 @@ type
     grLoans: TRzStringGrid;
     procedure grLoansDblClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure grLoansDrawCell(Sender: TObject; ACol, ARow: Integer; Rect: TRect;
+      State: TGridDrawState);
   private
     { Private declarations }
     procedure SetReturn;
@@ -43,6 +45,30 @@ procedure TfrmActiveLoans.grLoansDblClick(Sender: TObject);
 begin
   inherited;
   SetReturn;
+end;
+
+procedure TfrmActiveLoans.grLoansDrawCell(Sender: TObject; ACol, ARow: Integer;
+  Rect: TRect; State: TGridDrawState);
+var
+  cellStr: string;
+begin
+  with grLoans do
+  begin
+    cellStr := Cells[ACol,ARow];
+
+    if ARow = 0 then Canvas.Font.Style := [fsBold]
+    else Canvas.Font.Style := [];
+
+    Canvas.Font.Size := Font.Size;
+    Canvas.Font.Name := Font.Name;
+
+    if ARow = 0 then
+      Canvas.TextRect(Rect,Rect.Left + (ColWidths[ACol] div 2) - (Canvas.TextWidth(cellStr) div 2), Rect.Top + 2, cellStr)
+    else if (ACol = 3) and (ARow > 0) then
+      Canvas.TextRect(Rect,Rect.Left - Canvas.TextWidth(cellStr) + ColWidths[3] - 8,Rect.Top + 2,cellStr)
+    else
+      Canvas.TextOut(Rect.Left + 2, Rect.Top + 2, cellStr);
+  end;
 end;
 
 procedure TfrmActiveLoans.SetReturn;
@@ -96,9 +122,9 @@ var
 begin
   with grLoans do
   begin
-    RowCount := RowCount + 1;
+    if not FirstRow(grLoans) then RowCount := RowCount + 1;
 
-    r := RowCount - 2;
+    r := RowCount - FixedRows;
 
     Cells[0,r] := loan.Id;
     Cells[1,r] := loan.LoanTypeName;

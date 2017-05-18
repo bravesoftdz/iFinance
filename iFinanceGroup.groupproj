@@ -3,6 +3,9 @@
         <ProjectGuid>{8602588A-31A9-4B48-8FBF-968BE134BC13}</ProjectGuid>
     </PropertyGroup>
     <ItemGroup>
+        <Projects Include="Accounting\Accounting.dproj">
+            <Dependencies/>
+        </Projects>
         <Projects Include="Base\Base.dproj">
             <Dependencies/>
         </Projects>
@@ -35,6 +38,15 @@
             <Default.Personality/>
         </BorlandProject>
     </ProjectExtensions>
+    <Target Name="Accounting">
+        <MSBuild Projects="Accounting\Accounting.dproj"/>
+    </Target>
+    <Target Name="Accounting:Clean">
+        <MSBuild Projects="Accounting\Accounting.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="Accounting:Make">
+        <MSBuild Projects="Accounting\Accounting.dproj" Targets="Make"/>
+    </Target>
     <Target Name="Base">
         <MSBuild Projects="Base\Base.dproj"/>
     </Target>
@@ -108,13 +120,13 @@
         <MSBuild Projects="IFN\iFinance.dproj" Targets="Make"/>
     </Target>
     <Target Name="Build">
-        <CallTarget Targets="Base;Client;Common;Entities;Loan;Payment;Tools;iFinance"/>
+        <CallTarget Targets="Accounting;Base;Client;Common;Entities;Loan;Payment;Tools;iFinance"/>
     </Target>
     <Target Name="Clean">
-        <CallTarget Targets="Base:Clean;Client:Clean;Common:Clean;Entities:Clean;Loan:Clean;Payment:Clean;Tools:Clean;iFinance:Clean"/>
+        <CallTarget Targets="Accounting:Clean;Base:Clean;Client:Clean;Common:Clean;Entities:Clean;Loan:Clean;Payment:Clean;Tools:Clean;iFinance:Clean"/>
     </Target>
     <Target Name="Make">
-        <CallTarget Targets="Base:Make;Client:Make;Common:Make;Entities:Make;Loan:Make;Payment:Make;Tools:Make;iFinance:Make"/>
+        <CallTarget Targets="Accounting:Make;Base:Make;Client:Make;Common:Make;Entities:Make;Loan:Make;Payment:Make;Tools:Make;iFinance:Make"/>
     </Target>
     <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
 </Project>

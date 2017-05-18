@@ -103,15 +103,11 @@ begin
     end;
   end;
 
-  dmEntities.Free;
-
   inherited;
 end;
 
 procedure TfrmGroupSearch.FormCreate(Sender: TObject);
 begin
-  dmEntities := TdmEntities.Create(self);
-
   PopulateGroupList(dmEntities.dstGroups);
   PopulateTree;
 

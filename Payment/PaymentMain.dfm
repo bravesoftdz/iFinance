@@ -12,26 +12,59 @@ inherited frmPaymentMain: TfrmPaymentMain
     Tag = -1
     Left = 425
     Top = 59
-    Width = 32
+    Width = 37
     Height = 14
     Caption = 'Client'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -12
+    Font.Name = 'Tahoma'
+    Font.Style = [fsBold]
+    ParentFont = False
     Transparent = True
+    HotTrackFont.Charset = DEFAULT_CHARSET
+    HotTrackFont.Color = clWindowText
+    HotTrackFont.Height = -12
+    HotTrackFont.Name = 'Tahoma'
+    HotTrackFont.Style = []
   end
   object JvLabel7: TJvLabel [1]
     Left = 22
     Top = 59
-    Width = 28
+    Width = 31
     Height = 14
     Caption = 'Date'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -12
+    Font.Name = 'Tahoma'
+    Font.Style = [fsBold]
+    ParentFont = False
     Transparent = True
+    HotTrackFont.Charset = DEFAULT_CHARSET
+    HotTrackFont.Color = clWindowText
+    HotTrackFont.Height = -12
+    HotTrackFont.Name = 'Tahoma'
+    HotTrackFont.Style = []
   end
   object JvLabel1: TJvLabel [2]
     Left = 176
     Top = 59
-    Width = 65
+    Width = 72
     Height = 14
     Caption = 'Receipt no.'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -12
+    Font.Name = 'Tahoma'
+    Font.Style = [fsBold]
+    ParentFont = False
     Transparent = True
+    HotTrackFont.Charset = DEFAULT_CHARSET
+    HotTrackFont.Color = clWindowText
+    HotTrackFont.Height = -12
+    HotTrackFont.Name = 'Tahoma'
+    HotTrackFont.Style = []
   end
   object lblTotalAmount: TJvLabel [3]
     Tag = -1
@@ -54,6 +87,70 @@ inherited frmPaymentMain: TfrmPaymentMain
     HotTrackFont.Name = 'Tahoma'
     HotTrackFont.Style = []
   end
+  object JvLabel2: TJvLabel [4]
+    Left = 22
+    Top = 87
+    Width = 91
+    Height = 14
+    Caption = 'Reference no.:'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -12
+    Font.Name = 'Tahoma'
+    Font.Style = [fsBold]
+    ParentFont = False
+    Transparent = True
+    HotTrackFont.Charset = DEFAULT_CHARSET
+    HotTrackFont.Color = clWindowText
+    HotTrackFont.Height = -12
+    HotTrackFont.Name = 'Tahoma'
+    HotTrackFont.Style = []
+  end
+  object lblReferenceNo: TJvLabel [5]
+    Left = 118
+    Top = 87
+    Width = 6
+    Height = 14
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -12
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+    Transparent = True
+  end
+  object JvLabel4: TJvLabel [6]
+    Left = 263
+    Top = 87
+    Width = 49
+    Height = 14
+    Caption = 'Posted:'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -12
+    Font.Name = 'Tahoma'
+    Font.Style = [fsBold]
+    ParentFont = False
+    Transparent = True
+    HotTrackFont.Charset = DEFAULT_CHARSET
+    HotTrackFont.Color = clWindowText
+    HotTrackFont.Height = -12
+    HotTrackFont.Name = 'Tahoma'
+    HotTrackFont.Style = []
+  end
+  object lblPosted: TJvLabel [7]
+    Left = 321
+    Top = 87
+    Width = 6
+    Height = 14
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -12
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+    Transparent = True
+  end
   inherited pnlTitle: TRzPanel
     Width = 664
     ExplicitWidth = 664
@@ -65,9 +162,9 @@ inherited frmPaymentMain: TfrmPaymentMain
   end
   object pnlDetail: TRzPanel
     Left = 22
-    Top = 88
+    Top = 120
     Width = 618
-    Height = 193
+    Height = 168
     Anchors = [akLeft, akTop, akRight, akBottom]
     BorderOuter = fsNone
     BorderColor = 8675134
@@ -78,25 +175,34 @@ inherited frmPaymentMain: TfrmPaymentMain
       Left = 1
       Top = 1
       Width = 616
-      Height = 191
+      Height = 166
       Align = alClient
+      BevelInner = bvNone
+      BevelOuter = bvNone
       BorderStyle = bsNone
+      ColCount = 7
       Ctl3D = True
       DrawingStyle = gdsGradient
-      FixedColor = 14273211
+      FixedColor = 12955288
       FixedCols = 0
       RowCount = 1
       FixedRows = 0
       GradientEndColor = 12955288
       GradientStartColor = 12955288
-      Options = [goRowSelect]
+      Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRowSelect]
       ParentCtl3D = False
+      ScrollBars = ssVertical
       TabOrder = 0
+      OnDrawCell = grDetailDrawCell
       FrameColor = 8675134
-      FrameVisible = True
       FramingPreference = fpCustomFraming
       FixedLineColor = 14273211
+      LineColor = clWindow
+      UseDrawingStyle = False
+      OnResize = grDetailResize
       ColWidths = (
+        60
+        60
         60
         60
         60
@@ -105,39 +211,6 @@ inherited frmPaymentMain: TfrmPaymentMain
       RowHeights = (
         18)
     end
-  end
-  object dtePaymentDate: TRzDBDateTimeEdit
-    Left = 64
-    Top = 53
-    Width = 95
-    Height = 22
-    DataSource = dmPayment.dscPayment
-    DataField = 'payment_date'
-    FrameColor = 8675134
-    FrameVisible = True
-    FramingPreference = fpCustomFraming
-    TabOnEnter = True
-    TabOrder = 2
-    EditType = etDate
-    Format = 'mm/dd/yyyy'
-    FlatButtons = True
-  end
-  object edReceipt: TRzDBEdit
-    Left = 260
-    Top = 53
-    Width = 148
-    Height = 22
-    DataSource = dmPayment.dscPayment
-    DataField = 'receipt_no'
-    CharCase = ecUpperCase
-    Ctl3D = True
-    FrameColor = 8675134
-    FrameVisible = True
-    FramingPreference = fpCustomFraming
-    ParentCtl3D = False
-    ReadOnlyColor = clWhite
-    TabOnEnter = True
-    TabOrder = 3
   end
   object pnlAddPayment: TRzPanel
     Left = 22
@@ -149,7 +222,7 @@ inherited frmPaymentMain: TfrmPaymentMain
     BorderColor = 6572079
     BorderWidth = 1
     Color = 12955288
-    TabOrder = 4
+    TabOrder = 2
     object imgAddPayment: TImage
       Left = 4
       Top = 4
@@ -242,12 +315,13 @@ inherited frmPaymentMain: TfrmPaymentMain
     Anchors = [akLeft, akTop, akRight]
     CharCase = ecUpperCase
     Color = 14273211
+    DisabledColor = 14273211
     FrameColor = 8675134
     FrameVisible = True
     FramingPreference = fpCustomFraming
     ReadOnly = True
     ReadOnlyColor = 14273211
-    TabOrder = 5
+    TabOrder = 6
   end
   object pnlDeletePayment: TRzPanel
     Left = 65
@@ -259,7 +333,7 @@ inherited frmPaymentMain: TfrmPaymentMain
     BorderColor = 6572079
     BorderWidth = 1
     Color = 12955288
-    TabOrder = 6
+    TabOrder = 3
     object imgDeletePayment: TImage
       Left = 4
       Top = 4
@@ -339,5 +413,41 @@ inherited frmPaymentMain: TfrmPaymentMain
       OnMouseDown = imgAddPaymentMouseDown
       OnMouseUp = imgAddPaymentMouseUp
     end
+  end
+  object dtePaymentDate: TRzDBDateTimeEdit
+    Left = 62
+    Top = 53
+    Width = 99
+    Height = 22
+    DataSource = dmPayment.dscPayment
+    DataField = 'payment_date'
+    ReadOnly = True
+    Color = 14273211
+    DisabledColor = 14273211
+    FocusColor = clWhite
+    FrameColor = 8675134
+    FrameVisible = True
+    FramingPreference = fpCustomFraming
+    ReadOnlyColor = 14273211
+    TabOrder = 4
+    EditType = etDate
+    Format = 'mm/dd/yyyy'
+    FlatButtonColor = 14273211
+    FlatButtons = True
+  end
+  object edReceipt: TRzDBEdit
+    Left = 257
+    Top = 53
+    Width = 152
+    Height = 22
+    DataSource = dmPayment.dscPayment
+    DataField = 'receipt_no'
+    ReadOnly = True
+    Color = 14273211
+    FrameColor = 8675134
+    FrameVisible = True
+    FramingPreference = fpCustomFraming
+    ReadOnlyColor = 14273211
+    TabOrder = 5
   end
 end

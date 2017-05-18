@@ -4,8 +4,8 @@ object frmMain: TfrmMain
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsNone
   Caption = 'i-Finance - Integrated Financial Management Information System'
-  ClientHeight = 700
-  ClientWidth = 1180
+  ClientHeight = 620
+  ClientWidth = 1190
   Color = 14273211
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -23,7 +23,7 @@ object frmMain: TfrmMain
   object pnlTitle: TRzPanel
     Left = 0
     Top = 0
-    Width = 1180
+    Width = 1190
     Height = 21
     Align = alTop
     BorderOuter = fsNone
@@ -38,10 +38,10 @@ object frmMain: TfrmMain
     VisualStyle = vsGradient
     OnMouseDown = pnlTitleMouseDown
     DesignSize = (
-      1180
+      1190
       21)
     object imgClose: TImage
-      Left = 1159
+      Left = 1169
       Top = 2
       Width = 16
       Height = 16
@@ -93,8 +93,8 @@ object frmMain: TfrmMain
   object pnlMain: TRzPanel
     Left = 0
     Top = 21
-    Width = 1180
-    Height = 679
+    Width = 1190
+    Height = 599
     Align = alClient
     BorderOuter = fsNone
     BorderSides = [sdLeft, sdRight, sdBottom]
@@ -103,10 +103,10 @@ object frmMain: TfrmMain
     Color = 12955288
     TabOrder = 1
     DesignSize = (
-      1180
-      679)
+      1190
+      599)
     object lblWelcome: TRzLabel
-      Left = 1026
+      Left = 1036
       Top = 7
       Width = 133
       Height = 14
@@ -119,10 +119,11 @@ object frmMain: TfrmMain
       Font.Name = 'Tahoma'
       Font.Style = [fsBold]
       ParentFont = False
+      ExplicitLeft = 1026
     end
     object Label1: TLabel
       Left = 17
-      Top = 651
+      Top = 571
       Width = 89
       Height = 14
       Anchors = [akLeft, akBottom]
@@ -133,24 +134,26 @@ object frmMain: TfrmMain
       Font.Name = 'Tahoma'
       Font.Style = [fsBold]
       ParentFont = False
+      ExplicitTop = 651
     end
     object Label2: TLabel
       Left = 145
-      Top = 651
-      Width = 83
+      Top = 571
+      Width = 82
       Height = 14
       Anchors = [akLeft, akBottom]
-      Caption = 'F3 - New loan'
+      Caption = 'F3 - Add loan'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clBlack
       Font.Height = -12
       Font.Name = 'Tahoma'
       Font.Style = [fsBold]
       ParentFont = False
+      ExplicitTop = 611
     end
     object lblDate: TLabel
-      Left = 591
-      Top = 651
+      Left = 601
+      Top = 571
       Width = 144
       Height = 14
       Alignment = taRightJustify
@@ -162,10 +165,12 @@ object frmMain: TfrmMain
       Font.Name = 'Tahoma'
       Font.Style = []
       ParentFont = False
+      ExplicitLeft = 591
+      ExplicitTop = 651
     end
     object lblVersion: TLabel
-      Left = 1075
-      Top = 651
+      Left = 1085
+      Top = 571
       Width = 84
       Height = 14
       Alignment = taRightJustify
@@ -177,10 +182,12 @@ object frmMain: TfrmMain
       Font.Name = 'Tahoma'
       Font.Style = []
       ParentFont = False
+      ExplicitLeft = 1075
+      ExplicitTop = 651
     end
     object lblLocation: TLabel
-      Left = 849
-      Top = 651
+      Left = 859
+      Top = 571
       Width = 118
       Height = 14
       Alignment = taRightJustify
@@ -192,10 +199,12 @@ object frmMain: TfrmMain
       Font.Name = 'Tahoma'
       Font.Style = []
       ParentFont = False
+      ExplicitLeft = 849
+      ExplicitTop = 651
     end
     object Label3: TLabel
       Left = 265
-      Top = 651
+      Top = 571
       Width = 111
       Height = 14
       Anchors = [akLeft, akBottom]
@@ -206,12 +215,13 @@ object frmMain: TfrmMain
       Font.Name = 'Tahoma'
       Font.Style = [fsBold]
       ParentFont = False
+      ExplicitTop = 651
     end
     object pnlNavBar: TRzPanel
       Left = 17
       Top = 86
-      Width = 183
-      Height = 550
+      Width = 193
+      Height = 470
       Anchors = [akLeft, akTop, akBottom]
       BorderOuter = fsNone
       BorderColor = 6572079
@@ -227,9 +237,9 @@ object frmMain: TfrmMain
       object npMain: TJvNavigationPane
         Left = 1
         Top = 1
-        Width = 181
-        Height = 548
-        ActivePage = nppLoans
+        Width = 191
+        Height = 468
+        ActivePage = nppClient
         Align = alClient
         BorderWidth = 0
         Background.Stretch = False
@@ -269,8 +279,8 @@ object frmMain: TfrmMain
         object nppClient: TJvNavPanelPage
           Left = 0
           Top = 0
-          Width = 181
-          Height = 373
+          Width = 191
+          Height = 293
           Hint = ''
           Background.Stretch = False
           Background.Proportional = False
@@ -355,8 +365,8 @@ object frmMain: TfrmMain
         object nppLoans: TJvNavPanelPage
           Left = 0
           Top = 0
-          Width = 181
-          Height = 373
+          Width = 191
+          Height = 293
           Hint = ''
           Background.Stretch = False
           Background.Proportional = False
@@ -365,9 +375,12 @@ object frmMain: TfrmMain
           Background.Transparent = False
           Color = 14273211
           Caption = 'Loans and Payments'
+          DesignSize = (
+            191
+            293)
           object urlCancelled: TRzURLLabel
             Left = 15
-            Top = 90
+            Top = 114
             Width = 51
             Height = 14
             Caption = 'Cancelled'
@@ -375,13 +388,15 @@ object frmMain: TfrmMain
             Font.Color = 6572079
             Font.Height = -12
             Font.Name = 'Tahoma'
-            Font.Style = [fsUnderline]
+            Font.Style = []
             ParentFont = False
             OnClick = urlCancelledClick
+            FlyByColor = clBlack
+            FlyByEnabled = True
           end
           object urlPendingLoans: TRzURLLabel
             Left = 15
-            Top = 15
+            Top = 39
             Width = 44
             Height = 14
             Caption = 'Pending'
@@ -390,14 +405,16 @@ object frmMain: TfrmMain
             Font.Color = 6572079
             Font.Height = -12
             Font.Name = 'Tahoma'
-            Font.Style = [fsUnderline]
+            Font.Style = []
             ParentColor = False
             ParentFont = False
             OnClick = urlPendingLoansClick
+            FlyByColor = clBlack
+            FlyByEnabled = True
           end
           object urlApprovedLoans: TRzURLLabel
             Left = 15
-            Top = 52
+            Top = 76
             Width = 53
             Height = 14
             Caption = 'Approved'
@@ -405,26 +422,15 @@ object frmMain: TfrmMain
             Font.Color = 6572079
             Font.Height = -12
             Font.Name = 'Tahoma'
-            Font.Style = [fsUnderline]
+            Font.Style = []
             ParentFont = False
             OnClick = urlApprovedLoansClick
-          end
-          object RzLabel2: TRzLabel
-            Left = 15
-            Top = 199
-            Width = 43
-            Height = 14
-            Caption = 'Recent'
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -12
-            Font.Name = 'Tahoma'
-            Font.Style = [fsBold]
-            ParentFont = False
+            FlyByColor = clBlack
+            FlyByEnabled = True
           end
           object urlActiveLoans: TRzURLLabel
             Left = 15
-            Top = 71
+            Top = 95
             Width = 34
             Height = 14
             Caption = 'Active'
@@ -432,13 +438,15 @@ object frmMain: TfrmMain
             Font.Color = 6572079
             Font.Height = -12
             Font.Name = 'Tahoma'
-            Font.Style = [fsUnderline]
+            Font.Style = []
             ParentFont = False
             OnClick = urlActiveLoansClick
+            FlyByColor = clBlack
+            FlyByEnabled = True
           end
           object urlDenied: TRzURLLabel
             Left = 15
-            Top = 109
+            Top = 133
             Width = 49
             Height = 14
             Caption = 'Rejected'
@@ -446,13 +454,15 @@ object frmMain: TfrmMain
             Font.Color = 6572079
             Font.Height = -12
             Font.Name = 'Tahoma'
-            Font.Style = [fsUnderline]
+            Font.Style = []
             ParentFont = False
             OnClick = urlDeniedClick
+            FlyByColor = clBlack
+            FlyByEnabled = True
           end
           object urlAssessedLoans: TRzURLLabel
             Left = 15
-            Top = 34
+            Top = 58
             Width = 49
             Height = 14
             Caption = 'Assessed'
@@ -460,15 +470,49 @@ object frmMain: TfrmMain
             Font.Color = 6572079
             Font.Height = -12
             Font.Name = 'Tahoma'
-            Font.Style = [fsUnderline]
+            Font.Style = []
             ParentFont = False
             OnClick = urlAssessedLoansClick
+            FlyByColor = clBlack
+            FlyByEnabled = True
+          end
+          object urlPayments: TRzURLLabel
+            Left = 15
+            Top = 189
+            Width = 53
+            Height = 14
+            Caption = 'Payments'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = 6572079
+            Font.Height = -12
+            Font.Name = 'Tahoma'
+            Font.Style = []
+            ParentFont = False
+            OnClick = urlPaymentsClick
+            FlyByColor = clBlack
+            FlyByEnabled = True
+          end
+          object urlWithdrawals: TRzURLLabel
+            Left = 15
+            Top = 208
+            Width = 66
+            Height = 14
+            Caption = 'Withdrawals'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = 6572079
+            Font.Height = -12
+            Font.Name = 'Tahoma'
+            Font.Style = []
+            ParentFont = False
+            OnClick = urlWithdrawalsClick
+            FlyByColor = clBlack
+            FlyByEnabled = True
           end
           object lbxRecentLoans: TRzListBox
             Left = 15
-            Top = 223
-            Width = 146
-            Height = 132
+            Top = 259
+            Width = 156
+            Height = 78
             BorderStyle = bsNone
             Color = 14273211
             Font.Charset = DEFAULT_CHARSET
@@ -481,12 +525,96 @@ object frmMain: TfrmMain
             TabOrder = 0
             OnDblClick = lbxRecentLoansDblClick
           end
+          object RzGroupBox3: TRzGroupBox
+            Tag = -1
+            Left = 15
+            Top = 15
+            Width = 156
+            Height = 22
+            Anchors = [akLeft, akTop, akRight]
+            BorderColor = 6572079
+            BorderSides = []
+            BorderWidth = 1
+            Caption = 'Loans'
+            CaptionFont.Charset = DEFAULT_CHARSET
+            CaptionFont.Color = 6572079
+            CaptionFont.Height = -12
+            CaptionFont.Name = 'Tahoma'
+            CaptionFont.Style = [fsBold]
+            Color = 14273211
+            FlatColor = 6572079
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = 6572079
+            Font.Height = -12
+            Font.Name = 'Tahoma'
+            Font.Style = []
+            GradientColorStyle = gcsCustom
+            GroupStyle = gsUnderline
+            ParentFont = False
+            TabOrder = 1
+          end
+          object RzGroupBox1: TRzGroupBox
+            Tag = -1
+            Left = 15
+            Top = 165
+            Width = 156
+            Height = 22
+            Anchors = [akLeft, akTop, akRight]
+            BorderColor = 6572079
+            BorderSides = []
+            BorderWidth = 1
+            Caption = 'Payments'
+            CaptionFont.Charset = DEFAULT_CHARSET
+            CaptionFont.Color = 6572079
+            CaptionFont.Height = -12
+            CaptionFont.Name = 'Tahoma'
+            CaptionFont.Style = [fsBold]
+            Color = 14273211
+            FlatColor = 6572079
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = 6572079
+            Font.Height = -12
+            Font.Name = 'Tahoma'
+            Font.Style = []
+            GradientColorStyle = gcsCustom
+            GroupStyle = gsUnderline
+            ParentFont = False
+            TabOrder = 2
+          end
+          object RzGroupBox2: TRzGroupBox
+            Tag = -1
+            Left = 15
+            Top = 236
+            Width = 156
+            Height = 22
+            Anchors = [akLeft, akTop, akRight]
+            BorderColor = 6572079
+            BorderSides = []
+            BorderWidth = 1
+            Caption = 'Recent loans'
+            CaptionFont.Charset = DEFAULT_CHARSET
+            CaptionFont.Color = 6572079
+            CaptionFont.Height = -12
+            CaptionFont.Name = 'Tahoma'
+            CaptionFont.Style = [fsBold]
+            Color = 14273211
+            FlatColor = 6572079
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = 6572079
+            Font.Height = -12
+            Font.Name = 'Tahoma'
+            Font.Style = []
+            GradientColorStyle = gcsCustom
+            GroupStyle = gsUnderline
+            ParentFont = False
+            TabOrder = 3
+          end
         end
         object nppExpense: TJvNavPanelPage
           Left = 0
           Top = 0
-          Width = 181
-          Height = 373
+          Width = 191
+          Height = 293
           Hint = ''
           Background.Stretch = False
           Background.Proportional = False
@@ -498,8 +626,8 @@ object frmMain: TfrmMain
         object nppInventory: TJvNavPanelPage
           Left = 0
           Top = 0
-          Width = 181
-          Height = 373
+          Width = 191
+          Height = 293
           Hint = ''
           Background.Stretch = False
           Background.Proportional = False
@@ -511,8 +639,8 @@ object frmMain: TfrmMain
         object nppReports: TJvNavPanelPage
           Left = 0
           Top = 0
-          Width = 181
-          Height = 373
+          Width = 191
+          Height = 293
           Hint = ''
           Background.Stretch = False
           Background.Proportional = False
@@ -524,10 +652,10 @@ object frmMain: TfrmMain
       end
     end
     object pnlDockMain: TRzPanel
-      Left = 217
+      Left = 227
       Top = 86
       Width = 942
-      Height = 550
+      Height = 470
       Anchors = [akLeft, akTop, akRight, akBottom]
       BorderOuter = fsNone
       BorderColor = 6572079
@@ -836,7 +964,7 @@ object frmMain: TfrmMain
         Width = 32
         Height = 32
         Cursor = crHandPoint
-        Hint = 'New loan'
+        Hint = 'Add loan'
         AutoSize = True
         ParentShowHint = False
         Picture.Data = {
@@ -2106,8 +2234,8 @@ object frmMain: TfrmMain
     end
   end
   object mmMain: TMainMenu
-    Left = 232
-    Top = 605
+    Left = 240
+    Top = 117
     object File1: TMenuItem
       Caption = '&File'
       object Save1: TMenuItem
@@ -2146,8 +2274,8 @@ object frmMain: TfrmMain
     end
   end
   object alMain: TActionList
-    Left = 272
-    Top = 605
+    Left = 280
+    Top = 117
     object acSave: TAction
       Caption = 'Save'
       ShortCut = 16467

@@ -71,6 +71,7 @@ begin
     lnc.Address := FieldByName('client_addr').AsString;
     lnc.Age := FieldByName('age').AsInteger;
     lnc.NetPay := FieldByName('net_pay').AsFloat;
+    lnc.ValidIdentityDocs := FieldByName('valid_ident_docs').AsInteger;
   end;
 end;
 

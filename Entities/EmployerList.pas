@@ -22,7 +22,6 @@ type
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure cmbBranchChange(Sender: TObject);
-    procedure sbtnNewClick(Sender: TObject);
     procedure bteGroupButtonClick(Sender: TObject);
     procedure grListCellClick(Column: TColumn);
     procedure grListKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
@@ -34,6 +33,7 @@ type
   public
     { Public declarations }
     procedure Cancel; override;
+    procedure New; override;
   protected
     function EntryIsValid: boolean; override;
     procedure SearchList; override;
@@ -52,7 +52,6 @@ uses
 procedure TfrmEmployerList.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
   dmEntities.Free;
-
   emp.Free;
 
   inherited;
@@ -60,7 +59,8 @@ end;
 
 procedure TfrmEmployerList.SetUnboundControls;
 begin
-  bteGroup.Text := emp.Group.GroupName;
+  if (Assigned(emp)) and (Assigned(emp.Group)) then
+    bteGroup.Text := emp.Group.GroupName;
 end;
 
 procedure TfrmEmployerList.FormCreate(Sender: TObject);
@@ -123,13 +123,6 @@ begin
   end;
 end;
 
-procedure TfrmEmployerList.sbtnNewClick(Sender: TObject);
-begin
-  bteGroup.Clear;
-
-  inherited;
-end;
-
 procedure TfrmEmployerList.FilterList;
 var
   filterStr: string;
@@ -172,6 +165,14 @@ procedure TfrmEmployerList.Cancel;
 begin
   inherited Cancel;
   SetUnboundControls;
+end;
+
+procedure TfrmEmployerList.New;
+begin
+  if Assigned(emp) then emp.Group := nil;
+  bteGroup.Clear;
+
+  inherited New;
 end;
 
 end.

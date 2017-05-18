@@ -15,6 +15,7 @@ type
     FAge: integer;
     FNetPay: real;
     FLoans: array of TClientLoan;
+    FValidIdentityDocs: integer;
 
     procedure AddLoan(const loan: TClientLoan);
 
@@ -32,11 +33,12 @@ type
     property Age: integer read FAge write FAge;
     property NetPay: real read FNetPay write FNetPay;
     property Loans[const i: integer]: TClientLoan read GetLoan;
+    property ValidIdentityDocs: integer read FValidIdentityDocs write FValidIdentityDocs;
 
     constructor Create; overload;
     constructor Create(const id, name: string; emp: TEmployer; const addr: string); overload;
     constructor Create(const id, name: string; emp: TEmployer; const addr: string;
-        const age: integer; const netPay: real); overload;
+        const age: integer; const netPay: real; const idDocs: integer = 0); overload;
     destructor Destroy; override;
   end;
 
@@ -65,7 +67,7 @@ begin
 end;
 
 constructor TLoanClient.Create(const id, name: string; emp: TEmployer; const addr: string;
-        const age: integer; const netPay: real);
+        const age: integer; const netPay: real; const idDocs: integer);
 begin
   inherited Create;
 
@@ -75,6 +77,7 @@ begin
   FAddress := addr;
   FAge := age;
   FNetPay := netPay;
+  FValidIdentityDocs := idDocs;
 end;
 
 destructor TLoanClient.Destroy;

@@ -1,16 +1,18 @@
 inherited frmPaymentDetail: TfrmPaymentDetail
   Caption = 'frmPaymentDetail'
-  ClientHeight = 222
-  ClientWidth = 339
+  ClientHeight = 341
+  ClientWidth = 343
   OnCreate = FormCreate
-  ExplicitWidth = 339
-  ExplicitHeight = 222
+  ExplicitWidth = 343
+  ExplicitHeight = 341
   PixelsPerInch = 96
   TextHeight = 14
   inherited pnlTitle: TRzPanel
-    Width = 339
+    Width = 343
+    ExplicitWidth = 343
     inherited imgClose: TImage
-      Left = 318
+      Left = 322
+      ExplicitLeft = 318
     end
     inherited lblCaption: TRzLabel
       Width = 92
@@ -19,16 +21,25 @@ inherited frmPaymentDetail: TfrmPaymentDetail
     end
   end
   inherited pnlMain: TRzPanel
-    Width = 339
-    Height = 201
+    Width = 343
+    Height = 320
+    ExplicitWidth = 343
+    ExplicitHeight = 294
     inherited pnlDetail: TRzPanel
-      Width = 322
-      Height = 152
+      Width = 326
+      Height = 271
+      ExplicitWidth = 326
+      ExplicitHeight = 245
       inherited pcDetail: TRzPageControl
-        Width = 320
-        Height = 150
+        Width = 324
+        Height = 269
+        ExplicitWidth = 324
+        ExplicitHeight = 243
         FixedDimension = 20
         inherited tsDetail: TRzTabSheet
+          ExplicitTop = -3
+          ExplicitWidth = 324
+          ExplicitHeight = 295
           object JvLabel1: TJvLabel
             Left = 19
             Top = 23
@@ -68,7 +79,7 @@ inherited frmPaymentDetail: TfrmPaymentDetail
             HotTrackFont.Style = []
           end
           object JvLabel3: TJvLabel
-            Left = 188
+            Left = 184
             Top = 23
             Width = 57
             Height = 14
@@ -88,7 +99,7 @@ inherited frmPaymentDetail: TfrmPaymentDetail
             HotTrackFont.Style = []
           end
           object JvLabel4: TJvLabel
-            Left = 188
+            Left = 184
             Top = 47
             Width = 52
             Height = 14
@@ -136,7 +147,7 @@ inherited frmPaymentDetail: TfrmPaymentDetail
             Transparent = True
           end
           object lblAccount: TJvLabel
-            Left = 252
+            Left = 248
             Top = 23
             Width = 32
             Height = 14
@@ -151,7 +162,7 @@ inherited frmPaymentDetail: TfrmPaymentDetail
             Transparent = True
           end
           object lblBalance: TJvLabel
-            Left = 252
+            Left = 248
             Top = 47
             Width = 32
             Height = 14
@@ -167,27 +178,80 @@ inherited frmPaymentDetail: TfrmPaymentDetail
           end
           object JvLabel5: TJvLabel
             Left = 19
-            Top = 71
-            Width = 56
+            Top = 117
+            Width = 45
             Height = 14
-            Caption = 'Amount:'
+            Caption = 'Principal'
             Font.Charset = DEFAULT_CHARSET
             Font.Color = clWindowText
             Font.Height = -12
             Font.Name = 'Tahoma'
-            Font.Style = [fsBold]
+            Font.Style = []
             ParentFont = False
             Transparent = True
-            HotTrackFont.Charset = DEFAULT_CHARSET
-            HotTrackFont.Color = clWindowText
-            HotTrackFont.Height = -12
-            HotTrackFont.Name = 'Tahoma'
-            HotTrackFont.Style = []
           end
-          object edAmount: TRzNumericEdit
+          object JvLabel6: TJvLabel
+            Left = 18
+            Top = 154
+            Width = 46
+            Height = 14
+            Caption = 'Interest'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -12
+            Font.Name = 'Tahoma'
+            Font.Style = []
+            ParentFont = False
+            Transparent = True
+          end
+          object lblTotal: TJvLabel
             Left = 19
-            Top = 91
-            Width = 281
+            Top = 236
+            Width = 162
+            Height = 23
+            Caption = 'Total amount: 0.00'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -19
+            Font.Name = 'Tahoma'
+            Font.Style = []
+            Anchors = [akLeft, akBottom]
+            ParentFont = False
+            Transparent = True
+            ExplicitTop = 213
+          end
+          object JvLabel7: TJvLabel
+            Left = 19
+            Top = 89
+            Width = 44
+            Height = 14
+            Caption = 'Method'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -12
+            Font.Name = 'Tahoma'
+            Font.Style = []
+            ParentFont = False
+            Transparent = True
+          end
+          object JvLabel8: TJvLabel
+            Left = 18
+            Top = 191
+            Width = 42
+            Height = 14
+            Caption = 'Penalty'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -12
+            Font.Name = 'Tahoma'
+            Font.Style = []
+            ParentFont = False
+            Transparent = True
+          end
+          object edPrincipal: TRzNumericEdit
+            Left = 83
+            Top = 111
+            Width = 221
             Height = 31
             Anchors = [akLeft, akTop, akRight]
             Font.Charset = DEFAULT_CHARSET
@@ -199,21 +263,84 @@ inherited frmPaymentDetail: TfrmPaymentDetail
             FrameVisible = True
             FramingPreference = fpCustomFraming
             ParentFont = False
+            TabOnEnter = True
             TabOrder = 0
+            OnChange = edPrincipalChange
             IntegersOnly = False
             DisplayFormat = '###,###,##0.00'
-            ExplicitWidth = 232
+          end
+          object edInterest: TRzNumericEdit
+            Left = 83
+            Top = 148
+            Width = 221
+            Height = 31
+            Anchors = [akLeft, akTop, akRight]
+            Color = 13290239
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -19
+            Font.Name = 'Tahoma'
+            Font.Style = []
+            FrameColor = 8675134
+            FrameVisible = True
+            FramingPreference = fpCustomFraming
+            ParentFont = False
+            TabOrder = 1
+            OnChange = edInterestChange
+            IntegersOnly = False
+            DisplayFormat = '###,###,##0.00'
+          end
+          object cmbPaymentMethod: TRzComboBox
+            Left = 83
+            Top = 83
+            Width = 221
+            Height = 22
+            AllowEdit = False
+            Anchors = [akLeft, akTop, akRight]
+            Ctl3D = False
+            FrameColor = 6572079
+            FrameVisible = True
+            FramingPreference = fpCustomFraming
+            ParentCtl3D = False
+            ReadOnlyColor = clWhite
+            Sorted = True
+            TabOrder = 2
+          end
+          object edPenalty: TRzNumericEdit
+            Left = 83
+            Top = 185
+            Width = 221
+            Height = 31
+            Anchors = [akLeft, akTop, akRight]
+            Color = 13290239
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -19
+            Font.Name = 'Tahoma'
+            Font.Style = []
+            FrameColor = 8675134
+            FrameVisible = True
+            FramingPreference = fpCustomFraming
+            ParentFont = False
+            TabOrder = 3
+            OnChange = edInterestChange
+            IntegersOnly = False
+            DisplayFormat = '###,###,##0.00'
           end
         end
       end
     end
     inherited pnlCancel: TRzPanel
-      Left = 280
-      Top = 169
+      Left = 284
+      Top = 288
+      ExplicitLeft = 284
+      ExplicitTop = 262
     end
     inherited pnlSave: TRzPanel
-      Left = 224
-      Top = 169
+      Left = 228
+      Top = 288
+      ExplicitLeft = 228
+      ExplicitTop = 262
       inherited btnSave: TRzShapeButton
         Caption = 'Add'
       end

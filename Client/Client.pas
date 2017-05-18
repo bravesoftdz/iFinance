@@ -7,6 +7,24 @@ uses
   Referee, Employer, BankAccount, IdentityDoc, Reference, RefData;
 
 type
+  TClientGroup = class
+  private
+    FId: string;
+    FName: string;
+    FSelected: boolean;
+    FDelete: boolean;
+    FEmployerGroup: boolean;
+    FIsParent: boolean;
+  public
+    property Id: string read FId write FId;
+    property Name: string read FName write FName;
+    property Selected: boolean read FSelected write FSelected;
+    property Delete: boolean read FDelete write FDelete;
+    property EmployerGroup: boolean read FEmployerGroup write FEmployerGroup;
+    property IsParent: boolean read FIsParent write FIsParent;
+  end;
+
+type
   TClient = class(TEntity)
   private
     FDisplayId: string;
@@ -21,11 +39,16 @@ type
     FReferences: array of TReference;
     FPhoto: string;
     FBankAccounts: array of TBankAccount;
+    FGroups: array of TClientGroup;
 
     function CheckId: boolean;
     function GetIdentityDoc(const i: integer): TIdentityDoc;
     function GetReference(const i: integer): TReference;
     function GetBankAccount(const i: integer): TBankAccount;
+    function GetAdding: boolean;
+    function GetGroup(const i: integer): TClientGroup;
+    function GetGroupCount: integer;
+    function GetIdentityDocsCount: integer;
 
   public
     procedure Add; override;
@@ -41,6 +64,8 @@ type
     procedure AddBankAccount(const bkAcct: TBankAccount);
     procedure RemoveBankAccountByAccountNo(const acctNo: string);
     procedure ClearBankAccounts;
+    procedure AddGroup(const group: TClientGroup);
+    procedure GetGroups;
 
     function IdentityDocExists(const idType: string): boolean;
     function ReferenceExists(const reference: TReference): boolean;
@@ -60,6 +85,10 @@ type
     property HasId: boolean read CheckId;
     property Photo: string read FPhoto write FPhoto;
     property BankAccounts[const i: integer]: TBankAccount read GetBankAccount;
+    property Adding: boolean read GetAdding;
+    property Groups[const i: integer]: TClientGroup read GetGroup;
+    property GroupCount: integer read GetGroupCount;
+    property IdentityDocsCount: integer read GetIdentityDocsCount;
 
     constructor Create;
     destructor Destroy; reintroduce;
@@ -159,7 +188,9 @@ begin
         if (Components[i] as TADODataSet).State in [dsInsert,dsEdit] then
         begin
           (Components[i] as TADODataSet).Post;
-          (Components[i] as TADODataSet).Edit; // set to edit mode to trigger before post during save routine
+
+          if (Components[i] as TADODataSet).Tag = 1 then
+            (Components[i] as TADODataSet).Edit; // set to edit mode to trigger before post during save routine
         end;
 
   end;
@@ -208,6 +239,12 @@ begin
     SetLength(FBankAccounts,Length(FBankAccounts) + 1);
     FBankAccounts[Length(FBankAccounts) - 1] := bkAcct;
   end;
+end;
+
+procedure TClient.AddGroup(const group: TClientGroup);
+begin
+  SetLength(FGroups,Length(FGroups) + 1);
+  FGroups[Length(FGroups) - 1] := group;
 end;
 
 procedure TClient.RemoveBankAccountByAccountNo(const acctNo: string);
@@ -263,6 +300,11 @@ end;
 function TClient.GetIdentityDoc(const i: Integer): TIdentityDoc;
 begin
   Result := FIdentityDocs[i];
+end;
+
+function TClient.GetIdentityDocsCount: integer;
+begin
+  Result := Length(FIdentityDocs);
 end;
 
 function TClient.IdentityDocExists(const idType: string): boolean;
@@ -404,9 +446,48 @@ begin
   end;
 end;
 
+function TClient.GetAdding: boolean;
+begin
+  Result := not CheckId;
+end;
+
 function TClient.GetBankAccount(const i: integer): TBankAccount;
 begin
   Result := FBankAccounts[i];
+end;
+
+function TClient.GetGroup(const i: integer): TClientGroup;
+begin
+  Result := FGroups[i];
+end;
+
+function TClient.GetGroupCount: integer;
+begin
+  Result := Length(FGroups);
+end;
+
+procedure TClient.GetGroups;
+var
+  group: TClientGroup;
+begin
+  FGroups := [];
+
+  with dmClient.dstGroups do
+  begin
+    Open;
+    while not Eof do
+    begin
+      group := TClientGroup.Create;
+      group.Id := FieldByName('grp_id').AsString;
+      group.Name := FieldByName('grp_name').AsString;
+      group.Selected := FieldByName('selected').AsString <> '';
+
+      AddGroup(group);
+
+      Next;
+    end;
+    Close;
+  end;
 end;
 
 end.

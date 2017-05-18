@@ -1,16 +1,18 @@
 inherited frmActiveLoans: TfrmActiveLoans
   Caption = 'frmActiveLoans'
-  ClientHeight = 219
-  ClientWidth = 451
+  ClientHeight = 176
+  ClientWidth = 422
   OnShow = FormShow
-  ExplicitWidth = 451
-  ExplicitHeight = 219
+  ExplicitWidth = 422
+  ExplicitHeight = 176
   PixelsPerInch = 96
   TextHeight = 14
   inherited pnlTitle: TRzPanel
-    Width = 451
+    Width = 422
+    ExplicitWidth = 422
     inherited imgClose: TImage
-      Left = 430
+      Left = 401
+      ExplicitLeft = 430
     end
     inherited lblCaption: TRzLabel
       Width = 62
@@ -19,26 +21,26 @@ inherited frmActiveLoans: TfrmActiveLoans
     end
   end
   inherited pnlMain: TRzPanel
-    Width = 451
-    Height = 198
+    Width = 422
+    Height = 155
+    ExplicitWidth = 422
+    ExplicitHeight = 155
     object pnlLoans: TRzPanel
       Left = 8
       Top = 8
-      Width = 435
-      Height = 181
+      Width = 406
+      Height = 138
       Anchors = [akLeft, akTop, akRight, akBottom]
       BorderOuter = fsNone
       BorderColor = 6572079
       BorderWidth = 1
       Color = 14273211
       TabOrder = 0
-      ExplicitWidth = 527
-      ExplicitHeight = 243
       object grLoans: TRzStringGrid
         Left = 1
         Top = 1
-        Width = 433
-        Height = 179
+        Width = 404
+        Height = 136
         Align = alClient
         BevelInner = bvNone
         BevelOuter = bvNone
@@ -46,20 +48,25 @@ inherited frmActiveLoans: TfrmActiveLoans
         ColCount = 4
         Ctl3D = True
         DrawingStyle = gdsGradient
+        FixedColor = 12955288
         FixedCols = 0
         RowCount = 1
         FixedRows = 0
         GradientEndColor = 12955288
         GradientStartColor = 12955288
-        Options = [goRowSelect]
+        Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRowSelect]
         ParentCtl3D = False
+        ScrollBars = ssNone
         TabOrder = 0
         OnDblClick = grLoansDblClick
+        OnDrawCell = grLoansDrawCell
         FrameColor = 8675134
         FrameStyle = fsNone
         FrameVisible = True
         FramingPreference = fpCustomFraming
-        FixedLineColor = clBtnFace
+        FixedLineColor = 14273211
+        LineColor = clWhite
+        UseDrawingStyle = False
         ColWidths = (
           60
           60

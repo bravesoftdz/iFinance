@@ -9,6 +9,8 @@ delete personalinfo
 delete refinfo
 delete sequence
 delete employer
+delete PaymentDetail
+delete Payment
 delete LoanComaker
 delete LoanAss
 delete LoanAssFinInfo
@@ -20,7 +22,7 @@ delete LoanReject
 delete LoanRelease
 delete Loan
 delete LoanClassCharge
-delete EntityLoanClass
+delete EntityGroup
 delete LoanClass
 delete [Group]
 delete entity

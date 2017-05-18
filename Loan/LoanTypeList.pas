@@ -14,12 +14,10 @@ type
     edTypeName: TRzDBEdit;
     JvLabel2: TJvLabel;
     RzDBMemo1: TRzDBMemo;
-    JvLabel14: TJvLabel;
-    edMaxTotal: TRzDBNumericEdit;
-    JvLabel5: TJvLabel;
-    edConcurrent: TRzDBEdit;
     JvLabel3: TJvLabel;
     dbluAccountType: TRzDBLookupComboBox;
+    JvLabel4: TJvLabel;
+    RzDBEdit1: TRzDBEdit;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private

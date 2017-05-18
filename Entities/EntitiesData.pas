@@ -33,6 +33,8 @@ type
     dscRefPersonal: TDataSource;
     dstRefContact: TADODataSet;
     dscRefContact: TDataSource;
+    dstGroupAttribute: TADODataSet;
+    dscGroupAttribute: TDataSource;
     procedure dstLandlordBeforeOpen(DataSet: TDataSet);
     procedure dstLandlordBeforePost(DataSet: TDataSet);
     procedure dstLlPersonalBeforeOpen(DataSet: TDataSet);
@@ -61,6 +63,9 @@ type
     procedure dstEmployersAfterOpen(DataSet: TDataSet);
     procedure dstEmployersAfterScroll(DataSet: TDataSet);
     procedure dstEmployersAfterPost(DataSet: TDataSet);
+    procedure dstGroupAttributeBeforePost(DataSet: TDataSet);
+    procedure dstGroupsAfterOpen(DataSet: TDataSet);
+    procedure dstGroupAttributeNewRecord(DataSet: TDataSet);
   private
     { Private declarations }
   public
@@ -139,6 +144,31 @@ begin
   end;
 end;
 
+procedure TdmEntities.dstGroupAttributeBeforePost(DataSet: TDataSet);
+var
+  id: string;
+begin
+  if DataSet.State = dsInsert then
+  begin
+    id := dstGroups.FieldByName('grp_id').AsString;
+    DataSet.FieldByName('grp_id').AsString := id;
+  end;
+end;
+
+procedure TdmEntities.dstGroupAttributeNewRecord(DataSet: TDataSet);
+begin
+  with DataSet do
+  begin
+    FieldByName('is_gov').AsInteger := 1;
+  end;
+end;
+
+procedure TdmEntities.dstGroupsAfterOpen(DataSet: TDataSet);
+begin
+  // open the attributes dataset
+  dstGroupAttribute.Open;
+end;
+
 procedure TdmEntities.dstGroupsAfterPost(DataSet: TDataSet);
 begin
   // refresh the parent group
@@ -160,7 +190,6 @@ procedure TdmEntities.dstGroupsNewRecord(DataSet: TDataSet);
 begin
   with DataSet do
   begin
-    FieldByName('is_gov').AsInteger := 1;
     FieldByName('is_active').AsInteger := 1;
     FieldByName('loc_code').AsString := ifn.LocationCode;
   end;
@@ -273,7 +302,7 @@ end;
 
 procedure TdmEntities.dstRefContactBeforePost(DataSet: TDataSet);
 begin
-    if DataSet.State = dsInsert then DataSet.FieldByName('entity_id').AsString := ref.Id;
+  if DataSet.State = dsInsert then DataSet.FieldByName('entity_id').AsString := ref.Id;
 end;
 
 procedure TdmEntities.dstRefereeBeforeOpen(DataSet: TDataSet);
@@ -306,7 +335,7 @@ end;
 
 procedure TdmEntities.dstRefPersonalBeforePost(DataSet: TDataSet);
 begin
-    if DataSet.State = dsInsert then DataSet.FieldByName('entity_id').AsString := ref.Id;
+  if DataSet.State = dsInsert then DataSet.FieldByName('entity_id').AsString := ref.Id;
 end;
 
 end.

@@ -3,18 +3,27 @@ unit Payment;
 interface
 
 uses
-  ActiveClient;
+  ActiveClient, PaymentMethod;
 
 type
   TPaymentDetail = class
   strict private
     FLoan: TLoan;
-    FAmount: real;
     FRemarks: string;
+    FCancelled: boolean;
+    FPrincipal: real;
+    FInterest: real;
+
+  private
+    function GetTotalAmount: real;
+
   public
     property Loan: TLoan read FLoan write FLoan;
-    property Amount: real read FAmount write FAmount;
+    property TotalAmount: real read GetTotalAmount;
     property Remarks: string read FRemarks write FRemarks;
+    property Cancelled: boolean read FCancelled write FCancelled;
+    property Principal: real read FPrincipal write FPrincipal;
+    property Interest: real read FInterest write FInterest;
   end;
 
 type
@@ -25,10 +34,18 @@ type
     FReceiptNo: string;
     FDate: TDateTime;
     FDetails: array of TPaymentDetail;
+    FPostDate: TDateTime;
+    FReferenceNo: string;
+    FLocationCode: string;
+    FPaymentMethod: TPaymentMethod;
+
+    procedure SaveDetails;
 
     function GetDetail(const i: integer): TPaymentDetail;
     function GetTotalAmount: real;
     function GetDetailCount: integer;
+    function GetIsPosted: boolean;
+    function GetIsNew: boolean;
 
   public
     property Client: TActiveClient read FClient write FClient;
@@ -38,15 +55,23 @@ type
     property Details[const i: integer]: TPaymentDetail read GetDetail;
     property TotalAmount: real read GetTotalAmount;
     property DetailCount: integer read GetDetailCount;
+    property PostDate: TDateTime read FPostDate write FPostDate;
+    property ReferenceNo: string read FReferenceNo write FReferenceNo;
+    property IsPosted: boolean read GetIsPosted;
+    property LocationCode: string read FLocationCode write FLocationCode;
+    property IsNew: boolean read GetIsNew;
+    property PaymentMethod: TPaymentMethod read FPaymentMethod write FPaymentMethod;
 
     procedure Add;
     procedure AddDetail(const detail: TPaymentDetail);
     procedure RemoveDetail(const loan: TLoan);
     procedure Save;
+    procedure Retrieve;
 
     function DetailExists(const loan: TLoan): boolean;
 
     constructor Create;
+    destructor Destroy; reintroduce;
   end;
 
 var
@@ -55,12 +80,17 @@ var
 implementation
 
 uses
-  PaymentData;
+  PaymentData, IFinanceDialogs;
 
 constructor TPayment.Create;
 begin
   if pmt <> nil then pmt := self
   else inherited Create;
+end;
+
+destructor TPayment.Destroy;
+begin
+  if pmt = self then pmt := nil;
 end;
 
 procedure TPayment.Add;
@@ -101,7 +131,77 @@ end;
 
 procedure TPayment.Save;
 begin
+  with dmPayment do
+  begin
+    dstPayment.Post;
 
+    SaveDetails;
+
+    dstPayment.UpdateBatch;
+    dstPaymentDetail.UpdateBatch;
+  end;
+end;
+
+procedure TPayment.SaveDetails;
+var
+  i, cnt: integer;
+begin
+  with dmPayment.dstPaymentDetail do
+  begin
+    cnt := GetDetailCount - 1;
+
+    Open;
+
+    for i := 0 to cnt do
+    begin
+      Append;
+      FieldByName('payment_id').AsString := FPaymentId;
+      FieldByName('loan_id').AsString := FDetails[i].Loan.Id;
+      FieldByName('payment_amt').AsFloat := FDetails[i].TotalAmount;
+      FieldByName('remarks').AsString := FDetails[i].Remarks;
+      Post;
+    end;
+
+  end;
+end;
+
+procedure TPayment.Retrieve;
+var
+  detail: TPaymentDetail;
+  loan: TLoan;
+begin
+  // head
+  with dmPayment.dstPayment do
+  begin
+    Close;
+    Open;
+  end;
+
+  // detail
+  with dmPayment.dstPaymentDetail do
+  begin
+    Close;
+    Open;
+
+    while not Eof do
+    begin
+      // loan details
+      loan := TLoan.Create;
+      loan.Id := FieldByName('loan_id').AsString;
+      loan.LoanTypeName := FieldByName('loan_type_name').AsString;
+      loan.AccountTypeName := FieldByName('acct_type_name').AsString;
+      loan.Balance := FieldByName('balance').AsFloat;
+
+      detail := TPaymentDetail.Create;
+      detail.Loan := loan;
+      detail.Remarks := FieldByName('remarks').AsString;
+      detail.Cancelled := FieldByName('is_cancelled').AsInteger = 1;
+
+      AddDetail(detail);
+
+      Next;
+    end;
+  end;
 end;
 
 function TPayment.GetDetail(const i: Integer): TPaymentDetail;
@@ -115,7 +215,8 @@ var
 begin
   Result := 0;
 
-  for pd in FDetails do Result := Result + pd.Amount;
+  for pd in FDetails do
+    Result := Result + pd.Principal + pd.Interest;
 end;
 
 function TPayment.DetailExists(const loan: TLoan): boolean;
@@ -136,6 +237,21 @@ end;
 function TPayment.GetDetailCount: integer;
 begin
   Result := Length(FDetails);
+end;
+
+function TPayment.GetIsPosted: boolean;
+begin
+  Result := FPostDate > 0;
+end;
+
+function TPayment.GetIsNew: boolean;
+begin
+  Result := FPaymentId = '';
+end;
+
+function TPaymentDetail.GetTotalAmount: real;
+begin
+  Result := FPrincipal + FInterest;
 end;
 
 end.

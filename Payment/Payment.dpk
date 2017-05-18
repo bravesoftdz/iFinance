@@ -39,11 +39,12 @@ requires
   JvCore,
   JvStdCtrls,
   vcldb,
-  RaizeComponentsVclDb;
+  RaizeComponentsVclDb,
+  RESTComponents,
+  FireDAC;
 
 contains
   PaymentMain in 'PaymentMain.pas' {frmPaymentMain},
-  BaseDocked in '..\Base\BaseDocked.pas' {frmBaseDocked},
   PaymentData in 'PaymentData.pas' {dmPayment: TDataModule},
   Payment in 'Payment.pas',
   ActiveClientsSearch in 'ActiveClientsSearch.pas' {frmActiveClientsSearch},
@@ -53,6 +54,13 @@ contains
   ActiveLoans in 'ActiveLoans.pas' {frmActiveLoans},
   BasePopup in '..\Base\BasePopup.pas' {frmBasePopup},
   PaymentDetail in 'PaymentDetail.pas' {frmPaymentDetail},
-  BasePopupDetail in '..\Base\BasePopupDetail.pas' {frmBasePopupDetail};
+  BasePopupDetail in '..\Base\BasePopupDetail.pas' {frmBasePopupDetail},
+  PaymentList in 'PaymentList.pas' {frmPaymentList},
+  BaseDocked in '..\Base\BaseDocked.pas' {frmBaseDocked},
+  PaymentListParams in 'PaymentListParams.pas',
+  PaymentMethod in 'PaymentMethod.pas',
+  WithdrawalList in 'WithdrawalList.pas' {frmWithdrawalList},
+  WithdrawalDetail in 'WithdrawalDetail.pas' {frmWithdrawalDetail},
+  Withdrawal in 'Withdrawal.pas';
 
 end.

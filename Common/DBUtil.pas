@@ -8,7 +8,8 @@ uses
 type
   TSequenceObject = (soEntity,soGroup,soEmployer,soBankBranch,soDesignation,
                         soLoanClass,soLoan,soCompetitor,soPurpose, soLoanType,
-                        soAcctType,soLoanCancelReason,soLoanRejectReason);
+                        soAcctType,soLoanCancelReason,soLoanRejectReason,
+                        soPayment);
 
 procedure RefreshDataSet(const key: integer; const keyField: string; DataSet: TDataSet); overload;
 procedure RefreshDataSet(const key, keyField: string; DataSet: TDataSet); overload;
@@ -28,6 +29,8 @@ function GetLoanTypeId: integer;
 function GetAccountTypeId: integer;
 function GetLoanCancellationReasonId: integer;
 function GetLoanRejectionReasonId: integer;
+function GetPaymentId: string;
+function GetGenericId: string;
 
 implementation
 
@@ -57,7 +60,7 @@ end;
 
 procedure SetCreatedFields(dataSet: TDataSet);
 begin
-  dataSet.FieldByName('created_date').AsDateTime := ifn.AppDate;
+  dataSet.FieldByName('created_date').AsDateTime := Now;
   dataSet.FieldByName('created_by').AsString := ifn.User.UserId;
 end;
 
@@ -83,6 +86,7 @@ begin
     soPurpose: parm := 'PRP';
     soLoanType: parm := 'LNT';
     soAcctType: parm := 'ACT';
+    soPayment: parm := 'PAY';
     else parm := '';
   end;
 
@@ -161,5 +165,14 @@ begin
   Result := GetSequenceID(soLoanRejectReason);
 end;
 
+function GetPaymentId: string;
+begin
+  Result := ifn.LocationPrefix + '-' + IntToStr(GetSequenceID(soPayment));
+end;
+
+function GetGenericId: string;
+begin
+  Result := FormatDateTime('mmddyyyyhhmmsszzz',Now);
+end;
 
 end.

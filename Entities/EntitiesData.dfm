@@ -1,7 +1,7 @@
 object dmEntities: TdmEntities
   OldCreateOrder = False
-  Height = 379
-  Width = 721
+  Height = 469
+  Width = 783
   object dstEntities: TADODataSet
     Connection = dmApplication.acMain
     CursorType = ctStatic
@@ -24,12 +24,12 @@ object dmEntities: TdmEntities
         Size = 2
         Value = ''
       end>
-    Left = 31
+    Left = 71
     Top = 22
   end
   object dscEntities: TDataSource
     DataSet = dstEntities
-    Left = 119
+    Left = 159
     Top = 22
   end
   object dstLandlord: TADODataSet
@@ -54,7 +54,7 @@ object dmEntities: TdmEntities
         Size = 9
         Value = Null
       end>
-    Left = 32
+    Left = 72
     Top = 80
   end
   object dstLlPersonal: TADODataSet
@@ -80,12 +80,12 @@ object dmEntities: TdmEntities
         Size = 9
         Value = ''
       end>
-    Left = 32
+    Left = 72
     Top = 136
   end
   object dscLlPersonal: TDataSource
     DataSet = dstLlPersonal
-    Left = 120
+    Left = 160
     Top = 136
   end
   object dstLlContact: TADODataSet
@@ -110,12 +110,12 @@ object dmEntities: TdmEntities
         Size = 9
         Value = ''
       end>
-    Left = 32
+    Left = 72
     Top = 192
   end
   object dscLlContact: TDataSource
     DataSet = dstLlContact
-    Left = 120
+    Left = 160
     Top = 192
   end
   object dstImmHead: TADODataSet
@@ -140,7 +140,7 @@ object dmEntities: TdmEntities
         Size = 9
         Value = Null
       end>
-    Left = 208
+    Left = 248
     Top = 80
   end
   object dstIHPersonal: TADODataSet
@@ -166,12 +166,12 @@ object dmEntities: TdmEntities
         Size = 9
         Value = ''
       end>
-    Left = 208
+    Left = 248
     Top = 136
   end
   object dscIHPersonal: TDataSource
     DataSet = dstIHPersonal
-    Left = 296
+    Left = 336
     Top = 136
   end
   object dstIHContact: TADODataSet
@@ -196,12 +196,12 @@ object dmEntities: TdmEntities
         Size = 9
         Value = ''
       end>
-    Left = 208
+    Left = 248
     Top = 192
   end
   object dscIHContact: TDataSource
     DataSet = dstIHContact
-    Left = 296
+    Left = 336
     Top = 192
   end
   object dstGroups: TADODataSet
@@ -209,18 +209,19 @@ object dmEntities: TdmEntities
     Connection = dmApplication.acMain
     CursorType = ctStatic
     Filtered = True
+    AfterOpen = dstGroupsAfterOpen
     BeforePost = dstGroupsBeforePost
     AfterPost = dstGroupsAfterPost
     OnNewRecord = dstGroupsNewRecord
     CommandText = 'sp_get_groups;1'
     CommandType = cmdStoredProc
     Parameters = <>
-    Left = 32
+    Left = 72
     Top = 248
   end
   object dscGroups: TDataSource
     DataSet = dstGroups
-    Left = 120
+    Left = 160
     Top = 248
   end
   object dstParGroup: TADODataSet
@@ -231,12 +232,12 @@ object dmEntities: TdmEntities
     CommandText = 'sp_get_groups;1'
     CommandType = cmdStoredProc
     Parameters = <>
-    Left = 32
+    Left = 72
     Top = 304
   end
   object dscParGroup: TDataSource
     DataSet = dstParGroup
-    Left = 120
+    Left = 160
     Top = 304
   end
   object dstEmployers: TADODataSet
@@ -252,12 +253,12 @@ object dmEntities: TdmEntities
     CommandText = 'sp_get_employers;1'
     CommandType = cmdStoredProc
     Parameters = <>
-    Left = 208
+    Left = 248
     Top = 248
   end
   object dscEmployers: TDataSource
     DataSet = dstEmployers
-    Left = 296
+    Left = 336
     Top = 248
   end
   object dstRecipient: TADODataSet
@@ -282,7 +283,7 @@ object dmEntities: TdmEntities
         Size = 9
         Value = Null
       end>
-    Left = 384
+    Left = 424
     Top = 80
   end
   object dstRcpPersonal: TADODataSet
@@ -308,12 +309,12 @@ object dmEntities: TdmEntities
         Size = 9
         Value = ''
       end>
-    Left = 384
+    Left = 424
     Top = 136
   end
   object dscRcpPersonal: TDataSource
     DataSet = dstRcpPersonal
-    Left = 472
+    Left = 512
     Top = 136
   end
   object dstReferee: TADODataSet
@@ -338,7 +339,7 @@ object dmEntities: TdmEntities
         Size = 9
         Value = Null
       end>
-    Left = 552
+    Left = 592
     Top = 80
   end
   object dstRefPersonal: TADODataSet
@@ -364,12 +365,12 @@ object dmEntities: TdmEntities
         Size = 9
         Value = ''
       end>
-    Left = 552
+    Left = 592
     Top = 136
   end
   object dscRefPersonal: TDataSource
     DataSet = dstRefPersonal
-    Left = 640
+    Left = 680
     Top = 136
   end
   object dstRefContact: TADODataSet
@@ -394,12 +395,31 @@ object dmEntities: TdmEntities
         Size = 9
         Value = ''
       end>
-    Left = 552
+    Left = 592
     Top = 192
   end
   object dscRefContact: TDataSource
     DataSet = dstRefContact
-    Left = 640
+    Left = 680
     Top = 192
+  end
+  object dstGroupAttribute: TADODataSet
+    Tag = 5
+    Connection = dmApplication.acMain
+    CursorType = ctStatic
+    Filtered = True
+    LockType = ltBatchOptimistic
+    BeforePost = dstGroupAttributeBeforePost
+    OnNewRecord = dstGroupAttributeNewRecord
+    CommandText = 'sp_get_group_attributes;1'
+    CommandType = cmdStoredProc
+    Parameters = <>
+    Left = 72
+    Top = 368
+  end
+  object dscGroupAttribute: TDataSource
+    DataSet = dstGroupAttribute
+    Left = 160
+    Top = 368
   end
 end

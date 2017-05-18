@@ -83,7 +83,10 @@ begin
       ln.Id := id;
       ln.Client := TLoanClient.Create(FieldByName('entity_id').AsString,
                         FieldByName('name').AsString, empl,
-                        FieldByName('client_addr').AsString);
+                        FieldByName('client_addr').AsString,
+                        FieldByName('age').AsInteger,
+                        FieldByName('net_pay').AsFloat,
+                        FieldByName('valid_ident_docs').AsInteger);
       ln.Status := FieldByName('status_id').AsString;
       ln.Action := laNone;
 

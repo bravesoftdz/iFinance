@@ -3,10 +3,10 @@ unit PaymentDetail;
 interface
 
 uses
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, BasePopupDetail, RzButton, RzTabs,
   Vcl.StdCtrls, RzLabel, Vcl.Imaging.pngimage, Vcl.ExtCtrls, RzPanel,
-  JvExControls, JvLabel, Vcl.Mask, RzEdit;
+  JvExControls, JvLabel, Vcl.Mask, RzEdit, Vcl.DBCtrls, RzDBCmbo, RzCmboBx;
 
 type
   TfrmPaymentDetail = class(TfrmBasePopupDetail)
@@ -18,11 +18,22 @@ type
     lblType: TJvLabel;
     lblAccount: TJvLabel;
     lblBalance: TJvLabel;
-    edAmount: TRzNumericEdit;
+    edPrincipal: TRzNumericEdit;
     JvLabel5: TJvLabel;
+    JvLabel6: TJvLabel;
+    edInterest: TRzNumericEdit;
+    lblTotal: TJvLabel;
+    JvLabel7: TJvLabel;
+    cmbPaymentMethod: TRzComboBox;
+    JvLabel8: TJvLabel;
+    edPenalty: TRzNumericEdit;
     procedure FormCreate(Sender: TObject);
+    procedure FormKeyPress(Sender: TObject; var Key: Char);
+    procedure edPrincipalChange(Sender: TObject);
+    procedure edInterestChange(Sender: TObject);
   private
     { Private declarations }
+    procedure SetTotalAmount;
   public
     { Public declarations }
   protected
@@ -39,13 +50,29 @@ implementation
 {$R *.dfm}
 
 uses
-  Payment, IFinanceDialogs;
+  Payment, IFinanceDialogs, FormsUtil;
+
+procedure TfrmPaymentDetail.edInterestChange(Sender: TObject);
+begin
+  inherited;
+  pmt.Details[pmt.DetailCount-1].Interest := edInterest.Value;
+  SetTotalAmount;
+end;
+
+procedure TfrmPaymentDetail.edPrincipalChange(Sender: TObject);
+begin
+  inherited;
+  pmt.Details[pmt.DetailCount-1].Principal := edPrincipal.Value;
+  SetTotalAmount;
+end;
 
 procedure TfrmPaymentDetail.FormCreate(Sender: TObject);
 var
   i: integer;
 begin
   inherited;
+  PopulatePaymentMethodComboBox(cmbPaymentMethod);
+
   // set labels
   i := pmt.Client.ActiveLoansCount - 1;
 
@@ -55,13 +82,15 @@ begin
   lblBalance.Caption := FormatFloat('###,###,##0.00',pmt.Client.ActiveLoans[i].Balance);
 end;
 
-procedure TfrmPaymentDetail.Save;
-var
-  detail: TPaymentDetail;
+procedure TfrmPaymentDetail.FormKeyPress(Sender: TObject; var Key: Char);
 begin
-  detail := pmt.Details[pmt.DetailCount-1];
-  detail.Amount := edAmount.Value;
-  ModalResult := mrOK;
+  inherited;
+  if Key = #13 then Save; // enter key
+end;
+
+procedure TfrmPaymentDetail.Save;
+begin
+
 end;
 
 procedure TfrmPaymentDetail.Cancel;
@@ -72,11 +101,28 @@ begin
   pmt.RemoveDetail(detail.Loan);
 end;
 
+procedure TfrmPaymentDetail.SetTotalAmount;
+var
+  amount: real;
+begin
+  with lblTotal do
+  begin
+    amount := pmt.Details[pmt.DetailCount-1].TotalAmount;
+
+    // change colour
+    if amount < 0 then Color := clRed else Color := clBlack;
+
+    Caption := 'Total amount: ' + FormatFloat('###,###,##0.00',amount);
+  end;
+end;
+
 function TfrmPaymentDetail.ValidEntry: boolean;
 var
   error: string;
 begin
-  if edAmount.Value <= 0 then error := 'Invalid value for amount.';
+  if pmt.Details[pmt.DetailCount-1].Principal < 0 then error := 'Invalid value for principal.'
+  else if pmt.Details[pmt.DetailCount-1].Interest < 0 then error := 'Invalid value for interest.'
+  else if pmt.Details[pmt.DetailCount-1].TotalAmount <= 0 then error := 'No amount entered.';
 
   if error <> '' then ShowErrorBox(error);
 

@@ -1,6 +1,8 @@
 object dmPayment: TdmPayment
   OldCreateOrder = False
-  Height = 219
+  OnCreate = DataModuleCreate
+  OnDestroy = DataModuleDestroy
+  Height = 370
   Width = 396
   object dstPayment: TADODataSet
     Tag = 1
@@ -8,6 +10,7 @@ object dmPayment: TdmPayment
     CursorType = ctStatic
     LockType = ltBatchOptimistic
     BeforeOpen = dstPaymentBeforeOpen
+    BeforePost = dstPaymentBeforePost
     OnNewRecord = dstPaymentNewRecord
     CommandText = 'sp_pmt_get_payment;1'
     CommandType = cmdStoredProc
@@ -17,7 +20,7 @@ object dmPayment: TdmPayment
         DataType = ftInteger
         Direction = pdReturnValue
         Precision = 10
-        Value = Null
+        Value = 0
       end
       item
         Name = '@payment_id'
@@ -39,9 +42,25 @@ object dmPayment: TdmPayment
     Connection = dmApplication.acMain
     CursorType = ctStatic
     LockType = ltBatchOptimistic
+    BeforeOpen = dstPaymentDetailBeforeOpen
+    AfterOpen = dstPaymentDetailAfterOpen
     CommandText = 'sp_pmt_get_payment_detail;1'
     CommandType = cmdStoredProc
-    Parameters = <>
+    Parameters = <
+      item
+        Name = '@RETURN_VALUE'
+        DataType = ftInteger
+        Direction = pdReturnValue
+        Precision = 10
+        Value = Null
+      end
+      item
+        Name = '@payment_id'
+        Attributes = [paNullable]
+        DataType = ftString
+        Size = 16
+        Value = '0'
+      end>
     Left = 55
     Top = 78
   end
@@ -63,6 +82,7 @@ object dmPayment: TdmPayment
         DataType = ftInteger
         Direction = pdReturnValue
         Precision = 10
+        Value = Null
       end
       item
         Name = '@entity_id'
@@ -85,5 +105,66 @@ object dmPayment: TdmPayment
     DataSet = dstActiveLoans
     Left = 284
     Top = 16
+  end
+  object dstPaymentMethod: TADODataSet
+    Connection = dmApplication.acMain
+    CursorType = ctStatic
+    LockType = ltReadOnly
+    CommandText = 'sp_dd_get_payment_methods;1'
+    CommandType = cmdStoredProc
+    Parameters = <>
+    Left = 216
+    Top = 80
+  end
+  object dscPaymentMethod: TDataSource
+    DataSet = dstPaymentMethod
+    Left = 284
+    Top = 80
+  end
+  object dstWithdrawal: TADODataSet
+    Tag = 1
+    Connection = dmApplication.acMain
+    CursorType = ctStatic
+    AfterPost = dstWithdrawalAfterPost
+    OnNewRecord = dstWithdrawalNewRecord
+    CommandText = 'sp_pmt_get_withdrawals;1'
+    CommandType = cmdStoredProc
+    Parameters = <>
+    Left = 47
+    Top = 142
+  end
+  object dscWithdrawal: TDataSource
+    DataSet = dstWithdrawal
+    Left = 111
+    Top = 142
+  end
+  object dstAcctInfo: TADODataSet
+    Connection = dmApplication.acMain
+    CursorType = ctStatic
+    BeforeOpen = dstAcctInfoBeforeOpen
+    CommandText = 'sp_cl_get_acct_info;1'
+    CommandType = cmdStoredProc
+    Parameters = <
+      item
+        Name = '@RETURN_VALUE'
+        DataType = ftInteger
+        Direction = pdReturnValue
+        Precision = 10
+        Value = 0
+      end
+      item
+        Name = '@entity_id'
+        Attributes = [paNullable]
+        DataType = ftString
+        Size = 9
+        Value = ''
+      end>
+    Left = 40
+    Top = 208
+  end
+  object dscAcctInfo: TDataSource
+    DataSet = dstAcctInfo
+    Left = 112
+    Top = 208
   end
 end

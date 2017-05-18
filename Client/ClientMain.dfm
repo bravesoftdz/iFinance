@@ -40,13 +40,13 @@ inherited frmClientMain: TfrmClientMain
     Width = 860
     Height = 552
     Hint = ''
-    ActivePage = tsClientInfo
+    ActivePage = tsGroups
     Anchors = [akLeft, akTop, akRight, akBottom]
     BoldCurrentTab = True
     FlatColor = 6572079
     ShowFullFrame = False
     ShowShadow = False
-    TabIndex = 0
+    TabIndex = 4
     TabOrder = 1
     TabOrientation = toBottom
     TabStop = False
@@ -74,9 +74,9 @@ inherited frmClientMain: TfrmClientMain
       object JvLabel3: TJvLabel
         Left = 35
         Top = 88
-        Width = 36
+        Width = 66
         Height = 14
-        Caption = 'Middle'
+        Caption = 'Middlename'
         Transparent = True
       end
       object JvLabel7: TJvLabel
@@ -723,7 +723,7 @@ inherited frmClientMain: TfrmClientMain
         TabOnEnter = True
         TabOrder = 8
       end
-      object RzDBEdit11: TRzDBEdit
+      object edMobile: TRzDBEdit
         Left = 114
         Top = 286
         Width = 102
@@ -738,7 +738,7 @@ inherited frmClientMain: TfrmClientMain
         TabOnEnter = True
         TabOrder = 10
       end
-      object RzDBEdit10: TRzDBEdit
+      object edTelephone: TRzDBEdit
         Left = 219
         Top = 286
         Width = 102
@@ -1966,9 +1966,9 @@ inherited frmClientMain: TfrmClientMain
         end
       end
     end
-    object tsLoanClassAccess: TRzTabSheet
+    object tsGroups: TRzTabSheet
       Color = 14273211
-      Caption = 'Loan class accessibility'
+      Caption = 'Groups'
       DesignSize = (
         860
         529)
@@ -1981,7 +1981,7 @@ inherited frmClientMain: TfrmClientMain
         BorderColor = 6572079
         BorderSides = []
         BorderWidth = 1
-        Caption = 'Available loan class'
+        Caption = 'Groups'
         CaptionFont.Charset = DEFAULT_CHARSET
         CaptionFont.Color = clRed
         CaptionFont.Height = -12
@@ -1999,369 +1999,27 @@ inherited frmClientMain: TfrmClientMain
         ParentFont = False
         TabOrder = 0
       end
-      object pnlAvailList: TRzPanel
-        Left = 19
-        Top = 35
-        Width = 825
-        Height = 230
-        Anchors = [akLeft, akTop, akRight]
-        BorderOuter = fsNone
-        BorderColor = 6572079
-        BorderWidth = 1
-        Color = 14273211
-        TabOrder = 1
-        object grAvailList: TRzDBGrid
-          Left = 1
-          Top = 1
-          Width = 823
-          Height = 228
-          Align = alClient
-          BorderStyle = bsNone
-          DataSource = dmClient.dscLoanClassAvail
-          DrawingStyle = gdsGradient
-          FixedColor = 12955288
-          GradientEndColor = 12955288
-          GradientStartColor = 12955288
-          Options = [dgTitles, dgIndicator, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
-          TabOrder = 0
-          TitleFont.Charset = DEFAULT_CHARSET
-          TitleFont.Color = clWindowText
-          TitleFont.Height = -12
-          TitleFont.Name = 'Tahoma'
-          TitleFont.Style = []
-          FrameColor = 8675134
-          FrameHotTrack = True
-          FrameVisible = True
-          FramingPreference = fpCustomFraming
-          AltRowShadingColor = 15854564
-          Columns = <
-            item
-              Expanded = False
-              FieldName = 'grp_name'
-              Title.Alignment = taCenter
-              Title.Caption = 'Group'
-              Title.Font.Charset = DEFAULT_CHARSET
-              Title.Font.Color = clWindowText
-              Title.Font.Height = -12
-              Title.Font.Name = 'Tahoma'
-              Title.Font.Style = [fsBold]
-              Width = 160
-              Visible = True
-            end
-            item
-              Expanded = False
-              FieldName = 'class_name'
-              Title.Alignment = taCenter
-              Title.Caption = 'Class name'
-              Title.Font.Charset = DEFAULT_CHARSET
-              Title.Font.Color = clWindowText
-              Title.Font.Height = -12
-              Title.Font.Name = 'Tahoma'
-              Title.Font.Style = [fsBold]
-              Width = 180
-              Visible = True
-            end
-            item
-              Expanded = False
-              FieldName = 'loan_type_name'
-              Title.Alignment = taCenter
-              Title.Caption = 'Loan type'
-              Title.Font.Charset = DEFAULT_CHARSET
-              Title.Font.Color = clWindowText
-              Title.Font.Height = -12
-              Title.Font.Name = 'Tahoma'
-              Title.Font.Style = [fsBold]
-              Width = 100
-              Visible = True
-            end
-            item
-              Alignment = taRightJustify
-              Expanded = False
-              FieldName = 'int_rate_f'
-              Title.Alignment = taCenter
-              Title.Caption = 'Int %'
-              Title.Font.Charset = DEFAULT_CHARSET
-              Title.Font.Color = clWindowText
-              Title.Font.Height = -12
-              Title.Font.Name = 'Tahoma'
-              Title.Font.Style = [fsBold]
-              Width = 40
-              Visible = True
-            end
-            item
-              Alignment = taRightJustify
-              Expanded = False
-              FieldName = 'term'
-              Title.Alignment = taCenter
-              Title.Caption = 'Term'
-              Title.Font.Charset = DEFAULT_CHARSET
-              Title.Font.Color = clWindowText
-              Title.Font.Height = -12
-              Title.Font.Name = 'Tahoma'
-              Title.Font.Style = [fsBold]
-              Width = 35
-              Visible = True
-            end
-            item
-              Alignment = taRightJustify
-              Expanded = False
-              FieldName = 'comakers'
-              Title.Alignment = taCenter
-              Title.Caption = 'CM'
-              Title.Font.Charset = DEFAULT_CHARSET
-              Title.Font.Color = clWindowText
-              Title.Font.Height = -12
-              Title.Font.Name = 'Tahoma'
-              Title.Font.Style = [fsBold]
-              Width = 35
-              Visible = True
-            end
-            item
-              Alignment = taRightJustify
-              Expanded = False
-              FieldName = 'max_loan_f'
-              Title.Alignment = taCenter
-              Title.Caption = 'Maximum'
-              Title.Font.Charset = DEFAULT_CHARSET
-              Title.Font.Color = clWindowText
-              Title.Font.Height = -12
-              Title.Font.Name = 'Tahoma'
-              Title.Font.Style = [fsBold]
-              Width = 80
-              Visible = True
-            end
-            item
-              Expanded = False
-              FieldName = 'comp_method'
-              Title.Alignment = taCenter
-              Title.Caption = 'Computation method'
-              Title.Font.Charset = DEFAULT_CHARSET
-              Title.Font.Color = clWindowText
-              Title.Font.Height = -12
-              Title.Font.Name = 'Tahoma'
-              Title.Font.Style = [fsBold]
-              Width = 145
-              Visible = True
-            end>
-        end
-      end
-      object pnlAdd: TRzPanel
-        Left = 20
-        Top = 272
-        Width = 129
-        Height = 22
-        BorderOuter = fsNone
-        BorderColor = 6572079
-        BorderWidth = 1
-        Color = 12955288
-        TabOrder = 2
-        object btnMakeAccessible: TRzShapeButton
-          Left = 0
-          Top = 0
-          Width = 129
-          Height = 22
-          Hint = 'Make the selected loan class accessible'
-          BorderStyle = bsNone
-          Caption = 'Make accessible'
-          ParentShowHint = False
-          ShowHint = True
-          OnClick = btnMakeAccessibleClick
-        end
-      end
-      object RzGroupBox9: TRzGroupBox
-        Left = 19
-        Top = 309
-        Width = 825
-        Height = 22
-        Anchors = [akLeft, akTop, akRight]
-        BorderColor = 6572079
-        BorderSides = []
-        BorderWidth = 1
-        Caption = 'Accessible loan class'
-        CaptionFont.Charset = DEFAULT_CHARSET
-        CaptionFont.Color = clRed
-        CaptionFont.Height = -12
-        CaptionFont.Name = 'Tahoma'
-        CaptionFont.Style = [fsBold]
-        Color = 14273211
-        FlatColor = 6572079
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = 6572079
-        Font.Height = -12
-        Font.Name = 'Tahoma'
-        Font.Style = []
-        GradientColorStyle = gcsCustom
-        GroupStyle = gsUnderline
-        ParentFont = False
-        TabOrder = 3
-      end
-      object pnlAccessList: TRzPanel
-        Left = 20
-        Top = 332
-        Width = 824
-        Height = 136
+      object chlGroups: TRzCheckList
+        Left = 35
+        Top = 40
+        Width = 809
+        Height = 473
         Anchors = [akLeft, akTop, akRight, akBottom]
-        BorderOuter = fsNone
-        BorderColor = 6572079
-        BorderWidth = 1
         Color = 14273211
-        TabOrder = 4
-        object grAccessList: TRzDBGrid
-          Left = 1
-          Top = 1
-          Width = 822
-          Height = 134
-          Align = alClient
-          BorderStyle = bsNone
-          DataSource = dmClient.dscClientLoanClass
-          DrawingStyle = gdsGradient
-          FixedColor = 12955288
-          GradientEndColor = 12955288
-          GradientStartColor = 12955288
-          Options = [dgTitles, dgIndicator, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
-          TabOrder = 0
-          TitleFont.Charset = DEFAULT_CHARSET
-          TitleFont.Color = clWindowText
-          TitleFont.Height = -12
-          TitleFont.Name = 'Tahoma'
-          TitleFont.Style = []
-          FrameVisible = True
-          FramingPreference = fpCustomFraming
-          AltRowShadingColor = 15854564
-          Columns = <
-            item
-              Expanded = False
-              FieldName = 'grp_name'
-              Title.Alignment = taCenter
-              Title.Caption = 'Group'
-              Title.Font.Charset = DEFAULT_CHARSET
-              Title.Font.Color = clWindowText
-              Title.Font.Height = -12
-              Title.Font.Name = 'Tahoma'
-              Title.Font.Style = [fsBold]
-              Width = 160
-              Visible = True
-            end
-            item
-              Expanded = False
-              FieldName = 'class_name'
-              Title.Alignment = taCenter
-              Title.Caption = 'Class name'
-              Title.Font.Charset = DEFAULT_CHARSET
-              Title.Font.Color = clWindowText
-              Title.Font.Height = -12
-              Title.Font.Name = 'Tahoma'
-              Title.Font.Style = [fsBold]
-              Width = 180
-              Visible = True
-            end
-            item
-              Expanded = False
-              FieldName = 'loan_type_name'
-              Title.Alignment = taCenter
-              Title.Caption = 'Loan type'
-              Title.Font.Charset = DEFAULT_CHARSET
-              Title.Font.Color = clWindowText
-              Title.Font.Height = -12
-              Title.Font.Name = 'Tahoma'
-              Title.Font.Style = [fsBold]
-              Width = 100
-              Visible = True
-            end
-            item
-              Alignment = taRightJustify
-              Expanded = False
-              FieldName = 'int_rate_f'
-              Title.Alignment = taCenter
-              Title.Caption = 'Int %'
-              Title.Font.Charset = DEFAULT_CHARSET
-              Title.Font.Color = clWindowText
-              Title.Font.Height = -12
-              Title.Font.Name = 'Tahoma'
-              Title.Font.Style = [fsBold]
-              Width = 40
-              Visible = True
-            end
-            item
-              Alignment = taRightJustify
-              Expanded = False
-              FieldName = 'term'
-              Title.Alignment = taCenter
-              Title.Caption = 'Term'
-              Title.Font.Charset = DEFAULT_CHARSET
-              Title.Font.Color = clWindowText
-              Title.Font.Height = -12
-              Title.Font.Name = 'Tahoma'
-              Title.Font.Style = [fsBold]
-              Width = 35
-              Visible = True
-            end
-            item
-              Alignment = taRightJustify
-              Expanded = False
-              FieldName = 'comakers'
-              Title.Alignment = taCenter
-              Title.Caption = 'CM'
-              Title.Font.Charset = DEFAULT_CHARSET
-              Title.Font.Color = clWindowText
-              Title.Font.Height = -12
-              Title.Font.Name = 'Tahoma'
-              Title.Font.Style = [fsBold]
-              Width = 35
-              Visible = True
-            end
-            item
-              Alignment = taRightJustify
-              Expanded = False
-              FieldName = 'max_loan_f'
-              Title.Alignment = taCenter
-              Title.Caption = 'Maximum'
-              Title.Font.Charset = DEFAULT_CHARSET
-              Title.Font.Color = clWindowText
-              Title.Font.Height = -12
-              Title.Font.Name = 'Tahoma'
-              Title.Font.Style = [fsBold]
-              Width = 80
-              Visible = True
-            end
-            item
-              Expanded = False
-              FieldName = 'comp_method'
-              Title.Alignment = taCenter
-              Title.Caption = 'Comp. method'
-              Title.Font.Charset = DEFAULT_CHARSET
-              Title.Font.Color = clWindowText
-              Title.Font.Height = -12
-              Title.Font.Name = 'Tahoma'
-              Title.Font.Style = [fsBold]
-              Width = 145
-              Visible = True
-            end>
-        end
-      end
-      object RzPanel2: TRzPanel
-        Left = 20
-        Top = 475
-        Width = 129
-        Height = 22
-        Anchors = [akLeft, akBottom]
-        BorderOuter = fsNone
-        BorderColor = 6572079
-        BorderWidth = 1
-        Color = 12955288
-        TabOrder = 5
-        object btnRemoveAccessibility: TRzShapeButton
-          Left = 0
-          Top = 0
-          Width = 129
-          Height = 22
-          Hint = 'Make the selected loan class accessible'
-          BorderStyle = bsNone
-          Caption = 'Remove accesibility'
-          ParentShowHint = False
-          ShowHint = True
-          OnClick = btnRemoveAccessibilityClick
-        end
+        Columns = 3
+        FrameSides = []
+        FrameStyle = fsNone
+        FrameVisible = True
+        FramingPreference = fpCustomFraming
+        GroupColor = 14273211
+        GroupColorFromTheme = False
+        GroupFont.Charset = DEFAULT_CHARSET
+        GroupFont.Color = clBlack
+        GroupFont.Height = -12
+        GroupFont.Name = 'Tahoma'
+        GroupFont.Style = [fsBold]
+        ItemHeight = 17
+        TabOrder = 1
       end
     end
     object tsBankAcctInfo: TRzTabSheet
@@ -3072,7 +2730,7 @@ inherited frmClientMain: TfrmClientMain
         OnMouseUp = imgClientMainMouseUp
       end
     end
-    object pnlLoanClassAccess: TRzPanel
+    object pnlGroups: TRzPanel
       Left = 16
       Top = 234
       Width = 40
@@ -3083,13 +2741,13 @@ inherited frmClientMain: TfrmClientMain
       BorderWidth = 1
       Color = 12955288
       TabOrder = 4
-      object imgLoanClass: TImage
+      object imgGroups: TImage
         Left = 4
         Top = 4
         Width = 32
         Height = 32
         Cursor = crHandPoint
-        Hint = 'Loan class access'
+        Hint = 'Groups'
         AutoSize = True
         ParentShowHint = False
         Picture.Data = {
@@ -3153,7 +2811,7 @@ inherited frmClientMain: TfrmClientMain
           536F6674776172650041646F626520496D616765526561647971C9653C000000
           0049454E44AE426082}
         ShowHint = True
-        OnClick = imgLoanClassClick
+        OnClick = imgGroupsClick
         OnMouseDown = imgClientMainMouseDown
         OnMouseUp = imgClientMainMouseUp
       end

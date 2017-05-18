@@ -28,7 +28,7 @@ type
     JvLabel2: TJvLabel;
     lblCharges: TJvLabel;
     JvLabel4: TJvLabel;
-    lblTotalReleased: TJvLabel;
+    lblNetProceeds: TJvLabel;
     procedure FormShow(Sender: TObject);
     procedure grReleaseRecipientDblClick(Sender: TObject);
     procedure btnAddClick(Sender: TObject);
@@ -423,7 +423,7 @@ begin
   ln.ComputeCharges;
 
   lblCharges.Caption := FormatFloat('###,###,##0.00',ln.TotalCharges);
-  lblTotalReleased.Caption := FormatFloat('###,###,##0.00',ln.ReleaseAmount - ln.TotalCharges);
+  lblNetProceeds.Caption := FormatFloat('###,###,##0.00',ln.NetProceeds);
 end;
 
 end.

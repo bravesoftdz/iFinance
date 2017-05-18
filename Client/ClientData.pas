@@ -31,10 +31,7 @@ type
     dscLoans: TDataSource;
     dstComakers: TADODataSet;
     dscComakers: TDataSource;
-    dstClientLoanClass: TADODataSet;
-    dscClientLoanClass: TDataSource;
-    dstLoanClassAvail: TADODataSet;
-    dscLoanClassAvail: TDataSource;
+    dstGroups: TADODataSet;
     procedure dstPersonalInfoBeforeOpen(DataSet: TDataSet);
     procedure dstEntityBeforeOpen(DataSet: TDataSet);
     procedure dstContactInfoBeforeOpen(DataSet: TDataSet);
@@ -66,9 +63,9 @@ type
     procedure dstLoansAfterScroll(DataSet: TDataSet);
     procedure dstComakersBeforeOpen(DataSet: TDataSet);
     procedure dstLoansBeforeOpen(DataSet: TDataSet);
-    procedure dstClientLoanClassBeforeOpen(DataSet: TDataSet);
-    procedure dstLoanClassAvailBeforeOpen(DataSet: TDataSet);
-    procedure dstClientLoanClassAfterScroll(DataSet: TDataSet);
+    procedure dstClientLoanClass2BeforeOpen(DataSet: TDataSet);
+    procedure dstGroupsBeforeOpen(DataSet: TDataSet);
+    procedure dstClientLoanClass2AfterScroll(DataSet: TDataSet);
     procedure dstAcctInfoAfterPost(DataSet: TDataSet);
     procedure dstAcctInfoBeforeDelete(DataSet: TDataSet);
   private
@@ -216,7 +213,7 @@ begin
     DataSet.FieldByName('landlord').Value := null;
 end;
 
-procedure TdmClient.dstClientLoanClassAfterScroll(DataSet: TDataSet);
+procedure TdmClient.dstClientLoanClass2AfterScroll(DataSet: TDataSet);
 var
   clId, term, comakers, age: integer;
   clName: string;
@@ -253,7 +250,7 @@ begin
   end;
 end;
 
-procedure TdmClient.dstClientLoanClassBeforeOpen(DataSet: TDataSet);
+procedure TdmClient.dstClientLoanClass2BeforeOpen(DataSet: TDataSet);
 begin
   (DataSet as TADODataSet).Parameters.ParamByName('@entity_id').Value := cln.Id;
 end;
@@ -429,7 +426,7 @@ begin
     DataSet.FieldByName('entity_id').AsString := cln.Id;
 end;
 
-procedure TdmClient.dstLoanClassAvailBeforeOpen(DataSet: TDataSet);
+procedure TdmClient.dstGroupsBeforeOpen(DataSet: TDataSet);
 begin
   (DataSet as TADODataSet).Parameters.ParamByName('@entity_id').Value := cln.Id;
 end;

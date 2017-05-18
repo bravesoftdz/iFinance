@@ -24,6 +24,7 @@ inherited frmLoanReleaseDetail: TfrmLoanReleaseDetail
   inherited pnlMain: TRzPanel
     Width = 541
     Height = 328
+    ExplicitTop = 23
     ExplicitWidth = 541
     ExplicitHeight = 328
     inherited pnlDetail: TRzPanel
@@ -139,9 +140,9 @@ inherited frmLoanReleaseDetail: TfrmLoanReleaseDetail
             Tag = -1
             Left = 240
             Top = 47
-            Width = 71
+            Width = 86
             Height = 14
-            Caption = 'For release:'
+            Caption = 'Net proceeds:'
             Font.Charset = DEFAULT_CHARSET
             Font.Color = clWindowText
             Font.Height = -12
@@ -155,9 +156,9 @@ inherited frmLoanReleaseDetail: TfrmLoanReleaseDetail
             HotTrackFont.Name = 'Tahoma'
             HotTrackFont.Style = []
           end
-          object lblTotalReleased: TJvLabel
+          object lblNetProceeds: TJvLabel
             Tag = -1
-            Left = 329
+            Left = 337
             Top = 47
             Width = 27
             Height = 14

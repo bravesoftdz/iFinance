@@ -15,9 +15,7 @@ type
     pnlList: TRzPanel;
     grList: TRzDBGrid;
     JvLabel1: TJvLabel;
-    JvLabel2: TJvLabel;
     edClassName: TRzDBEdit;
-    dbluLoanType: TRzDBLookupComboBox;
     JvLabel3: TJvLabel;
     JvLabel4: TJvLabel;
     edTerm: TRzDBEdit;
@@ -27,7 +25,6 @@ type
     JvLabel7: TJvLabel;
     dbluCompMethod: TRzDBLookupComboBox;
     edInterest: TRzDBNumericEdit;
-    JvLabel8: TJvLabel;
     edMaxLoan: TRzDBNumericEdit;
     JvLabel9: TJvLabel;
     dbluBranch: TRzDBLookupComboBox;
@@ -60,6 +57,7 @@ type
     RzPanel3: TRzPanel;
     RzShapeButton1: TRzShapeButton;
     JvLabel11: TJvLabel;
+    JvLabel13: TJvLabel;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure urlRefreshListClick(Sender: TObject);
@@ -98,7 +96,7 @@ implementation
 
 uses
   LoansAuxData, FormsUtil, IFinanceDialogs, AuxData, LoanClassChargeDetail, DecisionBox,
-  LoanType, LoanClassification, Group, GroupUtils, GroupSearch;
+  LoanType, LoanClassification, Group, GroupUtils, GroupSearch, EntitiesData;
 
 function TfrmLoanClassificationList.Save: boolean;
 begin
@@ -129,7 +127,8 @@ end;
 
 procedure TfrmLoanClassificationList.SetUnboundControls;
 begin
-  bteGroup.Text := lnc.Group.GroupName;
+  if (Assigned(lnc)) and (Assigned(lnc.Group)) then
+    bteGroup.Text := lnc.Group.GroupName;
 end;
 
 procedure TfrmLoanClassificationList.FilterCharges;
@@ -231,15 +230,14 @@ begin
   if dbluBranch.Text = '' then error := 'Please select a branch.'
   else if Trim(bteGroup.Text) = '' then error := 'Please select a group.'
   else if Trim(edClassName.Text) = '' then error := 'Please enter a class name.'
-  else if dbluLoanType.Text = '' then error := 'Please select a loan type.'
   else if edInterest.Text = '' then error := 'Please enter an interest rate.'
   else if edTerm.Text = '' then error := 'Please enter a term.'
   else if edMaxLoan.Value <= 0 then error := 'Please enter a maximum loan.'
   else if dbluCompMethod.Text = '' then error := 'Please select a computation method.'
   else if dbluPayFreq.Text = '' then error := 'Please select a payment frequency.'
   else if dteFrom.Text = '' then error := 'Please specify a start date.'
-  else if edMaxLoan.Value > ltype.MaxTotalAmount then
-    error := 'Maximum loan exceeds the maximum total amount for the selected loan type.'
+  // else if edMaxLoan.Value > ltype.MaxTotalAmount then
+  //  error := 'Maximum loan exceeds the maximum total amount for the selected group.'
   else if dteUntil.Text <> '' then
   begin
     if dteUntil.Date <= dteFrom.Date then error := 'End date cannot be less than or equal to the start date.'
@@ -349,6 +347,8 @@ begin
   begin
     try
       try
+        dmEntities := TdmEntities.Create(self);
+
         grp := TGroup.Create;
 
         ShowModal;
@@ -369,6 +369,7 @@ begin
           ShowErrorBox(e.Message);
       end;
     finally
+      dmEntities.Free;
       Free;
     end;
   end;

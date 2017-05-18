@@ -36,7 +36,7 @@ inherited frmLoanTypeList: TfrmLoanTypeList
           Title.Font.Height = -12
           Title.Font.Name = 'Tahoma'
           Title.Font.Style = [fsBold]
-          Width = 100
+          Width = 75
           Visible = True
         end
         item
@@ -49,7 +49,7 @@ inherited frmLoanTypeList: TfrmLoanTypeList
           Title.Font.Height = -12
           Title.Font.Name = 'Tahoma'
           Title.Font.Style = [fsBold]
-          Width = 200
+          Width = 170
           Visible = True
         end
         item
@@ -76,6 +76,18 @@ inherited frmLoanTypeList: TfrmLoanTypeList
           Title.Font.Style = [fsBold]
           Width = 75
           Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'ident_docs'
+          Title.Caption = 'ID'#39's req.'
+          Title.Font.Charset = DEFAULT_CHARSET
+          Title.Font.Color = clWindowText
+          Title.Font.Height = -12
+          Title.Font.Name = 'Tahoma'
+          Title.Font.Style = [fsBold]
+          Width = 55
+          Visible = True
         end>
     end
   end
@@ -96,23 +108,7 @@ inherited frmLoanTypeList: TfrmLoanTypeList
       Caption = 'Desc.'
       Transparent = True
     end
-    object JvLabel14: TJvLabel [2]
-      Left = 14
-      Top = 135
-      Width = 56
-      Height = 14
-      Caption = 'Max. total'
-      Transparent = True
-    end
-    object JvLabel5: TJvLabel [3]
-      Left = 166
-      Top = 135
-      Width = 63
-      Height = 14
-      Caption = 'Concurrent'
-      Transparent = True
-    end
-    object JvLabel3: TJvLabel [4]
+    object JvLabel3: TJvLabel [2]
       Left = 13
       Top = 39
       Width = 33
@@ -120,11 +116,20 @@ inherited frmLoanTypeList: TfrmLoanTypeList
       Caption = 'Name'
       Transparent = True
     end
+    object JvLabel4: TJvLabel [3]
+      Left = 14
+      Top = 135
+      Width = 48
+      Height = 14
+      Caption = 'ID'#39's req.'
+      Transparent = True
+    end
     inherited pnlAdd: TRzPanel
-      TabOrder = 5
+      TabOrder = 4
     end
     inherited pnlDetailHead: TRzPanel
-      TabOrder = 6
+      TabOrder = 5
+      ExplicitWidth = 275
     end
     object edTypeName: TRzDBEdit
       Left = 80
@@ -153,38 +158,6 @@ inherited frmLoanTypeList: TfrmLoanTypeList
       FramingPreference = fpCustomFraming
       TabOnEnter = True
     end
-    object edMaxTotal: TRzDBNumericEdit
-      Left = 80
-      Top = 129
-      Width = 81
-      Height = 22
-      DataSource = dmLoansAux.dscLoanTypes
-      DataField = 'max_tot_amt'
-      Alignment = taLeftJustify
-      DisabledColor = clWhite
-      FrameColor = 8675134
-      FrameVisible = True
-      FramingPreference = fpCustomFraming
-      TabOnEnter = True
-      TabOrder = 3
-      DisplayFormat = '###,##0.00'
-      FlatButtons = True
-    end
-    object edConcurrent: TRzDBEdit
-      Left = 233
-      Top = 129
-      Width = 31
-      Height = 22
-      DataSource = dmLoansAux.dscLoanTypes
-      DataField = 'max_concurrent'
-      CharCase = ecUpperCase
-      DisabledColor = clWhite
-      FrameColor = 8675134
-      FrameVisible = True
-      FramingPreference = fpCustomFraming
-      TabOnEnter = True
-      TabOrder = 4
-    end
     object dbluAccountType: TRzDBLookupComboBox
       Tag = 1
       Left = 80
@@ -204,6 +177,21 @@ inherited frmLoanTypeList: TfrmLoanTypeList
       FrameVisible = True
       FramingPreference = fpCustomFraming
       TabOnEnter = True
+    end
+    object RzDBEdit1: TRzDBEdit
+      Left = 80
+      Top = 129
+      Width = 81
+      Height = 22
+      DataSource = dmLoansAux.dscLoanTypes
+      DataField = 'ident_docs'
+      CharCase = ecUpperCase
+      DisabledColor = clWhite
+      FrameColor = 8675134
+      FrameVisible = True
+      FramingPreference = fpCustomFraming
+      TabOnEnter = True
+      TabOrder = 3
     end
   end
 end

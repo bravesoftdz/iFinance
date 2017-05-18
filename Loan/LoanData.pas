@@ -404,53 +404,61 @@ end;
 
 procedure TdmLoan.dstLoanClassAfterScroll(DataSet: TDataSet);
 var
-  clId, term, comakers, age, concurrent, loanType: integer;
+  clId, trm, cmakers, age, concurrent, loanType, idDocs: integer;
   clName, loanTypeName: string;
-  interest, maxLoan, maxTotalAmount: real;
-  validFrom, validUntil: TDate;
+  intrst, maxLn, maxLoanTypeAmt: real;
+  validFr, validUn: TDate;
   gp: TGroup;
+  gpa: TGroupAttributes;
 begin
   with DataSet do
   begin
     clId := FieldByName('class_id').AsInteger;
     clName := FieldByName('class_name').AsString;
-    interest := FieldByName('int_rate').AsFloat;
-    term := FieldByName('term').AsInteger;
-    maxLoan := FieldByName('max_loan').AsFloat;
-    comakers := FieldByName('comakers').AsInteger;
-    validFrom := FieldByName('valid_from').AsDateTime;
-    validUntil := FieldByName('valid_until').AsDateTime;
+    intrst := FieldByName('int_rate').AsFloat;
+    trm := FieldByName('term').AsInteger;
+    maxLn := FieldByName('max_loan').AsFloat;
+    cmakers := FieldByName('comakers').AsInteger;
+    validFr := FieldByName('valid_from').AsDateTime;
+    validUn := FieldByName('valid_until').AsDateTime;
     age := FieldByName('max_age').AsInteger;
 
     // loan type variables
     loanType := FieldByName('loan_type').AsInteger;
     loanTypeName := FieldByName('loan_type_name').AsString;
     concurrent := FieldByName('max_concurrent').AsInteger;
-    maxTotalAmount := FieldByName('max_tot_amt').AsFloat;
+    maxLoanTypeAmt := FieldByName('max_loantype_amount').AsFloat;
+    idDocs := FieldByName('ident_docs').AsInteger;
 
-    ltype := TLoanType.Create(loanType,loanTypeName,concurrent,maxTotalAmount);
+    ltype := TLoanType.Create(loanType,loanTypeName,concurrent,maxLoanTypeAmt,idDocs);
 
     // group
     gp := TGroup.Create;
     gp.GroupId := FieldByName('grp_id').AsString;
     gp.GroupName := FieldByName('grp_name').AsString;
+
+    // group attributes
+    gpa := TGroupAttributes.Create;
+    gpa.Concurrent := FieldByName('concurrent').AsInteger;
+    gpa.MaxTotalAmount := FieldByName('max_group_amount').AsFloat;
+    gp.Attributes := gpa;
   end;
 
   if not Assigned(ln.LoanClass) then
-    ln.LoanClass := TLoanClassification.Create(clId, clName, interest,
-        term, maxLoan, comakers, validFrom, validUntil, age, ltype, gp)
+    ln.LoanClass := TLoanClassification.Create(clId, clName, intrst,
+        trm, maxLn, cmakers, validFr, validUn, age, ltype, gp)
   else
   begin
     with ln.LoanClass do
     begin
       ClassificationId := clId;
       ClassificationName := clName;
-      Interest := interest;
-      Term := term;
-      MaxLoan := maxLoan;
-      Comakers := comakers;
-      ValidFrom := validFrom;
-      ValidUntil := validUntil;
+      Interest := intrst;
+      Term := trm;
+      MaxLoan := maxLn;
+      Comakers := cmakers;
+      ValidFrom := validFr;
+      ValidUntil := validUn;
       MaxAge := age;
       LoanType := ltype;
       Group := gp;

@@ -6,7 +6,7 @@ uses
   System.SysUtils, System.Classes, BaseDocked, Vcl.Controls, Vcl.StdCtrls,
   RzLabel, Vcl.ExtCtrls, RzPanel, Vcl.Mask, RzEdit, RzBtnEdt, JvExControls,
   JvLabel, Vcl.Grids, RzGrids, RzDBEdit, SaveIntf, System.UITypes, PaymentIntf,
-  Vcl.Imaging.pngimage, Payment;
+  Vcl.Imaging.pngimage, Payment, StrUtils, Vcl.Graphics, System.Types;
 
 type
   TfrmPaymentMain = class(TfrmBaseDocked, ISave, IPayment)
@@ -14,8 +14,6 @@ type
     pnlDetail: TRzPanel;
     grDetail: TRzStringGrid;
     JvLabel7: TJvLabel;
-    dtePaymentDate: TRzDBDateTimeEdit;
-    edReceipt: TRzDBEdit;
     JvLabel1: TJvLabel;
     lblTotalAmount: TJvLabel;
     pnlAddPayment: TRzPanel;
@@ -23,6 +21,12 @@ type
     edClient: TRzEdit;
     pnlDeletePayment: TRzPanel;
     imgDeletePayment: TImage;
+    JvLabel2: TJvLabel;
+    lblReferenceNo: TJvLabel;
+    JvLabel4: TJvLabel;
+    lblPosted: TJvLabel;
+    dtePaymentDate: TRzDBDateTimeEdit;
+    edReceipt: TRzDBEdit;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure imgAddPaymentClick(Sender: TObject);
@@ -32,6 +36,9 @@ type
       Shift: TShiftState; X, Y: Integer);
     procedure FormShow(Sender: TObject);
     procedure imgDeletePaymentClick(Sender: TObject);
+    procedure grDetailResize(Sender: TObject);
+    procedure grDetailDrawCell(Sender: TObject; ACol, ARow: Integer;
+      Rect: TRect; State: TGridDrawState);
   private
     { Private declarations }
     function SelectActiveClient: TModalResult;
@@ -43,6 +50,10 @@ type
     procedure PopulateDetail;
     procedure AddRow(const detail: TPaymentDetail);
     procedure RemoveRow(const row: integer);
+    procedure SetUnboundControls;
+    procedure Retrieve;
+    procedure ChangeControlState;
+    procedure DeletePayment;
   public
     { Public declarations }
     function Save: boolean;
@@ -77,11 +88,35 @@ end;
 
 function TfrmPaymentMain.Save: boolean;
 begin
-  Result := PaymentIsValid;
+  Result := false;
 
-  if Result then
-    if ShowWarningBox('No receipt number has been entered. Do you want to continue saving this entry?') = mrYes then
-      pmt.Save
+  if pmt.IsNew then
+  begin
+    Result := PaymentIsValid;
+
+    try
+      if Result then
+      begin
+        if (Trim(edReceipt.Text) = '') and (ShowWarningBox('Receipt number has NOT been entered. ' +
+          'Do you want to continue saving this entry?') <> mrYes) then
+        begin
+          Result := false;
+          Exit;
+        end;
+
+        pmt.Save;
+
+        SetUnboundControls;
+        ChangeControlState;
+      end;
+    except
+      on E: Exception do
+      begin
+        Result := false;
+        ShowErrorBox(E.Message);
+      end;
+    end;
+  end;
 end;
 
 function TfrmPaymentMain.SelectActiveClient: TModalResult;
@@ -97,8 +132,7 @@ begin
         Result := ModalResult;
 
       except
-        on e: Exception do
-          ShowErrorBox(e.Message);
+        on e: Exception do ShowErrorBox(e.Message);
       end;
     finally
       Free;
@@ -168,8 +202,18 @@ procedure TfrmPaymentMain.FormCreate(Sender: TObject);
 begin
   dmPayment := TdmPayment.Create(self);
 
-  pmt := TPayment.Create;
-  pmt.Add;
+  try
+    if not Assigned(pmt) then
+    begin
+      pmt := TPayment.Create;
+      pmt.Add;
+    end
+    else Retrieve;
+  except
+    on E: Exception do ShowErrorBox(E.Message);
+  end;
+
+  ChangeControlState;
 
   inherited;
 end;
@@ -178,26 +222,59 @@ procedure TfrmPaymentMain.FormShow(Sender: TObject);
 begin
   inherited;
   PopulateDetail;
+end;
+
+procedure TfrmPaymentMain.grDetailDrawCell(Sender: TObject; ACol, ARow: Integer;
+  Rect: TRect; State: TGridDrawState);
+var
+  cellStr: string;
+begin
+  with grDetail do
+  begin
+    cellStr := Cells[ACol,ARow];
+
+    if ARow = 0 then Canvas.Font.Style := [fsBold]
+    else Canvas.Font.Style := [];
+
+    Canvas.Font.Size := Font.Size;
+    Canvas.Font.Name := Font.Name;
+
+    if ARow = 0 then
+      Canvas.TextRect(Rect,Rect.Left + (ColWidths[ACol] div 2) - (Canvas.TextWidth(cellStr) div 2), Rect.Top + 2, cellStr)
+    else if (ACol in [3,4,5]) and (ARow > 0) then
+      Canvas.TextRect(Rect,Rect.Left - Canvas.TextWidth(cellStr) + ColWidths[3] - 20,Rect.Top + 2,cellStr)
+    else
+      Canvas.TextOut(Rect.Left + 2, Rect.Top + 2, cellStr);
+  end;
+end;
+
+procedure TfrmPaymentMain.grDetailResize(Sender: TObject);
+begin
+  inherited;
   ExtendLastColumn(grDetail);
 end;
 
 procedure TfrmPaymentMain.AddActiveLoan;
 begin
-  // check if a client has been selected
-  if not Assigned(pmt.Client) then
+  if pmt.IsNew then
   begin
-    if SelectActiveClient = mrOk then
+    // check if a client has been selected
+    if not Assigned(pmt.Client) then
     begin
-      pmt.Client := activeCln;
-      edClient.Text := activeCln.Name;
+      if SelectActiveClient = mrOk then
+      begin
+        pmt.Client := activeCln;
+        edClient.Text := activeCln.Name;
 
-      pmt.Client.RetrieveActiveLoans;
-    end
-    else Exit;
-  end;
+        pmt.Client.RetrieveActiveLoans;
+      end
+      else Exit;
+    end;
 
-  // show active loans of selected client
-  if SelectActiveLoan = mrOk then ShowPaymentDetail;
+    // show active loans of selected client
+    if SelectActiveLoan = mrOk then ShowPaymentDetail;
+  end
+  else ShowErrorBox('Adding a NEW payment has been restricted.');
 end;
 
 procedure TfrmPaymentMain.SetTotalAmount;
@@ -227,16 +304,24 @@ end;
 
 procedure TfrmPaymentMain.imgDeletePaymentClick(Sender: TObject);
 begin
-  inherited;
-  if pmt.DetailCount > 0 then
+  DeletePayment;
+end;
+
+procedure TfrmPaymentMain.DeletePayment;
+begin
+  if pmt.IsNew then
   begin
-    if ShowDecisionBox('Are you sure you want to delete the selected payment?') = mrYes then
+    if pmt.DetailCount > 0 then
     begin
-      pmt.RemoveDetail(TPaymentDetail(grDetail.Objects[0,grDetail.Row]).Loan);
-      RemoveRow(grDetail.Row);
-      SetTotalAmount;
+      if ShowDecisionBox('Are you sure you want to delete the selected payment?') = mrYes then
+      begin
+        pmt.RemoveDetail(TPaymentDetail(grDetail.Objects[0,grDetail.Row]).Loan);
+        RemoveRow(grDetail.Row);
+        SetTotalAmount;
+      end;
     end;
-  end;
+  end
+  else ShowErrorBox('Deleting a payment has been restricted.');
 end;
 
 procedure TfrmPaymentMain.RemoveRow(const row: Integer);
@@ -258,8 +343,13 @@ begin
 
     end;
 
-    // decrease row count
-    RowCount := RowCount - 1;
+    // decrease row count or clear if details is empty
+    if pmt.DetailCount = 0 then
+    begin
+      for cl := 0 to ColCount - 1 do
+        Cells[cl,row] := '';
+    end
+    else RowCount := RowCount - 1
   end;
 end;
 
@@ -277,19 +367,23 @@ begin
     Cells[0,0] := 'Loan ID';
     Cells[1,0] := 'Type';
     Cells[2,0] := 'Account';
-    Cells[3,0] := 'Amount';
-    Cells[4,0] := 'Remarks';
+    Cells[3,0] := 'Principal';
+    Cells[4,0] := 'Interest';
+    Cells[5,0] := 'Total amount';
+    Cells[6,0] := 'Remarks';
 
     // widths
     ColWidths[0] := 120;
     ColWidths[1] := 120;
     ColWidths[2] := 120;
-    ColWidths[3] := 120;
-    ColWidths[4] := 250;
+    ColWidths[3] := 100;
+    ColWidths[4] := 100;
+    ColWidths[5] := 100;
+    ColWidths[6] := 300;
 
     cnt := pmt.DetailCount - 1;
 
-    for i := 0 to cnt - 1 do AddRow(pmt.Details[i]);
+    for i := 0 to cnt do AddRow(pmt.Details[i]);
   end;
 end;
 
@@ -299,18 +393,45 @@ var
 begin
   with grDetail do
   begin
-    RowCount := RowCount + 1;
+    if not FirstRow(grDetail) then RowCount := RowCount + 1;
 
-    r := RowCount - 2;
+    r := RowCount - FixedRows;
 
     Cells[0,r] := detail.Loan.Id;
     Cells[1,r] := detail.Loan.LoanTypeName;
     Cells[2,r] := detail.Loan.AccountTypeName;
-    Cells[3,r] := FormatFloat('###,###,##0.00',detail.Amount);
+    Cells[3,r] := FormatFloat('###,###,##0.00',detail.Principal);
+    Cells[4,r] := FormatFloat('###,###,##0.00',detail.Interest);
+    Cells[5,r] := FormatFloat('###,###,##0.00',detail.TotalAmount);
 
     Objects[0,r] := detail;
-
   end;
+end;
+
+procedure TfrmPaymentMain.SetUnboundControls;
+begin
+  edClient.Text := pmt.Client.Name;
+
+  lblReferenceNo.Caption := pmt.ReferenceNo;
+  lblPosted.Caption := IfThen(pmt.IsPosted,'Yes','No');
+end;
+
+procedure TfrmPaymentMain.Retrieve;
+begin
+  pmt.Retrieve;
+
+  SetUnboundControls;
+  SetTotalAmount;
+end;
+
+procedure TfrmPaymentMain.ChangeControlState;
+var
+  new: boolean;
+begin
+  new := pmt.IsNew;
+
+  dtePaymentDate.ReadOnly := not new;
+  edReceipt.ReadOnly := not new;
 end;
 
 end.

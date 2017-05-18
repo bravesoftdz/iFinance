@@ -9,7 +9,7 @@ uses
   RzEdit, RzDBEdit, JvLabel, JvExControls, Vcl.DBCtrls, RzDBCmbo,
   Vcl.ComCtrls, RzDTP, RzDBDTP, RzButton, RzRadChk, RzDBChk, Data.DB, Vcl.Grids,
   Vcl.DBGrids, RzDBGrid, RzBtnEdt, RzLaunch, ClientIntf, Vcl.Imaging.pngimage,
-  RzCmboBx, RzLstBox, RzDBList, NewIntf, RzGrids;
+  RzCmboBx, RzLstBox, RzDBList, NewIntf, RzGrids, RzChkLst;
 
 type
   TfrmClientMain = class(TfrmBaseDocked, ISave, IClient, INew)
@@ -62,8 +62,8 @@ type
     RzDBEdit8: TRzDBEdit;
     RzDBEdit9: TRzDBEdit;
     JvLabel22: TJvLabel;
-    RzDBEdit11: TRzDBEdit;
-    RzDBEdit10: TRzDBEdit;
+    edMobile: TRzDBEdit;
+    edTelephone: TRzDBEdit;
     JvLabel23: TJvLabel;
     JvLabel24: TJvLabel;
     bteEmployer: TRzButtonEdit;
@@ -92,7 +92,7 @@ type
     urlRefreshRefList: TRzURLLabel;
     dteBirthdate: TRzDBDateTimeEdit;
     RzDBMemo1: TRzDBMemo;
-    tsLoanClassAccess: TRzTabSheet;
+    tsGroups: TRzTabSheet;
     RzGroupBox2: TRzGroupBox;
     RzGroupBox3: TRzGroupBox;
     RzGroupBox4: TRzGroupBox;
@@ -106,8 +106,8 @@ type
     imgIdentInfo: TImage;
     pnlLoanHistoryBtn: TRzPanel;
     imgLoanHistory: TImage;
-    pnlLoanClassAccess: TRzPanel;
-    imgLoanClass: TImage;
+    pnlGroups: TRzPanel;
+    imgGroups: TImage;
     RzGroupBox6: TRzGroupBox;
     RzGroupBox7: TRzGroupBox;
     pnlTakePhoto: TRzPanel;
@@ -143,15 +143,6 @@ type
     pnlRemoveFamRef: TRzPanel;
     sbtnRemoveFamRef: TRzShapeButton;
     RzGroupBox1: TRzGroupBox;
-    pnlAvailList: TRzPanel;
-    grAvailList: TRzDBGrid;
-    pnlAdd: TRzPanel;
-    btnMakeAccessible: TRzShapeButton;
-    RzGroupBox9: TRzGroupBox;
-    pnlAccessList: TRzPanel;
-    grAccessList: TRzDBGrid;
-    RzPanel2: TRzPanel;
-    btnRemoveAccessibility: TRzShapeButton;
     pnlIdentDocDetail: TRzPanel;
     JvLabel49: TJvLabel;
     JvLabel50: TJvLabel;
@@ -188,6 +179,7 @@ type
     mmBank: TRzDBMemo;
     grAccounts: TRzDBGrid;
     dbluBank: TRzDBLookupComboBox;
+    chlGroups: TRzCheckList;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -207,8 +199,6 @@ type
     procedure dteBirthdateChange(Sender: TObject);
     procedure cmbIdTypeClick(Sender: TObject);
     procedure urlCopyClientAddressClick(Sender: TObject);
-    procedure btnRemoveAccessibilityClick(Sender: TObject);
-    procedure btnMakeAccessibleClick(Sender: TObject);
     procedure imgClientMainMouseDown(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
     procedure imgClientMainMouseUp(Sender: TObject; Button: TMouseButton;
@@ -216,7 +206,7 @@ type
     procedure imgClientMainClick(Sender: TObject);
     procedure imgFamRefClick(Sender: TObject);
     procedure imgIdentInfoClick(Sender: TObject);
-    procedure imgLoanClassClick(Sender: TObject);
+    procedure imgGroupsClick(Sender: TObject);
     procedure imgLoanHistoryClick(Sender: TObject);
     procedure imgTakePhotoClick(Sender: TObject);
     procedure sbtnNewFamRefClick(Sender: TObject);
@@ -241,6 +231,8 @@ type
     procedure NewFamRef;
     procedure NewIdentity;
     procedure NewAccount;
+    procedure PopulateGroups;
+    procedure ShowAlerts;
 
     function CheckClientInfo: string;
     function CheckIdentInfo: string;
@@ -269,7 +261,7 @@ uses
   ImmediateHead, RefereeSearch, Referee, AuxData, DockIntf, RefData,
   EmployerSearch, Employer, IdentityDoc, IFinanceGlobal,
   ReferenceSearch, Reference, LoansAuxData, LoanClassification,
-  DBUtil, IFinanceDialogs;
+  DBUtil, IFinanceDialogs, EntityUtils, Alert, Alerts;
 
 {$R *.dfm}
 
@@ -280,17 +272,28 @@ const
   FAMREF = 1;
   IDENT  = 2;
   LOANS  = 3;
-  LOANCLASSACCESS = 4;
+  GROUPS = 4;
   BANKACCOUNTS = 5;
 
 function TfrmClientMain.CheckClientInfo: string;
 var
   error: string;
+  duplicates: integer;
 begin
   if Trim(edLastname.Text) = '' then
     error := 'Please enter client''s lastname.'
   else if Trim(edFirstname.Text) = '' then
-    error := 'Please enter client''s firstname.';
+    error := 'Please enter client''s firstname.'
+  else if cln.Adding then
+  begin
+    duplicates := CheckDuplicate(edLastname.Text,edFirstname.Text);
+    if duplicates > 0 then  error := 'Duplicates found.'
+    else if duplicates = -1 then // -1 means to abort the adding of the new record
+    begin
+      Result := 'Abort';  // assign any value to the Result it's not going to displayed anyway
+      Exit;
+    end;
+  end;
 
   Result := error;
 
@@ -577,56 +580,6 @@ begin
 
 end;
 
-procedure TfrmClientMain.btnMakeAccessibleClick(Sender: TObject);
-var
-  sql, classId: string;
-begin
-  try
-    if grAvailList.DataSource.DataSet.RecordCount > 0 then
-    begin
-      classId := grAvailList.DataSource.DataSet.FieldByName('class_id').AsString;
-
-      sql := 'INSERT INTO ENTITYLOANCLASS VALUES (' + QuotedStr(cln.Id) +
-          ',' + classId + ')';
-
-      ExecuteSQL(sql);
-
-      OpenGridDataSources(pnlAvailList);
-      OpenGridDataSources(pnlAccessList);
-    end;
-  except
-    on e: Exception do
-      ShowErrorBox(e.Message);
-  end;
-end;
-
-procedure TfrmClientMain.btnRemoveAccessibilityClick(Sender: TObject);
-const
-  CONF = 'Are you sure you want to remove client access to the selected loan class?';
-var
-  sql: string;
-begin
-  if grAccessList.DataSource.DataSet.RecordCount > 0 then
-  begin
-    if (Assigned(cln.Employer)) and (lnc.Group.GroupId = cln.Employer.Group.GroupId) then
-      ShowErrorBox('Cannot remove the loan class. Loan class belongs to the client''s employer group.')
-    else if ShowDecisionBox(CONF) = mrYes then
-    begin
-      try
-        sql := 'DELETE ENTITYLOANCLASS WHERE ENTITY_ID = ' + QuotedStr(cln.Id) +
-            ' AND CLASS_ID = ' + IntToStr(lnc.ClassificationId);
-        ExecuteSQL(sql);
-        OpenGridDataSources(pnlAvailList);
-        OpenGridDataSources(pnlAccessList);
-
-      except
-        on e: Exception do
-          ShowErrorBox(e.Message);
-      end;
-    end;
-  end;
-end;
-
 procedure TfrmClientMain.FormClose(Sender: TObject; var Action: TCloseAction);
 var
   intf: IDock;
@@ -684,10 +637,9 @@ begin
       begin
         OpenGridDataSources(pnlLoans);
       end;
-    LOANCLASSACCESS:
+    GROUPS:
       begin
-        OpenGridDataSources(pnlAvailList);
-        OpenGridDataSources(pnlAccessList);
+        PopulateGroups;
       end;
     BANKACCOUNTS:
       begin
@@ -736,10 +688,10 @@ begin
   SetActiveTab(IDENT);
 end;
 
-procedure TfrmClientMain.imgLoanClassClick(Sender: TObject);
+procedure TfrmClientMain.imgGroupsClick(Sender: TObject);
 begin
   inherited;
-  SetActiveTab(LOANCLASSACCESS);
+  SetActiveTab(GROUPS);
 end;
 
 procedure TfrmClientMain.imgLoanHistoryClick(Sender: TObject);
@@ -822,6 +774,13 @@ begin
 
     if Result then
     begin
+      // alerts
+      case pcClient.ActivePageIndex of
+
+        CLIENT: ShowAlerts;
+
+      end;
+
       cln.Save;
       SetClientName;
 
@@ -882,7 +841,7 @@ begin
     begin
       Append;
       ChangeIdentControlState;
-      grIdentityList.DataSource.DataSet.FieldByName(grIdentityList.Columns[0].FieldName).FocusControl;
+      grIdentityList.DataSource.DataSet.FieldByName('ident_type').FocusControl;
     end;
   end;
 end;
@@ -1071,6 +1030,32 @@ begin
 
 end;
 
+procedure TfrmClientMain.ShowAlerts;
+begin
+  alrt := TAlert.Create;
+  try
+    // contact numbers
+    if (edMobile.Text = '') and (edTelephone.Text = '') then
+      alrt.Add('No contact numbers entered.');
+
+    if not cln.Adding then
+    begin
+      if cln.IdentityDocsCount = 0 then alrt.Add('No identity documents added.');
+
+    end;
+
+    if alrt.Count > 0 then
+      with TfrmAlerts.Create(self) do
+      begin
+        ShowModal;
+        Free;
+      end;
+
+  finally
+    alrt.Free;
+  end;
+end;
+
 procedure TfrmClientMain.urlCopyAddressClick(Sender: TObject);
 begin
   inherited;
@@ -1167,6 +1152,34 @@ procedure TfrmClientMain.PhotoLauncherFinished(Sender: TObject);
 begin
   inherited;
   LoadPhoto;
+end;
+
+procedure TfrmClientMain.PopulateGroups;
+var
+  i, cnt: integer;
+begin
+  cln.GetGroups;
+
+  chlGroups.Clear;
+
+  cnt := cln.GroupCount - 1;
+
+  chlGroups.AddGroup('Test 1');
+  chlGroups.AddItemToGroup(0,'Test 11');
+  chlGroups.AddItemToGroup(0,'Test 12');
+  chlGroups.AddItemToGroup(0,'Test 13');
+
+
+  chlGroups.AddGroup('Test 2');
+  chlGroups.AddItemToGroup(1,'Test 21');
+  chlGroups.AddItemToGroup(1,'Test 22');
+  chlGroups.AddItemToGroup(1,'Test 23');
+
+  for i := 0 to cnt do
+  begin
+    chlGroups.AddItem(cln.Groups[i].Name,cln.Groups[i]);
+    chlGroups.ItemChecked[i] := cln.Groups[i].Selected;
+  end;
 end;
 
 procedure TfrmClientMain.dteBirthdateChange(Sender: TObject);

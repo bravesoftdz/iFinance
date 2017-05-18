@@ -9,6 +9,7 @@ type
     FName: string;
     FMaxConcurrent: integer;
     FMaxTotalAmount: real;
+    FIdentityDocs: integer;
 
     function GetHasConcurrent: boolean;
 
@@ -18,10 +19,11 @@ type
     property MaxConcurrent: integer read FMaxConcurrent write FMaxConcurrent;
     property MaxTotalAmount: real read FMaxTotalAmount write FMaxTotalAmount;
     property HasConcurrent: boolean read GetHasConcurrent;
+    property IdentityDocs: integer read FIdentityDocs write FIdentityDocs;
 
     constructor Create; overload;
     constructor Create(const id: integer; const name: string; const concurrent: integer;
-        const total: real); overload;
+        const total: real; const identDocs: integer = 0); overload;
   end;
 
 var
@@ -38,12 +40,13 @@ begin
 end;
 
 constructor TLoanType.Create(const id: integer; const name: string; const concurrent: integer;
-        const total: real);
+        const total: real; const identDocs: integer);
 begin
   FId := id;
   FName := name;
   FMaxConcurrent := concurrent;
   FMaxTotalAmount := total;
+  FIdentityDocs := identDocs;
 end;
 
 function TLoanType.GetHasConcurrent: boolean;

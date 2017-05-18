@@ -6,7 +6,7 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, Buttons, BasePopup, BaseForm, Vcl.StdCtrls, RzLabel, System.UITypes,
   Vcl.Imaging.pngimage, Vcl.ExtCtrls, RzPanel, Vcl.Mask, RzEdit, RzPrgres,
-  RzButton, JvGIF;
+  RzButton, Ledger;
 
 type
   TfrmLogin = class(TfrmBasePopup)
@@ -235,6 +235,9 @@ begin
 
     // get all locations
     GetLocations;
+
+    // create ledger instance
+    ldgr := TLedger.Create;
   end;
 
   while i <= limit do
@@ -294,7 +297,8 @@ begin
   with dmApplication.dstUser do
   begin
     ifn.User.UserId := FieldByName('id_num').AsString;
-    ifn.User.Name := FieldByName('name').Asstring;
+    ifn.User.FirstName := FieldByName('employee_firstname').AsString;
+    ifn.User.LastName := FieldByName('employee_lastname').AsString;
 
     while not Eof do
     begin

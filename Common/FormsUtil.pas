@@ -4,7 +4,7 @@ interface
 
 uses
   Vcl.Controls, RzDBCmbo, RzDBGrid, RzGrids, DB, RzLstBox, RzChkLst, Vcl.ExtCtrls,
-  System.Classes, RzCmboBx, IFinanceGlobal, Location;
+  System.Classes, RzCmboBx, IFinanceGlobal, Location, PaymentMethod;
 
 procedure OpenDropdownDataSources(const parentCtrl: TWinControl;
   const open: boolean = true);
@@ -17,6 +17,9 @@ procedure ExtendLastColumn(grid: TRzStringGrid); overload;
 procedure PopulateBranchComboBox(comboBox: TRzComboBox);
 procedure PopulateComboBox(source: TDataSet; comboBox: TRzComboBox;
   const codeField, nameField: string); overload;
+procedure PopulatePaymentMethodComboBox(comboBox: TRzComboBox);
+
+function FirstRow(grid: TRzStringGrid): boolean;
 
 implementation
 
@@ -139,6 +142,21 @@ begin
     end;
     EnableControls;
   end;
+end;
+
+procedure PopulatePaymentMethodComboBox(comboBox: TRzComboBox);
+var
+  i, cnt: integer;
+begin
+  cnt := Length(pmtMethods) - 1;
+  for i := 0 to cnt do
+    comboBox.AddObject(pmtMethods[i].Name,TObject(pmtMethods[i]));
+end;
+
+function FirstRow(grid: TRzStringGrid): boolean;
+begin
+  with grid do
+    Result := (RowCount = FixedRows + 1) and (not Assigned(Objects[0,1]));
 end;
 
 end.

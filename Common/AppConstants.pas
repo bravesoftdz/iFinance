@@ -6,7 +6,7 @@ type TForms = (fmClientMain, fmClientList, fmGroupList, fmEmployerList,
                 fmBanksList, fmDesignationList, fmLoanClassList, fmLoanMain,
                 fmLoanList, fmCompetitorList, fmPurposeList,fmLoanTypeList,
                 fmAcctTypeList, fmLoanCancelReasonList, fmLoanRejectReasonList,
-                fmSettings, fmPaymentMain);
+                fmSettings, fmPaymentMain, fmPaymentList, fmWithdrawalList);
 
 {
 Entity types

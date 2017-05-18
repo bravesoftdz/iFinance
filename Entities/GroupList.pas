@@ -15,12 +15,19 @@ type
   TfrmGroupList = class(TfrmBaseGridDetail)
     JvLabel1: TJvLabel;
     edGroupName: TRzDBEdit;
-    cbxPrivate: TRzDBCheckBox;
+    cbxPublic: TRzDBCheckBox;
     cbxActive: TRzDBCheckBox;
     JvLabel12: TJvLabel;
     dbluParentGroup: TRzDBLookupComboBox;
     tvGroup: TRzTreeView;
     cmbBranch: TRzComboBox;
+    JvLabel14: TJvLabel;
+    edMaxTotal: TRzDBNumericEdit;
+    RzGroupBox1: TRzGroupBox;
+    JvLabel2: TJvLabel;
+    dbluLoanType: TRzDBLookupComboBox;
+    JvLabel5: TJvLabel;
+    edConcurrent: TRzDBEdit;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure tvGroupChange(Sender: TObject; Node: TTreeNode);
@@ -29,17 +36,21 @@ type
       State: TDragState; var Accept: Boolean);
     procedure cmbBranchChange(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure dbluParentGroupClick(Sender: TObject);
   private
     { Private declarations }
     procedure PopulateTree;
     procedure PopulateGroupList;
     procedure FilterList;
     procedure UpdateTree;
+    procedure EnableControls(const enable: boolean);
+    procedure SaveAttributes;
   protected
     function EntryIsValid: boolean; override;
     procedure SearchList; override;
   public
     { Public declarations }
+    procedure New; override;
     function Save: boolean; override;
   end;
 
@@ -51,7 +62,7 @@ implementation
 {$R *.dfm}
 
 uses
-  EntitiesData, IFinanceDialogs, FormsUtil;
+  EntitiesData, IFinanceDialogs, FormsUtil, AuxData;
 
 procedure TfrmGroupList.PopulateTree;
 var
@@ -110,7 +121,6 @@ begin
       gp.GroupId := FieldByName('grp_id').AsString;
       gp.GroupName := FieldByName('grp_name').AsString;
       gp.ParentGroupId := FieldByName('par_grp_id').AsString;
-      gp.IsGov := FieldByName('is_gov').AsInteger;
       gp.IsActive := FieldByName('is_active').AsInteger;
 
       SetLength(groups,Length(groups) + 1);
@@ -127,12 +137,15 @@ end;
 procedure TfrmGroupList.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
   dmEntities.Free;
+  dmAux.Free;
+
   inherited;
 end;
 
 procedure TfrmGroupList.FormCreate(Sender: TObject);
 begin
   dmEntities := TdmEntities.Create(self);
+  dmAux := TdmAux.Create(self);
 
   PopulateBranchComboBox(cmbBranch);
 
@@ -145,11 +158,23 @@ begin
   UpdateTree;
 end;
 
+procedure TfrmGroupList.New;
+begin
+  inherited;
+  TGroup.AddAttributes;
+end;
+
 procedure TfrmGroupList.UpdateTree;
 begin
   FilterList;
   PopulateGroupList;
   PopulateTree;
+
+  if Length(groups) > 0 then
+  begin
+    EnableControls(not groups[0].HasParent);
+    groups[0].GetAttributes;
+  end;
 end;
 
 procedure TfrmGroupList.SearchList;
@@ -164,6 +189,9 @@ var
 begin
   groupId := TGroup(Node.Data).GroupId;
   grList.DataSource.DataSet.Locate('grp_id',groupId,[]);
+
+  EnableControls(not TGroup(Node.Data).HasParent);
+  TGroup(Node.Data).GetAttributes;
 end;
 
 procedure TfrmGroupList.tvGroupDragDrop(Sender, Source: TObject; X, Y: Integer);
@@ -176,7 +204,6 @@ begin
 
   // apply destination properties to source
   TGroup(src.Data).ParentGroupId := TGroup(dst.Data).GroupId;
-  TGroup(src.Data).IsGov := TGroup(dst.Data).IsGov;
   TGroup(src.Data).IsActive := TGroup(dst.Data).IsActive;
   TGroup(src.Data).SaveChanges(src.Data);
 end;
@@ -209,13 +236,49 @@ begin
   UpdateTree;
 end;
 
+procedure TfrmGroupList.dbluParentGroupClick(Sender: TObject);
+begin
+  inherited;
+  EnableControls(dbluParentGroup.KeyValue = null);
+end;
+
+procedure TfrmGroupList.EnableControls(const enable: boolean);
+var
+  i, cnt: integer;
+begin
+  cnt := pnlDetail.ControlCount - 1;
+  for i := 0 to cnt do
+  begin
+    if pnlDetail.Controls[i].Tag = 1 then
+    begin
+      if pnlDetail.Controls[i] is TRzDBNumericEdit then
+        (pnlDetail.Controls[i] as TRzDBNumericEdit).Enabled := enable
+      else if pnlDetail.Controls[i] is TRzDBLookupComboBox then
+        (pnlDetail.Controls[i] as TRzDBLookupComboBox).Enabled := enable
+      else if pnlDetail.Controls[i] is TRzDBEdit then
+        (pnlDetail.Controls[i] as TRzDBEdit).Enabled := enable
+      else if pnlDetail.Controls[i] is TRzDBCheckBox then
+        (pnlDetail.Controls[i] as TRzDBCheckBox).ReadOnly := not enable;
+    end;
+  end;
+end;
+
 function TfrmGroupList.EntryIsValid: boolean;
 var
   error: string;
 begin
   if Trim(edGroupName.Text) = '' then  error := 'Please enter a group name.'
   else if Trim(edGroupName.Text) = (dbluParentGroup.Text) then
-    error := 'Parent group cannot be the same as group.';
+    error := 'Parent group cannot be the same as group.'
+
+  // check attributes
+  // only parent groups have attributes
+  else if dbluParentGroup.KeyValue = null then
+  begin
+    if Trim(edMaxTotal.Text) = '' then error := 'Please enter maximum total.'
+    else if edMaxTotal.Value < 0 then error := 'Invalid amount for maximum total.'
+    else if dbluLoanType.Text = '' then error := 'Please select a loan type.';
+  end;
 
   if error <> '' then ShowErrorBox(error);
 
@@ -224,10 +287,33 @@ end;
 
 function TfrmGroupList.Save: boolean;
 begin
-  Result := inherited Save;
+  Result := false;
 
-  PopulateGroupList;
-  PopulateTree;
+  if EntryIsValid then
+  begin
+    inherited Save;
+    SaveAttributes;
+
+    UpdateTree;
+
+    Result := true;
+  end;
+end;
+
+procedure TfrmGroupList.SaveAttributes;
+begin
+  with dmEntities.dstGroupAttribute do
+  begin
+    if State in [dsInsert,dsEdit] then
+    begin
+      if dbluParentGroup.KeyValue = null then
+      begin
+        Post;
+        UpdateBatch;
+      end
+      else CancelBatch;
+    end;
+  end;
 end;
 
 end.

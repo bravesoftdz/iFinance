@@ -882,14 +882,17 @@ begin
         error := 'Number of required comakers has not been entered.'
       else if ln.ComakerCount > ln.LoanClass.Comakers then
         error := 'Declared comakers exceeds the required number.'
-      else if ln.LoanClass.HasConcurrent then
+      else if ln.Client.ValidIdentityDocs < ln.LoanClass.LoanType.IdentityDocs then
+        error := 'Client has not submitted the required number of identity documents.'
+      else if ln.LoanClass.HasConcurrent then // note: this else block should ALWAYS be at the bottom..
       begin
         if ln.Client.GetLoanClassCount(ln.LoanClass.ClassificationId) >= ln.LoanClass.LoanType.MaxConcurrent then
           error := 'The selected loan class has already reached the maximum concurrent loans allowed.'
+        // else if edAppAmount.Value + ln.Client.GetLoanClassBalance(ln.LoanClass.ClassificationId) > ln.LoanClass.LoanType.MaxTotalAmount then
+        //  error := 'Amount applied exceeds the maximum total amount allowed for concurrent loans.'
         else if edAppAmount.Value + ln.Client.GetLoanClassBalance(ln.LoanClass.ClassificationId) > ln.LoanClass.LoanType.MaxTotalAmount then
           error := 'Amount applied exceeds the maximum total amount allowed for concurrent loans.'
       end
-
     end;
 
     Result := error = '';
