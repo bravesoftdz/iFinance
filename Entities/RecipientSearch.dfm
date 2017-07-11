@@ -1,7 +1,7 @@
 inherited frmRecipientSearch: TfrmRecipientSearch
   Caption = 'frmRecipientSearch'
   PixelsPerInch = 96
-  TextHeight = 13
+  TextHeight = 14
   inherited pnlTitle: TRzPanel
     inherited lblCaption: TRzLabel
       Width = 94
@@ -10,15 +10,20 @@ inherited frmRecipientSearch: TfrmRecipientSearch
     end
   end
   inherited pnlMain: TRzPanel
-    inherited grSearch: TRzDBGrid
-      DataSource = dmEntities.dscEntities
-      Columns = <
-        item
-          Expanded = False
-          FieldName = 'name'
-          Width = 250
-          Visible = True
-        end>
+    inherited pnlSearch: TRzPanel
+      inherited grSearch: TRzDBGrid
+        DataSource = dmEntities.dscEntities
+        Columns = <
+          item
+            Expanded = False
+            FieldName = 'name'
+            Width = 250
+            Visible = True
+          end>
+      end
+    end
+    inherited pnlNew: TRzPanel
+      Visible = False
     end
   end
 end

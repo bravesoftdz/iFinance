@@ -36,7 +36,6 @@ type
       State: TDragState; var Accept: Boolean);
     procedure cmbBranchChange(Sender: TObject);
     procedure FormShow(Sender: TObject);
-    procedure dbluParentGroupClick(Sender: TObject);
   private
     { Private declarations }
     procedure PopulateTree;
@@ -234,12 +233,6 @@ procedure TfrmGroupList.cmbBranchChange(Sender: TObject);
 begin
   inherited;
   UpdateTree;
-end;
-
-procedure TfrmGroupList.dbluParentGroupClick(Sender: TObject);
-begin
-  inherited;
-  EnableControls(dbluParentGroup.KeyValue = null);
 end;
 
 procedure TfrmGroupList.EnableControls(const enable: boolean);

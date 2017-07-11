@@ -253,7 +253,6 @@ object dmApplication: TdmApplication
         DataType = ftInteger
         Direction = pdReturnValue
         Precision = 10
-        Value = Null
       end
       item
         Name = '@lastname'
@@ -264,6 +263,13 @@ object dmApplication: TdmApplication
       end
       item
         Name = '@firstname'
+        Attributes = [paNullable]
+        DataType = ftString
+        Size = 50
+        Value = ''
+      end
+      item
+        Name = '@middlename'
         Attributes = [paNullable]
         DataType = ftString
         Size = 50

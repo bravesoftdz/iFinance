@@ -1,15 +1,19 @@
 inherited frmDuplicate: TfrmDuplicate
   Caption = 'frmDuplicate'
-  ClientWidth = 312
-  ExplicitWidth = 312
-  ExplicitHeight = 281
+  ClientHeight = 301
+  ClientWidth = 346
+  ExplicitWidth = 346
+  ExplicitHeight = 301
   PixelsPerInch = 96
   TextHeight = 14
   inherited pnlTitle: TRzPanel
-    Width = 312
+    Width = 346
+    Color = 2960895
+    GradientColorStart = 2960895
+    GradientColorStop = 4737279
     ExplicitWidth = 312
     inherited imgClose: TImage
-      Left = 291
+      Left = 325
       ExplicitLeft = 291
     end
     inherited lblCaption: TRzLabel
@@ -19,8 +23,11 @@ inherited frmDuplicate: TfrmDuplicate
     end
   end
   inherited pnlMain: TRzPanel
-    Width = 312
+    Width = 346
+    Height = 280
+    Color = 10921727
     ExplicitWidth = 312
+    ExplicitHeight = 177
     object RzLabel2: TRzLabel
       Left = 48
       Top = 16
@@ -29,11 +36,10 @@ inherited frmDuplicate: TfrmDuplicate
       Caption = 'Potential duplicate names found.'
     end
     object Image1: TImage
-      Left = 9
+      Left = 12
       Top = 10
       Width = 32
       Height = 32
-      Anchors = [akTop, akRight]
       AutoSize = True
       DragCursor = crArrow
       Picture.Data = {
@@ -93,18 +99,21 @@ inherited frmDuplicate: TfrmDuplicate
     object pnlDuplicate: TRzPanel
       Left = 8
       Top = 54
-      Width = 296
-      Height = 165
+      Width = 330
+      Height = 218
+      Anchors = [akLeft, akTop, akRight, akBottom]
       BorderOuter = fsNone
       BorderColor = 6572079
       BorderWidth = 1
       Color = 14273211
       TabOrder = 0
+      ExplicitWidth = 296
+      ExplicitHeight = 115
       object grDuplicate: TRzDBGrid
         Left = 1
         Top = 1
-        Width = 294
-        Height = 163
+        Width = 328
+        Height = 216
         Align = alClient
         BorderStyle = bsNone
         Ctl3D = True
@@ -140,7 +149,7 @@ inherited frmDuplicate: TfrmDuplicate
     end
     object pnlSelect: TRzPanel
       Left = 9
-      Top = 228
+      Top = 248
       Width = 100
       Height = 22
       Anchors = [akLeft, akBottom]
@@ -149,6 +158,8 @@ inherited frmDuplicate: TfrmDuplicate
       BorderWidth = 1
       Color = 14273211
       TabOrder = 1
+      Visible = False
+      ExplicitTop = 145
       object btnContinue: TRzShapeButton
         Left = 0
         Top = 0

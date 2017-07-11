@@ -24,7 +24,6 @@ inherited frmLoanReleaseDetail: TfrmLoanReleaseDetail
   inherited pnlMain: TRzPanel
     Width = 541
     Height = 328
-    ExplicitTop = 23
     ExplicitWidth = 541
     ExplicitHeight = 328
     inherited pnlDetail: TRzPanel
@@ -227,6 +226,10 @@ inherited frmLoanReleaseDetail: TfrmLoanReleaseDetail
             object tsCharges: TRzTabSheet
               Color = 14273211
               Caption = 'Charges'
+              ExplicitLeft = 0
+              ExplicitTop = 0
+              ExplicitWidth = 0
+              ExplicitHeight = 0
               DesignSize = (
                 486
                 130)

@@ -1083,7 +1083,7 @@ inherited frmClientMain: TfrmClientMain
         BorderColor = 6572079
         BorderSides = []
         BorderWidth = 1
-        Caption = 'Employer info'
+        Caption = 'Employment info'
         CaptionFont.Charset = DEFAULT_CHARSET
         CaptionFont.Color = clRed
         CaptionFont.Height = -12
@@ -1999,27 +1999,66 @@ inherited frmClientMain: TfrmClientMain
         ParentFont = False
         TabOrder = 0
       end
-      object chlGroups: TRzCheckList
+      object lbGroups: TRzListBox
         Left = 35
         Top = 40
         Width = 809
-        Height = 473
-        Anchors = [akLeft, akTop, akRight, akBottom]
+        Height = 417
         Color = 14273211
         Columns = 3
-        FrameSides = []
         FrameStyle = fsNone
         FrameVisible = True
         FramingPreference = fpCustomFraming
-        GroupColor = 14273211
-        GroupColorFromTheme = False
-        GroupFont.Charset = DEFAULT_CHARSET
-        GroupFont.Color = clBlack
-        GroupFont.Height = -12
-        GroupFont.Name = 'Tahoma'
-        GroupFont.Style = [fsBold]
-        ItemHeight = 17
+        ItemHeight = 14
         TabOrder = 1
+      end
+      object pnlAddGroup: TRzPanel
+        Left = 19
+        Top = 494
+        Width = 78
+        Height = 22
+        Anchors = [akLeft, akBottom]
+        BorderOuter = fsNone
+        BorderColor = 6572079
+        BorderWidth = 1
+        Color = 12955288
+        TabOrder = 2
+        object sbtnAddGroup: TRzShapeButton
+          Left = 0
+          Top = 0
+          Width = 81
+          Height = 22
+          Hint = 'Add group'
+          BorderStyle = bsNone
+          Caption = 'Add group'
+          ParentShowHint = False
+          ShowHint = True
+          OnClick = sbtnAddGroupClick
+        end
+      end
+      object pnlRemoveGroup: TRzPanel
+        Left = 104
+        Top = 494
+        Width = 78
+        Height = 22
+        Anchors = [akLeft, akBottom]
+        BorderOuter = fsNone
+        BorderColor = 6572079
+        BorderWidth = 1
+        Color = 12955288
+        TabOrder = 3
+        object sbtnRemoveGroup: TRzShapeButton
+          Left = 0
+          Top = 0
+          Width = 81
+          Height = 22
+          Hint = 'Remove group'
+          BorderStyle = bsNone
+          Caption = 'Remove'
+          ParentShowHint = False
+          ShowHint = True
+          OnClick = sbtnRemoveGroupClick
+        end
       end
     end
     object tsBankAcctInfo: TRzTabSheet

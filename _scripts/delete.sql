@@ -24,6 +24,7 @@ delete Loan
 delete LoanClassCharge
 delete EntityGroup
 delete LoanClass
+delete GroupAttribute
 delete [Group]
 delete entity
 

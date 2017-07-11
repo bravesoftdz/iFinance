@@ -173,8 +173,6 @@ inherited frmGroupList: TfrmGroupList
       ListField = 'grp_name'
       ListSource = dmEntities.dscParGroup
       TabOrder = 1
-      OnClick = dbluParentGroupClick
-      OnExit = dbluParentGroupClick
       AllowNull = True
       FlatButtonColor = 8675134
       FlatButtons = True

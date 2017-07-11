@@ -4,27 +4,22 @@ interface
 
 uses
   SysUtils, ClientData, DB, Entity, ADODB, LandLord, ImmediateHead,
-  Referee, Employer, BankAccount, IdentityDoc, Reference, RefData;
+  Referee, Employer, BankAccount, IdentityDoc, Reference, RefData,
+  DBUtil;
 
 type
   TClientGroup = class
-  private
+  strict private
     FId: string;
     FName: string;
-    FSelected: boolean;
-    FDelete: boolean;
     FEmployerGroup: boolean;
-    FIsParent: boolean;
   public
     property Id: string read FId write FId;
     property Name: string read FName write FName;
-    property Selected: boolean read FSelected write FSelected;
-    property Delete: boolean read FDelete write FDelete;
     property EmployerGroup: boolean read FEmployerGroup write FEmployerGroup;
-    property IsParent: boolean read FIsParent write FIsParent;
   end;
 
-type
+
   TClient = class(TEntity)
   private
     FDisplayId: string;
@@ -49,6 +44,7 @@ type
     function GetGroup(const i: integer): TClientGroup;
     function GetGroupCount: integer;
     function GetIdentityDocsCount: integer;
+    function GroupExists(const groupId: string): boolean;
 
   public
     procedure Add; override;
@@ -64,13 +60,14 @@ type
     procedure AddBankAccount(const bkAcct: TBankAccount);
     procedure RemoveBankAccountByAccountNo(const acctNo: string);
     procedure ClearBankAccounts;
-    procedure AddGroup(const group: TClientGroup);
     procedure GetGroups;
+    procedure RemoveGroup(const group: TClientGroup; const removeFromDb: boolean = false);
 
     function IdentityDocExists(const idType: string): boolean;
     function ReferenceExists(const reference: TReference): boolean;
     function AccountNoExists(const accountNo: string): boolean;
     function CardNoExists(const cardNo: string): boolean;
+    function AddGroup(const group: TClientGroup; const saveToDb: boolean = false): boolean;
 
     property DisplayId: string read FDisplayId write FDisplayId;
     property Name: string read FName write FName;
@@ -241,12 +238,6 @@ begin
   end;
 end;
 
-procedure TClient.AddGroup(const group: TClientGroup);
-begin
-  SetLength(FGroups,Length(FGroups) + 1);
-  FGroups[Length(FGroups) - 1] := group;
-end;
-
 procedure TClient.RemoveBankAccountByAccountNo(const acctNo: string);
 var
   i, len: integer;
@@ -262,6 +253,29 @@ begin
   end;
 
   SetLength(FBankAccounts,Length(FBankAccounts) - 1);
+end;
+
+procedure TClient.RemoveGroup(const group: TClientGroup;
+  const removeFromDb: boolean);
+var
+  i, len: integer;
+  gp: TClientGroup;
+begin
+  len := Length(FGroups);
+
+  for i := 0 to len - 1 do
+  begin
+    gp := FGroups[i];
+    if gp.Id <> group.Id then
+      FGroups[i] := gp;
+  end;
+
+  SetLength(FGroups,Length(FGroups) - 1);
+
+  if removeFromDb then
+    ExecuteSql('DELETE FROM ENTITYGROUP WHERE'
+        + ' ENTITY_ID = ''' + cln.Id + ''''
+        + ' AND GRP_ID = ''' + group.Id + '''');
 end;
 
 function TClient.CheckId: boolean;
@@ -364,6 +378,26 @@ end;
 function TClient.GetReference(const i: Integer): TReference;
 begin
   Result := FReferences[i];
+end;
+
+function TClient.GroupExists(const groupId: string): boolean;
+var
+  i, len: integer;
+  group: TClientGroup;
+begin
+  Result := false;
+
+  len := Length(FGroups);
+
+  for i := 0 to len - 1 do
+  begin
+    group := FGroups[i];
+    if group.Id = groupId then
+    begin
+      Result := true;
+      Exit;
+    end;
+  end;
 end;
 
 procedure TClient.RemoveIdentityDoc(const idType: string);
@@ -480,13 +514,31 @@ begin
       group := TClientGroup.Create;
       group.Id := FieldByName('grp_id').AsString;
       group.Name := FieldByName('grp_name').AsString;
-      group.Selected := FieldByName('selected').AsString <> '';
+      group.EmployerGroup := FieldByName('emp_id').AsString <> '';
 
       AddGroup(group);
 
       Next;
     end;
     Close;
+  end;
+end;
+
+function TClient.AddGroup(const group: TClientGroup; const saveToDb: boolean): boolean;
+begin
+  Result := false;
+
+  if not GroupExists(group.Id) then
+  begin
+    SetLength(FGroups,Length(FGroups) + 1);
+    FGroups[Length(FGroups) - 1] := group;
+
+    if saveToDb then
+      ExecuteSql('INSERT INTO ENTITYGROUP VALUES ('''
+        + cln.Id + ''','''
+        + group.Id + ''')');
+
+    Result := true;
   end;
 end;
 

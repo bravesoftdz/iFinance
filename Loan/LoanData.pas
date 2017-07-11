@@ -439,8 +439,9 @@ begin
 
     // group attributes
     gpa := TGroupAttributes.Create;
-    gpa.Concurrent := FieldByName('concurrent').AsInteger;
+    gpa.MaxConcurrent := FieldByName('concurrent').AsInteger;
     gpa.MaxTotalAmount := FieldByName('max_group_amount').AsFloat;
+    gpa.IdentityDocs := idDocs;
     gp.Attributes := gpa;
   end;
 

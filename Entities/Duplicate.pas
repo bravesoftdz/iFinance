@@ -20,8 +20,11 @@ type
     procedure btnContinueClick(Sender: TObject);
   private
     { Private declarations }
+    allowSelect: boolean;
   public
     { Public declarations }
+    constructor Create; overload;
+    constructor Create(const AAllowSelect: boolean); overload;
   end;
 
 var
@@ -40,6 +43,17 @@ begin
   ModalResult := mrIgnore;
 end;
 
+constructor TfrmDuplicate.Create;
+begin
+  inherited Create(nil);
+end;
+
+constructor TfrmDuplicate.Create(const AAllowSelect: boolean);
+begin
+  Create;
+  allowSelect := AAllowSelect;
+end;
+
 procedure TfrmDuplicate.grDuplicateDblClick(Sender: TObject);
 var
   id, displayId, clientName: string;
@@ -49,33 +63,33 @@ var
 begin
   with grDuplicate.DataSource.DataSet do
   begin
-      id := FieldByName('entity_id').AsString;
-      displayId := FieldByName('display_id').AsString;
-      clientName := FieldByName('name').AsString;
+    id := FieldByName('entity_id').AsString;
+    displayId := FieldByName('display_id').AsString;
+    clientName := FieldByName('name').AsString;
 
-      cln.Destroy;
+    cln.Destroy;
 
-      cln := TClient.Create;
-      cln.Id := id;
-      cln.DisplayId := displayId;
-      cln.Name := clientName;
-      cln.Retrieve(true);
+    cln := TClient.Create;
+    cln.Id := id;
+    cln.DisplayId := displayId;
+    cln.Name := clientName;
+    cln.Retrieve(true);
 
-      // find the dock panel
-      dock := Application.MainForm.FindComponent('pnlDockMain');
+    // find the dock panel
+    dock := Application.MainForm.FindComponent('pnlDockMain');
 
-      dockControl := dock as TWinControl;
+    dockControl := dock as TWinControl;
 
-      if Supports(dockControl.Controls[0] as TForm,IClient,intf) then
-      begin
-        intf.SetClientName;
-        intf.SetUnboundControls;
-        intf.LoadPhoto;
-        intf.SetLandLordControlsPres;
-        intf.SetLandLordControlsProv;
-      end;
+    if Supports(dockControl.Controls[0] as TForm,IClient,intf) then
+    begin
+      intf.SetClientName;
+      intf.SetUnboundControls;
+      intf.LoadPhoto;
+      intf.SetLandLordControlsPres;
+      intf.SetLandLordControlsProv;
+    end;
 
-      ModalResult := mrOk;
+    ModalResult := mrOk;
   end;
 end;
 

@@ -8,7 +8,7 @@ inherited frmReferenceDetail: TfrmReferenceDetail
   TextHeight = 14
   inherited pnlTitle: TRzPanel
     Width = 360
-    ExplicitWidth = 370
+    ExplicitWidth = 360
     inherited imgClose: TImage
       Left = 339
       ExplicitLeft = 349
@@ -22,8 +22,8 @@ inherited frmReferenceDetail: TfrmReferenceDetail
   inherited pnlMain: TRzPanel
     Width = 360
     Height = 181
-    ExplicitWidth = 370
-    ExplicitHeight = 206
+    ExplicitWidth = 360
+    ExplicitHeight = 181
     inherited pnlDetail: TRzPanel
       Width = 345
       Height = 133
@@ -37,8 +37,8 @@ inherited frmReferenceDetail: TfrmReferenceDetail
         FixedDimension = 20
         inherited tsDetail: TRzTabSheet
           Caption = 'Reference details'
-          ExplicitWidth = 514
-          ExplicitHeight = 181
+          ExplicitWidth = 343
+          ExplicitHeight = 131
           object JvLabel1: TJvLabel
             Left = 19
             Top = 23
@@ -101,7 +101,7 @@ inherited frmReferenceDetail: TfrmReferenceDetail
             TabOnEnter = True
             TabOrder = 4
           end
-          object edMiddle: TRzDBEdit
+          object edMiddleName: TRzDBEdit
             Left = 114
             Top = 65
             Width = 207

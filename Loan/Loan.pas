@@ -584,7 +584,7 @@ begin
       ln.ChangeLoanStatus;
       ln.AddLoanState(lsActive);
 
-      TPosting.Post(TObject(self));
+      // TPosting.Post(TObject(self));
     end
   end;
 end;

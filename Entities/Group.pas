@@ -6,10 +6,15 @@ type
   TGroupAttributes = class
   strict private
     FMaxTotalAmount: real;
-    FConcurrent: integer;
+    FMaxConcurrent: integer;
+    FIdentityDocs: integer;
+  private
+    function GetHasConcurrent: boolean;
   public
     property MaxTotalAmount: real read FMaxTotalAmount write FMaxTotalAmount;
-    property Concurrent: integer read FConcurrent write FConcurrent;
+    property MaxConcurrent: integer read FMaxConcurrent write FMaxConcurrent;
+    property IdentityDocs: integer read FIdentityDocs write FIdentityDocs;
+    property HasConcurrent: boolean read GetHasConcurrent;
   end;
 
 type
@@ -85,6 +90,13 @@ end;
 function TGroup.GetHasParent: boolean;
 begin
   Result := FParentGroupId <> '';
+end;
+
+{ TGroupAttributes }
+
+function TGroupAttributes.GetHasConcurrent: boolean;
+begin
+  Result := FMaxConcurrent > 0;
 end;
 
 end.

@@ -331,7 +331,7 @@ begin
       Free;
     end;
   end
-  else if edReleasedAmount.Value <= 0 then ShowErrorBox('Pleae enter release amount.');
+  else if edReleasedAmount.Value <= 0 then ShowErrorBox('Please enter release amount.');
 end;
 
 procedure TfrmLoanReleaseDetail.btnCancelClick(Sender: TObject);

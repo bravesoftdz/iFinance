@@ -16,7 +16,7 @@ type
     JvLabel22: TJvLabel;
     RzDBEdit11: TRzDBEdit;
     RzDBEdit10: TRzDBEdit;
-    edMiddle: TRzDBEdit;
+    edMiddleName: TRzDBEdit;
     edFirstname: TRzDBEdit;
     edLastname: TRzDBEdit;
   private
@@ -37,7 +37,7 @@ implementation
 {$R *.dfm}
 
 uses
-  EntitiesData, Referee, IFinanceDialogs;
+  EntitiesData, Referee, IFinanceDialogs, EntityUtils;
 
 procedure TfrmRefereeDetail.Cancel;
 begin
@@ -53,9 +53,21 @@ end;
 function TfrmRefereeDetail.ValidEntry: boolean;
 var
   error: string;
+  duplicates: integer;
 begin
   if Trim(edLastname.Text) = '' then error := 'Please enter a lastname.'
-  else if Trim(edFirstname.Text) = '' then error := 'Please enter a firstname.';
+  else if Trim(edFirstname.Text) = '' then error := 'Please enter a firstname.'
+  else if Trim(edMiddlename.Text) = '' then error := 'Please enter a middlename.'
+  else
+  begin
+    duplicates := CheckDuplicate(edLastname.Text,edFirstname.Text, edMiddlename.Text);
+    if duplicates > 0 then  error := 'Duplicates found.'
+    else if duplicates = -1 then // -1 means to abort the adding of the new record
+    begin
+      error := 'Abort';  // assign any value to the Result it's not going to displayed anyway
+      Exit;
+    end;
+  end;
 
   Result := error = '';
 

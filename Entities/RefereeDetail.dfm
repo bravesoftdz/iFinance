@@ -36,6 +36,8 @@ inherited frmRefereeDetail: TfrmRefereeDetail
         ExplicitHeight = 136
         FixedDimension = 20
         inherited tsDetail: TRzTabSheet
+          ExplicitWidth = 351
+          ExplicitHeight = 136
           object JvLabel1: TJvLabel
             Left = 19
             Top = 23
@@ -98,7 +100,7 @@ inherited frmRefereeDetail: TfrmRefereeDetail
             TabOnEnter = True
             TabOrder = 4
           end
-          object edMiddle: TRzDBEdit
+          object edMiddleName: TRzDBEdit
             Left = 114
             Top = 65
             Width = 207

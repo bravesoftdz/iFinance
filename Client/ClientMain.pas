@@ -179,7 +179,11 @@ type
     mmBank: TRzDBMemo;
     grAccounts: TRzDBGrid;
     dbluBank: TRzDBLookupComboBox;
-    chlGroups: TRzCheckList;
+    lbGroups: TRzListBox;
+    pnlAddGroup: TRzPanel;
+    sbtnAddGroup: TRzShapeButton;
+    pnlRemoveGroup: TRzPanel;
+    sbtnRemoveGroup: TRzShapeButton;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -218,6 +222,8 @@ type
     procedure imgBankAccountClick(Sender: TObject);
     procedure sbtnNewBankAccountClick(Sender: TObject);
     procedure sbtnRemoveBankAccountClick(Sender: TObject);
+    procedure sbtnAddGroupClick(Sender: TObject);
+    procedure sbtnRemoveGroupClick(Sender: TObject);
   private
     { Private declarations }
     procedure CopyAddress;
@@ -261,7 +267,8 @@ uses
   ImmediateHead, RefereeSearch, Referee, AuxData, DockIntf, RefData,
   EmployerSearch, Employer, IdentityDoc, IFinanceGlobal,
   ReferenceSearch, Reference, LoansAuxData, LoanClassification,
-  DBUtil, IFinanceDialogs, EntityUtils, Alert, Alerts;
+  DBUtil, IFinanceDialogs, EntityUtils, Alert, Alerts, EntitiesData, GroupSearch,
+  Group;
 
 {$R *.dfm}
 
@@ -284,9 +291,11 @@ begin
     error := 'Please enter client''s lastname.'
   else if Trim(edFirstname.Text) = '' then
     error := 'Please enter client''s firstname.'
+  else if Trim(edMiddlename.Text) = '' then
+    error := 'Please enter client''s middlename.'
   else if cln.Adding then
   begin
-    duplicates := CheckDuplicate(edLastname.Text,edFirstname.Text);
+    duplicates := CheckDuplicate(edLastname.Text,edFirstname.Text, edMiddlename.Text);
     if duplicates > 0 then  error := 'Duplicates found.'
     else if duplicates = -1 then // -1 means to abort the adding of the new record
     begin
@@ -856,6 +865,41 @@ begin
   end;
 end;
 
+procedure TfrmClientMain.sbtnAddGroupClick(Sender: TObject);
+var
+  clientGroup: TClientGroup;
+begin
+  dmEntities := TdmEntities.Create(self);
+
+  with TfrmGroupSearch.Create(self) do
+  begin
+    try
+      try
+        grp := TGroup.Create;
+
+        ShowModal;
+
+        if ModalResult = mrOK then
+        begin
+          clientGroup := TClientGroup.Create;
+
+          clientGroup.Id := grp.GroupId;
+          clientGroup.Name := grp.GroupName;
+
+          if cln.AddGroup(clientGroup,true) then lbGroups.AddObject(clientGroup.Name, TObject(clientGroup));
+        end;
+      except
+        on e: Exception do
+          ShowErrorBox(e.Message);
+      end;
+    finally
+      dmEntities.Free;
+      Free;
+      grp.Free;
+    end;
+  end;
+end;
+
 procedure TfrmClientMain.sbtnNewBankAccountClick(Sender: TObject);
 begin
   NewAccount;
@@ -930,6 +974,31 @@ begin
         grRefList.DataSource.DataSet.Delete;
         cln.RemoveReference(id);
         ChangeFamRefControlState;
+      end;
+
+    end;
+  except
+    on e: Exception do
+      ShowErrorBox(e.Message);
+  end;
+end;
+
+procedure TfrmClientMain.sbtnRemoveGroupClick(Sender: TObject);
+const
+  CONF = 'Are you sure you want to remove the selected group?';
+var
+  group: TClientGroup;
+begin
+  try
+    if lbGroups.SelectedItem <> '' then
+    begin
+      group := TClientGroup(lbGroups.Items.Objects[lbGroups.IndexOf(lbGroups.SelectedItem)]);
+
+      if group.EmployerGroup then ShowErrorBox('Cannot remove an employer group.')
+      else if ShowDecisionBox(CONF) = mrYes then
+      begin
+        cln.RemoveGroup(group,true);
+        lbGroups.DeleteSelected;
       end;
 
     end;
@@ -1160,26 +1229,11 @@ var
 begin
   cln.GetGroups;
 
-  chlGroups.Clear;
+  lbGroups.Clear;
 
   cnt := cln.GroupCount - 1;
 
-  chlGroups.AddGroup('Test 1');
-  chlGroups.AddItemToGroup(0,'Test 11');
-  chlGroups.AddItemToGroup(0,'Test 12');
-  chlGroups.AddItemToGroup(0,'Test 13');
-
-
-  chlGroups.AddGroup('Test 2');
-  chlGroups.AddItemToGroup(1,'Test 21');
-  chlGroups.AddItemToGroup(1,'Test 22');
-  chlGroups.AddItemToGroup(1,'Test 23');
-
-  for i := 0 to cnt do
-  begin
-    chlGroups.AddItem(cln.Groups[i].Name,cln.Groups[i]);
-    chlGroups.ItemChecked[i] := cln.Groups[i].Selected;
-  end;
+  for i := 0 to cnt do lbGroups.AddObject(cln.Groups[i].Name, cln.groups[i]);
 end;
 
 procedure TfrmClientMain.dteBirthdateChange(Sender: TObject);

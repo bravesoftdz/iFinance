@@ -10,8 +10,8 @@
     <Transaction>2016/08/23 22:28:34.000.588,=C:\_Projects\iFinance\Entities\Unit1.pas</Transaction>
     <Transaction>2016/08/23 22:29:32.000.977,C:\_Projects\iFinance\Entities\EntitiesData.dfm=C:\_Projects\iFinance\Entities\Unit1.dfm</Transaction>
     <Transaction>2016/08/23 22:29:32.000.977,C:\_Projects\iFinance\Entities\EntitiesData.pas=C:\_Projects\iFinance\Entities\Unit1.pas</Transaction>
-    <Transaction>2016/08/23 22:32:59.000.755,=Jcl.dcp</Transaction>
     <Transaction>2016/08/23 22:32:59.000.554,=dbrtl.dcp</Transaction>
+    <Transaction>2016/08/23 22:32:59.000.755,=Jcl.dcp</Transaction>
     <Transaction>2016/08/23 22:32:59.000.819,=JvCore.dcp</Transaction>
     <Transaction>2016/08/23 22:32:59.000.892,=JvStdCtrls.dcp</Transaction>
     <Transaction>2016/08/23 22:32:59.000.973,=tmsdXE4.dcp</Transaction>
@@ -31,8 +31,8 @@
     <Transaction>2016/08/23 22:33:00.000.770,=dxSkinscxPCPainterRS18.dcp</Transaction>
     <Transaction>2016/08/23 22:33:00.000.689,=dxSkinsCoreRS18.dcp</Transaction>
     <Transaction>2016/08/23 22:33:00.000.380,=cxDataRS18.dcp</Transaction>
-    <Transaction>2016/08/23 22:33:01.000.621,=dxSkinFoggyRS18.dcp</Transaction>
     <Transaction>2016/08/23 22:33:01.000.695,=dxSkinGlassOceansRS18.dcp</Transaction>
+    <Transaction>2016/08/23 22:33:01.000.621,=dxSkinFoggyRS18.dcp</Transaction>
     <Transaction>2016/08/23 22:33:01.000.096,=dxSkinCaramelRS18.dcp</Transaction>
     <Transaction>2016/08/23 22:33:01.000.444,=dxSkinDevExpressDarkStyleRS18.dcp</Transaction>
     <Transaction>2016/08/23 22:33:01.000.776,=dxSkinHighContrastRS18.dcp</Transaction>
@@ -50,12 +50,12 @@
     <Transaction>2016/08/23 22:33:02.000.009,=dxSkinLiquidSkyRS18.dcp</Transaction>
     <Transaction>2016/08/23 22:33:02.000.814,=dxSkinOffice2010BlueRS18.dcp</Transaction>
     <Transaction>2016/08/23 22:33:02.000.091,=dxSkinLondonLiquidSkyRS18.dcp</Transaction>
-    <Transaction>2016/08/23 22:33:02.000.899,=dxSkinOffice2010SilverRS18.dcp</Transaction>
+    <Transaction>2016/08/23 22:33:02.000.407,=dxSkinOffice2007BlueRS18.dcp</Transaction>
     <Transaction>2016/08/23 22:33:02.000.330,=dxSkinOffice2007BlackRS18.dcp</Transaction>
     <Transaction>2016/08/23 22:33:02.000.981,=dxSkinPumpkinRS18.dcp</Transaction>
     <Transaction>2016/08/23 22:33:02.000.486,=dxSkinOffice2007GreenRS18.dcp</Transaction>
     <Transaction>2016/08/23 22:33:02.000.159,=dxSkinMcSkinRS18.dcp</Transaction>
-    <Transaction>2016/08/23 22:33:02.000.407,=dxSkinOffice2007BlueRS18.dcp</Transaction>
+    <Transaction>2016/08/23 22:33:02.000.899,=dxSkinOffice2010SilverRS18.dcp</Transaction>
     <Transaction>2016/08/23 22:33:03.000.062,=dxSkinSevenClassicRS18.dcp</Transaction>
     <Transaction>2016/08/23 22:33:03.000.140,=dxSkinSevenRS18.dcp</Transaction>
     <Transaction>2016/08/23 22:33:03.000.608,=dxSkinStardustRS18.dcp</Transaction>
@@ -267,10 +267,10 @@
     <File Path="Duplicate.pas"/>
     <File Path="Duplicate.dfm"/>
     <File Path="Employer.pas"/>
-    <File Path="EmployerList.pas"/>
-    <File Path="EmployerList.dfm"/>
     <File Path="EmployerSearch.pas"/>
     <File Path="EmployerSearch.dfm"/>
+    <File Path="EmployerList.pas"/>
+    <File Path="EmployerList.dfm"/>
     <File Path="EntitiesData.pas"/>
     <File Path="EntitiesData.dfm"/>
     <File Path="Entity.pas"/>

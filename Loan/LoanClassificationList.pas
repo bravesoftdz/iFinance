@@ -343,12 +343,12 @@ end;
 procedure TfrmLoanClassificationList.bteGroupButtonClick(Sender: TObject);
 begin
   inherited;
+  dmEntities := TdmEntities.Create(self);
+
   with TfrmGroupSearch.Create(self) do
   begin
     try
       try
-        dmEntities := TdmEntities.Create(self);
-
         grp := TGroup.Create;
 
         ShowModal;
