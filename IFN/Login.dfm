@@ -364,10 +364,10 @@ inherited frmLogin: TfrmLogin
       ParentFont = False
     end
     object lblVersion: TLabel
-      Left = 320
+      Left = 345
       Top = 203
-      Width = 99
-      Height = 26
+      Width = 74
+      Height = 13
       Alignment = taRightJustify
       Anchors = [akRight, akBottom]
       Caption = 'Version 1.0.0.0'

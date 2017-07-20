@@ -1,23 +1,2 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<BorlandProject>
-	<Transactions>
-    <Transaction>2016/09/01 15:33:54.000.468,=rtl.dcp</Transaction>
-    <Transaction>2016/09/30 15:21:47.000.771,=rtl.dcp</Transaction>
-    <Transaction>2016/09/30 15:22:11.000.385,=C:\Users\BryanGarcia\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
-    <Transaction>2016/09/30 15:22:18.000.849,=C:\_Projects\iFinance\Base\BaseDocked.pas</Transaction>
-    <Transaction>2016/09/30 15:22:18.000.886,=C:\Users\BryanGarcia\Documents\Embarcadero\Studio\Projects\Unit2.pas</Transaction>
-    <Transaction>2016/09/30 15:22:55.000.314,C:\Users\BryanGarcia\Documents\Embarcadero\Studio\Projects\Unit1.pas=C:\_Projects\iFinance\Tools\AppSettings.pas</Transaction>
-    <Transaction>2016/09/30 15:22:55.000.314,C:\Users\BryanGarcia\Documents\Embarcadero\Studio\Projects\Unit1.dfm=C:\_Projects\iFinance\Tools\AppSettings.dfm</Transaction>
-    <Transaction>2016/09/30 15:23:45.000.077,C:\Users\BryanGarcia\Documents\Embarcadero\Studio\Projects\Package1.dproj=C:\_Projects\iFinance\Tools\Tools.dproj</Transaction>
-    <Transaction>2016/09/30 15:25:46.000.888,=RaizeComponentsVcl.dcp</Transaction>
-    <Transaction>2016/09/30 15:25:46.000.877,=vcl.dcp</Transaction>
-    <Transaction>2016/10/04 23:26:52.000.613,=Jcl.dcp</Transaction>
-    <Transaction>2016/10/04 23:26:52.000.650,=JvControls.dcp</Transaction>
-    <Transaction>2016/10/04 23:26:52.000.637,=JvStdCtrls.dcp</Transaction>
-    <Transaction>2016/10/04 23:26:52.000.625,=JvCore.dcp</Transaction>
-    <Transaction>2016/10/04 23:26:52.000.557,=vclimg.dcp</Transaction>
-    <Transaction>2016/10/04 23:26:52.000.598,=RaizeComponentsVclDb.dcp</Transaction>
-    <Transaction>2016/10/04 23:26:52.000.572,=dbrtl.dcp</Transaction>
-    <Transaction>2016/10/04 23:26:52.000.586,=vcldb.dcp</Transaction>
-  </Transactions>
-</BorlandProject>
+<BorlandProject/>

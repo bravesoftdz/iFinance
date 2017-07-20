@@ -28,6 +28,8 @@ type
     dbluLoanType: TRzDBLookupComboBox;
     JvLabel5: TJvLabel;
     edConcurrent: TRzDBEdit;
+    JvLabel4: TJvLabel;
+    edIdentityDocs: TRzDBEdit;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure tvGroupChange(Sender: TObject; Node: TTreeNode);

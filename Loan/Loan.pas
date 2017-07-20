@@ -7,11 +7,12 @@ uses
   LoanClassification, Comaker, FinInfo, MonthlyExpense, ReleaseRecipient,
   LoanCharge, LoanClassCharge, Assessment, Posting;
 
-type TLoanAction = (laNone,laCreating,laAssessing,laApproving,laRejecting,laReleasing,laCancelling);
+type
+  TLoanAction = (laNone,laCreating,laAssessing,laApproving,laRejecting,laReleasing,laCancelling);
 
-type TLoanState = (lsNone,lsAssessed,lsApproved,lsActive,lsCancelled,lsRejected);
+  TLoanState = (lsNone,lsAssessed,lsApproved,lsActive,lsCancelled,lsRejected);
 
-type TLoanStatus = (A,C,P,R,F,J,S);
+  TLoanStatus = (A,C,P,R,F,J,S);
 
 { ****** Loan Status *****
 	-- 0 = all
@@ -24,7 +25,6 @@ type TLoanStatus = (A,C,P,R,F,J,S);
 
   ***** Loan Status ***** }
 
-type
   TLoan = class(TEntity)
   private
     FClient: TLoanClient;

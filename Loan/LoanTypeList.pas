@@ -16,8 +16,6 @@ type
     RzDBMemo1: TRzDBMemo;
     JvLabel3: TJvLabel;
     dbluAccountType: TRzDBLookupComboBox;
-    JvLabel4: TJvLabel;
-    RzDBEdit1: TRzDBEdit;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private

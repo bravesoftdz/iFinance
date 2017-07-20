@@ -195,7 +195,7 @@ end;
 
 function TLoanClassification.GetHasConcurrent: boolean;
 begin
-  Result := FLoanType.MaxConcurrent > 0;
+  Result := FGroup.Attributes.MaxConcurrent > 0;
 end;
 
 function TLoanClassification.GetIsActive: boolean;

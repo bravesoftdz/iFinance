@@ -96,7 +96,6 @@
         <DCCReference Include="Jcl.dcp"/>
         <DCCReference Include="JvCore.dcp"/>
         <DCCReference Include="JvStdCtrls.dcp"/>
-        <DCCReference Include="LockBox3DR.dcp"/>
         <DCCReference Include="JvControls.dcp"/>
         <DCCReference Include="RESTComponents.dcp"/>
         <DCCReference Include="FireDAC.dcp"/>

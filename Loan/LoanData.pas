@@ -430,7 +430,7 @@ begin
     maxLoanTypeAmt := FieldByName('max_loantype_amount').AsFloat;
     idDocs := FieldByName('ident_docs').AsInteger;
 
-    ltype := TLoanType.Create(loanType,loanTypeName,concurrent,maxLoanTypeAmt,idDocs);
+    ltype := TLoanType.Create(loanType,loanTypeName);
 
     // group
     gp := TGroup.Create;

@@ -40,7 +40,6 @@ requires
   Jcl,
   JvCore,
   JvStdCtrls,
-  LockBox3DR,
   JvControls,
   RESTComponents,
   FireDAC;

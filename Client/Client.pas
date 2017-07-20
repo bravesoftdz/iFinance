@@ -187,7 +187,7 @@ begin
           (Components[i] as TADODataSet).Post;
 
           if (Components[i] as TADODataSet).Tag = 1 then
-            (Components[i] as TADODataSet).Edit; // set to edit mode to trigger before post during save routine
+            (Components[i] as TADODataSet).Edit; // set to edit mode to trigger BeforePost event during save routine
         end;
 
   end;

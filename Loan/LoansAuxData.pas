@@ -243,9 +243,7 @@ begin
     age := FieldByName('max_age').AsInteger;
 
     lt := TLoanType.Create(FieldByName('loan_type').AsInteger,
-        FieldByName('loan_type_name').AsString,
-        FieldByName('max_concurrent').AsInteger,
-        FieldByName('max_tot_amt').AsInteger);
+        FieldByName('loan_type_name').AsString);
 
     gp := TGroup.Create;
     gp.GroupId := FieldByName('grp_id').AsString;

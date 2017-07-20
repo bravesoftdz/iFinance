@@ -147,8 +147,6 @@ procedure TdmAux.dstLoanTypeAfterScroll(DataSet: TDataSet);
 var
   id: integer;
   typeName: string;
-  concurrent: integer;
-  maxTotal: real;
 begin
   with DataSet do
   begin
@@ -156,13 +154,9 @@ begin
 
     id := FieldByName('loan_type').AsInteger;
     typeName := FieldByName('loan_type_name').AsString;
-    concurrent := FieldByName('max_concurrent').AsInteger;
-    maxTotal := FieldByName('max_tot_amt').AsFloat;
 
     ltype.Id := id;
     ltype.Name := typeName;
-    ltype.MaxConcurrent := concurrent;
-    ltype.MaxTotalAmount := maxTotal;
   end;
 end;
 

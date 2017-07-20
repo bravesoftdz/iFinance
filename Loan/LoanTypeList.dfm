@@ -51,43 +51,6 @@ inherited frmLoanTypeList: TfrmLoanTypeList
           Title.Font.Style = [fsBold]
           Width = 170
           Visible = True
-        end
-        item
-          Expanded = False
-          FieldName = 'max_tot_amt_f'
-          Title.Caption = 'Maximum Total'
-          Title.Font.Charset = DEFAULT_CHARSET
-          Title.Font.Color = clWindowText
-          Title.Font.Height = -12
-          Title.Font.Name = 'Tahoma'
-          Title.Font.Style = [fsBold]
-          Width = 100
-          Visible = True
-        end
-        item
-          Expanded = False
-          FieldName = 'max_concurrent'
-          Title.Alignment = taCenter
-          Title.Caption = 'Concurrent'
-          Title.Font.Charset = DEFAULT_CHARSET
-          Title.Font.Color = clWindowText
-          Title.Font.Height = -12
-          Title.Font.Name = 'Tahoma'
-          Title.Font.Style = [fsBold]
-          Width = 75
-          Visible = True
-        end
-        item
-          Expanded = False
-          FieldName = 'ident_docs'
-          Title.Caption = 'ID'#39's req.'
-          Title.Font.Charset = DEFAULT_CHARSET
-          Title.Font.Color = clWindowText
-          Title.Font.Height = -12
-          Title.Font.Name = 'Tahoma'
-          Title.Font.Style = [fsBold]
-          Width = 55
-          Visible = True
         end>
     end
   end
@@ -116,19 +79,11 @@ inherited frmLoanTypeList: TfrmLoanTypeList
       Caption = 'Name'
       Transparent = True
     end
-    object JvLabel4: TJvLabel [3]
-      Left = 14
-      Top = 135
-      Width = 48
-      Height = 14
-      Caption = 'ID'#39's req.'
-      Transparent = True
-    end
     inherited pnlAdd: TRzPanel
-      TabOrder = 4
+      TabOrder = 3
     end
     inherited pnlDetailHead: TRzPanel
-      TabOrder = 5
+      TabOrder = 4
       ExplicitWidth = 275
     end
     object edTypeName: TRzDBEdit
@@ -177,21 +132,6 @@ inherited frmLoanTypeList: TfrmLoanTypeList
       FrameVisible = True
       FramingPreference = fpCustomFraming
       TabOnEnter = True
-    end
-    object RzDBEdit1: TRzDBEdit
-      Left = 80
-      Top = 129
-      Width = 81
-      Height = 22
-      DataSource = dmLoansAux.dscLoanTypes
-      DataField = 'ident_docs'
-      CharCase = ecUpperCase
-      DisabledColor = clWhite
-      FrameColor = 8675134
-      FrameVisible = True
-      FramingPreference = fpCustomFraming
-      TabOnEnter = True
-      TabOrder = 3
     end
   end
 end

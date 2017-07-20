@@ -1374,6 +1374,8 @@ inherited frmLoanMain: TfrmLoanMain
           Color = 14273211
           TabVisible = False
           Caption = 'Assessment'
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object JvLabel29: TJvLabel
             Tag = -1
             Left = 19
@@ -1757,6 +1759,10 @@ inherited frmLoanMain: TfrmLoanMain
               object tsFinInfo: TRzTabSheet
                 Color = 14273211
                 Caption = 'Financial info'
+                ExplicitLeft = 0
+                ExplicitTop = 0
+                ExplicitWidth = 0
+                ExplicitHeight = 0
                 DesignSize = (
                   461
                   123)
@@ -1837,6 +1843,10 @@ inherited frmLoanMain: TfrmLoanMain
               object tsMonExp: TRzTabSheet
                 Color = 14273211
                 Caption = 'Monthly expenses'
+                ExplicitLeft = 0
+                ExplicitTop = 0
+                ExplicitWidth = 0
+                ExplicitHeight = 0
                 DesignSize = (
                   461
                   123)
@@ -1907,6 +1917,8 @@ inherited frmLoanMain: TfrmLoanMain
           Color = 14273211
           TabVisible = False
           Caption = 'Approval'
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object JvLabel30: TJvLabel
             Tag = -1
             Left = 19
@@ -2146,6 +2158,8 @@ inherited frmLoanMain: TfrmLoanMain
           Color = 14273211
           TabVisible = False
           Caption = 'Released'
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object JvLabel33: TJvLabel
             Tag = -1
             Left = 19
@@ -2575,6 +2589,8 @@ inherited frmLoanMain: TfrmLoanMain
           Color = 14273211
           TabVisible = False
           Caption = 'Rejected'
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object JvLabel32: TJvLabel
             Tag = -1
             Left = 19
@@ -2758,6 +2774,8 @@ inherited frmLoanMain: TfrmLoanMain
           Color = 14273211
           TabVisible = False
           Caption = 'Cancelled'
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object JvLabel31: TJvLabel
             Tag = -1
             Left = 19

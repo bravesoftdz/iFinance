@@ -112,11 +112,19 @@ inherited frmGroupList: TfrmGroupList
       Caption = 'Concurrent'
       Transparent = True
     end
+    object JvLabel4: TJvLabel [5]
+      Left = 13
+      Top = 217
+      Width = 71
+      Height = 14
+      Caption = 'ID'#39's required'
+      Transparent = True
+    end
     inherited pnlAdd: TRzPanel
-      TabOrder = 8
+      TabOrder = 9
     end
     inherited pnlDetailHead: TRzPanel
-      TabOrder = 7
+      TabOrder = 8
       ExplicitWidth = 275
     end
     object edGroupName: TRzDBEdit
@@ -136,7 +144,7 @@ inherited frmGroupList: TfrmGroupList
     object cbxPublic: TRzDBCheckBox
       Tag = 1
       Left = 112
-      Top = 213
+      Top = 237
       Width = 50
       Height = 16
       DataField = 'is_gov'
@@ -146,7 +154,7 @@ inherited frmGroupList: TfrmGroupList
       Caption = 'Public'
       FrameColor = 8675134
       TabOnEnter = True
-      TabOrder = 6
+      TabOrder = 7
     end
     object cbxActive: TRzDBCheckBox
       Left = 60
@@ -225,7 +233,7 @@ inherited frmGroupList: TfrmGroupList
       GradientColorStyle = gcsCustom
       GroupStyle = gsUnderline
       ParentFont = False
-      TabOrder = 9
+      TabOrder = 10
     end
     object dbluLoanType: TRzDBLookupComboBox
       Tag = 1
@@ -262,6 +270,21 @@ inherited frmGroupList: TfrmGroupList
       FramingPreference = fpCustomFraming
       TabOnEnter = True
       TabOrder = 5
+    end
+    object edIdentityDocs: TRzDBEdit
+      Left = 112
+      Top = 211
+      Width = 49
+      Height = 22
+      DataSource = dmEntities.dscGroupAttribute
+      DataField = 'ident_docs'
+      CharCase = ecUpperCase
+      DisabledColor = clWhite
+      FrameColor = 8675134
+      FrameVisible = True
+      FramingPreference = fpCustomFraming
+      TabOnEnter = True
+      TabOrder = 6
     end
   end
 end

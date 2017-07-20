@@ -882,7 +882,7 @@ begin
         error := 'Number of required comakers has not been entered.'
       else if ln.ComakerCount > ln.LoanClass.Comakers then
         error := 'Declared comakers exceeds the required number.'
-      else if ln.Client.ValidIdentityDocs < ln.LoanClass.LoanType.IdentityDocs then
+      else if ln.Client.ValidIdentityDocs < ln.LoanClass.Group.Attributes.IdentityDocs then
         error := 'Client has not submitted the required number of identity documents.'
       else if ln.LoanClass.Group.Attributes.HasConcurrent then // note: this else block should ALWAYS be at the bottom..
       begin

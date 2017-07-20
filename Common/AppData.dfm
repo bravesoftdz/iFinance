@@ -253,6 +253,7 @@ object dmApplication: TdmApplication
         DataType = ftInteger
         Direction = pdReturnValue
         Precision = 10
+        Value = Null
       end
       item
         Name = '@lastname'
