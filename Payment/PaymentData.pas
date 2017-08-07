@@ -91,6 +91,7 @@ begin
     DataSet.FieldByName('entity_id').AsString := pmt.Client.Id;
     DataSet.FieldByName('loc_code').AsString := ifn.LocationCode;
     DataSet.FieldByName('ref_no').AsString := refNo;
+    DataSet.FieldByName('pmt_method').AsInteger := Integer(pmt.PaymentMethod.Method);
 
     SetCreatedFields(DataSet);
 

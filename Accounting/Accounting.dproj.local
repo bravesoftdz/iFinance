@@ -13,9 +13,9 @@
     <Transaction>2017/04/18 12:46:40.000.871,=adortl.dcp</Transaction>
     <Transaction>2017/04/18 12:46:40.000.834,=vclimg.dcp</Transaction>
     <Transaction>2017/04/18 12:46:40.000.883,=RaizeComponentsVcl.dcp</Transaction>
-    <Transaction>2017/04/18 12:46:40.000.896,=Jcl.dcp</Transaction>
-    <Transaction>2017/04/18 12:46:40.000.908,=JvCore.dcp</Transaction>
     <Transaction>2017/04/18 12:46:40.000.859,=dbrtl.dcp</Transaction>
+    <Transaction>2017/04/18 12:46:40.000.908,=JvCore.dcp</Transaction>
     <Transaction>2017/04/18 12:46:40.000.847,=vcl.dcp</Transaction>
+    <Transaction>2017/04/18 12:46:40.000.896,=Jcl.dcp</Transaction>
   </Transactions>
 </BorlandProject>

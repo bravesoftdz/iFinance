@@ -3,7 +3,7 @@ unit Posting;
 interface
 
 type
-  TPosting = class
+  TPosting<T> = class
   private
     class procedure Post(const postingId, refPostingId: integer;
       const locPrefix: string; const dr, cr: real; const eventObj, pk, st: string;
@@ -19,7 +19,7 @@ implementation
 uses
   AccountingData, Loan, Payment;
 
-class procedure TPosting.Post(const p: TObject);
+class procedure TPosting<T>.Post(const p: TObject);
 var
   postingId, refPostingId: integer;
   locPrefix, eventObj, pk, st, caseType: string;
@@ -31,7 +31,7 @@ begin
          postDate, valueDate, caseType);
 end;
 
-class procedure TPosting.Post(const postingId, refPostingId: integer;
+class procedure TPosting<T>.Post(const postingId, refPostingId: integer;
   const locPrefix: string; const dr, cr: real; const eventObj, pk, st: string;
   const postDate, valueDate: TDateTime; const caseType: string);
 begin

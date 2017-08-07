@@ -101,7 +101,6 @@
         <DCCReference Include="RaizeComponentsVcl.dcp"/>
         <DCCReference Include="RaizeComponentsVclDb.dcp"/>
         <DCCReference Include="RESTComponents.dcp"/>
-        <DCCReference Include="LockBox3DR.dcp"/>
         <DCCReference Include="FireDAC.dcp"/>
         <DCCReference Include="SaveIntf.pas"/>
         <DCCReference Include="FormsUtil.pas"/>
@@ -109,7 +108,6 @@
         <DCCReference Include="AppConstants.pas"/>
         <DCCReference Include="AppData.pas">
             <Form>dmApplication</Form>
-            <FormType>dfm</FormType>
             <DesignClass>TDataModule</DesignClass>
         </DCCReference>
         <DCCReference Include="AppUtil.pas"/>
@@ -120,35 +118,28 @@
         <DCCReference Include="DockIntf.pas"/>
         <DCCReference Include="ConfBox.pas">
             <Form>frmConfBox</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="ErrorBox.pas">
             <Form>frmErrorBox</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="DecisionBox.pas">
             <Form>frmDecisionBox</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="Branch.pas"/>
         <DCCReference Include="Alerts.pas">
             <Form>frmAlerts</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="Alert.pas"/>
         <DCCReference Include="..\Base\BasePopup.pas">
             <Form>frmBasePopup</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="InfoBox.pas">
             <Form>frmInfoBox</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="IFinanceDialogs.pas"/>
         <DCCReference Include="NewIntf.pas"/>
         <DCCReference Include="WarningBox.pas">
             <Form>frmWarningBox</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="Ledger.pas"/>
         <BuildConfiguration Include="Release">

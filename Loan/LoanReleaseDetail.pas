@@ -29,6 +29,8 @@ type
     lblCharges: TJvLabel;
     JvLabel4: TJvLabel;
     lblNetProceeds: TJvLabel;
+    JvLabel3: TJvLabel;
+    lblAppliedAmount: TJvLabel;
     procedure FormShow(Sender: TObject);
     procedure grReleaseRecipientDblClick(Sender: TObject);
     procedure btnAddClick(Sender: TObject);
@@ -356,6 +358,9 @@ end;
 procedure TfrmLoanReleaseDetail.FormCreate(Sender: TObject);
 begin
   inherited;
+
+  // applied amount
+  lblAppliedAmount.Caption := FormatFloat('###,##0.00',ln.AppliedAmount);
 
   // approved amount
   urlApprovedAmount.Caption := FormatFloat('###,##0.00',ln.ApprovedAmount);

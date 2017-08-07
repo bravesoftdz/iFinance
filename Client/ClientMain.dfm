@@ -40,13 +40,13 @@ inherited frmClientMain: TfrmClientMain
     Width = 860
     Height = 552
     Hint = ''
-    ActivePage = tsGroups
+    ActivePage = tsBankAcctInfo
     Anchors = [akLeft, akTop, akRight, akBottom]
     BoldCurrentTab = True
     FlatColor = 6572079
     ShowFullFrame = False
     ShowShadow = False
-    TabIndex = 4
+    TabIndex = 5
     TabOrder = 1
     TabOrientation = toBottom
     TabStop = False
@@ -55,6 +55,8 @@ inherited frmClientMain: TfrmClientMain
     object tsClientInfo: TRzTabSheet
       Color = 14273211
       Caption = 'Client information'
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object JvLabel1: TJvLabel
         Left = 35
         Top = 40
@@ -1128,6 +1130,8 @@ inherited frmClientMain: TfrmClientMain
     object tsReferences: TRzTabSheet
       Color = 14273211
       Caption = 'Family and references'
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       DesignSize = (
         860
         529)
@@ -1601,6 +1605,8 @@ inherited frmClientMain: TfrmClientMain
     object tsIdentityInfo: TRzTabSheet
       Color = 14273211
       Caption = 'Identity information'
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       DesignSize = (
         860
         529)
@@ -1887,6 +1893,8 @@ inherited frmClientMain: TfrmClientMain
     object tsLoansHistory: TRzTabSheet
       Color = 14273211
       Caption = 'Loans history'
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       DesignSize = (
         860
         529)

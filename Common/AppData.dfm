@@ -5,10 +5,11 @@ object dmApplication: TdmApplication
   Height = 217
   Width = 536
   object acMain: TADOConnection
+    Connected = True
     ConnectionString = 
       'Provider=SQLNCLI11.1;Integrated Security=SSPI;Persist Security I' +
-      'nfo=False;User ID="";Initial Catalog=iFinance;Data Source=BRYAN\' +
-      'DEVELOPMENT;Initial File Name="";Server SPN="";'
+      'nfo=False;User ID="";Initial Catalog=iFinance;Data Source=BRYAN-' +
+      'X1C\DEVELOPMENT;Initial File Name="";Server SPN=""'
     LoginPrompt = False
     Provider = 'SQLNCLI11.1'
     BeforeConnect = acMainBeforeConnect
@@ -60,11 +61,10 @@ object dmApplication: TdmApplication
     Top = 80
   end
   object acCore: TADOConnection
-    Connected = True
     ConnectionString = 
       'Provider=SQLNCLI11.1;Integrated Security=SSPI;Persist Security I' +
-      'nfo=False;User ID="";Initial Catalog=HRIS;Data Source=BRYAN\DEVE' +
-      'LOPMENT;Initial File Name="";Server SPN=""'
+      'nfo=False;User ID="";Initial Catalog=HRIS;Data Source=BRYAN-X1C\' +
+      'DEVELOPMENT;Initial File Name="";Server SPN=""'
     LoginPrompt = False
     Provider = 'SQLNCLI11.1'
     BeforeConnect = acCoreBeforeConnect
@@ -234,6 +234,9 @@ object dmApplication: TdmApplication
       DisplayFormat = '###,###,##0.00'
       Precision = 38
       Size = 2
+    end
+    object dstPaymentspmt_method: TWordField
+      FieldName = 'pmt_method'
     end
   end
   object dscPayments: TDataSource

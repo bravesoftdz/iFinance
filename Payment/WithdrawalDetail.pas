@@ -77,6 +77,7 @@ end;
 
 procedure TfrmWithdrawalDetail.GetClientBankAccounts;
 begin
+  dbluAccount.ListSource.DataSet.Close;
   dbluAccount.ListSource.DataSet.Open;
   dbluAccount.Enabled := true;
 end;

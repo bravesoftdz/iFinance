@@ -32,6 +32,7 @@ type
     dstPaymentstotal_amount: TFMTBCDField;
     dstDuplicate: TADODataSet;
     dscDuplicate: TDataSource;
+    dstPaymentspmt_method: TWordField;
     procedure DataModuleCreate(Sender: TObject);
     procedure acMainBeforeConnect(Sender: TObject);
     procedure DataModuleDestroy(Sender: TObject);

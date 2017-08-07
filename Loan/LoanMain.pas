@@ -226,9 +226,6 @@ const
   // finalised error message
   FINALISED_MSG = 'Changes have been restricted. Loan application has been finalised.';
 
-var
-  frmLoanMain: TfrmLoanMain;
-
 implementation
 
 {$R *.dfm}

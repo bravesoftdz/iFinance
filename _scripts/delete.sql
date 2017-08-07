@@ -27,6 +27,7 @@ delete LoanClass
 delete GroupAttribute
 delete [Group]
 delete entity
+delete bankwithdrawal
 
 delete T_LoanType
 delete T_AccountType

@@ -59,13 +59,16 @@ begin
   with TfrmWithdrawalDetail.Create(nil) do
   begin
     wd := TWithdrawal.Create;
-    wd.Append;
+    try
+      wd.Append;
 
-    ShowModal;
+      ShowModal;
 
-    if ModalResult = mrOk then
+      if ModalResult <> mrOK then wd.Cancel;
 
-    wd.Destroy;
+    finally
+      wd.Destroy;
+    end;
 
     Free;
   end;

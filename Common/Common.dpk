@@ -42,7 +42,6 @@ requires
   RaizeComponentsVcl,
   RaizeComponentsVclDb,
   RESTComponents,
-  LockBox3DR,
   FireDAC;
 
 contains

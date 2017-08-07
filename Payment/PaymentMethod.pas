@@ -18,7 +18,6 @@ type
 
   end;
 
-type
   TPaymentMethods = array of TPaymentMethod;
 
 var

@@ -23,8 +23,6 @@ type
     JvLabel6: TJvLabel;
     edInterest: TRzNumericEdit;
     lblTotal: TJvLabel;
-    JvLabel7: TJvLabel;
-    cmbPaymentMethod: TRzComboBox;
     JvLabel8: TJvLabel;
     edPenalty: TRzNumericEdit;
     procedure FormCreate(Sender: TObject);
@@ -71,10 +69,8 @@ var
   i: integer;
 begin
   inherited;
-  PopulatePaymentMethodComboBox(cmbPaymentMethod);
-
   // set labels
-  i := pmt.Client.ActiveLoansCount - 1;
+  i := pmt.Client.IndexOf(pmt.Details[pmt.DetailCount-1].Loan);
 
   lblLoanId.Caption := pmt.Client.ActiveLoans[i].Id;
   lblType.Caption := pmt.Client.ActiveLoans[i].LoanTypeName;

@@ -1,10 +1,10 @@
 inherited frmPaymentDetail: TfrmPaymentDetail
   Caption = 'frmPaymentDetail'
-  ClientHeight = 341
+  ClientHeight = 318
   ClientWidth = 343
   OnCreate = FormCreate
   ExplicitWidth = 343
-  ExplicitHeight = 341
+  ExplicitHeight = 318
   PixelsPerInch = 96
   TextHeight = 14
   inherited pnlTitle: TRzPanel
@@ -22,23 +22,23 @@ inherited frmPaymentDetail: TfrmPaymentDetail
   end
   inherited pnlMain: TRzPanel
     Width = 343
-    Height = 320
+    Height = 297
     ExplicitWidth = 343
-    ExplicitHeight = 320
+    ExplicitHeight = 321
     inherited pnlDetail: TRzPanel
       Width = 326
-      Height = 271
+      Height = 248
       ExplicitWidth = 326
-      ExplicitHeight = 271
+      ExplicitHeight = 272
       inherited pcDetail: TRzPageControl
         Width = 324
-        Height = 269
+        Height = 246
         ExplicitWidth = 324
-        ExplicitHeight = 269
+        ExplicitHeight = 270
         FixedDimension = 20
         inherited tsDetail: TRzTabSheet
           ExplicitWidth = 324
-          ExplicitHeight = 269
+          ExplicitHeight = 270
           object JvLabel1: TJvLabel
             Left = 19
             Top = 23
@@ -177,7 +177,7 @@ inherited frmPaymentDetail: TfrmPaymentDetail
           end
           object JvLabel5: TJvLabel
             Left = 19
-            Top = 117
+            Top = 93
             Width = 45
             Height = 14
             Caption = 'Principal'
@@ -191,7 +191,7 @@ inherited frmPaymentDetail: TfrmPaymentDetail
           end
           object JvLabel6: TJvLabel
             Left = 18
-            Top = 154
+            Top = 130
             Width = 46
             Height = 14
             Caption = 'Interest'
@@ -205,7 +205,7 @@ inherited frmPaymentDetail: TfrmPaymentDetail
           end
           object lblTotal: TJvLabel
             Left = 19
-            Top = 236
+            Top = 205
             Width = 162
             Height = 23
             Caption = 'Total amount: 0.00'
@@ -217,25 +217,11 @@ inherited frmPaymentDetail: TfrmPaymentDetail
             Anchors = [akLeft, akBottom]
             ParentFont = False
             Transparent = True
-            ExplicitTop = 213
-          end
-          object JvLabel7: TJvLabel
-            Left = 19
-            Top = 89
-            Width = 44
-            Height = 14
-            Caption = 'Method'
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -12
-            Font.Name = 'Tahoma'
-            Font.Style = []
-            ParentFont = False
-            Transparent = True
+            ExplicitTop = 229
           end
           object JvLabel8: TJvLabel
             Left = 18
-            Top = 191
+            Top = 167
             Width = 42
             Height = 14
             Caption = 'Penalty'
@@ -249,7 +235,7 @@ inherited frmPaymentDetail: TfrmPaymentDetail
           end
           object edPrincipal: TRzNumericEdit
             Left = 83
-            Top = 111
+            Top = 87
             Width = 221
             Height = 31
             Anchors = [akLeft, akTop, akRight]
@@ -270,7 +256,7 @@ inherited frmPaymentDetail: TfrmPaymentDetail
           end
           object edInterest: TRzNumericEdit
             Left = 83
-            Top = 148
+            Top = 124
             Width = 221
             Height = 31
             Anchors = [akLeft, akTop, akRight]
@@ -289,25 +275,9 @@ inherited frmPaymentDetail: TfrmPaymentDetail
             IntegersOnly = False
             DisplayFormat = '###,###,##0.00'
           end
-          object cmbPaymentMethod: TRzComboBox
-            Left = 83
-            Top = 83
-            Width = 221
-            Height = 22
-            AllowEdit = False
-            Anchors = [akLeft, akTop, akRight]
-            Ctl3D = False
-            FrameColor = 6572079
-            FrameVisible = True
-            FramingPreference = fpCustomFraming
-            ParentCtl3D = False
-            ReadOnlyColor = clWhite
-            Sorted = True
-            TabOrder = 2
-          end
           object edPenalty: TRzNumericEdit
             Left = 83
-            Top = 185
+            Top = 161
             Width = 221
             Height = 31
             Anchors = [akLeft, akTop, akRight]
@@ -321,7 +291,7 @@ inherited frmPaymentDetail: TfrmPaymentDetail
             FrameVisible = True
             FramingPreference = fpCustomFraming
             ParentFont = False
-            TabOrder = 3
+            TabOrder = 2
             OnChange = edInterestChange
             IntegersOnly = False
             DisplayFormat = '###,###,##0.00'
@@ -331,15 +301,15 @@ inherited frmPaymentDetail: TfrmPaymentDetail
     end
     inherited pnlCancel: TRzPanel
       Left = 284
-      Top = 288
+      Top = 265
       ExplicitLeft = 284
-      ExplicitTop = 288
+      ExplicitTop = 289
     end
     inherited pnlSave: TRzPanel
       Left = 228
-      Top = 288
+      Top = 265
       ExplicitLeft = 228
-      ExplicitTop = 288
+      ExplicitTop = 289
       inherited btnSave: TRzShapeButton
         Caption = 'Add'
       end

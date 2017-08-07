@@ -23,6 +23,7 @@ type
 
     procedure Save;
     procedure Append;
+    procedure Cancel;
   end;
 
 var
@@ -40,6 +41,14 @@ begin
   with dmPayment.dstWithdrawal do
   begin
     Append;
+  end;
+end;
+
+procedure TWithdrawal.Cancel;
+begin
+  with dmPayment.dstWithdrawal do
+  begin
+    Cancel;
   end;
 end;
 

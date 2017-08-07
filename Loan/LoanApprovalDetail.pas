@@ -24,6 +24,8 @@ type
     urlRecommendedAmount: TRzURLLabel;
     JvLabel2: TJvLabel;
     urlDesiredTerm: TRzURLLabel;
+    JvLabel3: TJvLabel;
+    lblAppliedAmount: TJvLabel;
     procedure FormCreate(Sender: TObject);
     procedure urlRecommendedAmountClick(Sender: TObject);
     procedure urlDesiredTermClick(Sender: TObject);
@@ -53,6 +55,8 @@ begin
   inherited;
   OpenDropdownDataSources(tsDetail);
 
+  // applied amount
+  lblAppliedAmount.Caption := FormatFloat('###,##0.00',ln.AppliedAmount);
   // recommended amount
   urlRecommendedAmount.Caption := FormatFloat('###,##0.00',ln.Assessment.RecommendedAmount);
   // desired term

@@ -9,6 +9,7 @@ inherited frmWithdrawalList: TfrmWithdrawalList
   TextHeight = 14
   inherited pnlTitle: TRzPanel
     Width = 786
+    ExplicitWidth = 786
     inherited lblTitle: TRzLabel
       Width = 92
       Caption = 'Withdrawal list'

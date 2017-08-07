@@ -16,7 +16,6 @@ type
     property AccountTypeName: string read FAccountTypeName write FAccountTypeName;
   end;
 
-type
   TActiveClient = class
   private
     FId: string;
@@ -34,6 +33,8 @@ type
 
     procedure AddLoan(const ln: TLoan);
     procedure RetrieveActiveLoans;
+
+    function IndexOf(const loan: TLoan): integer;
 
     constructor Create;
   end;
@@ -93,6 +94,23 @@ end;
 function TActiveClient.GetLoanCount: integer;
 begin
   Result := Length(FLoans);
+end;
+
+function TActiveClient.IndexOf(const loan: TLoan): integer;
+var
+  i: integer;
+  l: TLoan;
+begin
+
+  for i := Low(FLoans) to High(FLoans) do
+  begin
+    l := FLoans[i];
+    if l.Id = loan.Id then
+    begin
+      Result := i;
+      Exit;
+    end;
+  end;
 end;
 
 end.

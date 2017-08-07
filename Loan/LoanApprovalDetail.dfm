@@ -154,6 +154,35 @@ inherited frmLoanAppvDetail: TfrmLoanAppvDetail
             ParentFont = False
             OnClick = urlDesiredTermClick
           end
+          object JvLabel3: TJvLabel
+            Tag = -1
+            Left = 217
+            Top = 23
+            Width = 104
+            Height = 14
+            Caption = 'Applied amount:'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -12
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold]
+            ParentFont = False
+            Transparent = True
+            HotTrackFont.Charset = DEFAULT_CHARSET
+            HotTrackFont.Color = clWindowText
+            HotTrackFont.Height = -12
+            HotTrackFont.Name = 'Tahoma'
+            HotTrackFont.Style = []
+          end
+          object lblAppliedAmount: TJvLabel
+            Tag = -1
+            Left = 335
+            Top = 23
+            Width = 27
+            Height = 14
+            Caption = '0.00'
+            Transparent = True
+          end
           object edAppvTerm: TRzDBNumericEdit
             Tag = 5
             Left = 122

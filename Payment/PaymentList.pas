@@ -44,7 +44,7 @@ implementation
 
 uses
   AppData, FormsUtil, IFinanceGlobal, AppConstants, PaymentMain, Payment, ActiveClient,
-  PaymentListParams;
+  PaymentListParams, PaymentMethod;
 
 procedure TfrmPaymentList.InitialiseFilterControls;
 begin
@@ -82,6 +82,7 @@ procedure TfrmPaymentList.grListDblClick(Sender: TObject);
 var
   intf: IDock;
   activeCln: TActiveClient;
+  paymentMethod: TPaymentMethod;
 begin
   with  grList.DataSource.DataSet do
   begin
@@ -101,6 +102,10 @@ begin
       pmt.ReferenceNo := FieldByname('ref_no').AsString;
       pmt.PostDate := FieldByName('post_date').AsDateTime;
       pmt.LocationCode := FieldByName('loc_code').AsString;
+
+      paymentMethod := TPaymentMethod.Create;
+      paymentMethod.Method := TMethod(FieldByName('pmt_method').AsInteger);
+      pmt.PaymentMethod := paymentMethod;
 
       if Supports(Application.MainForm,IDock,intf) then
         intf.DockForm(fmPaymentMain);

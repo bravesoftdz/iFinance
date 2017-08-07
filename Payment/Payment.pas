@@ -3,7 +3,7 @@ unit Payment;
 interface
 
 uses
-  ActiveClient, PaymentMethod;
+  ActiveClient, PaymentMethod, System.Classes, SysUtils;
 
 type
   TPaymentDetail = class
@@ -26,7 +26,7 @@ type
     property Interest: real read FInterest write FInterest;
   end;
 
-type
+
   TPayment = class
   private
     FClient: TActiveClient;
@@ -40,6 +40,7 @@ type
     FPaymentMethod: TPaymentMethod;
 
     procedure SaveDetails;
+    procedure UpdateLoanBalance;
 
     function GetDetail(const i: integer): TPaymentDetail;
     function GetTotalAmount: real;
@@ -80,7 +81,7 @@ var
 implementation
 
 uses
-  PaymentData, IFinanceDialogs;
+  PaymentData, IFinanceDialogs, DBUtil;
 
 constructor TPayment.Create;
 begin
@@ -131,14 +132,25 @@ end;
 
 procedure TPayment.Save;
 begin
-  with dmPayment do
-  begin
-    dstPayment.Post;
+  try
+    with dmPayment do
+    begin
+      dstPayment.Post;
 
-    SaveDetails;
+      SaveDetails;
 
-    dstPayment.UpdateBatch;
-    dstPaymentDetail.UpdateBatch;
+      UpdateLoanBalance;
+
+      dstPayment.UpdateBatch;
+      dstPaymentDetail.UpdateBatch;
+    end;
+  except
+    on E: Exception do begin
+      dmPayment.dstPayment.CancelBatch;
+      dmPayment.dstPaymentDetail.CancelBatch;
+      
+      ShowErrorBox('An error has occured during payment posting. Entry has been cancelled.');
+    end;
   end;
 end;
 
@@ -162,6 +174,31 @@ begin
       Post;
     end;
 
+  end;
+end;
+
+procedure TPayment.UpdateLoanBalance;
+var
+  detail: TPaymentDetail;
+  sql: TStringList;
+  balance: real;
+begin
+  sql := TStringList.Create;
+  // sql.Delimiter := ';';
+  
+  try
+    for detail in FDetails do
+    begin
+      balance := detail.Loan.Balance - detail.GetTotalAmount;          
+      
+      sql.Add(' UPDATE loan ' +
+              '    SET balance = ' + FloatToStr(balance) +
+              '  WHERE loan_id = ' + QuotedStr(detail.Loan.Id));
+    end;
+    
+    ExecuteSQL(sql.Text);
+  finally
+    sql.Free;
   end;
 end;
 

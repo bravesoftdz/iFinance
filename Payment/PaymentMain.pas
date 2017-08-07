@@ -6,7 +6,7 @@ uses
   System.SysUtils, System.Classes, BaseDocked, Vcl.Controls, Vcl.StdCtrls,
   RzLabel, Vcl.ExtCtrls, RzPanel, Vcl.Mask, RzEdit, RzBtnEdt, JvExControls,
   JvLabel, Vcl.Grids, RzGrids, RzDBEdit, SaveIntf, System.UITypes, PaymentIntf,
-  Vcl.Imaging.pngimage, Payment, StrUtils, Vcl.Graphics, System.Types;
+  Vcl.Imaging.pngimage, Payment, StrUtils, Vcl.Graphics, System.Types, RzCmboBx;
 
 type
   TfrmPaymentMain = class(TfrmBaseDocked, ISave, IPayment)
@@ -27,6 +27,8 @@ type
     lblPosted: TJvLabel;
     dtePaymentDate: TRzDBDateTimeEdit;
     edReceipt: TRzDBEdit;
+    cmbPaymentMethod: TRzComboBox;
+    JvLabel3: TJvLabel;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure imgAddPaymentClick(Sender: TObject);
@@ -39,6 +41,7 @@ type
     procedure grDetailResize(Sender: TObject);
     procedure grDetailDrawCell(Sender: TObject; ACol, ARow: Integer;
       Rect: TRect; State: TGridDrawState);
+    procedure cmbPaymentMethodChange(Sender: TObject);
   private
     { Private declarations }
     function SelectActiveClient: TModalResult;
@@ -61,9 +64,6 @@ type
     procedure AddActiveLoan;
   end;
 
-var
-  frmPaymentMain: TfrmPaymentMain;
-
 implementation
 
 {%CLASSGROUP 'System.Classes.TPersistent'}
@@ -72,13 +72,14 @@ implementation
 
 uses
   PaymentData, IFinanceDialogs, ActiveClientsSearch, ActiveClient,
-  ActiveLoans, FormsUtil, PaymentDetail;
+  ActiveLoans, FormsUtil, PaymentDetail, PaymentMethod;
 
 function TfrmPaymentMain.PaymentIsValid: boolean;
 var
   error: string;
 begin
-  if not Assigned(pmt.Client) then error := 'Please select a client.'
+  if not Assigned(pmt.PaymentMethod) then error := 'No payment method selected.'
+  else if not Assigned(pmt.Client) then error := 'Please select a client.'
   else if pmt.DetailCount = 0 then error := 'Please add at least one payment detail.';
 
   if error <> '' then ShowErrorBox(error);
@@ -202,11 +203,14 @@ procedure TfrmPaymentMain.FormCreate(Sender: TObject);
 begin
   dmPayment := TdmPayment.Create(self);
 
+  PopulatePaymentMethodComboBox(cmbPaymentMethod);
+
   try
     if not Assigned(pmt) then
     begin
       pmt := TPayment.Create;
       pmt.Add;
+      cmbPaymentMethod.ItemIndex := 0;
     end
     else Retrieve;
   except
@@ -412,8 +416,11 @@ procedure TfrmPaymentMain.SetUnboundControls;
 begin
   edClient.Text := pmt.Client.Name;
 
+  cmbPaymentMethod.ItemIndex := Integer(pmt.PaymentMethod.Method);
+
   lblReferenceNo.Caption := pmt.ReferenceNo;
   lblPosted.Caption := IfThen(pmt.IsPosted,'Yes','No');
+  lblTotalAmount.Caption := FormatFloat('###,##0.00',pmt.TotalAmount);
 end;
 
 procedure TfrmPaymentMain.Retrieve;
@@ -432,6 +439,13 @@ begin
 
   dtePaymentDate.ReadOnly := not new;
   edReceipt.ReadOnly := not new;
+  cmbPaymentMethod.ReadOnly := not new;
+end;
+
+procedure TfrmPaymentMain.cmbPaymentMethodChange(Sender: TObject);
+begin
+  // set payment method
+  pmt.PaymentMethod := TPaymentMethod(cmbPaymentMethod.Items.Objects[cmbPaymentMethod.ItemIndex]);
 end;
 
 end.

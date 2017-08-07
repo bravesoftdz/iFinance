@@ -88,7 +88,7 @@ inherited frmPaymentMain: TfrmPaymentMain
     HotTrackFont.Style = []
   end
   object JvLabel2: TJvLabel [4]
-    Left = 22
+    Left = 254
     Top = 87
     Width = 91
     Height = 14
@@ -107,7 +107,7 @@ inherited frmPaymentMain: TfrmPaymentMain
     HotTrackFont.Style = []
   end
   object lblReferenceNo: TJvLabel [5]
-    Left = 118
+    Left = 350
     Top = 87
     Width = 6
     Height = 14
@@ -120,7 +120,7 @@ inherited frmPaymentMain: TfrmPaymentMain
     Transparent = True
   end
   object JvLabel4: TJvLabel [6]
-    Left = 263
+    Left = 495
     Top = 87
     Width = 49
     Height = 14
@@ -139,7 +139,7 @@ inherited frmPaymentMain: TfrmPaymentMain
     HotTrackFont.Style = []
   end
   object lblPosted: TJvLabel [7]
-    Left = 321
+    Left = 553
     Top = 87
     Width = 6
     Height = 14
@@ -150,6 +150,25 @@ inherited frmPaymentMain: TfrmPaymentMain
     Font.Style = []
     ParentFont = False
     Transparent = True
+  end
+  object JvLabel3: TJvLabel [8]
+    Left = 22
+    Top = 87
+    Width = 50
+    Height = 14
+    Caption = 'Method'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -12
+    Font.Name = 'Tahoma'
+    Font.Style = [fsBold]
+    ParentFont = False
+    Transparent = True
+    HotTrackFont.Charset = DEFAULT_CHARSET
+    HotTrackFont.Color = clWindowText
+    HotTrackFont.Height = -12
+    HotTrackFont.Name = 'Tahoma'
+    HotTrackFont.Style = []
   end
   inherited pnlTitle: TRzPanel
     Width = 664
@@ -449,5 +468,22 @@ inherited frmPaymentMain: TfrmPaymentMain
     FramingPreference = fpCustomFraming
     ReadOnlyColor = 14273211
     TabOrder = 5
+  end
+  object cmbPaymentMethod: TRzComboBox
+    Left = 86
+    Top = 81
+    Width = 139
+    Height = 22
+    AllowEdit = False
+    Color = 14273211
+    Ctl3D = False
+    FrameColor = 6572079
+    FrameVisible = True
+    FramingPreference = fpCustomFraming
+    ParentCtl3D = False
+    ReadOnlyColor = 14273211
+    Sorted = True
+    TabOrder = 7
+    OnChange = cmbPaymentMethodChange
   end
 end
