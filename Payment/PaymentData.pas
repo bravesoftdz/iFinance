@@ -92,6 +92,10 @@ begin
     DataSet.FieldByName('loc_code').AsString := ifn.LocationCode;
     DataSet.FieldByName('ref_no').AsString := refNo;
     DataSet.FieldByName('pmt_method').AsInteger := Integer(pmt.PaymentMethod.Method);
+    DataSet.FieldByName('post_date').AsDateTime := Now;
+
+    if pmt.PaymentMethod.Method = mdBankWithdrawal then
+      DataSet.FieldByName('wd_id').AsString := pmt.WithdrawalId;
 
     SetCreatedFields(DataSet);
 

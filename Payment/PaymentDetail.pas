@@ -29,6 +29,7 @@ type
     procedure FormKeyPress(Sender: TObject; var Key: Char);
     procedure edPrincipalChange(Sender: TObject);
     procedure edInterestChange(Sender: TObject);
+    procedure edPenaltyChange(Sender: TObject);
   private
     { Private declarations }
     procedure SetTotalAmount;
@@ -54,6 +55,13 @@ procedure TfrmPaymentDetail.edInterestChange(Sender: TObject);
 begin
   inherited;
   pmt.Details[pmt.DetailCount-1].Interest := edInterest.Value;
+  SetTotalAmount;
+end;
+
+procedure TfrmPaymentDetail.edPenaltyChange(Sender: TObject);
+begin
+  inherited;
+  pmt.Details[pmt.DetailCount-1].Penalty := edPenalty.Value;
   SetTotalAmount;
 end;
 

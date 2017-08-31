@@ -116,7 +116,7 @@
         <DCCReference Include="Jcl.dcp"/>
         <DCCReference Include="JvCore.dcp"/>
         <DCCReference Include="JvStdCtrls.dcp"/>
-        <DCCReference Include="Posting.pas"/>
+        <DCCReference Include="Ledger.pas"/>
         <DCCReference Include="AccountingData.pas">
             <Form>dmAccounting</Form>
             <FormType>dfm</FormType>

@@ -6,6 +6,8 @@ uses
   ActiveClient, PaymentMethod, System.Classes, SysUtils;
 
 type
+  TPaymentType = (ptPrincipal,ptInterest,ptPenalty);
+
   TPaymentDetail = class
   strict private
     FLoan: TLoan;
@@ -13,9 +15,13 @@ type
     FCancelled: boolean;
     FPrincipal: real;
     FInterest: real;
+    FPenalty: real;
+    FPaymentType: TPaymentType;
 
-  private
     function GetTotalAmount: real;
+    function GetHasInterest: boolean;
+    function GetHasPrincipal: boolean;
+    function GetPenalty: boolean;
 
   public
     property Loan: TLoan read FLoan write FLoan;
@@ -24,8 +30,14 @@ type
     property Cancelled: boolean read FCancelled write FCancelled;
     property Principal: real read FPrincipal write FPrincipal;
     property Interest: real read FInterest write FInterest;
-  end;
+    property Penalty: real read FPenalty write FPenalty;
+    property HasPrincipal: boolean read GetHasPrincipal;
+    property HasInterest: boolean read GetHasInterest;
+    property HasPenalty: boolean read GetPenalty;
+    property PaymentType: TPaymentType read FPaymentType write FPaymentType;
 
+    function PaymentTypeToString(const payType: TPaymentType): string;
+  end;
 
   TPayment = class
   private
@@ -38,6 +50,8 @@ type
     FReferenceNo: string;
     FLocationCode: string;
     FPaymentMethod: TPaymentMethod;
+    FWithdrawn: real;
+    FWithdrawalId: string;
 
     procedure SaveDetails;
     procedure UpdateLoanBalance;
@@ -47,6 +61,7 @@ type
     function GetDetailCount: integer;
     function GetIsPosted: boolean;
     function GetIsNew: boolean;
+    function GetIsWithdrawal: boolean;
 
   public
     property Client: TActiveClient read FClient write FClient;
@@ -62,6 +77,9 @@ type
     property LocationCode: string read FLocationCode write FLocationCode;
     property IsNew: boolean read GetIsNew;
     property PaymentMethod: TPaymentMethod read FPaymentMethod write FPaymentMethod;
+    property Withdrawn: real read FWithdrawn write FWithdrawn;
+    property WithdrawalId: string read FWithdrawalId write FWithdrawalId;
+    property IsWithdrawal: boolean read GetIsWithdrawal;
 
     procedure Add;
     procedure AddDetail(const detail: TPaymentDetail);
@@ -86,7 +104,10 @@ uses
 constructor TPayment.Create;
 begin
   if pmt <> nil then pmt := self
-  else inherited Create;
+  else begin
+    inherited Create;
+    FPaymentMethod := TPaymentMethod.Create;
+  end;
 end;
 
 destructor TPayment.Destroy;
@@ -166,12 +187,42 @@ begin
 
     for i := 0 to cnt do
     begin
-      Append;
-      FieldByName('payment_id').AsString := FPaymentId;
-      FieldByName('loan_id').AsString := FDetails[i].Loan.Id;
-      FieldByName('payment_amt').AsFloat := FDetails[i].TotalAmount;
-      FieldByName('remarks').AsString := FDetails[i].Remarks;
-      Post;
+      // principal
+      if FDetails[i].HasPrincipal then
+      begin
+        Append;
+        FieldByName('payment_id').AsString := FPaymentId;
+        FieldByName('loan_id').AsString := FDetails[i].Loan.Id;
+        FieldByName('payment_amt').AsFloat := FDetails[i].Principal;
+        FieldByName('payment_type').AsString := FDetails[i].PaymentTypeToString(ptPrincipal);
+        FieldByName('remarks').AsString := FDetails[i].Remarks;
+        Post;
+      end;
+
+      // interest
+      if FDetails[i].HasInterest then
+      begin
+        Append;
+        FieldByName('payment_id').AsString := FPaymentId;
+        FieldByName('loan_id').AsString := FDetails[i].Loan.Id;
+        FieldByName('payment_amt').AsFloat := FDetails[i].Interest;
+        FieldByName('payment_type').AsString := FDetails[i].PaymentTypeToString(ptInterest);
+        FieldByName('remarks').AsString := FDetails[i].Remarks;
+        Post;
+      end;
+
+      // interest
+      if FDetails[i].HasPenalty then
+      begin
+        Append;
+        FieldByName('payment_id').AsString := FPaymentId;
+        FieldByName('loan_id').AsString := FDetails[i].Loan.Id;
+        FieldByName('payment_amt').AsFloat := FDetails[i].Penalty;
+        FieldByName('payment_type').AsString := FDetails[i].PaymentTypeToString(ptPenalty);
+        FieldByName('remarks').AsString := FDetails[i].Remarks;
+        Post;
+      end;
+
     end;
 
   end;
@@ -189,7 +240,7 @@ begin
   try
     for detail in FDetails do
     begin
-      balance := detail.Loan.Balance - detail.GetTotalAmount;          
+      balance := detail.Loan.Balance - detail.TotalAmount;
       
       sql.Add(' UPDATE loan ' +
               '    SET balance = ' + FloatToStr(balance) +
@@ -206,6 +257,7 @@ procedure TPayment.Retrieve;
 var
   detail: TPaymentDetail;
   loan: TLoan;
+  currentLoanId: string;
 begin
   // head
   with dmPayment.dstPayment do
@@ -222,21 +274,35 @@ begin
 
     while not Eof do
     begin
-      // loan details
-      loan := TLoan.Create;
-      loan.Id := FieldByName('loan_id').AsString;
-      loan.LoanTypeName := FieldByName('loan_type_name').AsString;
-      loan.AccountTypeName := FieldByName('acct_type_name').AsString;
-      loan.Balance := FieldByName('balance').AsFloat;
+      // loan details..instantiate for every loan ID.. NOT for every row
+      // Reason: each detail will contain the PRINCIPAL, INTEREST and PENALTY amounts
+      if (not Assigned(loan)) or (loan.Id <> currentLoanId) then
+      begin
+        loan := TLoan.Create;
+        loan.Id := FieldByName('loan_id').AsString;
+        loan.LoanTypeName := FieldByName('loan_type_name').AsString;
+        loan.AccountTypeName := FieldByName('acct_type_name').AsString;
+        loan.Balance := FieldByName('balance').AsFloat;
 
-      detail := TPaymentDetail.Create;
-      detail.Loan := loan;
-      detail.Remarks := FieldByName('remarks').AsString;
-      detail.Cancelled := FieldByName('is_cancelled').AsInteger = 1;
+        detail := TPaymentDetail.Create;
+        detail.Loan := loan;
+        detail.Remarks := FieldByName('remarks').AsString;
+        detail.Cancelled := FieldByName('is_cancelled').AsInteger = 1;
+      end;
 
-      AddDetail(detail);
+      // set principal, interest, penalty
+      if FieldByName('payment_type').AsString = 'PRN' then
+        detail.Principal := FieldByName('payment_amt').AsFloat
+      else if FieldByName('payment_type').AsString = 'INT' then
+        detail.Interest := FieldByName('payment_amt').AsFloat
+      else if FieldByName('payment_type').AsString = 'PEN' then
+        detail.Penalty := FieldByName('payment_amt').AsFloat;
 
       Next;
+
+      currentLoanId := FieldByName('loan_id').AsString;
+
+      if (Eof) or (loan.Id <> currentLoanId) then AddDetail(detail);
     end;
   end;
 end;
@@ -252,8 +318,7 @@ var
 begin
   Result := 0;
 
-  for pd in FDetails do
-    Result := Result + pd.Principal + pd.Interest;
+  for pd in FDetails do Result := Result + pd.Principal + pd.Interest + pd.Penalty;
 end;
 
 function TPayment.DetailExists(const loan: TLoan): boolean;
@@ -281,14 +346,44 @@ begin
   Result := FPostDate > 0;
 end;
 
+function TPayment.GetIsWithdrawal: boolean;
+begin
+  Result := FPaymentMethod.Method = mdBankWithdrawal;
+end;
+
 function TPayment.GetIsNew: boolean;
 begin
   Result := FPaymentId = '';
 end;
 
+function TPaymentDetail.GetHasInterest: boolean;
+begin
+  Result := FInterest > 0;
+end;
+
+function TPaymentDetail.GetHasPrincipal: boolean;
+begin
+  Result := FPrincipal > 0;
+end;
+
+function TPaymentDetail.GetPenalty: boolean;
+begin
+  Result := FPenalty > 0;
+end;
+
 function TPaymentDetail.GetTotalAmount: real;
 begin
-  Result := FPrincipal + FInterest;
+  Result := FPrincipal + FInterest + FPenalty;
+end;
+
+function TPaymentDetail.PaymentTypeToString(
+  const payType: TPaymentType): string;
+begin
+  case payType of
+    ptPrincipal: Result := 'PRN';
+    ptInterest: Result := 'INT';
+    ptPenalty: Result := 'PEN';
+  end;
 end;
 
 end.

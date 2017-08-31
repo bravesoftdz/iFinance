@@ -170,6 +170,27 @@ inherited frmPaymentMain: TfrmPaymentMain
     HotTrackFont.Name = 'Tahoma'
     HotTrackFont.Style = []
   end
+  object lblWithdrawn: TJvLabel [9]
+    Tag = -1
+    Left = 288
+    Top = 337
+    Width = 8
+    Height = 23
+    Alignment = taRightJustify
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clBlack
+    Font.Height = -19
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    Anchors = [akRight, akBottom]
+    ParentFont = False
+    Transparent = True
+    HotTrackFont.Charset = DEFAULT_CHARSET
+    HotTrackFont.Color = clWindowText
+    HotTrackFont.Height = -19
+    HotTrackFont.Name = 'Tahoma'
+    HotTrackFont.Style = []
+  end
   inherited pnlTitle: TRzPanel
     Width = 664
     ExplicitWidth = 664
@@ -199,7 +220,7 @@ inherited frmPaymentMain: TfrmPaymentMain
       BevelInner = bvNone
       BevelOuter = bvNone
       BorderStyle = bsNone
-      ColCount = 7
+      ColCount = 8
       Ctl3D = True
       DrawingStyle = gdsGradient
       FixedColor = 12955288
@@ -220,6 +241,7 @@ inherited frmPaymentMain: TfrmPaymentMain
       UseDrawingStyle = False
       OnResize = grDetailResize
       ColWidths = (
+        60
         60
         60
         60
@@ -484,6 +506,5 @@ inherited frmPaymentMain: TfrmPaymentMain
     ReadOnlyColor = 14273211
     Sorted = True
     TabOrder = 7
-    OnChange = cmbPaymentMethodChange
   end
 end

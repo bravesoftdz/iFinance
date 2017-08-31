@@ -563,4 +563,51 @@ object dmLoan: TdmLoan
     Left = 207
     Top = 238
   end
+  object dscLedger: TDataSource
+    DataSet = dstLedger
+    Left = 416
+    Top = 184
+  end
+  object dstLedger: TADODataSet
+    Tag = 2
+    Connection = dmApplication.acMain
+    CursorType = ctStatic
+    LockType = ltReadOnly
+    BeforeOpen = dstLedgerBeforeOpen
+    CommandText = 'sp_ln_get_ledger;1'
+    CommandType = cmdStoredProc
+    Parameters = <
+      item
+        Name = '@RETURN_VALUE'
+        DataType = ftInteger
+        Direction = pdReturnValue
+        Precision = 10
+        Value = 0
+      end
+      item
+        Name = '@loan_id'
+        Attributes = [paNullable]
+        DataType = ftString
+        Size = 13
+        Value = ''
+      end>
+    Left = 352
+    Top = 184
+    object dstLedgerDue: TDateTimeField
+      FieldName = 'Due'
+      DisplayFormat = 'mm/dd/yyyy'
+    end
+    object dstLedgerPrincipal: TBCDField
+      FieldName = 'Principal'
+      DisplayFormat = '###,###,##0.00'
+      Precision = 10
+      Size = 2
+    end
+    object dstLedgerInterest: TBCDField
+      FieldName = 'Interest'
+      DisplayFormat = '###,###,##0.00'
+      Precision = 10
+      Size = 2
+    end
+  end
 end

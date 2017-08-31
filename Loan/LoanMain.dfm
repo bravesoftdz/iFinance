@@ -1258,7 +1258,7 @@ inherited frmLoanMain: TfrmLoanMain
       end
       object pnlRestructure: TRzPanel
         Left = 13
-        Top = 295
+        Top = 311
         Width = 40
         Height = 40
         Anchors = [akTop, akRight]
@@ -1273,7 +1273,7 @@ inherited frmLoanMain: TfrmLoanMain
           Width = 32
           Height = 32
           Cursor = crHandPoint
-          Hint = 'Restructure loan'
+          Hint = 'Ledger'
           AutoSize = True
           ParentShowHint = False
           Picture.Data = {
@@ -1333,6 +1333,7 @@ inherited frmLoanMain: TfrmLoanMain
             3030239B1C210000001974455874536F6674776172650041646F626520496D61
             6765526561647971C9653C0000000049454E44AE426082}
           ShowHint = True
+          OnClick = imgRestructureClick
           OnMouseDown = imgAssessmentMouseDown
           OnMouseUp = imgAssessmentMouseUp
         end

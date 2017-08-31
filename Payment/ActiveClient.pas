@@ -63,6 +63,10 @@ procedure TActiveClient.RetrieveActiveLoans;
 var
   loan: TLoan;
 begin
+  // check if loans have been retrieved
+  // retrieve only once
+  if Length(FLoans) > 0 then Exit;
+
   try
     with dmPayment.dstActiveLoans do
     begin

@@ -5,7 +5,7 @@ interface
 uses
   SysUtils, Entity, LoanClient, AppConstants, DB, System.Rtti, ADODB, Variants,
   LoanClassification, Comaker, FinInfo, MonthlyExpense, ReleaseRecipient,
-  LoanCharge, LoanClassCharge, Assessment, Posting;
+  LoanCharge, LoanClassCharge, Assessment, Math;
 
 type
   TLoanAction = (laNone,laCreating,laAssessing,laApproving,laRejecting,laReleasing,laCancelling);
@@ -76,6 +76,9 @@ type
     function GetTotalCharges: real;
     function GetTotalReleased: real;
     function GetNetProceeds: real;
+    function GetFactorWithInterest: real;
+    function GetFactorWithoutInterest: real;
+    function GetAmortisation: real;
 
   public
     procedure Add; override;
@@ -148,6 +151,9 @@ type
     property ReleaseAmount: real read FReleaseAmount write FReleaseAmount;
     property ApprovedTerm: integer read FApprovedTerm write FApprovedTerm;
     property NetProceeds: real read GetNetProceeds;
+    property FactorWithInterest: real read GetFactorWithInterest;
+    property FactorWithoutInterest: real read GetFactorWithoutInterest;
+    property Amortisation: real read GetAmortisation;
 
     constructor Create;
     destructor Destroy; reintroduce;
@@ -159,7 +165,7 @@ var
 implementation
 
 uses
-  LoanData, IFinanceGlobal;
+  LoanData, IFinanceGlobal, Ledger;
 
 constructor TLoan.Create;
 begin
@@ -570,6 +576,8 @@ begin
 end;
 
 procedure TLoan.SaveRelease;
+var
+  ledger: TLedger;
 begin
   with dmLoan do
   begin
@@ -584,7 +592,12 @@ begin
       ln.ChangeLoanStatus;
       ln.AddLoanState(lsActive);
 
-      // TPosting.Post(TObject(self));
+      ledger := TLedger.Create;
+      try
+        ledger.Post(self);
+      finally
+        ledger.Free;
+      end;
     end
   end;
 end;
@@ -641,6 +654,11 @@ procedure TLoan.GetAlerts;
 begin
   with dmLoan.dstAlerts do
     Open;
+end;
+
+function TLoan.GetAmortisation: real;
+begin
+  Result := FReleaseAmount * GetFactorWithInterest;
 end;
 
 procedure TLoan.AddReleaseRecipient(const rec: TReleaseRecipient; const overwrite: boolean);
@@ -946,6 +964,20 @@ end;
 function TLoan.GetComaker(const i: Integer): TComaker;
 begin
   Result := FComakers[i];
+end;
+
+function TLoan.GetFactorWithInterest: real;
+var
+  divisor: real;
+begin
+  divisor := 1 - (1 / Power(1 + FLoanClass.InterestInDecimal, FApprovedTerm));
+
+  Result := FLoanClass.InterestInDecimal / divisor;
+end;
+
+function TLoan.GetFactorWithoutInterest: real;
+begin
+  Result := GetFactorWithInterest - FLoanClass.InterestInDecimal;
 end;
 
 function TLoan.GetFinancialInfo(const i: integer): TFinInfo;

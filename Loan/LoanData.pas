@@ -51,6 +51,11 @@ type
     dstLoanReleaserecipient_name: TStringField;
     dstLoanReleaseloc_name: TStringField;
     dstClientLoans: TADODataSet;
+    dscLedger: TDataSource;
+    dstLedger: TADODataSet;
+    dstLedgerDue: TDateTimeField;
+    dstLedgerPrincipal: TBCDField;
+    dstLedgerInterest: TBCDField;
     procedure dstLoanBeforeOpen(DataSet: TDataSet);
     procedure dstLoanClassBeforeOpen(DataSet: TDataSet);
     procedure dstLoanBeforePost(DataSet: TDataSet);
@@ -96,6 +101,7 @@ type
     procedure dstLoanClassChargesBeforeOpen(DataSet: TDataSet);
     procedure dstLoanReleaseCalcFields(DataSet: TDataSet);
     procedure dstClientLoansBeforeOpen(DataSet: TDataSet);
+    procedure dstLedgerBeforeOpen(DataSet: TDataSet);
   private
     { Private declarations }
     procedure SetLoanClassProperties;
@@ -224,6 +230,11 @@ end;
 procedure TdmLoan.dstFinInfoBeforePost(DataSet: TDataSet);
 begin
   DataSet.FieldByName('loan_id').AsString := ln.Id;
+end;
+
+procedure TdmLoan.dstLedgerBeforeOpen(DataSet: TDataSet);
+begin
+  (DataSet as TADODataSet).Parameters.ParamByName('@loan_id').Value := ln.Id;
 end;
 
 procedure TdmLoan.dstLoanAfterOpen(DataSet: TDataSet);

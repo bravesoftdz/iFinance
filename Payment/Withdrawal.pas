@@ -12,11 +12,13 @@ type
     FClient: TActiveClient;
     FAccountNo: string;
     FCardNo: string;
+    FAmount: real;
   public
     property Id: string read FId write FId;
     property Client: TActiveClient read FClient write FClient;
     property AccountNo: string read FAccountNo write FAccountNo;
     property CardNo: string read FCardNo write FCardNo;
+    property Amount: real read FAmount write FAmount;
 
     constructor Create;
     destructor Destroy; override;

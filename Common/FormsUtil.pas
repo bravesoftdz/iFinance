@@ -17,7 +17,7 @@ procedure ExtendLastColumn(grid: TRzStringGrid); overload;
 procedure PopulateBranchComboBox(comboBox: TRzComboBox);
 procedure PopulateComboBox(source: TDataSet; comboBox: TRzComboBox;
   const codeField, nameField: string); overload;
-procedure PopulatePaymentMethodComboBox(comboBox: TRzComboBox);
+procedure PopulatePaymentMethodComboBox(comboBox: TRzComboBox; const bankWithdrawalOnly: boolean = false);
 
 function FirstRow(grid: TRzStringGrid): boolean;
 
@@ -144,13 +144,26 @@ begin
   end;
 end;
 
-procedure PopulatePaymentMethodComboBox(comboBox: TRzComboBox);
+procedure PopulatePaymentMethodComboBox(comboBox: TRzComboBox; const bankWithdrawalOnly: boolean);
 var
   i, cnt: integer;
 begin
   cnt := Length(pmtMethods) - 1;
   for i := 0 to cnt do
-    comboBox.AddObject(pmtMethods[i].Name,TObject(pmtMethods[i]));
+  begin
+    if not bankWithdrawalOnly then
+    begin
+      if pmtMethods[i].Method in [mdCash,mdCheck]  then
+        comboBox.AddObject(pmtMethods[i].Name,TObject(pmtMethods[i]));
+    end
+    else begin
+      if pmtMethods[i].Method = mdBankWithdrawal  then
+        comboBox.AddObject(pmtMethods[i].Name,TObject(pmtMethods[i]));
+    end;
+  end;
+
+  // set first item as default
+  comboBox.ItemIndex := 0;
 end;
 
 function FirstRow(grid: TRzStringGrid): boolean;

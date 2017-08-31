@@ -186,6 +186,7 @@ type
     procedure btnEditAssessmentClick(Sender: TObject);
     procedure imgClientRecordClick(Sender: TObject);
     procedure imgAlertsClick(Sender: TObject);
+    procedure imgRestructureClick(Sender: TObject);
   private
     { Private declarations }
     procedure ChangeControlState;
@@ -200,6 +201,8 @@ type
     procedure RejectLoan;
     procedure CancelLoan;
     procedure ReleaseLoan;
+
+    procedure ShowLedger;
 
     function LoanApplicationIsValid: boolean;
   public
@@ -235,7 +238,7 @@ uses
   Comaker, ComakerSearch, DecisionBox, ComakerDetail, FinInfoDetail, MonthlyExpenseDetail,
   LoansAuxData, LoanApprovalDetail, LoanAssessmentDetail, LoanCancellationDetail,
   LoanRejectionDetail, Alert, Alerts, LoanReleaseDetail, Client, AppConstants, Assessment,
-  IFinanceDialogs;
+  IFinanceDialogs, LoanLedger;
 
 procedure TfrmLoanMain.SetActiveTab;
 var
@@ -789,6 +792,12 @@ begin
   else ReleaseLoan;
 end;
 
+procedure TfrmLoanMain.imgRestructureClick(Sender: TObject);
+begin
+  inherited;
+  ShowLedger;
+end;
+
 procedure TfrmLoanMain.RetrieveLoan;
 begin
   ln.Retrieve;
@@ -933,6 +942,18 @@ begin
       end
     else
       ShowInfoBox('No alerts found.');
+  end;
+end;
+
+procedure TfrmLoanMain.ShowLedger;
+begin
+  if ln.IsActive then
+  begin
+    with TfrmLoanLedger.Create(self) do
+    begin
+      ShowModal;
+      Free;
+    end
   end;
 end;
 

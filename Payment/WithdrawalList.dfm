@@ -49,6 +49,7 @@ inherited frmWithdrawalList: TfrmWithdrawalList
       TitleFont.Height = -12
       TitleFont.Name = 'Tahoma'
       TitleFont.Style = []
+      OnDblClick = grListDblClick
       FrameColor = 6572079
       FrameStyle = fsNone
       FramingPreference = fpCustomFraming

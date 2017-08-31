@@ -32,6 +32,7 @@ type
     function GetIsActive: boolean;
     function GetIsActivated: boolean;
     function GetIsDeactivated: boolean;
+    function GetInterestInDecimal: real;
 
   public
     procedure Add;
@@ -65,6 +66,7 @@ type
     property IsActivated: boolean read GetIsActivated;
     property IsDeactivated: boolean read GetIsDeactivated;
     property Action: TLoanClassAction read FAction write FAction;
+    property InterestInDecimal: real read GetInterestInDecimal;
 
     constructor Create(const classificationId: integer; classificationName: string;
         const interest: real; const term: integer; const maxLoan: real;
@@ -202,6 +204,11 @@ function TLoanClassification.GetIsActive: boolean;
 begin
   Result := (FValidFrom <> 0) and
             ((FValidFrom > ifn.AppDate) and (FValidUntil < ifn.AppDate));
+end;
+
+function TLoanClassification.GetInterestInDecimal: real;
+begin
+  Result := FInterest / 100;
 end;
 
 function TLoanClassification.GetIsActivated: boolean;

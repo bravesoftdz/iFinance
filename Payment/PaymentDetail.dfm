@@ -24,21 +24,21 @@ inherited frmPaymentDetail: TfrmPaymentDetail
     Width = 343
     Height = 297
     ExplicitWidth = 343
-    ExplicitHeight = 321
+    ExplicitHeight = 297
     inherited pnlDetail: TRzPanel
       Width = 326
       Height = 248
       ExplicitWidth = 326
-      ExplicitHeight = 272
+      ExplicitHeight = 248
       inherited pcDetail: TRzPageControl
         Width = 324
         Height = 246
         ExplicitWidth = 324
-        ExplicitHeight = 270
+        ExplicitHeight = 246
         FixedDimension = 20
         inherited tsDetail: TRzTabSheet
           ExplicitWidth = 324
-          ExplicitHeight = 270
+          ExplicitHeight = 246
           object JvLabel1: TJvLabel
             Left = 19
             Top = 23
@@ -292,7 +292,7 @@ inherited frmPaymentDetail: TfrmPaymentDetail
             FramingPreference = fpCustomFraming
             ParentFont = False
             TabOrder = 2
-            OnChange = edInterestChange
+            OnChange = edPenaltyChange
             IntegersOnly = False
             DisplayFormat = '###,###,##0.00'
           end
@@ -303,13 +303,13 @@ inherited frmPaymentDetail: TfrmPaymentDetail
       Left = 284
       Top = 265
       ExplicitLeft = 284
-      ExplicitTop = 289
+      ExplicitTop = 265
     end
     inherited pnlSave: TRzPanel
       Left = 228
       Top = 265
       ExplicitLeft = 228
-      ExplicitTop = 289
+      ExplicitTop = 265
       inherited btnSave: TRzShapeButton
         Caption = 'Add'
       end

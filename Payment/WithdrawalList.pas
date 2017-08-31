@@ -21,8 +21,10 @@ type
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure sbtnNewClick(Sender: TObject);
+    procedure grListDblClick(Sender: TObject);
   private
     { Private declarations }
+    procedure PostWithdrawal;
   public
     { Public declarations }
     procedure New;
@@ -36,7 +38,8 @@ implementation
 {$R *.dfm}
 
 uses
-  PaymentData, FormsUtil, WithdrawalDetail, Withdrawal;
+  PaymentData, FormsUtil, WithdrawalDetail, Withdrawal, Payment, PaymentMethod,
+  DockIntf, AppConstants, ActiveClient;
 
 procedure TfrmWithdrawalList.FormClose(Sender: TObject;
   var Action: TCloseAction);
@@ -52,6 +55,12 @@ begin
   dmPayment := TdmPayment.Create(self);
 
   OpenGridDataSources(pnlList);
+end;
+
+procedure TfrmWithdrawalList.grListDblClick(Sender: TObject);
+begin
+  inherited;
+  PostWithdrawal;
 end;
 
 procedure TfrmWithdrawalList.New;
@@ -72,6 +81,27 @@ begin
 
     Free;
   end;
+end;
+
+procedure TfrmWithdrawalList.PostWithdrawal;
+var
+  intf: IDock;
+  client: TActiveClient;
+begin
+  pmt := TPayment.Create;
+  pmt.PaymentMethod.Method := mdBankWithdrawal;
+  pmt.Withdrawn := grList.DataSource.DataSet.FieldByName('wd_amt').AsCurrency;
+  pmt.WithdrawalId := grList.DataSource.DataSet.FieldByName('wd_id').AsString;
+
+  // client
+  client := TActiveClient.Create;
+  client.Id := grList.DataSource.DataSet.FieldByName('entity_id').AsString;
+  client.Name := grList.DataSource.DataSet.FieldByName('client').AsString;
+
+  pmt.Client := client;
+
+  if Supports(Application.MainForm,IDock,intf) then
+      intf.DockForm(fmPaymentMain);
 end;
 
 procedure TfrmWithdrawalList.sbtnNewClick(Sender: TObject);

@@ -40,7 +40,6 @@ requires
   JvStdCtrls,
   RaizeComponentsVcl,
   RaizeComponentsVclDb,
-  LockBox3DR,
   RESTComponents,
   FireDAC,
   JvDB;

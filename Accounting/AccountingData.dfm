@@ -1,9 +1,10 @@
 object dmAccounting: TdmAccounting
   OldCreateOrder = False
-  Height = 202
-  Width = 341
+  Height = 236
+  Width = 338
   object dstLedger: TADODataSet
     Connection = dmApplication.acMain
+    LockType = ltBatchOptimistic
     CommandText = 'sp_acc_post_ledger;1'
     CommandType = cmdStoredProc
     Parameters = <>

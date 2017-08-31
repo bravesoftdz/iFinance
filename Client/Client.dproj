@@ -100,7 +100,6 @@
         <DCCReference Include="JvCore.dcp"/>
         <DCCReference Include="JvStdCtrls.dcp"/>
         <DCCReference Include="JvControls.dcp"/>
-        <DCCReference Include="LockBox3DR.dcp"/>
         <DCCReference Include="ClientMain.pas">
             <Form>frmClientMain</Form>
         </DCCReference>
@@ -114,30 +113,24 @@
         </DCCReference>
         <DCCReference Include="ClientList.pas">
             <Form>frmClientList</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\Base\BaseDocked.pas">
             <Form>frmBaseDocked</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="ClientListIntf.pas"/>
         <DCCReference Include="RefData.pas">
             <Form>dmRef</Form>
-            <FormType>dfm</FormType>
             <DesignClass>TDataModule</DesignClass>
         </DCCReference>
         <DCCReference Include="ClientIntf.pas"/>
         <DCCReference Include="ReferenceSearch.pas">
             <Form>frmReferenceSearch</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="ReferenceDetail.pas">
             <Form>frmReferenceDetail</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\Base\BasePopupDetail.pas">
             <Form>frmBasePopupDetail</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="ClientListParams.pas"/>
         <BuildConfiguration Include="Release">

@@ -29,6 +29,7 @@ type
     edReceipt: TRzDBEdit;
     cmbPaymentMethod: TRzComboBox;
     JvLabel3: TJvLabel;
+    lblWithdrawn: TJvLabel;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure imgAddPaymentClick(Sender: TObject);
@@ -41,7 +42,6 @@ type
     procedure grDetailResize(Sender: TObject);
     procedure grDetailDrawCell(Sender: TObject; ACol, ARow: Integer;
       Rect: TRect; State: TGridDrawState);
-    procedure cmbPaymentMethodChange(Sender: TObject);
   private
     { Private declarations }
     function SelectActiveClient: TModalResult;
@@ -57,6 +57,7 @@ type
     procedure Retrieve;
     procedure ChangeControlState;
     procedure DeletePayment;
+    procedure SetWithdrawnAmount;
   public
     { Public declarations }
     function Save: boolean;
@@ -80,7 +81,12 @@ var
 begin
   if not Assigned(pmt.PaymentMethod) then error := 'No payment method selected.'
   else if not Assigned(pmt.Client) then error := 'Please select a client.'
-  else if pmt.DetailCount = 0 then error := 'Please add at least one payment detail.';
+  else if pmt.DetailCount = 0 then error := 'Please add at least one payment detail.'
+  else if pmt.PaymentMethod.Method = mdBankWithdrawal then
+  begin
+    if pmt.TotalAmount > pmt.Withdrawn then
+      error := 'Total amount paid is greater than amount withdrawn.';
+  end;
 
   if error <> '' then ShowErrorBox(error);
 
@@ -104,6 +110,9 @@ begin
           Result := false;
           Exit;
         end;
+
+        // set payment method
+        pmt.PaymentMethod := TPaymentMethod(cmbPaymentMethod.Items.Objects[cmbPaymentMethod.ItemIndex]);
 
         pmt.Save;
 
@@ -203,16 +212,21 @@ procedure TfrmPaymentMain.FormCreate(Sender: TObject);
 begin
   dmPayment := TdmPayment.Create(self);
 
-  PopulatePaymentMethodComboBox(cmbPaymentMethod);
-
   try
-    if not Assigned(pmt) then
+    if (not Assigned(pmt)) or (pmt.IsNew) then
     begin
-      pmt := TPayment.Create;
+      if not Assigned(pmt) then pmt := TPayment.Create;
       pmt.Add;
-      cmbPaymentMethod.ItemIndex := 0;
+
+      if pmt.IsWithdrawal then
+      begin
+        edClient.Text := pmt.Client.Name;
+        SetWithdrawnAmount;
+      end;
     end
     else Retrieve;
+
+    PopulatePaymentMethodComboBox(cmbPaymentMethod,pmt.PaymentMethod.Method = mdBankWithdrawal);
   except
     on E: Exception do ShowErrorBox(E.Message);
   end;
@@ -245,7 +259,7 @@ begin
 
     if ARow = 0 then
       Canvas.TextRect(Rect,Rect.Left + (ColWidths[ACol] div 2) - (Canvas.TextWidth(cellStr) div 2), Rect.Top + 2, cellStr)
-    else if (ACol in [3,4,5]) and (ARow > 0) then
+    else if (ACol in [3,4,5,6]) and (ARow > 0) then
       Canvas.TextRect(Rect,Rect.Left - Canvas.TextWidth(cellStr) + ColWidths[3] - 20,Rect.Top + 2,cellStr)
     else
       Canvas.TextOut(Rect.Left + 2, Rect.Top + 2, cellStr);
@@ -269,11 +283,11 @@ begin
       begin
         pmt.Client := activeCln;
         edClient.Text := activeCln.Name;
-
-        pmt.Client.RetrieveActiveLoans;
       end
       else Exit;
     end;
+
+    pmt.Client.RetrieveActiveLoans;
 
     // show active loans of selected client
     if SelectActiveLoan = mrOk then ShowPaymentDetail;
@@ -373,17 +387,19 @@ begin
     Cells[2,0] := 'Account';
     Cells[3,0] := 'Principal';
     Cells[4,0] := 'Interest';
-    Cells[5,0] := 'Total amount';
-    Cells[6,0] := 'Remarks';
+    Cells[5,0] := 'Penalty';
+    Cells[6,0] := 'Total amount';
+    Cells[7,0] := 'Remarks';
 
     // widths
     ColWidths[0] := 120;
     ColWidths[1] := 120;
     ColWidths[2] := 120;
-    ColWidths[3] := 100;
-    ColWidths[4] := 100;
-    ColWidths[5] := 100;
-    ColWidths[6] := 300;
+    ColWidths[3] := 80;
+    ColWidths[4] := 80;
+    ColWidths[5] := 80;
+    ColWidths[6] := 100;
+    ColWidths[7] := 200;
 
     cnt := pmt.DetailCount - 1;
 
@@ -406,7 +422,8 @@ begin
     Cells[2,r] := detail.Loan.AccountTypeName;
     Cells[3,r] := FormatFloat('###,###,##0.00',detail.Principal);
     Cells[4,r] := FormatFloat('###,###,##0.00',detail.Interest);
-    Cells[5,r] := FormatFloat('###,###,##0.00',detail.TotalAmount);
+    Cells[5,r] := FormatFloat('###,###,##0.00',detail.Penalty);
+    Cells[6,r] := FormatFloat('###,###,##0.00',detail.TotalAmount);
 
     Objects[0,r] := detail;
   end;
@@ -420,7 +437,11 @@ begin
 
   lblReferenceNo.Caption := pmt.ReferenceNo;
   lblPosted.Caption := IfThen(pmt.IsPosted,'Yes','No');
-  lblTotalAmount.Caption := FormatFloat('###,##0.00',pmt.TotalAmount);
+end;
+
+procedure TfrmPaymentMain.SetWithdrawnAmount;
+begin
+  lblWithdrawn.Caption := 'Amount withdrawn: ' + FormatFloat('###,##0.00',pmt.Withdrawn);
 end;
 
 procedure TfrmPaymentMain.Retrieve;
@@ -440,12 +461,6 @@ begin
   dtePaymentDate.ReadOnly := not new;
   edReceipt.ReadOnly := not new;
   cmbPaymentMethod.ReadOnly := not new;
-end;
-
-procedure TfrmPaymentMain.cmbPaymentMethodChange(Sender: TObject);
-begin
-  // set payment method
-  pmt.PaymentMethod := TPaymentMethod(cmbPaymentMethod.Items.Objects[cmbPaymentMethod.ItemIndex]);
 end;
 
 end.

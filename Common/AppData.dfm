@@ -5,11 +5,10 @@ object dmApplication: TdmApplication
   Height = 217
   Width = 536
   object acMain: TADOConnection
-    Connected = True
     ConnectionString = 
       'Provider=SQLNCLI11.1;Integrated Security=SSPI;Persist Security I' +
       'nfo=False;User ID="";Initial Catalog=iFinance;Data Source=BRYAN-' +
-      'X1C\DEVELOPMENT;Initial File Name="";Server SPN=""'
+      'X1C\DEVELOPMENT;Initial File Name="";Server SPN="";'
     LoginPrompt = False
     Provider = 'SQLNCLI11.1'
     BeforeConnect = acMainBeforeConnect
