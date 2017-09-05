@@ -359,6 +359,7 @@ object dmClient: TdmClient
         DataType = ftInteger
         Direction = pdReturnValue
         Precision = 10
+        Value = Null
       end
       item
         Name = '@entity_id'

@@ -17,7 +17,7 @@
     <Transaction>2017/04/18 12:46:40.000.908,=JvCore.dcp</Transaction>
     <Transaction>2017/04/18 12:46:40.000.896,=Jcl.dcp</Transaction>
     <Transaction>2017/04/18 12:46:40.000.847,=vcl.dcp</Transaction>
-    <Transaction>2017/08/31 10:06:22.678,=C:\Projects\iFinance\Accounting\Unit1.pas</Transaction>
-    <Transaction>2017/08/31 10:07:12.934,C:\Projects\iFinance\Accounting\Ledger.pas=C:\Projects\iFinance\Accounting\Posting.pas</Transaction>
+    <Transaction>2017/08/31 10:06:22.000.678,=C:\Projects\iFinance\Accounting\Unit1.pas</Transaction>
+    <Transaction>2017/08/31 10:07:12.000.934,C:\Projects\iFinance\Accounting\Ledger.pas=C:\Projects\iFinance\Accounting\Posting.pas</Transaction>
   </Transactions>
 </BorlandProject>

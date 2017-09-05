@@ -6,7 +6,8 @@ uses
   Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, BasePopupDetail, RzButton, RzTabs,
   Vcl.StdCtrls, RzLabel, Vcl.Imaging.pngimage, Vcl.ExtCtrls, RzPanel,
-  JvExControls, JvLabel, Vcl.Mask, RzEdit, Vcl.DBCtrls, RzDBCmbo, RzCmboBx;
+  JvExControls, JvLabel, Vcl.Mask, RzEdit, Vcl.DBCtrls, RzDBCmbo, RzCmboBx,
+  Data.DB, Vcl.Grids, Vcl.DBGrids, RzDBGrid;
 
 type
   TfrmPaymentDetail = class(TfrmBasePopupDetail)
@@ -25,6 +26,8 @@ type
     lblTotal: TJvLabel;
     JvLabel8: TJvLabel;
     edPenalty: TRzNumericEdit;
+    pnlLedger: TRzPanel;
+    grLedger: TRzDBGrid;
     procedure FormCreate(Sender: TObject);
     procedure FormKeyPress(Sender: TObject; var Key: Char);
     procedure edPrincipalChange(Sender: TObject);

@@ -17,10 +17,11 @@ type
     FPhotoPath: string;
     FPhotoUtility: string;
     FControlDisabledColor: TColor;
-    FMaxComakeredLoans: integer;
+    FMaxComakeredLoans: byte;
     FAppImagesPath: string;
     FVersion: string;
     FLocations: array of TLocation;
+    FDaysInAMonth: byte;
 
     function GetLocation(const i: integer): TLocation;
     function GetLocationCount: integer;
@@ -37,13 +38,14 @@ type
     property PhotoPath: string read FPhotoPath write FPhotoPath;
     property PhotoUtility: string read FPhotoUtility write FPhotoUtility;
     property ControlDisabledColor: TColor read FControlDisabledColor write FControlDisabledColor;
-    property MaxComakeredLoans: integer read FMaxComakeredLoans write FMaxComakeredLoans;
+    property MaxComakeredLoans: byte read FMaxComakeredLoans write FMaxComakeredLoans;
     property AppImagesPath: string read FAppImagesPath write FAppImagesPath;
     property Version: string read FVersion write FVersion;
     property AppName: string read FAppName write FAppName;
     property AppDescription: string read FAppDescription write FAppDescription;
     property Locations[const i: integer]: TLocation read GetLocation;
     property LocationCount: integer read GetLocationCount;
+    property DaysInAMonth: byte read FDaysInAMonth write FDaysInAMonth;
 
     constructor Create;
     destructor Destroy; override;
@@ -68,6 +70,7 @@ begin
     FPhotoUtility := 'PhotoUtil.exe.';
     FControlDisabledColor := clWhite;
     FMaxComakeredLoans := 3;
+    FDaysInAMonth := 30;
 
     FUser := TUser.Create;
 

@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <BorlandProject>
 	<Transactions>
-    <Transaction>2016/09/01 15:11:15.000.856,C:\_Projects\iFinance\iFinanceGroup.groupproj=C:\Users\BryanGarcia\Documents\Embarcadero\Studio\Projects\ProjectGroup1.groupproj</Transaction>
+    <Transaction>2016/09/01 15:11:15.000.856,C:\Users\BryanGarcia\Documents\Embarcadero\Studio\Projects\ProjectGroup1.groupproj=C:\_Projects\iFinance\iFinanceGroup.groupproj</Transaction>
   </Transactions>
 	<Default.Personality>
 		<Projects ActiveProject="C:\Projects\iFinance\IFN\iFinance.dproj"/>

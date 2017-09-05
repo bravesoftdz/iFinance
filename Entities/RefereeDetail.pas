@@ -55,6 +55,8 @@ var
   error: string;
   duplicates: integer;
 begin
+  Result := false;
+
   if Trim(edLastname.Text) = '' then error := 'Please enter a lastname.'
   else if Trim(edFirstname.Text) = '' then error := 'Please enter a firstname.'
   else if Trim(edMiddlename.Text) = '' then error := 'Please enter a middlename.'

@@ -416,7 +416,7 @@ end;
 procedure TdmLoan.dstLoanClassAfterScroll(DataSet: TDataSet);
 var
   clId, trm, cmakers, age, concurrent, loanType, idDocs: integer;
-  clName, loanTypeName: string;
+  clName, loanTypeName, intCompMethod: string;
   intrst, maxLn, maxLoanTypeAmt: real;
   validFr, validUn: TDate;
   gp: TGroup;
@@ -433,6 +433,7 @@ begin
     validFr := FieldByName('valid_from').AsDateTime;
     validUn := FieldByName('valid_until').AsDateTime;
     age := FieldByName('max_age').AsInteger;
+    intCompMethod := FieldByName('int_comp_method').Asstring;
 
     // loan type variables
     loanType := FieldByName('loan_type').AsInteger;
@@ -440,6 +441,7 @@ begin
     concurrent := FieldByName('max_concurrent').AsInteger;
     maxLoanTypeAmt := FieldByName('max_loantype_amount').AsFloat;
     idDocs := FieldByName('ident_docs').AsInteger;
+
 
     ltype := TLoanType.Create(loanType,loanTypeName);
 
@@ -458,7 +460,7 @@ begin
 
   if not Assigned(ln.LoanClass) then
     ln.LoanClass := TLoanClassification.Create(clId, clName, intrst,
-        trm, maxLn, cmakers, validFr, validUn, age, ltype, gp)
+        trm, maxLn, cmakers, validFr, validUn, age, ltype, gp, intCompMethod)
   else
   begin
     with ln.LoanClass do

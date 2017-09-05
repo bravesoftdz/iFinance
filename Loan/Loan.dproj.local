@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <BorlandProject>
-  <Transactions>
-    <Transaction>2017/08/31 14:14:12.270,=C:\Projects\iFinance\Loan\Unit2.pas</Transaction>
-    <Transaction>2017/08/31 14:14:51.226,C:\Projects\iFinance\Loan\LoanLedger.dfm=C:\Projects\iFinance\Loan\Unit2.dfm</Transaction>
-    <Transaction>2017/08/31 14:14:51.226,C:\Projects\iFinance\Loan\LoanLedger.pas=C:\Projects\iFinance\Loan\Unit2.pas</Transaction>
+	<Transactions>
+    <Transaction>2017/08/31 14:14:12.000.270,=C:\Projects\iFinance\Loan\Unit2.pas</Transaction>
+    <Transaction>2017/08/31 14:14:51.000.226,C:\Projects\iFinance\Loan\LoanLedger.pas=C:\Projects\iFinance\Loan\Unit2.pas</Transaction>
+    <Transaction>2017/08/31 14:14:51.000.226,C:\Projects\iFinance\Loan\LoanLedger.dfm=C:\Projects\iFinance\Loan\Unit2.dfm</Transaction>
   </Transactions>
 </BorlandProject>

@@ -658,7 +658,8 @@ end;
 
 function TLoan.GetAmortisation: real;
 begin
-  Result := FReleaseAmount * GetFactorWithInterest;
+  if FLoanClass.IsDiminishing then Result := FReleaseAmount * GetFactorWithInterest
+  else Result := ((FReleaseAmount * FLoanClass.InterestInDecimal) + FReleaseAmount) / FApprovedTerm;
 end;
 
 procedure TLoan.AddReleaseRecipient(const rec: TReleaseRecipient; const overwrite: boolean);
@@ -970,14 +971,19 @@ function TLoan.GetFactorWithInterest: real;
 var
   divisor: real;
 begin
-  divisor := 1 - (1 / Power(1 + FLoanClass.InterestInDecimal, FApprovedTerm));
+  if FLoanClass.IsDiminishing then
+  begin
+    divisor := 1 - (1 / Power(1 + FLoanClass.InterestInDecimal, FApprovedTerm));
 
-  Result := FLoanClass.InterestInDecimal / divisor;
+    Result := FLoanClass.InterestInDecimal / divisor;
+  end
+  else Result := 1;
 end;
 
 function TLoan.GetFactorWithoutInterest: real;
 begin
-  Result := GetFactorWithInterest - FLoanClass.InterestInDecimal;
+  if FLoanClass.IsDiminishing then Result := GetFactorWithInterest - FLoanClass.InterestInDecimal
+  else Result := 1;
 end;
 
 function TLoan.GetFinancialInfo(const i: integer): TFinInfo;

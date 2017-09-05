@@ -23,6 +23,7 @@ type
     FClassCharges: array of TLoanClassCharge;
     FMaxAge: integer;
     FAction: TLoanClassAction;
+    FInterestComputationMethod: string;
 
     function GetComakersNotRequired: boolean;
     function GetClassCharge(const i: integer): TLoanClassCharge;
@@ -33,6 +34,8 @@ type
     function GetIsActivated: boolean;
     function GetIsDeactivated: boolean;
     function GetInterestInDecimal: real;
+    function GetIsDiminishing: boolean;
+    function GetIsFixed: boolean;
 
   public
     procedure Add;
@@ -67,11 +70,14 @@ type
     property IsDeactivated: boolean read GetIsDeactivated;
     property Action: TLoanClassAction read FAction write FAction;
     property InterestInDecimal: real read GetInterestInDecimal;
+    property InterestComputationMethod: string write FInterestComputationMethod;
+    property IsDiminishing: boolean read GetIsDiminishing;
+    property IsFixed: boolean read GetIsFixed;
 
     constructor Create(const classificationId: integer; classificationName: string;
         const interest: real; const term: integer; const maxLoan: real;
         const comakers: integer; const validFrom, validUntil: TDate; const age: integer;
-        const lt: TLoanType; const gp: TGroup);
+        const lt: TLoanType; const gp: TGroup; const intCompMethod: string);
   end;
 
 var
@@ -85,7 +91,7 @@ uses
 constructor TLoanClassification.Create(const classificationId: integer; classificationName: string;
         const interest: real; const term: integer; const maxLoan: real;
         const comakers: integer; const validFrom, validUntil: TDate; const age: integer;
-        const lt: TLoanType; const gp: TGroup);
+        const lt: TLoanType; const gp: TGroup; const intCompMethod: string);
 begin
   FClassificationId := classificationId;
   FClassificationName := classificationName;
@@ -98,6 +104,7 @@ begin
   FMaxAge := age;
   FLoanType := lt;
   FGroup := gp;
+  FInterestComputationMethod := intCompMethod;
 
   // set action
   if IsActive then FAction := lcaNone
@@ -219,6 +226,16 @@ end;
 function TLoanClassification.GetIsDeactivated: boolean;
 begin
   Result := (FValidUntil <> 0)
+end;
+
+function TLoanClassification.GetIsDiminishing: boolean;
+begin
+  Result := FInterestComputationMethod = 'D';
+end;
+
+function TLoanClassification.GetIsFixed: boolean;
+begin
+  Result := FInterestComputationMethod = 'F';
 end;
 
 end.

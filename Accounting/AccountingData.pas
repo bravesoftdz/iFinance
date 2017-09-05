@@ -8,6 +8,7 @@ uses
 type
   TdmAccounting = class(TDataModule)
     dstLedger: TADODataSet;
+    dstSchedule: TADODataSet;
   private
     { Private declarations }
   public

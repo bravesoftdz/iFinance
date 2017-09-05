@@ -99,7 +99,7 @@ var
 implementation
 
 uses
-  PaymentData, IFinanceDialogs, DBUtil;
+  PaymentData, IFinanceDialogs, DBUtil, Ledger;
 
 constructor TPayment.Create;
 begin
@@ -152,26 +152,35 @@ begin
 end;
 
 procedure TPayment.Save;
+var
+  ledger: TLedger;
 begin
+  ledger := TLedger.Create;
   try
-    with dmPayment do
-    begin
-      dstPayment.Post;
+    try
+      with dmPayment do
+      begin
+        dstPayment.Post;
 
-      SaveDetails;
+        SaveDetails;
 
-      UpdateLoanBalance;
+        ledger.Post(self);
 
-      dstPayment.UpdateBatch;
-      dstPaymentDetail.UpdateBatch;
+        dstPayment.UpdateBatch;
+        dstPaymentDetail.UpdateBatch;
+
+        UpdateLoanBalance;
+      end;
+    except
+      on E: Exception do begin
+        dmPayment.dstPayment.CancelBatch;
+        dmPayment.dstPaymentDetail.CancelBatch;
+
+        ShowErrorBox('An error has occured during payment posting. Entry has been cancelled.');
+      end;
     end;
-  except
-    on E: Exception do begin
-      dmPayment.dstPayment.CancelBatch;
-      dmPayment.dstPaymentDetail.CancelBatch;
-      
-      ShowErrorBox('An error has occured during payment posting. Entry has been cancelled.');
-    end;
+  finally
+    ledger.Free;
   end;
 end;
 
@@ -211,7 +220,7 @@ begin
         Post;
       end;
 
-      // interest
+      // penalty
       if FDetails[i].HasPenalty then
       begin
         Append;

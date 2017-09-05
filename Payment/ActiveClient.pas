@@ -2,18 +2,45 @@ unit ActiveClient;
 
 interface
 
+uses
+  AppConstants;
+
 type
+  TPaymentSchedule = class
+  private
+    FDate: TDate;
+    FAmount: real;
+    FCaseType: TCaseTypes;
+  public
+    property Date: TDate read FDate write FDate;
+    property Amount: real read FAmount write FAmount;
+    property CaseType: TCaseTypes read FCaseType write FCaseType;
+  end;
+
   TLoan = class
   strict private
     FId: string;
     FLoanTypeName: string;
     FAccountTypeName: string;
     FBalance: real;
+    FInterestMethod: string;
+    FSchedule: array of TPaymentSchedule;
+
+    function GetIsDiminishing: boolean;
+    function GetIsFixed: boolean;
+    function GetSchedule(const i: integer): TPaymentSchedule;
+
   public
     property Id: string read FId write FId;
     property Balance: real read FBalance write FBalance;
     property LoanTypeName: string read FLoanTypeName write FLoanTypeName;
     property AccountTypeName: string read FAccountTypeName write FAccountTypeName;
+    property InterestMethod: string write FInterestMethod;
+    property IsDiminishing: boolean read GetIsDiminishing;
+    property IsFixed: boolean read GetIsFixed;
+    property Schedules[const i: integer]: TPaymentSchedule read GetSchedule;
+
+    procedure GetPaymentSchedule;
   end;
 
   TActiveClient = class
@@ -79,6 +106,7 @@ begin
         loan.Balance := FieldByName('balance').AsFloat;
         loan.LoanTypeName := FieldByName('loan_type_name').AsString;
         loan.AccountTypeName := FieldByName('acct_type_name').AsString;
+        loan.InterestMethod := FieldByName('int_comp_method').AsString;
 
         AddLoan(loan);
 
@@ -115,6 +143,28 @@ begin
       Exit;
     end;
   end;
+end;
+
+{ TLoan }
+
+function TLoan.GetIsDiminishing: boolean;
+begin
+  Result := FInterestMethod = 'D';
+end;
+
+function TLoan.GetIsFixed: boolean;
+begin
+  Result := FInterestMethod = 'F';
+end;
+
+procedure TLoan.GetPaymentSchedule;
+begin
+
+end;
+
+function TLoan.GetSchedule(const i: integer): TPaymentSchedule;
+begin
+  Result := FSchedule[i];
 end;
 
 end.

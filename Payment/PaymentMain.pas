@@ -58,6 +58,7 @@ type
     procedure ChangeControlState;
     procedure DeletePayment;
     procedure SetWithdrawnAmount;
+    procedure BindControlToObject;
   public
     { Public declarations }
     function Save: boolean;
@@ -73,13 +74,16 @@ implementation
 
 uses
   PaymentData, IFinanceDialogs, ActiveClientsSearch, ActiveClient,
-  ActiveLoans, FormsUtil, PaymentDetail, PaymentMethod;
+  ActiveLoans, FormsUtil, PaymentDetail, PaymentMethod, IFinanceGlobal;
 
 function TfrmPaymentMain.PaymentIsValid: boolean;
 var
   error: string;
 begin
-  if not Assigned(pmt.PaymentMethod) then error := 'No payment method selected.'
+  BindControlToObject;
+
+  if pmt.Date < ifn.AppDate then error := 'Payment date is set in the past.'
+  else if not Assigned(pmt.PaymentMethod) then error := 'No payment method selected.'
   else if not Assigned(pmt.Client) then error := 'Please select a client.'
   else if pmt.DetailCount = 0 then error := 'Please add at least one payment detail.'
   else if pmt.PaymentMethod.Method = mdBankWithdrawal then
@@ -110,9 +114,6 @@ begin
           Result := false;
           Exit;
         end;
-
-        // set payment method
-        pmt.PaymentMethod := TPaymentMethod(cmbPaymentMethod.Items.Objects[cmbPaymentMethod.ItemIndex]);
 
         pmt.Save;
 
@@ -162,8 +163,7 @@ begin
         Result := ModalResult;
 
       except
-        on e: Exception do
-          ShowErrorBox(e.Message);
+        on e: Exception do ShowErrorBox(e.Message);
       end;
     finally
       Free;
@@ -181,6 +181,9 @@ begin
 
         if ModalResult = mrOK then
         begin
+          // retrieve the payment schedule.. only when posting payment
+          if pmt.IsNew then pmt.Details[pmt.DetailCount-1].Loan.GetPaymentSchedule;
+
           AddRow(pmt.Details[pmt.DetailCount-1]);
           SetTotalAmount;
         end;
@@ -427,6 +430,15 @@ begin
 
     Objects[0,r] := detail;
   end;
+end;
+
+procedure TfrmPaymentMain.BindControlToObject;
+begin
+  // date
+  pmt.Date := dtePaymentDate.Date;
+
+  // payment method
+  pmt.PaymentMethod := TPaymentMethod(cmbPaymentMethod.Items.Objects[cmbPaymentMethod.ItemIndex]);
 end;
 
 procedure TfrmPaymentMain.SetUnboundControls;

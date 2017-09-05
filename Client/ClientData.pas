@@ -235,7 +235,7 @@ begin
 
   if not Assigned(lnc) then
     lnc := TLoanClassification.Create(clId, clName, interest,
-        term, maxLoan, comakers, validFrom, validUntil, age, nil, nil)
+        term, maxLoan, comakers, validFrom, validUntil, age, nil, nil,'')
   else
   begin
     lnc.ClassificationId := clId;
