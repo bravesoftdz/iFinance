@@ -150,7 +150,7 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
     end
     object JvLabel12: TJvLabel
       Left = 13
-      Top = 231
+      Top = 287
       Width = 50
       Height = 14
       Caption = 'Payment'
@@ -182,7 +182,7 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
     end
     object JvLabel10: TJvLabel
       Left = 13
-      Top = 255
+      Top = 311
       Width = 56
       Height = 14
       Caption = 'Valid from'
@@ -198,7 +198,7 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
     end
     object JvLabel11: TJvLabel
       Left = 13
-      Top = 279
+      Top = 335
       Width = 54
       Height = 14
       Caption = 'Valid until'
@@ -325,7 +325,7 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
     end
     object dbluPayFreq: TRzDBLookupComboBox
       Left = 88
-      Top = 225
+      Top = 281
       Width = 176
       Height = 22
       DataField = 'pay_freq'
@@ -333,7 +333,7 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
       KeyField = 'value'
       ListField = 'display'
       ListSource = dmAux.dscPaymentFreq
-      TabOrder = 11
+      TabOrder = 13
       FlatButtons = True
       DisabledColor = clWhite
       FrameColor = 8675134
@@ -409,7 +409,7 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
     end
     object dteFrom: TRzDBDateTimeEdit
       Left = 88
-      Top = 249
+      Top = 305
       Width = 105
       Height = 22
       DataSource = dmLoansAux.dscLoanClass
@@ -419,14 +419,14 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
       FrameVisible = True
       FramingPreference = fpCustomFraming
       TabOnEnter = True
-      TabOrder = 12
+      TabOrder = 14
       EditType = etDate
       Format = 'mm/dd/yyyy'
       FlatButtons = True
     end
     object dteUntil: TRzDBDateTimeEdit
       Left = 88
-      Top = 273
+      Top = 329
       Width = 105
       Height = 22
       DataSource = dmLoansAux.dscLoanClass
@@ -436,7 +436,7 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
       FrameVisible = True
       FramingPreference = fpCustomFraming
       TabOnEnter = True
-      TabOrder = 13
+      TabOrder = 15
       EditType = etDate
       Format = 'mm/dd/yyyy'
       FlatButtons = True
@@ -495,7 +495,7 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
       BorderColor = 6572079
       BorderWidth = 1
       Color = 12955288
-      TabOrder = 14
+      TabOrder = 16
       object sbtnActivate: TRzShapeButton
         Left = 0
         Top = 0
@@ -519,7 +519,7 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
       BorderColor = 6572079
       BorderWidth = 1
       Color = 12955288
-      TabOrder = 15
+      TabOrder = 17
       object RzShapeButton1: TRzShapeButton
         Left = 0
         Top = 0
@@ -532,6 +532,30 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
         ShowHint = True
         OnClick = sbtnNewClick
       end
+    end
+    object cbUseFactorRate: TRzDBCheckBox
+      Left = 88
+      Top = 231
+      Width = 101
+      Height = 16
+      DataField = 'use_factor_rate'
+      DataSource = dmLoansAux.dscLoanClass
+      ValueChecked = 'True'
+      ValueUnchecked = 'False'
+      Caption = 'Use factor rate'
+      TabOrder = 11
+    end
+    object cbApplyExemption: TRzDBCheckBox
+      Left = 88
+      Top = 255
+      Width = 111
+      Height = 16
+      DataField = 'apply_exemption'
+      DataSource = dmLoansAux.dscLoanClass
+      ValueChecked = 'True'
+      ValueUnchecked = 'False'
+      Caption = 'Apply exemption'
+      TabOrder = 12
     end
   end
   object cmbBranch: TRzComboBox

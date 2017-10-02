@@ -1,17 +1,17 @@
 inherited frmPaymentMain: TfrmPaymentMain
   Caption = 'frmPaymentMain'
   ClientHeight = 394
-  ClientWidth = 664
+  ClientWidth = 734
   OnCreate = FormCreate
   OnShow = FormShow
-  ExplicitWidth = 680
+  ExplicitWidth = 750
   ExplicitHeight = 433
   PixelsPerInch = 96
   TextHeight = 14
   object c: TJvLabel [0]
     Tag = -1
-    Left = 425
-    Top = 59
+    Left = 593
+    Top = 61
     Width = 37
     Height = 14
     Caption = 'Client'
@@ -68,7 +68,7 @@ inherited frmPaymentMain: TfrmPaymentMain
   end
   object lblTotalAmount: TJvLabel [3]
     Tag = -1
-    Left = 632
+    Left = 702
     Top = 337
     Width = 8
     Height = 23
@@ -86,6 +86,7 @@ inherited frmPaymentMain: TfrmPaymentMain
     HotTrackFont.Height = -19
     HotTrackFont.Name = 'Tahoma'
     HotTrackFont.Style = []
+    ExplicitLeft = 632
   end
   object JvLabel2: TJvLabel [4]
     Left = 254
@@ -156,8 +157,8 @@ inherited frmPaymentMain: TfrmPaymentMain
     Visible = False
   end
   object JvLabel3: TJvLabel [8]
-    Left = 22
-    Top = 87
+    Left = 423
+    Top = 61
     Width = 50
     Height = 14
     Caption = 'Method'
@@ -176,7 +177,7 @@ inherited frmPaymentMain: TfrmPaymentMain
   end
   object lblWithdrawn: TJvLabel [9]
     Tag = -1
-    Left = 288
+    Left = 358
     Top = 337
     Width = 8
     Height = 23
@@ -194,10 +195,11 @@ inherited frmPaymentMain: TfrmPaymentMain
     HotTrackFont.Height = -19
     HotTrackFont.Name = 'Tahoma'
     HotTrackFont.Style = []
+    ExplicitLeft = 288
   end
   inherited pnlTitle: TRzPanel
-    Width = 664
-    ExplicitWidth = 664
+    Width = 734
+    ExplicitWidth = 734
     inherited lblTitle: TRzLabel
       Width = 54
       Caption = 'Payment'
@@ -206,9 +208,9 @@ inherited frmPaymentMain: TfrmPaymentMain
   end
   object pnlDetail: TRzPanel
     Left = 22
-    Top = 120
-    Width = 618
-    Height = 168
+    Top = 87
+    Width = 688
+    Height = 201
     Anchors = [akLeft, akTop, akRight, akBottom]
     BorderOuter = fsNone
     BorderColor = 8675134
@@ -218,8 +220,8 @@ inherited frmPaymentMain: TfrmPaymentMain
     object grDetail: TRzStringGrid
       Left = 1
       Top = 1
-      Width = 616
-      Height = 166
+      Width = 686
+      Height = 199
       Align = alClient
       BevelInner = bvNone
       BevelOuter = bvNone
@@ -352,9 +354,9 @@ inherited frmPaymentMain: TfrmPaymentMain
     end
   end
   object edClient: TRzEdit
-    Left = 472
-    Top = 53
-    Width = 168
+    Left = 640
+    Top = 55
+    Width = 70
     Height = 22
     Text = ''
     Anchors = [akLeft, akTop, akRight]
@@ -475,6 +477,7 @@ inherited frmPaymentMain: TfrmPaymentMain
     FramingPreference = fpCustomFraming
     ReadOnlyColor = 14273211
     TabOrder = 4
+    OnChange = dtePaymentDateChange
     EditType = etDate
     Format = 'mm/dd/yyyy'
     FlatButtonColor = 14273211
@@ -496,9 +499,9 @@ inherited frmPaymentMain: TfrmPaymentMain
     TabOrder = 5
   end
   object cmbPaymentMethod: TRzComboBox
-    Left = 86
-    Top = 81
-    Width = 139
+    Left = 487
+    Top = 55
+    Width = 91
     Height = 22
     AllowEdit = False
     Color = 14273211

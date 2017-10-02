@@ -24,6 +24,7 @@ type
     FMaxAge: integer;
     FAction: TLoanClassAction;
     FInterestComputationMethod: string;
+    FUseFactorRate: boolean;
 
     function GetComakersNotRequired: boolean;
     function GetClassCharge(const i: integer): TLoanClassCharge;
@@ -73,11 +74,13 @@ type
     property InterestComputationMethod: string write FInterestComputationMethod;
     property IsDiminishing: boolean read GetIsDiminishing;
     property IsFixed: boolean read GetIsFixed;
+    property UseFactorRate: boolean read FUseFactorRate write FUseFactorRate;
 
     constructor Create(const classificationId: integer; classificationName: string;
         const interest: real; const term: integer; const maxLoan: real;
         const comakers: integer; const validFrom, validUntil: TDate; const age: integer;
-        const lt: TLoanType; const gp: TGroup; const intCompMethod: string);
+        const lt: TLoanType; const gp: TGroup; const intCompMethod: string;
+        const ufr: boolean);
   end;
 
 var
@@ -91,7 +94,8 @@ uses
 constructor TLoanClassification.Create(const classificationId: integer; classificationName: string;
         const interest: real; const term: integer; const maxLoan: real;
         const comakers: integer; const validFrom, validUntil: TDate; const age: integer;
-        const lt: TLoanType; const gp: TGroup; const intCompMethod: string);
+        const lt: TLoanType; const gp: TGroup; const intCompMethod: string;
+        const ufr: boolean);
 begin
   FClassificationId := classificationId;
   FClassificationName := classificationName;
@@ -105,6 +109,7 @@ begin
   FLoanType := lt;
   FGroup := gp;
   FInterestComputationMethod := intCompMethod;
+  FUseFactorRate := ufr;
 
   // set action
   if IsActive then FAction := lcaNone

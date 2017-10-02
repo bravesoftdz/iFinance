@@ -569,7 +569,6 @@ object dmLoan: TdmLoan
     Top = 184
   end
   object dstLedger: TADODataSet
-    Tag = 2
     Connection = dmApplication.acMain
     CursorType = ctStatic
     LockType = ltReadOnly

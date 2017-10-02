@@ -167,4 +167,34 @@ object dmPayment: TdmPayment
     Left = 112
     Top = 208
   end
+  object dscSchedule: TDataSource
+    DataSet = dstSchedule
+    Left = 284
+    Top = 144
+  end
+  object dstSchedule: TADODataSet
+    Connection = dmApplication.acMain
+    CursorType = ctStatic
+    Filtered = True
+    LockType = ltReadOnly
+    CommandText = 'sp_ln_get_payment_due;1'
+    CommandType = cmdStoredProc
+    Parameters = <
+      item
+        Name = '@RETURN_VALUE'
+        DataType = ftInteger
+        Direction = pdReturnValue
+        Precision = 10
+        Value = 0
+      end
+      item
+        Name = '@loan_id'
+        Attributes = [paNullable]
+        DataType = ftString
+        Size = 10
+        Value = ''
+      end>
+    Left = 216
+    Top = 144
+  end
 end

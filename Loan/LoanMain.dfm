@@ -276,7 +276,7 @@ inherited frmLoanMain: TfrmLoanMain
         DataSource = dmLoan.dscLoan
         Enabled = False
         KeyField = 'class_id'
-        ListField = 'class_name'
+        ListField = 'class_name_method'
         ListSource = dmLoan.dscLoanClass
         TabOrder = 1
         FlatButtons = True
@@ -699,8 +699,8 @@ inherited frmLoanMain: TfrmLoanMain
       BorderColor = 6572079
       BorderWidth = 1
       Color = 14273211
+      Enabled = False
       TabOrder = 1
-      Visible = False
       DesignSize = (
         69
         511)
@@ -714,6 +714,7 @@ inherited frmLoanMain: TfrmLoanMain
         BorderColor = 6572079
         BorderWidth = 1
         Color = 12955288
+        Enabled = False
         TabOrder = 0
         object imgAssessment: TImage
           Left = 4
@@ -723,6 +724,7 @@ inherited frmLoanMain: TfrmLoanMain
           Cursor = crHandPoint
           Hint = 'Assessment'
           AutoSize = True
+          Enabled = False
           ParentShowHint = False
           Picture.Data = {
             0954506E67496D61676589504E470D0A1A0A0000000D49484452000000200000
@@ -805,6 +807,7 @@ inherited frmLoanMain: TfrmLoanMain
         BorderColor = 6572079
         BorderWidth = 1
         Color = 12955288
+        Enabled = False
         TabOrder = 1
         object imgApproval: TImage
           Left = 4
@@ -814,6 +817,7 @@ inherited frmLoanMain: TfrmLoanMain
           Cursor = crHandPoint
           Hint = 'Approval'
           AutoSize = True
+          Enabled = False
           ParentShowHint = False
           Picture.Data = {
             0954506E67496D61676589504E470D0A1A0A0000000D49484452000000200000
@@ -902,6 +906,7 @@ inherited frmLoanMain: TfrmLoanMain
         BorderColor = 6572079
         BorderWidth = 1
         Color = 12955288
+        Enabled = False
         TabOrder = 2
         object imgReleaseLoan: TImage
           Left = 4
@@ -911,6 +916,7 @@ inherited frmLoanMain: TfrmLoanMain
           Cursor = crHandPoint
           Hint = 'Release'
           AutoSize = True
+          Enabled = False
           ParentShowHint = False
           Picture.Data = {
             0954506E67496D61676589504E470D0A1A0A0000000D49484452000000200000
@@ -998,6 +1004,7 @@ inherited frmLoanMain: TfrmLoanMain
         BorderColor = 6572079
         BorderWidth = 1
         Color = 12955288
+        Enabled = False
         TabOrder = 3
         object imgRejectLoan: TImage
           Left = 4
@@ -1007,6 +1014,7 @@ inherited frmLoanMain: TfrmLoanMain
           Cursor = crHandPoint
           Hint = 'Rejection'
           AutoSize = True
+          Enabled = False
           ParentShowHint = False
           Picture.Data = {
             0954506E67496D61676589504E470D0A1A0A0000000D49484452000000200000
@@ -1084,6 +1092,7 @@ inherited frmLoanMain: TfrmLoanMain
         BorderColor = 6572079
         BorderWidth = 1
         Color = 12955288
+        Enabled = False
         TabOrder = 4
         object imgCancelLoan: TImage
           Left = 4
@@ -1093,6 +1102,7 @@ inherited frmLoanMain: TfrmLoanMain
           Cursor = crHandPoint
           Hint = 'Cancellation'
           AutoSize = True
+          Enabled = False
           ParentShowHint = False
           Picture.Data = {
             0954506E67496D61676589504E470D0A1A0A0000000D49484452000000200000
@@ -1172,6 +1182,7 @@ inherited frmLoanMain: TfrmLoanMain
         BorderColor = 6572079
         BorderWidth = 1
         Color = 12955288
+        Enabled = False
         TabOrder = 5
         object imgReloan: TImage
           Left = 4
@@ -1181,6 +1192,7 @@ inherited frmLoanMain: TfrmLoanMain
           Cursor = crHandPoint
           Hint = 'Reloan'
           AutoSize = True
+          Enabled = False
           ParentShowHint = False
           Picture.Data = {
             0954506E67496D61676589504E470D0A1A0A0000000D49484452000000200000
@@ -1266,6 +1278,7 @@ inherited frmLoanMain: TfrmLoanMain
         BorderColor = 6572079
         BorderWidth = 1
         Color = 12955288
+        Enabled = False
         TabOrder = 6
         object imgRestructure: TImage
           Left = 4
@@ -1275,6 +1288,7 @@ inherited frmLoanMain: TfrmLoanMain
           Cursor = crHandPoint
           Hint = 'Ledger'
           AutoSize = True
+          Enabled = False
           ParentShowHint = False
           Picture.Data = {
             0954506E67496D61676589504E470D0A1A0A0000000D49484452000000200000
@@ -1361,7 +1375,7 @@ inherited frmLoanMain: TfrmLoanMain
         Width = 507
         Height = 500
         Hint = ''
-        ActivePage = tsPending
+        ActivePage = tsAssessment
         ActivePageDefault = tsPending
         Anchors = [akLeft, akTop, akRight, akBottom]
         FlatColor = 8675134
@@ -1492,6 +1506,7 @@ inherited frmLoanMain: TfrmLoanMain
               Top = 33
               Width = 233
               Height = 36
+              WordWrap = True
               BorderColor = 8675134
               BorderWidth = 1
               DataField = 'capacity'
@@ -1522,6 +1537,7 @@ inherited frmLoanMain: TfrmLoanMain
               Top = 75
               Width = 233
               Height = 36
+              WordWrap = True
               BorderColor = 8675134
               BorderWidth = 1
               DataField = 'character'
@@ -1552,6 +1568,7 @@ inherited frmLoanMain: TfrmLoanMain
               Top = 117
               Width = 233
               Height = 36
+              WordWrap = True
               BorderColor = 8675134
               BorderWidth = 1
               DataField = 'capital'
@@ -1582,6 +1599,7 @@ inherited frmLoanMain: TfrmLoanMain
               Top = 159
               Width = 233
               Height = 36
+              WordWrap = True
               BorderColor = 8675134
               BorderWidth = 1
               DataField = 'conditions'
@@ -1612,6 +1630,7 @@ inherited frmLoanMain: TfrmLoanMain
               Top = 201
               Width = 233
               Height = 36
+              WordWrap = True
               BorderColor = 8675134
               BorderWidth = 1
               DataField = 'collateral'
@@ -1642,6 +1661,7 @@ inherited frmLoanMain: TfrmLoanMain
               Top = 243
               Width = 233
               Height = 36
+              WordWrap = True
               BorderColor = 8675134
               BorderWidth = 1
               DataField = 'comaker'

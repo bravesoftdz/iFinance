@@ -19,6 +19,8 @@ type
     dscWithdrawal: TDataSource;
     dstAcctInfo: TADODataSet;
     dscAcctInfo: TDataSource;
+    dscSchedule: TDataSource;
+    dstSchedule: TADODataSet;
     procedure dstPaymentBeforeOpen(DataSet: TDataSet);
     procedure dstPaymentNewRecord(DataSet: TDataSet);
     procedure dstActiveLoansBeforeOpen(DataSet: TDataSet);

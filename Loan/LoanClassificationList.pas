@@ -58,6 +58,8 @@ type
     RzShapeButton1: TRzShapeButton;
     JvLabel11: TJvLabel;
     JvLabel13: TJvLabel;
+    cbUseFactorRate: TRzDBCheckBox;
+    cbApplyExemption: TRzDBCheckBox;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure urlRefreshListClick(Sender: TObject);

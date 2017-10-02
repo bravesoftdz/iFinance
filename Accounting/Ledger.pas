@@ -3,16 +3,16 @@ unit Ledger;
 interface
 
 uses
-  Loan, Payment, SysUtils, DateUtils, System.Rtti;
+  Loan, Payment, SysUtils, DateUtils, System.Rtti, Math;
 
 type
   TLedger = class
   private
-    IdToClose: array of integer;
+    IdToClose: array of string;
 
-    procedure PostEntry(const refPostingId: integer;
+    procedure PostEntry(const refPostingId: string;
       const debit, credit: real; const eventObject, primaryKey, status: string;
-      const postDate, valueDate: TDateTime; const caseType: string); overload;
+      const postDate, valueDate: TDateTime; const caseType: string);
 
     // loan-related posting
     procedure PostLoanDiminishing(const ALoan: TLoan);
@@ -23,8 +23,8 @@ type
     procedure PostPaymentFixed(const APayment: TPayment; const detailIndex: integer);
 
     // ledger-related methods
-    procedure CloseLedgerRecord(const postingId: integer);
-    procedure AddIdToClose(const postingId: integer);
+    procedure CloseLedgerRecord(const postingId: string);
+    procedure AddIdToClose(const postingId: string);
     procedure CloseIds;
 
     function GetValueDate(const ADate1, ADate2: TDateTime): TDateTime;
@@ -41,15 +41,17 @@ implementation
 uses
   AccountingData, IFinanceGlobal, IFinanceDialogs, AppConstants, DBUtil;
 
-procedure TLedger.PostEntry(const refPostingId: integer;
+procedure TLedger.PostEntry(const refPostingId: string;
       const debit, credit: real; const eventObject, primaryKey, status: string;
       const postDate, valueDate: TDateTime; const caseType: string);
+var
+  postingId: string;
 begin
   with dmAccounting.dstLedger do
   begin
     Append;
 
-    if refPostingId > 0 then FieldByName('ref_posting_id').AsInteger := refPostingId;
+    if refPostingId <> '' then FieldByName('ref_posting_id').AsString := refPostingId;
 
     FieldByName('loc_prefix').AsString := ifn.LocationPrefix;
 
@@ -71,13 +73,13 @@ end;
 
 procedure TLedger.PostLoanDiminishing(const ALoan: TLoan);
 var
-  refPostingId: integer;
+  refPostingId: string;
   principal, interest, balance, credit: real;
   eventObject, primaryKey, status, caseType: string;
   postDate, valueDate: TDateTime;
   i, cnt: integer;
 begin
-  refPostingId := 0;
+  refPostingId := '';
 
   credit := 0;
   eventObject := TRttiEnumerationType.GetName<TEventObjects>(TEventObjects.LON);
@@ -98,21 +100,25 @@ begin
 
         cnt := ALoan.ApprovedTerm;
 
-
         for i := 1 to cnt do
         begin
           valueDate := GetValueDate(valueDate,IncMonth(ifn.AppDate,i));
 
           // interest
           caseType := TRttiEnumerationType.GetName<TCaseTypes>(TCaseTypes.ITS);
+
           interest := balance * ALoan.LoanClass.InterestInDecimal;
           PostEntry(refPostingId, interest, credit, eventObject, primaryKey, status, postDate, valueDate, caseType);
 
           // principal
           caseType := TRttiEnumerationType.GetName<TCaseTypes>(TCaseTypes.PRC);
-          principal := ALoan.Amortisation - interest;
+
+          if ALoan.LoanClass.UseFactorRate then principal := ALoan.Amortisation - interest
+          else principal := ALoan.ReleaseAmount / ALoan.ApprovedTerm;
+
           PostEntry(refPostingId, principal, credit, eventObject, primaryKey, status, postDate, valueDate, caseType);
 
+          // get balance
           balance := balance - principal;
         end;
 
@@ -134,13 +140,13 @@ end;
 
 procedure TLedger.PostLoanFixed(const ALoan: TLoan);
 var
-  refPostingId: integer;
-  principal, interest, balance, credit: real;
+  refPostingId: string;
+  principal, interest, credit: real;
   eventObject, primaryKey, status, caseType: string;
   postDate, valueDate: TDateTime;
   i, cnt: integer;
 begin
-  refPostingId := 0;
+  refPostingId := '';
 
   credit := 0;
   eventObject := TRttiEnumerationType.GetName<TEventObjects>(TEventObjects.LON);
@@ -149,8 +155,6 @@ begin
   caseType := '';
   valuedate := ifn.AppDate;
   postDate := ifn.AppDate;
-
-  balance := ALoan.ReleaseAmount;
 
   dmAccounting := TdmAccounting.Create(nil);
   try
@@ -161,21 +165,21 @@ begin
 
         cnt := ALoan.ApprovedTerm;
 
+        interest := ALoan.ReleaseAmount * ALoan.LoanClass.InterestInDecimal;
+
+        principal := ALoan.ReleaseAmount / ALoan.ApprovedTerm;
+
         for i := 1 to cnt do
         begin
           valueDate := GetValueDate(valueDate,IncMonth(ifn.AppDate,i));
 
           // interest
           caseType := TRttiEnumerationType.GetName<TCaseTypes>(TCaseTypes.ITS);
-          interest := ALoan.ReleaseAmount * ALoan.LoanClass.InterestInDecimal;
           PostEntry(refPostingId, interest, credit, eventObject, primaryKey, status, postDate, valueDate, caseType);
 
           // principal
           caseType := TRttiEnumerationType.GetName<TCaseTypes>(TCaseTypes.PRC);
-          principal := ALoan.Amortisation - interest;
           PostEntry(refPostingId, principal, credit, eventObject, primaryKey, status, postDate, valueDate, caseType);
-
-          balance := balance - principal;
         end;
 
         UpdateBatch;
@@ -196,7 +200,7 @@ end;
 
 procedure TLedger.PostPaymentDiminishing(const APayment: TPayment; const detailIndex: integer);
 var
-  refPostingId: integer;
+  refPostingId: string;
   paymentAmount, amountDue, debit,credit: real;
   eventObject, primaryKey, status, caseType: string;
   postDate, valueDate: TDateTime;
@@ -256,7 +260,7 @@ begin
         else if amountDue < paymentAmount then credit := amountDue;
 
         // get the reference posting ID of the debit
-        refPostingId := FieldByName('posting_id').AsInteger;
+        refPostingId := FieldByName('posting_id').AsString;
 
         PostEntry(refPostingId, debit, credit, eventObject, primaryKey, status, postDate, valueDate, caseType);
 
@@ -285,7 +289,7 @@ begin
   else if ALoan.LoanClass.IsFixed then PostLoanFixed(ALoan);
 end;
 
-procedure TLedger.AddIdToClose(const postingId: integer);
+procedure TLedger.AddIdToClose(const postingId: string);
 begin
   SetLength(IdToClose,Length(IdToClose)+1);
   IdToClose[Length(IdToClose)-1] := postingId;
@@ -293,16 +297,16 @@ end;
 
 procedure TLedger.CloseIds;
 var
-  id: integer;
+  id: string;
 begin
   for id in IdToClose do CloseLedgerRecord(id);
 end;
 
-procedure TLedger.CloseLedgerRecord(const postingId: integer);
+procedure TLedger.CloseLedgerRecord(const postingId: string);
 var
   sql: string;
 begin
-  sql := 'UPDATE ledger SET status_code = ''CLS'' WHERE posting_id = ' + IntToStr(postingId);
+  sql := 'UPDATE ledger SET status_code = ''CLS'' WHERE posting_id = ' + QuotedStr(postingId);
   ExecuteSQL(sql);
 end;
 

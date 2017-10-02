@@ -42,6 +42,7 @@ type
     procedure grDetailResize(Sender: TObject);
     procedure grDetailDrawCell(Sender: TObject; ACol, ARow: Integer;
       Rect: TRect; State: TGridDrawState);
+    procedure dtePaymentDateChange(Sender: TObject);
   private
     { Private declarations }
     function SelectActiveClient: TModalResult;
@@ -182,7 +183,7 @@ begin
         if ModalResult = mrOK then
         begin
           // retrieve the payment schedule.. only when posting payment
-          if pmt.IsNew then pmt.Details[pmt.DetailCount-1].Loan.GetPaymentSchedule;
+          if pmt.IsNew then pmt.Details[pmt.DetailCount-1].Loan.GetPaymentDue(pmt.Date);
 
           AddRow(pmt.Details[pmt.DetailCount-1]);
           SetTotalAmount;
@@ -345,6 +346,12 @@ begin
   else ShowErrorBox('Deleting a payment has been restricted.');
 end;
 
+procedure TfrmPaymentMain.dtePaymentDateChange(Sender: TObject);
+begin
+  inherited;
+  pmt.Date := dtePaymentDate.Date;
+end;
+
 procedure TfrmPaymentMain.RemoveRow(const row: Integer);
 var
   rw, cl: integer;
@@ -434,9 +441,6 @@ end;
 
 procedure TfrmPaymentMain.BindControlToObject;
 begin
-  // date
-  pmt.Date := dtePaymentDate.Date;
-
   // payment method
   pmt.PaymentMethod := TPaymentMethod(cmbPaymentMethod.Items.Objects[cmbPaymentMethod.ItemIndex]);
 end;

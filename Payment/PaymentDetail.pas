@@ -26,13 +26,17 @@ type
     lblTotal: TJvLabel;
     JvLabel8: TJvLabel;
     edPenalty: TRzNumericEdit;
-    pnlLedger: TRzPanel;
-    grLedger: TRzDBGrid;
+    JvLabel9: TJvLabel;
+    JvLabel10: TJvLabel;
+    urlPrincipalDue: TRzURLLabel;
+    urlInterestDue: TRzURLLabel;
     procedure FormCreate(Sender: TObject);
     procedure FormKeyPress(Sender: TObject; var Key: Char);
     procedure edPrincipalChange(Sender: TObject);
     procedure edInterestChange(Sender: TObject);
     procedure edPenaltyChange(Sender: TObject);
+    procedure urlPrincipalDueClick(Sender: TObject);
+    procedure urlInterestDueClick(Sender: TObject);
   private
     { Private declarations }
     procedure SetTotalAmount;
@@ -87,6 +91,12 @@ begin
   lblType.Caption := pmt.Client.ActiveLoans[i].LoanTypeName;
   lblAccount.Caption := pmt.Client.ActiveLoans[i].AccountTypeName;
   lblBalance.Caption := FormatFloat('###,###,##0.00',pmt.Client.ActiveLoans[i].Balance);
+
+  // get the amount due
+  pmt.Client.ActiveLoans[i].GetPaymentDue(pmt.Date);
+
+  urlPrincipalDue.Caption := FormatFloat('###,###,##0.00',pmt.Client.ActiveLoans[i].PrincipalDue);
+  urlInterestDue.Caption := FormatFloat('###,###,##0.00',pmt.Client.ActiveLoans[i].InterestDue);
 end;
 
 procedure TfrmPaymentDetail.FormKeyPress(Sender: TObject; var Key: Char);
@@ -121,6 +131,18 @@ begin
 
     Caption := 'Total amount: ' + FormatFloat('###,###,##0.00',amount);
   end;
+end;
+
+procedure TfrmPaymentDetail.urlInterestDueClick(Sender: TObject);
+begin
+  inherited;
+  edInterest.Text := urlInterestDue.Caption;
+end;
+
+procedure TfrmPaymentDetail.urlPrincipalDueClick(Sender: TObject);
+begin
+  inherited;
+  edPrincipal.Text := urlPrincipalDue.Caption;
 end;
 
 function TfrmPaymentDetail.ValidEntry: boolean;

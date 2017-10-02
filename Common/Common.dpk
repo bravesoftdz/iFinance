@@ -66,8 +66,7 @@ contains
   InfoBox in 'InfoBox.pas' {frmInfoBox},
   IFinanceDialogs in 'IFinanceDialogs.pas',
   NewIntf in 'NewIntf.pas',
-  WarningBox in 'WarningBox.pas' {frmWarningBox},
-  Ledger in 'Ledger.pas';
+  WarningBox in 'WarningBox.pas' {frmWarningBox};
 
 end.
 

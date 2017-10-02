@@ -421,6 +421,7 @@ var
   validFr, validUn: TDate;
   gp: TGroup;
   gpa: TGroupAttributes;
+  useFactor: boolean;
 begin
   with DataSet do
   begin
@@ -434,6 +435,7 @@ begin
     validUn := FieldByName('valid_until').AsDateTime;
     age := FieldByName('max_age').AsInteger;
     intCompMethod := FieldByName('int_comp_method').Asstring;
+    useFactor := FieldByName('use_factor_rate').AsBoolean;
 
     // loan type variables
     loanType := FieldByName('loan_type').AsInteger;
@@ -460,7 +462,8 @@ begin
 
   if not Assigned(ln.LoanClass) then
     ln.LoanClass := TLoanClassification.Create(clId, clName, intrst,
-        trm, maxLn, cmakers, validFr, validUn, age, ltype, gp, intCompMethod)
+        trm, maxLn, cmakers, validFr, validUn, age, ltype, gp, intCompMethod,
+        useFactor)
   else
   begin
     with ln.LoanClass do
@@ -476,6 +479,8 @@ begin
       MaxAge := age;
       LoanType := ltype;
       Group := gp;
+      InterestComputationMethod := intCompMethod;
+      UseFactorRate := useFactor;
     end;
   end;
 

@@ -3,20 +3,9 @@ unit ActiveClient;
 interface
 
 uses
-  AppConstants;
+  AppConstants, System.Rtti, SysUtils, DateUtils;
 
 type
-  TPaymentSchedule = class
-  private
-    FDate: TDate;
-    FAmount: real;
-    FCaseType: TCaseTypes;
-  public
-    property Date: TDate read FDate write FDate;
-    property Amount: real read FAmount write FAmount;
-    property CaseType: TCaseTypes read FCaseType write FCaseType;
-  end;
-
   TLoan = class
   strict private
     FId: string;
@@ -24,11 +13,17 @@ type
     FAccountTypeName: string;
     FBalance: real;
     FInterestMethod: string;
-    FSchedule: array of TPaymentSchedule;
+    FPrincipalDue: real;
+    FInterestDue: real;
+    FUseFactorRate: boolean;
+    FLastTransactionDate: TDateTime;
+    FInterestInDecimal: real;
+    FPaymentSchedule: TDateTime;
+    FApplyExemption: boolean;
 
     function GetIsDiminishing: boolean;
     function GetIsFixed: boolean;
-    function GetSchedule(const i: integer): TPaymentSchedule;
+    function GetInterestDue(const paymentDate: TDateTime; const ledgerAmount: real): real;
 
   public
     property Id: string read FId write FId;
@@ -38,9 +33,15 @@ type
     property InterestMethod: string write FInterestMethod;
     property IsDiminishing: boolean read GetIsDiminishing;
     property IsFixed: boolean read GetIsFixed;
-    property Schedules[const i: integer]: TPaymentSchedule read GetSchedule;
+    property PrincipalDue: real read FPrincipalDue write FPrincipalDue;
+    property InterestDue: real read FInterestDue write FInterestDue;
+    property UseFactorRate: boolean read FUseFactorRate write FUseFactorRate;
+    property LastTransactionDate: TDateTime read FLastTransactionDate write FLastTransactionDate;
+    property InterestInDecimal: real read FInterestInDecimal write FInterestInDecimal;
+    property PaymentSchedule: TDateTime read FPaymentSchedule write FPaymentSchedule;
+    property ApplyExemption: boolean read FApplyExemption write FApplyExemption;
 
-    procedure GetPaymentSchedule;
+    procedure GetPaymentDue(const paymentDate: TDateTime);
   end;
 
   TActiveClient = class
@@ -72,7 +73,7 @@ var
 implementation
 
 uses
-  PaymentData;
+  PaymentData, IFinanceGlobal;
 
 constructor TActiveClient.Create;
 begin
@@ -107,6 +108,10 @@ begin
         loan.LoanTypeName := FieldByName('loan_type_name').AsString;
         loan.AccountTypeName := FieldByName('acct_type_name').AsString;
         loan.InterestMethod := FieldByName('int_comp_method').AsString;
+        loan.UseFactorRate := FieldByName('use_factor_rate').AsBoolean;
+        loan.LastTransactionDate := FieldByName('last_transaction_date').AsDateTime;
+        loan.InterestInDecimal := FieldByName('int_rate').AsFloat / 100;
+        loan.ApplyExemption := FieldByName('apply_exemption').AsBoolean;
 
         AddLoan(loan);
 
@@ -147,6 +152,25 @@ end;
 
 { TLoan }
 
+function TLoan.GetInterestDue(const paymentDate: TDateTime;
+  const ledgerAmount: real): real;
+var
+  interest: real;
+  days: integer;
+begin
+  if IsDiminishing then
+  begin
+    // advance payment
+    if paymentDate < FPaymentSchedule then
+    begin
+      days := DaysBetween(paymentDate,FLastTransactionDate);
+      interest := (FBalance * FInterestInDecimal * days) / ifn.DaysInAMonth;
+      Result := interest;
+    end;
+  end
+  else Result := ledgerAmount;
+end;
+
 function TLoan.GetIsDiminishing: boolean;
 begin
   Result := FInterestMethod = 'D';
@@ -157,14 +181,42 @@ begin
   Result := FInterestMethod = 'F';
 end;
 
-procedure TLoan.GetPaymentSchedule;
+procedure TLoan.GetPaymentDue(const paymentDate: TDateTime);
+var
+  caseType: TCaseTypes;
+  caseTypeFilter: string;
 begin
+  try
+    with dmPayment.dstSchedule do
+    begin
+      Parameters.ParamByName('@loan_id').Value := FId;
+      Open;
 
-end;
+      FPaymentSchedule := FieldByName('value_date').AsDateTime;
 
-function TLoan.GetSchedule(const i: integer): TPaymentSchedule;
-begin
-  Result := FSchedule[i];
+      // loop thru each case type
+      for caseType := TCaseTypes.ITS to TCaseTypes.PRC do
+      begin
+        case caseType of
+          ITS: caseTypeFilter := TRttiEnumerationType.GetName<TCaseTypes>(TCaseTypes.ITS);
+          PRC: caseTypeFilter := TRttiEnumerationType.GetName<TCaseTypes>(TCaseTypes.PRC);
+        end;
+
+        Filter := '(case_type = ' + QuotedStr(caseTypeFilter) + ')';
+
+        if RecordCount > 1 then
+        begin
+          case caseType of
+            ITS: FInterestDue := GetInterestDue(paymentDate,FieldByName('payment_due').AsFloat);
+            PRC: FPrincipalDue := FieldByName('payment_due').AsFloat;
+          end;
+        end;
+      end;
+
+    end;
+  finally
+    dmPayment.dstSchedule.Close;
+  end;
 end;
 
 end.

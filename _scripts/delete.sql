@@ -31,5 +31,7 @@ delete bankwithdrawal
 
 delete Ledger
 
+dbcc CHECKIDENT (Ledger, RESEED, 0)
+
 --delete T_LoanType
 --delete T_AccountType

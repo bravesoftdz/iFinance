@@ -498,7 +498,7 @@ begin
     if pnlApplication.Controls[i].Tag <> -1 then
       pnlApplication.Controls[i].Enabled := pnlApplication.Controls[i].Tag in tags;
 
-  pnlToolbar.Visible := not ln.New;
+  pnlToolbar.Enabled := not ln.New;
   pnlClientRecord.Visible := Assigned(ln.Client);
   pnlAlerts.Visible := (Assigned(ln.Client)) and (not ln.IsFinalised);
 end;

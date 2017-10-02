@@ -62,6 +62,8 @@ type
     function GetIsPosted: boolean;
     function GetIsNew: boolean;
     function GetIsWithdrawal: boolean;
+    function GetIsAdvance: boolean;
+    function GetIsLate: boolean;
 
   public
     property Client: TActiveClient read FClient write FClient;
@@ -80,6 +82,8 @@ type
     property Withdrawn: real read FWithdrawn write FWithdrawn;
     property WithdrawalId: string read FWithdrawalId write FWithdrawalId;
     property IsWithdrawal: boolean read GetIsWithdrawal;
+    property IsAdvance: boolean read GetIsAdvance;
+    property IsLate: boolean read GetIsLate;
 
     procedure Add;
     procedure AddDetail(const detail: TPaymentDetail);
@@ -99,7 +103,7 @@ var
 implementation
 
 uses
-  PaymentData, IFinanceDialogs, DBUtil, Ledger;
+  PaymentData, IFinanceDialogs, DBUtil, Ledger, IFinanceGlobal;
 
 constructor TPayment.Create;
 begin
@@ -358,6 +362,16 @@ end;
 function TPayment.GetIsWithdrawal: boolean;
 begin
   Result := FPaymentMethod.Method = mdBankWithdrawal;
+end;
+
+function TPayment.GetIsAdvance: boolean;
+begin
+  Result := FDate < ifn.AppDate;
+end;
+
+function TPayment.GetIsLate: boolean;
+begin
+  Result := FDate > ifn.AppDate;
 end;
 
 function TPayment.GetIsNew: boolean;

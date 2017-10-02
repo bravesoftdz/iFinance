@@ -10,8 +10,10 @@ inherited frmLoanLedger: TfrmLoanLedger
   TextHeight = 14
   inherited pnlTitle: TRzPanel
     Width = 410
+    ExplicitWidth = 410
     inherited imgClose: TImage
       Left = 389
+      ExplicitLeft = 389
     end
     inherited lblCaption: TRzLabel
       Width = 39
@@ -22,6 +24,8 @@ inherited frmLoanLedger: TfrmLoanLedger
   inherited pnlMain: TRzPanel
     Width = 410
     Height = 379
+    ExplicitWidth = 410
+    ExplicitHeight = 379
     object pnlLedger: TRzPanel
       Left = 8
       Top = 8
@@ -33,8 +37,6 @@ inherited frmLoanLedger: TfrmLoanLedger
       BorderWidth = 1
       ParentColor = True
       TabOrder = 0
-      ExplicitWidth = 483
-      ExplicitHeight = 403
       object grLedger: TRzDBGrid
         Left = 1
         Top = 1

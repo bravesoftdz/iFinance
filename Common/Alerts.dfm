@@ -52,5 +52,28 @@ inherited frmAlerts: TfrmAlerts
       FramingPreference = fpCustomFraming
       ReadOnlyColor = 13948116
     end
+    object pnlContinue: TRzPanel
+      Left = 459
+      Top = 235
+      Width = 60
+      Height = 22
+      Anchors = [akRight, akBottom]
+      BorderOuter = fsNone
+      BorderColor = 6572079
+      BorderWidth = 1
+      Color = 8553215
+      TabOrder = 1
+      object btnContinue: TRzShapeButton
+        Left = 0
+        Top = 0
+        Width = 60
+        Height = 22
+        Hint = 'Continue'
+        Caption = 'Continue'
+        ParentShowHint = False
+        ShowHint = True
+        OnClick = btnContinueClick
+      end
+    end
   end
 end
