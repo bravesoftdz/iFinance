@@ -2,7 +2,9 @@ program iFinance;
 
 uses
   Vcl.Forms,
+  SysUtils,
   AppUtil,
+  IFinanceDialogs,
   Main in 'Main.pas' {frmMain},
   Login in 'Login.pas' {frmLogin};
 
@@ -11,12 +13,16 @@ uses
 begin
   if not RestoreIfRunning(Application.Handle) then
   begin
-    if TfrmLogin.LoggedIn then
+    if FileExists('ifn.ini') then
     begin
-      Application.Initialize;
-      Application.MainFormOnTaskbar := True;
-      Application.CreateForm(TfrmMain, frmMain);
-      Application.Run;
-    end;
+      if TfrmLogin.LoggedIn then
+      begin
+        Application.Initialize;
+        Application.MainFormOnTaskbar := True;
+        Application.CreateForm(TfrmMain, frmMain);
+        Application.Run;
+      end;
+    end
+    else ShowErrorBox('Configuration file not found.');
   end;
 end.

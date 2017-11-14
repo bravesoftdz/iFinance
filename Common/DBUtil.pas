@@ -9,7 +9,7 @@ type
   TSequenceObject = (soEntity,soGroup,soEmployer,soBankBranch,soDesignation,
                         soLoanClass,soLoan,soCompetitor,soPurpose, soLoanType,
                         soAcctType,soLoanCancelReason,soLoanRejectReason,
-                        soPayment,soLedger);
+                        soPayment,soLedger,soInterest);
 
 procedure RefreshDataSet(const key: integer; const keyField: string; DataSet: TDataSet); overload;
 procedure RefreshDataSet(const key, keyField: string; DataSet: TDataSet); overload;
@@ -32,6 +32,7 @@ function GetLoanRejectionReasonId: integer;
 function GetPaymentId: string;
 function GetGenericId: string;
 function GetLedgerId: string;
+function GetInterestId: string;
 
 implementation
 
@@ -88,7 +89,8 @@ begin
     soLoanType: parm := 'LNT';
     soAcctType: parm := 'ACT';
     soPayment: parm := 'PAY';
-    soLedger: parm := 'LDG'
+    soLedger: parm := 'LDG';
+    soInterest: parm := 'ITS';
     else parm := '';
   end;
 
@@ -180,6 +182,11 @@ end;
 function GetLedgerId: string;
 begin
   Result := ifn.LocationPrefix + '-' + IntToStr(GetSequenceID(soLedger));
+end;
+
+function GetInterestId: string;
+begin
+  Result := ifn.LocationPrefix + '-' + IntToStr(GetSequenceID(soInterest));
 end;
 
 end.

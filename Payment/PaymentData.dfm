@@ -2,7 +2,7 @@ object dmPayment: TdmPayment
   OldCreateOrder = False
   OnCreate = DataModuleCreate
   OnDestroy = DataModuleDestroy
-  Height = 370
+  Height = 304
   Width = 396
   object dstPayment: TADODataSet
     Tag = 1
@@ -175,7 +175,6 @@ object dmPayment: TdmPayment
   object dstSchedule: TADODataSet
     Connection = dmApplication.acMain
     CursorType = ctStatic
-    Filtered = True
     LockType = ltReadOnly
     CommandText = 'sp_ln_get_payment_due;1'
     CommandType = cmdStoredProc
@@ -185,16 +184,39 @@ object dmPayment: TdmPayment
         DataType = ftInteger
         Direction = pdReturnValue
         Precision = 10
-        Value = 0
+        Value = Null
       end
       item
         Name = '@loan_id'
         Attributes = [paNullable]
         DataType = ftString
-        Size = 10
+        Size = 13
         Value = ''
       end>
     Left = 216
     Top = 144
+  end
+  object dstInterest: TADODataSet
+    Connection = dmApplication.acMain
+    LockType = ltBatchOptimistic
+    CommandText = 'sp_ln_get_interests;1'
+    CommandType = cmdStoredProc
+    Parameters = <
+      item
+        Name = '@RETURN_VALUE'
+        DataType = ftInteger
+        Direction = pdReturnValue
+        Precision = 10
+        Value = Null
+      end
+      item
+        Name = '@loan_id'
+        Attributes = [paNullable]
+        DataType = ftString
+        Size = 15
+        Value = Null
+      end>
+    Left = 216
+    Top = 208
   end
 end

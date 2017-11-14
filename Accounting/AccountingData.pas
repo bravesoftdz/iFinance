@@ -9,6 +9,8 @@ type
   TdmAccounting = class(TDataModule)
     dstLedger: TADODataSet;
     dstSchedule: TADODataSet;
+    dstScheduledInterest: TADODataSet;
+    dstInterest: TADODataSet;
   private
     { Private declarations }
   public

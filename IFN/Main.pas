@@ -177,10 +177,12 @@ type
     procedure urlWithdrawalsClick(Sender: TObject);
   private
     { Private declarations }
+    DOCKED_FORM: TForms;
     RecentClients: TObjectList<TRecentClient>;
     RecentLoans: TObjectList<TRecentLoan>;
     procedure OpenClientList(const filterType: TClientFilterType = cftAll);
     procedure OpenLoanList(const filterType: TLoanFilterType = lftAll);
+    procedure ShowDevParams;
   public
     { Public declarations }
     procedure DockForm(const fm: TForms; const title: string = '');
@@ -204,7 +206,7 @@ uses
   LoanMain, LoanList, LoanIntf, CompetitorList, FormsUtil, IFinanceGlobal,
   PurposeList, IFinanceDialogs, NewIntf, LoanTypeList, AccountTypeList,
   LoanCancellationReasonList, LoanRejectionReasonList, AppSettings,
-  PaymentMain, PaymentIntf, PaymentList, AccountingData, WithdrawalList;
+  PaymentMain, PaymentIntf, PaymentList, AccountingData, WithdrawalList, DevParams;
 
 constructor TRecentClient.Create(const id, displayId, name: string);
 begin
@@ -285,6 +287,15 @@ end;
 procedure TfrmMain.Save1Click(Sender: TObject);
 begin
   imgSave.OnClick(Sender);
+end;
+
+procedure TfrmMain.ShowDevParams;
+begin
+  with TfrmDevParams.Create(Application) do
+  begin
+    ShowModal;
+    Free;
+  end;
 end;
 
 procedure TfrmMain.lblActiveClientsClick(Sender: TObject);
@@ -377,7 +388,7 @@ begin
 
         if Supports(pnlDockMain.Controls[0] as TForm,ILoan,intf) then
         begin
-          intf.SetLoanId;
+          intf.SetLoanHeaderCaption;
           intf.RefreshDropDownSources;
           intf.SetUnboundControls;
           intf.InitForm;
@@ -490,8 +501,7 @@ var
   frm: TForm;
   control: integer;
 begin
-  // if (pnlDockMain.ControlCount = 0) or ((pnlDockMain.ControlCount > 0) and
-  //  ((pnlDockMain.Controls[0].ClassType <> frm.ClassType))) then
+  if (pnlDockMain.ControlCount = 0) or (DOCKED_FORM <> fm) then
   begin
     control := 0;
 
@@ -531,6 +541,8 @@ begin
         frm := TForm.Create(Application);
     end;
 
+    DOCKED_FORM := fm;
+
     frm.ManualDock(pnlDockMain);
     frm.Show;
   end;
@@ -538,6 +550,8 @@ end;
 
 procedure TfrmMain.FormCreate(Sender: TObject);
 begin
+  DOCKED_FORM := fmNone;
+
   Height := 700; // for some reason form keeps on resizing...
 
   dmAccounting := TdmAccounting.Create(Application);
@@ -553,6 +567,10 @@ end;
 
 procedure TfrmMain.FormShow(Sender: TObject);
 begin
+  {$ifdef debug}
+  ShowDevParams;
+  {$endif}
+
   lblCaption.Caption := ifn.AppName + ' - ' + ifn.AppDescription;
   lblWelcome.Caption := 'Welcome back ' + ifn.User.Name + '.';
   lblDate.Caption := 'Today is ' + FormatDateTime('mmmm dd, yyyy.',ifn.AppDate);

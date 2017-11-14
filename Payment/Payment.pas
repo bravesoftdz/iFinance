@@ -3,13 +3,15 @@ unit Payment;
 interface
 
 uses
-  ActiveClient, PaymentMethod, System.Classes, SysUtils;
+  ActiveClient, PaymentMethod, System.Classes, SysUtils, System.Rtti;
 
 type
   TPaymentType = (ptPrincipal,ptInterest,ptPenalty);
 
   TPaymentDetail = class
   strict private
+    FPaymentId: string;
+    FPaymentDate: TDateTime;
     FLoan: TLoan;
     FRemarks: string;
     FCancelled: boolean;
@@ -22,6 +24,10 @@ type
     function GetHasInterest: boolean;
     function GetHasPrincipal: boolean;
     function GetPenalty: boolean;
+    function PostInterest(const interest: real; const loanId: string;
+      const ADate: TDateTime; const source, status: string): string;
+
+    procedure SaveInterest;
 
   public
     property Loan: TLoan read FLoan write FLoan;
@@ -35,8 +41,15 @@ type
     property HasInterest: boolean read GetHasInterest;
     property HasPenalty: boolean read GetPenalty;
     property PaymentType: TPaymentType read FPaymentType write FPaymentType;
+    property PaymentId: string read FPaymentId write FPaymentId;
+    property PaymentDate: TDateTime read FPaymentDate write FPaymentDate;
 
     function PaymentTypeToString(const payType: TPaymentType): string;
+    function IsScheduled(const paymentDate: TDateTime): boolean;
+    function IsAdvanced(const paymentDate: TDateTime): boolean;
+    function IsLate(const paymentDate: TDateTime): boolean;
+
+    procedure Post;
   end;
 
   TPayment = class
@@ -54,7 +67,7 @@ type
     FWithdrawalId: string;
 
     procedure SaveDetails;
-    procedure UpdateLoanBalance;
+    procedure UpdateLoanRecord;
 
     function GetDetail(const i: integer): TPaymentDetail;
     function GetTotalAmount: real;
@@ -103,7 +116,7 @@ var
 implementation
 
 uses
-  PaymentData, IFinanceDialogs, DBUtil, Ledger, IFinanceGlobal;
+  PaymentData, IFinanceDialogs, DBUtil, Posting, IFinanceGlobal, Ledger, AppConstants;
 
 constructor TPayment.Create;
 begin
@@ -157,9 +170,9 @@ end;
 
 procedure TPayment.Save;
 var
-  ledger: TLedger;
+  LPosting: TPosting;
 begin
-  ledger := TLedger.Create;
+  LPosting := TPosting.Create;
   try
     try
       with dmPayment do
@@ -168,23 +181,25 @@ begin
 
         SaveDetails;
 
-        ledger.Post(self);
+        LPosting.Post(self);
 
         dstPayment.UpdateBatch;
         dstPaymentDetail.UpdateBatch;
+        dstInterest.UpdateBatch;
 
-        UpdateLoanBalance;
+        UpdateLoanRecord;
       end;
     except
       on E: Exception do begin
         dmPayment.dstPayment.CancelBatch;
         dmPayment.dstPaymentDetail.CancelBatch;
+        dmPayment.dstInterest.CancelBatch;
 
         ShowErrorBox('An error has occured during payment posting. Entry has been cancelled.');
       end;
     end;
   finally
-    ledger.Free;
+    LPosting.Free;
   end;
 end;
 
@@ -200,6 +215,9 @@ begin
 
     for i := 0 to cnt do
     begin
+      FDetails[i].PaymentId := FPaymentId;
+      FDetails[i].PaymentDate := FDate;
+
       // principal
       if FDetails[i].HasPrincipal then
       begin
@@ -236,33 +254,35 @@ begin
         Post;
       end;
 
+      FDetails[i].Post;
     end;
 
   end;
 end;
 
-procedure TPayment.UpdateLoanBalance;
+procedure TPayment.UpdateLoanRecord;
 var
   detail: TPaymentDetail;
-  sql: TStringList;
+  sql: string;
   balance: real;
 begin
-  sql := TStringList.Create;
-  // sql.Delimiter := ';';
-  
+  // update the principal balance (field loan_balance)
+  // update the last transaction date
+
   try
     for detail in FDetails do
     begin
-      balance := detail.Loan.Balance - detail.TotalAmount;
+      balance := detail.Loan.Balance - detail.Principal;
       
-      sql.Add(' UPDATE loan ' +
-              '    SET balance = ' + FloatToStr(balance) +
-              '  WHERE loan_id = ' + QuotedStr(detail.Loan.Id));
+      sql := ' UPDATE loan ' +
+             '    SET balance = ' + FloatToStr(balance) + ',' +
+             '        last_trans_date = ' + QuotedStr(FormatDateTime('mm/dd/yyyy',FDate)) +
+             '  WHERE loan_id = ' + QuotedStr(detail.Loan.Id);
     end;
     
-    ExecuteSQL(sql.Text);
-  finally
-    sql.Free;
+    ExecuteSQL(sql);
+  except
+    on E: Exception do ShowErrorBox(E.Message);
   end;
 end;
 
@@ -399,6 +419,21 @@ begin
   Result := FPrincipal + FInterest + FPenalty;
 end;
 
+function TPaymentDetail.IsAdvanced(const paymentDate: TDateTime): boolean;
+begin
+  Result := paymentDate < FLoan.NextPayment;
+end;
+
+function TPaymentDetail.IsLate(const paymentDate: TDateTime): boolean;
+begin
+  Result := paymentDate > FLoan.NextPayment;
+end;
+
+function TPaymentDetail.IsScheduled(const paymentDate: TDateTime): boolean;
+begin
+  Result := paymentDate = FLoan.NextPayment;
+end;
+
 function TPaymentDetail.PaymentTypeToString(
   const payType: TPaymentType): string;
 begin
@@ -407,6 +442,142 @@ begin
     ptInterest: Result := 'INT';
     ptPenalty: Result := 'PEN';
   end;
+end;
+
+procedure TPaymentDetail.Post;
+var
+  debitLedger, creditLedger: TLedger;
+  balance, debit, credit, payment: single;
+  i, cnt: integer;
+  caseType: string;
+  paymentType: TPaymentTypes;
+begin
+  //  post the payment in the ledger
+  for paymentType := TPaymentTypes.PRN to TPaymentTypes.PEN do
+  begin
+
+    // get the amount and casetype to be posted
+    case paymentType of
+      PRN:
+        begin
+          caseType :=  TRttiEnumerationType.GetName<TCaseTypes>(TCaseTypes.PRC);
+          payment := FPrincipal;
+        end;
+
+      INT:
+        begin
+          caseType :=  TRttiEnumerationType.GetName<TCaseTypes>(TCaseTypes.ITS);
+          payment := FInterest;
+
+          // save unposted interest
+          SaveInterest;
+        end;
+
+      PEN:
+        begin
+          caseType :=  TRttiEnumerationType.GetName<TCaseTypes>(TCaseTypes.PNT);
+          payment := FPenalty;
+        end;
+
+    end;
+
+    i := 0;
+    cnt := FLoan.LedgerCount - 1;
+    balance := payment;
+
+    while (balance > 0) and (i <= cnt) do
+    begin
+      debitLedger := FLoan.Ledger[i];
+
+      if (debitLedger.ValueDate <= FPaymentDate) and
+        (debitLedger.CaseType = caseType) then
+      begin
+        creditLedger := TLedger.Create;
+
+        // set the amount and the status
+        if debitLedger.Debit <= balance then
+        begin
+          creditLedger.Credit := debitLedger.Debit;
+
+          if debitLedger.Debit = balance then
+            debitLedger.NewStatus := TRttiEnumerationType.GetName<TLedgerRecordStatus>(TLedgerRecordStatus.CLS);
+        end
+        else creditLedger.Credit := balance;
+
+        creditLedger.RefPostingId := debitLedger.PostingId;
+        creditLedger.EventObject := TRttiEnumerationType.GetName<TEventObjects>(TEventObjects.PAY);
+        creditLedger.PrimaryKey := FPaymentId;
+        creditLedger.CaseType := caseType;
+        creditLedger.ValueDate := FPaymentDate;
+        creditLedger.CurrentStatus := TRttiEnumerationType.GetName<TLedgerRecordStatus>(TLedgerRecordStatus.OPN);
+        creditLedger.NewStatus := TRttiEnumerationType.GetName<TLedgerRecordStatus>(TLedgerRecordStatus.OPN);
+        creditLedger.Debit := 0;
+
+        FLoan.AddLedger(creditLedger);
+
+        balance := debitLedger.Debit - creditLedger.Credit;
+      end;
+
+      Inc(i);
+    end;
+  end;
+
+end;
+
+function TPaymentDetail.PostInterest(const interest: real; const loanId: string;
+  const ADate: TDateTime; const source, status: string): string;
+var
+  interestId: string;
+begin
+  interestId := GetInterestId;
+
+  with dmPayment.dstInterest do
+  begin
+    Append;
+    FieldByName('interest_id').AsString := interestId;
+    FieldByName('loan_id').AsString := loanId;
+    FieldByName('interest_amt').AsCurrency := interest;
+    FieldByName('interest_date').AsDateTime := ADate;
+    FieldByName('interest_src').AsString := source;
+    FieldByName('interest_status_id').AsString := status;
+    Post;
+  end;
+
+  Result := interestId;
+end;
+
+procedure TPaymentDetail.SaveInterest;
+var
+  LLedger: TLedger;
+  i, cnt: integer;
+  interestId, loanId, source, status: string;
+  interest: single;
+  interestDate: TDateTime;
+begin
+  try
+    cnt := FLoan.LedgerCount - 1;
+
+    for i := 0 to cnt do
+    begin
+      if (LLedger.EventObject = TRttiEnumerationType.GetName<TEventObjects>(TEventObjects.ITR))
+         and (LLedger.CaseType = TRttiEnumerationType.GetName<TCaseTypes>(TCaseTypes.ITS))then
+      begin
+        if not LLedger.Posted then
+        begin
+          interest := LLedger.Debit;
+          loanId := FLoan.Id;
+          interestDate := LLedger.ValueDate;
+          source := TRttiEnumerationType.GetName<TInterestSource>(TInterestSource.PYT);
+          status := TRttiEnumerationType.GetName<TInterestStatus>(TInterestStatus.T);
+
+          interestId := PostInterest(interest,loanId,interestDate,source,status);
+          LLedger.PrimaryKey := interestId;
+        end;
+      end;
+    end;
+  finally
+  end;
+
 end;
 
 end.

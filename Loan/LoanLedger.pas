@@ -14,6 +14,8 @@ type
     grLedger: TRzDBGrid;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure grLedgerDrawColumnCell(Sender: TObject; const Rect: TRect;
+      DataCol: Integer; Column: TColumn; State: TGridDrawState);
   private
     { Private declarations }
   public
@@ -41,6 +43,25 @@ begin
   inherited;
   grLedger.DataSource.DataSet.Open;
   ExtendLastColumn(grLedger);
+end;
+
+procedure TfrmLoanLedger.grLedgerDrawColumnCell(Sender: TObject;
+  const Rect: TRect; DataCol: Integer; Column: TColumn; State: TGridDrawState);
+begin
+  with grLedger do
+  begin
+    if DataSource.DataSet.FieldByName('event_object').AsString = 'PAY' then
+    begin
+      Canvas.Brush.Color := clMoneyGreen;
+      DefaultDrawColumnCell(Rect, DataCol, Column, State);
+    end
+    else
+    begin
+      Canvas.Brush.Color := clWhite;
+      DefaultDrawColumnCell(Rect, DataCol, Column, State);
+    end
+  end;
+
 end;
 
 end.

@@ -120,6 +120,18 @@ inherited frmLoanList: TfrmLoanList
         end
         item
           Expanded = False
+          FieldName = 'balance_f'
+          Title.Caption = 'Balance'
+          Title.Font.Charset = DEFAULT_CHARSET
+          Title.Font.Color = clWindowText
+          Title.Font.Height = -12
+          Title.Font.Name = 'Tahoma'
+          Title.Font.Style = [fsBold]
+          Width = 80
+          Visible = True
+        end
+        item
+          Expanded = False
           FieldName = 'class_name'
           Title.Alignment = taCenter
           Title.Caption = 'Loan class'

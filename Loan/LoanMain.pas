@@ -13,7 +13,7 @@ uses
 type
   TfrmLoanMain = class(TfrmBaseDocked, ISave, ILoan, IAlert)
     pnlMain: TRzPanel;
-    lblLoanId: TRzLabel;
+    lblHeader: TRzLabel;
     pnlApplication: TRzPanel;
     c: TJvLabel;
     JvLabel2: TJvLabel;
@@ -207,7 +207,7 @@ type
     function LoanApplicationIsValid: boolean;
   public
     { Public declarations }
-    procedure SetLoanId;
+    procedure SetLoanHeaderCaption;
     procedure SetUnboundControls;
     procedure RefreshDropDownSources;
     procedure Cancel;
@@ -311,7 +311,7 @@ begin
 
       if ModalResult = mrOk then
       begin
-        SetLoanId;
+        SetLoanHeaderCaption;
         ChangeControlState;
         SetActiveTab(APPROVAL);
       end;
@@ -349,7 +349,7 @@ begin
 
       if ModalResult = mrOk then
       begin
-        SetLoanId;
+        SetLoanHeaderCaption;
         ChangeControlState;
         SetActiveTab(ASSESSED);
       end;
@@ -388,7 +388,7 @@ begin
 
       if ModalResult = mrOk then
       begin
-        SetLoanId;
+        SetLoanHeaderCaption;
         ChangeControlState;
         SetActiveTab(REJECTION);
       end;
@@ -430,7 +430,7 @@ begin
 
       if ModalResult = mrOk then
       begin
-        SetLoanId;
+        SetLoanHeaderCaption;
         ChangeControlState;
         SetActiveTab(CANCELLATION);
       end;
@@ -467,7 +467,7 @@ begin
 
       if ModalResult = mrOk then
       begin
-        SetLoanId;
+        SetLoanHeaderCaption;
         ChangeControlState;
         SetActiveTab(RELEASED);
       end;
@@ -805,7 +805,7 @@ begin
   OpenDropdownDataSources(pnlApplication);
 
   SetUnboundControls;
-  SetLoanId;
+  SetLoanHeaderCaption;
   // ChangeControlState;
 end;
 
@@ -843,9 +843,10 @@ begin
   RejectLoan;
 end;
 
-procedure TfrmLoanMain.SetLoanId;
+procedure TfrmLoanMain.SetLoanHeaderCaption;
 begin
-  lblLoanId.Caption := 'LOAN ID: ' + ln.Id + ' ' + ln.StatusName;
+  lblHeader.Caption := 'LOAN ID: ' + ln.Id + ' ' + ln.StatusName + #10#10 +
+                        'Balance : ' + FormatFloat('###,###0.00',ln.Balance);
 end;
 
 procedure TfrmLoanMain.SetUnboundControls;
@@ -921,7 +922,7 @@ begin
     if Result then
     begin
       ln.Save;
-      SetLoanId;
+      SetLoanHeaderCaption;
       ChangeControlState;
       ln.Action := laNone;
     end;

@@ -69,7 +69,7 @@ inherited frmAlerts: TfrmAlerts
         Width = 60
         Height = 22
         Hint = 'Continue'
-        Caption = 'Continue'
+        Caption = 'Close'
         ParentShowHint = False
         ShowHint = True
         OnClick = btnContinueClick

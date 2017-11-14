@@ -2,7 +2,7 @@ unit AppConstants;
 
 interface
 
-type TForms = (fmClientMain, fmClientList, fmGroupList, fmEmployerList,
+type TForms = (fmNone, fmClientMain, fmClientList, fmGroupList, fmEmployerList,
                 fmBanksList, fmDesignationList, fmLoanClassList, fmLoanMain,
                 fmLoanList, fmCompetitorList, fmPurposeList,fmLoanTypeList,
                 fmAcctTypeList, fmLoanCancelReasonList, fmLoanRejectReasonList,
@@ -42,7 +42,7 @@ PAY = PAYMENT
 
 }
 
-type TEventObjects = (LON,PAY);
+type TEventObjects = (LON,PAY,ITR);
 
 {
 
@@ -51,10 +51,11 @@ Ledger record status
 OPN = OPEN
 CLS = CLOSE
 CNL = CANCEL
+PND = PENDING
 
 }
 
-type TLedgerRecordStatus = (OPN,CLS,CNL);
+type TLedgerRecordStatus = (OPN,CLS,CNL,PND);
 
 {
  Case types
@@ -66,6 +67,24 @@ type TLedgerRecordStatus = (OPN,CLS,CNL);
 }
 
 type TCaseTypes = (ITS,PRC,PNT,RBT);
+
+{
+ Interest status (INTEREST TABLE)
+
+ P = PENDING
+ T = POSTED
+}
+
+type TInterestStatus = (P,T);
+
+{
+ Interest source (INTEREST TABLE)
+
+ SYS = SYSTEM
+ PYT = PAYMENT
+}
+
+type TInterestSource = (SYS,PYT);
 
 
 implementation

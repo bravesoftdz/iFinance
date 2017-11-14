@@ -3,9 +3,10 @@ unit ActiveClient;
 interface
 
 uses
-  AppConstants, System.Rtti, SysUtils, DateUtils;
+  AppConstants, System.Rtti, SysUtils, DateUtils, Ledger;
 
 type
+
   TLoan = class
   strict private
     FId: string;
@@ -13,17 +14,35 @@ type
     FAccountTypeName: string;
     FBalance: real;
     FInterestMethod: string;
-    FPrincipalDue: real;
-    FInterestDue: real;
+    FPrincipalDue: single;
+    FInterestDue: single;
     FUseFactorRate: boolean;
     FLastTransactionDate: TDateTime;
-    FInterestInDecimal: real;
-    FPaymentSchedule: TDateTime;
+    FInterestInDecimal: single;
     FApplyExemption: boolean;
+    FInterestBalance: single;
+    FInterestAdditional: single;
+    FInterestComputed: single;
+    FLedger: array of TLedger;
+    FPayments: integer;
 
     function GetIsDiminishing: boolean;
     function GetIsFixed: boolean;
-    function GetInterestDue(const paymentDate: TDateTime; const ledgerAmount: real): real;
+
+    function GetLedger(const i: integer): TLedger;
+    function GetIsFirstPayment: boolean;
+    function GetNextPayment: TDateTime;
+
+    procedure GetInterestDue(const paymentDate: TDateTime); overload;
+    procedure GetPrincipalDue(const paymentDate: TDateTime);
+
+    function GetLedgerCount: integer;
+    function GetHasInterestBalance: boolean;
+    function GetHasInterestComputed: boolean;
+    function GetHasInterestDue: boolean;
+    function GetHasInterstAdditional: boolean;
+    function GetInterestTotalDue: single;
+    function GetInterestDue: single; overload;
 
   public
     property Id: string read FId write FId;
@@ -33,15 +52,29 @@ type
     property InterestMethod: string write FInterestMethod;
     property IsDiminishing: boolean read GetIsDiminishing;
     property IsFixed: boolean read GetIsFixed;
-    property PrincipalDue: real read FPrincipalDue write FPrincipalDue;
-    property InterestDue: real read FInterestDue write FInterestDue;
+    property PrincipalDue: single read FPrincipalDue;
+    property InterestDue: single read GetInterestDue;
     property UseFactorRate: boolean read FUseFactorRate write FUseFactorRate;
     property LastTransactionDate: TDateTime read FLastTransactionDate write FLastTransactionDate;
-    property InterestInDecimal: real read FInterestInDecimal write FInterestInDecimal;
-    property PaymentSchedule: TDateTime read FPaymentSchedule write FPaymentSchedule;
+    property InterestInDecimal: single read FInterestInDecimal write FInterestInDecimal;
+    property NextPayment: TDateTime read GetNextPayment;
     property ApplyExemption: boolean read FApplyExemption write FApplyExemption;
+    property InterestBalance: single read FInterestBalance write FInterestBalance;
+    property Ledger[const i: integer]: TLedger read GetLedger;
+    property IsFirstPayment: boolean read GetIsFirstPayment;
+    property LedgerCount: integer read GetLedgerCount;
+    property InterestAdditional: single read FInterestAdditional;
+    property InterestComputed: single read FInterestComputed;
+    property HasInterestDue: boolean read GetHasInterestDue;
+    property HasInterestBalance: boolean read GetHasInterestBalance;
+    property HasInterestComputed: boolean read GetHasInterestComputed;
+    property HasInterestAdditional: boolean read GetHasInterstAdditional;
+    property InterestTotalDue: single read GetInterestTotalDue;
 
     procedure GetPaymentDue(const paymentDate: TDateTime);
+    procedure RetrieveLedger;
+    procedure ClearLedger;
+    procedure AddLedger(const ALedger: TLedger);
   end;
 
   TActiveClient = class
@@ -152,23 +185,118 @@ end;
 
 { TLoan }
 
-function TLoan.GetInterestDue(const paymentDate: TDateTime;
-  const ledgerAmount: real): real;
+procedure TLoan.AddLedger(const ALedger: TLedger);
+begin
+  SetLength(FLedger,Length(FLedger)+1);
+  FLedger[Length(FLedger)-1] := ALedger;
+end;
+
+procedure TLoan.ClearLedger;
 var
-  interest: real;
+  LLedger: TLedger;
+  i: integer;
+begin
+  for i := Low(FLedger) to High(FLedger) do
+  begin
+    LLedger := FLedger[i];
+    FreeAndNil(LLedger);
+  end;
+  SetLength(FLedger,0);
+end;
+
+function TLoan.GetHasInterestBalance: boolean;
+begin
+  Result := FInterestBalance > 0;
+end;
+
+function TLoan.GetHasInterestComputed: boolean;
+begin
+  Result := FInterestComputed > 0;
+end;
+
+function TLoan.GetHasInterestDue: boolean;
+begin
+  Result := FInterestDue > 0;
+end;
+
+function TLoan.GetHasInterstAdditional: boolean;
+begin
+  Result := FInterestAdditional > 0;
+end;
+
+procedure TLoan.GetInterestDue(const paymentDate: TDateTime);
+var
+  due, additional, balance, computed: single;
+  LLedger, debitLedger: TLedger;
   days: integer;
 begin
-  if IsDiminishing then
+  due := 0;         // payment on schedule date
+  additional := 0;  // payment after schedule date
+  balance := 0;     // balance of previous interest
+  computed := 0;    // payment before schedule date
+
+  // get any open accounts in the ledger
+  // can either be scheduled interest, balance of previous or both
+  for LLedger in FLedger do
   begin
-    // advance payment
-    if paymentDate < FPaymentSchedule then
+    if (LLedger.EventObject = TRttiEnumerationType.GetName<TEventObjects>(TEventObjects.ITR))
+       and (LLedger.CaseType = TRttiEnumerationType.GetName<TCaseTypes>(TCaseTypes.ITS))then
+      if LLedger.ValueDate <= paymentDate then
+      begin
+        if LLedger.ValueDate = paymentDate then due := LLedger.Debit
+        else balance := balance + LLedger.Debit;
+      end;
+  end;
+
+  // additional interest
+  // payment is made before or after schedule date
+  if (IsDiminishing) and (not UseFactorRate) then
+  begin
+    if paymentDate <> NextPayment then
     begin
-      days := DaysBetween(paymentDate,FLastTransactionDate);
-      interest := (FBalance * FInterestInDecimal * days) / ifn.DaysInAMonth;
-      Result := interest;
+      debitLedger := TLedger.Create;
+
+      debitLedger.EventObject := TRttiEnumerationType.GetName<TEventObjects>(TEventObjects.ITR);
+      debitLedger.CaseType := TRttiEnumerationType.GetName<TCaseTypes>(TCaseTypes.ITS);
+      debitLedger.ValueDate := paymentDate;
+      debitLedger.CurrentStatus := TRttiEnumerationType.GetName<TLedgerRecordStatus>(TLedgerRecordStatus.OPN);
+      debitLedger.NewStatus := TRttiEnumerationType.GetName<TLedgerRecordStatus>(TLedgerRecordStatus.OPN);
+      debitLedger.Debit := 0;
+
+      if paymentDate < NextPayment then  // before schedule
+      begin
+        days := DaysBetween(paymentDate,FLastTransactionDate);
+        computed := (FBalance * FInterestInDecimal * days) / ifn.DaysInAMonth;
+        debitLedger.Credit := computed;
+      end
+      else
+      begin  // after schedule
+        days := DaysBetween(NextPayment,paymentDate);
+        additional := (FBalance * FInterestInDecimal * days) / ifn.DaysInAMonth;
+        debitLedger.Credit := additional;
+      end;
+
+      AddLedger(debitLedger);
     end;
-  end
-  else Result := ledgerAmount;
+  end;
+
+  // set the different amounts
+  FInterestDue := due;
+  FInterestBalance := balance;
+  FInterestAdditional := additional;
+  FInterestComputed := computed;
+end;
+
+function TLoan.GetInterestDue: single;
+begin
+  if HasInterestComputed then Result := FInterestComputed
+  else if HasInterestAdditional then Result := FInterestDue + FInterestAdditional
+  else if HasInterestDue then Result := FInterestDue;
+end;
+
+function TLoan.GetInterestTotalDue: single;
+begin
+  Result := FInterestDue + FInterestBalance + FInterestAdditional + FInterestComputed;
 end;
 
 function TLoan.GetIsDiminishing: boolean;
@@ -176,46 +304,95 @@ begin
   Result := FInterestMethod = 'D';
 end;
 
+function TLoan.GetIsFirstPayment: boolean;
+begin
+  Result := FPayments = 0;
+end;
+
 function TLoan.GetIsFixed: boolean;
 begin
   Result := FInterestMethod = 'F';
 end;
 
+function TLoan.GetLedger(const i: integer): TLedger;
+begin
+  Result := FLedger[i];
+end;
+
+function TLoan.GetLedgerCount: integer;
+begin
+  Result := Length(FLedger);
+end;
+
+function TLoan.GetNextPayment: TDateTime;
+begin
+  Result := IncMonth(FLastTransactionDate);
+end;
+
 procedure TLoan.GetPaymentDue(const paymentDate: TDateTime);
 var
   caseType: TCaseTypes;
-  caseTypeFilter: string;
 begin
-  try
-    with dmPayment.dstSchedule do
-    begin
+  // loop thru each case type
+  for caseType := TCaseTypes.ITS to TCaseTypes.PRC do
+  begin
+    case caseType of
+      ITS: GetInterestDue(paymentDate);
+      PRC: GetPrincipalDue(paymentDate);
+    end;
+  end;
+end;
+
+procedure TLoan.GetPrincipalDue(const paymentDate: TDateTime);
+var
+  principal: single;
+  LLedger: TLedger;
+begin
+  principal := 0;
+
+  for LLedger in FLedger do
+  begin
+    if (LLedger.EventObject = TRttiEnumerationType.GetName<TEventObjects>(TEventObjects.LON))
+       and (LLedger.CaseType = TRttiEnumerationType.GetName<TCaseTypes>(TCaseTypes.PRC))then
+      if LLedger.ValueDate < IncMonth(paymentDate) then
+        principal := principal + LLedger.Debit;
+  end;
+
+  FPrincipalDue := principal;
+end;
+
+procedure TLoan.RetrieveLedger;
+var
+  LLedger: TLedger;
+begin
+  ClearLedger;
+
+  // loop thru the dataset
+  with dmPayment.dstSchedule do
+  begin
+    try
       Parameters.ParamByName('@loan_id').Value := FId;
       Open;
 
-      FPaymentSchedule := FieldByName('value_date').AsDateTime;
-
-      // loop thru each case type
-      for caseType := TCaseTypes.ITS to TCaseTypes.PRC do
+      while not Eof do
       begin
-        case caseType of
-          ITS: caseTypeFilter := TRttiEnumerationType.GetName<TCaseTypes>(TCaseTypes.ITS);
-          PRC: caseTypeFilter := TRttiEnumerationType.GetName<TCaseTypes>(TCaseTypes.PRC);
-        end;
+        LLedger := TLedger.Create;
+        LLedger.PostingId := FieldByName('posting_id').AsString;
+        LLedger.EventObject := FieldByName('event_object').AsString;
+        LLedger.PrimaryKey := FieldByName('pk_event_object').AsString;
+        LLedger.ValueDate := FieldByName('value_date').AsDateTime;
+        LLedger.Debit := FieldByName('payment_due').AsSingle;
+        LLedger.CaseType := FieldByName('case_type').AsString;
+        LLedger.CurrentStatus := FieldByName('status_code').Asstring;
+        LLedger.NewStatus := FieldbyName('status_code').AsString;
 
-        Filter := '(case_type = ' + QuotedStr(caseTypeFilter) + ')';
+        AddLedger(LLedger);
 
-        if RecordCount > 1 then
-        begin
-          case caseType of
-            ITS: FInterestDue := GetInterestDue(paymentDate,FieldByName('payment_due').AsFloat);
-            PRC: FPrincipalDue := FieldByName('payment_due').AsFloat;
-          end;
-        end;
+        Next;
       end;
-
+    finally
+      Close;
     end;
-  finally
-    dmPayment.dstSchedule.Close;
   end;
 end;
 

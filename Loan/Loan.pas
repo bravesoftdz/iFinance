@@ -43,6 +43,7 @@ type
     FAssessment: TAssessment;
     FReleaseAmount: real;
     FApprovedTerm: integer;
+    FBalance: real;
 
     procedure SaveComakers;
     procedure SaveAssessments;
@@ -154,6 +155,7 @@ type
     property FactorWithInterest: real read GetFactorWithInterest;
     property FactorWithoutInterest: real read GetFactorWithoutInterest;
     property Amortisation: real read GetAmortisation;
+    property Balance: real read FBalance write FBalance;
 
     constructor Create;
     destructor Destroy; reintroduce;
@@ -165,7 +167,7 @@ var
 implementation
 
 uses
-  LoanData, IFinanceGlobal, Ledger;
+  LoanData, IFinanceGlobal, Posting;
 
 constructor TLoan.Create;
 begin
@@ -577,7 +579,7 @@ end;
 
 procedure TLoan.SaveRelease;
 var
-  ledger: TLedger;
+  LPosting: TPosting;
 begin
   with dmLoan do
   begin
@@ -592,11 +594,11 @@ begin
       ln.ChangeLoanStatus;
       ln.AddLoanState(lsActive);
 
-      ledger := TLedger.Create;
+      LPosting := TPosting.Create;
       try
-        ledger.Post(self);
+        LPosting.Post(self);
       finally
-        ledger.Free;
+        LPosting.Free;
       end;
     end
   end;

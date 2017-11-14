@@ -9,6 +9,7 @@
 --delete refinfo
 delete [sequence]
 --delete employer
+delete Interest
 delete PaymentDetail
 delete Payment
 delete LoanComaker
@@ -30,8 +31,7 @@ delete Loan
 delete bankwithdrawal
 
 delete Ledger
-
-dbcc CHECKIDENT (Ledger, RESEED, 0)
+delete Ledger where event_object = 'PAY'
 
 --delete T_LoanType
 --delete T_AccountType

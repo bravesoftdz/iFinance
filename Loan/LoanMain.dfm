@@ -18,7 +18,7 @@ inherited frmLoanMain: TfrmLoanMain
       Caption = 'Loan record'
       ExplicitWidth = 73
     end
-    object lblLoanId: TRzLabel
+    object lblHeader: TRzLabel
       Left = 856
       Top = 7
       Width = 64
@@ -1375,7 +1375,7 @@ inherited frmLoanMain: TfrmLoanMain
         Width = 507
         Height = 500
         Hint = ''
-        ActivePage = tsAssessment
+        ActivePage = tsPending
         ActivePageDefault = tsPending
         Anchors = [akLeft, akTop, akRight, akBottom]
         FlatColor = 8675134

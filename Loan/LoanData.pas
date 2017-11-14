@@ -56,6 +56,7 @@ type
     dstLedgerDue: TDateTimeField;
     dstLedgerPrincipal: TBCDField;
     dstLedgerInterest: TBCDField;
+    dstLedgerevent_object: TStringField;
     procedure dstLoanBeforeOpen(DataSet: TDataSet);
     procedure dstLoanClassBeforeOpen(DataSet: TDataSet);
     procedure dstLoanBeforePost(DataSet: TDataSet);
@@ -131,6 +132,7 @@ begin
     ln.Status := FieldByName('status_id').AsString;
     ln.AppliedAmount := FieldByName('amt_appl').AsCurrency;
     ln.DesiredTerm := FieldByName('des_term').AsInteger;
+    ln.Balance := FieldByName('balance').AsCurrency;
   end;
 end;
 
@@ -443,7 +445,6 @@ begin
     concurrent := FieldByName('max_concurrent').AsInteger;
     maxLoanTypeAmt := FieldByName('max_loantype_amount').AsFloat;
     idDocs := FieldByName('ident_docs').AsInteger;
-
 
     ltype := TLoanType.Create(loanType,loanTypeName);
 

@@ -18,7 +18,7 @@ type
     lblLoanId: TJvLabel;
     lblType: TJvLabel;
     lblAccount: TJvLabel;
-    lblBalance: TJvLabel;
+    lblLoanBalance: TJvLabel;
     edPrincipal: TRzNumericEdit;
     JvLabel5: TJvLabel;
     JvLabel6: TJvLabel;
@@ -29,14 +29,18 @@ type
     JvLabel9: TJvLabel;
     JvLabel10: TJvLabel;
     urlPrincipalDue: TRzURLLabel;
-    urlInterestDue: TRzURLLabel;
+    urlInterestTotalDue: TRzURLLabel;
+    JvLabel11: TJvLabel;
+    JvLabel12: TJvLabel;
+    lblInterestBalance: TJvLabel;
+    lblInterestDue: TJvLabel;
     procedure FormCreate(Sender: TObject);
     procedure FormKeyPress(Sender: TObject; var Key: Char);
     procedure edPrincipalChange(Sender: TObject);
     procedure edInterestChange(Sender: TObject);
     procedure edPenaltyChange(Sender: TObject);
     procedure urlPrincipalDueClick(Sender: TObject);
-    procedure urlInterestDueClick(Sender: TObject);
+    procedure urlInterestTotalDueClick(Sender: TObject);
   private
     { Private declarations }
     procedure SetTotalAmount;
@@ -84,19 +88,22 @@ var
   i: integer;
 begin
   inherited;
-  // set labels
   i := pmt.Client.IndexOf(pmt.Details[pmt.DetailCount-1].Loan);
 
+  // get the ledger
+  pmt.Client.ActiveLoans[i].RetrieveLedger;
+  pmt.Client.ActiveLoans[i].GetPaymentDue(pmt.Date);
+
+  // set labels
   lblLoanId.Caption := pmt.Client.ActiveLoans[i].Id;
   lblType.Caption := pmt.Client.ActiveLoans[i].LoanTypeName;
   lblAccount.Caption := pmt.Client.ActiveLoans[i].AccountTypeName;
-  lblBalance.Caption := FormatFloat('###,###,##0.00',pmt.Client.ActiveLoans[i].Balance);
-
-  // get the amount due
-  pmt.Client.ActiveLoans[i].GetPaymentDue(pmt.Date);
+  lblLoanBalance.Caption := FormatFloat('###,###,##0.00',pmt.Client.ActiveLoans[i].Balance);
+  lblInterestBalance.Caption := FormatFloat('###,###,##0.00',pmt.Client.ActiveLoans[i].InterestBalance);
+  lblInterestDue.Caption := FormatFloat('###,###,##0.00',pmt.Client.ActiveLoans[i].InterestDue);
 
   urlPrincipalDue.Caption := FormatFloat('###,###,##0.00',pmt.Client.ActiveLoans[i].PrincipalDue);
-  urlInterestDue.Caption := FormatFloat('###,###,##0.00',pmt.Client.ActiveLoans[i].InterestDue);
+  urlInterestTotalDue.Caption := FormatFloat('###,###,##0.00',pmt.Client.ActiveLoans[i].InterestTotalDue);
 end;
 
 procedure TfrmPaymentDetail.FormKeyPress(Sender: TObject; var Key: Char);
@@ -133,10 +140,10 @@ begin
   end;
 end;
 
-procedure TfrmPaymentDetail.urlInterestDueClick(Sender: TObject);
+procedure TfrmPaymentDetail.urlInterestTotalDueClick(Sender: TObject);
 begin
   inherited;
-  edInterest.Text := urlInterestDue.Caption;
+  edInterest.Text := urlInterestTotalDue.Caption;
 end;
 
 procedure TfrmPaymentDetail.urlPrincipalDueClick(Sender: TObject);

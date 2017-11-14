@@ -39,10 +39,14 @@ requires
   Jcl,
   JvCore,
   JvStdCtrls,
-  JvControls;
+  JvControls,
+  adortl;
 
 contains
   AppSettings in 'AppSettings.pas' {frmAppSettings},
-  BaseDocked in '..\Base\BaseDocked.pas' {frmBaseDocked};
+  BaseDocked in '..\Base\BaseDocked.pas' {frmBaseDocked},
+  BasePopup in '..\Base\BasePopup.pas' {frmBasePopup},
+  BasePopupDetail in '..\Base\BasePopupDetail.pas' {frmBasePopupDetail},
+  DevParams in 'DevParams.pas' {frmDevParams};
 
 end.

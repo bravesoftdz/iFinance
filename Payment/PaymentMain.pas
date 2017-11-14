@@ -182,9 +182,6 @@ begin
 
         if ModalResult = mrOK then
         begin
-          // retrieve the payment schedule.. only when posting payment
-          if pmt.IsNew then pmt.Details[pmt.DetailCount-1].Loan.GetPaymentDue(pmt.Date);
-
           AddRow(pmt.Details[pmt.DetailCount-1]);
           SetTotalAmount;
         end;

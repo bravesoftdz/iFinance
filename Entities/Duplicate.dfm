@@ -11,7 +11,7 @@ inherited frmDuplicate: TfrmDuplicate
     Color = 2960895
     GradientColorStart = 2960895
     GradientColorStop = 4737279
-    ExplicitWidth = 312
+    ExplicitWidth = 346
     inherited imgClose: TImage
       Left = 325
       ExplicitLeft = 291
@@ -26,8 +26,8 @@ inherited frmDuplicate: TfrmDuplicate
     Width = 346
     Height = 280
     Color = 10921727
-    ExplicitWidth = 312
-    ExplicitHeight = 177
+    ExplicitWidth = 346
+    ExplicitHeight = 280
     object RzLabel2: TRzLabel
       Left = 48
       Top = 16
@@ -107,8 +107,6 @@ inherited frmDuplicate: TfrmDuplicate
       BorderWidth = 1
       Color = 14273211
       TabOrder = 0
-      ExplicitWidth = 296
-      ExplicitHeight = 115
       object grDuplicate: TRzDBGrid
         Left = 1
         Top = 1
@@ -159,7 +157,6 @@ inherited frmDuplicate: TfrmDuplicate
       Color = 14273211
       TabOrder = 1
       Visible = False
-      ExplicitTop = 145
       object btnContinue: TRzShapeButton
         Left = 0
         Top = 0

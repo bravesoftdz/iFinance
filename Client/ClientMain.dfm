@@ -40,13 +40,13 @@ inherited frmClientMain: TfrmClientMain
     Width = 860
     Height = 552
     Hint = ''
-    ActivePage = tsBankAcctInfo
+    ActivePage = tsClientInfo
     Anchors = [akLeft, akTop, akRight, akBottom]
     BoldCurrentTab = True
     FlatColor = 6572079
     ShowFullFrame = False
     ShowShadow = False
-    TabIndex = 5
+    TabIndex = 0
     TabOrder = 1
     TabOrientation = toBottom
     TabStop = False
@@ -55,8 +55,6 @@ inherited frmClientMain: TfrmClientMain
     object tsClientInfo: TRzTabSheet
       Color = 14273211
       Caption = 'Client information'
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object JvLabel1: TJvLabel
         Left = 35
         Top = 40
@@ -1977,6 +1975,8 @@ inherited frmClientMain: TfrmClientMain
     object tsGroups: TRzTabSheet
       Color = 14273211
       Caption = 'Groups'
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       DesignSize = (
         860
         529)

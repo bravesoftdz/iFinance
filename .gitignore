@@ -57,3 +57,5 @@ _dcp/Client.lib
 *.bmp
 *.identcache
 *.7z
+*.zip
+*.ini

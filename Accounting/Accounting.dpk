@@ -40,7 +40,8 @@ requires
   JvStdCtrls;
 
 contains
-  Ledger in 'Ledger.pas',
-  AccountingData in 'AccountingData.pas' {dmAccounting: TDataModule};
+  Posting in 'Posting.pas',
+  AccountingData in 'AccountingData.pas' {dmAccounting: TDataModule},
+  Ledger in 'Ledger.pas';
 
 end.

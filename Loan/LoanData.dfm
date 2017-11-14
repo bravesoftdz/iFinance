@@ -608,5 +608,10 @@ object dmLoan: TdmLoan
       Precision = 10
       Size = 2
     end
+    object dstLedgerevent_object: TStringField
+      FieldName = 'event_object'
+      ReadOnly = True
+      Size = 3
+    end
   end
 end
