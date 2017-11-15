@@ -530,9 +530,7 @@ begin
         if debitLedger.Debit <= balance then
         begin
           creditLedger.Credit := debitLedger.Debit;
-
-          if debitLedger.Debit = balance then
-            debitLedger.NewStatus := TRttiEnumerationType.GetName<TLedgerRecordStatus>(TLedgerRecordStatus.CLS);
+          debitLedger.NewStatus := TRttiEnumerationType.GetName<TLedgerRecordStatus>(TLedgerRecordStatus.CLS);
         end
         else creditLedger.Credit := balance;
 
@@ -546,7 +544,7 @@ begin
 
         FLoan.AddLedger(creditLedger);
 
-        balance := creditLedger.Credit - debitLedger.Debit;
+        balance := balance - creditLedger.Credit;
       end;
 
       Inc(i);
@@ -618,6 +616,7 @@ var
   m,d,y,mm,dd,yy: word;
   pending: boolean;
   i: integer;
+  newInterest, balance: single;
 begin
   i := 1;
 
@@ -626,6 +625,8 @@ begin
     begin
       // filter the interests
       Filter := 'loan_id = ' + QuotedStr(FLoan.Id);
+
+      balance := FLoan.Balance - FPrincipal;
 
       while not Eof do
       begin
@@ -643,6 +644,14 @@ begin
           if (y = yy) and (m = mm) then
           begin
             Edit;
+
+            if HasPrincipal then
+            begin
+              newInterest := balance * FLoan.InterestInDecimal;
+              FieldByName('interest_amt').AsCurrency := newInterest;
+              balance := balance - (FLoan.ReleaseAmount / FLoan.ApprovedTerm);
+            end;
+
             FieldByName('interest_date').AsDateTime := newDate;
             Post;
 

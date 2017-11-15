@@ -381,7 +381,7 @@ var
   detail: TPaymentDetail;
   i, iCnt, l, lCnt: integer;
   LLedger: TLedger;
-  postingId: string;
+  postingId, refPostingId, status: string;
 begin
 
   dmAccounting := TdmAccounting.Create(nil);
@@ -419,11 +419,18 @@ begin
             begin
               // set the refposting id
               // this is only called for unschedule posting
-              if LLedger.UnreferencedPayment then LLedger.RefPostingId := postingId;
+              if LLedger.UnreferencedPayment then LLedger.RefPostingId := refPostingId;
+
+              if LLedger.StatusChanged then status := LLedger.NewStatus
+              else status := LLedger.CurrentStatus;
 
               postingId := PostEntry(LLedger.RefPostingId,LLedger.Debit,LLedger.Credit,
-                  LLedger.EventObject,LLedger.PrimaryKey,LLedger.CurrentStatus,
+                  LLedger.EventObject,LLedger.PrimaryKey,status,
                   ifn.AppDate,LLedger.ValueDate,LLedger.CaseType);
+
+              if (LLedger.EventObject = TRttiEnumerationType.GetName<TEventObjects>(TEventObjects.ITR))
+                and (LLedger.CaseType = TRttiEnumerationType.GetName<TCaseTypes>(TCaseTypes.ITS))then
+                refPostingId := postingId;
             end;
           end;
 

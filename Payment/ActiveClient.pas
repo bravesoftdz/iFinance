@@ -25,6 +25,8 @@ type
     FInterestComputed: single;
     FLedger: array of TLedger;
     FPayments: integer;
+    FReleaseAmount: single;
+    FApprovedTerm: integer;
 
     function GetIsDiminishing: boolean;
     function GetIsFixed: boolean;
@@ -70,6 +72,8 @@ type
     property HasInterestComputed: boolean read GetHasInterestComputed;
     property HasInterestAdditional: boolean read GetHasInterstAdditional;
     property InterestTotalDue: single read GetInterestTotalDue;
+    property ReleaseAmount: single read FReleaseAmount write FReleaseAmount;
+    property ApprovedTerm: integer read FApprovedTerm write FApprovedTerm;
 
     procedure GetPaymentDue(const paymentDate: TDateTime);
     procedure RetrieveLedger;
@@ -145,6 +149,8 @@ begin
         loan.LastTransactionDate := FieldByName('last_transaction_date').AsDateTime;
         loan.InterestInDecimal := FieldByName('int_rate').AsFloat / 100;
         loan.ApplyExemption := FieldByName('apply_exemption').AsBoolean;
+        loan.ApprovedTerm := FieldByName('terms').AsInteger;
+        loan.ReleaseAmount := FieldByName('rel_amt').AsCurrency;
 
         AddLoan(loan);
 
