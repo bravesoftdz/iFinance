@@ -260,20 +260,19 @@ begin
       debitLedger.CaseType := TRttiEnumerationType.GetName<TCaseTypes>(TCaseTypes.ITS);
       debitLedger.ValueDate := paymentDate;
       debitLedger.CurrentStatus := TRttiEnumerationType.GetName<TLedgerRecordStatus>(TLedgerRecordStatus.OPN);
-      debitLedger.NewStatus := TRttiEnumerationType.GetName<TLedgerRecordStatus>(TLedgerRecordStatus.OPN);
       debitLedger.Debit := 0;
 
       if paymentDate < NextPayment then  // before schedule
       begin
         days := DaysBetween(paymentDate,FLastTransactionDate);
         computed := (FBalance * FInterestInDecimal * days) / ifn.DaysInAMonth;
-        debitLedger.Credit := computed;
+        debitLedger.Debit := computed;
       end
       else
       begin  // after schedule
         days := DaysBetween(NextPayment,paymentDate);
         additional := (FBalance * FInterestInDecimal * days) / ifn.DaysInAMonth;
-        debitLedger.Credit := additional;
+        debitLedger.Debit := additional;
       end;
 
       AddLedger(debitLedger);
@@ -384,7 +383,6 @@ begin
         LLedger.Debit := FieldByName('payment_due').AsSingle;
         LLedger.CaseType := FieldByName('case_type').AsString;
         LLedger.CurrentStatus := FieldByName('status_code').Asstring;
-        LLedger.NewStatus := FieldbyName('status_code').AsString;
 
         AddLedger(LLedger);
 

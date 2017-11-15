@@ -19,6 +19,7 @@ type
     FInterest: real;
     FPenalty: real;
     FPaymentType: TPaymentType;
+    FIsFullPayment: boolean;
 
     function GetTotalAmount: real;
     function GetHasInterest: boolean;
@@ -28,6 +29,7 @@ type
       const ADate: TDateTime; const source, status: string): string;
 
     procedure SaveInterest;
+    procedure UpdateInterestSchedule;
 
   public
     property Loan: TLoan read FLoan write FLoan;
@@ -43,6 +45,7 @@ type
     property PaymentType: TPaymentType read FPaymentType write FPaymentType;
     property PaymentId: string read FPaymentId write FPaymentId;
     property PaymentDate: TDateTime read FPaymentDate write FPaymentDate;
+    property IsFullPayment: boolean read FIsFullPayment write FIsFullPayment;
 
     function PaymentTypeToString(const payType: TPaymentType): string;
     function IsScheduled(const paymentDate: TDateTime): boolean;
@@ -177,29 +180,44 @@ begin
     try
       with dmPayment do
       begin
+        // retrieve interest and loan records
+        // this is for updating purposes
+        dstInterests.Parameters.ParamByName('@entity_id').Value := FClient.Id;
+        dstInterests.Open;
+
+        dstLoans.Parameters.ParamByName('@entity_id').Value := FClient.Id;
+        dstLoans.Open;
+
         dstPayment.Post;
 
         SaveDetails;
+        UpdateLoanRecord;
 
         LPosting.Post(self);
 
         dstPayment.UpdateBatch;
         dstPaymentDetail.UpdateBatch;
-        dstInterest.UpdateBatch;
+        dstInterests.UpdateBatch;
+        dstLoans.UpdateBatch;
 
-        UpdateLoanRecord;
       end;
     except
       on E: Exception do begin
         dmPayment.dstPayment.CancelBatch;
         dmPayment.dstPaymentDetail.CancelBatch;
-        dmPayment.dstInterest.CancelBatch;
+        dmPayment.dstInterests.CancelBatch;
+        dmPayment.dstLoans.CancelBatch;
 
         ShowErrorBox('An error has occured during payment posting. Entry has been cancelled.');
       end;
     end;
   finally
     LPosting.Free;
+
+    // dmPayment.dstPayment.Close;
+    // dmPayment.dstPaymentDetail.Close;
+    dmPayment.dstInterests.Close;
+    dmPayment.dstLoans.Close;
   end;
 end;
 
@@ -263,24 +281,32 @@ end;
 procedure TPayment.UpdateLoanRecord;
 var
   detail: TPaymentDetail;
-  sql: string;
   balance: real;
+  transDate: TDateTime;
 begin
   // update the principal balance (field loan_balance)
   // update the last transaction date
+  // update the loan status for full payment
 
   try
     for detail in FDetails do
     begin
-      balance := detail.Loan.Balance - detail.Principal;
-      
-      sql := ' UPDATE loan ' +
-             '    SET balance = ' + FloatToStr(balance) + ',' +
-             '        last_trans_date = ' + QuotedStr(FormatDateTime('mm/dd/yyyy',FDate)) +
-             '  WHERE loan_id = ' + QuotedStr(detail.Loan.Id);
+      with dmPayment.dstLoans do
+      begin
+        if Locate('loan_id',detail.Loan.Id,[]) then
+        begin
+          balance := detail.Loan.Balance - detail.Principal;
+
+          Edit;
+          FieldByName('balance').AsCurrency := balance;
+          FieldByName('last_trans_date').AsDateTime := FDate;
+
+          if detail.IsFullPayment then FieldByName('status_id').AsString := 'X';
+
+          Post;
+        end;
+      end;
     end;
-    
-    ExecuteSQL(sql);
   except
     on E: Exception do ShowErrorBox(E.Message);
   end;
@@ -469,8 +495,15 @@ begin
           caseType :=  TRttiEnumerationType.GetName<TCaseTypes>(TCaseTypes.ITS);
           payment := FInterest;
 
-          // save unposted interest
-          SaveInterest;
+
+          if (FLoan.IsDiminishing) and (not FLoan.UseFactorRate) then
+            if (FLoan.HasInterestComputed) or (FLoan.HasInterestAdditional) then
+            begin
+              // update interest schedule
+              UpdateInterestSchedule;
+              // save unposted interest
+              SaveInterest;
+            end;
         end;
 
       PEN:
@@ -489,8 +522,7 @@ begin
     begin
       debitLedger := FLoan.Ledger[i];
 
-      if (debitLedger.ValueDate <= FPaymentDate) and
-        (debitLedger.CaseType = caseType) then
+      if debitLedger.CaseType = caseType then
       begin
         creditLedger := TLedger.Create;
 
@@ -510,12 +542,11 @@ begin
         creditLedger.CaseType := caseType;
         creditLedger.ValueDate := FPaymentDate;
         creditLedger.CurrentStatus := TRttiEnumerationType.GetName<TLedgerRecordStatus>(TLedgerRecordStatus.OPN);
-        creditLedger.NewStatus := TRttiEnumerationType.GetName<TLedgerRecordStatus>(TLedgerRecordStatus.OPN);
         creditLedger.Debit := 0;
 
         FLoan.AddLedger(creditLedger);
 
-        balance := debitLedger.Debit - creditLedger.Credit;
+        balance := creditLedger.Credit - debitLedger.Debit;
       end;
 
       Inc(i);
@@ -531,7 +562,7 @@ var
 begin
   interestId := GetInterestId;
 
-  with dmPayment.dstInterest do
+  with dmPayment.dstInterests do
   begin
     Append;
     FieldByName('interest_id').AsString := interestId;
@@ -559,6 +590,8 @@ begin
 
     for i := 0 to cnt do
     begin
+      LLedger := FLoan.Ledger[i];
+
       if (LLedger.EventObject = TRttiEnumerationType.GetName<TEventObjects>(TEventObjects.ITR))
          and (LLedger.CaseType = TRttiEnumerationType.GetName<TCaseTypes>(TCaseTypes.ITS))then
       begin
@@ -577,7 +610,52 @@ begin
     end;
   finally
   end;
+end;
 
+procedure TPaymentDetail.UpdateInterestSchedule;
+var
+  newDate, interestDate: TDateTime;
+  m,d,y,mm,dd,yy: word;
+  pending: boolean;
+  i: integer;
+begin
+  i := 1;
+
+  try
+    with dmPayment.dstInterests do
+    begin
+      // filter the interests
+      Filter := 'loan_id = ' + QuotedStr(FLoan.Id);
+
+      while not Eof do
+      begin
+        pending := FieldByName('interest_status_id').AsString =
+          TRttiEnumerationType.GetName<TInterestStatus>(TInterestStatus.P);
+
+        if pending then
+        begin
+          newDate := IncMonth(FPaymentDate,i);
+          interestDate := FieldByName('interest_date').AsDateTime;
+
+          DecodeDate(newDate,y,m,d);
+          DecodeDate(interestDate,yy,mm,dd);
+
+          if (y = yy) and (m = mm) then
+          begin
+            Edit;
+            FieldByName('interest_date').AsDateTime := newDate;
+            Post;
+
+            Inc(i);
+          end;
+        end;
+
+        Next;
+      end;
+    end;
+  finally
+
+  end;
 end;
 
 end.

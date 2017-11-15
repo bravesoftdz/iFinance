@@ -7,10 +7,10 @@ uses
 
 type
   TdmAccounting = class(TDataModule)
-    dstLedger: TADODataSet;
     dstSchedule: TADODataSet;
     dstScheduledInterest: TADODataSet;
     dstInterest: TADODataSet;
+    dstLedger: TADODataSet;
   private
     { Private declarations }
   public

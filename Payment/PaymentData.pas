@@ -21,7 +21,8 @@ type
     dscAcctInfo: TDataSource;
     dscSchedule: TDataSource;
     dstSchedule: TADODataSet;
-    dstInterest: TADODataSet;
+    dstInterests: TADODataSet;
+    dstLoans: TADODataSet;
     procedure dstPaymentBeforeOpen(DataSet: TDataSet);
     procedure dstPaymentNewRecord(DataSet: TDataSet);
     procedure dstActiveLoansBeforeOpen(DataSet: TDataSet);

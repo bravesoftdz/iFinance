@@ -3,7 +3,8 @@ unit LoanListIntf;
 interface
 
 type
-  TLoanFilterType = (lftAll,lftPending,lftAssessed,lftApproved,lftActive,lftCancelled,lftRejected);
+  TLoanFilterType = (lftAll,lftPending,lftAssessed,lftApproved,lftActive,
+    lftCancelled,lftRejected,lftClosed);
 
 type
   ILoanListFilter = interface(IInterface)

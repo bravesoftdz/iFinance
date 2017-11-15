@@ -2,8 +2,8 @@ object dmPayment: TdmPayment
   OldCreateOrder = False
   OnCreate = DataModuleCreate
   OnDestroy = DataModuleDestroy
-  Height = 304
-  Width = 396
+  Height = 302
+  Width = 622
   object dstPayment: TADODataSet
     Tag = 1
     Connection = dmApplication.acMain
@@ -98,12 +98,12 @@ object dmPayment: TdmPayment
         Size = 1
         Value = ''
       end>
-    Left = 216
+    Left = 256
     Top = 16
   end
   object dscActiveLoans: TDataSource
     DataSet = dstActiveLoans
-    Left = 284
+    Left = 324
     Top = 16
   end
   object dstPaymentMethod: TADODataSet
@@ -113,12 +113,12 @@ object dmPayment: TdmPayment
     CommandText = 'sp_dd_get_payment_methods;1'
     CommandType = cmdStoredProc
     Parameters = <>
-    Left = 216
+    Left = 256
     Top = 80
   end
   object dscPaymentMethod: TDataSource
     DataSet = dstPaymentMethod
-    Left = 284
+    Left = 324
     Top = 80
   end
   object dstWithdrawal: TADODataSet
@@ -169,7 +169,7 @@ object dmPayment: TdmPayment
   end
   object dscSchedule: TDataSource
     DataSet = dstSchedule
-    Left = 284
+    Left = 324
     Top = 144
   end
   object dstSchedule: TADODataSet
@@ -193,13 +193,14 @@ object dmPayment: TdmPayment
         Size = 13
         Value = ''
       end>
-    Left = 216
+    Left = 256
     Top = 144
   end
-  object dstInterest: TADODataSet
+  object dstInterests: TADODataSet
     Connection = dmApplication.acMain
+    Filtered = True
     LockType = ltBatchOptimistic
-    CommandText = 'sp_ln_get_interests;1'
+    CommandText = 'sp_pmt_get_interests;1'
     CommandType = cmdStoredProc
     Parameters = <
       item
@@ -207,16 +208,37 @@ object dmPayment: TdmPayment
         DataType = ftInteger
         Direction = pdReturnValue
         Precision = 10
-        Value = Null
       end
       item
-        Name = '@loan_id'
+        Name = '@entity_id'
         Attributes = [paNullable]
         DataType = ftString
-        Size = 15
-        Value = Null
+        Size = 10
+        Value = ''
       end>
-    Left = 216
-    Top = 208
+    Left = 456
+    Top = 24
+  end
+  object dstLoans: TADODataSet
+    Connection = dmApplication.acMain
+    LockType = ltBatchOptimistic
+    CommandText = 'sp_pmt_get_loans;1'
+    CommandType = cmdStoredProc
+    Parameters = <
+      item
+        Name = '@RETURN_VALUE'
+        DataType = ftInteger
+        Direction = pdReturnValue
+        Precision = 10
+      end
+      item
+        Name = '@entity_id'
+        Attributes = [paNullable]
+        DataType = ftString
+        Size = 10
+        Value = ''
+      end>
+    Left = 528
+    Top = 24
   end
 end

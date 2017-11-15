@@ -149,7 +149,7 @@ inherited frmLoanMain: TfrmLoanMain
         Tag = -1
         Left = 22
         Top = 471
-        Width = 89
+        Width = 24
         Height = 14
         Anchors = [akTop, akRight]
         AutoSize = True

@@ -79,6 +79,7 @@ inherited frmDevParams: TfrmDevParams
             Width = 121
             Height = 22
             EditType = etDate
+            Format = 'mm/dd/yyyy'
             FlatButtons = True
             FrameColor = 8675134
             FrameVisible = True

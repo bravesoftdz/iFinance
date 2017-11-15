@@ -1,27 +1,11 @@
 object dmAccounting: TdmAccounting
   OldCreateOrder = False
   Height = 187
-  Width = 378
-  object dstLedger: TADODataSet
-    Connection = dmApplication.acMain
-    LockType = ltBatchOptimistic
-    CommandText = 'sp_acc_post_ledger;1'
-    CommandType = cmdStoredProc
-    Parameters = <
-      item
-        Name = '@RETURN_VALUE'
-        DataType = ftInteger
-        Direction = pdReturnValue
-        Precision = 10
-        Value = Null
-      end>
-    Left = 64
-    Top = 24
-  end
+  Width = 282
   object dstSchedule: TADODataSet
     Connection = dmApplication.acMain
-    Filtered = True
-    LockType = ltReadOnly
+    CursorType = ctStatic
+    LockType = ltBatchOptimistic
     CommandText = 'sp_ln_get_payment_schedule;1'
     CommandType = cmdStoredProc
     Parameters = <
@@ -30,17 +14,17 @@ object dmAccounting: TdmAccounting
         DataType = ftInteger
         Direction = pdReturnValue
         Precision = 10
-        Value = Null
+        Value = 0
       end
       item
         Name = '@entity_id'
         Attributes = [paNullable]
         DataType = ftString
         Size = 10
-        Value = Null
+        Value = ''
       end>
-    Left = 160
-    Top = 24
+    Left = 176
+    Top = 96
   end
   object dstScheduledInterest: TADODataSet
     Connection = dmApplication.acMain
@@ -84,7 +68,22 @@ object dmAccounting: TdmAccounting
         Size = 15
         Value = Null
       end>
-    Left = 256
-    Top = 27
+    Left = 176
+    Top = 23
+  end
+  object dstLedger: TADODataSet
+    Connection = dmApplication.acMain
+    LockType = ltBatchOptimistic
+    CommandText = 'sp_acc_post_ledger;1'
+    CommandType = cmdStoredProc
+    Parameters = <
+      item
+        Name = '@RETURN_VALUE'
+        DataType = ftInteger
+        Direction = pdReturnValue
+        Precision = 10
+      end>
+    Left = 56
+    Top = 24
   end
 end

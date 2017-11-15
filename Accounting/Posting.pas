@@ -39,7 +39,7 @@ implementation
 { TPosting }
 
 uses
-  AccountingData, IFinanceGlobal, IFinanceDialogs, AppConstants, DBUtil;
+  AccountingData, IFinanceGlobal, IFinanceDialogs, AppConstants, DBUtil, Ledger;
 
 function TPosting.PostEntry(const refPostingId: string;
       const debit, credit: real; const eventObject, primaryKey, status: string;
@@ -66,7 +66,7 @@ begin
     FieldByName('pk_event_object').AsString := primaryKey;
     FieldByName('event_object').AsString := eventObject;
     FieldByName('status_code').AsString := status;
-    FieldByName('post_date').AsDateTime := ifn.AppDate;
+    FieldByName('post_date').AsDateTime := postDate;
     FieldByName('value_date').AsDateTime := valueDate;
 
     if caseType <> '' then FieldByName('case_type').AsString := caseType;
@@ -325,109 +325,7 @@ var
 begin
   detail := APayment.Details[detailIndex];
 
-  debit := 0;
-  refPostingId := '';
-  eventObject := TRttiEnumerationType.GetName<TEventObjects>(TEventObjects.PAY);
-  primaryKey := APayment.PaymentId;
-  valuedate := APayment.Date;
-  postDate := ifn.AppDate;
 
-  // loop thru each payment type
-  for paymentType := TPaymentTypes.PRN to TPaymentTypes.PEN do
-  begin
-
-    // get the amount and casetype to be posted
-    case paymentType of
-      PRN:
-        begin
-          caseType :=  TRttiEnumerationType.GetName<TCaseTypes>(TCaseTypes.PRC);
-          paymentAmount := detail.Principal;
-        end;
-
-      INT:
-        begin
-          caseType :=  TRttiEnumerationType.GetName<TCaseTypes>(TCaseTypes.ITS);
-          paymentAmount := detail.Interest;
-        end;
-
-      PEN:
-        begin
-          caseType :=  TRttiEnumerationType.GetName<TCaseTypes>(TCaseTypes.PNT);
-          paymentAmount := detail.Penalty;
-        end;
-
-    end;
-
-    // post the payment
-    if caseType = TRttiEnumerationType.GetName<TCaseTypes>(TCaseTypes.ITS) then
-    begin
-      refPostingId := '';
-      eventObject := TRttiEnumerationType.GetName<TEventObjects>(TEventObjects.ITR);
-
-      amountDue := detail.Loan.InterestDue;
-
-      // post the interest due as debit in the ledger for unscheduled posting
-      if (APayment.Details[detailIndex].IsAdvanced(APayment.Date))
-        or (APayment.Details[detailIndex].IsLate(APayment.Date)) then
-      begin
-        //primaryKey := PostInterest(amountDue,detail.Loan.Id,APayment.Date,
-        //  TRttiEnumerationType.GetName<TInterestSource>(TInterestSource.PYT));
-
-        postingId := PostEntry(refPostingId,amountDue,0,eventObject,primaryKey,status,postDate,valueDate,caseType);
-      end;
-
-      if amountDue = paymentAmount then
-        status := TRttiEnumerationType.GetName<TLedgerRecordStatus>(TLedgerRecordStatus.CLS)
-      else
-        status := TRttiEnumerationType.GetName<TLedgerRecordStatus>(TLedgerRecordStatus.OPN);
-
-      refPostingId := postingId;
-      eventObject :=  TRttiEnumerationType.GetName<TEventObjects>(TEventObjects.PAY);
-
-      // post the payment
-      PostEntry(refPostingId,0,paymentAmount,eventObject,APayment.PaymentId,
-        TRttiEnumerationType.GetName<TLedgerRecordStatus>(TLedgerRecordStatus.OPN),
-        postDate,valueDate,caseType);
-    end
-    else if caseType = TRttiEnumerationType.GetName<TCaseTypes>(TCaseTypes.PRC) then
-    begin
-      status :=  TRttiEnumerationType.GetName<TLedgerRecordStatus>(TLedgerRecordStatus.OPN);
-
-      with dmAccounting.dstSchedule do
-      begin
-        // filter the dataset depending on case type
-        Filter :=
-          '(pk_event_object = ' + QuotedStr(detail.Loan.Id) + ') AND ' +
-          '(case_type = ' + QuotedStr(caseType) + ')';
-
-        // loop thru the amount until balance is 0
-        while paymentAmount > 0 do
-        begin
-          // get the debit amount
-          amountDue := FieldByName('payment_due').AsFloat;
-
-          // set the credit amount
-          if amountDue >= paymentAmount then credit := paymentAmount
-          else if amountDue < paymentAmount then credit := amountDue;
-
-          // get the reference posting ID of the debit
-          refPostingId := FieldByName('posting_id').AsString;
-
-          PostEntry(refPostingId, debit, credit, eventObject, primaryKey, status, postDate, valueDate, caseType);
-
-          // if credit is equal to payment due close the debit
-          // add to the IDs for closing
-          if credit = amountDue then AddIdToClose(refPostingId);
-
-          // get remainder of payment
-          paymentAmount := paymentAmount - credit;
-
-          // move to the next payment schedule
-          Next;
-        end; // end while
-      end; // end with
-    end;
-  end;  // end for
 end;
 
 procedure TPosting.PostPaymentFixed(const APayment: TPayment; const detailIndex: integer);
@@ -447,82 +345,13 @@ begin
   valuedate := APayment.Date;
   postDate := ifn.AppDate;
 
-  // loop thru each payment type
-  for paymentType := TPaymentTypes.PRN to TPaymentTypes.PEN do
-  begin
 
-    // get the amount and casetype to be posted
-    case paymentType of
-      PRN:
-        begin
-          caseType :=  TRttiEnumerationType.GetName<TCaseTypes>(TCaseTypes.PRC);
-          paymentAmount := detail.Principal;
-          amountDue := detail.Loan.PrincipalDue;
-        end;
-
-      INT:
-        begin
-          caseType :=  TRttiEnumerationType.GetName<TCaseTypes>(TCaseTypes.ITS);
-          paymentAmount := detail.Interest;
-          amountDue := detail.Loan.InterestDue;
-        end;
-
-      PEN:
-        begin
-          caseType :=  TRttiEnumerationType.GetName<TCaseTypes>(TCaseTypes.PNT);
-          paymentAmount := detail.Penalty;
-        end;
-
-    end;
-
-    with dmAccounting.dstSchedule do
-    begin
-      // filter the dataset depending on case type
-      Filter :=
-        '(pk_event_object = ' + QuotedStr(detail.Loan.Id) + ') AND ' +
-        '(case_type = ' + QuotedStr(caseType) + ')';
-
-      // loop thru the amount until balance is 0
-      while paymentAmount > 0 do
-      begin
-        // get the debit amount
-        // amountDue := detail.Loan.in //FieldByName('payment_due').AsFloat;
-
-        // set the credit amount
-        if amountDue >= paymentAmount then credit := paymentAmount
-        else if amountDue < paymentAmount then credit := amountDue;
-
-        // get the reference posting ID of the debit
-        refPostingId := FieldByName('posting_id').AsString;
-
-        PostEntry(refPostingId, debit, credit, eventObject, primaryKey, status, postDate, valueDate, caseType);
-
-        // if credit is equal to payment due close the debit
-        // add to the IDs for closing
-        if credit = amountDue then AddIdToClose(refPostingId);
-
-        // get remainder of payment
-        paymentAmount := paymentAmount - credit;
-
-        // move to the next payment schedule
-        Next;
-      end; // end while
-    end; // end with
-  end;  // end for
 end;
 
 procedure TPosting.Post(const ALoan: TLoan);
 begin
   if ALoan.LoanClass.IsDiminishing then PostLoanDiminishing(ALoan)
   else if ALoan.LoanClass.IsFixed then PostLoanFixed(ALoan);
-end;
-
-procedure TPosting.CloseLedgerRecord(const postingId: string);
-var
-  sql: string;
-begin
-  sql := 'UPDATE ledger SET status_code = ''CLS'' WHERE posting_id = ' + QuotedStr(postingId);
-  ExecuteSQL(sql);
 end;
 
 constructor TPosting.Create;
@@ -550,39 +379,64 @@ end;
 procedure TPosting.Post(const APayment: TPayment);
 var
   detail: TPaymentDetail;
-  i, cnt: integer;
+  i, iCnt, l, lCnt: integer;
+  LLedger: TLedger;
+  postingId: string;
 begin
 
   dmAccounting := TdmAccounting.Create(nil);
   try
     try
-      // open the schedule
-      dmAccounting.dstSchedule.Parameters.ParamByName('@entity_id').Value := APayment.Client.Id;
-      dmAccounting.dstSchedule.Open;
-
-      dmAccounting.dstLedger.Open;
-
-      cnt := APayment.DetailCount - 1;
-
-      for i := 0 to cnt do
+      with dmAccounting.dstSchedule do
       begin
-        detail := APayment.Details[i];
-        if detail.Loan.IsDiminishing then
+        dmAccounting.dstLedger.Open;
+
+        dmAccounting.dstSchedule.Parameters.ParamByName('@entity_id').Value := APayment.Client.Id;
+        dmAccounting.dstSchedule.Open;
+
+        iCnt := APayment.DetailCount - 1;
+
+        for i := 0 to iCnt do
         begin
-          if not detail.Loan.UseFactorRate then PostPaymentDiminishing(APayment,i)
-          else PostPaymentFixed(APayment,i);
-        end
-        else if detail.Loan.IsFixed then PostPaymentFixed(APayment,i);
+          detail := APayment.Details[i];
+
+          lCnt := detail.Loan.LedgerCount - 1;
+
+          for l := 0 to lCnt do
+          begin
+            LLedger := detail.Loan.Ledger[l];
+            if LLedger.Posted then
+            begin
+              if LLedger.StatusChanged then
+                if Locate('posting_id',LLedger.PostingId,[]) then
+                begin
+                  Edit;
+                  FieldByName('status_code').AsString := LLedger.NewStatus;
+                  Post;
+                end;
+            end
+            else
+            begin
+              // set the refposting id
+              // this is only called for unschedule posting
+              if LLedger.UnreferencedPayment then LLedger.RefPostingId := postingId;
+
+              postingId := PostEntry(LLedger.RefPostingId,LLedger.Debit,LLedger.Credit,
+                  LLedger.EventObject,LLedger.PrimaryKey,LLedger.CurrentStatus,
+                  ifn.AppDate,LLedger.ValueDate,LLedger.CaseType);
+            end;
+          end;
+
+        end;
+
+        UpdateBatch;
+        dmAccounting.dstLedger.UpdateBatch;
       end;
 
-      if not detail.Loan.UseFactorRate then dmAccounting.dstInterest.UpdateBatch;
-
-      dmAccounting.dstLedger.UpdateBatch;
-
-      CloseIds;
     except
       on E: Exception do
       begin
+        dmAccounting.dstSchedule.CancelBatch;
         dmAccounting.dstLedger.CancelBatch;
         ShowErrorBox(E.Message);
       end;
@@ -590,7 +444,6 @@ begin
   finally
     dmAccounting.dstSchedule.Close;
     dmAccounting.dstLedger.Close;
-    dmAccounting.dstInterest.Close;
     dmAccounting.Free;
   end;
 end;

@@ -122,57 +122,45 @@
         <DCCReference Include="FireDAC.dcp"/>
         <DCCReference Include="PaymentMain.pas">
             <Form>frmPaymentMain</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="PaymentData.pas">
             <Form>dmPayment</Form>
-            <FormType>dfm</FormType>
             <DesignClass>TDataModule</DesignClass>
         </DCCReference>
         <DCCReference Include="Payment.pas"/>
         <DCCReference Include="ActiveClientsSearch.pas">
             <Form>frmActiveClientsSearch</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\Base\BaseSearch.pas">
             <Form>frmBaseSearch</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="ActiveClient.pas"/>
         <DCCReference Include="PaymentIntf.pas"/>
         <DCCReference Include="ActiveLoans.pas">
             <Form>frmActiveLoans</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\Base\BasePopup.pas">
             <Form>frmBasePopup</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="PaymentDetail.pas">
             <Form>frmPaymentDetail</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\Base\BasePopupDetail.pas">
             <Form>frmBasePopupDetail</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="PaymentList.pas">
             <Form>frmPaymentList</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\Base\BaseDocked.pas">
             <Form>frmBaseDocked</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="PaymentListParams.pas"/>
         <DCCReference Include="PaymentMethod.pas"/>
         <DCCReference Include="WithdrawalList.pas">
             <Form>frmWithdrawalList</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="WithdrawalDetail.pas">
             <Form>frmWithdrawalDetail</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="Withdrawal.pas"/>
         <BuildConfiguration Include="Release">

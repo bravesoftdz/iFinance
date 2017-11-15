@@ -2,6 +2,9 @@ unit Ledger;
 
 interface
 
+uses
+  System.Rtti;
+
 type
   TLedger = class
   private
@@ -17,6 +20,7 @@ type
     FNewStatus: string;
     function GetPosted: boolean;
     function GetStatusChanged: boolean;
+    function GetUnreferencedPayment: boolean;
   public
     property PostingId: string read FPostingId write FPostingId;
     property RefPostingId: string read FRefPostingId write FRefPostingId;
@@ -30,9 +34,13 @@ type
     property NewStatus: string read FNewStatus write FNewStatus;
     property Posted: boolean read GetPosted;
     property StatusChanged: boolean read GetStatusChanged;
+    property UnreferencedPayment: boolean read GetUnreferencedPayment;
   end;
 
 implementation
+
+uses
+  AppConstants;
 
 { TLedger }
 
@@ -43,7 +51,13 @@ end;
 
 function TLedger.GetStatusChanged: boolean;
 begin
-  Result := FCurrentStatus <> FNewStatus;
+  Result := FNewStatus <> '';
+end;
+
+function TLedger.GetUnreferencedPayment: boolean;
+begin
+  Result := (FEventObject = TRttiEnumerationType.GetName<TEventObjects>(TEventObjects.PAY))
+    and (FRefPostingId = '');
 end;
 
 end.
