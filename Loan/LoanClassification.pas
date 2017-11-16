@@ -13,10 +13,10 @@ type
     FClassificationId: integer;
     FGroup: TGroup;
     FClassificationName: string;
-    FInterest: real;
+    FInterest: currency;
     FTerm: integer;
     FLoanType: TLoanType;
-    FMaxLoan: real;
+    FMaxLoan: currency;
     FComakers: integer;
     FValidFrom: TDate;
     FValidUntil: TDate;
@@ -34,7 +34,7 @@ type
     function GetIsActive: boolean;
     function GetIsActivated: boolean;
     function GetIsDeactivated: boolean;
-    function GetInterestInDecimal: real;
+    function GetInterestInDecimal: currency;
     function GetIsDiminishing: boolean;
     function GetIsFixed: boolean;
 
@@ -53,10 +53,10 @@ type
     property ClassificationId: integer read FClassificationId write FClassificationId;
     property Group: TGroup read FGroup write FGroup;
     property ClassificationName: string read FClassificationName write FClassificationName;
-    property Interest: real read FInterest write FInterest;
+    property Interest: currency read FInterest write FInterest;
     property Term: integer read FTerm write FTerm;
     property LoanType: TLoanType read FLoanType write FLoanType;
-    property MaxLoan: real read FMaxLoan write FMaxLoan;
+    property MaxLoan: currency read FMaxLoan write FMaxLoan;
     property Comakers: integer read FComakers write FComakers;
     property ValidFrom: TDate read FValidFrom write FVAlidFrom;
     property ValidUntil: TDate read FValidUntil write FValidUntil;
@@ -70,14 +70,14 @@ type
     property IsActivated: boolean read GetIsActivated;
     property IsDeactivated: boolean read GetIsDeactivated;
     property Action: TLoanClassAction read FAction write FAction;
-    property InterestInDecimal: real read GetInterestInDecimal;
+    property InterestInDecimal: currency read GetInterestInDecimal;
     property InterestComputationMethod: string write FInterestComputationMethod;
     property IsDiminishing: boolean read GetIsDiminishing;
     property IsFixed: boolean read GetIsFixed;
     property UseFactorRate: boolean read FUseFactorRate write FUseFactorRate;
 
     constructor Create(const classificationId: integer; classificationName: string;
-        const interest: real; const term: integer; const maxLoan: real;
+        const interest: real; const term: integer; const maxLoan: currency;
         const comakers: integer; const validFrom, validUntil: TDate; const age: integer;
         const lt: TLoanType; const gp: TGroup; const intCompMethod: string;
         const ufr: boolean);
@@ -92,7 +92,7 @@ uses
   IFinanceGlobal;
 
 constructor TLoanClassification.Create(const classificationId: integer; classificationName: string;
-        const interest: real; const term: integer; const maxLoan: real;
+        const interest: real; const term: integer; const maxLoan: currency;
         const comakers: integer; const validFrom, validUntil: TDate; const age: integer;
         const lt: TLoanType; const gp: TGroup; const intCompMethod: string;
         const ufr: boolean);
@@ -218,7 +218,7 @@ begin
             ((FValidFrom > ifn.AppDate) and (FValidUntil < ifn.AppDate));
 end;
 
-function TLoanClassification.GetInterestInDecimal: real;
+function TLoanClassification.GetInterestInDecimal: currency;
 begin
   Result := FInterest / 100;
 end;

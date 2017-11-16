@@ -15,17 +15,18 @@ type
     FLoan: TLoan;
     FRemarks: string;
     FCancelled: boolean;
-    FPrincipal: real;
-    FInterest: real;
-    FPenalty: real;
+    FPrincipal: currency;
+    FInterest: currency;
+    FPenalty: currency;
     FPaymentType: TPaymentType;
     FIsFullPayment: boolean;
 
-    function GetTotalAmount: real;
+
+    function GetTotalAmount: currency;
     function GetHasInterest: boolean;
     function GetHasPrincipal: boolean;
     function GetPenalty: boolean;
-    function PostInterest(const interest: real; const loanId: string;
+    function PostInterest(const interest: currency; const loanId: string;
       const ADate: TDateTime; const source, status: string): string;
 
     procedure SaveInterest;
@@ -33,12 +34,12 @@ type
 
   public
     property Loan: TLoan read FLoan write FLoan;
-    property TotalAmount: real read GetTotalAmount;
+    property TotalAmount: currency read GetTotalAmount;
     property Remarks: string read FRemarks write FRemarks;
     property Cancelled: boolean read FCancelled write FCancelled;
-    property Principal: real read FPrincipal write FPrincipal;
-    property Interest: real read FInterest write FInterest;
-    property Penalty: real read FPenalty write FPenalty;
+    property Principal: currency read FPrincipal write FPrincipal;
+    property Interest: currency read FInterest write FInterest;
+    property Penalty: currency read FPenalty write FPenalty;
     property HasPrincipal: boolean read GetHasPrincipal;
     property HasInterest: boolean read GetHasInterest;
     property HasPenalty: boolean read GetPenalty;
@@ -48,9 +49,9 @@ type
     property IsFullPayment: boolean read FIsFullPayment write FIsFullPayment;
 
     function PaymentTypeToString(const payType: TPaymentType): string;
-    function IsScheduled(const paymentDate: TDateTime): boolean;
-    function IsAdvanced(const paymentDate: TDateTime): boolean;
-    function IsLate(const paymentDate: TDateTime): boolean;
+    function IsScheduled: boolean;
+    function IsAdvanced: boolean;
+    function IsLate: boolean;
 
     procedure Post;
   end;
@@ -66,14 +67,14 @@ type
     FReferenceNo: string;
     FLocationCode: string;
     FPaymentMethod: TPaymentMethod;
-    FWithdrawn: real;
+    FWithdrawn: currency;
     FWithdrawalId: string;
 
     procedure SaveDetails;
     procedure UpdateLoanRecord;
 
     function GetDetail(const i: integer): TPaymentDetail;
-    function GetTotalAmount: real;
+    function GetTotalAmount: currency;
     function GetDetailCount: integer;
     function GetIsPosted: boolean;
     function GetIsNew: boolean;
@@ -87,7 +88,7 @@ type
     property ReceiptNo: string read FReceiptNo write FReceiptNo;
     property Date: TDateTime read FDate write FDate;
     property Details[const i: integer]: TPaymentDetail read GetDetail;
-    property TotalAmount: real read GetTotalAmount;
+    property TotalAmount: currency read GetTotalAmount;
     property DetailCount: integer read GetDetailCount;
     property PostDate: TDateTime read FPostDate write FPostDate;
     property ReferenceNo: string read FReferenceNo write FReferenceNo;
@@ -95,7 +96,7 @@ type
     property LocationCode: string read FLocationCode write FLocationCode;
     property IsNew: boolean read GetIsNew;
     property PaymentMethod: TPaymentMethod read FPaymentMethod write FPaymentMethod;
-    property Withdrawn: real read FWithdrawn write FWithdrawn;
+    property Withdrawn: currency read FWithdrawn write FWithdrawn;
     property WithdrawalId: string read FWithdrawalId write FWithdrawalId;
     property IsWithdrawal: boolean read GetIsWithdrawal;
     property IsAdvance: boolean read GetIsAdvance;
@@ -242,9 +243,10 @@ begin
         Append;
         FieldByName('payment_id').AsString := FPaymentId;
         FieldByName('loan_id').AsString := FDetails[i].Loan.Id;
-        FieldByName('payment_amt').AsFloat := FDetails[i].Principal;
+        FieldByName('payment_amt').AsCurrency := FDetails[i].Principal;
         FieldByName('payment_type').AsString := FDetails[i].PaymentTypeToString(ptPrincipal);
         FieldByName('remarks').AsString := FDetails[i].Remarks;
+        FieldByName('balance').AsCurrency := FDetails[i].Loan.Balance - FDetails[i].Principal;
         Post;
       end;
 
@@ -254,9 +256,13 @@ begin
         Append;
         FieldByName('payment_id').AsString := FPaymentId;
         FieldByName('loan_id').AsString := FDetails[i].Loan.Id;
-        FieldByName('payment_amt').AsFloat := FDetails[i].Interest;
+        FieldByName('payment_amt').AsCurrency := FDetails[i].Interest;
         FieldByName('payment_type').AsString := FDetails[i].PaymentTypeToString(ptInterest);
         FieldByName('remarks').AsString := FDetails[i].Remarks;
+
+        if FDetails[i].IsFullPayment then FieldByName('balance').AsCurrency := 0
+        else FieldByName('balance').AsCurrency := FDetails[i].Loan.InterestTotalDue - FDetails[i].Interest;
+
         Post;
       end;
 
@@ -266,7 +272,7 @@ begin
         Append;
         FieldByName('payment_id').AsString := FPaymentId;
         FieldByName('loan_id').AsString := FDetails[i].Loan.Id;
-        FieldByName('payment_amt').AsFloat := FDetails[i].Penalty;
+        FieldByName('payment_amt').AsCurrency := FDetails[i].Penalty;
         FieldByName('payment_type').AsString := FDetails[i].PaymentTypeToString(ptPenalty);
         FieldByName('remarks').AsString := FDetails[i].Remarks;
         Post;
@@ -282,7 +288,6 @@ procedure TPayment.UpdateLoanRecord;
 var
   detail: TPaymentDetail;
   balance: real;
-  transDate: TDateTime;
 begin
   // update the principal balance (field loan_balance)
   // update the last transaction date
@@ -341,7 +346,7 @@ begin
         loan.Id := FieldByName('loan_id').AsString;
         loan.LoanTypeName := FieldByName('loan_type_name').AsString;
         loan.AccountTypeName := FieldByName('acct_type_name').AsString;
-        loan.Balance := FieldByName('balance').AsFloat;
+        loan.Balance := FieldByName('balance').AsCurrency;
 
         detail := TPaymentDetail.Create;
         detail.Loan := loan;
@@ -351,11 +356,11 @@ begin
 
       // set principal, interest, penalty
       if FieldByName('payment_type').AsString = 'PRN' then
-        detail.Principal := FieldByName('payment_amt').AsFloat
+        detail.Principal := FieldByName('payment_amt').AsCurrency
       else if FieldByName('payment_type').AsString = 'INT' then
-        detail.Interest := FieldByName('payment_amt').AsFloat
+        detail.Interest := FieldByName('payment_amt').AsCurrency
       else if FieldByName('payment_type').AsString = 'PEN' then
-        detail.Penalty := FieldByName('payment_amt').AsFloat;
+        detail.Penalty := FieldByName('payment_amt').AsCurrency;
 
       Next;
 
@@ -371,7 +376,7 @@ begin
   Result := FDetails[i];
 end;
 
-function TPayment.GetTotalAmount: real;
+function TPayment.GetTotalAmount: currency;
 var
   pd: TPaymentDetail;
 begin
@@ -440,24 +445,24 @@ begin
   Result := FPenalty > 0;
 end;
 
-function TPaymentDetail.GetTotalAmount: real;
+function TPaymentDetail.GetTotalAmount: currency;
 begin
   Result := FPrincipal + FInterest + FPenalty;
 end;
 
-function TPaymentDetail.IsAdvanced(const paymentDate: TDateTime): boolean;
+function TPaymentDetail.IsAdvanced: boolean;
 begin
-  Result := paymentDate < FLoan.NextPayment;
+  Result := FPaymentDate < FLoan.NextPayment;
 end;
 
-function TPaymentDetail.IsLate(const paymentDate: TDateTime): boolean;
+function TPaymentDetail.IsLate: boolean;
 begin
-  Result := paymentDate > FLoan.NextPayment;
+  Result := FPaymentDate > FLoan.NextPayment;
 end;
 
-function TPaymentDetail.IsScheduled(const paymentDate: TDateTime): boolean;
+function TPaymentDetail.IsScheduled: boolean;
 begin
-  Result := paymentDate = FLoan.NextPayment;
+  Result := FPaymentDate = FLoan.NextPayment;
 end;
 
 function TPaymentDetail.PaymentTypeToString(
@@ -473,7 +478,7 @@ end;
 procedure TPaymentDetail.Post;
 var
   debitLedger, creditLedger: TLedger;
-  balance, debit, credit, payment: single;
+  balance, payment: currency;
   i, cnt: integer;
   caseType: string;
   paymentType: TPaymentTypes;
@@ -498,12 +503,10 @@ begin
 
           if (FLoan.IsDiminishing) and (not FLoan.UseFactorRate) then
             if (FLoan.HasInterestComputed) or (FLoan.HasInterestAdditional) then
-            begin
-              // update interest schedule
-              UpdateInterestSchedule;
-              // save unposted interest
-              SaveInterest;
-            end;
+              UpdateInterestSchedule; // update interest schedule
+
+          // save unposted interest
+          SaveInterest;
         end;
 
       PEN:
@@ -553,7 +556,7 @@ begin
 
 end;
 
-function TPaymentDetail.PostInterest(const interest: real; const loanId: string;
+function TPaymentDetail.PostInterest(const interest: currency; const loanId: string;
   const ADate: TDateTime; const source, status: string): string;
 var
   interestId: string;
@@ -580,7 +583,7 @@ var
   LLedger: TLedger;
   i, cnt: integer;
   interestId, loanId, source, status: string;
-  interest: single;
+  interest: currency;
   interestDate: TDateTime;
 begin
   try
@@ -591,18 +594,21 @@ begin
       LLedger := FLoan.Ledger[i];
 
       if (LLedger.EventObject = TRttiEnumerationType.GetName<TEventObjects>(TEventObjects.ITR))
-         and (LLedger.CaseType = TRttiEnumerationType.GetName<TCaseTypes>(TCaseTypes.ITS))then
+         and (LLedger.CaseType = TRttiEnumerationType.GetName<TCaseTypes>(TCaseTypes.ITS)) then
       begin
         if not LLedger.Posted then
         begin
-          interest := LLedger.Debit;
-          loanId := FLoan.Id;
-          interestDate := LLedger.ValueDate;
-          source := TRttiEnumerationType.GetName<TInterestSource>(TInterestSource.PYT);
-          status := TRttiEnumerationType.GetName<TInterestStatus>(TInterestStatus.T);
+          if (not FIsFullPayment) or ((FIsFullPayment) and (LLedger.FullPayment)) then
+          begin
+            interest := LLedger.Debit;
+            loanId := FLoan.Id;
+            interestDate := LLedger.ValueDate;
+            source := TRttiEnumerationType.GetName<TInterestSource>(TInterestSource.PYT);
+            status := TRttiEnumerationType.GetName<TInterestStatus>(TInterestStatus.T);
 
-          interestId := PostInterest(interest,loanId,interestDate,source,status);
-          LLedger.PrimaryKey := interestId;
+            interestId := PostInterest(interest,loanId,interestDate,source,status);
+            LLedger.PrimaryKey := interestId;
+          end;
         end;
       end;
     end;
@@ -616,14 +622,14 @@ var
   m,d,y,mm,dd,yy: word;
   pending: boolean;
   i: integer;
-  newInterest, balance: single;
+  newInterest, balance: currency;
 begin
-  i := 1;
+  i := 0;
 
   try
     with dmPayment.dstInterests do
     begin
-      // filter the interests
+      // filter the dataset
       Filter := 'loan_id = ' + QuotedStr(FLoan.Id);
 
       balance := FLoan.Balance - FPrincipal;
@@ -641,10 +647,10 @@ begin
           DecodeDate(newDate,y,m,d);
           DecodeDate(interestDate,yy,mm,dd);
 
+          Edit;
+
           if (y = yy) and (m = mm) then
           begin
-            Edit;
-
             if HasPrincipal then
             begin
               newInterest := balance * FLoan.InterestInDecimal;
@@ -653,10 +659,12 @@ begin
             end;
 
             FieldByName('interest_date').AsDateTime := newDate;
-            Post;
+          end
+          else FieldByName('interest_status_id').AsString :=
+            TRttiEnumerationType.GetName<TInterestStatus>(TInterestStatus.D);
 
-            Inc(i);
-          end;
+          Post;
+          Inc(i);
         end;
 
         Next;

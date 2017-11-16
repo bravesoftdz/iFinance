@@ -78,6 +78,7 @@ begin
   if pmt.Client.ActiveLoansCount > pmt.DetailCount then
   begin
     detail := TPaymentDetail.Create;
+    detail.PaymentDate := pmt.Date;
     detail.Loan := TLoan(grLoans.Objects[0,grLoans.Row]);
     pmt.AddDetail(detail);
 

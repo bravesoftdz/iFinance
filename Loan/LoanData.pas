@@ -57,6 +57,8 @@ type
     dstLedgerPrincipal: TBCDField;
     dstLedgerInterest: TBCDField;
     dstLedgerevent_object: TStringField;
+    dstLedgerBalance_Principal: TBCDField;
+    dstLedgerBalance_Interest: TBCDField;
     procedure dstLoanBeforeOpen(DataSet: TDataSet);
     procedure dstLoanClassBeforeOpen(DataSet: TDataSet);
     procedure dstLoanBeforePost(DataSet: TDataSet);
@@ -152,10 +154,10 @@ begin
     begin
       ct := FieldByName('charge_type').AsString;
       cn := FieldByName('charge_name').AsString;
-      cv := FieldByName('charge_value').AsFloat;
+      cv := FieldByName('charge_value').AsCurrency;
       vt := TValueType(FieldByName('value_type').AsInteger);
-      ratio := FieldByName('ratio_amt').AsFloat;
-      max := FieldByName('max_value').AsFloat;
+      ratio := FieldByName('ratio_amt').AsCurrency;
+      max := FieldByName('max_value').AsCurrency;
       maxType := TMaxValueType(FieldByName('max_value_type').AsInteger);
       forNew := FieldByName('for_new').AsInteger = 1;
       forRenewal := FieldByName('for_renew').AsInteger = 1;
@@ -237,6 +239,7 @@ end;
 procedure TdmLoan.dstLedgerBeforeOpen(DataSet: TDataSet);
 begin
   (DataSet as TADODataSet).Parameters.ParamByName('@loan_id').Value := ln.Id;
+  (DataSet as TADODataSet).Parameters.ParamByName('@as_of_date').Value := ifn.AppDate;
 end;
 
 procedure TdmLoan.dstLoanAfterOpen(DataSet: TDataSet);
@@ -254,7 +257,7 @@ begin
   if not DataSet.IsEmpty then
   begin
     ln.AddLoanState(lsApproved);
-    ln.ApprovedAmount := DataSet.FieldByName('amt_appv').AsFloat;
+    ln.ApprovedAmount := DataSet.FieldByName('amt_appv').AsCurrency;
     ln.ApprovedTerm := DataSet.FieldByName('terms').AsInteger;
   end;
 end;
@@ -269,7 +272,7 @@ begin
       ln.AddLoanState(lsApproved);
     end;
 
-    ln.ApprovedAmount := FieldByName('amt_appv').AsFloat;
+    ln.ApprovedAmount := FieldByName('amt_appv').AsCurrency;
     ln.ApprovedTerm := FieldByName('terms').AsInteger;
   end;
 end;
@@ -292,7 +295,7 @@ begin
   begin
     ln.AddLoanState(lsAssessed);
     ln.Assessment := TAssessment.Create(DataSet.FieldByName('rec_code').AsInteger,
-                                DataSet.FieldByName('rec_amt').AsFloat);
+                                DataSet.FieldByName('rec_amt').AsCurrency);
   end;
 end;
 
@@ -307,7 +310,7 @@ begin
     end;
 
     ln.Assessment := TAssessment.Create(DataSet.FieldByName('rec_code').AsInteger,
-                                DataSet.FieldByName('rec_amt').AsFloat);
+                                DataSet.FieldByName('rec_amt').AsCurrency);
   end;
 end;
 
@@ -393,7 +396,7 @@ begin
     begin
       chargeType := FieldByName('charge_type').AsString;
       chargeName := FieldByName('charge_name').AsString;
-      amt := FieldByName('charge_amt').AsFloat;
+      amt := FieldByName('charge_amt').AsCurrency;
 
       ln.AddLoanCharge(TLoanCharge.Create(chargeType,chargeName,amt));
 
@@ -417,9 +420,9 @@ end;
 
 procedure TdmLoan.dstLoanClassAfterScroll(DataSet: TDataSet);
 var
-  clId, trm, cmakers, age, concurrent, loanType, idDocs: integer;
+  clId, trm, cmakers, age, loanType, idDocs: integer;
   clName, loanTypeName, intCompMethod: string;
-  intrst, maxLn, maxLoanTypeAmt: real;
+  intrst, maxLn: currency;
   validFr, validUn: TDate;
   gp: TGroup;
   gpa: TGroupAttributes;
@@ -429,9 +432,9 @@ begin
   begin
     clId := FieldByName('class_id').AsInteger;
     clName := FieldByName('class_name').AsString;
-    intrst := FieldByName('int_rate').AsFloat;
+    intrst := FieldByName('int_rate').AsCurrency;
     trm := FieldByName('term').AsInteger;
-    maxLn := FieldByName('max_loan').AsFloat;
+    maxLn := FieldByName('max_loan').AsCurrency;
     cmakers := FieldByName('comakers').AsInteger;
     validFr := FieldByName('valid_from').AsDateTime;
     validUn := FieldByName('valid_until').AsDateTime;
@@ -442,8 +445,8 @@ begin
     // loan type variables
     loanType := FieldByName('loan_type').AsInteger;
     loanTypeName := FieldByName('loan_type_name').AsString;
-    concurrent := FieldByName('max_concurrent').AsInteger;
-    maxLoanTypeAmt := FieldByName('max_loantype_amount').AsFloat;
+    // concurrent := FieldByName('max_concurrent').AsInteger;
+    // maxLoanTypeAmt := FieldByName('max_loantype_amount').AsCurrency;
     idDocs := FieldByName('ident_docs').AsInteger;
 
     ltype := TLoanType.Create(loanType,loanTypeName);
@@ -456,7 +459,7 @@ begin
     // group attributes
     gpa := TGroupAttributes.Create;
     gpa.MaxConcurrent := FieldByName('concurrent').AsInteger;
-    gpa.MaxTotalAmount := FieldByName('max_group_amount').AsFloat;
+    gpa.MaxTotalAmount := FieldByName('max_group_amount').AsCurrency;
     gpa.IdentityDocs := idDocs;
     gp.Attributes := gpa;
   end;
@@ -579,7 +582,7 @@ begin
   begin
     while not Eof do
     begin
-      amt := FieldByName('rel_amt').AsFloat;
+      amt := FieldByName('rel_amt').AsCurrency;
       dt := FieldByName('date_rel').AsDateTime;
       locCode := FieldByName('loc_code').AsString;
       relId := FieldByName('rel_method').AsString;

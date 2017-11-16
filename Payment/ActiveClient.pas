@@ -12,21 +12,22 @@ type
     FId: string;
     FLoanTypeName: string;
     FAccountTypeName: string;
-    FBalance: real;
+    FBalance: currency;
     FInterestMethod: string;
-    FPrincipalDue: single;
-    FInterestDue: single;
+    FPrincipalDue: currency;
+    FInterestDue: currency;
     FUseFactorRate: boolean;
     FLastTransactionDate: TDateTime;
-    FInterestInDecimal: single;
+    FInterestInDecimal: currency;
     FApplyExemption: boolean;
-    FInterestBalance: single;
-    FInterestAdditional: single;
-    FInterestComputed: single;
+    FInterestBalance: currency;
+    FInterestAdditional: currency;
+    FInterestComputed: currency;
     FLedger: array of TLedger;
     FPayments: integer;
-    FReleaseAmount: single;
+    FReleaseAmount: currency;
     FApprovedTerm: integer;
+    FFullpaymentInterest: currency;
 
     function GetIsDiminishing: boolean;
     function GetIsFixed: boolean;
@@ -43,37 +44,39 @@ type
     function GetHasInterestComputed: boolean;
     function GetHasInterestDue: boolean;
     function GetHasInterstAdditional: boolean;
-    function GetInterestTotalDue: single;
-    function GetInterestDue: single; overload;
+    function GetInterestTotalDue: currency;
+    function GetInterestDue: currency; overload;
+    function GetLatestInterestDate(const paymentDate: TDateTime): TDateTime;
 
   public
     property Id: string read FId write FId;
-    property Balance: real read FBalance write FBalance;
+    property Balance: currency read FBalance write FBalance;
     property LoanTypeName: string read FLoanTypeName write FLoanTypeName;
     property AccountTypeName: string read FAccountTypeName write FAccountTypeName;
     property InterestMethod: string write FInterestMethod;
     property IsDiminishing: boolean read GetIsDiminishing;
     property IsFixed: boolean read GetIsFixed;
-    property PrincipalDue: single read FPrincipalDue;
-    property InterestDue: single read GetInterestDue;
+    property PrincipalDue: currency read FPrincipalDue;
+    property InterestDue: currency read GetInterestDue;
     property UseFactorRate: boolean read FUseFactorRate write FUseFactorRate;
     property LastTransactionDate: TDateTime read FLastTransactionDate write FLastTransactionDate;
-    property InterestInDecimal: single read FInterestInDecimal write FInterestInDecimal;
+    property InterestInDecimal: currency read FInterestInDecimal write FInterestInDecimal;
     property NextPayment: TDateTime read GetNextPayment;
     property ApplyExemption: boolean read FApplyExemption write FApplyExemption;
-    property InterestBalance: single read FInterestBalance write FInterestBalance;
+    property InterestBalance: currency read FInterestBalance write FInterestBalance;
     property Ledger[const i: integer]: TLedger read GetLedger;
     property IsFirstPayment: boolean read GetIsFirstPayment;
     property LedgerCount: integer read GetLedgerCount;
-    property InterestAdditional: single read FInterestAdditional;
-    property InterestComputed: single read FInterestComputed;
+    property InterestAdditional: currency read FInterestAdditional;
+    property InterestComputed: currency read FInterestComputed;
     property HasInterestDue: boolean read GetHasInterestDue;
     property HasInterestBalance: boolean read GetHasInterestBalance;
     property HasInterestComputed: boolean read GetHasInterestComputed;
     property HasInterestAdditional: boolean read GetHasInterstAdditional;
-    property InterestTotalDue: single read GetInterestTotalDue;
-    property ReleaseAmount: single read FReleaseAmount write FReleaseAmount;
+    property InterestTotalDue: currency read GetInterestTotalDue;
+    property ReleaseAmount: currency read FReleaseAmount write FReleaseAmount;
     property ApprovedTerm: integer read FApprovedTerm write FApprovedTerm;
+    property FullPaymentInterest: currency read FFullPaymentInterest;
 
     procedure GetPaymentDue(const paymentDate: TDateTime);
     procedure RetrieveLedger;
@@ -141,13 +144,13 @@ begin
         loan := TLoan.Create;
 
         loan.Id := FieldByName('loan_id').AsString;
-        loan.Balance := FieldByName('balance').AsFloat;
+        loan.Balance := FieldByName('balance').AsCurrency;
         loan.LoanTypeName := FieldByName('loan_type_name').AsString;
         loan.AccountTypeName := FieldByName('acct_type_name').AsString;
         loan.InterestMethod := FieldByName('int_comp_method').AsString;
         loan.UseFactorRate := FieldByName('use_factor_rate').AsBoolean;
         loan.LastTransactionDate := FieldByName('last_transaction_date').AsDateTime;
-        loan.InterestInDecimal := FieldByName('int_rate').AsFloat / 100;
+        loan.InterestInDecimal := FieldByName('int_rate').AsCurrency / 100;
         loan.ApplyExemption := FieldByName('apply_exemption').AsBoolean;
         loan.ApprovedTerm := FieldByName('terms').AsInteger;
         loan.ReleaseAmount := FieldByName('rel_amt').AsCurrency;
@@ -232,7 +235,7 @@ end;
 
 procedure TLoan.GetInterestDue(const paymentDate: TDateTime);
 var
-  due, additional, balance, computed: single;
+  due, additional, balance, computed, full: currency;
   LLedger, debitLedger: TLedger;
   days: integer;
 begin
@@ -240,6 +243,7 @@ begin
   additional := 0;  // payment after schedule date
   balance := 0;     // balance of previous interest
   computed := 0;    // payment before schedule date
+  full := 0;        // full payment
 
   // get any open accounts in the ledger
   // can either be scheduled interest, balance of previous or both
@@ -266,12 +270,23 @@ begin
       debitLedger.CaseType := TRttiEnumerationType.GetName<TCaseTypes>(TCaseTypes.ITS);
       debitLedger.ValueDate := paymentDate;
       debitLedger.CurrentStatus := TRttiEnumerationType.GetName<TLedgerRecordStatus>(TLedgerRecordStatus.OPN);
-      debitLedger.Debit := 0;
+      debitLedger.Credit := 0;
 
       if paymentDate < NextPayment then  // before schedule
       begin
         days := DaysBetween(paymentDate,FLastTransactionDate);
-        computed := (FBalance * FInterestInDecimal * days) / ifn.DaysInAMonth;
+
+        // check if this is the first payment
+        // check the rules for first payment
+        if IsFirstPayment then
+        begin
+          if ((days >= ifn.Rules.FirstPayment.MinDaysHalfInterest) and
+            (days <= ifn.Rules.FirstPayment.MaxDaysHalfInterest))  then
+            computed := (FBalance * FInterestInDecimal * ifn.HalfMonth) / ifn.DaysInAMonth
+          else computed := FBalance * FInterestInDecimal;
+        end
+        else computed := (FBalance * FInterestInDecimal * days) / ifn.DaysInAMonth;
+
         debitLedger.Debit := computed;
       end
       else
@@ -283,23 +298,42 @@ begin
 
       AddLedger(debitLedger);
     end;
-  end;
+  end
+  else // for full payment
+  begin
+    debitLedger := TLedger.Create;
+
+    debitLedger.EventObject := TRttiEnumerationType.GetName<TEventObjects>(TEventObjects.ITR);
+    debitLedger.CaseType := TRttiEnumerationType.GetName<TCaseTypes>(TCaseTypes.ITS);
+    debitLedger.ValueDate := paymentDate;
+    debitLedger.CurrentStatus := TRttiEnumerationType.GetName<TLedgerRecordStatus>(TLedgerRecordStatus.OPN);
+    debitLedger.Credit := 0;
+    debitLedger.FullPayment := true;
+
+    days := DaysBetween(paymentDate,GetLatestInterestDate(paymentDate));
+    full := (FBalance * FInterestInDecimal * days) / ifn.DaysInAMonth;
+    debitLedger.Debit := full;
+
+    AddLedger(debitLedger);
+  end;;
 
   // set the different amounts
   FInterestDue := due;
   FInterestBalance := balance;
   FInterestAdditional := additional;
   FInterestComputed := computed;
+  FFullPaymentInterest := full;
 end;
 
-function TLoan.GetInterestDue: single;
+function TLoan.GetInterestDue: currency;
 begin
   if HasInterestComputed then Result := FInterestComputed
   else if HasInterestAdditional then Result := FInterestDue + FInterestAdditional
-  else if HasInterestDue then Result := FInterestDue;
+  else if HasInterestDue then Result := FInterestDue
+  else Result := 0;
 end;
 
-function TLoan.GetInterestTotalDue: single;
+function TLoan.GetInterestTotalDue: currency;
 begin
   Result := FInterestDue + FInterestBalance + FInterestAdditional + FInterestComputed;
 end;
@@ -317,6 +351,22 @@ end;
 function TLoan.GetIsFixed: boolean;
 begin
   Result := FInterestMethod = 'F';
+end;
+
+function TLoan.GetLatestInterestDate(const paymentDate: TDateTime): TDateTime;
+var
+  LLedger: TLedger;
+  interestDate: TDateTime;
+begin
+  for LLedger in FLedger do
+  begin
+    if (LLedger.EventObject = TRttiEnumerationType.GetName<TEventObjects>(TEventObjects.ITR))
+       and (LLedger.CaseType = TRttiEnumerationType.GetName<TCaseTypes>(TCaseTypes.ITS))then
+      if LLedger.ValueDate <= paymentDate then
+        if LLedger.ValueDate > interestDate then interestDate := LLedger.ValueDate;
+  end;
+
+  Result := interestDate;
 end;
 
 function TLoan.GetLedger(const i: integer): TLedger;
@@ -350,7 +400,7 @@ end;
 
 procedure TLoan.GetPrincipalDue(const paymentDate: TDateTime);
 var
-  principal: single;
+  principal: currency;
   LLedger: TLedger;
 begin
   principal := 0;

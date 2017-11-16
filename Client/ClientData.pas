@@ -217,16 +217,16 @@ procedure TdmClient.dstClientLoanClass2AfterScroll(DataSet: TDataSet);
 var
   clId, term, comakers, age: integer;
   clName: string;
-  interest, maxLoan: real;
+  interest, maxLoan: currency;
   validFrom, validUntil: TDate;
 begin
   with DataSet do
   begin
     clId := FieldByName('class_id').AsInteger;
     clName := FieldByName('class_name').AsString;
-    interest := FieldByName('int_rate').AsFloat;
+    interest := FieldByName('int_rate').AsCurrency;
     term := FieldByName('term').AsInteger;
-    maxLoan := FieldByName('max_loan').AsFloat;
+    maxLoan := FieldByName('max_loan').AsCurrency;
     comakers := FieldByName('comakers').AsInteger;
     validFrom := FieldByName('valid_from').AsDateTime;
     validUntil := FieldByName('valid_until').AsDateTime;

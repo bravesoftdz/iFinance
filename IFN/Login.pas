@@ -235,6 +235,7 @@ begin
 
     // get all locations
     GetLocations;
+
   end;
 
   while i <= limit do

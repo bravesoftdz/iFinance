@@ -131,6 +131,7 @@ type
     RzGroupBox1: TRzGroupBox;
     RzGroupBox2: TRzGroupBox;
     urlWithdrawals: TRzURLLabel;
+    urlClosed: TRzURLLabel;
     procedure tbAddClientClick(Sender: TObject);
     procedure lblRecentlyAddedClick(Sender: TObject);
     procedure lbxRecentDblClick(Sender: TObject);
@@ -175,6 +176,7 @@ type
     procedure acAddActiveLoanExecute(Sender: TObject);
     procedure urlPaymentsClick(Sender: TObject);
     procedure urlWithdrawalsClick(Sender: TObject);
+    procedure urlClosedClick(Sender: TObject);
   private
     { Private declarations }
     DOCKED_FORM: TForms;
@@ -259,6 +261,7 @@ begin
     lftActive: title := 'Active loans';
     lftCancelled: title := 'Cancelled loans';
     lftRejected: title := 'Rejected loans';
+    lftClosed: title := 'Closed loans';
   end;
 
   if (pnlDockMain.ControlCount = 0)
@@ -282,6 +285,11 @@ begin
     ReleaseCapture;
     Perform(WM_SYSCOMMAND, SC_DRAGMOVE, 0);
   end;
+end;
+
+procedure TfrmMain.urlClosedClick(Sender: TObject);
+begin
+  OpenLoanList(lftClosed);
 end;
 
 procedure TfrmMain.Save1Click(Sender: TObject);

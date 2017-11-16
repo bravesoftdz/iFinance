@@ -208,6 +208,7 @@ object dmPayment: TdmPayment
         DataType = ftInteger
         Direction = pdReturnValue
         Precision = 10
+        Value = Null
       end
       item
         Name = '@entity_id'
@@ -230,6 +231,7 @@ object dmPayment: TdmPayment
         DataType = ftInteger
         Direction = pdReturnValue
         Precision = 10
+        Value = Null
       end
       item
         Name = '@entity_id'

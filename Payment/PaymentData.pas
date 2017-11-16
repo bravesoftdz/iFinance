@@ -151,7 +151,7 @@ begin
       paymentMethod := TPaymentMethod.Create;
       paymentMethod.Method := TMethod(FieldByName('pmt_method').AsInteger);
       paymentMethod.Name := FieldByName('pmt_method_name').AsString;
-      paymentMethod.Charge := FieldByName('pmt_charge').AsFloat;
+      paymentMethod.Charge := FieldByName('pmt_charge').AsCurrency;
 
       // add the method
       SetLength(pmtMethods,Length(pmtMethods) + 1);

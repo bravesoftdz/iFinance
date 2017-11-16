@@ -478,7 +478,7 @@ object frmMain: TfrmMain
           end
           object urlPayments: TRzURLLabel
             Left = 15
-            Top = 189
+            Top = 205
             Width = 53
             Height = 14
             Caption = 'Payments'
@@ -494,7 +494,7 @@ object frmMain: TfrmMain
           end
           object urlWithdrawals: TRzURLLabel
             Left = 15
-            Top = 208
+            Top = 224
             Width = 66
             Height = 14
             Caption = 'Withdrawals'
@@ -508,9 +508,25 @@ object frmMain: TfrmMain
             FlyByColor = clBlack
             FlyByEnabled = True
           end
+          object urlClosed: TRzURLLabel
+            Left = 15
+            Top = 152
+            Width = 35
+            Height = 14
+            Caption = 'Closed'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = 6572079
+            Font.Height = -12
+            Font.Name = 'Tahoma'
+            Font.Style = []
+            ParentFont = False
+            OnClick = urlClosedClick
+            FlyByColor = clBlack
+            FlyByEnabled = True
+          end
           object lbxRecentLoans: TRzListBox
             Left = 15
-            Top = 259
+            Top = 275
             Width = 156
             Height = 78
             BorderStyle = bsNone
@@ -556,7 +572,7 @@ object frmMain: TfrmMain
           object RzGroupBox1: TRzGroupBox
             Tag = -1
             Left = 15
-            Top = 165
+            Top = 181
             Width = 156
             Height = 22
             Anchors = [akLeft, akTop, akRight]
@@ -584,7 +600,7 @@ object frmMain: TfrmMain
           object RzGroupBox2: TRzGroupBox
             Tag = -1
             Left = 15
-            Top = 236
+            Top = 252
             Width = 156
             Height = 22
             Anchors = [akLeft, akTop, akRight]

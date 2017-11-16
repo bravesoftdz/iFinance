@@ -589,6 +589,12 @@ object dmLoan: TdmLoan
         DataType = ftString
         Size = 13
         Value = ''
+      end
+      item
+        Name = '@as_of_date'
+        Attributes = [paNullable]
+        DataType = ftDateTime
+        Value = 0d
       end>
     Left = 352
     Top = 184
@@ -612,6 +618,20 @@ object dmLoan: TdmLoan
       FieldName = 'event_object'
       ReadOnly = True
       Size = 3
+    end
+    object dstLedgerBalance_Principal: TBCDField
+      FieldName = 'Balance_Principal'
+      ReadOnly = True
+      DisplayFormat = '###,###,##0.00'
+      Precision = 10
+      Size = 2
+    end
+    object dstLedgerBalance_Interest: TBCDField
+      FieldName = 'Balance_Interest'
+      ReadOnly = True
+      DisplayFormat = '###,###,##0.00'
+      Precision = 10
+      Size = 2
     end
   end
 end

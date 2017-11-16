@@ -135,10 +135,10 @@ begin
     begin
       ct := FieldByName('charge_type').AsString;
       cn := FieldByName('charge_name').AsString;
-      cv := FieldByName('charge_value').AsFloat;
+      cv := FieldByName('charge_value').AsCurrency;
       vt := TValueType(FieldByName('value_type').AsInteger);
-      ratio := FieldByName('ratio_amt').AsFloat;
-      max := FieldByName('max_value').AsFloat;
+      ratio := FieldByName('ratio_amt').AsCurrency;
+      max := FieldByName('max_value').AsCurrency;
       maxType := TMaxValueType(FieldByName('max_value_type').AsInteger);
       forNew := FieldByName('for_new').AsInteger = 1;
       forRenewal := FieldByName('for_renew').AsInteger = 1;
@@ -164,7 +164,7 @@ begin
   with DataSet do
   begin
     ct := FieldByName('charge_type').AsString;
-    cv := FieldByName('charge_value').AsFloat;
+    cv := FieldByName('charge_value').AsCurrency;
     vt := TValueType(FieldByName('value_type').AsInteger);
 
     lnc.AddClassCharge(TLoanClassCharge.Create(ct,cv,vt));
@@ -224,7 +224,7 @@ procedure TdmLoansAux.dstLoanClassAfterScroll(DataSet: TDataSet);
 var
   clId, term, comakers, age: integer;
   clName, groupId, intCompMethod: string;
-  interest, maxLoan: real;
+  interest, maxLoan: currency;
   validFrom, validUntil: TDate;
   lt: TLoanType;
   gp: TGroup;
@@ -235,9 +235,9 @@ begin
     clId := FieldByName('class_id').AsInteger;
     groupId := FieldByName('grp_id').AsString;
     clName := FieldByName('class_name').AsString;
-    interest := FieldByName('int_rate').AsFloat;
+    interest := FieldByName('int_rate').AsCurrency;
     term := FieldByName('term').AsInteger;
-    maxLoan := FieldByName('max_loan').AsFloat;
+    maxLoan := FieldByName('max_loan').AsCurrency;
     comakers := FieldByName('comakers').AsInteger;
     validFrom := FieldByName('valid_from').AsDateTime;
     validUntil := FieldByName('valid_until').AsDateTime;

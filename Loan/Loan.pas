@@ -12,7 +12,7 @@ type
 
   TLoanState = (lsNone,lsAssessed,lsApproved,lsActive,lsCancelled,lsRejected);
 
-  TLoanStatus = (A,C,P,R,F,J,S);
+  TLoanStatus = (A,C,P,R,F,J,S,X);
 
 { ****** Loan Status *****
 	-- 0 = all
@@ -22,6 +22,7 @@ type
 	-- 4 = active / released = R
 	-- 5 = cancelled = C
 	-- 6 = denied / rejected = J
+  -- 7 = closed
 
   ***** Loan Status ***** }
 
@@ -34,16 +35,16 @@ type
     FComakers: array of TComaker;
     FFinancialInfo: array of TFinInfo;
     FMonthlyExpenses: array of TMonthlyExpense;
-    FAppliedAmout: real;
+    FAppliedAmout: currency;
     FLoanStatusHistory: array of TLoanState;
     FReleaseRecipients: array of TReleaseRecipient;
     FLoanCharges: array of TLoanCharge;
-    FApprovedAmount: real;
+    FApprovedAmount: currency;
     FDesiredTerm: integer;
     FAssessment: TAssessment;
-    FReleaseAmount: real;
+    FReleaseAmount: currency;
     FApprovedTerm: integer;
-    FBalance: real;
+    FBalance: currency;
 
     procedure SaveComakers;
     procedure SaveAssessments;
@@ -58,6 +59,7 @@ type
     function GetIsActive: boolean;
     function GetIsCancelled: boolean;
     function GetIsRejected: boolean;
+    function GetIsClosed: boolean;
 
     function GetComakerCount: integer;
     function GetNew: boolean;
@@ -74,12 +76,12 @@ type
     function GetLoanCharge(const i: integer): TLoanCharge;
     function GetLoanChargeCount: integer;
     function GetIsFinalised: boolean;
-    function GetTotalCharges: real;
-    function GetTotalReleased: real;
-    function GetNetProceeds: real;
-    function GetFactorWithInterest: real;
-    function GetFactorWithoutInterest: real;
-    function GetAmortisation: real;
+    function GetTotalCharges: currency;
+    function GetTotalReleased: currency;
+    function GetNetProceeds: currency;
+    function GetFactorWithInterest: currency;
+    function GetFactorWithoutInterest: currency;
+    function GetAmortisation: currency;
 
   public
     procedure Add; override;
@@ -129,10 +131,11 @@ type
     property IsActive: boolean read GetIsActive;
     property IsCancelled: boolean read GetIsCancelled;
     property IsRejected: boolean read GetIsRejected;
+    property IsClosed: boolean read GetIsClosed;
     property ComakerCount: integer read GetComakerCount;
     property New: boolean read GetNew;
     property Comaker[const i: integer]: TComaker read GetComaker;
-    property AppliedAmount: real read FAppliedAmout write FAppliedAmout;
+    property AppliedAmount: currency read FAppliedAmout write FAppliedAmout;
     property FinancialInfoCount: integer read GetFinancialInfoCount;
     property FinancialInfo[const i: integer]: TFinInfo read GetFinancialInfo;
     property MonthlyExpenseCount: integer read GetMonthlyExpenseCount;
@@ -143,19 +146,19 @@ type
     property ReleaseRecipientCount: integer read GetReleaseRecipientCount;
     property LoanCharges[const i: integer]: TLoanCharge read GetLoanCharge;
     property LoanChargeCount: integer read GetLoanChargeCount;
-    property ApprovedAmount: real read FApprovedAmount write FApprovedAmount;
+    property ApprovedAmount: currency read FApprovedAmount write FApprovedAmount;
     property DesiredTerm: integer read FDesiredTerm write FDesiredTerm;
     property IsFinalised: boolean read GetIsFinalised;
-    property TotalCharges: real read GetTotalCharges;
-    property TotalReleased: real read GetTotalReleased;
+    property TotalCharges: currency read GetTotalCharges;
+    property TotalReleased: currency read GetTotalReleased;
     property Assessment: TAssessment read FAssessment write FAssessment;
-    property ReleaseAmount: real read FReleaseAmount write FReleaseAmount;
+    property ReleaseAmount: currency read FReleaseAmount write FReleaseAmount;
     property ApprovedTerm: integer read FApprovedTerm write FApprovedTerm;
-    property NetProceeds: real read GetNetProceeds;
-    property FactorWithInterest: real read GetFactorWithInterest;
-    property FactorWithoutInterest: real read GetFactorWithoutInterest;
-    property Amortisation: real read GetAmortisation;
-    property Balance: real read FBalance write FBalance;
+    property NetProceeds: currency read GetNetProceeds;
+    property FactorWithInterest: currency read GetFactorWithInterest;
+    property FactorWithoutInterest: currency read GetFactorWithoutInterest;
+    property Amortisation: currency read GetAmortisation;
+    property Balance: currency read FBalance write FBalance;
 
     constructor Create;
     destructor Destroy; reintroduce;
@@ -618,7 +621,7 @@ begin
           TRttiEnumerationType.GetName<TLoanStatus>(TLoanStatus.A)
     else if ln.Action = laReleasing then
     begin
-      FieldByName('balance').AsFloat := FReleaseAmount;
+      FieldByName('balance').AsCurrency := FReleaseAmount;
       FieldByName('status_id').AsString :=
           TRttiEnumerationType.GetName<TLoanStatus>(TLoanStatus.R)
     end
@@ -658,9 +661,9 @@ begin
     Open;
 end;
 
-function TLoan.GetAmortisation: real;
+function TLoan.GetAmortisation: currency;
 var
-  amort: real;
+  amort: currency;
 begin
   if (FLoanClass.IsDiminishing) and (FLoanClass.UseFactorRate) then amort := FReleaseAmount * GetFactorWithInterest
   else amort := ((FReleaseAmount * FLoanClass.InterestInDecimal * FApprovedTerm) + FReleaseAmount) / FApprovedTerm;
@@ -698,7 +701,7 @@ begin
     begin
       FieldByName('recipient').AsString := Recipient.Id;
       FieldByName('rel_method').AsString := ReleaseMethod.Id;
-      FieldByName('rel_amt').AsFloat := Amount;
+      FieldByName('rel_amt').AsCurrency := Amount;
       FieldByName('date_rel').AsDateTime := rec.Date;
       Post;
     end;
@@ -726,7 +729,7 @@ begin
         Append;
         FieldByName('loan_id').AsString := FId;
         FieldByName('charge_type').AsString := charge.ChargeType;
-        FieldByName('charge_amt').AsFloat := charge.Amount;
+        FieldByName('charge_amt').AsCurrency := charge.Amount;
         Post;
       end;
     end;
@@ -744,7 +747,7 @@ begin
       begin
         Locate('charge_type',charge.ChargeType,[]);
         Edit;
-        FieldByName('charge_amt').AsFloat := charge.Amount;
+        FieldByName('charge_amt').AsCurrency := charge.Amount;
         Post;
       end;
     end;
@@ -868,6 +871,11 @@ begin
   Result := FStatus =  TRttiEnumerationType.GetName<TLoanStatus>(TLoanStatus.C);
 end;
 
+function TLoan.GetIsClosed: boolean;
+begin
+  Result := FStatus =  TRttiEnumerationType.GetName<TLoanStatus>(TLoanStatus.X);
+end;
+
 function TLoan.GetIsRejected: boolean;
 begin
   Result := FStatus =  TRttiEnumerationType.GetName<TLoanStatus>(TLoanStatus.J);
@@ -908,7 +916,7 @@ begin
   end;
 end;
 
-function TLoan.GetNetProceeds: real;
+function TLoan.GetNetProceeds: currency;
 begin
   Result := FReleaseAmount - GetTotalCharges;
 end;
@@ -973,7 +981,7 @@ begin
   Result := FComakers[i];
 end;
 
-function TLoan.GetFactorWithInterest: real;
+function TLoan.GetFactorWithInterest: currency;
 var
   divisor: real;
 begin
@@ -982,7 +990,7 @@ begin
   Result := FLoanClass.InterestInDecimal / divisor;
 end;
 
-function TLoan.GetFactorWithoutInterest: real;
+function TLoan.GetFactorWithoutInterest: currency;
 begin
   if FLoanClass.IsDiminishing then Result := GetFactorWithInterest - FLoanClass.InterestInDecimal
   else Result := 1;
@@ -1095,10 +1103,10 @@ begin
   Result := IsRejected or IsCancelled or IsActive;
 end;
 
-function TLoan.GetTotalCharges: real;
+function TLoan.GetTotalCharges: currency;
 var
   i, cnt: integer;
-  total: real;
+  total: currency;
 begin
   cnt := GetLoanChargeCount - 1;
 
@@ -1109,10 +1117,10 @@ begin
   Result := total;
 end;
 
-function TLoan.GetTotalReleased: real;
+function TLoan.GetTotalReleased: currency;
 var
   rr: TReleaseRecipient;
-  total: real;
+  total: currency;
 begin
   total := 0;
 

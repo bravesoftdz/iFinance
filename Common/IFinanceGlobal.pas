@@ -6,6 +6,29 @@ uses
   SysUtils, User, Vcl.Graphics, Location;
 
 type
+  TFirstPayment = class
+  strict private
+    FMaxDaysHalf: byte;
+    FFullInterestRate: currency;
+    FMinDaysFullInterest: byte;
+    FHalfInterestRate: currency;
+    FMinDaysHalf: byte;
+    FMaxDaysFullInterest: byte;
+  public
+    property MinDaysHalfInterest: byte read FMinDaysHalf write FMinDaysHalf;
+    property MaxDaysHalfInterest: byte read FMaxDaysHalf write FMaxDaysHalf;
+    property MinDaysFullInterest: byte read FMinDaysFullInterest write FMinDaysFullInterest;
+  end;
+
+  TRules = class
+  strict private
+    FFirstPayment: TFirstPayment;
+  public
+    property FirstPayment: TFirstPayment read FFirstPayment write FFirstPayment;
+
+    constructor Create;
+  end;
+
   TIFinance = class(TObject)
   private
     FAppName: string;
@@ -22,9 +45,11 @@ type
     FVersion: string;
     FLocations: array of TLocation;
     FDaysInAMonth: byte;
+    FRules: TRules;
 
     function GetLocation(const i: integer): TLocation;
     function GetLocationCount: integer;
+    function GetHalfMonth: byte;
 
   public
     procedure AddLocation(const loc: TLocation);
@@ -46,6 +71,8 @@ type
     property Locations[const i: integer]: TLocation read GetLocation;
     property LocationCount: integer read GetLocationCount;
     property DaysInAMonth: byte read FDaysInAMonth write FDaysInAMonth;
+    property Rules: TRules read FRules write FRules;
+    property HalfMonth: byte read GetHalfMonth;
 
     constructor Create;
     destructor Destroy; override;
@@ -73,6 +100,7 @@ begin
     FDaysInAMonth := 30;
 
     FUser := TUser.Create;
+    FRules := TRules.Create;
 
     ifn := self;
   end;
@@ -89,6 +117,11 @@ procedure TIFinance.AddLocation(const loc: TLocation);
 begin
   SetLength(FLocations,Length(FLocations) + 1);
   FLocations[Length(FLocations) - 1] := loc;
+end;
+
+function TIFinance.GetHalfMonth: byte;
+begin
+  Result := 15;
 end;
 
 function TIFinance.GetLocation(const i: Integer): TLocation;
@@ -113,6 +146,17 @@ end;
 function TIFinance.GetLocationCount: integer;
 begin
   Result := Length(FLocations);
+end;
+
+{ TRules }
+
+constructor TRules.Create;
+begin
+  FFirstPayment := TFirstPayment.Create;
+
+  FFirstPayment.MinDaysHalfInterest := 5;
+  FFirstPayment.MaxDaysHalfInterest := 15;
+  FFirstPayment.MinDaysFullInterest := 16;
 end;
 
 end.

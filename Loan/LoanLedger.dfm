@@ -1,18 +1,18 @@
 inherited frmLoanLedger: TfrmLoanLedger
   Caption = 'frmLoanLedger'
   ClientHeight = 400
-  ClientWidth = 410
+  ClientWidth = 561
   OnClose = FormClose
   OnCreate = FormCreate
-  ExplicitWidth = 410
+  ExplicitWidth = 561
   ExplicitHeight = 400
   PixelsPerInch = 96
   TextHeight = 14
   inherited pnlTitle: TRzPanel
-    Width = 410
-    ExplicitWidth = 410
+    Width = 561
+    ExplicitWidth = 561
     inherited imgClose: TImage
-      Left = 389
+      Left = 540
       ExplicitLeft = 389
     end
     inherited lblCaption: TRzLabel
@@ -22,14 +22,14 @@ inherited frmLoanLedger: TfrmLoanLedger
     end
   end
   inherited pnlMain: TRzPanel
-    Width = 410
+    Width = 561
     Height = 379
-    ExplicitWidth = 410
+    ExplicitWidth = 561
     ExplicitHeight = 379
     object pnlLedger: TRzPanel
       Left = 8
       Top = 8
-      Width = 394
+      Width = 545
       Height = 363
       Anchors = [akLeft, akTop, akRight, akBottom]
       BorderOuter = fsNone
@@ -40,7 +40,7 @@ inherited frmLoanLedger: TfrmLoanLedger
       object grLedger: TRzDBGrid
         Left = 1
         Top = 1
-        Width = 392
+        Width = 543
         Height = 361
         Align = alClient
         BorderStyle = bsNone
@@ -50,7 +50,7 @@ inherited frmLoanLedger: TfrmLoanLedger
         FixedColor = 12955288
         GradientEndColor = 12955288
         GradientStartColor = 12955288
-        Options = [dgTitles, dgColLines, dgRowLines, dgTabs, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
+        Options = [dgTitles, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
         ReadOnly = True
         TabOrder = 0
         TitleFont.Charset = DEFAULT_CHARSET
@@ -71,24 +71,13 @@ inherited frmLoanLedger: TfrmLoanLedger
             Expanded = False
             FieldName = 'Due'
             Title.Alignment = taCenter
+            Title.Caption = 'Date'
             Title.Font.Charset = DEFAULT_CHARSET
             Title.Font.Color = clWindowText
             Title.Font.Height = -12
             Title.Font.Name = 'Tahoma'
             Title.Font.Style = [fsBold]
             Width = 80
-            Visible = True
-          end
-          item
-            Expanded = False
-            FieldName = 'Interest'
-            Title.Alignment = taCenter
-            Title.Font.Charset = DEFAULT_CHARSET
-            Title.Font.Color = clWindowText
-            Title.Font.Height = -12
-            Title.Font.Name = 'Tahoma'
-            Title.Font.Style = [fsBold]
-            Width = 90
             Visible = True
           end
           item
@@ -100,7 +89,48 @@ inherited frmLoanLedger: TfrmLoanLedger
             Title.Font.Height = -12
             Title.Font.Name = 'Tahoma'
             Title.Font.Style = [fsBold]
-            Width = 90
+            Width = 85
+            Visible = True
+          end
+          item
+            Color = clInfoBk
+            Expanded = False
+            FieldName = 'Interest'
+            Title.Alignment = taCenter
+            Title.Font.Charset = DEFAULT_CHARSET
+            Title.Font.Color = clWindowText
+            Title.Font.Height = -12
+            Title.Font.Name = 'Tahoma'
+            Title.Font.Style = [fsBold]
+            Width = 85
+            Visible = True
+          end
+          item
+            Color = clBtnHighlight
+            Expanded = False
+            FieldName = 'Balance_Principal'
+            Title.Alignment = taCenter
+            Title.Caption = 'Balance (P)'
+            Title.Font.Charset = DEFAULT_CHARSET
+            Title.Font.Color = clWindowText
+            Title.Font.Height = -12
+            Title.Font.Name = 'Tahoma'
+            Title.Font.Style = [fsBold]
+            Width = 85
+            Visible = True
+          end
+          item
+            Color = 12040191
+            Expanded = False
+            FieldName = 'Balance_Interest'
+            Title.Alignment = taCenter
+            Title.Caption = 'Balance (I)'
+            Title.Font.Charset = DEFAULT_CHARSET
+            Title.Font.Color = clWindowText
+            Title.Font.Height = -12
+            Title.Font.Name = 'Tahoma'
+            Title.Font.Style = [fsBold]
+            Width = 85
             Visible = True
           end>
       end

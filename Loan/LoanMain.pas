@@ -948,7 +948,7 @@ end;
 
 procedure TfrmLoanMain.ShowLedger;
 begin
-  if ln.IsActive then
+  if (ln.IsActive) or (ln.IsClosed) then
   begin
     with TfrmLoanLedger.Create(self) do
     begin

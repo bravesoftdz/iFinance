@@ -8,20 +8,12 @@ uses
 type
   TPosting = class
   private
-    // loan-related posting
-    procedure PostLoanDiminishing(const ALoan: TLoan);
-    procedure PostLoanFixed(const ALoan: TLoan);
-
-    // payment-related posting
-    procedure PostPaymentDiminishing(const APayment: TPayment; const detailIndex: integer);
-    procedure PostPaymentFixed(const APayment: TPayment; const detailIndex: integer);
-
     // interest-related methods
-    function PostInterest(const interest: real; const loanId: string;
+    function PostInterest(const interest: currency; const loanId: string;
       const ADate: TDateTime; const source, status: string): string; overload;
 
     function PostEntry(const refPostingId: string;
-      const debit, credit: real; const eventObject, primaryKey, status: string;
+      const debit, credit: currency; const eventObject, primaryKey, status: string;
       const postDate, valueDate: TDateTime; const caseType: string): string;
     function GetValueDate(const ADate1, ADate2: TDateTime): TDateTime;
 
@@ -42,7 +34,7 @@ uses
   AccountingData, IFinanceGlobal, IFinanceDialogs, AppConstants, DBUtil, Ledger;
 
 function TPosting.PostEntry(const refPostingId: string;
-      const debit, credit: real; const eventObject, primaryKey, status: string;
+      const debit, credit: currency; const eventObject, primaryKey, status: string;
       const postDate, valueDate: TDateTime; const caseType: string): string;
 var
   postingId: string;
@@ -59,9 +51,9 @@ begin
 
     FieldByName('loc_prefix').AsString := ifn.LocationPrefix;
 
-    if debit > 0 then FieldByName('debit_amt').AsFloat := debit;
+    if debit > 0 then FieldByName('debit_amt').AsCurrency := debit;
 
-    if credit > 0 then FieldByName('credit_amt').AsFloat := credit;
+    if credit > 0 then FieldByName('credit_amt').AsCurrency := credit;
 
     FieldByName('pk_event_object').AsString := primaryKey;
     FieldByName('event_object').AsString := eventObject;
@@ -77,7 +69,7 @@ begin
   Result := postingId;
 end;
 
-function TPosting.PostInterest(const interest: real; const loanId: string;
+function TPosting.PostInterest(const interest: currency; const loanId: string;
   const ADate: TDateTime; const source, status: string): string;
 var
   interestId: string;
@@ -102,7 +94,7 @@ end;
 procedure TPosting.PostInterest;
 var
   refPostingId: string;
-  interest, credit: real;
+  interest, credit: currency;
   eventObject, primaryKey, status, caseType: string;
   postDate, valueDate: TDateTime;
 begin
@@ -111,7 +103,6 @@ begin
   credit := 0;
   eventObject := TRttiEnumerationType.GetName<TEventObjects>(TEventObjects.ITR);
   caseType := TRttiEnumerationType.GetName<TCaseTypes>(TCaseTypes.ITS);
-  valuedate := ifn.AppDate;
   postDate := ifn.AppDate;
   status :=  TRttiEnumerationType.GetName<TLedgerRecordStatus>(TLedgerRecordStatus.OPN);
 
@@ -130,7 +121,8 @@ begin
         begin
           // post the interest in the ledger
           primaryKey := dstScheduledInterest.FieldByName('interest_id').AsString;
-          interest := dstScheduledInterest.FieldByName('interest_amt').AsFloat;
+          interest := dstScheduledInterest.FieldByName('interest_amt').AsCurrency;
+          valuedate := dstScheduledInterest.FieldByName('interest_date').AsDateTime;
           PostEntry(refPostingId, interest, credit, eventObject, primaryKey, status, postDate, valueDate, caseType);
 
           // change the status of the interest in the Interest table
@@ -160,10 +152,10 @@ begin
   end;
 end;
 
-procedure TPosting.PostLoanDiminishing(const ALoan: TLoan);
+procedure TPosting.Post(const ALoan: TLoan);
 var
   refPostingId: string;
-  principal, interest, balance, credit: real;
+  principal, interest, balance, credit: currency;
   eventObject, primaryKey, status, caseType: string;
   postDate, valueDate: TDateTime;
   i, cnt: integer;
@@ -174,7 +166,7 @@ begin
   credit := 0;
   eventObject := TRttiEnumerationType.GetName<TEventObjects>(TEventObjects.LON);
   primaryKey := ALoan.Id;
-  caseType := '';
+  caseType := TRttiEnumerationType.GetName<TCaseTypes>(TCaseTypes.PRC);
   valuedate := ifn.AppDate;
   postDate := ifn.AppDate;
 
@@ -199,32 +191,32 @@ begin
           // interest
           // post in the Interest tables instead of in the Ledger
           // interest will be posted when the interest date arrives
-          interest := balance * ALoan.LoanClass.InterestInDecimal;
+          if ALoan.LoanClass.IsDiminishing then interest := balance * ALoan.LoanClass.InterestInDecimal
+          else interest := ALoan.ReleaseAmount * ALoan.LoanClass.InterestInDecimal;
 
-          if ALoan.LoanClass.UseFactorRate then
-          begin
-            caseType := TRttiEnumerationType.GetName<TCaseTypes>(TCaseTypes.ITS);
-            status := TRttiEnumerationType.GetName<TLedgerRecordStatus>(TLedgerRecordStatus.OPN);
-            PostEntry(refPostingId, interest, credit, eventObject, primaryKey, status, postDate, valueDate, caseType);
-          end
-          else
-          begin
-            interestSource := TRttiEnumerationType.GetName<TInterestSource>(TInterestSource.SYS);
-            status := TRttiEnumerationType.GetName<TInterestStatus>(TInterestStatus.P);
-            PostInterest(interest,ALoan.Id,valueDate,interestSource,status);
-          end;
-
-          caseType := TRttiEnumerationType.GetName<TCaseTypes>(TCaseTypes.PRC);
+          // if ALoan.LoanClass.UseFactorRate then
+          // begin
+          //  caseType := TRttiEnumerationType.GetName<TCaseTypes>(TCaseTypes.ITS);
+          //  status := TRttiEnumerationType.GetName<TLedgerRecordStatus>(TLedgerRecordStatus.OPN);
+          //  PostEntry(refPostingId, interest, credit, eventObject, primaryKey, status, postDate, valueDate, caseType);
+          // end
+          interestSource := TRttiEnumerationType.GetName<TInterestSource>(TInterestSource.SYS);
+          status := TRttiEnumerationType.GetName<TInterestStatus>(TInterestStatus.P);
+          PostInterest(interest,ALoan.Id,valueDate,interestSource,status);
 
           // principal
-          if ALoan.LoanClass.UseFactorRate then principal := ALoan.Amortisation - interest
-          else
+          if ALoan.LoanClass.IsDiminishing then
           begin
-            // use the balance for the last amount to be posted..
-            // this ensures sum of principal is equal to the loan amount released
-            if i = cnt then principal := balance
-            else principal := ALoan.ReleaseAmount / ALoan.ApprovedTerm;
-          end;
+            if ALoan.LoanClass.UseFactorRate then principal := ALoan.Amortisation - interest
+            else
+            begin
+              // use the balance for the last amount to be posted..
+              // this ensures sum of principal is equal to the loan amount released
+              if i = cnt then principal := balance
+              else principal := ALoan.ReleaseAmount / ALoan.ApprovedTerm;
+            end;
+          end
+          else principal := ALoan.ReleaseAmount / ALoan.ApprovedTerm;
 
           status := TRttiEnumerationType.GetName<TLedgerRecordStatus>(TLedgerRecordStatus.OPN);
 
@@ -252,106 +244,6 @@ begin
     dmAccounting.dstInterest.Close;
     dmAccounting.Free;
   end;
-end;
-
-procedure TPosting.PostLoanFixed(const ALoan: TLoan);
-var
-  refPostingId: string;
-  principal, interest, credit: real;
-  eventObject, primaryKey, status, caseType: string;
-  postDate, valueDate: TDateTime;
-  i, cnt: integer;
-begin
-  refPostingId := '';
-
-  credit := 0;
-  eventObject := TRttiEnumerationType.GetName<TEventObjects>(TEventObjects.LON);
-  primaryKey := ALoan.Id;
-  status := TRttiEnumerationType.GetName<TLedgerRecordStatus>(TLedgerRecordStatus.OPN);
-  caseType := '';
-  valuedate := ifn.AppDate;
-  postDate := ifn.AppDate;
-
-  dmAccounting := TdmAccounting.Create(nil);
-  try
-    try
-      with dmAccounting.dstLedger do
-      begin
-        Open;
-
-        cnt := ALoan.ApprovedTerm;
-
-        interest := ALoan.ReleaseAmount * ALoan.LoanClass.InterestInDecimal;
-
-        principal := ALoan.ReleaseAmount / ALoan.ApprovedTerm;
-
-        for i := 1 to cnt do
-        begin
-          valueDate := GetValueDate(valueDate,IncMonth(ifn.AppDate,i));
-
-          // interest
-          caseType := TRttiEnumerationType.GetName<TCaseTypes>(TCaseTypes.ITS);
-          PostEntry(refPostingId, interest, credit, eventObject, primaryKey, status, postDate, valueDate, caseType);
-
-          // principal
-          caseType := TRttiEnumerationType.GetName<TCaseTypes>(TCaseTypes.PRC);
-          PostEntry(refPostingId, principal, credit, eventObject, primaryKey, status, postDate, valueDate, caseType);
-        end;
-
-        UpdateBatch;
-        Close;
-      end;
-    except
-      on E: Exception do
-      begin
-        dmAccounting.dstLedger.CancelBatch;
-        ShowErrorBox(E.Message);
-      end;
-    end;
-  finally
-    dmAccounting.dstLedger.Close;
-    dmAccounting.Free;
-  end;
-end;
-
-procedure TPosting.PostPaymentDiminishing(const APayment: TPayment; const detailIndex: integer);
-var
-  postingId, refPostingId: string;
-  paymentAmount, amountDue, debit,credit: real;
-  eventObject, primaryKey, status, caseType: string;
-  postDate, valueDate: TDateTime;
-  detail: TPaymentDetail;
-  paymentType: TPaymentTypes;
-begin
-  detail := APayment.Details[detailIndex];
-
-
-end;
-
-procedure TPosting.PostPaymentFixed(const APayment: TPayment; const detailIndex: integer);
-var
-  refPostingId: string;
-  paymentAmount, amountDue, debit,credit: real;
-  eventObject, primaryKey, status, caseType: string;
-  postDate, valueDate: TDateTime;
-  detail: TPaymentDetail;
-  paymentType: TPaymentTypes;
-begin
-  detail := APayment.Details[detailIndex];
-
-  debit := 0;
-  eventObject := TRttiEnumerationType.GetName<TEventObjects>(TEventObjects.PAY);
-  primaryKey := APayment.PaymentId;
-  valuedate := APayment.Date;
-  postDate := ifn.AppDate;
-
-
-end;
-
-procedure TPosting.Post(const ALoan: TLoan);
-begin
-  if ALoan.LoanClass.IsDiminishing then PostLoanDiminishing(ALoan)
-  else if ALoan.LoanClass.IsFixed then PostLoanFixed(ALoan);
 end;
 
 constructor TPosting.Create;
@@ -417,20 +309,23 @@ begin
             end
             else
             begin
-              // set the refposting id
-              // this is only called for unschedule posting
-              if LLedger.UnreferencedPayment then LLedger.RefPostingId := refPostingId;
+              if (not LLedger.FullPayment) or ((LLedger.FullPayment) and (detail.IsFullPayment)) then
+              begin
+                // set the refposting id
+                // this is only called for unscheduled posting
+                if LLedger.UnreferencedPayment then LLedger.RefPostingId := refPostingId;
 
-              if LLedger.StatusChanged then status := LLedger.NewStatus
-              else status := LLedger.CurrentStatus;
+                if LLedger.StatusChanged then status := LLedger.NewStatus
+                else status := LLedger.CurrentStatus;
 
-              postingId := PostEntry(LLedger.RefPostingId,LLedger.Debit,LLedger.Credit,
-                  LLedger.EventObject,LLedger.PrimaryKey,status,
-                  ifn.AppDate,LLedger.ValueDate,LLedger.CaseType);
+                postingId := PostEntry(LLedger.RefPostingId,LLedger.Debit,LLedger.Credit,
+                    LLedger.EventObject,LLedger.PrimaryKey,status,
+                    ifn.AppDate,LLedger.ValueDate,LLedger.CaseType);
 
-              if (LLedger.EventObject = TRttiEnumerationType.GetName<TEventObjects>(TEventObjects.ITR))
-                and (LLedger.CaseType = TRttiEnumerationType.GetName<TCaseTypes>(TCaseTypes.ITS))then
-                refPostingId := postingId;
+                if (LLedger.EventObject = TRttiEnumerationType.GetName<TEventObjects>(TEventObjects.ITR))
+                  and (LLedger.CaseType = TRttiEnumerationType.GetName<TCaseTypes>(TCaseTypes.ITS))then
+                  refPostingId := postingId;
+              end;
             end;
           end;
 

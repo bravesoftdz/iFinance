@@ -9,13 +9,13 @@ type
   TAssessment = class(TObject)
   private
     FRecommendation: TRecommendation;
-    FRecommendedAmount: real;
+    FRecommendedAmount: currency;
   public
     property Recommendation: TRecommendation read FRecommendation write FRecommendation;
-    property RecommendedAmount: real read FRecommendedAmount write FRecommendedAmount;
+    property RecommendedAmount: currency read FRecommendedAmount write FRecommendedAmount;
 
     constructor Create; overload;
-    constructor Create(const rec: integer; const recAmt: real); overload;
+    constructor Create(const rec: integer; const recAmt: currency); overload;
   end;
 
 implementation
@@ -25,7 +25,7 @@ begin
   inherited;
 end;
 
-constructor TAssessment.Create(const rec: Integer; const recAmt: Real);
+constructor TAssessment.Create(const rec: Integer; const recAmt: currency);
 begin
   FRecommendation := TRecommendation(rec);
   FRecommendedAmount := recAmt;

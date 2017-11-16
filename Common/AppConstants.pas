@@ -73,9 +73,10 @@ type TCaseTypes = (ITS,PRC,PNT,RBT);
 
  P = PENDING
  T = POSTED
+ D = DISREGARD
 }
 
-type TInterestStatus = (P,T);
+type TInterestStatus = (P,T,D);
 
 {
  Interest source (INTEREST TABLE)

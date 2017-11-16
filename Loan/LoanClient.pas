@@ -13,7 +13,7 @@ type
     FEmployer: TEmployer;
     FAddress: string;
     FAge: integer;
-    FNetPay: real;
+    FNetPay: currency;
     FLoans: array of TClientLoan;
     FValidIdentityDocs: integer;
 
@@ -31,7 +31,7 @@ type
     property Employer: TEmployer read FEmployer write FEmployer;
     property Address: string read FAddress write FAddress;
     property Age: integer read FAge write FAge;
-    property NetPay: real read FNetPay write FNetPay;
+    property NetPay: currency read FNetPay write FNetPay;
     property Loans[const i: integer]: TClientLoan read GetLoan;
     property ValidIdentityDocs: integer read FValidIdentityDocs write FValidIdentityDocs;
 

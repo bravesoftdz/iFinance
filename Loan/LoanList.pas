@@ -85,7 +85,7 @@ begin
                         FieldByName('name').AsString, empl,
                         FieldByName('client_addr').AsString,
                         FieldByName('age').AsInteger,
-                        FieldByName('net_pay').AsFloat,
+                        FieldByName('net_pay').AsCurrency,
                         FieldByName('valid_ident_docs').AsInteger);
       ln.Status := FieldByName('status_id').AsString;
       ln.Action := laNone;

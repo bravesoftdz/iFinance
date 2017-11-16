@@ -28,7 +28,7 @@ begin
 
       if Result > 0 then
       begin
-        with TfrmDuplicate.Create(allowSelect) do
+        with TfrmDuplicate.Create(nil,allowSelect) do
         begin
           ShowModal;
 

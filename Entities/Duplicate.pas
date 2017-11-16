@@ -23,8 +23,8 @@ type
     allowSelect: boolean;
   public
     { Public declarations }
-    constructor Create; overload;
-    constructor Create(const AAllowSelect: boolean); overload;
+    constructor Create(AOwner: TComponent); overload; override;
+    constructor Create(AOwner: TComponent; const AAllowSelect: boolean); reintroduce; overload;
   end;
 
 var
@@ -43,14 +43,14 @@ begin
   ModalResult := mrIgnore;
 end;
 
-constructor TfrmDuplicate.Create;
+constructor TfrmDuplicate.Create(AOwner: TComponent);
 begin
-  inherited Create(nil);
+  inherited Create(AOwner);
 end;
 
-constructor TfrmDuplicate.Create(const AAllowSelect: boolean);
+constructor TfrmDuplicate.Create(AOwner: TComponent; const AAllowSelect: boolean);
 begin
-  Create;
+  Create(AOwner);
   allowSelect := AAllowSelect;
 end;
 
