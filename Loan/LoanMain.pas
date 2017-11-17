@@ -250,7 +250,7 @@ begin
   if (ln.IsPending) or (ln.New) then index := NOINFO
   else if ln.IsAssessed then index := ASSESSED
   else if ln.IsApproved then index := APPROVAL
-  else if ln.IsActive then index := RELEASED
+  else if (ln.IsActive) or (ln.IsClosed) then index := RELEASED
   else if ln.IsRejected then index := REJECTION
   else if ln.IsCancelled then index := CANCELLATION;
        
@@ -755,7 +755,7 @@ end;
 procedure TfrmLoanMain.imgCancelLoanClick(Sender: TObject);
 begin
   inherited;
-  if (ln.HasLoanState(lsCancelled)) then SetActiveTab(CANCELLATION)
+  if (ln.HasLoanState(lsCancelled)) or (ln.IsClosed) then SetActiveTab(CANCELLATION)
   else CancelLoan;
 end;
 

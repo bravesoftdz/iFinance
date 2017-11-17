@@ -59,3 +59,4 @@ _dcp/Client.lib
 *.7z
 *.zip
 *.ini
+*.identcache

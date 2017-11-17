@@ -10,7 +10,7 @@ uses
 type
   TLoanAction = (laNone,laCreating,laAssessing,laApproving,laRejecting,laReleasing,laCancelling);
 
-  TLoanState = (lsNone,lsAssessed,lsApproved,lsActive,lsCancelled,lsRejected);
+  TLoanState = (lsNone,lsAssessed,lsApproved,lsActive,lsCancelled,lsRejected,lsClosed);
 
   TLoanStatus = (A,C,P,R,F,J,S,X);
 
@@ -933,7 +933,8 @@ begin
   else if IsApproved then Result := 'Approved'
   else if IsActive then Result := 'Active'
   else if IsCancelled then Result := 'Cancelled'
-  else if IsRejected then Result := 'Rejected';
+  else if IsRejected then Result := 'Rejected'
+  else if IsClosed then Result := 'Closed';
 end;
 
 function TLoan.FinancialInfoExists(const compId: string): boolean;
@@ -1100,7 +1101,7 @@ end;
 
 function TLoan.GetIsFinalised: boolean;
 begin
-  Result := IsRejected or IsCancelled or IsActive;
+  Result := IsRejected or IsCancelled or IsActive or IsClosed;
 end;
 
 function TLoan.GetTotalCharges: currency;

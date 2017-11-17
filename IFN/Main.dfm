@@ -217,6 +217,22 @@ object frmMain: TfrmMain
       ParentFont = False
       ExplicitTop = 651
     end
+    object urlChangeDate: TRzURLLabel
+      Tag = 1
+      Left = 1091
+      Top = 37
+      Width = 78
+      Height = 14
+      Alignment = taRightJustify
+      Caption = 'Change date..'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 6572079
+      Font.Height = -12
+      Font.Name = 'Tahoma'
+      Font.Style = [fsUnderline]
+      ParentFont = False
+      OnClick = urlChangeDateClick
+    end
     object pnlNavBar: TRzPanel
       Left = 17
       Top = 86

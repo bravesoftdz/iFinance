@@ -20,6 +20,9 @@ type
     { Private declarations }
   public
     { Public declarations }
+    constructor Create(AOwner: TComponent); overload; override;
+    constructor Create(AOwner: TComponent; ASource: TDataSource); reintroduce; overload;
+
   end;
 
 var
@@ -31,6 +34,17 @@ implementation
 
 uses
   LoanData, FormsUtil;
+
+constructor TfrmLoanLedger.Create(AOwner: TComponent);
+begin
+  inherited Create(AOwner);
+end;
+
+constructor TfrmLoanLedger.Create(AOwner: TComponent; ASource: TDataSource);
+begin
+  Create(AOwner);
+  grLedger.DataSource := ASource;
+end;
 
 procedure TfrmLoanLedger.FormClose(Sender: TObject; var Action: TCloseAction);
 begin

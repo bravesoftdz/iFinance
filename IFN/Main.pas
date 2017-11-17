@@ -132,6 +132,7 @@ type
     RzGroupBox2: TRzGroupBox;
     urlWithdrawals: TRzURLLabel;
     urlClosed: TRzURLLabel;
+    urlChangeDate: TRzURLLabel;
     procedure tbAddClientClick(Sender: TObject);
     procedure lblRecentlyAddedClick(Sender: TObject);
     procedure lbxRecentDblClick(Sender: TObject);
@@ -177,6 +178,7 @@ type
     procedure urlPaymentsClick(Sender: TObject);
     procedure urlWithdrawalsClick(Sender: TObject);
     procedure urlClosedClick(Sender: TObject);
+    procedure urlChangeDateClick(Sender: TObject);
   private
     { Private declarations }
     DOCKED_FORM: TForms;
@@ -185,6 +187,7 @@ type
     procedure OpenClientList(const filterType: TClientFilterType = cftAll);
     procedure OpenLoanList(const filterType: TLoanFilterType = lftAll);
     procedure ShowDevParams;
+    procedure SetCaptions;
   public
     { Public declarations }
     procedure DockForm(const fm: TForms; const title: string = '');
@@ -303,6 +306,8 @@ begin
   begin
     ShowModal;
     Free;
+    SetCaptions;
+    DockForm(fmNone);
   end;
 end;
 
@@ -484,6 +489,11 @@ begin
   OpenLoanList(lftCancelled);
 end;
 
+procedure TfrmMain.urlChangeDateClick(Sender: TObject);
+begin
+  ShowDevParams;
+end;
+
 procedure TfrmMain.urlDeniedClick(Sender: TObject);
 begin
   OpenLoanList(lftRejected);
@@ -509,7 +519,7 @@ var
   frm: TForm;
   control: integer;
 begin
-  if (pnlDockMain.ControlCount = 0) or (DOCKED_FORM <> fm) then
+  //if (pnlDockMain.ControlCount = 0) or (DOCKED_FORM <> fm) then
   begin
     control := 0;
 
@@ -546,13 +556,16 @@ begin
       fmPaymentList: frm := TfrmPaymentList.Create(Application);
       fmWithdrawalList: frm := TfrmWithdrawalList.Create(Application);
       else
-        frm := TForm.Create(Application);
+        frm := nil;
     end;
 
-    DOCKED_FORM := fm;
+    if Assigned(frm) then
+    begin
+      DOCKED_FORM := fm;
 
-    frm.ManualDock(pnlDockMain);
-    frm.Show;
+      frm.ManualDock(pnlDockMain);
+      frm.Show;
+    end;
   end;
 end;
 
@@ -575,15 +588,7 @@ end;
 
 procedure TfrmMain.FormShow(Sender: TObject);
 begin
-  {$ifdef debug}
-  ShowDevParams;
-  {$endif}
-
-  lblCaption.Caption := ifn.AppName + ' - ' + ifn.AppDescription;
-  lblWelcome.Caption := 'Welcome back ' + ifn.User.Name + '.';
-  lblDate.Caption := 'Today is ' + FormatDateTime('mmmm dd, yyyy.',ifn.AppDate);
-  lblLocation.Caption := 'Location: ' + ifn.GetLocationNameByCode(ifn.LocationCode);
-  lblVersion.Caption :=  'Version ' + ifn.Version;
+  SetCaptions;
 end;
 
 procedure TfrmMain.imgAcctTypeClick(Sender: TObject);
@@ -767,6 +772,15 @@ begin
     RecentLoans.Add(ll);
     lbxRecentLoans.Items.AddObject(ll.Client.Name,ll);
   end;
+end;
+
+procedure TfrmMain.SetCaptions;
+begin
+  lblCaption.Caption := ifn.AppName + ' - ' + ifn.AppDescription;
+  lblWelcome.Caption := 'Welcome back ' + ifn.User.Name + '.';
+  lblDate.Caption := 'Today is ' + FormatDateTime('mmmm dd, yyyy.', ifn.AppDate);
+  lblLocation.Caption := 'Location: ' + ifn.GetLocationNameByCode(ifn.LocationCode);
+  lblVersion.Caption := 'Version ' + ifn.Version;
 end;
 
 end.

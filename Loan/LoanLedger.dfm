@@ -1,11 +1,11 @@
 inherited frmLoanLedger: TfrmLoanLedger
   Caption = 'frmLoanLedger'
-  ClientHeight = 400
+  ClientHeight = 405
   ClientWidth = 561
   OnClose = FormClose
   OnCreate = FormCreate
   ExplicitWidth = 561
-  ExplicitHeight = 400
+  ExplicitHeight = 405
   PixelsPerInch = 96
   TextHeight = 14
   inherited pnlTitle: TRzPanel
@@ -23,14 +23,14 @@ inherited frmLoanLedger: TfrmLoanLedger
   end
   inherited pnlMain: TRzPanel
     Width = 561
-    Height = 379
+    Height = 384
     ExplicitWidth = 561
-    ExplicitHeight = 379
+    ExplicitHeight = 384
     object pnlLedger: TRzPanel
       Left = 8
       Top = 8
       Width = 545
-      Height = 363
+      Height = 368
       Anchors = [akLeft, akTop, akRight, akBottom]
       BorderOuter = fsNone
       BorderColor = 8675134
@@ -41,7 +41,7 @@ inherited frmLoanLedger: TfrmLoanLedger
         Left = 1
         Top = 1
         Width = 543
-        Height = 361
+        Height = 366
         Align = alClient
         BorderStyle = bsNone
         DataSource = dmLoan.dscLedger
@@ -93,10 +93,11 @@ inherited frmLoanLedger: TfrmLoanLedger
             Visible = True
           end
           item
-            Color = clInfoBk
+            Color = clBtnHighlight
             Expanded = False
-            FieldName = 'Interest'
+            FieldName = 'Balance_Principal'
             Title.Alignment = taCenter
+            Title.Caption = 'Balance (P)'
             Title.Font.Charset = DEFAULT_CHARSET
             Title.Font.Color = clWindowText
             Title.Font.Height = -12
@@ -106,11 +107,10 @@ inherited frmLoanLedger: TfrmLoanLedger
             Visible = True
           end
           item
-            Color = clBtnHighlight
+            Color = clInfoBk
             Expanded = False
-            FieldName = 'Balance_Principal'
+            FieldName = 'Interest'
             Title.Alignment = taCenter
-            Title.Caption = 'Balance (P)'
             Title.Font.Charset = DEFAULT_CHARSET
             Title.Font.Color = clWindowText
             Title.Font.Height = -12

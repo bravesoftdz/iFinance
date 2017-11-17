@@ -102,25 +102,22 @@ function TfrmPaymentMain.Save: boolean;
 begin
   Result := false;
 
-  if pmt.IsNew then
+  if (pmt.IsNew) and (PaymentIsValid) then
   begin
-    Result := PaymentIsValid;
-
     try
-      if Result then
+      if (Trim(edReceipt.Text) = '') and (ShowWarningBox('Receipt number has NOT been entered. ' +
+        'Do you want to continue saving this entry?') <> mrYes) then
       begin
-        if (Trim(edReceipt.Text) = '') and (ShowWarningBox('Receipt number has NOT been entered. ' +
-          'Do you want to continue saving this entry?') <> mrYes) then
-        begin
-          Result := false;
-          Exit;
-        end;
-
-        pmt.Save;
-
-        SetUnboundControls;
-        ChangeControlState;
+        Result := false;
+        Exit;
       end;
+
+      pmt.Save;
+
+      SetUnboundControls;
+      ChangeControlState;
+
+      Result := true;
     except
       on E: Exception do
       begin
@@ -471,7 +468,7 @@ var
 begin
   new := pmt.IsNew;
 
-  dtePaymentDate.ReadOnly := not new;
+  // dtePaymentDate.ReadOnly := not new;
   edReceipt.ReadOnly := not new;
   cmbPaymentMethod.ReadOnly := not new;
 end;

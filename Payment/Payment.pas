@@ -261,7 +261,7 @@ begin
         FieldByName('remarks').AsString := FDetails[i].Remarks;
 
         if FDetails[i].IsFullPayment then FieldByName('balance').AsCurrency := 0
-        else FieldByName('balance').AsCurrency := FDetails[i].Loan.InterestTotalDue - FDetails[i].Interest;
+        else FieldByName('balance').AsCurrency := FDetails[i].Loan.InterestDue - FDetails[i].Interest;
 
         Post;
       end;
@@ -501,12 +501,13 @@ begin
           payment := FInterest;
 
 
-          if (FLoan.IsDiminishing) and (not FLoan.UseFactorRate) then
-            if (FLoan.HasInterestComputed) or (FLoan.HasInterestAdditional) then
+          if ((FLoan.IsDiminishing) and (not FLoan.UseFactorRate)) or (FIsFullPayment) then
+            if ((FLoan.HasInterestComputed) or (FLoan.HasInterestAdditional)) or (FIsFullPayment) then
               UpdateInterestSchedule; // update interest schedule
 
           // save unposted interest
-          SaveInterest;
+          if (FIsFullPayment) or ((FLoan.IsDiminishing) and (not FLoan.UseFactorRate)) then
+            SaveInterest;
         end;
 
       PEN:
@@ -598,7 +599,8 @@ begin
       begin
         if not LLedger.Posted then
         begin
-          if (not FIsFullPayment) or ((FIsFullPayment) and (LLedger.FullPayment)) then
+          if (not FIsFullPayment)
+             or ((FIsFullPayment) and ((LLedger.FullPayment) or ((FLoan.IsDiminishing) and (not FLoan.UseFactorRate)))) then
           begin
             interest := LLedger.Debit;
             loanId := FLoan.Id;
@@ -619,12 +621,13 @@ end;
 procedure TPaymentDetail.UpdateInterestSchedule;
 var
   newDate, interestDate: TDateTime;
-  m,d,y,mm,dd,yy: word;
+  m, d, y, mm, dd, yy, pm, pd, py: word;
   pending: boolean;
   i: integer;
   newInterest, balance: currency;
 begin
-  i := 0;
+  if IsAdvanced then i := 0
+  else i := 1;
 
   try
     with dmPayment.dstInterests do
@@ -633,6 +636,8 @@ begin
       Filter := 'loan_id = ' + QuotedStr(FLoan.Id);
 
       balance := FLoan.Balance - FPrincipal;
+
+      DecodeDate(FPaymentDate,py,pm,pd);
 
       while not Eof do
       begin
@@ -649,7 +654,10 @@ begin
 
           Edit;
 
-          if (y = yy) and (m = mm) then
+          if ((py = yy) and (pm = mm) and (pd <> dd)) or (FIsFullPayment) then // change the status of the PENDING interest of month of the payment date
+            FieldByName('interest_status_id').AsString :=
+              TRttiEnumerationType.GetName<TInterestStatus>(TInterestStatus.D)
+          else if (y = yy) and (m = mm) and (d <> dd) then
           begin
             if HasPrincipal then
             begin
@@ -659,9 +667,7 @@ begin
             end;
 
             FieldByName('interest_date').AsDateTime := newDate;
-          end
-          else FieldByName('interest_status_id').AsString :=
-            TRttiEnumerationType.GetName<TInterestStatus>(TInterestStatus.D);
+          end;
 
           Post;
           Inc(i);

@@ -77,6 +77,7 @@ type
     property ReleaseAmount: currency read FReleaseAmount write FReleaseAmount;
     property ApprovedTerm: integer read FApprovedTerm write FApprovedTerm;
     property FullPaymentInterest: currency read FFullPaymentInterest;
+    property Payments: integer write FPayments;
 
     procedure GetPaymentDue(const paymentDate: TDateTime);
     procedure RetrieveLedger;
@@ -154,6 +155,7 @@ begin
         loan.ApplyExemption := FieldByName('apply_exemption').AsBoolean;
         loan.ApprovedTerm := FieldByName('terms').AsInteger;
         loan.ReleaseAmount := FieldByName('rel_amt').AsCurrency;
+        loan.Payments := FieldByName('payments').AsInteger;
 
         AddLoan(loan);
 
@@ -253,7 +255,7 @@ begin
        and (LLedger.CaseType = TRttiEnumerationType.GetName<TCaseTypes>(TCaseTypes.ITS))then
       if LLedger.ValueDate <= paymentDate then
       begin
-        if LLedger.ValueDate = paymentDate then due := LLedger.Debit
+        if LLedger.ValueDate = NextPayment then due := LLedger.Debit
         else balance := balance + LLedger.Debit;
       end;
   end;
@@ -262,7 +264,7 @@ begin
   // payment is made before or after schedule date
   if (IsDiminishing) and (not UseFactorRate) then
   begin
-    if paymentDate <> NextPayment then
+    if (paymentDate <> NextPayment) and (paymentDate <> FLastTransactionDate) then
     begin
       debitLedger := TLedger.Create;
 
@@ -289,8 +291,8 @@ begin
 
         debitLedger.Debit := computed;
       end
-      else
-      begin  // after schedule
+      else // after schedule
+      begin
         days := DaysBetween(NextPayment,paymentDate);
         additional := (FBalance * FInterestInDecimal * days) / ifn.DaysInAMonth;
         debitLedger.Debit := additional;
@@ -358,6 +360,8 @@ var
   LLedger: TLedger;
   interestDate: TDateTime;
 begin
+  interestDate := FLastTransactionDate;
+
   for LLedger in FLedger do
   begin
     if (LLedger.EventObject = TRttiEnumerationType.GetName<TEventObjects>(TEventObjects.ITR))
@@ -409,7 +413,7 @@ begin
   begin
     if (LLedger.EventObject = TRttiEnumerationType.GetName<TEventObjects>(TEventObjects.LON))
        and (LLedger.CaseType = TRttiEnumerationType.GetName<TCaseTypes>(TCaseTypes.PRC))then
-      if LLedger.ValueDate < IncMonth(paymentDate) then
+      if LLedger.ValueDate <= paymentDate then
         principal := principal + LLedger.Debit;
   end;
 

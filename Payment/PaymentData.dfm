@@ -243,4 +243,75 @@ object dmPayment: TdmPayment
     Left = 528
     Top = 24
   end
+  object dstLedger: TADODataSet
+    Connection = dmApplication.acMain
+    CursorType = ctStatic
+    LockType = ltReadOnly
+    BeforeOpen = dstLedgerBeforeOpen
+    CommandText = 'sp_ln_get_ledger;1'
+    CommandType = cmdStoredProc
+    Parameters = <
+      item
+        Name = '@RETURN_VALUE'
+        DataType = ftInteger
+        Direction = pdReturnValue
+        Precision = 10
+        Value = 0
+      end
+      item
+        Name = '@loan_id'
+        Attributes = [paNullable]
+        DataType = ftString
+        Size = 13
+        Value = ''
+      end
+      item
+        Name = '@as_of_date'
+        Attributes = [paNullable]
+        DataType = ftDateTime
+        Value = 0d
+      end>
+    Left = 456
+    Top = 88
+    object dstLedgerDue: TDateTimeField
+      FieldName = 'Due'
+      DisplayFormat = 'mm/dd/yyyy'
+    end
+    object dstLedgerPrincipal: TBCDField
+      FieldName = 'Principal'
+      DisplayFormat = '###,###,##0.00'
+      Precision = 10
+      Size = 2
+    end
+    object dstLedgerInterest: TBCDField
+      FieldName = 'Interest'
+      DisplayFormat = '###,###,##0.00'
+      Precision = 10
+      Size = 2
+    end
+    object dstLedgerevent_object: TStringField
+      FieldName = 'event_object'
+      ReadOnly = True
+      Size = 3
+    end
+    object dstLedgerBalance_Principal: TBCDField
+      FieldName = 'Balance_Principal'
+      ReadOnly = True
+      DisplayFormat = '###,###,##0.00'
+      Precision = 10
+      Size = 2
+    end
+    object dstLedgerBalance_Interest: TBCDField
+      FieldName = 'Balance_Interest'
+      ReadOnly = True
+      DisplayFormat = '###,###,##0.00'
+      Precision = 10
+      Size = 2
+    end
+  end
+  object dscLedger: TDataSource
+    DataSet = dstLedger
+    Left = 520
+    Top = 88
+  end
 end

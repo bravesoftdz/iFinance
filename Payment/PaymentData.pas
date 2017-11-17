@@ -23,6 +23,14 @@ type
     dstSchedule: TADODataSet;
     dstInterests: TADODataSet;
     dstLoans: TADODataSet;
+    dstLedger: TADODataSet;
+    dstLedgerDue: TDateTimeField;
+    dstLedgerPrincipal: TBCDField;
+    dstLedgerInterest: TBCDField;
+    dstLedgerevent_object: TStringField;
+    dstLedgerBalance_Principal: TBCDField;
+    dstLedgerBalance_Interest: TBCDField;
+    dscLedger: TDataSource;
     procedure dstPaymentBeforeOpen(DataSet: TDataSet);
     procedure dstPaymentNewRecord(DataSet: TDataSet);
     procedure dstActiveLoansBeforeOpen(DataSet: TDataSet);
@@ -34,6 +42,7 @@ type
     procedure dstWithdrawalNewRecord(DataSet: TDataSet);
     procedure dstAcctInfoBeforeOpen(DataSet: TDataSet);
     procedure dstWithdrawalAfterPost(DataSet: TDataSet);
+    procedure dstLedgerBeforeOpen(DataSet: TDataSet);
   private
     { Private declarations }
     procedure GetPaymentMethods;
@@ -74,6 +83,13 @@ begin
   (DataSet as TADODataSet).Parameters.ParamByName('@entity_id').Value :=
         pmt.Client.Id;
   (DataSet as TADODataSet).Parameters.ParamByName('@status').Value := 'R';
+end;
+
+procedure TdmPayment.dstLedgerBeforeOpen(DataSet: TDataSet);
+begin
+  (DataSet as TADODataSet).Parameters.ParamByName('@loan_id').Value :=
+    pmt.Details[pmt.DetailCount-1].Loan.Id;
+  (DataSet as TADODataSet).Parameters.ParamByName('@as_of_date').Value := ifn.AppDate;
 end;
 
 procedure TdmPayment.dstPaymentBeforeOpen(DataSet: TDataSet);

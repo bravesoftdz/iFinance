@@ -25,6 +25,21 @@ inherited frmPaymentDetail: TfrmPaymentDetail
     Height = 315
     ExplicitWidth = 530
     ExplicitHeight = 315
+    object urlLedger: TRzURLLabel [0]
+      Tag = 1
+      Left = 10
+      Top = 287
+      Width = 68
+      Height = 14
+      Caption = 'Open ledger'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 6572079
+      Font.Height = -12
+      Font.Name = 'Tahoma'
+      Font.Style = [fsUnderline]
+      ParentFont = False
+      OnClick = urlLedgerClick
+    end
     inherited pnlDetail: TRzPanel
       Width = 513
       Height = 266
