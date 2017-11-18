@@ -56,7 +56,7 @@ inherited frmPaymentDetail: TfrmPaymentDetail
           ExplicitHeight = 264
           object JvLabel1: TJvLabel
             Left = 252
-            Top = 75
+            Top = 55
             Width = 54
             Height = 14
             Caption = 'Loan ID:'
@@ -75,7 +75,7 @@ inherited frmPaymentDetail: TfrmPaymentDetail
           end
           object JvLabel2: TJvLabel
             Left = 252
-            Top = 99
+            Top = 79
             Width = 35
             Height = 14
             Caption = 'Type:'
@@ -94,7 +94,7 @@ inherited frmPaymentDetail: TfrmPaymentDetail
           end
           object JvLabel3: TJvLabel
             Left = 252
-            Top = 124
+            Top = 104
             Width = 57
             Height = 14
             Caption = 'Account:'
@@ -113,7 +113,7 @@ inherited frmPaymentDetail: TfrmPaymentDetail
           end
           object JvLabel4: TJvLabel
             Left = 252
-            Top = 148
+            Top = 128
             Width = 86
             Height = 14
             Caption = 'Loan balance:'
@@ -132,7 +132,7 @@ inherited frmPaymentDetail: TfrmPaymentDetail
           end
           object lblLoanId: TJvLabel
             Left = 324
-            Top = 75
+            Top = 55
             Width = 32
             Height = 14
             Caption = 'xxxxx'
@@ -146,7 +146,7 @@ inherited frmPaymentDetail: TfrmPaymentDetail
           end
           object lblType: TJvLabel
             Left = 306
-            Top = 99
+            Top = 79
             Width = 32
             Height = 14
             Caption = 'xxxxx'
@@ -160,7 +160,7 @@ inherited frmPaymentDetail: TfrmPaymentDetail
           end
           object lblAccount: TJvLabel
             Left = 324
-            Top = 124
+            Top = 104
             Width = 32
             Height = 14
             Caption = 'xxxxx'
@@ -174,7 +174,7 @@ inherited frmPaymentDetail: TfrmPaymentDetail
           end
           object lblLoanBalance: TJvLabel
             Left = 356
-            Top = 148
+            Top = 128
             Width = 32
             Height = 14
             Caption = 'xxxxx'
@@ -333,7 +333,7 @@ inherited frmPaymentDetail: TfrmPaymentDetail
           end
           object JvLabel11: TJvLabel
             Left = 252
-            Top = 173
+            Top = 153
             Width = 106
             Height = 14
             Caption = 'Interest balance:'
@@ -352,7 +352,7 @@ inherited frmPaymentDetail: TfrmPaymentDetail
           end
           object JvLabel12: TJvLabel
             Left = 252
-            Top = 197
+            Top = 177
             Width = 154
             Height = 14
             Caption = 'Due as of payment date:'
@@ -372,7 +372,7 @@ inherited frmPaymentDetail: TfrmPaymentDetail
           end
           object lblInterestBalance: TJvLabel
             Left = 372
-            Top = 173
+            Top = 153
             Width = 32
             Height = 14
             Caption = 'xxxxx'
@@ -391,7 +391,7 @@ inherited frmPaymentDetail: TfrmPaymentDetail
           end
           object lblInterestDue: TJvLabel
             Left = 412
-            Top = 197
+            Top = 177
             Width = 32
             Height = 14
             Caption = 'xxxxx'
@@ -405,7 +405,7 @@ inherited frmPaymentDetail: TfrmPaymentDetail
           end
           object JvLabel7: TJvLabel
             Left = 252
-            Top = 222
+            Top = 202
             Width = 106
             Height = 14
             Caption = 'Last transaction:'
@@ -425,7 +425,41 @@ inherited frmPaymentDetail: TfrmPaymentDetail
           end
           object lblLastTransaction: TJvLabel
             Left = 372
-            Top = 222
+            Top = 202
+            Width = 32
+            Height = 14
+            Caption = 'xxxxx'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -12
+            Font.Name = 'Tahoma'
+            Font.Style = []
+            ParentFont = False
+            Transparent = True
+          end
+          object JvLabel13: TJvLabel
+            Left = 252
+            Top = 226
+            Width = 35
+            Height = 14
+            Caption = 'Days:'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -12
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold]
+            ParentFont = False
+            Transparent = True
+            WordWrap = True
+            HotTrackFont.Charset = DEFAULT_CHARSET
+            HotTrackFont.Color = clWindowText
+            HotTrackFont.Height = -12
+            HotTrackFont.Name = 'Tahoma'
+            HotTrackFont.Style = []
+          end
+          object lblDays: TJvLabel
+            Left = 300
+            Top = 226
             Width = 32
             Height = 14
             Caption = 'xxxxx'

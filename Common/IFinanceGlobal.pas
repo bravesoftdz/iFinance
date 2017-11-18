@@ -9,15 +9,11 @@ type
   TFirstPayment = class
   strict private
     FMaxDaysHalf: byte;
-    FFullInterestRate: currency;
-    FMinDaysFullInterest: byte;
     FHalfInterestRate: currency;
     FMinDaysHalf: byte;
-    FMaxDaysFullInterest: byte;
   public
     property MinDaysHalfInterest: byte read FMinDaysHalf write FMinDaysHalf;
     property MaxDaysHalfInterest: byte read FMaxDaysHalf write FMaxDaysHalf;
-    property MinDaysFullInterest: byte read FMinDaysFullInterest write FMinDaysFullInterest;
   end;
 
   TRules = class
@@ -156,7 +152,6 @@ begin
 
   FFirstPayment.MinDaysHalfInterest := 5;
   FFirstPayment.MaxDaysHalfInterest := 15;
-  FFirstPayment.MinDaysFullInterest := 16;
 end;
 
 end.

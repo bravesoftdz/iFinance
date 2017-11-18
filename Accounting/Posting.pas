@@ -194,12 +194,6 @@ begin
           if ALoan.LoanClass.IsDiminishing then interest := balance * ALoan.LoanClass.InterestInDecimal
           else interest := ALoan.ReleaseAmount * ALoan.LoanClass.InterestInDecimal;
 
-          // if ALoan.LoanClass.UseFactorRate then
-          // begin
-          //  caseType := TRttiEnumerationType.GetName<TCaseTypes>(TCaseTypes.ITS);
-          //  status := TRttiEnumerationType.GetName<TLedgerRecordStatus>(TLedgerRecordStatus.OPN);
-          //  PostEntry(refPostingId, interest, credit, eventObject, primaryKey, status, postDate, valueDate, caseType);
-          // end
           interestSource := TRttiEnumerationType.GetName<TInterestSource>(TInterestSource.SYS);
           status := TRttiEnumerationType.GetName<TInterestStatus>(TInterestStatus.P);
           PostInterest(interest,ALoan.Id,valueDate,interestSource,status);

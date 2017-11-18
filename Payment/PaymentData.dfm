@@ -279,13 +279,13 @@ object dmPayment: TdmPayment
     end
     object dstLedgerPrincipal: TBCDField
       FieldName = 'Principal'
-      DisplayFormat = '###,###,##0.00'
+      DisplayFormat = '###,###,##0.00;-;-'
       Precision = 10
       Size = 2
     end
     object dstLedgerInterest: TBCDField
       FieldName = 'Interest'
-      DisplayFormat = '###,###,##0.00'
+      DisplayFormat = '###,###,##0.00;-;-'
       Precision = 10
       Size = 2
     end
@@ -297,14 +297,14 @@ object dmPayment: TdmPayment
     object dstLedgerBalance_Principal: TBCDField
       FieldName = 'Balance_Principal'
       ReadOnly = True
-      DisplayFormat = '###,###,##0.00'
+      DisplayFormat = '###,###,##0.00;-;-'
       Precision = 10
       Size = 2
     end
     object dstLedgerBalance_Interest: TBCDField
       FieldName = 'Balance_Interest'
       ReadOnly = True
-      DisplayFormat = '###,###,##0.00'
+      DisplayFormat = '###,###,##0.00;-;-'
       Precision = 10
       Size = 2
     end

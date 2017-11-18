@@ -483,6 +483,8 @@ var
   caseType: string;
   paymentType: TPaymentTypes;
 begin
+  payment := 0;
+
   //  post the payment in the ledger
   for paymentType := TPaymentTypes.PRN to TPaymentTypes.PEN do
   begin
@@ -621,12 +623,18 @@ end;
 procedure TPaymentDetail.UpdateInterestSchedule;
 var
   newDate, interestDate: TDateTime;
-  m, d, y, mm, dd, yy, pm, pd, py: word;
+  m, d, y, mm, dd, yy, pm, pd, py, nm, nd, ny: word;
   pending: boolean;
   i: integer;
   newInterest, balance: currency;
+  sameMonth: boolean;
 begin
-  if IsAdvanced then i := 0
+  DecodeDate(Floan.NextPayment,ny,nm,nd);
+  DecodeDate(FPaymentDate,py,pm,pd);
+
+  sameMonth := (ny = py) and (nm = pm); // payment is the same as the month of the scheduled interest but not on the scheduled date
+
+  if sameMonth then i := 0
   else i := 1;
 
   try
@@ -636,8 +644,6 @@ begin
       Filter := 'loan_id = ' + QuotedStr(FLoan.Id);
 
       balance := FLoan.Balance - FPrincipal;
-
-      DecodeDate(FPaymentDate,py,pm,pd);
 
       while not Eof do
       begin

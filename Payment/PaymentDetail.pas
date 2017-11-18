@@ -38,6 +38,8 @@ type
     JvLabel7: TJvLabel;
     lblLastTransaction: TJvLabel;
     urlLedger: TRzURLLabel;
+    JvLabel13: TJvLabel;
+    lblDays: TJvLabel;
     procedure FormCreate(Sender: TObject);
     procedure FormKeyPress(Sender: TObject; var Key: Char);
     procedure edPrincipalChange(Sender: TObject);
@@ -180,7 +182,7 @@ var
   i: integer;
 begin
   i := pmt.Client.IndexOf(pmt.Details[pmt.DetailCount-1].Loan);
-  edInterest.Value := pmt.Client.ActiveLoans[i].InterestTotalDue;
+  edInterest.Value := pmt.Client.ActiveLoans[i].InterestDue;
 end;
 
 procedure TfrmPaymentDetail.urlLedgerClick(Sender: TObject);
@@ -232,7 +234,7 @@ begin
   // set labels
   lblLoanId.Caption := pmt.Client.ActiveLoans[i].Id;
   lblType.Caption := pmt.Client.ActiveLoans[i].LoanTypeName;
-  lblAccount.Caption := pmt.Client.ActiveLoans[i].AccountTypeName;
+  lblAccount.Caption := pmt.Client.ActiveLoans[i].AccountTypeName + ' - ' + pmt.Client.ActiveLoans[i].InterestMethodName;
   lblLoanBalance.Caption := FormatFloat('###,###,##0.00', pmt.Client.ActiveLoans[i].Balance);
   lblInterestBalance.Caption := FormatFloat('###,###,##0.00;-;-', pmt.Client.ActiveLoans[i].InterestBalance);
 
@@ -247,6 +249,7 @@ begin
     lblInterestDue.Caption := FormatFloat('###,###,##0.00;-;-', pmt.Client.ActiveLoans[i].InterestDue);
 
   lblLastTransaction.Caption := FormatDateTime('mm/dd/yyyy', pmt.Client.ActiveLoans[i].LastTransactionDate);
+  lblDays.Caption := IntToStr(DaysBetween(pmt.Date,pmt.Client.ActiveLoans[i].LastTransactionDate));
 
   urlPrincipalDue.Caption := FormatFloat('###,###,##0.00', pmt.Client.ActiveLoans[i].PrincipalDue);
   urlInterestTotalDue.Caption := FormatFloat('###,###,##0.00', pmt.Client.ActiveLoans[i].InterestDue);

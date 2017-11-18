@@ -12,6 +12,10 @@ type
   TfrmLoanLedger = class(TfrmBasePopup)
     pnlLedger: TRzPanel;
     grLedger: TRzDBGrid;
+    RzPanel1: TRzPanel;
+    RzLabel1: TRzLabel;
+    RzPanel2: TRzPanel;
+    RzLabel2: TRzLabel;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure grLedgerDrawColumnCell(Sender: TObject; const Rect: TRect;
@@ -24,9 +28,6 @@ type
     constructor Create(AOwner: TComponent; ASource: TDataSource); reintroduce; overload;
 
   end;
-
-var
-  frmLoanLedger: TfrmLoanLedger;
 
 implementation
 

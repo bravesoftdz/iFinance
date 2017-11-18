@@ -47,6 +47,7 @@ type
     function GetInterestTotalDue: currency;
     function GetInterestDue: currency; overload;
     function GetLatestInterestDate(const paymentDate: TDateTime): TDateTime;
+    function GetInterestMethodName: string;
 
   public
     property Id: string read FId write FId;
@@ -78,6 +79,7 @@ type
     property ApprovedTerm: integer read FApprovedTerm write FApprovedTerm;
     property FullPaymentInterest: currency read FFullPaymentInterest;
     property Payments: integer write FPayments;
+    property InterestMethodName: string read GetInterestMethodName;
 
     procedure GetPaymentDue(const paymentDate: TDateTime);
     procedure RetrieveLedger;
@@ -240,6 +242,7 @@ var
   due, additional, balance, computed, full: currency;
   LLedger, debitLedger: TLedger;
   days: integer;
+  py, pm, pd, vy, vm, vd: word;
 begin
   due := 0;         // payment on schedule date
   additional := 0;  // payment after schedule date
@@ -247,17 +250,33 @@ begin
   computed := 0;    // payment before schedule date
   full := 0;        // full payment
 
+  // will be used for only for fixed accounts
+  // or diminishing but using factor rates
+  DecodeDate(paymentDate,py,pm,pd);
+
   // get any open accounts in the ledger
   // can either be scheduled interest, balance of previous or both
   for LLedger in FLedger do
   begin
     if (LLedger.EventObject = TRttiEnumerationType.GetName<TEventObjects>(TEventObjects.ITR))
        and (LLedger.CaseType = TRttiEnumerationType.GetName<TCaseTypes>(TCaseTypes.ITS))then
-      if LLedger.ValueDate <= paymentDate then
+    begin
+      if (IsDiminishing) and (not UseFactorRate) then
       begin
-        if LLedger.ValueDate = NextPayment then due := LLedger.Debit
-        else balance := balance + LLedger.Debit;
+        if LLedger.ValueDate <= paymentDate then
+        begin
+          if LLedger.ValueDate = NextPayment then due := LLedger.Debit
+          else balance := balance + LLedger.Debit;
+        end;
+      end
+      else
+      begin
+        DecodeDate(LLedger.ValueDate,vy,vm,vd);
+
+        // only get the due for the month..
+        if (vm = pm) and (vy = py) then due := LLedger.Debit;
       end;
+    end;
   end;
 
   // additional interest
@@ -303,6 +322,7 @@ begin
   end
   else // for full payment
   begin
+    // note: set the FullpPayment property to true
     debitLedger := TLedger.Create;
 
     debitLedger.EventObject := TRttiEnumerationType.GetName<TEventObjects>(TEventObjects.ITR);
@@ -333,6 +353,13 @@ begin
   else if HasInterestAdditional then Result := FInterestDue + FInterestAdditional
   else if HasInterestDue then Result := FInterestDue
   else Result := 0;
+end;
+
+function TLoan.GetInterestMethodName: string;
+begin
+  if (FInterestMethod = 'D') and (FUseFactorRate) then Result := 'Diminishing*'
+  else if FInterestMethod = 'D' then Result := 'Diminishing'
+  else Result := 'Fixed';
 end;
 
 function TLoan.GetInterestTotalDue: currency;
@@ -406,15 +433,22 @@ procedure TLoan.GetPrincipalDue(const paymentDate: TDateTime);
 var
   principal: currency;
   LLedger: TLedger;
+  py, pm, pd, vy, vm, vd: word;
 begin
   principal := 0;
+
+  DecodeDate(paymentDate,py,pm,pd);
 
   for LLedger in FLedger do
   begin
     if (LLedger.EventObject = TRttiEnumerationType.GetName<TEventObjects>(TEventObjects.LON))
        and (LLedger.CaseType = TRttiEnumerationType.GetName<TCaseTypes>(TCaseTypes.PRC))then
-      if LLedger.ValueDate <= paymentDate then
-        principal := principal + LLedger.Debit;
+    begin
+      DecodeDate(LLedger.ValueDate,vy,vm,vd);
+
+      // only get the due for the month.. exclude balance
+      if (vm = pm) and (vy = py) then principal := principal + LLedger.Debit;
+    end;
   end;
 
   FPrincipalDue := principal;
