@@ -250,7 +250,7 @@ begin
   computed := 0;    // payment before schedule date
   full := 0;        // full payment
 
-  // will be used for only for fixed accounts
+  // will be used only for fixed accounts
   // or diminishing but using factor rates
   DecodeDate(paymentDate,py,pm,pd);
 
@@ -265,8 +265,9 @@ begin
       begin
         if LLedger.ValueDate <= paymentDate then
         begin
-          if LLedger.ValueDate = NextPayment then due := LLedger.Debit
-          else balance := balance + LLedger.Debit;
+          // if LLedger.ValueDate = NextPayment then due := LLedger.Debit
+          if LLedger.HasPartial then balance := balance + LLedger.Debit
+          else due := due + LLedger.Debit;
         end;
       end
       else
@@ -476,7 +477,8 @@ begin
         LLedger.ValueDate := FieldByName('value_date').AsDateTime;
         LLedger.Debit := FieldByName('payment_due').AsSingle;
         LLedger.CaseType := FieldByName('case_type').AsString;
-        LLedger.CurrentStatus := FieldByName('status_code').Asstring;
+        LLedger.CurrentStatus := FieldByName('status_code').AsString;
+        LLedger.HasPartial := FieldByName('has_partial').AsInteger = 1;
 
         AddLedger(LLedger);
 

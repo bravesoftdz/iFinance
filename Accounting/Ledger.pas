@@ -19,6 +19,7 @@ type
     FCurrentStatus: string;
     FNewStatus: string;
     FFullPayment: boolean;
+    FHasPartial: boolean;
     function GetPosted: boolean;
     function GetStatusChanged: boolean;
     function GetUnreferencedPayment: boolean;
@@ -37,6 +38,7 @@ type
     property StatusChanged: boolean read GetStatusChanged;
     property UnreferencedPayment: boolean read GetUnreferencedPayment;
     property FullPayment: boolean read FFullPayment write FFullPayment;
+    property HasPartial: boolean read FHasPartial write FHasPartial;
   end;
 
 implementation

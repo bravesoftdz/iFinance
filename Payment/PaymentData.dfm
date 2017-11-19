@@ -243,6 +243,11 @@ object dmPayment: TdmPayment
     Left = 528
     Top = 24
   end
+  object dscLedger: TDataSource
+    DataSet = dstLedger
+    Left = 528
+    Top = 88
+  end
   object dstLedger: TADODataSet
     Connection = dmApplication.acMain
     CursorType = ctStatic
@@ -273,45 +278,53 @@ object dmPayment: TdmPayment
       end>
     Left = 456
     Top = 88
-    object dstLedgerDue: TDateTimeField
-      FieldName = 'Due'
+    object dstLedgerdue: TDateTimeField
+      FieldName = 'due'
       DisplayFormat = 'mm/dd/yyyy'
     end
-    object dstLedgerPrincipal: TBCDField
-      FieldName = 'Principal'
+    object dstLedgerreceipt_no: TStringField
+      FieldName = 'receipt_no'
+      FixedChar = True
+      Size = 10
+    end
+    object dstLedgerdebit_amt_p: TBCDField
+      FieldName = 'debit_amt_p'
       DisplayFormat = '###,###,##0.00;-;-'
       Precision = 10
       Size = 2
     end
-    object dstLedgerInterest: TBCDField
-      FieldName = 'Interest'
+    object dstLedgercredit_amt_p: TBCDField
+      FieldName = 'credit_amt_p'
       DisplayFormat = '###,###,##0.00;-;-'
       Precision = 10
       Size = 2
     end
-    object dstLedgerevent_object: TStringField
-      FieldName = 'event_object'
-      ReadOnly = True
-      Size = 3
-    end
-    object dstLedgerBalance_Principal: TBCDField
-      FieldName = 'Balance_Principal'
-      ReadOnly = True
+    object dstLedgerbalance_p: TBCDField
+      FieldName = 'balance_p'
       DisplayFormat = '###,###,##0.00;-;-'
       Precision = 10
       Size = 2
     end
-    object dstLedgerBalance_Interest: TBCDField
-      FieldName = 'Balance_Interest'
-      ReadOnly = True
+    object dstLedgerdebit_amt_i: TBCDField
+      FieldName = 'debit_amt_i'
       DisplayFormat = '###,###,##0.00;-;-'
       Precision = 10
       Size = 2
     end
-  end
-  object dscLedger: TDataSource
-    DataSet = dstLedger
-    Left = 520
-    Top = 88
+    object dstLedgercredit_amt_i: TBCDField
+      FieldName = 'credit_amt_i'
+      DisplayFormat = '###,###,##0.00;-;-'
+      Precision = 10
+      Size = 2
+    end
+    object dstLedgerbalance_i: TBCDField
+      FieldName = 'balance_i'
+      DisplayFormat = '###,###,##0.00;-;-'
+      Precision = 10
+      Size = 2
+    end
+    object dstLedgersort_order: TSmallintField
+      FieldName = 'sort_order'
+    end
   end
 end

@@ -2,6 +2,7 @@ inherited frmLoanLedger: TfrmLoanLedger
   Caption = 'frmLoanLedger'
   ClientHeight = 405
   ClientWidth = 679
+  Position = poOwnerFormCenter
   OnClose = FormClose
   OnCreate = FormCreate
   ExplicitWidth = 679
@@ -10,7 +11,7 @@ inherited frmLoanLedger: TfrmLoanLedger
   TextHeight = 14
   inherited pnlTitle: TRzPanel
     Width = 679
-    ExplicitWidth = 561
+    ExplicitWidth = 679
     DesignSize = (
       679
       21)
@@ -27,7 +28,7 @@ inherited frmLoanLedger: TfrmLoanLedger
   inherited pnlMain: TRzPanel
     Width = 679
     Height = 384
-    ExplicitWidth = 561
+    ExplicitWidth = 679
     ExplicitHeight = 384
     object pnlLedger: TRzPanel
       Left = 8
@@ -40,7 +41,6 @@ inherited frmLoanLedger: TfrmLoanLedger
       BorderWidth = 1
       ParentColor = True
       TabOrder = 0
-      ExplicitWidth = 711
       object grLedger: TRzDBGrid
         Left = 1
         Top = 1

@@ -952,8 +952,9 @@ begin
   begin
     with TfrmLoanLedger.Create(self) do
     begin
-      ShowModal;
-      Free;
+      Parent := self;
+      Show;
+      //Free;
     end
   end;
 end;

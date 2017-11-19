@@ -20,6 +20,7 @@ type
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure grLedgerDrawColumnCell(Sender: TObject; const Rect: TRect;
       DataCol: Integer; Column: TColumn; State: TGridDrawState);
+    procedure imgCloseClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -51,6 +52,7 @@ procedure TfrmLoanLedger.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
   inherited;
   grLedger.DataSource.DataSet.Close;
+  Action := caFree;
 end;
 
 procedure TfrmLoanLedger.FormCreate(Sender: TObject);
@@ -77,6 +79,12 @@ begin
     end
   end;
 
+end;
+
+procedure TfrmLoanLedger.imgCloseClick(Sender: TObject);
+begin
+  inherited;
+  Close;
 end;
 
 end.

@@ -226,61 +226,64 @@ procedure TPayment.SaveDetails;
 var
   i, cnt: integer;
 begin
-  with dmPayment.dstPaymentDetail do
-  begin
-    cnt := GetDetailCount - 1;
-
-    Open;
-
-    for i := 0 to cnt do
+  try
+    with dmPayment.dstPaymentDetail do
     begin
-      FDetails[i].PaymentId := FPaymentId;
-      FDetails[i].PaymentDate := FDate;
+      cnt := GetDetailCount - 1;
 
-      // principal
-      if FDetails[i].HasPrincipal then
+      Open;
+
+      for i := 0 to cnt do
       begin
-        Append;
-        FieldByName('payment_id').AsString := FPaymentId;
-        FieldByName('loan_id').AsString := FDetails[i].Loan.Id;
-        FieldByName('payment_amt').AsCurrency := FDetails[i].Principal;
-        FieldByName('payment_type').AsString := FDetails[i].PaymentTypeToString(ptPrincipal);
-        FieldByName('remarks').AsString := FDetails[i].Remarks;
-        FieldByName('balance').AsCurrency := FDetails[i].Loan.Balance - FDetails[i].Principal;
-        Post;
+        FDetails[i].PaymentId := FPaymentId;
+        FDetails[i].PaymentDate := FDate;
+
+        // principal
+        if FDetails[i].HasPrincipal then
+        begin
+          Append;
+          FieldByName('payment_id').AsString := FPaymentId;
+          FieldByName('loan_id').AsString := FDetails[i].Loan.Id;
+          FieldByName('payment_amt').AsCurrency := FDetails[i].Principal;
+          FieldByName('payment_type').AsString := FDetails[i].PaymentTypeToString(ptPrincipal);
+          FieldByName('remarks').AsString := FDetails[i].Remarks;
+          FieldByName('balance').AsCurrency := FDetails[i].Loan.Balance - FDetails[i].Principal;
+          Post;
+        end;
+
+        // interest
+        if FDetails[i].HasInterest then
+        begin
+          Append;
+          FieldByName('payment_id').AsString := FPaymentId;
+          FieldByName('loan_id').AsString := FDetails[i].Loan.Id;
+          FieldByName('payment_amt').AsCurrency := FDetails[i].Interest;
+          FieldByName('payment_type').AsString := FDetails[i].PaymentTypeToString(ptInterest);
+          FieldByName('remarks').AsString := FDetails[i].Remarks;
+
+          if FDetails[i].IsFullPayment then FieldByName('balance').AsCurrency := 0
+          else FieldByName('balance').AsCurrency := FDetails[i].Loan.InterestDue - FDetails[i].Interest;
+
+          Post;
+        end;
+
+        // penalty
+        if FDetails[i].HasPenalty then
+        begin
+          Append;
+          FieldByName('payment_id').AsString := FPaymentId;
+          FieldByName('loan_id').AsString := FDetails[i].Loan.Id;
+          FieldByName('payment_amt').AsCurrency := FDetails[i].Penalty;
+          FieldByName('payment_type').AsString := FDetails[i].PaymentTypeToString(ptPenalty);
+          FieldByName('remarks').AsString := FDetails[i].Remarks;
+          Post;
+        end;
+
+        FDetails[i].Post;
       end;
-
-      // interest
-      if FDetails[i].HasInterest then
-      begin
-        Append;
-        FieldByName('payment_id').AsString := FPaymentId;
-        FieldByName('loan_id').AsString := FDetails[i].Loan.Id;
-        FieldByName('payment_amt').AsCurrency := FDetails[i].Interest;
-        FieldByName('payment_type').AsString := FDetails[i].PaymentTypeToString(ptInterest);
-        FieldByName('remarks').AsString := FDetails[i].Remarks;
-
-        if FDetails[i].IsFullPayment then FieldByName('balance').AsCurrency := 0
-        else FieldByName('balance').AsCurrency := FDetails[i].Loan.InterestDue - FDetails[i].Interest;
-
-        Post;
-      end;
-
-      // penalty
-      if FDetails[i].HasPenalty then
-      begin
-        Append;
-        FieldByName('payment_id').AsString := FPaymentId;
-        FieldByName('loan_id').AsString := FDetails[i].Loan.Id;
-        FieldByName('payment_amt').AsCurrency := FDetails[i].Penalty;
-        FieldByName('payment_type').AsString := FDetails[i].PaymentTypeToString(ptPenalty);
-        FieldByName('remarks').AsString := FDetails[i].Remarks;
-        Post;
-      end;
-
-      FDetails[i].Post;
     end;
-
+  except
+    on E: Exception do Abort;
   end;
 end;
 
@@ -502,10 +505,10 @@ begin
           caseType :=  TRttiEnumerationType.GetName<TCaseTypes>(TCaseTypes.ITS);
           payment := FInterest;
 
-
+          // update interest schedule
           if ((FLoan.IsDiminishing) and (not FLoan.UseFactorRate)) or (FIsFullPayment) then
             if ((FLoan.HasInterestComputed) or (FLoan.HasInterestAdditional)) or (FIsFullPayment) then
-              UpdateInterestSchedule; // update interest schedule
+              UpdateInterestSchedule;
 
           // save unposted interest
           if (FIsFullPayment) or ((FLoan.IsDiminishing) and (not FLoan.UseFactorRate)) then
@@ -634,7 +637,7 @@ begin
 
   sameMonth := (ny = py) and (nm = pm); // payment is the same as the month of the scheduled interest but not on the scheduled date
 
-  if sameMonth then i := 0
+  if (FPaymentDate < Floan.NextPayment)and (sameMonth) then i := 0
   else i := 1;
 
   try
@@ -660,7 +663,7 @@ begin
 
           Edit;
 
-          if ((py = yy) and (pm = mm) and (pd <> dd)) or (FIsFullPayment) then // change the status of the PENDING interest of month of the payment date
+          if ((py = yy) and (pm = mm)) or (FIsFullPayment) then // change the status of the PENDING interest of month of the payment date
             FieldByName('interest_status_id').AsString :=
               TRttiEnumerationType.GetName<TInterestStatus>(TInterestStatus.D)
           else if (y = yy) and (m = mm) and (d <> dd) then

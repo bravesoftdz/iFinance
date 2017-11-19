@@ -11,6 +11,7 @@ object frmBase: TfrmBase
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  OnClose = FormClose
   PixelsPerInch = 96
   TextHeight = 14
 end
