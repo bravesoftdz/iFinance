@@ -73,6 +73,21 @@ inherited frmDevParams: TfrmDevParams
             HotTrackFont.Name = 'Tahoma'
             HotTrackFont.Style = []
           end
+          object urlNextMonth: TRzURLLabel
+            Tag = 1
+            Left = 263
+            Top = 23
+            Width = 66
+            Height = 14
+            Caption = 'Next month'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clGreen
+            Font.Height = -12
+            Font.Name = 'Tahoma'
+            Font.Style = [fsUnderline]
+            ParentFont = False
+            OnClick = urlNextMonthClick
+          end
           object dteApplicationDate: TRzDateTimeEdit
             Left = 127
             Top = 15

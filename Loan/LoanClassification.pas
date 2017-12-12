@@ -24,7 +24,7 @@ type
     FMaxAge: integer;
     FAction: TLoanClassAction;
     FInterestComputationMethod: string;
-    FUseFactorRate: boolean;
+    FIsScheduled: boolean;
 
     function GetComakersNotRequired: boolean;
     function GetClassCharge(const i: integer): TLoanClassCharge;
@@ -74,7 +74,7 @@ type
     property InterestComputationMethod: string write FInterestComputationMethod;
     property IsDiminishing: boolean read GetIsDiminishing;
     property IsFixed: boolean read GetIsFixed;
-    property UseFactorRate: boolean read FUseFactorRate write FUseFactorRate;
+    property IsScheduled: boolean read FIsScheduled write FIsScheduled;
 
     constructor Create(const classificationId: integer; classificationName: string;
         const interest: real; const term: integer; const maxLoan: currency;
@@ -109,7 +109,7 @@ begin
   FLoanType := lt;
   FGroup := gp;
   FInterestComputationMethod := intCompMethod;
-  FUseFactorRate := ufr;
+  FIsScheduled := ufr;
 
   // set action
   if IsActive then FAction := lcaNone

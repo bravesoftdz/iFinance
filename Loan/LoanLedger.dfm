@@ -1,22 +1,21 @@
 inherited frmLoanLedger: TfrmLoanLedger
   Caption = 'frmLoanLedger'
   ClientHeight = 405
-  ClientWidth = 679
+  ClientWidth = 689
   Position = poOwnerFormCenter
-  OnClose = FormClose
   OnCreate = FormCreate
-  ExplicitWidth = 679
+  ExplicitWidth = 689
   ExplicitHeight = 405
   PixelsPerInch = 96
   TextHeight = 14
   inherited pnlTitle: TRzPanel
-    Width = 679
+    Width = 689
     ExplicitWidth = 679
     DesignSize = (
-      679
+      689
       21)
     inherited imgClose: TImage
-      Left = 658
+      Left = 668
       ExplicitLeft = 389
     end
     inherited lblCaption: TRzLabel
@@ -26,14 +25,14 @@ inherited frmLoanLedger: TfrmLoanLedger
     end
   end
   inherited pnlMain: TRzPanel
-    Width = 679
+    Width = 689
     Height = 384
     ExplicitWidth = 679
     ExplicitHeight = 384
     object pnlLedger: TRzPanel
       Left = 8
       Top = 24
-      Width = 663
+      Width = 673
       Height = 352
       Anchors = [akLeft, akTop, akRight, akBottom]
       BorderOuter = fsNone
@@ -41,10 +40,11 @@ inherited frmLoanLedger: TfrmLoanLedger
       BorderWidth = 1
       ParentColor = True
       TabOrder = 0
+      ExplicitWidth = 663
       object grLedger: TRzDBGrid
         Left = 1
         Top = 1
-        Width = 661
+        Width = 671
         Height = 350
         Align = alClient
         BorderStyle = bsNone
@@ -85,15 +85,15 @@ inherited frmLoanLedger: TfrmLoanLedger
           end
           item
             Expanded = False
-            FieldName = 'receipt_no'
+            FieldName = 'document_no'
             Title.Alignment = taCenter
-            Title.Caption = 'OR #'
+            Title.Caption = 'Document #'
             Title.Font.Charset = DEFAULT_CHARSET
             Title.Font.Color = clWindowText
             Title.Font.Height = -12
             Title.Font.Name = 'Tahoma'
             Title.Font.Style = [fsBold]
-            Width = 85
+            Width = 100
             Visible = True
           end
           item
@@ -181,7 +181,7 @@ inherited frmLoanLedger: TfrmLoanLedger
       end
     end
     object RzPanel1: TRzPanel
-      Left = 175
+      Left = 190
       Top = 5
       Width = 238
       Height = 19
@@ -212,7 +212,7 @@ inherited frmLoanLedger: TfrmLoanLedger
       end
     end
     object RzPanel2: TRzPanel
-      Left = 412
+      Left = 427
       Top = 5
       Width = 238
       Height = 19

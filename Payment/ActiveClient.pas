@@ -16,10 +16,9 @@ type
     FInterestMethod: string;
     FPrincipalDue: currency;
     FInterestDue: currency;
-    FUseFactorRate: boolean;
+    FIsScheduled: boolean;
     FLastTransactionDate: TDateTime;
     FInterestInDecimal: currency;
-    FApplyExemption: boolean;
     FInterestBalance: currency;
     FInterestAdditional: currency;
     FInterestComputed: currency;
@@ -59,11 +58,10 @@ type
     property IsFixed: boolean read GetIsFixed;
     property PrincipalDue: currency read FPrincipalDue;
     property InterestDue: currency read GetInterestDue;
-    property UseFactorRate: boolean read FUseFactorRate write FUseFactorRate;
+    property IsScheduled: boolean read FIsScheduled write FIsScheduled;
     property LastTransactionDate: TDateTime read FLastTransactionDate write FLastTransactionDate;
     property InterestInDecimal: currency read FInterestInDecimal write FInterestInDecimal;
     property NextPayment: TDateTime read GetNextPayment;
-    property ApplyExemption: boolean read FApplyExemption write FApplyExemption;
     property InterestBalance: currency read FInterestBalance write FInterestBalance;
     property Ledger[const i: integer]: TLedger read GetLedger;
     property IsFirstPayment: boolean read GetIsFirstPayment;
@@ -116,7 +114,7 @@ var
 implementation
 
 uses
-  PaymentData, IFinanceGlobal;
+  PaymentData, IFinanceGlobal, IFinanceDialogs;
 
 constructor TActiveClient.Create;
 begin
@@ -151,10 +149,9 @@ begin
         loan.LoanTypeName := FieldByName('loan_type_name').AsString;
         loan.AccountTypeName := FieldByName('acct_type_name').AsString;
         loan.InterestMethod := FieldByName('int_comp_method').AsString;
-        loan.UseFactorRate := FieldByName('use_factor_rate').AsBoolean;
+        loan.IsScheduled := FieldByName('is_scheduled').AsBoolean;
         loan.LastTransactionDate := FieldByName('last_transaction_date').AsDateTime;
         loan.InterestInDecimal := FieldByName('int_rate').AsCurrency / 100;
-        loan.ApplyExemption := FieldByName('apply_exemption').AsBoolean;
         loan.ApprovedTerm := FieldByName('terms').AsInteger;
         loan.ReleaseAmount := FieldByName('rel_amt').AsCurrency;
         loan.Payments := FieldByName('payments').AsInteger;
@@ -251,7 +248,7 @@ begin
   full := 0;        // full payment
 
   // will be used only for fixed accounts
-  // or diminishing but using factor rates
+  // or diminishing scheduled accounts
   DecodeDate(paymentDate,py,pm,pd);
 
   // get any open accounts in the ledger
@@ -261,7 +258,7 @@ begin
     if (LLedger.EventObject = TRttiEnumerationType.GetName<TEventObjects>(TEventObjects.ITR))
        and (LLedger.CaseType = TRttiEnumerationType.GetName<TCaseTypes>(TCaseTypes.ITS))then
     begin
-      if (IsDiminishing) and (not UseFactorRate) then
+      if (IsDiminishing) and (not IsScheduled) then
       begin
         if LLedger.ValueDate <= paymentDate then
         begin
@@ -275,14 +272,15 @@ begin
         DecodeDate(LLedger.ValueDate,vy,vm,vd);
 
         // only get the due for the month..
-        if (vm = pm) and (vy = py) then due := LLedger.Debit;
+        if (vm = pm) and (vy = py) then due := LLedger.Debit
+        else if (vm < pm) and (vy <= py) then balance := balance + LLedger.Debit;
       end;
     end;
   end;
 
   // additional interest
   // payment is made before or after schedule date
-  if (IsDiminishing) and (not UseFactorRate) then
+  if (IsDiminishing) and (not IsScheduled) then
   begin
     if (paymentDate <> NextPayment) and (paymentDate <> FLastTransactionDate) then
     begin
@@ -358,7 +356,7 @@ end;
 
 function TLoan.GetInterestMethodName: string;
 begin
-  if (FInterestMethod = 'D') and (FUseFactorRate) then Result := 'Diminishing*'
+  if (FInterestMethod = 'D') and (FIsScheduled) then Result := 'Diminishing*'
   else if FInterestMethod = 'D' then Result := 'Diminishing'
   else Result := 'Fixed';
 end;
@@ -459,34 +457,38 @@ procedure TLoan.RetrieveLedger;
 var
   LLedger: TLedger;
 begin
-  ClearLedger;
+  try
+    ClearLedger;
 
-  // loop thru the dataset
-  with dmPayment.dstSchedule do
-  begin
-    try
-      Parameters.ParamByName('@loan_id').Value := FId;
-      Open;
+    // loop thru the dataset
+    with dmPayment.dstSchedule do
+    begin
+      try
+        Parameters.ParamByName('@loan_id').Value := FId;
+        Open;
 
-      while not Eof do
-      begin
-        LLedger := TLedger.Create;
-        LLedger.PostingId := FieldByName('posting_id').AsString;
-        LLedger.EventObject := FieldByName('event_object').AsString;
-        LLedger.PrimaryKey := FieldByName('pk_event_object').AsString;
-        LLedger.ValueDate := FieldByName('value_date').AsDateTime;
-        LLedger.Debit := FieldByName('payment_due').AsSingle;
-        LLedger.CaseType := FieldByName('case_type').AsString;
-        LLedger.CurrentStatus := FieldByName('status_code').AsString;
-        LLedger.HasPartial := FieldByName('has_partial').AsInteger = 1;
+        while not Eof do
+        begin
+          LLedger := TLedger.Create;
+          LLedger.PostingId := FieldByName('posting_id').AsString;
+          LLedger.EventObject := FieldByName('event_object').AsString;
+          LLedger.PrimaryKey := FieldByName('pk_event_object').AsString;
+          LLedger.ValueDate := FieldByName('value_date').AsDateTime;
+          LLedger.Debit := FieldByName('payment_due').AsSingle;
+          LLedger.CaseType := FieldByName('case_type').AsString;
+          LLedger.CurrentStatus := FieldByName('status_code').AsString;
+          LLedger.HasPartial := FieldByName('has_partial').AsInteger = 1;
 
-        AddLedger(LLedger);
+          AddLedger(LLedger);
 
-        Next;
+          Next;
+        end;
+      except
+        on E: Exception do ShowErrorBox(E.Message);
       end;
-    finally
-      Close;
-    end;
+  end;
+  finally
+    dmPayment.dstSchedule.Close;
   end;
 end;
 

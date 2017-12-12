@@ -26,7 +26,6 @@ type
     dscLedger: TDataSource;
     dstLedger: TADODataSet;
     dstLedgerdue: TDateTimeField;
-    dstLedgerreceipt_no: TStringField;
     dstLedgerdebit_amt_p: TBCDField;
     dstLedgercredit_amt_p: TBCDField;
     dstLedgerbalance_p: TBCDField;
@@ -34,6 +33,7 @@ type
     dstLedgercredit_amt_i: TBCDField;
     dstLedgerbalance_i: TBCDField;
     dstLedgersort_order: TSmallintField;
+    dstLedgerdocument_no: TStringField;
     procedure dstPaymentBeforeOpen(DataSet: TDataSet);
     procedure dstPaymentNewRecord(DataSet: TDataSet);
     procedure dstActiveLoansBeforeOpen(DataSet: TDataSet);

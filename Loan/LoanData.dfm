@@ -602,10 +602,10 @@ object dmLoan: TdmLoan
       FieldName = 'due'
       DisplayFormat = 'mm/dd/yyyy'
     end
-    object dstLedgerreceipt_no: TStringField
-      FieldName = 'receipt_no'
+    object dstLedgerdocument_no: TStringField
+      FieldName = 'document_no'
       FixedChar = True
-      Size = 10
+      Size = 25
     end
     object dstLedgerdebit_amt_p: TBCDField
       FieldName = 'debit_amt_p'

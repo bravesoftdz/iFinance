@@ -665,7 +665,7 @@ function TLoan.GetAmortisation: currency;
 var
   amort: currency;
 begin
-  if (FLoanClass.IsDiminishing) and (FLoanClass.UseFactorRate) then amort := FReleaseAmount * GetFactorWithInterest
+  if (FLoanClass.IsDiminishing) and (FLoanClass.IsScheduled) then amort := FReleaseAmount * GetFactorWithInterest
   else amort := ((FReleaseAmount * FLoanClass.InterestInDecimal * FApprovedTerm) + FReleaseAmount) / FApprovedTerm;
 
   Result := Round(amort);

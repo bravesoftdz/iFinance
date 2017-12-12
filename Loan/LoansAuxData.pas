@@ -228,7 +228,7 @@ var
   validFrom, validUntil: TDate;
   lt: TLoanType;
   gp: TGroup;
-  useFactor: boolean;
+  scheduled: boolean;
 begin
   with DataSet do
   begin
@@ -243,7 +243,7 @@ begin
     validUntil := FieldByName('valid_until').AsDateTime;
     age := FieldByName('max_age').AsInteger;
     intCompMethod := FieldByName('int_comp_method').AsString;
-    useFactor := FieldByName('use_factor_rate').AsBoolean;
+    scheduled := FieldByName('is_scheduled').AsBoolean;
 
     lt := TLoanType.Create(FieldByName('loan_type').AsInteger,
         FieldByName('loan_type_name').AsString);
@@ -256,7 +256,7 @@ begin
   if not Assigned(lnc) then
     lnc := TLoanClassification.Create(clId, clName, interest,
         term, maxLoan, comakers, validFrom, validUntil, age,lt, gp, intCompMethod,
-        useFactor)
+        scheduled)
   else
   begin
     lnc.ClassificationId := clId;
@@ -271,7 +271,7 @@ begin
     lnc.LoanType := lt;
     lnc.Group := gp;
     lnc.InterestComputationMethod := intCompMethod;
-    lnc.UseFactorRate := useFactor;
+    lnc.IsScheduled := scheduled;
 
     lnc.EmptyClassCharges;
   end;

@@ -282,11 +282,6 @@ object dmPayment: TdmPayment
       FieldName = 'due'
       DisplayFormat = 'mm/dd/yyyy'
     end
-    object dstLedgerreceipt_no: TStringField
-      FieldName = 'receipt_no'
-      FixedChar = True
-      Size = 10
-    end
     object dstLedgerdebit_amt_p: TBCDField
       FieldName = 'debit_amt_p'
       DisplayFormat = '###,###,##0.00;-;-'
@@ -325,6 +320,11 @@ object dmPayment: TdmPayment
     end
     object dstLedgersort_order: TSmallintField
       FieldName = 'sort_order'
+    end
+    object dstLedgerdocument_no: TStringField
+      FieldName = 'document_no'
+      FixedChar = True
+      Size = 25
     end
   end
 end

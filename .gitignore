@@ -62,3 +62,6 @@ _dcp/Client.lib
 *.identcache
 *.identcache
 *.identcache
+*.identcache
+*.sql
+*.local

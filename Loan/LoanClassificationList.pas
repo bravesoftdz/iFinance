@@ -58,8 +58,7 @@ type
     RzShapeButton1: TRzShapeButton;
     JvLabel11: TJvLabel;
     JvLabel13: TJvLabel;
-    cbUseFactorRate: TRzDBCheckBox;
-    cbApplyExemption: TRzDBCheckBox;
+    cbScheduled: TRzDBCheckBox;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure urlRefreshListClick(Sender: TObject);
@@ -75,6 +74,7 @@ type
     procedure grListKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure FormShow(Sender: TObject);
     procedure sbtnActivateClick(Sender: TObject);
+    procedure dbluCompMethodClick(Sender: TObject);
   private
     { Private declarations }
     procedure ChangeControlState;
@@ -225,6 +225,18 @@ begin
   end;
 end;
 
+procedure TfrmLoanClassificationList.dbluCompMethodClick(Sender: TObject);
+var
+  diminishing: boolean;
+begin
+  inherited;
+  diminishing := dbluCompMethod.KeyValue = 'D';
+
+  if not diminishing then cbScheduled.Checked := false;
+
+  cbScheduled.ReadOnly := not diminishing;
+end;
+
 function TfrmLoanClassificationList.EntryIsValid: boolean;
 var
   error: string;
@@ -238,7 +250,7 @@ begin
   else if dbluCompMethod.Text = '' then error := 'Please select a computation method.'
   else if dbluPayFreq.Text = '' then error := 'Please select a payment frequency.'
   else if dteFrom.Text = '' then error := 'Please specify a start date.'
-  // else if edMaxLoan.Value > ltype.MaxTotalAmount then
+  // else if edMaxLoan.Value > ltype then
   //  error := 'Maximum loan exceeds the maximum total amount for the selected group.'
   else if dteUntil.Text <> '' then
   begin

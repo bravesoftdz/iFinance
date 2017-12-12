@@ -29,9 +29,6 @@ type
     { Public declarations }
   end;
 
-var
-  frmGroupSearch: TfrmGroupSearch;
-
 implementation
 
 {$R *.dfm}

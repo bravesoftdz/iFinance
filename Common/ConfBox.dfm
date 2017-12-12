@@ -8,6 +8,9 @@ inherited frmConfBox: TfrmConfBox
   TextHeight = 14
   inherited pnlTitle: TRzPanel
     Width = 357
+    Color = 13364426
+    GradientColorStart = 3112237
+    GradientColorStop = 3575604
     ExplicitWidth = 357
     inherited imgClose: TImage
       Left = 336
@@ -22,6 +25,7 @@ inherited frmConfBox: TfrmConfBox
   inherited pnlMain: TRzPanel
     Width = 357
     Height = 108
+    Color = 13364426
     ExplicitWidth = 357
     ExplicitHeight = 108
     object lblMessage: TJvLabel
@@ -84,9 +88,9 @@ inherited frmConfBox: TfrmConfBox
       Height = 22
       Anchors = [akLeft, akBottom]
       BorderOuter = fsNone
-      BorderColor = 6572079
+      BorderColor = clBlack
       BorderWidth = 1
-      Color = 14273211
+      Color = 3575604
       TabOrder = 0
       object btnClose: TRzShapeButton
         Left = 0

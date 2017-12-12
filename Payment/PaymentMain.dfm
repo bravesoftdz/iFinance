@@ -10,7 +10,7 @@ inherited frmPaymentMain: TfrmPaymentMain
   TextHeight = 14
   object c: TJvLabel [0]
     Tag = -1
-    Left = 593
+    Left = 646
     Top = 61
     Width = 37
     Height = 14
@@ -354,9 +354,9 @@ inherited frmPaymentMain: TfrmPaymentMain
     end
   end
   object edClient: TRzEdit
-    Left = 640
+    Left = 693
     Top = 55
-    Width = 70
+    Width = 17
     Height = 22
     Text = ''
     Anchors = [akLeft, akTop, akRight]
@@ -501,7 +501,7 @@ inherited frmPaymentMain: TfrmPaymentMain
   object cmbPaymentMethod: TRzComboBox
     Left = 487
     Top = 55
-    Width = 91
+    Width = 146
     Height = 22
     AllowEdit = False
     Color = 14273211

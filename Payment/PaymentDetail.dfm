@@ -1,17 +1,17 @@
 inherited frmPaymentDetail: TfrmPaymentDetail
   Caption = 'frmPaymentDetail'
   ClientHeight = 336
-  ClientWidth = 530
+  ClientWidth = 539
   OnCreate = FormCreate
-  ExplicitWidth = 530
+  ExplicitWidth = 539
   ExplicitHeight = 336
   PixelsPerInch = 96
   TextHeight = 14
   inherited pnlTitle: TRzPanel
-    Width = 530
-    ExplicitWidth = 530
+    Width = 539
+    ExplicitWidth = 539
     inherited imgClose: TImage
-      Left = 509
+      Left = 518
       ExplicitLeft = 318
     end
     inherited lblCaption: TRzLabel
@@ -21,9 +21,9 @@ inherited frmPaymentDetail: TfrmPaymentDetail
     end
   end
   inherited pnlMain: TRzPanel
-    Width = 530
+    Width = 539
     Height = 315
-    ExplicitWidth = 530
+    ExplicitWidth = 539
     ExplicitHeight = 315
     object urlLedger: TRzURLLabel [0]
       Tag = 1
@@ -41,18 +41,18 @@ inherited frmPaymentDetail: TfrmPaymentDetail
       OnClick = urlLedgerClick
     end
     inherited pnlDetail: TRzPanel
-      Width = 513
+      Width = 522
       Height = 266
-      ExplicitWidth = 513
+      ExplicitWidth = 522
       ExplicitHeight = 266
       inherited pcDetail: TRzPageControl
-        Width = 511
+        Width = 520
         Height = 264
-        ExplicitWidth = 511
+        ExplicitWidth = 520
         ExplicitHeight = 264
         FixedDimension = 20
         inherited tsDetail: TRzTabSheet
-          ExplicitWidth = 511
+          ExplicitWidth = 520
           ExplicitHeight = 264
           object JvLabel1: TJvLabel
             Left = 252
@@ -352,7 +352,7 @@ inherited frmPaymentDetail: TfrmPaymentDetail
           end
           object JvLabel12: TJvLabel
             Left = 252
-            Top = 177
+            Top = 180
             Width = 154
             Height = 14
             Caption = 'Due as of payment date:'
@@ -391,7 +391,7 @@ inherited frmPaymentDetail: TfrmPaymentDetail
           end
           object lblInterestDue: TJvLabel
             Left = 412
-            Top = 177
+            Top = 180
             Width = 32
             Height = 14
             Caption = 'xxxxx'
@@ -405,7 +405,7 @@ inherited frmPaymentDetail: TfrmPaymentDetail
           end
           object JvLabel7: TJvLabel
             Left = 252
-            Top = 202
+            Top = 205
             Width = 106
             Height = 14
             Caption = 'Last transaction:'
@@ -425,7 +425,7 @@ inherited frmPaymentDetail: TfrmPaymentDetail
           end
           object lblLastTransaction: TJvLabel
             Left = 372
-            Top = 202
+            Top = 205
             Width = 32
             Height = 14
             Caption = 'xxxxx'
@@ -439,7 +439,7 @@ inherited frmPaymentDetail: TfrmPaymentDetail
           end
           object JvLabel13: TJvLabel
             Left = 252
-            Top = 226
+            Top = 229
             Width = 35
             Height = 14
             Caption = 'Days:'
@@ -459,7 +459,7 @@ inherited frmPaymentDetail: TfrmPaymentDetail
           end
           object lblDays: TJvLabel
             Left = 300
-            Top = 226
+            Top = 229
             Width = 32
             Height = 14
             Caption = 'xxxxx'
@@ -470,6 +470,26 @@ inherited frmPaymentDetail: TfrmPaymentDetail
             Font.Style = []
             ParentFont = False
             Transparent = True
+          end
+          object lblRemainingAmount: TJvLabel
+            Left = 19
+            Top = 229
+            Width = 147
+            Height = 14
+            Caption = 'Remaining amount: xxx'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clRed
+            Font.Height = -12
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold]
+            ParentFont = False
+            Transparent = True
+            Visible = False
+            HotTrackFont.Charset = DEFAULT_CHARSET
+            HotTrackFont.Color = clWindowText
+            HotTrackFont.Height = -12
+            HotTrackFont.Name = 'Tahoma'
+            HotTrackFont.Style = []
           end
           object edPrincipal: TRzNumericEdit
             Left = 19
@@ -548,15 +568,15 @@ inherited frmPaymentDetail: TfrmPaymentDetail
       end
     end
     inherited pnlCancel: TRzPanel
-      Left = 471
+      Left = 480
       Top = 283
-      ExplicitLeft = 471
+      ExplicitLeft = 480
       ExplicitTop = 283
     end
     inherited pnlSave: TRzPanel
-      Left = 415
+      Left = 424
       Top = 283
-      ExplicitLeft = 415
+      ExplicitLeft = 424
       ExplicitTop = 283
       inherited btnSave: TRzShapeButton
         Caption = 'Add'

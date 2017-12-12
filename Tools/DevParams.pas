@@ -13,7 +13,9 @@ type
     JvLabel7: TJvLabel;
     dteApplicationDate: TRzDateTimeEdit;
     JvLabel1: TJvLabel;
+    urlNextMonth: TRzURLLabel;
     procedure FormCreate(Sender: TObject);
+    procedure urlNextMonthClick(Sender: TObject);
   private
     { Private declarations }
   protected
@@ -60,6 +62,12 @@ begin
   finally
     LPosting.Free;
   end;
+end;
+
+procedure TfrmDevParams.urlNextMonthClick(Sender: TObject);
+begin
+  inherited;
+  dteApplicationDate.Date := IncMonth(dteApplicationDate.Date);
 end;
 
 function TfrmDevParams.ValidEntry: boolean;

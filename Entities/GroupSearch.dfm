@@ -2,7 +2,6 @@ inherited frmGroupSearch: TfrmGroupSearch
   Caption = 'frmGroupSearch'
   ClientHeight = 342
   ClientWidth = 314
-  OnClose = FormClose
   OnCreate = FormCreate
   ExplicitWidth = 314
   ExplicitHeight = 342

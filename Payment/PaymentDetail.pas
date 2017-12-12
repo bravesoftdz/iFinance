@@ -40,6 +40,7 @@ type
     urlLedger: TRzURLLabel;
     JvLabel13: TJvLabel;
     lblDays: TJvLabel;
+    lblRemainingAmount: TJvLabel;
     procedure FormCreate(Sender: TObject);
     procedure FormKeyPress(Sender: TObject; var Key: Char);
     procedure edPrincipalChange(Sender: TObject);
@@ -214,7 +215,9 @@ begin
   else if (not LDetail.IsFullPayment) and (LDetail.Interest > Ceil(LDetail.Loan.InterestTotalDue * 100) / 100) then
     error := 'Interest amount is greater than the total interest due.'
   else if (not LDetail.IsFullPayment) and (LDetail.Principal > Ceil(LDetail.Loan.Balance * 100) / 100) then
-    error :=  'Principal amount is equal to the loan balance. If this is a full payment posting, tick the FULL PAYMENT box instead.';
+    error :=  'Principal amount is equal to the loan balance. If this is a full payment posting, tick the FULL PAYMENT box instead.'
+  else if (pmt.IsWithdrawal) and (LDetail.TotalAmount > pmt.Withdrawn) then
+    error := 'Total amount is greater than the remaining withdrawn amount.';
 
   if error <> '' then ShowErrorBox(error);
 
@@ -240,7 +243,7 @@ begin
 
   if pmt.Details[pmt.DetailCount-1].IsFullPayment then
   begin
-    if (pmt.Client.ActiveLoans[i].IsFixed) or (pmt.Client.ActiveLoans[i].IsDiminishing and pmt.Client.ActiveLoans[i].UseFactorRate) then
+    if (pmt.Client.ActiveLoans[i].IsFixed) or (pmt.Client.ActiveLoans[i].IsDiminishing and pmt.Client.ActiveLoans[i].IsScheduled) then
       lblInterestDue.Caption := FormatFloat('###,###,##0.00;-;-', pmt.Client.ActiveLoans[i].FullPaymentInterest)
     else
       lblInterestDue.Caption := FormatFloat('###,###,##0.00;-;-', pmt.Client.ActiveLoans[i].InterestDue);
@@ -252,7 +255,11 @@ begin
   lblDays.Caption := IntToStr(DaysBetween(pmt.Date,pmt.Client.ActiveLoans[i].LastTransactionDate));
 
   urlPrincipalDue.Caption := FormatFloat('###,###,##0.00', pmt.Client.ActiveLoans[i].PrincipalDue);
-  urlInterestTotalDue.Caption := FormatFloat('###,###,##0.00', pmt.Client.ActiveLoans[i].InterestDue);
+  urlInterestTotalDue.Caption := FormatFloat('###,###,##0.00', Ceil(pmt.Client.ActiveLoans[i].InterestDue * 100) / 100);
+
+  lblRemainingAmount.Caption := 'Remaining amount: ' + FormatFloat('###,###,##0.00', pmt.Withdrawn - pmt.TotalAmount);
+
+  lblRemainingAmount.Visible := pmt.IsWithdrawal;
 end;
 
 end.

@@ -54,7 +54,6 @@ type
     dscLedger: TDataSource;
     dstLedger: TADODataSet;
     dstLedgerdue: TDateTimeField;
-    dstLedgerreceipt_no: TStringField;
     dstLedgerdebit_amt_p: TBCDField;
     dstLedgercredit_amt_p: TBCDField;
     dstLedgerbalance_p: TBCDField;
@@ -62,6 +61,7 @@ type
     dstLedgercredit_amt_i: TBCDField;
     dstLedgerbalance_i: TBCDField;
     dstLedgersort_order: TSmallintField;
+    dstLedgerdocument_no: TStringField;
     procedure dstLoanBeforeOpen(DataSet: TDataSet);
     procedure dstLoanClassBeforeOpen(DataSet: TDataSet);
     procedure dstLoanBeforePost(DataSet: TDataSet);
@@ -429,7 +429,7 @@ var
   validFr, validUn: TDate;
   gp: TGroup;
   gpa: TGroupAttributes;
-  useFactor: boolean;
+  scheduled: boolean;
 begin
   with DataSet do
   begin
@@ -443,7 +443,7 @@ begin
     validUn := FieldByName('valid_until').AsDateTime;
     age := FieldByName('max_age').AsInteger;
     intCompMethod := FieldByName('int_comp_method').Asstring;
-    useFactor := FieldByName('use_factor_rate').AsBoolean;
+    scheduled := FieldByName('is_scheduled').AsBoolean;
 
     // loan type variables
     loanType := FieldByName('loan_type').AsInteger;
@@ -470,7 +470,7 @@ begin
   if not Assigned(ln.LoanClass) then
     ln.LoanClass := TLoanClassification.Create(clId, clName, intrst,
         trm, maxLn, cmakers, validFr, validUn, age, ltype, gp, intCompMethod,
-        useFactor)
+        scheduled)
   else
   begin
     with ln.LoanClass do
@@ -487,7 +487,7 @@ begin
       LoanType := ltype;
       Group := gp;
       InterestComputationMethod := intCompMethod;
-      UseFactorRate := useFactor;
+      IsScheduled := scheduled;
     end;
   end;
 

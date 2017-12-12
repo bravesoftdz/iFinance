@@ -506,12 +506,12 @@ begin
           payment := FInterest;
 
           // update interest schedule
-          if ((FLoan.IsDiminishing) and (not FLoan.UseFactorRate)) or (FIsFullPayment) then
+          if ((FLoan.IsDiminishing) and (not FLoan.IsScheduled)) or (FIsFullPayment) then
             if ((FLoan.HasInterestComputed) or (FLoan.HasInterestAdditional)) or (FIsFullPayment) then
               UpdateInterestSchedule;
 
           // save unposted interest
-          if (FIsFullPayment) or ((FLoan.IsDiminishing) and (not FLoan.UseFactorRate)) then
+          if (FIsFullPayment) or ((FLoan.IsDiminishing) and (not FLoan.IsScheduled) and (FLoan.NextPayment <> FPaymentDate)) then
             SaveInterest;
         end;
 
@@ -605,7 +605,7 @@ begin
         if not LLedger.Posted then
         begin
           if (not FIsFullPayment)
-             or ((FIsFullPayment) and ((LLedger.FullPayment) or ((FLoan.IsDiminishing) and (not FLoan.UseFactorRate)))) then
+             or ((FIsFullPayment) and ((LLedger.FullPayment) or ((FLoan.IsDiminishing) and (not FLoan.IsScheduled)))) then
           begin
             interest := LLedger.Debit;
             loanId := FLoan.Id;

@@ -16,6 +16,7 @@ type
       const debit, credit: currency; const eventObject, primaryKey, status: string;
       const postDate, valueDate: TDateTime; const caseType: string): string;
     function GetValueDate(const ADate1, ADate2: TDateTime): TDateTime;
+    function GetFirstDayOfValueDate(const ADate: TDateTime): TDateTime;
 
   public
      procedure Post(const ALoan: TLoan); overload;
@@ -189,19 +190,23 @@ begin
           valueDate := GetValueDate(valueDate,IncMonth(ifn.AppDate,i));
 
           // interest
-          // post in the Interest tables instead of in the Ledger
+          // post in the Interest table instead of in the Ledger
           // interest will be posted when the interest date arrives
           if ALoan.LoanClass.IsDiminishing then interest := balance * ALoan.LoanClass.InterestInDecimal
           else interest := ALoan.ReleaseAmount * ALoan.LoanClass.InterestInDecimal;
 
           interestSource := TRttiEnumerationType.GetName<TInterestSource>(TInterestSource.SYS);
           status := TRttiEnumerationType.GetName<TInterestStatus>(TInterestStatus.P);
-          PostInterest(interest,ALoan.Id,valueDate,interestSource,status);
+
+          // for FIXED accounts.. use the first day of the month
+          if (ALoan.LoanClass.IsDiminishing) and (not ALoan.LoanClass.IsScheduled) then
+            PostInterest(interest,ALoan.Id,valueDate,interestSource,status)
+          else PostInterest(interest,ALoan.Id,GetFirstDayOfValueDate(valueDate),interestSource,status);
 
           // principal
           if ALoan.LoanClass.IsDiminishing then
           begin
-            if ALoan.LoanClass.UseFactorRate then principal := ALoan.Amortisation - interest
+            if ALoan.LoanClass.IsScheduled then principal := ALoan.Amortisation - interest
             else
             begin
               // use the balance for the last amount to be posted..
@@ -214,7 +219,9 @@ begin
 
           status := TRttiEnumerationType.GetName<TLedgerRecordStatus>(TLedgerRecordStatus.OPN);
 
-          PostEntry(refPostingId, principal, credit, eventObject, primaryKey, status, postDate, valueDate, caseType);
+          // for principal entries.. use the first day of the month
+          PostEntry(refPostingId, principal, credit, eventObject, primaryKey, status,
+            postDate, GetFirstDayOfValueDate(valueDate), caseType);
 
           // get balance
           balance := balance - principal;
@@ -249,6 +256,15 @@ destructor TPosting.Destroy;
 begin
 
   inherited;
+end;
+
+function TPosting.GetFirstDayOfValueDate(const ADate: TDateTime): TDateTime;
+var
+  month, day, year: word;
+begin
+  DecodeDate(ADate,year,month,day);
+
+  Result := EncodeDate(year,month,1);
 end;
 
 function TPosting.GetValueDate(const ADate1, ADate2: TDateTime): TDateTime;

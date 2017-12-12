@@ -150,7 +150,7 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
     end
     object JvLabel12: TJvLabel
       Left = 13
-      Top = 287
+      Top = 260
       Width = 50
       Height = 14
       Caption = 'Payment'
@@ -182,7 +182,7 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
     end
     object JvLabel10: TJvLabel
       Left = 13
-      Top = 311
+      Top = 284
       Width = 56
       Height = 14
       Caption = 'Valid from'
@@ -198,7 +198,7 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
     end
     object JvLabel11: TJvLabel
       Left = 13
-      Top = 335
+      Top = 308
       Width = 54
       Height = 14
       Caption = 'Valid until'
@@ -315,6 +315,7 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
       ListField = 'display'
       ListSource = dmAux.dscCompMethod
       TabOrder = 10
+      OnClick = dbluCompMethodClick
       FlatButtons = True
       DisabledColor = clWhite
       FrameColor = 8675134
@@ -325,7 +326,7 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
     end
     object dbluPayFreq: TRzDBLookupComboBox
       Left = 88
-      Top = 281
+      Top = 254
       Width = 176
       Height = 22
       DataField = 'pay_freq'
@@ -333,7 +334,7 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
       KeyField = 'value'
       ListField = 'display'
       ListSource = dmAux.dscPaymentFreq
-      TabOrder = 13
+      TabOrder = 12
       FlatButtons = True
       DisabledColor = clWhite
       FrameColor = 8675134
@@ -409,7 +410,7 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
     end
     object dteFrom: TRzDBDateTimeEdit
       Left = 88
-      Top = 305
+      Top = 278
       Width = 105
       Height = 22
       DataSource = dmLoansAux.dscLoanClass
@@ -419,14 +420,14 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
       FrameVisible = True
       FramingPreference = fpCustomFraming
       TabOnEnter = True
-      TabOrder = 14
+      TabOrder = 13
       EditType = etDate
       Format = 'mm/dd/yyyy'
       FlatButtons = True
     end
     object dteUntil: TRzDBDateTimeEdit
       Left = 88
-      Top = 329
+      Top = 302
       Width = 105
       Height = 22
       DataSource = dmLoansAux.dscLoanClass
@@ -436,7 +437,7 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
       FrameVisible = True
       FramingPreference = fpCustomFraming
       TabOnEnter = True
-      TabOrder = 15
+      TabOrder = 14
       EditType = etDate
       Format = 'mm/dd/yyyy'
       FlatButtons = True
@@ -495,7 +496,7 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
       BorderColor = 6572079
       BorderWidth = 1
       Color = 12955288
-      TabOrder = 16
+      TabOrder = 15
       object sbtnActivate: TRzShapeButton
         Left = 0
         Top = 0
@@ -519,7 +520,7 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
       BorderColor = 6572079
       BorderWidth = 1
       Color = 12955288
-      TabOrder = 17
+      TabOrder = 16
       object RzShapeButton1: TRzShapeButton
         Left = 0
         Top = 0
@@ -533,29 +534,17 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
         OnClick = sbtnNewClick
       end
     end
-    object cbUseFactorRate: TRzDBCheckBox
+    object cbScheduled: TRzDBCheckBox
       Left = 88
       Top = 231
-      Width = 101
+      Width = 76
       Height = 16
-      DataField = 'use_factor_rate'
+      DataField = 'is_scheduled'
       DataSource = dmLoansAux.dscLoanClass
       ValueChecked = 'True'
       ValueUnchecked = 'False'
-      Caption = 'Use factor rate'
+      Caption = 'Scheduled'
       TabOrder = 11
-    end
-    object cbApplyExemption: TRzDBCheckBox
-      Left = 88
-      Top = 255
-      Width = 111
-      Height = 16
-      DataField = 'apply_exemption'
-      DataSource = dmLoansAux.dscLoanClass
-      ValueChecked = 'True'
-      ValueUnchecked = 'False'
-      Caption = 'Apply exemption'
-      TabOrder = 12
     end
   end
   object cmbBranch: TRzComboBox
