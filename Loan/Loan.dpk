@@ -84,6 +84,8 @@ contains
   BaseGridDetail in '..\Base\BaseGridDetail.pas' {frmBaseGridDetail},
   Assessment in 'Assessment.pas',
   ClientLoan in 'ClientLoan.pas',
-  LoanLedger in 'LoanLedger.pas' {frmLoanLedger};
+  LoanLedger in 'LoanLedger.pas' {frmLoanLedger},
+  LoanClassChargeTypeList in 'LoanClassChargeTypeList.pas' {frmLoanClassChargeTypeList},
+  LoanClosureDetail in 'LoanClosureDetail.pas' {frmLoanClosureDetail};
 
 end.

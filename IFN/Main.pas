@@ -65,29 +65,6 @@ type
     nppInventory: TJvNavPanelPage;
     nppReports: TJvNavPanelPage;
     pnlDockMain: TRzPanel;
-    pnlAddClient: TRzPanel;
-    imgAddClient: TImage;
-    lblWelcome: TRzLabel;
-    pnlSave: TRzPanel;
-    imgSave: TImage;
-    pnlCancel: TRzPanel;
-    imgCancel: TImage;
-    pnlNewLoan: TRzPanel;
-    imgNewLoan: TImage;
-    pnlGroups: TRzPanel;
-    imgGroups: TImage;
-    pnlEmployer: TRzPanel;
-    imgEmployer: TImage;
-    pnlBank: TRzPanel;
-    imgBanks: TImage;
-    pnlDesignationList: TRzPanel;
-    imgDesignationList: TImage;
-    pnlCompetitor: TRzPanel;
-    imgCompetitor: TImage;
-    pnlLoanClass: TRzPanel;
-    imgLoanClass: TImage;
-    pnlPurpose: TRzPanel;
-    imgPurpose: TImage;
     mmMain: TMainMenu;
     File1: TMenuItem;
     Save1: TMenuItem;
@@ -99,30 +76,15 @@ type
     Newloan1: TMenuItem;
     acGenericNew: TAction;
     New1: TMenuItem;
-    pnlAcctType: TRzPanel;
-    imgAcctType: TImage;
-    pnlLoanType: TRzPanel;
-    imgLoanType: TImage;
-    Label1: TLabel;
-    Label2: TLabel;
     lblDate: TLabel;
     lblVersion: TLabel;
-    pnlLoanCancellationReasonList: TRzPanel;
-    imgLoanCancellationReasonList: TImage;
-    pnlRejectionReasonList: TRzPanel;
-    imgRejectionReasonList: TImage;
     Client1: TMenuItem;
     Loan1: TMenuItem;
     Selectclient1: TMenuItem;
     acSelectClient: TAction;
     lblLocation: TLabel;
-    pnlSettings: TRzPanel;
-    imgSettings: TImage;
-    pnlPayment: TRzPanel;
-    imgNewPayment: TImage;
     Newpayment1: TMenuItem;
     acNewPayment: TAction;
-    Label3: TLabel;
     Payment1: TMenuItem;
     Selectclient2: TMenuItem;
     acAddActiveLoan: TAction;
@@ -132,7 +94,54 @@ type
     RzGroupBox2: TRzGroupBox;
     urlWithdrawals: TRzURLLabel;
     urlClosed: TRzURLLabel;
+    imgMinimize: TImage;
+    pcMenu: TRzPageControl;
+    tsHome: TRzTabSheet;
+    tsAdministration: TRzTabSheet;
+    tsTools: TRzTabSheet;
+    pnlAddClient: TRzPanel;
+    imgAddClient: TImage;
+    pnlCancel: TRzPanel;
+    imgCancel: TImage;
+    pnlNewLoan: TRzPanel;
+    imgNewLoan: TImage;
+    pnlPayment: TRzPanel;
+    imgNewPayment: TImage;
+    pnlSave: TRzPanel;
+    imgSave: TImage;
+    TabSheet3: TRzTabSheet;
+    lblWelcome: TRzLabel;
+    pnlBank: TRzPanel;
+    imgBanks: TImage;
+    pnlCompetitor: TRzPanel;
+    imgCompetitor: TImage;
+    pnlDesignationList: TRzPanel;
+    imgDesignationList: TImage;
+    pnlEmployer: TRzPanel;
+    imgEmployer: TImage;
+    pnlGroups: TRzPanel;
+    imgGroups: TImage;
+    pnlLoanCancellationReasonList: TRzPanel;
+    imgLoanCancellationReasonList: TImage;
+    pnlLoanClass: TRzPanel;
+    imgLoanClass: TImage;
+    pnlLoanType: TRzPanel;
+    imgLoanType: TImage;
+    pnlPurpose: TRzPanel;
+    imgPurpose: TImage;
+    pnlRejectionReasonList: TRzPanel;
+    imgRejectionReasonList: TImage;
+    pnlSettings: TRzPanel;
+    imgSettings: TImage;
+    pnlAcctType: TRzPanel;
+    imgAcctType: TImage;
     urlChangeDate: TRzURLLabel;
+    pnlChargeTypes: TRzPanel;
+    imgChargeTypes: TImage;
+    pnlInfoSources: TRzPanel;
+    imgInfoSources: TImage;
+    pnlLoanClosureReasonsList: TRzPanel;
+    imgLoanClosureReasonsList: TImage;
     procedure tbAddClientClick(Sender: TObject);
     procedure lblRecentlyAddedClick(Sender: TObject);
     procedure lbxRecentDblClick(Sender: TObject);
@@ -179,6 +188,10 @@ type
     procedure urlWithdrawalsClick(Sender: TObject);
     procedure urlClosedClick(Sender: TObject);
     procedure urlChangeDateClick(Sender: TObject);
+    procedure imgMinimizeClick(Sender: TObject);
+    procedure imgChargeTypesClick(Sender: TObject);
+    procedure imgInfoSourcesClick(Sender: TObject);
+    procedure imgLoanClosureReasonsListClick(Sender: TObject);
   private
     { Private declarations }
     DOCKED_FORM: TForms;
@@ -195,11 +208,11 @@ type
     procedure AddRecentLoan(lln: TLoan);
   end;
 
-const
-  MAX_RECENT_ITEMS = 10;
-
 var
   frmMain: TfrmMain;
+
+const
+  MAX_RECENT_ITEMS = 10;
 
 implementation
 
@@ -211,7 +224,8 @@ uses
   LoanMain, LoanList, LoanIntf, CompetitorList, FormsUtil, IFinanceGlobal,
   PurposeList, IFinanceDialogs, NewIntf, LoanTypeList, AccountTypeList,
   LoanCancellationReasonList, LoanRejectionReasonList, AppSettings,
-  PaymentMain, PaymentIntf, PaymentList, AccountingData, WithdrawalList, DevParams;
+  PaymentMain, PaymentIntf, PaymentList, AccountingData, WithdrawalList, DevParams,
+  LoanClassChargeTypeList, InfoSourceList, LoanClosureReasonList;
 
 constructor TRecentClient.Create(const id, displayId, name: string);
 begin
@@ -555,6 +569,9 @@ begin
       fmPaymentMain: frm := TfrmPaymentMain.Create(Application);
       fmPaymentList: frm := TfrmPaymentList.Create(Application);
       fmWithdrawalList: frm := TfrmWithdrawalList.Create(Application);
+      fmChargeTypeList: frm := TfrmLoanClassChargeTypeList.Create(Application);
+      fmInfoSourceList: frm := TfrmInfoSourceList.Create(Application);
+      fmLoanCloseReasonList: frm := TfrmLoanCloseReasonList.Create(Application);
       else
         frm := nil;
     end;
@@ -622,6 +639,11 @@ begin
   end;
 end;
 
+procedure TfrmMain.imgChargeTypesClick(Sender: TObject);
+begin
+  DockForm(fmChargeTypeList);
+end;
+
 procedure TfrmMain.imgCloseClick(Sender: TObject);
 begin
   Application.Terminate;
@@ -632,14 +654,29 @@ begin
   DockForm(fmGroupList);
 end;
 
+procedure TfrmMain.imgInfoSourcesClick(Sender: TObject);
+begin
+  DockForm(fmInfoSourceList);
+end;
+
 procedure TfrmMain.imgLoanCancellationReasonListClick(Sender: TObject);
 begin
   DockForm(fmLoanCancelReasonList);
 end;
 
+procedure TfrmMain.imgLoanClosureReasonsListClick(Sender: TObject);
+begin
+  DockForm(fmLoanCloseReasonList);
+end;
+
 procedure TfrmMain.imgLoanTypeClick(Sender: TObject);
 begin
   DockForm(fmLoanTypeList);
+end;
+
+procedure TfrmMain.imgMinimizeClick(Sender: TObject);
+begin
+  Application.Minimize;
 end;
 
 procedure TfrmMain.imgNewPaymentClick(Sender: TObject);
@@ -778,7 +815,7 @@ procedure TfrmMain.SetCaptions;
 begin
   lblCaption.Caption := ifn.AppName + ' - ' + ifn.AppDescription;
   lblWelcome.Caption := 'Welcome back ' + ifn.User.Name + '.';
-  lblDate.Caption := 'Today is ' + FormatDateTime('mmmm dd, yyyy.', ifn.AppDate);
+  lblDate.Caption := 'Today is ' + FormatDateTime('mmmm dd, yyyy', ifn.AppDate);
   lblLocation.Caption := 'Location: ' + ifn.GetLocationNameByCode(ifn.LocationCode);
   lblVersion.Caption := 'Version ' + ifn.Version;
 end;

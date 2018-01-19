@@ -215,7 +215,7 @@ end;
 
 procedure TdmClient.dstClientLoanClass2AfterScroll(DataSet: TDataSet);
 var
-  clId, term, comakers, age: integer;
+  clId, term, comakersMin, comakersMax, age: integer;
   clName: string;
   interest, maxLoan: currency;
   validFrom, validUntil: TDate;
@@ -227,7 +227,8 @@ begin
     interest := FieldByName('int_rate').AsCurrency;
     term := FieldByName('term').AsInteger;
     maxLoan := FieldByName('max_loan').AsCurrency;
-    comakers := FieldByName('comakers').AsInteger;
+    comakersMin := FieldByName('comakers_min').AsInteger;
+    comakersMax := FieldByName('comakers_max').AsInteger;
     validFrom := FieldByName('valid_from').AsDateTime;
     validUntil := FieldByName('valid_until').AsDateTime;
     age := FieldByName('max_age').AsInteger;
@@ -235,7 +236,8 @@ begin
 
   if not Assigned(lnc) then
     lnc := TLoanClassification.Create(clId, clName, interest,
-        term, maxLoan, comakers, validFrom, validUntil, age, nil, nil,'',false)
+        term, maxLoan, comakersMin, comakersMax, validFrom, validUntil,
+        age, nil, nil,'',false)
   else
   begin
     lnc.ClassificationId := clId;
@@ -243,7 +245,8 @@ begin
     lnc.Interest := interest;
     lnc.Term := term;
     lnc.MaxLoan := maxLoan;
-    lnc.Comakers := comakers;
+    lnc.ComakersMin := comakersMin;
+    lnc.ComakersMax := comakersMax;
     lnc.ValidFrom := validFrom;
     lnc.ValidUntil := validUntil;
     lnc.MaxAge := age;

@@ -20,7 +20,7 @@ type
     JvLabel4: TJvLabel;
     edTerm: TRzDBEdit;
     JvLabel5: TJvLabel;
-    edComakers: TRzDBEdit;
+    edComakersMin: TRzDBEdit;
     JvLabel6: TJvLabel;
     JvLabel7: TJvLabel;
     dbluCompMethod: TRzDBLookupComboBox;
@@ -59,6 +59,9 @@ type
     JvLabel11: TJvLabel;
     JvLabel13: TJvLabel;
     cbScheduled: TRzDBCheckBox;
+    edComakersMax: TRzDBEdit;
+    JvLabel2: TJvLabel;
+    JvLabel8: TJvLabel;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure urlRefreshListClick(Sender: TObject);
@@ -245,7 +248,7 @@ begin
   else if Trim(bteGroup.Text) = '' then error := 'Please select a group.'
   else if Trim(edClassName.Text) = '' then error := 'Please enter a class name.'
   else if edInterest.Text = '' then error := 'Please enter an interest rate.'
-  else if edTerm.Text = '' then error := 'Please enter a term.'
+  else if edTerm.Text = '' then error := 'Please enter the terms of this loan class.'
   else if edMaxLoan.Value <= 0 then error := 'Please enter a maximum loan.'
   else if dbluCompMethod.Text = '' then error := 'Please select a computation method.'
   else if dbluPayFreq.Text = '' then error := 'Please select a payment frequency.'

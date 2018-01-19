@@ -149,7 +149,7 @@ inherited frmLoanMain: TfrmLoanMain
         Tag = -1
         Left = 22
         Top = 471
-        Width = 18
+        Width = 89
         Height = 14
         Anchors = [akTop, akRight]
         AutoSize = True
@@ -1174,7 +1174,7 @@ inherited frmLoanMain: TfrmLoanMain
       end
       object pnlReloan: TRzPanel
         Left = 13
-        Top = 250
+        Top = 290
         Width = 40
         Height = 40
         Anchors = [akTop, akRight]
@@ -1270,10 +1270,10 @@ inherited frmLoanMain: TfrmLoanMain
       end
       object pnlRestructure: TRzPanel
         Left = 13
-        Top = 311
+        Top = 471
         Width = 40
         Height = 40
-        Anchors = [akTop, akRight]
+        Anchors = [akRight, akBottom]
         BorderOuter = fsNone
         BorderColor = 6572079
         BorderWidth = 1
@@ -1352,6 +1352,97 @@ inherited frmLoanMain: TfrmLoanMain
           OnMouseUp = imgAssessmentMouseUp
         end
       end
+      object pnlCloseLoan: TRzPanel
+        Left = 13
+        Top = 234
+        Width = 40
+        Height = 40
+        Hint = 'Close loan'
+        Anchors = [akTop, akRight]
+        BorderOuter = fsNone
+        BorderColor = 6572079
+        BorderWidth = 1
+        Color = 12955288
+        Enabled = False
+        TabOrder = 7
+        object imgCloseLoan: TImage
+          Left = 4
+          Top = 4
+          Width = 32
+          Height = 32
+          Cursor = crHandPoint
+          Hint = 'Close loan'
+          AutoSize = True
+          Enabled = False
+          ParentShowHint = False
+          Picture.Data = {
+            0954506E67496D61676589504E470D0A1A0A0000000D49484452000000200000
+            00200806000000737A7AF400000006624B474400FF00FF00FFA0BDA793000000
+            097048597300000048000000480046C96B3E0000000976704167000000200000
+            00200087FA9C9D0000063D4944415478DAB597794C14571CC7BFB3BBAC0BB8A2
+            C8E1B95E94430E2F62ADA20BA8D162D5A6C56289A8096D6DD354B0FF18121450
+            9BFED5A66D349AA68978C4DA685AAB428DBDBC41052D8780208720C22E2B8A2B
+            F7EE4C7FEFED0C720B093EF697256F76E6F779BF7B04009AC97B32CFD804D51A
+            499200FABC9625D04710A091C48CDADD51EFD28E4DDE86DE7BCF85E7FBD62E84
+            5D14A1125E8F7E910EA656A9907CEE164CBB578FA12DAB02E0E99196693EB061
+            09B6675441A31630D20CCCA836BB841FD64CC7E7A7AEC39212E5455B0D0A8097
+            7B6AA6E9449C1169971F41FB9A003A0820C53805B1C72EA33135CA9BB6CC5D00
+            6E2999A6731FADC077D926A8B9AF46188008483F12177963ED4F7FA129AD17C0
+            E85D99266BEA32C2141D3BAFB2C17001259942AB823EF50A5EECED05E04200CD
+            29E1C8C92D8424A806D74DE61154C37313CF2E0AF005F303E19A76092D0301DC
+            CD2B01546ABECDDC20F54849490650E15EC17F14D5125D177BFDA637ACE3F7EC
+            3B2828047383FD08E0DF8101F20B4B21A835D06834BD2C487F9447229D82AD9A
+            478F11B57AE5902D9071E1220C93262038D07770807BC5E5503B69B123311146
+            A391948A5D75C96EB7E3FDE868AA1576589F5BB1F8AD454306B891950DFD6857
+            04CFF619DC05C525951C60D4A851DCD7ECC44C98C74532776767276C361BD41A
+            3502FCFD860C50545C0289EE0B0C9805D73DFD01243B004ACAAA09C00909DBBF
+            80313C9C9F3A2666234E9EFC99BB6143F4071CC2D3633CBCBDBD860C603299D1
+            D0604190FF0C8705F60D00505A5EC38350890116BDDC023C33245EAAED7412BF
+            3766911534430660562B2B7D80005F03015CEE0BE04C002D29469455D6921A81
+            9BBF7B082A892FF1C8EF264350EE282B022F70BE33A7C085005A0702A8785807
+            F11519CEEBC060A552B9DEED374A1D9869F026804B68DD3B0040558D8903381E
+            801EAD59F95745D70AF3F31CA9C92DD10D8CBA9D4041ACA23812344EE0AD95EB
+            B623243010533DC6C239F56FB4A5ADEA1FA0FA91458E01357FA0626A25FF2559
+            5B6575358C618BFB35407B79292A0F7E8BFAF3BF72207E1F01B82E5D89E0842F
+            E172BE0352D2927E00762F436D7D235444BE6DDB2758BE7C45571A6EDAB409E9
+            E9E9FC9BD506736323E6CF09E9A3FCC1377B5177F208A6BDB31EE343E641E3EA
+            EA08C2E6663C2DB80BF39F99386A5881EF4FECEF1FA0AEA1890CA0814EA7E337
+            B234544ECDBE590AB2BDB68E0EF8CC9CD1437951F20E3CBBFE0FE626EE446779
+            11DA6F5D85ADA18E5FD3784E846EE1328CF20D44F18FFB515F6F3EFCF6EDB28F
+            998A1E00A627564A2F27C4C7C723323212717171387AE4083725B3446C6C2C07
+            D06AB5F0A05AA02C6B5101EE6E790F0B9292D19E791AB6DA8734FE509ACA2E60
+            0148F90BA729D3A15BB7117907F6E37E83C5B8F54ED9D51E00E6A7CD641315D4
+            6A350F3A918F6842573C30E54CBC3C3D7AF48BFC8478B84FF086DE5C49A72F25
+            E56A390B944C90E4A1C00E271F7FB41866A3E097E3D757659744BE04D8B50C96
+            672D3438082F3348428FDEAFB8431425C7453AA15AEF86BC39131096B40BAD67
+            8E43626E23E93BDDD273094C207097E8ADB879E820C26F148D7DD90BC8024DCF
+            DBF8E4F2EA254FCFF440D598B1C80D22800F63D0967B036EBFE70C7A67D3FA50
+            8A87A5C8CABC88881B455EF248F687E9596A38E5900D8336F8DE8BCD0E5A175C
+            099E843757AE40477505F4A7AF0D7A8B353A0CDA193EC8CACA45C4F5426F3E15
+            7BED3CF15BBB6EDC924E511A967E9100DA9DF5B8752A0621F3E6F05E21B6B5F2
+            CED7E7412C96C8FC2A9D33B9C209374B2A1071AD8003E8490C241E2C6386AEBE
+            6B6932E619BE5A10E0BFC07DDC588814EDFDBEE0C82F262CCD2DCF9A70BBBCE6
+            CEFAECA2D582ACD4994487E18F9B6C397F36CD3362CBACA9874383031C96E967
+            546381AD92E7CDDB05C5385E55BFF940C5E3B32331806B49261D0BF5FBDECF7D
+            CCBAD0A040DE039432EE502EF71772714EE13DDC6F7C7E362EE77E025D7A3C12
+            008A1BA7A5CFF7FDDACF5DBFC667BA810A157954A9151413168B050FAAAA49B9
+            3563EB9DD224DAA56A05EB48BD82B051DA8D64F2668357D8BA89EE9F8ED7A843
+            142F30254F6CF6FCB3758D878E569B599AD49234412EC523B51804EB3EEE7004
+            F468798F2D56995E9050BB452349B3BC37E2AF81EC793408F0A0D6A2472D4607
+            492B4927BAE5C8FFF9F8F4C1826346B80000004574455874636F6D6D656E7400
+            4170706C69636174696F6E20666F726D2064656C6574652066726F6D2049636F
+            6E2047616C6C65727920687474703A2F2F69636F6E67616C2E636F6D2F53289D
+            FE0000002574455874646174653A63726561746500323031312D30382D323154
+            31343A31303A33342D30363A30300B6EECCD0000002574455874646174653A6D
+            6F6469667900323031312D30382D32315431343A31303A33342D30363A30307A
+            3354710000001974455874536F6674776172650041646F626520496D61676552
+            6561647971C9653C0000000049454E44AE426082}
+          ShowHint = True
+          OnClick = imgCloseLoanClick
+          OnMouseDown = imgAssessmentMouseDown
+          OnMouseUp = imgAssessmentMouseUp
+        end
+      end
     end
     object pnlStatus: TRzPanel
       Left = 368
@@ -1375,7 +1466,7 @@ inherited frmLoanMain: TfrmLoanMain
         Width = 507
         Height = 500
         Hint = ''
-        ActivePage = tsPending
+        ActivePage = tsClosed
         ActivePageDefault = tsPending
         Anchors = [akLeft, akTop, akRight, akBottom]
         FlatColor = 8675134
@@ -2979,9 +3070,9 @@ inherited frmLoanMain: TfrmLoanMain
               Tag = -1
               Left = 19
               Top = 23
-              Width = 150
+              Width = 59
               Height = 14
-              Caption = 'No status details found.'
+              Caption = 'Summary'
               Font.Charset = DEFAULT_CHARSET
               Font.Color = clWindowText
               Font.Height = -12
@@ -2994,6 +3085,132 @@ inherited frmLoanMain: TfrmLoanMain
               HotTrackFont.Height = -12
               HotTrackFont.Name = 'Tahoma'
               HotTrackFont.Style = []
+            end
+          end
+        end
+        object tsClosed: TRzTabSheet
+          Color = 14273211
+          TabVisible = False
+          Caption = 'Closed'
+          ExplicitWidth = 0
+          ExplicitHeight = 0
+          object RzDBLabel22: TRzDBLabel
+            Left = 144
+            Top = 64
+            Width = 69
+            Height = 14
+            AutoSize = True
+            DataField = 'reason_name'
+            DataSource = dmLoan.dscLoanClose
+          end
+          object RzDBLabel23: TRzDBLabel
+            Left = 104
+            Top = 87
+            Width = 353
+            Height = 72
+            WordWrap = True
+            DataField = 'remarks'
+            DataSource = dmLoan.dscLoanClose
+          end
+          object RzDBLabel24: TRzDBLabel
+            Left = 144
+            Top = 41
+            Width = 69
+            Height = 14
+            AutoSize = True
+            DataField = 'date_closed_f'
+            DataSource = dmLoan.dscLoanClose
+          end
+          object JvLabel41: TJvLabel
+            Tag = -1
+            Left = 27
+            Top = 41
+            Width = 77
+            Height = 14
+            Caption = 'Date closed:'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -12
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold]
+            ParentFont = False
+            Transparent = True
+            HotTrackFont.Charset = DEFAULT_CHARSET
+            HotTrackFont.Color = clWindowText
+            HotTrackFont.Height = -12
+            HotTrackFont.Name = 'Tahoma'
+            HotTrackFont.Style = []
+          end
+          object JvLabel43: TJvLabel
+            Tag = -1
+            Left = 27
+            Top = 64
+            Width = 51
+            Height = 14
+            Caption = 'Reason:'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -12
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold]
+            ParentFont = False
+            Transparent = True
+            HotTrackFont.Charset = DEFAULT_CHARSET
+            HotTrackFont.Color = clWindowText
+            HotTrackFont.Height = -12
+            HotTrackFont.Name = 'Tahoma'
+            HotTrackFont.Style = []
+          end
+          object JvLabel44: TJvLabel
+            Tag = -1
+            Left = 27
+            Top = 87
+            Width = 58
+            Height = 14
+            Caption = 'Remarks:'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -12
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold]
+            ParentFont = False
+            Transparent = True
+            HotTrackFont.Charset = DEFAULT_CHARSET
+            HotTrackFont.Color = clWindowText
+            HotTrackFont.Height = -12
+            HotTrackFont.Name = 'Tahoma'
+            HotTrackFont.Style = []
+          end
+          object RzPanel1: TRzPanel
+            Left = 0
+            Top = 0
+            Width = 507
+            Height = 17
+            Align = alTop
+            BorderOuter = fsNone
+            BorderSides = [sdBottom]
+            BorderColor = clBlack
+            BorderWidth = 1
+            GradientColorStyle = gcsCustom
+            GradientColorStart = 6572079
+            GradientColorStop = 8675134
+            TabOrder = 0
+            VisualStyle = vsGradient
+            ExplicitTop = 8
+            object RzLabel1: TRzLabel
+              Tag = -1
+              Left = 7
+              Top = 2
+              Width = 83
+              Height = 13
+              Caption = 'Closure details'
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clWhite
+              Font.Height = -11
+              Font.Name = 'Tahoma'
+              Font.Style = [fsBold]
+              ParentFont = False
+              Transparent = True
             end
           end
         end

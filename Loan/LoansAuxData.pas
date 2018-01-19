@@ -56,6 +56,10 @@ type
     dstClassChargesmax_value: TBCDField;
     dstClassChargesmax_value_type: TWordField;
     dstClassChargesmax_value_f: TStringField;
+    dstChargeTypes: TADODataSet;
+    dscChargeTypes: TDataSource;
+    dstCloseReason: TADODataSet;
+    dscCloseReason: TDataSource;
     procedure dstLoanClassBeforePost(DataSet: TDataSet);
     procedure dstLoanClassAfterOpen(DataSet: TDataSet);
     procedure DataModuleDestroy(Sender: TObject);
@@ -222,7 +226,7 @@ end;
 
 procedure TdmLoansAux.dstLoanClassAfterScroll(DataSet: TDataSet);
 var
-  clId, term, comakers, age: integer;
+  clId, term, comakersMin, comakersMax, age: integer;
   clName, groupId, intCompMethod: string;
   interest, maxLoan: currency;
   validFrom, validUntil: TDate;
@@ -238,7 +242,8 @@ begin
     interest := FieldByName('int_rate').AsCurrency;
     term := FieldByName('term').AsInteger;
     maxLoan := FieldByName('max_loan').AsCurrency;
-    comakers := FieldByName('comakers').AsInteger;
+    comakersMin := FieldByName('comakers_min').AsInteger;
+    comakersMax := FieldByName('comakers_max').AsInteger;
     validFrom := FieldByName('valid_from').AsDateTime;
     validUntil := FieldByName('valid_until').AsDateTime;
     age := FieldByName('max_age').AsInteger;
@@ -255,7 +260,7 @@ begin
 
   if not Assigned(lnc) then
     lnc := TLoanClassification.Create(clId, clName, interest,
-        term, maxLoan, comakers, validFrom, validUntil, age,lt, gp, intCompMethod,
+        term, maxLoan, comakersMin, comakersMax, validFrom, validUntil, age,lt, gp, intCompMethod,
         scheduled)
   else
   begin
@@ -264,7 +269,8 @@ begin
     lnc.Interest := interest;
     lnc.Term := term;
     lnc.MaxLoan := maxLoan;
-    lnc.Comakers := comakers;
+    lnc.ComakersMin := comakersMin;
+    lnc.ComakersMax := comakersMax;
     lnc.ValidFrom := validFrom;
     lnc.ValidUntil := validUntil;
     lnc.MaxAge := age;

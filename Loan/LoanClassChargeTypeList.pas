@@ -1,4 +1,4 @@
-unit PurposeList;
+unit LoanClassChargeTypeList;
 
 interface
 
@@ -9,11 +9,13 @@ uses
   Vcl.ExtCtrls, RzPanel, RzDBEdit, JvExControls, JvLabel;
 
 type
-  TfrmPurposeList = class(TfrmBaseGridDetail)
+  TfrmLoanClassChargeTypeList = class(TfrmBaseGridDetail)
+    JvLabel3: TJvLabel;
+    edType: TRzDBEdit;
     JvLabel1: TJvLabel;
-    edPurpose: TRzDBEdit;
-    procedure FormCreate(Sender: TObject);
+    edName: TRzDBEdit;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure FormCreate(Sender: TObject);
   private
     { Private declarations }
   public
@@ -28,38 +30,39 @@ implementation
 {$R *.dfm}
 
 uses
-  AuxData, IFinanceDialogs;
+  LoansAuxData, IFinanceDialogs;
 
-function TfrmPurposeList.EntryIsValid: boolean;
+{ TfrmLoanClassChargeTypeList }
+
+function TfrmLoanClassChargeTypeList.EntryIsValid: boolean;
 var
   error: string;
 begin
-  if Trim(edPurpose.Text) = '' then error := 'Please enter purpose.';
+  if Trim(edType.Text) = '' then  error := 'Please enter a type.'
+  else if Trim(edName.Text) = '' then  error := 'Please enter a name.';
 
   if error <> '' then ShowErrorBox(error);
-  
+
   Result := error = '';
 end;
 
-procedure TfrmPurposeList.FormClose(Sender: TObject; var Action: TCloseAction);
+procedure TfrmLoanClassChargeTypeList.FormClose(Sender: TObject;
+  var Action: TCloseAction);
 begin
-  dmAux.Free;
-
+  dmLoansAux.Free;
   inherited;
 end;
 
-procedure TfrmPurposeList.FormCreate(Sender: TObject);
+procedure TfrmLoanClassChargeTypeList.FormCreate(Sender: TObject);
 begin
-  dmAux := TdmAux.Create(self);
-
+  dmLoansAux := TdmLoansAux.Create(self);
   inherited;
 end;
 
-procedure TfrmPurposeList.SearchList;
+procedure TfrmLoanClassChargeTypeList.SearchList;
 begin
-  grList.DataSource.DataSet.Locate('purpose',edSearchKey.Text,
+  grList.DataSource.DataSet.Locate('charge_name',edSearchKey.Text,
         [loPartialKey,loCaseInsensitive]);
 end;
-
 
 end.

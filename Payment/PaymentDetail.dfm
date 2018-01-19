@@ -31,6 +31,7 @@ inherited frmPaymentDetail: TfrmPaymentDetail
       Top = 287
       Width = 68
       Height = 14
+      Anchors = [akLeft, akBottom]
       Caption = 'Open ledger'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = 6572079

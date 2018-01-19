@@ -84,6 +84,8 @@ contains
   GroupSearch in 'GroupSearch.pas' {frmGroupSearch},
   GroupUtils in 'GroupUtils.pas',
   Duplicate in 'Duplicate.pas' {frmDuplicate},
-  EntityUtils in 'EntityUtils.pas';
+  EntityUtils in 'EntityUtils.pas',
+  InfoSourceList in 'InfoSourceList.pas' {frmInfoSourceList},
+  LoanClosureReasonList in 'LoanClosureReasonList.pas' {frmLoanCloseReasonList};
 
 end.

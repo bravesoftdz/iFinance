@@ -45,6 +45,10 @@ type
     dscLoanRejectReasons: TDataSource;
     dstBankBranches: TADODataSet;
     dscBankBranches: TDataSource;
+    dstInfoSource: TADODataSet;
+    dscInfoSource: TDataSource;
+    dstLoanCloseReasons: TADODataSet;
+    dscLoanCloseReasons: TDataSource;
     procedure dstBranchesBeforePost(DataSet: TDataSet);
     procedure dstBanksAfterScroll(DataSet: TDataSet);
     procedure dstBranchesNewRecord(DataSet: TDataSet);
@@ -54,6 +58,7 @@ type
     procedure dstLoanCancelReasonsBeforePost(DataSet: TDataSet);
     procedure dstLoanRejectReasonsBeforePost(DataSet: TDataSet);
     procedure dstLoanTypeAfterScroll(DataSet: TDataSet);
+    procedure dstLoanCloseReasonsBeforePost(DataSet: TDataSet);
   private
     { Private declarations }
   public
@@ -128,6 +133,17 @@ begin
   if DataSet.State = dsInsert then
   begin
     id := GetLoanCancellationReasonId;
+    DataSet.FieldByName('reason_id').AsInteger := id;
+  end;
+end;
+
+procedure TdmAux.dstLoanCloseReasonsBeforePost(DataSet: TDataSet);
+var
+  id: integer;
+begin
+  if DataSet.State = dsInsert then
+  begin
+    id := GetLoanClosureReasonId;
     DataSet.FieldByName('reason_id').AsInteger := id;
   end;
 end;

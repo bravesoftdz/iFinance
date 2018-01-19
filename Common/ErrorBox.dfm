@@ -8,6 +8,7 @@ inherited frmErrorBox: TfrmErrorBox
   TextHeight = 14
   inherited pnlTitle: TRzPanel
     Width = 357
+    BorderColor = 240
     Color = 2960895
     GradientColorStart = 2960895
     GradientColorStop = 4737279
@@ -25,6 +26,7 @@ inherited frmErrorBox: TfrmErrorBox
   inherited pnlMain: TRzPanel
     Width = 357
     Height = 108
+    BorderColor = 240
     Color = 10921727
     ExplicitWidth = 357
     ExplicitHeight = 108
@@ -94,7 +96,7 @@ inherited frmErrorBox: TfrmErrorBox
       Height = 22
       Anchors = [akLeft, akBottom]
       BorderOuter = fsNone
-      BorderColor = 6572079
+      BorderColor = 240
       BorderWidth = 1
       Color = 8553215
       TabOrder = 0

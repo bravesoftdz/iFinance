@@ -17,7 +17,8 @@ type
     FTerm: integer;
     FLoanType: TLoanType;
     FMaxLoan: currency;
-    FComakers: integer;
+    FComakersMin: integer;
+    FComakersMax: integer;
     FValidFrom: TDate;
     FValidUntil: TDate;
     FClassCharges: array of TLoanClassCharge;
@@ -57,7 +58,8 @@ type
     property Term: integer read FTerm write FTerm;
     property LoanType: TLoanType read FLoanType write FLoanType;
     property MaxLoan: currency read FMaxLoan write FMaxLoan;
-    property Comakers: integer read FComakers write FComakers;
+    property ComakersMin: integer read FComakersMin write FComakersMin;
+    property ComakersMax: integer read FComakersMax write FComakersMax;
     property ValidFrom: TDate read FValidFrom write FVAlidFrom;
     property ValidUntil: TDate read FValidUntil write FValidUntil;
     property ComakersNotRequired: boolean read GetComakersNotRequired;
@@ -78,7 +80,7 @@ type
 
     constructor Create(const classificationId: integer; classificationName: string;
         const interest: real; const term: integer; const maxLoan: currency;
-        const comakers: integer; const validFrom, validUntil: TDate; const age: integer;
+        const comakersMin, comakersMax: integer; const validFrom, validUntil: TDate; const age: integer;
         const lt: TLoanType; const gp: TGroup; const intCompMethod: string;
         const ufr: boolean);
   end;
@@ -93,7 +95,7 @@ uses
 
 constructor TLoanClassification.Create(const classificationId: integer; classificationName: string;
         const interest: real; const term: integer; const maxLoan: currency;
-        const comakers: integer; const validFrom, validUntil: TDate; const age: integer;
+        const comakersMin, comakersMax: integer; const validFrom, validUntil: TDate; const age: integer;
         const lt: TLoanType; const gp: TGroup; const intCompMethod: string;
         const ufr: boolean);
 begin
@@ -102,7 +104,8 @@ begin
   FInterest := interest;
   FTerm := term;
   FMaxLoan := maxLoan;
-  FComakers := comakers;
+  FComakersMin := comakersMin;
+  FComakersMax := comakersMax;
   FValidFrom := validFrom;
   FValidUntil := validUntil;
   FMaxAge := age;
@@ -164,7 +167,7 @@ end;
 
 function TLoanClassification.GetComakersNotRequired: boolean;
 begin
-  Result := FComakers = 0;
+  Result := (FComakersMin = 0) and (FComakersMax = 0);
 end;
 
 function TLoanClassification.GetClassCharge(const i: Integer): TLoanClassCharge;

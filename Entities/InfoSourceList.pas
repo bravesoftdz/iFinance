@@ -1,4 +1,4 @@
-unit PurposeList;
+unit InfoSourceList;
 
 interface
 
@@ -9,9 +9,9 @@ uses
   Vcl.ExtCtrls, RzPanel, RzDBEdit, JvExControls, JvLabel;
 
 type
-  TfrmPurposeList = class(TfrmBaseGridDetail)
+  TfrmInfoSourceList = class(TfrmBaseGridDetail)
     JvLabel1: TJvLabel;
-    edPurpose: TRzDBEdit;
+    edSource: TRzDBEdit;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
@@ -30,36 +30,38 @@ implementation
 uses
   AuxData, IFinanceDialogs;
 
-function TfrmPurposeList.EntryIsValid: boolean;
+{ TfrmInfoSourceList }
+
+function TfrmInfoSourceList.EntryIsValid: boolean;
 var
   error: string;
 begin
-  if Trim(edPurpose.Text) = '' then error := 'Please enter purpose.';
+  if Trim(edSource.Text) = '' then error := 'Please enter source.';
 
   if error <> '' then ShowErrorBox(error);
-  
+
   Result := error = '';
 end;
 
-procedure TfrmPurposeList.FormClose(Sender: TObject; var Action: TCloseAction);
+procedure TfrmInfoSourceList.FormClose(Sender: TObject;
+  var Action: TCloseAction);
 begin
   dmAux.Free;
 
   inherited;
 end;
 
-procedure TfrmPurposeList.FormCreate(Sender: TObject);
+procedure TfrmInfoSourceList.FormCreate(Sender: TObject);
 begin
   dmAux := TdmAux.Create(self);
 
   inherited;
 end;
 
-procedure TfrmPurposeList.SearchList;
+procedure TfrmInfoSourceList.SearchList;
 begin
-  grList.DataSource.DataSet.Locate('purpose',edSearchKey.Text,
+  grList.DataSource.DataSet.Locate('source_name',edSearchKey.Text,
         [loPartialKey,loCaseInsensitive]);
 end;
-
 
 end.

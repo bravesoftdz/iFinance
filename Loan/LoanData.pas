@@ -62,6 +62,8 @@ type
     dstLedgerbalance_i: TBCDField;
     dstLedgersort_order: TSmallintField;
     dstLedgerdocument_no: TStringField;
+    dstLoanClose: TADODataSet;
+    dscLoanClose: TDataSource;
     procedure dstLoanBeforeOpen(DataSet: TDataSet);
     procedure dstLoanClassBeforeOpen(DataSet: TDataSet);
     procedure dstLoanBeforePost(DataSet: TDataSet);
@@ -108,6 +110,10 @@ type
     procedure dstLoanReleaseCalcFields(DataSet: TDataSet);
     procedure dstClientLoansBeforeOpen(DataSet: TDataSet);
     procedure dstLedgerBeforeOpen(DataSet: TDataSet);
+    procedure dstLoanCloseAfterOpen(DataSet: TDataSet);
+    procedure dstLoanCloseAfterPost(DataSet: TDataSet);
+    procedure dstLoanCloseBeforeOpen(DataSet: TDataSet);
+    procedure dstLoanCloseBeforePost(DataSet: TDataSet);
   private
     { Private declarations }
     procedure SetLoanClassProperties;
@@ -423,7 +429,7 @@ end;
 
 procedure TdmLoan.dstLoanClassAfterScroll(DataSet: TDataSet);
 var
-  clId, trm, cmakers, age, loanType, idDocs: integer;
+  clId, trm, cmakersMin, cmakersMax, age, loanType, idDocs: integer;
   clName, loanTypeName, intCompMethod: string;
   intrst, maxLn: currency;
   validFr, validUn: TDate;
@@ -438,7 +444,8 @@ begin
     intrst := FieldByName('int_rate').AsCurrency;
     trm := FieldByName('term').AsInteger;
     maxLn := FieldByName('max_loan').AsCurrency;
-    cmakers := FieldByName('comakers').AsInteger;
+    cmakersMin := FieldByName('comakers_min').AsInteger;
+    cmakersMax := FieldByName('comakers_max').AsInteger;
     validFr := FieldByName('valid_from').AsDateTime;
     validUn := FieldByName('valid_until').AsDateTime;
     age := FieldByName('max_age').AsInteger;
@@ -469,8 +476,8 @@ begin
 
   if not Assigned(ln.LoanClass) then
     ln.LoanClass := TLoanClassification.Create(clId, clName, intrst,
-        trm, maxLn, cmakers, validFr, validUn, age, ltype, gp, intCompMethod,
-        scheduled)
+        trm, maxLn, cmakersMin, cmakersMax, validFr, validUn, age, ltype, gp,
+        intCompMethod, scheduled)
   else
   begin
     with ln.LoanClass do
@@ -480,7 +487,8 @@ begin
       Interest := intrst;
       Term := trm;
       MaxLoan := maxLn;
-      Comakers := cmakers;
+      ComakersMin := cmakersMin;
+      ComakersMax := cmakersMax;
       ValidFrom := validFr;
       ValidUntil := validUn;
       MaxAge := age;
@@ -508,6 +516,30 @@ end;
 procedure TdmLoan.dstLoanClassChargesBeforeOpen(DataSet: TDataSet);
 begin
   (DataSet as TADODataSet).Parameters.ParamByName('@entity_id').Value := ln.Client.Id;
+end;
+
+procedure TdmLoan.dstLoanCloseAfterOpen(DataSet: TDataSet);
+begin
+  if not DataSet.IsEmpty then ln.AddLoanState(lsClosed);
+end;
+
+procedure TdmLoan.dstLoanCloseAfterPost(DataSet: TDataSet);
+begin
+  if not ln.HasLoanState(lsClosed) then
+  begin
+    ln.ChangeLoanStatus;
+    ln.AddLoanState(lsClosed);
+  end;
+end;
+
+procedure TdmLoan.dstLoanCloseBeforeOpen(DataSet: TDataSet);
+begin
+  (DataSet as TADODataSet).Parameters.ParamByName('@loan_id').Value := ln.Id;
+end;
+
+procedure TdmLoan.dstLoanCloseBeforePost(DataSet: TDataSet);
+begin
+  DataSet.FieldByName('loan_id').AsString := ln.Id;
 end;
 
 procedure TdmLoan.dstLoanComakerAfterOpen(DataSet: TDataSet);
@@ -565,7 +597,6 @@ end;
 procedure TdmLoan.dstLoanRejectBeforePost(DataSet: TDataSet);
 begin
   DataSet.FieldByName('loan_id').AsString := ln.Id;
-  DataSet.FieldByName('rejected_by').AsString := ifn.User.UserId;
 end;
 
 procedure TdmLoan.dstLoanReleaseAfterOpen(DataSet: TDataSet);

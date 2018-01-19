@@ -1,6 +1,6 @@
 object dmAux: TdmAux
   OldCreateOrder = False
-  Height = 426
+  Height = 552
   Width = 709
   object dscTowns: TDataSource
     DataSet = dstTowns
@@ -300,5 +300,34 @@ object dmAux: TdmAux
     DataSet = dstBankBranches
     Left = 271
     Top = 278
+  end
+  object dstInfoSource: TADODataSet
+    Connection = dmApplication.acMain
+    CursorType = ctStatic
+    CommandText = 'sp_get_info_sources;1'
+    CommandType = cmdStoredProc
+    Parameters = <>
+    Left = 527
+    Top = 278
+  end
+  object dscInfoSource: TDataSource
+    DataSet = dstInfoSource
+    Left = 591
+    Top = 278
+  end
+  object dstLoanCloseReasons: TADODataSet
+    Connection = dmApplication.acMain
+    CursorType = ctStatic
+    BeforePost = dstLoanCloseReasonsBeforePost
+    CommandText = 'sp_get_loan_close_reasons;1'
+    CommandType = cmdStoredProc
+    Parameters = <>
+    Left = 47
+    Top = 414
+  end
+  object dscLoanCloseReasons: TDataSource
+    DataSet = dstLoanCloseReasons
+    Left = 111
+    Top = 414
   end
 end

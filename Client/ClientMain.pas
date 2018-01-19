@@ -184,6 +184,9 @@ type
     sbtnAddGroup: TRzShapeButton;
     pnlRemoveGroup: TRzPanel;
     sbtnRemoveGroup: TRzShapeButton;
+    RzGroupBox8: TRzGroupBox;
+    JvLabel32: TJvLabel;
+    RzDBLookupComboBox5: TRzDBLookupComboBox;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure FormCreate(Sender: TObject);

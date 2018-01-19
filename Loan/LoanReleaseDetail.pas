@@ -7,7 +7,7 @@ uses
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, BasePopupDetail, Data.DB, Vcl.Grids,
   Vcl.DBGrids, RzDBGrid, RzDBEdit, Vcl.StdCtrls, Vcl.Mask, RzEdit, JvExControls,
   JvLabel, RzButton, RzTabs, RzLabel, Vcl.Imaging.pngimage, Vcl.ExtCtrls,
-  RzPanel, RzGrids, ReleaseRecipient, LoanCharge;
+  RzPanel, RzGrids, ReleaseRecipient, LoanCharge, RzRadChk;
 
 type
   TfrmLoanReleaseDetail = class(TfrmBasePopupDetail)
@@ -31,6 +31,7 @@ type
     lblNetProceeds: TJvLabel;
     JvLabel3: TJvLabel;
     lblAppliedAmount: TJvLabel;
+    cbxAdvancePayment: TRzCheckBox;
     procedure FormShow(Sender: TObject);
     procedure grReleaseRecipientDblClick(Sender: TObject);
     procedure btnAddClick(Sender: TObject);
@@ -257,6 +258,9 @@ end;
 
 procedure TfrmLoanReleaseDetail.Save;
 begin
+  // bind controls
+  ln.HasAdvancePayment := cbxAdvancePayment.Checked;
+
   ln.Save;
 end;
 

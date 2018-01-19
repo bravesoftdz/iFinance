@@ -1,8 +1,8 @@
 object dmLoansAux: TdmLoansAux
   OldCreateOrder = False
   OnDestroy = DataModuleDestroy
-  Height = 312
-  Width = 669
+  Height = 363
+  Width = 861
   object dscLoanClass: TDataSource
     DataSet = dstLoanClass
     Left = 112
@@ -329,5 +329,34 @@ object dmLoansAux: TdmLoansAux
     DataSet = dstRecommendation
     Left = 599
     Top = 198
+  end
+  object dstChargeTypes: TADODataSet
+    Connection = dmApplication.acMain
+    CursorType = ctStatic
+    CommandText = 'sp_get_loan_class_charge_types;1'
+    CommandType = cmdStoredProc
+    Parameters = <>
+    Left = 687
+    Top = 22
+  end
+  object dscChargeTypes: TDataSource
+    DataSet = dstChargeTypes
+    Left = 759
+    Top = 22
+  end
+  object dstCloseReason: TADODataSet
+    Connection = dmApplication.acMain
+    CursorType = ctStatic
+    LockType = ltReadOnly
+    CommandText = 'sp_dd_get_close_reason'
+    CommandType = cmdStoredProc
+    Parameters = <>
+    Left = 359
+    Top = 262
+  end
+  object dscCloseReason: TDataSource
+    DataSet = dstCloseReason
+    Left = 431
+    Top = 262
   end
 end

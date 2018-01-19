@@ -1,2 +1,50 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<BorlandProject/>
+<BorlandProject>
+	<ProjectSortOrder AutoSort="0" SortType="0">
+    <File Path="..\..\iFinance"/>
+    <File Path="..\Base"/>
+    <File Path="..\Base\BaseDocked.pas"/>
+    <File Path="..\Base\BaseDocked.dfm"/>
+    <File Path="..\Base\BasePopup.pas"/>
+    <File Path="..\Base\BasePopup.dfm"/>
+    <File Path="..\Base\BasePopupDetail.pas"/>
+    <File Path="..\Base\BasePopupDetail.dfm"/>
+    <File Path="..\Base\BaseSearch.pas"/>
+    <File Path="..\Base\BaseSearch.dfm"/>
+    <File Path="ActiveClient.pas"/>
+    <File Path="ActiveClientsSearch.pas"/>
+    <File Path="ActiveClientsSearch.dfm"/>
+    <File Path="ActiveLoans.pas"/>
+    <File Path="ActiveLoans.dfm"/>
+    <File Path="Payment.pas"/>
+    <File Path="PaymentData.pas"/>
+    <File Path="PaymentData.dfm"/>
+    <File Path="PaymentDetail.pas"/>
+    <File Path="PaymentDetail.dfm"/>
+    <File Path="PaymentIntf.pas"/>
+    <File Path="PaymentList.pas"/>
+    <File Path="PaymentList.dfm"/>
+    <File Path="PaymentListParams.pas"/>
+    <File Path="PaymentMain.pas"/>
+    <File Path="PaymentMain.dfm"/>
+    <File Path="PaymentMethod.pas"/>
+    <File Path="Withdrawal.pas"/>
+    <File Path="WithdrawalDetail.pas"/>
+    <File Path="WithdrawalDetail.dfm"/>
+    <File Path="WithdrawalList.pas"/>
+    <File Path="WithdrawalList.dfm"/>
+    <File Path="adortl.dcp"/>
+    <File Path="dbrtl.dcp"/>
+    <File Path="FireDAC.dcp"/>
+    <File Path="Jcl.dcp"/>
+    <File Path="JvCore.dcp"/>
+    <File Path="JvStdCtrls.dcp"/>
+    <File Path="RaizeComponentsVcl.dcp"/>
+    <File Path="RaizeComponentsVclDb.dcp"/>
+    <File Path="RESTComponents.dcp"/>
+    <File Path="rtl.dcp"/>
+    <File Path="vcl.dcp"/>
+    <File Path="vcldb.dcp"/>
+    <File Path="vclimg.dcp"/>
+  </ProjectSortOrder>
+</BorlandProject>

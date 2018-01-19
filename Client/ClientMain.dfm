@@ -325,6 +325,14 @@ inherited frmClientMain: TfrmClientMain
         Caption = 'Other income'
         Transparent = True
       end
+      object JvLabel32: TJvLabel
+        Left = 352
+        Top = 442
+        Width = 105
+        Height = 14
+        Caption = 'Information source'
+        Transparent = True
+      end
       object edLastname: TRzDBEdit
         Left = 114
         Top = 34
@@ -1124,12 +1132,56 @@ inherited frmClientMain: TfrmClientMain
           ExplicitHeight = 71
         end
       end
+      object RzGroupBox8: TRzGroupBox
+        Left = 336
+        Top = 413
+        Width = 524
+        Height = 22
+        BorderColor = 6572079
+        BorderSides = []
+        BorderWidth = 1
+        Caption = 'Other info'
+        CaptionFont.Charset = DEFAULT_CHARSET
+        CaptionFont.Color = clRed
+        CaptionFont.Height = -12
+        CaptionFont.Name = 'Tahoma'
+        CaptionFont.Style = [fsBold]
+        Color = 14273211
+        FlatColor = 6572079
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = 6572079
+        Font.Height = -12
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        GradientColorStyle = gcsCustom
+        GroupStyle = gsUnderline
+        ParentFont = False
+        TabOrder = 40
+      end
+      object RzDBLookupComboBox5: TRzDBLookupComboBox
+        Left = 467
+        Top = 436
+        Width = 187
+        Height = 22
+        DataField = 'source_id'
+        DataSource = dmClient.dscPersonalInfo
+        KeyField = 'source_id'
+        ListField = 'source_name'
+        ListSource = dmAux.dscInfoSource
+        TabOrder = 41
+        AllowNull = True
+        FlatButtonColor = 6572079
+        FlatButtons = True
+        FrameColor = 8675134
+        FrameHotColor = clBlack
+        FrameVisible = True
+        FramingPreference = fpCustomFraming
+        TabOnEnter = True
+      end
     end
     object tsReferences: TRzTabSheet
       Color = 14273211
       Caption = 'Family and references'
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       DesignSize = (
         860
         529)
@@ -1603,8 +1655,6 @@ inherited frmClientMain: TfrmClientMain
     object tsIdentityInfo: TRzTabSheet
       Color = 14273211
       Caption = 'Identity information'
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       DesignSize = (
         860
         529)
@@ -1891,8 +1941,6 @@ inherited frmClientMain: TfrmClientMain
     object tsLoansHistory: TRzTabSheet
       Color = 14273211
       Caption = 'Loans history'
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       DesignSize = (
         860
         529)
@@ -1975,8 +2023,6 @@ inherited frmClientMain: TfrmClientMain
     object tsGroups: TRzTabSheet
       Color = 14273211
       Caption = 'Groups'
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       DesignSize = (
         860
         529)

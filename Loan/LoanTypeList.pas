@@ -27,9 +27,6 @@ type
     { Public declarations }
   end;
 
-var
-  frmLoanTypeList: TfrmLoanTypeList;
-
 implementation
 
 {$R *.dfm}

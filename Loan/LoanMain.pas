@@ -164,6 +164,17 @@ type
     RzDBLabel21: TRzDBLabel;
     lblReleaseAmount: TJvLabel;
     JvLabel42: TJvLabel;
+    pnlCloseLoan: TRzPanel;
+    imgCloseLoan: TImage;
+    tsClosed: TRzTabSheet;
+    RzDBLabel22: TRzDBLabel;
+    RzDBLabel23: TRzDBLabel;
+    RzDBLabel24: TRzDBLabel;
+    RzPanel1: TRzPanel;
+    RzLabel1: TRzLabel;
+    JvLabel41: TJvLabel;
+    JvLabel43: TJvLabel;
+    JvLabel44: TJvLabel;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure bteClientButtonClick(Sender: TObject);
@@ -187,6 +198,7 @@ type
     procedure imgClientRecordClick(Sender: TObject);
     procedure imgAlertsClick(Sender: TObject);
     procedure imgRestructureClick(Sender: TObject);
+    procedure imgCloseLoanClick(Sender: TObject);
   private
     { Private declarations }
     procedure ChangeControlState;
@@ -201,6 +213,7 @@ type
     procedure RejectLoan;
     procedure CancelLoan;
     procedure ReleaseLoan;
+    procedure CloseLoan;
 
     procedure ShowLedger;
 
@@ -225,6 +238,7 @@ const
   REJECTION = 3;
   CANCELLATION = 4;
   NOINFO = 5;
+  CLOSED = 6;
 
   // finalised error message
   FINALISED_MSG = 'Changes have been restricted. Loan application has been finalised.';
@@ -238,7 +252,7 @@ uses
   Comaker, ComakerSearch, DecisionBox, ComakerDetail, FinInfoDetail, MonthlyExpenseDetail,
   LoansAuxData, LoanApprovalDetail, LoanAssessmentDetail, LoanCancellationDetail,
   LoanRejectionDetail, Alert, Alerts, LoanReleaseDetail, Client, AppConstants, Assessment,
-  IFinanceDialogs, LoanLedger;
+  IFinanceDialogs, LoanLedger, LoanClosureDetail;
 
 procedure TfrmLoanMain.SetActiveTab;
 var
@@ -503,6 +517,43 @@ begin
   pnlAlerts.Visible := (Assigned(ln.Client)) and (not ln.IsFinalised);
 end;
 
+procedure TfrmLoanMain.CloseLoan;
+begin
+  if not ln.IsActive then
+  begin
+    ShowErrorBox('Cannot close an INACTIVE loan.');
+    Exit;
+  end
+  else if ln.IsClosed then
+  begin
+    ShowErrorBox(FINALISED_MSG);
+    Exit;
+  end;
+
+  with TfrmLoanClosureDetail.Create(self) do
+  begin
+    try
+      ln.Action := laClosing;
+      ln.Retrieve;
+      ln.SetDefaultValues;
+
+      ShowModal;
+
+      if ModalResult = mrOk then
+      begin
+        SetLoanHeaderCaption;
+        ChangeControlState;
+        SetActiveTab(CLOSED);
+      end;
+
+      Free;
+    except
+      on e: Exception do
+        ShowErrorBox(e.Message);
+    end;
+  end;
+end;
+
 procedure TfrmLoanMain.RefreshDropDownSources;
 begin
   OpenDropdownDataSources(pnlMain);
@@ -553,8 +604,8 @@ begin
     ShowErrorBox('Please select a loan class.')
   else if ln.LoanClass.ComakersNotRequired then
     ShowErrorBox('No comakers required.')
-  else if ln.ComakerCount >= ln.LoanClass.Comakers then
-    ShowErrorBox('Number of comakers has already been met. ' +
+  else if ln.ComakerCount >= ln.LoanClass.ComakersMax then
+    ShowErrorBox('The maximum number of comakers has already been added. ' +
         'If a comaker has been mistakenly declared, remove the comaker and add again.')
   else
   with TfrmComakerSearch.Create(self) do
@@ -778,6 +829,13 @@ begin
   end;
 end;
 
+procedure TfrmLoanMain.imgCloseLoanClick(Sender: TObject);
+begin
+  inherited;
+  if ln.IsClosed then SetActiveTab(CLOSED)
+  else CloseLoan;
+end;
+
 procedure TfrmLoanMain.imgRejectLoanClick(Sender: TObject);
 begin
   inherited;
@@ -885,10 +943,10 @@ begin
         error := 'Term applied exceeds the maximum allowed term for the selected loan class.'
       else if (ln.LoanClass.HasMaxAge) and ((edDesiredTerm.Value / 12) + ln.Client.Age > ln.LoanClass.MaxAge) then
         error := 'Term exceeds the maximum age limit for the selected loan class.'
-      else if ln.ComakerCount < ln.LoanClass.Comakers then
+      else if ln.ComakerCount < ln.LoanClass.ComakersMin then
         error := 'Number of required comakers has not been entered.'
-      else if ln.ComakerCount > ln.LoanClass.Comakers then
-        error := 'Declared comakers exceeds the required number.'
+      else if ln.ComakerCount > ln.LoanClass.ComakersMax then
+        error := 'Declared comakers exceeds the required maximum.'
       else if ln.Client.ValidIdentityDocs < ln.LoanClass.Group.Attributes.IdentityDocs then
         error := 'Client has not submitted the required number of identity documents.'
       else if ln.LoanClass.Group.Attributes.HasConcurrent then // note: this else block should ALWAYS be at the bottom..

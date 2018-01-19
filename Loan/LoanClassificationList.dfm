@@ -15,6 +15,14 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
     Height = 14
     Caption = 'Branch'
   end
+  object JvLabel2: TJvLabel [1]
+    Left = 21
+    Top = 143
+    Width = 54
+    Height = 14
+    Caption = 'Comakers'
+    Transparent = True
+  end
   inherited pnlTitle: TRzPanel
     Width = 855
     ExplicitWidth = 855
@@ -212,6 +220,14 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
       Caption = 'Max age'
       Transparent = True
     end
+    object JvLabel8: TJvLabel
+      Left = 161
+      Top = 135
+      Width = 23
+      Height = 14
+      Caption = 'Max'
+      Transparent = True
+    end
     object pnlAdd: TRzPanel
       Left = 8
       Top = 449
@@ -314,7 +330,7 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
       KeyField = 'value'
       ListField = 'display'
       ListSource = dmAux.dscCompMethod
-      TabOrder = 10
+      TabOrder = 11
       OnClick = dbluCompMethodClick
       FlatButtons = True
       DisabledColor = clWhite
@@ -334,7 +350,7 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
       KeyField = 'value'
       ListField = 'display'
       ListSource = dmAux.dscPaymentFreq
-      TabOrder = 12
+      TabOrder = 13
       FlatButtons = True
       DisabledColor = clWhite
       FrameColor = 8675134
@@ -376,18 +392,21 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
       TabOnEnter = True
       TabOrder = 6
     end
-    object edComakers: TRzDBEdit
+    object edComakersMin: TRzDBEdit
       Left = 88
       Top = 129
       Width = 57
       Height = 22
+      Hint = 'Minimum comakers required'
       DataSource = dmLoansAux.dscLoanClass
-      DataField = 'comakers'
+      DataField = 'comakers_min'
       CharCase = ecUpperCase
       DisabledColor = clWhite
       FrameColor = 8675134
       FrameVisible = True
       FramingPreference = fpCustomFraming
+      ParentShowHint = False
+      ShowHint = True
       TabOnEnter = True
       TabOrder = 7
     end
@@ -404,7 +423,7 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
       FrameVisible = True
       FramingPreference = fpCustomFraming
       TabOnEnter = True
-      TabOrder = 9
+      TabOrder = 10
       DisplayFormat = '###,##0.00'
       FlatButtons = True
     end
@@ -420,7 +439,7 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
       FrameVisible = True
       FramingPreference = fpCustomFraming
       TabOnEnter = True
-      TabOrder = 13
+      TabOrder = 14
       EditType = etDate
       Format = 'mm/dd/yyyy'
       FlatButtons = True
@@ -437,7 +456,7 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
       FrameVisible = True
       FramingPreference = fpCustomFraming
       TabOnEnter = True
-      TabOrder = 14
+      TabOrder = 15
       EditType = etDate
       Format = 'mm/dd/yyyy'
       FlatButtons = True
@@ -455,7 +474,7 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
       FrameVisible = True
       FramingPreference = fpCustomFraming
       TabOnEnter = True
-      TabOrder = 8
+      TabOrder = 9
     end
     object bteGroup: TRzButtonEdit
       Tag = 1
@@ -496,7 +515,7 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
       BorderColor = 6572079
       BorderWidth = 1
       Color = 12955288
-      TabOrder = 15
+      TabOrder = 16
       object sbtnActivate: TRzShapeButton
         Left = 0
         Top = 0
@@ -520,7 +539,7 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
       BorderColor = 6572079
       BorderWidth = 1
       Color = 12955288
-      TabOrder = 16
+      TabOrder = 17
       object RzShapeButton1: TRzShapeButton
         Left = 0
         Top = 0
@@ -544,7 +563,25 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
       ValueChecked = 'True'
       ValueUnchecked = 'False'
       Caption = 'Scheduled'
-      TabOrder = 11
+      TabOrder = 12
+    end
+    object edComakersMax: TRzDBEdit
+      Left = 207
+      Top = 129
+      Width = 57
+      Height = 22
+      Hint = 'Maximum comakers required'
+      DataSource = dmLoansAux.dscLoanClass
+      DataField = 'comakers_max'
+      CharCase = ecUpperCase
+      DisabledColor = clWhite
+      FrameColor = 8675134
+      FrameVisible = True
+      FramingPreference = fpCustomFraming
+      ParentShowHint = False
+      ShowHint = True
+      TabOnEnter = True
+      TabOrder = 8
     end
   end
   object cmbBranch: TRzComboBox

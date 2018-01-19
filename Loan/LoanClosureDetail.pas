@@ -1,19 +1,19 @@
-unit LoanCancellationDetail;
+unit LoanClosureDetail;
 
 interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, BasePopupDetail, Vcl.StdCtrls, Vcl.Mask,
-  RzEdit, RzDBEdit, Vcl.DBCtrls, RzDBCmbo, JvExControls, JvLabel, RzButton,
-  RzTabs, RzLabel, Vcl.Imaging.pngimage, Vcl.ExtCtrls, RzPanel;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, BasePopupDetail, RzButton, RzTabs,
+  Vcl.StdCtrls, RzLabel, Vcl.Imaging.pngimage, Vcl.ExtCtrls, RzPanel,
+  Vcl.DBCtrls, RzDBEdit, RzDBCmbo, Vcl.Mask, RzEdit, JvExControls, JvLabel;
 
 type
-  TfrmLoanCancellationDetail = class(TfrmBasePopupDetail)
+  TfrmLoanClosureDetail = class(TfrmBasePopupDetail)
     JvLabel17: TJvLabel;
+    dteDateClosed: TRzDBDateTimeEdit;
     JvLabel18: TJvLabel;
     dbluReason: TRzDBLookupComboBox;
-    dteDateCancelled: TRzDBDateTimeEdit;
     mmRemarks: TRzDBMemo;
     JvLabel24: TJvLabel;
     procedure FormCreate(Sender: TObject);
@@ -34,30 +34,32 @@ implementation
 uses
   LoanData, FormsUtil, Loan, LoansAuxData, IFinanceDialogs;
 
-procedure TfrmLoanCancellationDetail.FormCreate(Sender: TObject);
+procedure TfrmLoanClosureDetail.Cancel;
+begin
+  inherited;
+  ln.Cancel;
+end;
+
+procedure TfrmLoanClosureDetail.FormCreate(Sender: TObject);
 begin
   inherited;
   OpenDropdownDataSources(tsDetail);
 end;
 
-procedure TfrmLoanCancellationDetail.Save;
+procedure TfrmLoanClosureDetail.Save;
 begin
+  inherited;
   ln.Save;
 end;
 
-procedure TfrmLoanCancellationDetail.Cancel;
-begin
-  ln.Cancel;
-end;
-
-function TfrmLoanCancellationDetail.ValidEntry: boolean;
+function TfrmLoanClosureDetail.ValidEntry: boolean;
 var
   error: string;
 begin
-  if dteDateCancelled.Text = '' then
-    error := 'Please enter date cancelled.'
+  if dteDateClosed.Text = '' then
+    error := 'Please enter date closed.'
   else if dbluReason.Text = '' then
-    error := 'Please select cancellation reason.';
+    error := 'Please select closure reason.';
 
   Result := error = '';
 

@@ -8,7 +8,7 @@ uses
   LoanCharge, LoanClassCharge, Assessment, Math;
 
 type
-  TLoanAction = (laNone,laCreating,laAssessing,laApproving,laRejecting,laReleasing,laCancelling);
+  TLoanAction = (laNone,laCreating,laAssessing,laApproving,laRejecting,laReleasing,laCancelling,laClosing);
 
   TLoanState = (lsNone,lsAssessed,lsApproved,lsActive,lsCancelled,lsRejected,lsClosed);
 
@@ -22,7 +22,7 @@ type
 	-- 4 = active / released = R
 	-- 5 = cancelled = C
 	-- 6 = denied / rejected = J
-  -- 7 = closed
+  -- 7 = closed = X
 
   ***** Loan Status ***** }
 
@@ -45,6 +45,7 @@ type
     FReleaseAmount: currency;
     FApprovedTerm: integer;
     FBalance: currency;
+    FHasAdvancePayment: boolean;
 
     procedure SaveComakers;
     procedure SaveAssessments;
@@ -52,6 +53,7 @@ type
     procedure SaveCancellation;
     procedure SaveRejection;
     procedure SaveRelease;
+    procedure SaveClosure;
 
     function GetIsPending: boolean;
     function GetIsAssessed: boolean;
@@ -159,6 +161,7 @@ type
     property FactorWithoutInterest: currency read GetFactorWithoutInterest;
     property Amortisation: currency read GetAmortisation;
     property Balance: currency read FBalance write FBalance;
+    property HasAdvancePayment: boolean read FHasAdvancePayment write FHasAdvancePayment;
 
     constructor Create;
     destructor Destroy; reintroduce;
@@ -219,6 +222,8 @@ begin
     SaveCancellation
   else if ln.Action = laRejecting then
     SaveRejection
+  else if ln.Action = laClosing then
+    SaveClosure
   else if ln.Action = laReleasing then
     SaveRelease;
 
@@ -297,14 +302,16 @@ begin
   else if ln.IsApproved then tags := [1,2,3]
   else if ln.IsActive then tags := [1,2,3,4]
   else if ln.IsCancelled then tags := [1,2,3,5]
-  else if ln.IsRejected then tags := [1,2,3,6];
+  else if ln.IsRejected then tags := [1,2,3,6]
+  else if ln.IsClosed then tags := [1,2,3,7];
 
   // add tags depending on action
   if ln.Action = laAssessing then tags := tags + [2]
   else if ln.Action = laApproving then tags := tags + [3]
   else if ln.Action = laReleasing then tags := tags + [4]
   else if ln.Action = laCancelling then tags := tags + [5]
-  else if ln.Action = laRejecting then tags := tags + [6];
+  else if ln.Action = laRejecting then tags := tags + [6]
+  else if ln.Action = laClosing then tags := tags + [7];
 
   with dmLoan do
   begin
@@ -363,7 +370,17 @@ begin
         dstLoanReject.FieldByName('date_rejected').AsDateTime := ifn.AppDate;
         dstLoanReject.FieldByName('rejected_by').AsString := ifn.User.UserId;
       end;
-    end;
+    end
+    else if ln.Action = laClosing then
+    begin
+      if dstLoanClose.RecordCount = 0 then
+      begin
+        dstLoanClose.Append;
+        dstLoanClose.FieldByName('date_closed').AsDateTime := ifn.AppDate;
+        dstLoanClose.FieldByName('closed_by').AsString := ifn.User.UserId;
+      end;
+    end
+
   end;
 end;
 
@@ -570,6 +587,16 @@ begin
     end;
 end;
 
+procedure TLoan.SaveClosure;
+begin
+  with dmLoan.dstLoanClose do
+    if State in [dsInsert,dsEdit] then
+    begin
+      Post;
+      Requery;
+    end;
+end;
+
 procedure TLoan.SaveRejection;
 begin
   with dmLoan.dstLoanReject do
@@ -628,6 +655,9 @@ begin
     else if ln.Action = laCancelling then
         FieldByName('status_id').AsString :=
           TRttiEnumerationType.GetName<TLoanStatus>(TLoanStatus.C)
+    else if ln.Action = laClosing then
+        FieldByName('status_id').AsString :=
+          TRttiEnumerationType.GetName<TLoanStatus>(TLoanStatus.X)
     else if ln.Action = laRejecting then
       FieldByName('status_id').AsString :=
         TRttiEnumerationType.GetName<TLoanStatus>(TLoanStatus.J);

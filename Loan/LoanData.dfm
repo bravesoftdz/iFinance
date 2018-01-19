@@ -1,7 +1,7 @@
 object dmLoan: TdmLoan
   OldCreateOrder = False
-  Height = 487
-  Width = 502
+  Height = 407
+  Width = 744
   object dstLoan: TADODataSet
     Tag = 1
     Connection = dmApplication.acMain
@@ -83,12 +83,12 @@ object dmLoan: TdmLoan
     CommandText = 'sp_get_loan_clients;1'
     CommandType = cmdStoredProc
     Parameters = <>
-    Left = 207
+    Left = 455
     Top = 14
   end
   object dscClients: TDataSource
     DataSet = dstClients
-    Left = 271
+    Left = 519
     Top = 14
   end
   object dstLoanComaker: TADODataSet
@@ -116,12 +116,12 @@ object dmLoan: TdmLoan
         Size = 13
         Value = ''
       end>
-    Left = 207
+    Left = 455
     Top = 70
   end
   object dscLoanComaker: TDataSource
     DataSet = dstLoanComaker
-    Left = 271
+    Left = 519
     Top = 70
   end
   object dstAlerts: TADODataSet
@@ -154,17 +154,17 @@ object dmLoan: TdmLoan
         Size = 13
         Value = ''
       end>
-    Left = 207
+    Left = 455
     Top = 126
   end
   object dscAlerts: TDataSource
     DataSet = dstAlerts
-    Left = 271
+    Left = 519
     Top = 126
   end
   object dscComakers: TDataSource
     DataSet = dstComakers
-    Left = 416
+    Left = 664
     Top = 16
   end
   object dstComakers: TADODataSet
@@ -182,12 +182,12 @@ object dmLoan: TdmLoan
         Precision = 10
         Value = 0
       end>
-    Left = 352
+    Left = 600
     Top = 16
   end
   object dscFinInfo: TDataSource
     DataSet = dstFinInfo
-    Left = 416
+    Left = 664
     Top = 72
   end
   object dstFinInfo: TADODataSet
@@ -215,12 +215,12 @@ object dmLoan: TdmLoan
         Size = 13
         Value = ''
       end>
-    Left = 352
+    Left = 600
     Top = 72
   end
   object dscMonExp: TDataSource
     DataSet = dstMonExp
-    Left = 416
+    Left = 664
     Top = 128
   end
   object dstMonExp: TADODataSet
@@ -248,7 +248,7 @@ object dmLoan: TdmLoan
         Size = 13
         Value = ''
       end>
-    Left = 352
+    Left = 600
     Top = 128
   end
   object dstLoanAss: TADODataSet
@@ -342,13 +342,13 @@ object dmLoan: TdmLoan
         Size = 13
         Value = ''
       end>
-    Left = 55
-    Top = 238
+    Left = 255
+    Top = 14
   end
   object dscLoanCancel: TDataSource
     DataSet = dstLoanCancel
-    Left = 119
-    Top = 238
+    Left = 319
+    Top = 14
   end
   object dstLoanReject: TADODataSet
     Tag = 6
@@ -375,13 +375,13 @@ object dmLoan: TdmLoan
         Size = 13
         Value = ''
       end>
-    Left = 55
-    Top = 294
+    Left = 255
+    Top = 70
   end
   object dscLoanReject: TDataSource
     DataSet = dstLoanReject
-    Left = 119
-    Top = 294
+    Left = 319
+    Top = 70
   end
   object dstLoanRelease: TADODataSet
     Tag = 4
@@ -410,8 +410,8 @@ object dmLoan: TdmLoan
         Size = 13
         Value = ''
       end>
-    Left = 47
-    Top = 350
+    Left = 55
+    Top = 254
     object dstLoanReleaseloan_id: TStringField
       FieldName = 'loan_id'
       FixedChar = True
@@ -472,8 +472,8 @@ object dmLoan: TdmLoan
   end
   object dscLoanRelease: TDataSource
     DataSet = dstLoanRelease
-    Left = 111
-    Top = 350
+    Left = 119
+    Top = 254
   end
   object dstLoanCharge: TADODataSet
     Tag = 4
@@ -499,17 +499,17 @@ object dmLoan: TdmLoan
         Size = 13
         Value = ''
       end>
-    Left = 47
-    Top = 406
+    Left = 55
+    Top = 310
   end
   object dscLoanCharge: TDataSource
     DataSet = dstLoanCharge
-    Left = 111
-    Top = 406
+    Left = 119
+    Top = 310
   end
   object dscLoanClassCharges: TDataSource
     DataSet = dstLoanClassCharges
-    Left = 272
+    Left = 520
     Top = 184
   end
   object dstLoanClassCharges: TADODataSet
@@ -535,7 +535,7 @@ object dmLoan: TdmLoan
         Size = 10
         Value = ''
       end>
-    Left = 208
+    Left = 456
     Top = 184
   end
   object dstClientLoans: TADODataSet
@@ -560,12 +560,12 @@ object dmLoan: TdmLoan
         Size = 10
         Value = ''
       end>
-    Left = 207
+    Left = 455
     Top = 238
   end
   object dscLedger: TDataSource
     DataSet = dstLedger
-    Left = 416
+    Left = 664
     Top = 184
   end
   object dstLedger: TADODataSet
@@ -596,7 +596,7 @@ object dmLoan: TdmLoan
         DataType = ftDateTime
         Value = 0d
       end>
-    Left = 352
+    Left = 600
     Top = 184
     object dstLedgerdue: TDateTimeField
       FieldName = 'due'
@@ -646,5 +646,38 @@ object dmLoan: TdmLoan
     object dstLedgersort_order: TSmallintField
       FieldName = 'sort_order'
     end
+  end
+  object dstLoanClose: TADODataSet
+    Tag = 7
+    Connection = dmApplication.acMain
+    CursorType = ctStatic
+    BeforeOpen = dstLoanCloseBeforeOpen
+    AfterOpen = dstLoanCloseAfterOpen
+    BeforePost = dstLoanCloseBeforePost
+    AfterPost = dstLoanCloseAfterPost
+    CommandText = 'sp_ln_get_loan_close'
+    CommandType = cmdStoredProc
+    Parameters = <
+      item
+        Name = '@RETURN_VALUE'
+        DataType = ftInteger
+        Direction = pdReturnValue
+        Precision = 10
+        Value = 0
+      end
+      item
+        Name = '@loan_id'
+        Attributes = [paNullable]
+        DataType = ftString
+        Size = 13
+        Value = ''
+      end>
+    Left = 255
+    Top = 134
+  end
+  object dscLoanClose: TDataSource
+    DataSet = dstLoanClose
+    Left = 319
+    Top = 134
   end
 end
