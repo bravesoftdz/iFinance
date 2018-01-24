@@ -1,7 +1,7 @@
 object dmAccounting: TdmAccounting
   OldCreateOrder = False
   Height = 187
-  Width = 282
+  Width = 409
   object dstSchedule: TADODataSet
     Connection = dmApplication.acMain
     CursorType = ctStatic
@@ -82,8 +82,59 @@ object dmAccounting: TdmAccounting
         DataType = ftInteger
         Direction = pdReturnValue
         Precision = 10
+        Value = Null
       end>
     Left = 56
     Top = 24
+  end
+  object dstPayment: TADODataSet
+    Tag = 1
+    Connection = dmApplication.acMain
+    CursorType = ctStatic
+    LockType = ltBatchOptimistic
+    CommandText = 'sp_pmt_get_payment;1'
+    CommandType = cmdStoredProc
+    Parameters = <
+      item
+        Name = '@RETURN_VALUE'
+        DataType = ftInteger
+        Direction = pdReturnValue
+        Precision = 10
+        Value = 0
+      end
+      item
+        Name = '@payment_id'
+        Attributes = [paNullable]
+        DataType = ftString
+        Size = 16
+        Value = '0'
+      end>
+    Left = 295
+    Top = 22
+  end
+  object dstPaymentDetail: TADODataSet
+    Tag = 1
+    Connection = dmApplication.acMain
+    CursorType = ctStatic
+    LockType = ltBatchOptimistic
+    CommandText = 'sp_pmt_get_payment_detail;1'
+    CommandType = cmdStoredProc
+    Parameters = <
+      item
+        Name = '@RETURN_VALUE'
+        DataType = ftInteger
+        Direction = pdReturnValue
+        Precision = 10
+        Value = Null
+      end
+      item
+        Name = '@payment_id'
+        Attributes = [paNullable]
+        DataType = ftString
+        Size = 16
+        Value = '0'
+      end>
+    Left = 303
+    Top = 94
   end
 end

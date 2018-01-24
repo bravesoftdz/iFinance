@@ -109,7 +109,6 @@ type
     imgNewPayment: TImage;
     pnlSave: TRzPanel;
     imgSave: TImage;
-    TabSheet3: TRzTabSheet;
     lblWelcome: TRzLabel;
     pnlBank: TRzPanel;
     imgBanks: TImage;

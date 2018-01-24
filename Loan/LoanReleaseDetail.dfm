@@ -1,11 +1,11 @@
 inherited frmLoanReleaseDetail: TfrmLoanReleaseDetail
   Caption = 'frmLoanReleaseDetail'
-  ClientHeight = 387
+  ClientHeight = 393
   ClientWidth = 541
   OnCreate = FormCreate
   OnShow = FormShow
   ExplicitWidth = 541
-  ExplicitHeight = 387
+  ExplicitHeight = 393
   PixelsPerInch = 96
   TextHeight = 14
   inherited pnlTitle: TRzPanel
@@ -23,31 +23,31 @@ inherited frmLoanReleaseDetail: TfrmLoanReleaseDetail
   end
   inherited pnlMain: TRzPanel
     Width = 541
-    Height = 366
+    Height = 372
     ExplicitWidth = 541
-    ExplicitHeight = 351
+    ExplicitHeight = 366
     inherited pnlDetail: TRzPanel
       Left = 7
       Top = 7
       Width = 526
-      Height = 319
+      Height = 325
       ExplicitLeft = 7
       ExplicitTop = 7
       ExplicitWidth = 526
-      ExplicitHeight = 304
+      ExplicitHeight = 319
       inherited pcDetail: TRzPageControl
         Width = 524
-        Height = 317
+        Height = 323
         ExplicitWidth = 524
-        ExplicitHeight = 302
+        ExplicitHeight = 317
         FixedDimension = 20
         inherited tsDetail: TRzTabSheet
           ExplicitWidth = 524
-          ExplicitHeight = 302
+          ExplicitHeight = 317
           object urlReleaseToClient: TRzURLLabel
             Tag = 1
             Left = 417
-            Top = 279
+            Top = 285
             Width = 90
             Height = 14
             Alignment = taRightJustify
@@ -108,7 +108,7 @@ inherited frmLoanReleaseDetail: TfrmLoanReleaseDetail
           end
           object JvLabel2: TJvLabel
             Tag = -1
-            Left = 19
+            Left = 240
             Top = 71
             Width = 55
             Height = 14
@@ -128,17 +128,16 @@ inherited frmLoanReleaseDetail: TfrmLoanReleaseDetail
           end
           object lblCharges: TJvLabel
             Tag = -1
-            Left = 182
+            Left = 374
             Top = 71
             Width = 27
             Height = 14
-            Alignment = taRightJustify
             Caption = '0.00'
             Transparent = True
           end
           object JvLabel4: TJvLabel
             Tag = -1
-            Left = 240
+            Left = 22
             Top = 71
             Width = 86
             Height = 14
@@ -158,7 +157,7 @@ inherited frmLoanReleaseDetail: TfrmLoanReleaseDetail
           end
           object lblNetProceeds: TJvLabel
             Tag = -1
-            Left = 337
+            Left = 132
             Top = 71
             Width = 27
             Height = 14
@@ -194,12 +193,21 @@ inherited frmLoanReleaseDetail: TfrmLoanReleaseDetail
             Caption = '0.00'
             Transparent = True
           end
+          object lblAdvancePayment: TJvLabel
+            Tag = -1
+            Left = 374
+            Top = 96
+            Width = 27
+            Height = 14
+            Caption = '0.00'
+            Transparent = True
+          end
           object pcAssessment: TRzPageControl
             Tag = 3
             Left = 19
-            Top = 106
+            Top = 126
             Width = 488
-            Height = 167
+            Height = 153
             Hint = ''
             ActivePage = tsRecipients
             ActivePageDefault = tsRecipients
@@ -214,19 +222,20 @@ inherited frmLoanReleaseDetail: TfrmLoanReleaseDetail
             TabOrder = 0
             TabStyle = tsRoundCorners
             OnChange = pcAssessmentChange
-            ExplicitHeight = 152
+            ExplicitHeight = 195
             FixedDimension = 20
             object tsRecipients: TRzTabSheet
               Color = 14273211
               Caption = 'Recipients'
+              ExplicitHeight = 142
               DesignSize = (
                 486
-                142)
+                128)
               object grReleaseRecipient: TRzStringGrid
                 Left = 6
                 Top = 6
                 Width = 474
-                Height = 130
+                Height = 116
                 Anchors = [akLeft, akTop, akRight, akBottom]
                 Ctl3D = True
                 DrawingStyle = gdsGradient
@@ -244,6 +253,7 @@ inherited frmLoanReleaseDetail: TfrmLoanReleaseDetail
                 FrameVisible = True
                 FramingPreference = fpCustomFraming
                 FixedLineColor = 14273211
+                ExplicitHeight = 130
                 ColWidths = (
                   60
                   60
@@ -257,14 +267,15 @@ inherited frmLoanReleaseDetail: TfrmLoanReleaseDetail
             object tsCharges: TRzTabSheet
               Color = 14273211
               Caption = 'Charges'
+              ExplicitHeight = 142
               DesignSize = (
                 486
-                142)
+                128)
               object grCharges: TRzStringGrid
                 Left = 6
                 Top = 6
                 Width = 474
-                Height = 130
+                Height = 116
                 Anchors = [akLeft, akTop, akRight, akBottom]
                 ColCount = 2
                 Ctl3D = True
@@ -282,6 +293,7 @@ inherited frmLoanReleaseDetail: TfrmLoanReleaseDetail
                 FrameVisible = True
                 FramingPreference = fpCustomFraming
                 FixedLineColor = 14273211
+                ExplicitHeight = 130
                 ColWidths = (
                   60
                   60)
@@ -292,7 +304,7 @@ inherited frmLoanReleaseDetail: TfrmLoanReleaseDetail
           end
           object RzPanel1: TRzPanel
             Left = 75
-            Top = 279
+            Top = 285
             Width = 50
             Height = 22
             Anchors = [akLeft, akBottom]
@@ -301,7 +313,7 @@ inherited frmLoanReleaseDetail: TfrmLoanReleaseDetail
             BorderWidth = 1
             Color = 14273211
             TabOrder = 1
-            ExplicitTop = 264
+            ExplicitTop = 279
             object btnRemove: TRzShapeButton
               Left = 0
               Top = 0
@@ -314,7 +326,7 @@ inherited frmLoanReleaseDetail: TfrmLoanReleaseDetail
           end
           object RzPanel2: TRzPanel
             Left = 19
-            Top = 279
+            Top = 285
             Width = 50
             Height = 22
             Anchors = [akLeft, akBottom]
@@ -323,7 +335,7 @@ inherited frmLoanReleaseDetail: TfrmLoanReleaseDetail
             BorderWidth = 1
             Color = 14273211
             TabOrder = 2
-            ExplicitTop = 264
+            ExplicitTop = 279
             object btnAdd: TRzShapeButton
               Left = 0
               Top = 0
@@ -347,28 +359,35 @@ inherited frmLoanReleaseDetail: TfrmLoanReleaseDetail
             DisplayFormat = '###,##0.00'
           end
           object cbxAdvancePayment: TRzCheckBox
-            Left = 19
-            Top = 45
-            Width = 118
+            Left = 222
+            Top = 94
+            Width = 133
             Height = 16
-            Caption = 'Advance payment'
+            Caption = 'Advance payment:'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -12
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold]
+            ParentFont = False
             State = cbUnchecked
             TabOrder = 4
+            OnClick = cbxAdvancePaymentClick
           end
         end
       end
     end
     inherited pnlCancel: TRzPanel
       Left = 483
-      Top = 335
+      Top = 341
       ExplicitLeft = 483
-      ExplicitTop = 320
+      ExplicitTop = 335
     end
     inherited pnlSave: TRzPanel
       Left = 427
-      Top = 335
+      Top = 341
       ExplicitLeft = 427
-      ExplicitTop = 320
+      ExplicitTop = 335
     end
   end
 end

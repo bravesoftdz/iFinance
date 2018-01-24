@@ -202,7 +202,7 @@ object frmMain: TfrmMain
       Width = 1151
       Height = 74
       Hint = ''
-      ActivePage = tsAdministration
+      ActivePage = tsHome
       ActivePageDefault = tsHome
       BoldCurrentTab = True
       ButtonColor = 12955288
@@ -218,7 +218,7 @@ object frmMain: TfrmMain
       TabOverlap = 0
       TabColors.Shadow = 14273211
       TabColors.Unselected = 14273211
-      TabIndex = 1
+      TabIndex = 0
       TabOrder = 2
       TabStop = False
       TabStyle = tsSquareCorners
@@ -2066,10 +2066,6 @@ object frmMain: TfrmMain
           ParentFont = False
           OnClick = urlChangeDateClick
         end
-      end
-      object TabSheet3: TRzTabSheet
-        Color = 12955288
-        Caption = 'Reports'
       end
     end
     object pnlNavBar: TRzPanel

@@ -7,7 +7,7 @@ uses
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, BasePopupDetail, Data.DB, Vcl.Grids,
   Vcl.DBGrids, RzDBGrid, RzDBEdit, Vcl.StdCtrls, Vcl.Mask, RzEdit, JvExControls,
   JvLabel, RzButton, RzTabs, RzLabel, Vcl.Imaging.pngimage, Vcl.ExtCtrls,
-  RzPanel, RzGrids, ReleaseRecipient, LoanCharge, RzRadChk;
+  RzPanel, RzGrids, ReleaseRecipient, LoanCharge, RzRadChk, Math;
 
 type
   TfrmLoanReleaseDetail = class(TfrmBasePopupDetail)
@@ -32,6 +32,7 @@ type
     JvLabel3: TJvLabel;
     lblAppliedAmount: TJvLabel;
     cbxAdvancePayment: TRzCheckBox;
+    lblAdvancePayment: TJvLabel;
     procedure FormShow(Sender: TObject);
     procedure grReleaseRecipientDblClick(Sender: TObject);
     procedure btnAddClick(Sender: TObject);
@@ -42,6 +43,7 @@ type
     procedure FormCreate(Sender: TObject);
     procedure urlApprovedAmountClick(Sender: TObject);
     procedure edReleasedAmountChange(Sender: TObject);
+    procedure cbxAdvancePaymentClick(Sender: TObject);
   private
     { Private declarations }
     procedure AddRow(rec: TReleaseRecipient);
@@ -51,7 +53,7 @@ type
     procedure ModifyRemove(const remove: boolean = false);
     procedure ClearRow(grid: TRzStringGrid; const row: integer);
 
-    function GetTotalReleased: real;
+    function GetTotalReleased: currency;
     function ConfirmRelease: string;
   public
     { Public declarations }
@@ -295,7 +297,7 @@ begin
 
       rrp.Recipient := TRecipient.Create(ln.Client.Id,ln.Client.Name);
       rrp.Date := ifn.AppDate;
-      rrp.Amount := ln.ReleaseAmount - ln.TotalCharges;
+      rrp.Amount := ln.ReleaseAmount - ln.TotalCharges - ln.TotalAdvancePayment;
       rrp.ReleaseMethod := TReleaseMethod.Create('C','Cash');
       rrp.LocationCode := ifn.LocationCode;
       rrp.LocationName := ifn.GetLocationNameByCode(ifn.LocationCode);
@@ -359,6 +361,15 @@ begin
   ln.Cancel;
 end;
 
+procedure TfrmLoanReleaseDetail.cbxAdvancePaymentClick(Sender: TObject);
+begin
+  ln.HasAdvancePayment := cbxAdvancePayment.Checked;
+  lblAdvancePayment.Caption := FormatFloat('###,##0.00',ln.TotalAdvancePayment);
+
+  // recompute the net proceeds
+  lblNetProceeds.Caption := FormatFloat('###,###,##0.00',ln.NetProceeds);
+end;
+
 procedure TfrmLoanReleaseDetail.FormCreate(Sender: TObject);
 begin
   inherited;
@@ -391,8 +402,8 @@ begin
     error := 'Please add at least one recipient.'
   else if ln.ReleaseAmount > ln.ApprovedAmount  then
     error := 'Release amount is greater than the approved amount.'
-  else if GetTotalReleased <> ln.ReleaseAmount - ln.TotalCharges then
-    error := 'TOTAL amount released is not equal to the amount FOR release.'
+  // else if GetTotalReleased <> ln.NetProceeds then
+  //  error := 'TOTAL amount released is not equal to the NET proceeds.'
   else if ln.ReleaseAmount < ln.ApprovedAmount  then
     error := ConfirmRelease;
 
@@ -401,9 +412,9 @@ begin
   if not Result then ShowErrorBox(error);
 end;
 
-function TfrmLoanReleaseDetail.GetTotalReleased: real;
+function TfrmLoanReleaseDetail.GetTotalReleased: currency;
 var
-  total: real;
+  total: currency;
   i, cnt: integer;
 begin
   total := 0;
@@ -412,7 +423,7 @@ begin
 
   for i := 0 to cnt do total := total + ln.ReleaseRecipients[i].Amount;
 
-  Result := total;
+  Result := Ceil(total * 100 / 100);
 end;
 
 function TfrmLoanReleaseDetail.ConfirmRelease: string;

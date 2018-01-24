@@ -11,6 +11,8 @@ type
     dstScheduledInterest: TADODataSet;
     dstInterest: TADODataSet;
     dstLedger: TADODataSet;
+    dstPayment: TADODataSet;
+    dstPaymentDetail: TADODataSet;
   private
     { Private declarations }
   public

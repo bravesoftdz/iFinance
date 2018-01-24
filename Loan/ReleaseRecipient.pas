@@ -24,19 +24,19 @@ type
     FLocationCode: string;
     FLocationName: string;
     FReleaseMethod: TReleaseMethod;
-    FAmount: real;
+    FAmount: currency;
     FDate: TDate;
   public
     property Recipient: TRecipient read FRecipient write FRecipient;
     property LocationCode: string read FLocationCode write FLocationCode;
     property LocationName: string read FLocationName write FLocationName;
     property ReleaseMethod: TReleaseMethod read FReleaseMethod write FReleaseMethod;
-    property Amount: real read FAmount write FAmount;
+    property Amount: currency read FAmount write FAmount;
     property Date: TDate read FDate write FDate;
 
     constructor Create; overload;
     constructor Create(const rpt: TRecipient; rm: TReleaseMethod; const locCode, locName: string;
-        const amt: real; const dt: TDate);  overload;
+        const amt: currency; const dt: TDate);  overload;
   end;
 
 var
@@ -56,7 +56,7 @@ begin
 end;
 
 constructor TReleaseRecipient.Create(const rpt: TRecipient; rm: TReleaseMethod;
-  const locCode, locName: string; const amt: real; const dt: TDate);
+  const locCode, locName: string; const amt: currency; const dt: TDate);
 begin
   FRecipient := rpt;
   FLocationCode := locCode;

@@ -21,7 +21,6 @@ type
     FPaymentType: TPaymentType;
     FIsFullPayment: boolean;
 
-
     function GetTotalAmount: currency;
     function GetHasInterest: boolean;
     function GetHasPrincipal: boolean;

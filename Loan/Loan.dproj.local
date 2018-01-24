@@ -10,7 +10,7 @@
     <Transaction>2018/01/17 10:52:45.000.996,=C:\Projects\iFinance\Loan\Unit1.pas</Transaction>
     <Transaction>2018/01/17 10:53:55.000.405,C:\Projects\iFinance\Loan\LoanClosureDetail.pas=C:\Projects\iFinance\Loan\Unit1.pas</Transaction>
     <Transaction>2018/01/17 10:53:55.000.406,C:\Projects\iFinance\Loan\LoanClosureDetail.dfm=C:\Projects\iFinance\Loan\Unit1.dfm</Transaction>
-    <Transaction>2018/01/18 12:19:18.811,=C:\Projects\iFinance\Loan\Unit1.pas</Transaction>
+    <Transaction>2018/01/18 12:19:18.000.811,=C:\Projects\iFinance\Loan\Unit1.pas</Transaction>
   </Transactions>
 	<ProjectSortOrder AutoSort="0" SortType="0">
     <File Path="..\..\iFinance"/>

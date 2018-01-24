@@ -14,6 +14,17 @@ type
 
   TLoanStatus = (A,C,P,R,F,J,S,X);
 
+  TAdvancePayment = class
+  strict private
+    FPrincipal: currency;
+    FInterest: currency;
+    FBalance: currency;
+  public
+    property Principal: currency read FPrincipal write FPrincipal;
+    property Interest: currency read FInterest write FInterest;
+    property Balance: currency read FBalance write FBalance;
+  end;
+
 { ****** Loan Status *****
 	-- 0 = all
 	-- 1 = pending = P
@@ -46,6 +57,7 @@ type
     FApprovedTerm: integer;
     FBalance: currency;
     FHasAdvancePayment: boolean;
+    FAdvancePayments: array of TAdvancePayment;
 
     procedure SaveComakers;
     procedure SaveAssessments;
@@ -54,6 +66,7 @@ type
     procedure SaveRejection;
     procedure SaveRelease;
     procedure SaveClosure;
+    procedure SetAdvancePayment(const i: integer; const Value: TAdvancePayment);
 
     function GetIsPending: boolean;
     function GetIsAssessed: boolean;
@@ -84,6 +97,8 @@ type
     function GetFactorWithInterest: currency;
     function GetFactorWithoutInterest: currency;
     function GetAmortisation: currency;
+    function GetTotalAdvancePayment: currency;
+    function GetAdvancePayment(const i: integer): TAdvancePayment;
 
   public
     procedure Add; override;
@@ -162,6 +177,8 @@ type
     property Amortisation: currency read GetAmortisation;
     property Balance: currency read FBalance write FBalance;
     property HasAdvancePayment: boolean read FHasAdvancePayment write FHasAdvancePayment;
+    property TotalAdvancePayment: currency read GetTotalAdvancePayment;
+    property AdvancePayment[const i: integer]: TAdvancePayment read GetAdvancePayment write SetAdvancePayment;
 
     constructor Create;
     destructor Destroy; reintroduce;
@@ -329,6 +346,12 @@ begin
         end;
     end;
   end;
+end;
+
+procedure TLoan.SetAdvancePayment(const i: integer;
+  const Value: TAdvancePayment);
+begin
+  FAdvancePayments[i] := Value;
 end;
 
 procedure TLoan.SetDefaultValues;
@@ -685,6 +708,71 @@ begin
   end;
 end;
 
+function TLoan.GetTotalAdvancePayment: currency;
+var
+  refPostingId: string;
+  principal, interest, balance, total: currency;
+  i, cnt: integer;
+  adv: TAdvancePayment;
+begin
+  Result := 0;
+
+  // destroy advance payments
+  for adv in FAdvancePayments do adv.Free;
+
+  SetLength(FAdvancePayments,ifn.Rules.AdvancePayment);
+
+  if FHasAdvancePayment then
+  begin
+    total := 0;
+
+    balance := FReleaseAmount;
+
+    cnt := ifn.Rules.AdvancePayment;
+
+    for i := 1 to cnt do
+    begin
+      adv := TAdvancePayment.Create;
+
+      // interest
+      if FLoanClass.IsDiminishing then interest := balance * FLoanClass.InterestInDecimal
+      else interest := FReleaseAmount * FLoanClass.InterestInDecimal;
+
+      adv.Interest := interest;
+
+      total := total + interest;
+
+      // principal
+      if FLoanClass.IsDiminishing then
+      begin
+        if FLoanClass.IsScheduled then principal := Amortisation - interest
+        else principal := FReleaseAmount / FApprovedTerm;
+      end
+      else principal := FReleaseAmount / FApprovedTerm;
+
+      adv.Principal := principal;
+
+      total := total + principal;
+
+      // get balance
+      balance := balance - principal;
+
+      adv.Balance := balance;
+
+      FAdvancePayments[i-1] := adv;
+
+    end; // end for
+
+    Result := total;
+  end
+  else Result := 0;
+end;
+
+function TLoan.GetAdvancePayment(const i: integer): TAdvancePayment;
+begin
+  Result := FAdvancePayments[i];
+end;
+
 procedure TLoan.GetAlerts;
 begin
   with dmLoan.dstAlerts do
@@ -948,7 +1036,7 @@ end;
 
 function TLoan.GetNetProceeds: currency;
 begin
-  Result := FReleaseAmount - GetTotalCharges;
+  Result := FReleaseAmount - GetTotalCharges - GetTotalAdvancePayment;
 end;
 
 function TLoan.GetNew: boolean;

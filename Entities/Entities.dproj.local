@@ -4,9 +4,9 @@
     <Transaction>2018/01/16 12:59:34.000.445,=C:\Projects\iFinance\Entities\Unit1.pas</Transaction>
     <Transaction>2018/01/16 13:00:21.000.886,C:\Projects\iFinance\Entities\Unit1.dfm=C:\Projects\iFinance\Entities\InfoSourceList.dfm</Transaction>
     <Transaction>2018/01/16 13:00:21.000.886,C:\Projects\iFinance\Entities\Unit1.pas=C:\Projects\iFinance\Entities\InfoSourceList.pas</Transaction>
-    <Transaction>2018/01/18 12:23:13.451,=C:\Projects\iFinance\Entities\Unit1.pas</Transaction>
-    <Transaction>2018/01/18 12:24:32.400,=C:\Projects\iFinance\Entities\Unit1.pas</Transaction>
-    <Transaction>2018/01/18 12:24:51.706,C:\Projects\iFinance\Entities\LoanClosureReasonList.pas=C:\Projects\iFinance\Entities\Unit1.pas</Transaction>
-    <Transaction>2018/01/18 12:24:51.706,C:\Projects\iFinance\Entities\LoanClosureReasonList.dfm=C:\Projects\iFinance\Entities\Unit1.dfm</Transaction>
+    <Transaction>2018/01/18 12:23:13.000.451,=C:\Projects\iFinance\Entities\Unit1.pas</Transaction>
+    <Transaction>2018/01/18 12:24:32.000.400,=C:\Projects\iFinance\Entities\Unit1.pas</Transaction>
+    <Transaction>2018/01/18 12:24:51.000.706,C:\Projects\iFinance\Entities\LoanClosureReasonList.pas=C:\Projects\iFinance\Entities\Unit1.pas</Transaction>
+    <Transaction>2018/01/18 12:24:51.000.706,C:\Projects\iFinance\Entities\LoanClosureReasonList.dfm=C:\Projects\iFinance\Entities\Unit1.dfm</Transaction>
   </Transactions>
 </BorlandProject>

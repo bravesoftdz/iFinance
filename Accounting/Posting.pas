@@ -3,7 +3,7 @@ unit Posting;
 interface
 
 uses
-  Loan, Payment, SysUtils, DateUtils, System.Rtti, Math;
+  Loan, Payment, SysUtils, DateUtils, System.Rtti, Math, PaymentMethod;
 
 type
   TPosting = class
@@ -17,6 +17,8 @@ type
       const postDate, valueDate: TDateTime; const caseType: string): string;
     function GetValueDate(const ADate1, ADate2: TDateTime): TDateTime;
     function GetFirstDayOfValueDate(const ADate: TDateTime): TDateTime;
+
+    procedure PostAdvancePayment(ALoan: TLoan);
 
   public
      procedure Post(const ALoan: TLoan); overload;
@@ -231,6 +233,10 @@ begin
 
         // commit the interest
         dmAccounting.dstInterest.UpdateBatch;
+
+        // post advance payment
+        if ALoan.HasAdvancePayment then PostAdvancePayment(ALoan);
+
       end;
     except
       on E: Exception do
@@ -357,6 +363,88 @@ begin
     dmAccounting.dstSchedule.Close;
     dmAccounting.dstLedger.Close;
     dmAccounting.Free;
+  end;
+end;
+
+procedure TPosting.PostAdvancePayment(ALoan: TLoan);
+var
+  id, refNo: string;
+  adv: TAdvancePayment;
+  i, j: integer;
+begin
+  // this method is only called for advance payment
+  // advance payment can only happen during loan release
+  dmAccounting.dstPayment.Open;
+  dmAccounting.dstPaymentDetail.Open;
+
+  try
+    try
+      for i:= 0 to ifn.Rules.AdvancePayment - 1 do
+      begin
+        adv := ALoan.AdvancePayment[i];
+
+        // master
+        with dmAccounting.dstPayment do
+        begin
+          Open;
+
+          id := GetPaymentId;
+          refNo := FormatDateTime('mmddyyyyhhmmsszzz',Now);
+
+          Append;
+          FieldByName('payment_id').AsString := id;
+          FieldByName('payment_date').AsDateTime := ifn.AppDate;
+          FieldByName('entity_id').AsString := ALoan.Client.Id;
+          FieldByName('loc_code').AsString := ifn.LocationCode;
+          FieldByName('ref_no').AsString := refNo;
+          FieldByName('pmt_method').AsInteger := Integer(mdCash);
+          FieldByName('post_date').AsDateTime := Now;
+          FieldByName('is_advance').AsBoolean := true;
+
+          SetCreatedFields(dmAccounting.dstPayment);
+        end;
+
+        // detail
+        with dmAccounting.dstPaymentDetail do
+        begin
+          // principal
+          Append;
+          FieldByName('payment_id').AsString := id;
+          FieldByName('loan_id').AsString := ALoan.id;
+          FieldByName('payment_amt').AsCurrency := adv.Principal;
+          FieldByName('payment_type').AsString := 'PRN';
+          FieldByName('balance').AsCurrency := adv.Balance;
+          Post;
+
+
+          // interest
+          Append;
+          FieldByName('payment_id').AsString := id;
+          FieldByName('loan_id').AsString := ALoan.id;
+          FieldByName('payment_amt').AsCurrency := adv.Interest;
+          FieldByName('payment_type').AsString := 'INT';
+          FieldByName('balance').AsCurrency := 0;
+          Post;
+        end;
+      end;
+
+      dmAccounting.dstPayment.UpdateBatch;
+      dmAccounting.dstPaymentDetail.UpdateBatch;
+      dmAccounting.dstLedger.UpdateBatch;
+    except
+      on E: Exception do
+      begin
+        dmAccounting.dstPayment.CancelBatch;
+        dmAccounting.dstPaymentDetail.CancelBatch;
+        dmAccounting.dstLedger.CancelBatch;
+        ShowErrorBox(E.Message);
+      end;
+    end;
+  finally
+    dmAccounting.dstPayment.Close;
+    dmAccounting.dstPaymentDetail.Close;
+
+    if Assigned(adv) then adv.Free;
   end;
 end;
 
