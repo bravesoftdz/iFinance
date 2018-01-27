@@ -40,7 +40,7 @@ type
   private
     { Private declarations }
   public
-    { Public declarations }
+    { Pub(ADate, ALoanId)lic declarations }
   end;
 
 var

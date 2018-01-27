@@ -69,3 +69,5 @@ _dcp/Client.lib
 *.7z
 *.local
 *.identcache
+*.local
+*.identcache

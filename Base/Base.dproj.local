@@ -1,2 +1,29 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<BorlandProject/>
+<BorlandProject>
+	<ProjectSortOrder AutoSort="0" SortType="0">
+    <File Path="BaseCalendar.pas"/>
+    <File Path="BaseCalendar.dfm"/>
+    <File Path="BaseDocked.pas"/>
+    <File Path="BaseDocked.dfm"/>
+    <File Path="BaseForm.pas"/>
+    <File Path="BaseForm.dfm"/>
+    <File Path="BaseGridDetail.pas"/>
+    <File Path="BaseGridDetail.dfm"/>
+    <File Path="BasePopup.pas"/>
+    <File Path="BasePopup.dfm"/>
+    <File Path="BasePopupDetail.pas"/>
+    <File Path="BasePopupDetail.dfm"/>
+    <File Path="BaseSearch.pas"/>
+    <File Path="BaseSearch.dfm"/>
+    <File Path="dbrtl.dcp"/>
+    <File Path="Jcl.dcp"/>
+    <File Path="JvCore.dcp"/>
+    <File Path="JvStdCtrls.dcp"/>
+    <File Path="RaizeComponentsVcl.dcp"/>
+    <File Path="RaizeComponentsVclDb.dcp"/>
+    <File Path="rtl.dcp"/>
+    <File Path="vcl.dcp"/>
+    <File Path="vcldb.dcp"/>
+    <File Path="vclimg.dcp"/>
+  </ProjectSortOrder>
+</BorlandProject>

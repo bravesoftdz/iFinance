@@ -1,7 +1,7 @@
 object dmAccounting: TdmAccounting
   OldCreateOrder = False
-  Height = 187
-  Width = 409
+  Height = 284
+  Width = 497
   object dstSchedule: TADODataSet
     Connection = dmApplication.acMain
     CursorType = ctStatic
@@ -37,13 +37,19 @@ object dmAccounting: TdmAccounting
         DataType = ftInteger
         Direction = pdReturnValue
         Precision = 10
-        Value = Null
       end
       item
         Name = '@date'
         Attributes = [paNullable]
         DataType = ftDateTime
-        Value = Null
+        Value = 0d
+      end
+      item
+        Name = '@loan_id'
+        Attributes = [paNullable]
+        DataType = ftString
+        Size = 13
+        Value = #39#39
       end>
     Left = 58
     Top = 96
@@ -136,5 +142,29 @@ object dmAccounting: TdmAccounting
       end>
     Left = 303
     Top = 94
+  end
+  object dstScheduleAdvance: TADODataSet
+    Connection = dmApplication.acMain
+    CursorType = ctStatic
+    LockType = ltReadOnly
+    CommandText = 'sp_ln_get_payment_due;1'
+    CommandType = cmdStoredProc
+    Parameters = <
+      item
+        Name = '@RETURN_VALUE'
+        DataType = ftInteger
+        Direction = pdReturnValue
+        Precision = 10
+        Value = Null
+      end
+      item
+        Name = '@loan_id'
+        Attributes = [paNullable]
+        DataType = ftString
+        Size = 13
+        Value = ''
+      end>
+    Left = 56
+    Top = 176
   end
 end

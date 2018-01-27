@@ -238,26 +238,26 @@ begin
   lblLoanId.Caption := pmt.Client.ActiveLoans[i].Id;
   lblType.Caption := pmt.Client.ActiveLoans[i].LoanTypeName;
   lblAccount.Caption := pmt.Client.ActiveLoans[i].AccountTypeName + ' - ' + pmt.Client.ActiveLoans[i].InterestMethodName;
-  lblLoanBalance.Caption := FormatFloat('###,###,##0.00', pmt.Client.ActiveLoans[i].Balance);
-  lblInterestBalance.Caption := FormatFloat('###,###,##0.00;-;-', pmt.Client.ActiveLoans[i].InterestBalance);
+  lblLoanBalance.Caption := FormatCurr('###,###,##0.00', pmt.Client.ActiveLoans[i].Balance);
+  lblInterestBalance.Caption := FormatCurr('###,###,##0.00;-;-', pmt.Client.ActiveLoans[i].InterestBalance);
 
   if pmt.Details[pmt.DetailCount-1].IsFullPayment then
   begin
     if (pmt.Client.ActiveLoans[i].IsFixed) or (pmt.Client.ActiveLoans[i].IsDiminishing and pmt.Client.ActiveLoans[i].IsScheduled) then
-      lblInterestDue.Caption := FormatFloat('###,###,##0.00;-;-', pmt.Client.ActiveLoans[i].FullPaymentInterest)
+      lblInterestDue.Caption := FormatCurr('###,###,##0.00;-;-', pmt.Client.ActiveLoans[i].FullPaymentInterest)
     else
-      lblInterestDue.Caption := FormatFloat('###,###,##0.00;-;-', pmt.Client.ActiveLoans[i].InterestDue);
+      lblInterestDue.Caption := FormatCurr('###,###,##0.00;-;-', pmt.Client.ActiveLoans[i].InterestDue);
   end
   else
-    lblInterestDue.Caption := FormatFloat('###,###,##0.00;-;-', pmt.Client.ActiveLoans[i].InterestDue);
+    lblInterestDue.Caption := FormatCurr('###,###,##0.00;-;-', pmt.Client.ActiveLoans[i].InterestDue);
 
   lblLastTransaction.Caption := FormatDateTime('mm/dd/yyyy', pmt.Client.ActiveLoans[i].LastTransactionDate);
   lblDays.Caption := IntToStr(DaysBetween(pmt.Date,pmt.Client.ActiveLoans[i].LastTransactionDate));
 
-  urlPrincipalDue.Caption := FormatFloat('###,###,##0.00', pmt.Client.ActiveLoans[i].PrincipalDue);
-  urlInterestTotalDue.Caption := FormatFloat('###,###,##0.00', Ceil(pmt.Client.ActiveLoans[i].InterestDue * 100) / 100);
+  urlPrincipalDue.Caption := FormatCurr('###,###,##0.00', pmt.Client.ActiveLoans[i].PrincipalDue);
+  urlInterestTotalDue.Caption := FormatCurr('###,###,##0.00', Ceil(pmt.Client.ActiveLoans[i].InterestDue * 100) / 100);
 
-  lblRemainingAmount.Caption := 'Remaining amount: ' + FormatFloat('###,###,##0.00', pmt.Withdrawn - pmt.TotalAmount);
+  lblRemainingAmount.Caption := 'Remaining amount: ' + FormatCurr('###,###,##0.00', pmt.Withdrawn - pmt.TotalAmount);
 
   lblRemainingAmount.Visible := pmt.IsWithdrawal;
 end;

@@ -13,6 +13,7 @@ type
     dstLedger: TADODataSet;
     dstPayment: TADODataSet;
     dstPaymentDetail: TADODataSet;
+    dstScheduleAdvance: TADODataSet;
   private
     { Private declarations }
   public

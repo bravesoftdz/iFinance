@@ -136,7 +136,7 @@ begin
         grReleaseRecipient.Cells[1,r] := rrp.Recipient.Name;
         grReleaseRecipient.Cells[2,r] := rrp.LocationName;
         grReleaseRecipient.Cells[3,r] := rrp.ReleaseMethod.Name;
-        grReleaseRecipient.Cells[4,r] := FormatFloat('###,###,##0.00',rrp.Amount);
+        grReleaseRecipient.Cells[4,r] := FormatCurr('###,###,##0.00',rrp.Amount);
 
         grReleaseRecipient.Objects[0,r] := rrp;
       end;
@@ -174,7 +174,7 @@ begin
     Cells[1,r] := rec.Recipient.Name;
     Cells[2,r] := rec.LocationName;
     Cells[3,r] := rec.ReleaseMethod.Name;
-    Cells[4,r] := FormatFloat('###,###,##0.00',rec.Amount);
+    Cells[4,r] := FormatCurr('###,###,##0.00',rec.Amount);
 
     Objects[0,r] := rec;
 
@@ -192,7 +192,7 @@ begin
     r := RowCount - 2;
 
     Cells[0,r] := charge.ChargeName;
-    Cells[1,r] := FormatFloat('###,###,##0.00',charge.Amount);
+    Cells[1,r] := FormatCurr('###,###,##0.00',charge.Amount);
 
     Objects[0,r] := charge;
   end;
@@ -364,10 +364,10 @@ end;
 procedure TfrmLoanReleaseDetail.cbxAdvancePaymentClick(Sender: TObject);
 begin
   ln.HasAdvancePayment := cbxAdvancePayment.Checked;
-  lblAdvancePayment.Caption := FormatFloat('###,##0.00',ln.TotalAdvancePayment);
+  lblAdvancePayment.Caption := FormatCurr('###,##0.00',ln.TotalAdvancePayment);
 
   // recompute the net proceeds
-  lblNetProceeds.Caption := FormatFloat('###,###,##0.00',ln.NetProceeds);
+  lblNetProceeds.Caption := FormatCurr('###,###,##0.00',ln.NetProceeds);
 end;
 
 procedure TfrmLoanReleaseDetail.FormCreate(Sender: TObject);
@@ -375,10 +375,10 @@ begin
   inherited;
 
   // applied amount
-  lblAppliedAmount.Caption := FormatFloat('###,##0.00',ln.AppliedAmount);
+  lblAppliedAmount.Caption := FormatCurr('###,##0.00',ln.AppliedAmount);
 
   // approved amount
-  urlApprovedAmount.Caption := FormatFloat('###,##0.00',ln.ApprovedAmount);
+  urlApprovedAmount.Caption := FormatCurr('###,##0.00',ln.ApprovedAmount);
 end;
 
 procedure TfrmLoanReleaseDetail.FormShow(Sender: TObject);
@@ -430,7 +430,7 @@ function TfrmLoanReleaseDetail.ConfirmRelease: string;
 var
   msg: string;
 begin
-  msg := 'Amount to be released is less than the approved amount. Do you want to proceed?';
+  msg := 'Release amount is less than the approved amount. Do you want to proceed?';
 
   if ShowDecisionBox(msg) = mrYes then Result := ''
   else Result := 'Releasing process cancelled.';
@@ -442,8 +442,8 @@ begin
 
   ln.ComputeCharges;
 
-  lblCharges.Caption := FormatFloat('###,###,##0.00',ln.TotalCharges);
-  lblNetProceeds.Caption := FormatFloat('###,###,##0.00',ln.NetProceeds);
+  lblCharges.Caption := FormatCurr('###,###,##0.00',ln.TotalCharges);
+  lblNetProceeds.Caption := FormatCurr('###,###,##0.00',ln.NetProceeds);
 end;
 
 end.

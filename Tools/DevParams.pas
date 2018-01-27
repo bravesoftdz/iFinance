@@ -58,7 +58,7 @@ begin
   ifn.AppDate := dteApplicationDate.Date;
   LPosting := TPosting.Create;
   try
-    LPosting.PostInterest;
+    LPosting.PostInterest(ifn.AppDate);
   finally
     LPosting.Free;
   end;

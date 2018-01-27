@@ -23,7 +23,8 @@ type
   public
      procedure Post(const ALoan: TLoan); overload;
      procedure Post(const APayment: TPayment); overload;
-     procedure PostInterest; overload;
+     procedure PostInterest(const ADate: TDate; const ALoanId: string = '';
+      const isAdvancePayment: boolean = false); overload;
 
      constructor Create;
      destructor Destroy; override;
@@ -94,7 +95,8 @@ begin
   Result := interestId;
 end;
 
-procedure TPosting.PostInterest;
+procedure TPosting.PostInterest(const ADate: TDate; const ALoanId: string;
+  const isAdvancePayment: boolean);
 var
   refPostingId: string;
   interest, credit: currency;
@@ -117,7 +119,8 @@ begin
       begin
         dstLedger.Open;
 
-        dstScheduledInterest.Parameters.ParamByName('@date').Value := ifn.AppDate;
+        dstScheduledInterest.Parameters.ParamByName('@date').Value := ADate;
+        dstScheduledInterest.Parameters.ParamByName('@loan_id').Value := ALoanId;
         dstScheduledInterest.Open;
 
         while not dstScheduledInterest.Eof do
@@ -125,7 +128,10 @@ begin
           // post the interest in the ledger
           primaryKey := dstScheduledInterest.FieldByName('interest_id').AsString;
           interest := dstScheduledInterest.FieldByName('interest_amt').AsCurrency;
-          valuedate := dstScheduledInterest.FieldByName('interest_date').AsDateTime;
+
+          if isAdvancePayment then valueDate := ifn.AppDate
+          else valuedate := dstScheduledInterest.FieldByName('interest_date').AsDateTime;
+
           PostEntry(refPostingId, interest, credit, eventObject, primaryKey, status, postDate, valueDate, caseType);
 
           // change the status of the interest in the Interest table
@@ -189,7 +195,10 @@ begin
 
         for i := 1 to cnt do
         begin
-          valueDate := GetValueDate(valueDate,IncMonth(ifn.AppDate,i));
+          if (ALoan.HasAdvancePayment) and (i <= ifn.Rules.AdvancePayment) then
+            valueDate := ifn.AppDate
+          else
+            valueDate := GetValueDate(valueDate,IncMonth(ifn.AppDate,i));
 
           // interest
           // post in the Interest table instead of in the Ledger
@@ -222,8 +231,13 @@ begin
           status := TRttiEnumerationType.GetName<TLedgerRecordStatus>(TLedgerRecordStatus.OPN);
 
           // for principal entries.. use the first day of the month
-          PostEntry(refPostingId, principal, credit, eventObject, primaryKey, status,
-            postDate, GetFirstDayOfValueDate(valueDate), caseType);
+          // if load has advance payment.. use the application date
+          if ALoan.HasAdvancePayment then
+            PostEntry(refPostingId, principal, credit, eventObject, primaryKey, status,
+              postDate, valueDate, caseType)
+          else
+            PostEntry(refPostingId, principal, credit, eventObject, primaryKey, status,
+              postDate, GetFirstDayOfValueDate(valueDate), caseType);
 
           // get balance
           balance := balance - principal;
@@ -233,9 +247,6 @@ begin
 
         // commit the interest
         dmAccounting.dstInterest.UpdateBatch;
-
-        // post advance payment
-        if ALoan.HasAdvancePayment then PostAdvancePayment(ALoan);
 
       end;
     except
@@ -250,6 +261,13 @@ begin
     dmAccounting.dstLedger.Close;
     dmAccounting.dstInterest.Close;
     dmAccounting.Free;
+  end;
+
+  // post advance payment
+  if ALoan.HasAdvancePayment then
+  begin
+    PostInterest(ifn.AppDate,ALoan.Id,true);
+    PostAdvancePayment(ALoan);
   end;
 end;
 
@@ -370,13 +388,68 @@ procedure TPosting.PostAdvancePayment(ALoan: TLoan);
 var
   id, refNo: string;
   adv: TAdvancePayment;
-  i, j: integer;
+  i, j, k: integer;
+  LLedger: array of TLedger;
+  debitLedger, creditLedger: TLedger;
+  caseType: string;
+  paymentType: TPaymentTypes;
+  payment, balance: currency;
+
+  procedure RetrieveLedger;
+  var
+    ldg: TLedger;
+    l: integer;
+  begin
+    try
+      // loop thru the dataset
+      with dmAccounting.dstScheduleAdvance do
+      begin
+        try
+          Parameters.ParamByName('@loan_id').Value := ALoan.Id;
+          Open;
+
+          SetLength(LLedger,RecordCount);
+          l := 0;
+
+          while not Eof do
+          begin
+            ldg := TLedger.Create;
+            ldg.PostingId := FieldByName('posting_id').AsString;
+            ldg.EventObject := FieldByName('event_object').AsString;
+            ldg.PrimaryKey := FieldByName('pk_event_object').AsString;
+            ldg.ValueDate := FieldByName('value_date').AsDateTime;
+            ldg.Debit := FieldByName('payment_due').AsSingle;
+            ldg.CaseType := FieldByName('case_type').AsString;
+            ldg.CurrentStatus := FieldByName('status_code').AsString;
+            ldg.HasPartial := FieldByName('has_partial').AsInteger = 1;
+
+            LLedger[l] := ldg;
+
+            Inc(l);
+
+            Next;
+          end;
+        except
+          on E: Exception do ShowErrorBox(E.Message);
+        end;
+    end;
+    finally
+      dmAccounting.dstScheduleAdvance.Close;
+    end;
+  end;
+
 begin
   // this method is only called for advance payment
   // advance payment can only happen during loan release
+  dmAccounting := TdmAccounting.Create(nil);
+
   dmAccounting.dstPayment.Open;
   dmAccounting.dstPaymentDetail.Open;
+  dmAccounting.dstLedger.Open;
 
+  RetrieveLedger;
+
+  creditLedger := TLedger.Create;
   try
     try
       for i:= 0 to ifn.Rules.AdvancePayment - 1 do
@@ -407,25 +480,62 @@ begin
         // detail
         with dmAccounting.dstPaymentDetail do
         begin
-          // principal
-          Append;
-          FieldByName('payment_id').AsString := id;
-          FieldByName('loan_id').AsString := ALoan.id;
-          FieldByName('payment_amt').AsCurrency := adv.Principal;
-          FieldByName('payment_type').AsString := 'PRN';
-          FieldByName('balance').AsCurrency := adv.Balance;
-          Post;
+          for paymentType := TPaymentTypes.PRN to TPaymentTypes.PEN do
+          begin
+            // get the amount and casetype to be posted
+            case paymentType of
+              PRN:
+                begin
+                  caseType :=  TRttiEnumerationType.GetName<TCaseTypes>(TCaseTypes.PRC);
+                  payment := adv.Principal;
+                  balance := adv.Balance;
+                end;
 
+              INT:
+                begin
+                  caseType :=  TRttiEnumerationType.GetName<TCaseTypes>(TCaseTypes.ITS);
+                  payment := adv.Interest;
+                  balance := 0;
+                end;
 
-          // interest
-          Append;
-          FieldByName('payment_id').AsString := id;
-          FieldByName('loan_id').AsString := ALoan.id;
-          FieldByName('payment_amt').AsCurrency := adv.Interest;
-          FieldByName('payment_type').AsString := 'INT';
-          FieldByName('balance').AsCurrency := 0;
-          Post;
+              PEN: Continue;
+            end;
+
+            Append;
+            FieldByName('payment_id').AsString := id;
+            FieldByName('loan_id').AsString := ALoan.id;
+            FieldByName('payment_amt').AsCurrency := payment;
+            FieldByName('payment_type').AsString := TRttiEnumerationType.GetName<TPaymentTypes>(paymentType);
+            FieldByName('balance').AsCurrency := balance;
+            Post;
+
+            // increment "k" variable until case type is found
+            k := 0;
+            debitLedger := LLedger[k];
+            while (debitLedger.CaseType <> caseType) or (debitLedger.StatusChanged) do
+            begin
+              Inc(k);
+              debitLedger := LLedger[k];
+            end;
+
+            creditLedger.Credit := debitLedger.Debit;
+            debitLedger.NewStatus := TRttiEnumerationType.GetName<TLedgerRecordStatus>(TLedgerRecordStatus.CLS);
+            creditLedger.RefPostingId := debitLedger.PostingId;
+            creditLedger.EventObject := TRttiEnumerationType.GetName<TEventObjects>(TEventObjects.PAY);
+            creditLedger.PrimaryKey := id;
+            creditLedger.CaseType := caseType;
+            creditLedger.ValueDate := ifn.AppDate;
+            creditLedger.CurrentStatus := TRttiEnumerationType.GetName<TLedgerRecordStatus>(TLedgerRecordStatus.OPN);
+            creditLedger.Debit := 0;
+
+            // post the entry
+            with creditLedger do
+              PostEntry(RefPostingId,0,Credit,EventObject,PrimaryKey,CurrentStatus,ValueDate,ValueDate,CaseType);
+
+            // update the status of the debit entry
+          end;
         end;
+
       end;
 
       dmAccounting.dstPayment.UpdateBatch;
@@ -443,8 +553,12 @@ begin
   finally
     dmAccounting.dstPayment.Close;
     dmAccounting.dstPaymentDetail.Close;
+    dmAccounting.dstLedger.Close;
+    dmAccounting.Free;
 
     if Assigned(adv) then adv.Free;
+    if Assigned(debitLedger) then debitLedger.Free;
+    if Assigned(creditLedger) then creditLedger.Free;
   end;
 end;
 

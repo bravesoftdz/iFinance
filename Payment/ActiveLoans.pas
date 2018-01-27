@@ -130,7 +130,7 @@ begin
     Cells[0,r] := loan.Id;
     Cells[1,r] := loan.LoanTypeName;
     Cells[2,r] := loan.AccountTypeName;
-    Cells[3,r] := FormatFloat('###,###,##0.00',loan.Balance);
+    Cells[3,r] := FormatCurr('###,###,##0.00',loan.Balance);
 
     Objects[0,r] := loan;
 

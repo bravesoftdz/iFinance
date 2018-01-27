@@ -27,6 +27,7 @@ type
     FReleaseAmount: currency;
     FApprovedTerm: integer;
     FFullpaymentInterest: currency;
+    FPaymentsAdvance: integer;
 
     function GetIsDiminishing: boolean;
     function GetIsFixed: boolean;
@@ -47,6 +48,7 @@ type
     function GetInterestDue: currency; overload;
     function GetLatestInterestDate(const paymentDate: TDateTime): TDateTime;
     function GetInterestMethodName: string;
+    function GetHasAdvancePayment: boolean;
 
   public
     property Id: string read FId write FId;
@@ -78,6 +80,8 @@ type
     property FullPaymentInterest: currency read FFullPaymentInterest;
     property Payments: integer write FPayments;
     property InterestMethodName: string read GetInterestMethodName;
+    property HasAdvancePayment: boolean read GetHasAdvancePayment;
+    property PaymentsAdvance: integer write FPaymentsAdvance;
 
     procedure GetPaymentDue(const paymentDate: TDateTime);
     procedure RetrieveLedger;
@@ -155,6 +159,7 @@ begin
         loan.ApprovedTerm := FieldByName('terms').AsInteger;
         loan.ReleaseAmount := FieldByName('rel_amt').AsCurrency;
         loan.Payments := FieldByName('payments').AsInteger;
+        loan.PaymentsAdvance := FieldByName('payments_advance').AsInteger;
 
         AddLoan(loan);
 
@@ -212,6 +217,11 @@ begin
     FreeAndNil(LLedger);
   end;
   SetLength(FLedger,0);
+end;
+
+function TLoan.GetHasAdvancePayment: boolean;
+begin
+  Result := FPaymentsAdvance > 0;
 end;
 
 function TLoan.GetHasInterestBalance: boolean;
@@ -411,7 +421,9 @@ end;
 
 function TLoan.GetNextPayment: TDateTime;
 begin
-  Result := IncMonth(FLastTransactionDate);
+  if (IsFirstPayment) and (HasAdvancePayment) then
+    Result := IncMonth(FLastTransactionDate,FPaymentsAdvance)
+  else Result := IncMonth(FLastTransactionDate);
 end;
 
 procedure TLoan.GetPaymentDue(const paymentDate: TDateTime);
