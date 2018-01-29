@@ -26,7 +26,7 @@ begin
 
       Result := RecordCount;
 
-      if Result > 0 then
+      if (Result > 0) and (allowSelect) then
       begin
         with TfrmDuplicate.Create(nil,allowSelect) do
         begin

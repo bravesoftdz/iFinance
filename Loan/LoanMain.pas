@@ -80,8 +80,8 @@ type
     imgRejectLoan: TImage;
     pnlCancelLoan: TRzPanel;
     imgCancelLoan: TImage;
-    pnlReloan: TRzPanel;
-    imgReloan: TImage;
+    pnlRestructure: TRzPanel;
+    imgRestructure: TImage;
     pnlAdd: TRzPanel;
     btnAddComaker: TRzShapeButton;
     pnlRemoveComaker: TRzPanel;
@@ -101,8 +101,8 @@ type
     RzDBLabel8: TRzDBLabel;
     pnlEditApproval: TRzPanel;
     btnEditApproval: TRzShapeButton;
-    pnlRestructure: TRzPanel;
-    imgRestructure: TImage;
+    pnlLedger: TRzPanel;
+    imgLedger: TImage;
     tsReleased: TRzTabSheet;
     tsRejected: TRzTabSheet;
     tsCancelled: TRzTabSheet;
@@ -135,7 +135,7 @@ type
     JvLabel26: TJvLabel;
     lblTotalCharges: TJvLabel;
     JvLabel27: TJvLabel;
-    lblTotalReleased: TJvLabel;
+    lblNetProceeds: TJvLabel;
     dbluPurpose: TRzDBLookupComboBox;
     JvLabel29: TJvLabel;
     JvLabel30: TJvLabel;
@@ -175,6 +175,8 @@ type
     JvLabel41: TJvLabel;
     JvLabel43: TJvLabel;
     JvLabel44: TJvLabel;
+    JvLabel45: TJvLabel;
+    lblAdvancePayment: TJvLabel;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure bteClientButtonClick(Sender: TObject);
@@ -197,7 +199,7 @@ type
     procedure btnEditAssessmentClick(Sender: TObject);
     procedure imgClientRecordClick(Sender: TObject);
     procedure imgAlertsClick(Sender: TObject);
-    procedure imgRestructureClick(Sender: TObject);
+    procedure imgLedgerClick(Sender: TObject);
     procedure imgCloseLoanClick(Sender: TObject);
   private
     { Private declarations }
@@ -272,12 +274,18 @@ begin
 end;
 
 procedure TfrmLoanMain.SetActiveTab(const index: Integer);
+var
+  advancePayment: currency;
 begin
+  advancePayment := 0;
   if index = RELEASED then
   begin
-    lblReleaseAmount.Caption := FormatFloat('###,###,##0.00',ln.TotalReleased + ln.TotalCharges);
-    lblTotalReleased.Caption := FormatFloat('###,###,##0.00',ln.TotalReleased);
-    lblTotalCharges.Caption := FormatFloat('###,###,##0.00',ln.TotalCharges);
+    advancePayment := ln.TotalAdvancePayment;
+
+    lblReleaseAmount.Caption := FormatCurr('###,###,##0.00',ln.TotalReleased + ln.TotalCharges + advancePayment);
+    lblNetProceeds.Caption := FormatCurr('###,###,##0.00',ln.TotalReleased);
+    lblTotalCharges.Caption := FormatCurr('###,###,##0.00',ln.TotalCharges);
+    lblAdvancePayment.Caption := FormatCurr('###,###,##0.00',advancePayment);
   end;
 
   with pcStatus do
@@ -850,7 +858,7 @@ begin
   else ReleaseLoan;
 end;
 
-procedure TfrmLoanMain.imgRestructureClick(Sender: TObject);
+procedure TfrmLoanMain.imgLedgerClick(Sender: TObject);
 begin
   inherited;
   ShowLedger;
@@ -904,7 +912,7 @@ end;
 procedure TfrmLoanMain.SetLoanHeaderCaption;
 begin
   lblHeader.Caption := 'LOAN ID: ' + ln.Id + ' ' + ln.StatusName + #10#10 +
-                        'Balance : ' + FormatFloat('###,###0.00',ln.Balance);
+                        'Balance : ' + FormatCurr('###,###0.00',ln.Balance);
 end;
 
 procedure TfrmLoanMain.SetUnboundControls;

@@ -1,6 +1,6 @@
 object dmLoan: TdmLoan
   OldCreateOrder = False
-  Height = 407
+  Height = 474
   Width = 744
   object dstLoan: TADODataSet
     Tag = 1
@@ -411,7 +411,7 @@ object dmLoan: TdmLoan
         Value = ''
       end>
     Left = 55
-    Top = 254
+    Top = 246
     object dstLoanReleaseloan_id: TStringField
       FieldName = 'loan_id'
       FixedChar = True
@@ -473,7 +473,7 @@ object dmLoan: TdmLoan
   object dscLoanRelease: TDataSource
     DataSet = dstLoanRelease
     Left = 119
-    Top = 254
+    Top = 246
   end
   object dstLoanCharge: TADODataSet
     Tag = 4
@@ -500,12 +500,12 @@ object dmLoan: TdmLoan
         Value = ''
       end>
     Left = 55
-    Top = 310
+    Top = 302
   end
   object dscLoanCharge: TDataSource
     DataSet = dstLoanCharge
     Left = 119
-    Top = 310
+    Top = 302
   end
   object dscLoanClassCharges: TDataSource
     DataSet = dstLoanClassCharges
@@ -679,5 +679,32 @@ object dmLoan: TdmLoan
     DataSet = dstLoanClose
     Left = 319
     Top = 134
+  end
+  object dstAdvancePayment: TADODataSet
+    Tag = 4
+    Connection = dmApplication.acMain
+    CursorType = ctStatic
+    LockType = ltReadOnly
+    BeforeOpen = dstAdvancePaymentBeforeOpen
+    AfterOpen = dstAdvancePaymentAfterOpen
+    CommandText = 'sp_ln_get_advance_payment;1'
+    CommandType = cmdStoredProc
+    Parameters = <
+      item
+        Name = '@RETURN_VALUE'
+        DataType = ftInteger
+        Direction = pdReturnValue
+        Precision = 10
+        Value = Null
+      end
+      item
+        Name = '@loan_id'
+        Attributes = [paNullable]
+        DataType = ftString
+        Size = 13
+        Value = ''
+      end>
+    Left = 55
+    Top = 366
   end
 end

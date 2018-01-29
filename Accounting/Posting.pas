@@ -43,34 +43,38 @@ function TPosting.PostEntry(const refPostingId: string;
 var
   postingId: string;
 begin
-  with dmAccounting.dstLedger do
-  begin
-    Append;
+  try
+    with dmAccounting.dstLedger do
+    begin
+      Append;
 
-    postingId := GetLedgerId;
+      postingId := GetLedgerId;
 
-    FieldByName('posting_id').AsString := postingId;
+      FieldByName('posting_id').AsString := postingId;
 
-    if refPostingId <> '' then FieldByName('ref_posting_id').AsString := refPostingId;
+      if refPostingId <> '' then FieldByName('ref_posting_id').AsString := refPostingId;
 
-    FieldByName('loc_prefix').AsString := ifn.LocationPrefix;
+      FieldByName('loc_prefix').AsString := ifn.LocationPrefix;
 
-    if debit > 0 then FieldByName('debit_amt').AsCurrency := debit;
+      if debit > 0 then FieldByName('debit_amt').AsCurrency := debit;
 
-    if credit > 0 then FieldByName('credit_amt').AsCurrency := credit;
+      if credit > 0 then FieldByName('credit_amt').AsCurrency := credit;
 
-    FieldByName('pk_event_object').AsString := primaryKey;
-    FieldByName('event_object').AsString := eventObject;
-    FieldByName('status_code').AsString := status;
-    FieldByName('post_date').AsDateTime := postDate;
-    FieldByName('value_date').AsDateTime := valueDate;
+      FieldByName('pk_event_object').AsString := primaryKey;
+      FieldByName('event_object').AsString := eventObject;
+      FieldByName('status_code').AsString := status;
+      FieldByName('post_date').AsDateTime := postDate;
+      FieldByName('value_date').AsDateTime := valueDate;
 
-    if caseType <> '' then FieldByName('case_type').AsString := caseType;
+      if caseType <> '' then FieldByName('case_type').AsString := caseType;
 
-    Post;
+      Post;
+    end;
+
+    Result := postingId;
+  except
+    on E: Exception do ShowErrorBox(E.Message);
   end;
-
-  Result := postingId;
 end;
 
 function TPosting.PostInterest(const interest: currency; const loanId: string;
@@ -255,6 +259,7 @@ begin
         dmAccounting.dstLedger.CancelBatch;
         dmAccounting.dstInterest.CancelBatch;
         ShowErrorBox(E.Message);
+        Abort;
       end;
     end;
   finally
@@ -299,7 +304,10 @@ begin
   DecodeDate(ADate1,year1,month1,day1);
   DecodeDate(ADate2,year2,month2,day2);
 
-  Result := EncodeDate(year2,month2,day1);
+  // check for leap year
+  if (not IsLeapYear(year1)) and (month2 = MonthFebruary) and (day1 = 29) then
+    Result := ADate2
+  else Result := EncodeDate(year2,month2,day1);
 end;
 
 procedure TPosting.Post(const APayment: TPayment);

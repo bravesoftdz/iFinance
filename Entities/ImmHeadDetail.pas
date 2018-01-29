@@ -24,13 +24,10 @@ type
     function ValidEntry: boolean; override;
   end;
 
-var
-  frmImmHeadDetail: TfrmImmHeadDetail;
-
 implementation
 
 uses
-  EntitiesData, ImmediateHead, IFinanceDialogs;
+  EntitiesData, ImmediateHead, IFinanceDialogs, EntityUtils;
 
 {$R *.dfm}
 
@@ -48,11 +45,19 @@ end;
 function TfrmImmHeadDetail.ValidEntry: boolean;
 var
   error: string;
+  duplicates: integer;
 begin
   if Trim(edLastname.Text) = '' then
     error := 'Please enter a lastname.'
   else if Trim(edFirstname.Text) = '' then
-    error := 'Please enter a firstname.';
+    error := 'Please enter a firstname.'
+  else if Trim(edMiddle.Text) = '' then
+    error := 'Please enter a middlename.'
+  else
+  begin
+    duplicates := CheckDuplicate(edLastname.Text,edFirstname.Text,edMiddle.Text,false);
+    if duplicates > 0 then  error := 'Duplicates found.';
+  end;
 
   Result := error = '';
 

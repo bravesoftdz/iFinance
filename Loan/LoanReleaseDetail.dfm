@@ -264,10 +264,6 @@ inherited frmLoanReleaseDetail: TfrmLoanReleaseDetail
             object tsCharges: TRzTabSheet
               Color = 14273211
               Caption = 'Charges'
-              ExplicitLeft = 0
-              ExplicitTop = 0
-              ExplicitWidth = 0
-              ExplicitHeight = 142
               DesignSize = (
                 486
                 128)
@@ -293,7 +289,6 @@ inherited frmLoanReleaseDetail: TfrmLoanReleaseDetail
                 FrameVisible = True
                 FramingPreference = fpCustomFraming
                 FixedLineColor = 14273211
-                ExplicitHeight = 130
                 ColWidths = (
                   60
                   60)

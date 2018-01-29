@@ -62,13 +62,8 @@ begin
   else if Trim(edMiddlename.Text) = '' then error := 'Please enter a middlename.'
   else
   begin
-    duplicates := CheckDuplicate(edLastname.Text,edFirstname.Text, edMiddlename.Text);
+    duplicates := CheckDuplicate(edLastname.Text,edFirstname.Text,edMiddlename.Text,false);
     if duplicates > 0 then  error := 'Duplicates found.'
-    else if duplicates = -1 then // -1 means to abort the adding of the new record
-    begin
-      error := 'Abort';  // assign any value to the Result it's not going to displayed anyway
-      Exit;
-    end;
   end;
 
   Result := error = '';

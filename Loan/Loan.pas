@@ -128,6 +128,8 @@ type
     procedure RemoveReleaseRecipient(const rec: TReleaseRecipient);
     procedure ChangeLoanStatus;
     procedure ClearComakers;
+    procedure AddAdvancePayment(const adv: TAdvancePayment);
+    procedure ClearAdvancePayments;
 
     function ComakerExists(cmk: TComaker): boolean;
     function FinancialInfoExists(const compId: string): boolean;
@@ -405,6 +407,12 @@ begin
     end
 
   end;
+end;
+
+procedure TLoan.AddAdvancePayment(const adv: TAdvancePayment);
+begin
+  SetLength(FAdvancePayments,Length(FAdvancePayments) + 1);
+  FAdvancePayments[Length(FAdvancePayments) - 1] := adv;
 end;
 
 procedure TLoan.AddComaker(cmk: TComaker; const append: boolean);
@@ -717,55 +725,62 @@ var
 begin
   Result := 0;
 
-  // destroy advance payments
-  for adv in FAdvancePayments do adv.Free;
+  total := 0;
 
-  SetLength(FAdvancePayments,ifn.Rules.AdvancePayment);
-
-  if FHasAdvancePayment then
+  // if loan is BEING release.. compute the advance payment
+  if ln.Action = laReleasing then
   begin
-    total := 0;
+    ClearAdvancePayments;
 
-    balance := FReleaseAmount;
-
-    cnt := ifn.Rules.AdvancePayment;
-
-    for i := 1 to cnt do
+    if FHasAdvancePayment then
     begin
-      adv := TAdvancePayment.Create;
+      balance := FReleaseAmount;
 
-      // interest
-      if FLoanClass.IsDiminishing then interest := balance * FLoanClass.InterestInDecimal
-      else interest := FReleaseAmount * FLoanClass.InterestInDecimal;
+      cnt := ifn.Rules.AdvancePayment;
 
-      adv.Interest := interest;
-
-      total := total + interest;
-
-      // principal
-      if FLoanClass.IsDiminishing then
+      for i := 1 to cnt do
       begin
-        if FLoanClass.IsScheduled then principal := Amortisation - interest
+        adv := TAdvancePayment.Create;
+
+        // interest
+        if FLoanClass.IsDiminishing then interest := balance * FLoanClass.InterestInDecimal
+        else interest := FReleaseAmount * FLoanClass.InterestInDecimal;
+
+        adv.Interest := interest;
+
+        total := total + interest;
+
+        // principal
+        if FLoanClass.IsDiminishing then
+        begin
+          if FLoanClass.IsScheduled then principal := Amortisation - interest
+          else principal := FReleaseAmount / FApprovedTerm;
+        end
         else principal := FReleaseAmount / FApprovedTerm;
-      end
-      else principal := FReleaseAmount / FApprovedTerm;
 
-      adv.Principal := principal;
+        adv.Principal := principal;
 
-      total := total + principal;
+        total := total + principal;
 
-      // get balance
-      balance := balance - principal;
+        // get balance
+        balance := balance - principal;
 
-      adv.Balance := balance;
+        adv.Balance := balance;
 
-      FAdvancePayments[i-1] := adv;
+        ln.AddAdvancePayment(adv);
 
-    end; // end for
+      end; // end for
 
-    Result := total;
+      Result := total;
+    end
+    else Result := 0;
   end
-  else Result := 0;
+  else
+  begin
+    dmLoan.dstAdvancePayment.Open;
+    for adv in FAdvancePayments do total := total + adv.Interest + adv.Principal;
+    Result := total;
+  end;
 end;
 
 function TLoan.GetAdvancePayment(const i: integer): TAdvancePayment;
@@ -940,6 +955,20 @@ begin
   // remove from db
   with dmLoan.dstLoanRelease do
     Delete;
+end;
+
+procedure TLoan.ClearAdvancePayments;
+var
+  adv: TAdvancePayment;
+  i: integer;
+begin
+  //for i := Low(FAdvancePayments) to High(FAdvancePayments) do
+  //begin
+  //  adv := FAdvancePayments[i];
+  //  if Assigned(adv) then FreeAndNil(adv);
+  //end;
+
+  SetLength(FAdvancePayments,0);
 end;
 
 procedure TLoan.ClearComakers;

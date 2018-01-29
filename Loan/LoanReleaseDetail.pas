@@ -363,11 +363,22 @@ end;
 
 procedure TfrmLoanReleaseDetail.cbxAdvancePaymentClick(Sender: TObject);
 begin
-  ln.HasAdvancePayment := cbxAdvancePayment.Checked;
-  lblAdvancePayment.Caption := FormatCurr('###,##0.00',ln.TotalAdvancePayment);
+  if cbxAdvancePayment.Checked then
+  begin
+    if edReleasedAmount.Value > 0 then
+    begin
+      ln.HasAdvancePayment := cbxAdvancePayment.Checked;
+      lblAdvancePayment.Caption := FormatCurr('###,##0.00',ln.TotalAdvancePayment);
 
-  // recompute the net proceeds
-  lblNetProceeds.Caption := FormatCurr('###,###,##0.00',ln.NetProceeds);
+      // recompute the net proceeds
+      lblNetProceeds.Caption := FormatCurr('###,###,##0.00',ln.NetProceeds);
+    end
+    else
+    begin
+      cbxAdvancePayment.Checked := false;
+      ShowErrorBox('Please enter release amount.');
+    end;
+  end;
 end;
 
 procedure TfrmLoanReleaseDetail.FormCreate(Sender: TObject);
@@ -398,12 +409,14 @@ function TfrmLoanReleaseDetail.ValidEntry: boolean;
 var
   error: string;
 begin
-  if ln.ReleaseRecipientCount = 0 then
+  if ln.NetProceeds <= 0 then
+    error := 'Net proceeds cannot be less than zero.'
+  else if ln.ReleaseRecipientCount = 0 then
     error := 'Please add at least one recipient.'
   else if ln.ReleaseAmount > ln.ApprovedAmount  then
     error := 'Release amount is greater than the approved amount.'
-  // else if GetTotalReleased <> ln.NetProceeds then
-  //  error := 'TOTAL amount released is not equal to the NET proceeds.'
+  else if GetTotalReleased <> Ceil(ln.NetProceeds * 100/100) then
+    error := 'TOTAL amount released is not equal to the NET proceeds.'
   else if ln.ReleaseAmount < ln.ApprovedAmount  then
     error := ConfirmRelease;
 
@@ -444,6 +457,7 @@ begin
 
   lblCharges.Caption := FormatCurr('###,###,##0.00',ln.TotalCharges);
   lblNetProceeds.Caption := FormatCurr('###,###,##0.00',ln.NetProceeds);
+  lblAdvancePayment.Caption := FormatCurr('###,###,##0.00',ln.TotalAdvancePayment);
 end;
 
 end.

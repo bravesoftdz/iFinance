@@ -64,6 +64,7 @@ type
     dstLedgerdocument_no: TStringField;
     dstLoanClose: TADODataSet;
     dscLoanClose: TDataSource;
+    dstAdvancePayment: TADODataSet;
     procedure dstLoanBeforeOpen(DataSet: TDataSet);
     procedure dstLoanClassBeforeOpen(DataSet: TDataSet);
     procedure dstLoanBeforePost(DataSet: TDataSet);
@@ -114,6 +115,8 @@ type
     procedure dstLoanCloseAfterPost(DataSet: TDataSet);
     procedure dstLoanCloseBeforeOpen(DataSet: TDataSet);
     procedure dstLoanCloseBeforePost(DataSet: TDataSet);
+    procedure dstAdvancePaymentBeforeOpen(DataSet: TDataSet);
+    procedure dstAdvancePaymentAfterOpen(DataSet: TDataSet);
   private
     { Private declarations }
     procedure SetLoanClassProperties;
@@ -130,7 +133,7 @@ implementation
 uses
   AppData, Loan, DBUtil, IFinanceGlobal, LoanClassification, Comaker, FinInfo,
   MonthlyExpense, Alert, ReleaseRecipient, Recipient, LoanCharge, LoanClassCharge,
-  LoanType, Assessment, Location, Group;
+  LoanType, Assessment, Location, Group, AppConstants;
 
 {%CLASSGROUP 'Vcl.Controls.TControl'}
 
@@ -179,6 +182,47 @@ begin
       Next;
     end;
   end;
+end;
+
+procedure TdmLoan.dstAdvancePaymentAfterOpen(DataSet: TDataSet);
+var
+  adv: TAdvancePayment;
+  paymentType: string;
+begin
+  try
+    with DataSet do
+    begin
+      ln.ClearAdvancePayments;
+
+      while not Eof do
+      begin
+        adv := TAdvancePayment.Create;
+
+        // interest
+        paymentType := FieldByName('payment_type').AsString;
+        if paymentType = TRttiEnumerationType.GetName<TPaymentTypes>(TPaymentTypes.INT) then
+          adv.Interest := FieldByName('payment_amt').AsCurrency;
+
+        Next;
+
+        // principal
+        paymentType := FieldByName('payment_type').AsString;
+        if paymentType = TRttiEnumerationType.GetName<TPaymentTypes>(TPaymentTypes.PRN) then
+          adv.Principal := FieldByName('payment_amt').AsCurrency;
+
+        ln.AddAdvancePayment(adv);
+
+        Next;
+      end;
+    end;
+  finally
+    DataSet.Close;
+  end;
+end;
+
+procedure TdmLoan.dstAdvancePaymentBeforeOpen(DataSet: TDataSet);
+begin
+  (DataSet as TADODataSet).Parameters.ParamByName('@loan_id').Value := ln.Id;
 end;
 
 procedure TdmLoan.dstAlertsAfterOpen(DataSet: TDataSet);
@@ -601,7 +645,7 @@ end;
 
 procedure TdmLoan.dstLoanReleaseAfterOpen(DataSet: TDataSet);
 var
-  amt: real;
+  amt, total: currency;
   dt: TDate;
   relId, relName: string;
   recipientId, recipientName, locCode: string;
@@ -611,6 +655,8 @@ begin
   if not DataSet.IsEmpty then ln.AddLoanState(lsActive);
 
   ln.ClearReleaseRecipients;
+
+  total := 0;
 
   with DataSet do
   begin
@@ -629,9 +675,13 @@ begin
           TReleaseMethod.Create(relId,relName),
           locCode,ifn.GetLocationNameByCode(locCode),
           amt,dt));
+
+      total := total + amt;
       Next;
     end;
   end;
+
+  ln.ReleaseAmount := total;
 end;
 
 procedure TdmLoan.dstLoanReleaseBeforeOpen(DataSet: TDataSet);

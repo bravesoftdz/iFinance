@@ -1,0 +1,9 @@
+Version 1.0.0.1
+
+- Advance payment option upon loan release
+- Manual closure of loan with reason
+- Loan closure reasons list
+- "where did you hear about us?" field in client main window
+- "where did you hear about us?" list
+- Loan charges list
+- Grouping of main menu
