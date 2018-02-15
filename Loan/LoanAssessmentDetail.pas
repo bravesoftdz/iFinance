@@ -64,6 +64,7 @@ type
   protected
     procedure Save; override;
     procedure Cancel; override;
+    procedure BindToObject; override;
     function ValidEntry: boolean; override;
   end;
 
@@ -262,6 +263,12 @@ begin
     Objects[0,r] := exp;
 
   end;
+end;
+
+procedure TfrmLoanAssessmentDetail.BindToObject;
+begin
+  inherited;
+
 end;
 
 procedure TfrmLoanAssessmentDetail.PopulateFinInfo;

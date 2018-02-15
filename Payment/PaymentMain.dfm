@@ -10,7 +10,7 @@ inherited frmPaymentMain: TfrmPaymentMain
   TextHeight = 14
   object c: TJvLabel [0]
     Tag = -1
-    Left = 646
+    Left = 422
     Top = 61
     Width = 37
     Height = 14
@@ -89,8 +89,8 @@ inherited frmPaymentMain: TfrmPaymentMain
     ExplicitLeft = 632
   end
   object JvLabel2: TJvLabel [4]
-    Left = 254
-    Top = 87
+    Left = 23
+    Top = 372
     Width = 91
     Height = 14
     Caption = 'Reference no.:'
@@ -99,6 +99,7 @@ inherited frmPaymentMain: TfrmPaymentMain
     Font.Height = -12
     Font.Name = 'Tahoma'
     Font.Style = [fsBold]
+    Anchors = [akLeft, akBottom]
     ParentFont = False
     Transparent = True
     Visible = False
@@ -109,8 +110,8 @@ inherited frmPaymentMain: TfrmPaymentMain
     HotTrackFont.Style = []
   end
   object lblReferenceNo: TJvLabel [5]
-    Left = 350
-    Top = 87
+    Left = 119
+    Top = 372
     Width = 6
     Height = 14
     Font.Charset = DEFAULT_CHARSET
@@ -118,13 +119,14 @@ inherited frmPaymentMain: TfrmPaymentMain
     Font.Height = -12
     Font.Name = 'Tahoma'
     Font.Style = []
+    Anchors = [akLeft, akBottom]
     ParentFont = False
     Transparent = True
     Visible = False
   end
   object JvLabel4: TJvLabel [6]
-    Left = 495
-    Top = 87
+    Left = 264
+    Top = 372
     Width = 49
     Height = 14
     Caption = 'Posted:'
@@ -133,6 +135,7 @@ inherited frmPaymentMain: TfrmPaymentMain
     Font.Height = -12
     Font.Name = 'Tahoma'
     Font.Style = [fsBold]
+    Anchors = [akLeft, akBottom]
     ParentFont = False
     Transparent = True
     Visible = False
@@ -143,8 +146,8 @@ inherited frmPaymentMain: TfrmPaymentMain
     HotTrackFont.Style = []
   end
   object lblPosted: TJvLabel [7]
-    Left = 553
-    Top = 87
+    Left = 322
+    Top = 372
     Width = 6
     Height = 14
     Font.Charset = DEFAULT_CHARSET
@@ -152,13 +155,14 @@ inherited frmPaymentMain: TfrmPaymentMain
     Font.Height = -12
     Font.Name = 'Tahoma'
     Font.Style = []
+    Anchors = [akLeft, akBottom]
     ParentFont = False
     Transparent = True
     Visible = False
   end
   object JvLabel3: TJvLabel [8]
-    Left = 423
-    Top = 61
+    Left = 23
+    Top = 87
     Width = 50
     Height = 14
     Caption = 'Method'
@@ -208,9 +212,9 @@ inherited frmPaymentMain: TfrmPaymentMain
   end
   object pnlDetail: TRzPanel
     Left = 22
-    Top = 87
+    Top = 128
     Width = 688
-    Height = 201
+    Height = 160
     Anchors = [akLeft, akTop, akRight, akBottom]
     BorderOuter = fsNone
     BorderColor = 8675134
@@ -221,7 +225,7 @@ inherited frmPaymentMain: TfrmPaymentMain
       Left = 1
       Top = 1
       Width = 686
-      Height = 199
+      Height = 158
       Align = alClient
       BevelInner = bvNone
       BevelOuter = bvNone
@@ -354,9 +358,9 @@ inherited frmPaymentMain: TfrmPaymentMain
     end
   end
   object edClient: TRzEdit
-    Left = 693
+    Left = 465
     Top = 55
-    Width = 17
+    Width = 245
     Height = 22
     Text = ''
     Anchors = [akLeft, akTop, akRight]
@@ -499,8 +503,8 @@ inherited frmPaymentMain: TfrmPaymentMain
     TabOrder = 5
   end
   object cmbPaymentMethod: TRzComboBox
-    Left = 487
-    Top = 55
+    Left = 87
+    Top = 81
     Width = 146
     Height = 22
     AllowEdit = False

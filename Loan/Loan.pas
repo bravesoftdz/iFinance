@@ -56,7 +56,6 @@ type
     FReleaseAmount: currency;
     FApprovedTerm: integer;
     FBalance: currency;
-    FHasAdvancePayment: boolean;
     FAdvancePayments: array of TAdvancePayment;
 
     procedure SaveComakers;
@@ -178,7 +177,6 @@ type
     property FactorWithoutInterest: currency read GetFactorWithoutInterest;
     property Amortisation: currency read GetAmortisation;
     property Balance: currency read FBalance write FBalance;
-    property HasAdvancePayment: boolean read FHasAdvancePayment write FHasAdvancePayment;
     property TotalAdvancePayment: currency read GetTotalAdvancePayment;
     property AdvancePayment[const i: integer]: TAdvancePayment read GetAdvancePayment write SetAdvancePayment;
 
@@ -732,21 +730,21 @@ begin
   begin
     ClearAdvancePayments;
 
-    if FHasAdvancePayment then
+    if FLoanClass.HasAdvancePayment then
     begin
       balance := FReleaseAmount;
 
-      cnt := ifn.Rules.AdvancePayment;
+      cnt := FLoanClass.AdvancePayment.NumberOfMonths;
 
       for i := 1 to cnt do
       begin
         adv := TAdvancePayment.Create;
 
         // interest
-        if FLoanClass.IsDiminishing then interest := balance * FLoanClass.InterestInDecimal
-        else interest := FReleaseAmount * FLoanClass.InterestInDecimal;
+        if FLoanClass.IsDiminishing then interest := Trunc(balance * FLoanClass.InterestInDecimal) + 1
+        else interest := Trunc(FReleaseAmount * FLoanClass.InterestInDecimal) + 1;
 
-        adv.Interest := interest;
+        if i = FLoanClass.AdvancePayment.Interest then adv.Interest := interest;
 
         total := total + interest;
 
@@ -754,11 +752,11 @@ begin
         if FLoanClass.IsDiminishing then
         begin
           if FLoanClass.IsScheduled then principal := Amortisation - interest
-          else principal := FReleaseAmount / FApprovedTerm;
+          else principal := Trunc(FReleaseAmount / FApprovedTerm) + 1;
         end
-        else principal := FReleaseAmount / FApprovedTerm;
+        else principal := Trunc(FReleaseAmount / FApprovedTerm) + 1;
 
-        adv.Principal := principal;
+        if i = FLoanClass.AdvancePayment.Principal then adv.Principal := principal;
 
         total := total + principal;
 
@@ -801,7 +799,7 @@ begin
   if (FLoanClass.IsDiminishing) and (FLoanClass.IsScheduled) then amort := FReleaseAmount * GetFactorWithInterest
   else amort := ((FReleaseAmount * FLoanClass.InterestInDecimal * FApprovedTerm) + FReleaseAmount) / FApprovedTerm;
 
-  Result := Round(amort);
+  Result := Trunc(amort) + 1;
 end;
 
 procedure TLoan.AddReleaseRecipient(const rec: TReleaseRecipient; const overwrite: boolean);

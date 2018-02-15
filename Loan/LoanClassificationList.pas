@@ -42,15 +42,6 @@ type
     RzDBEdit2: TRzDBEdit;
     Label1: TLabel;
     cmbBranch: TRzComboBox;
-    pnlCharges: TRzPanel;
-    grCharges: TRzDBGrid;
-    RzGroupBox1: TRzGroupBox;
-    RzPanel1: TRzPanel;
-    btnAddCharge: TRzShapeButton;
-    RzPanel2: TRzPanel;
-    btnRemoveCharge: TRzShapeButton;
-    cbxNew: TRzCheckBox;
-    cbxRenewal: TRzCheckBox;
     bteGroup: TRzButtonEdit;
     pnlActivate: TRzPanel;
     sbtnActivate: TRzShapeButton;
@@ -62,15 +53,13 @@ type
     edComakersMax: TRzDBEdit;
     JvLabel2: TJvLabel;
     JvLabel8: TJvLabel;
+    urlClassCharges: TRzURLLabel;
+    urlAdvancePayment: TRzURLLabel;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure urlRefreshListClick(Sender: TObject);
     procedure grChargesDblClick(Sender: TObject);
     procedure sbtnNewClick(Sender: TObject);
-    procedure btnAddChargesClick(Sender: TObject);
-    procedure btnRemoveChargeClick(Sender: TObject);
-    procedure cbxNewClick(Sender: TObject);
-    procedure cbxRenewalClick(Sender: TObject);
     procedure dbluBranchClick(Sender: TObject);
     procedure bteGroupButtonClick(Sender: TObject);
     procedure grListCellClick(Column: TColumn);
@@ -78,10 +67,11 @@ type
     procedure FormShow(Sender: TObject);
     procedure sbtnActivateClick(Sender: TObject);
     procedure dbluCompMethodClick(Sender: TObject);
+    procedure urlClassChargesClick(Sender: TObject);
+    procedure urlAdvancePaymentClick(Sender: TObject);
   private
     { Private declarations }
     procedure ChangeControlState;
-    procedure FilterCharges;
     function EntryIsValid: boolean;
     function ConfirmDate: string;
     procedure SetUnboundControls;
@@ -101,7 +91,8 @@ implementation
 
 uses
   LoansAuxData, FormsUtil, IFinanceDialogs, AuxData, LoanClassChargeDetail, DecisionBox,
-  LoanType, LoanClassification, Group, GroupUtils, GroupSearch, EntitiesData;
+  LoanType, LoanClassification, Group, GroupUtils, GroupSearch, EntitiesData,
+  LoanClassChargeList, LoanClassAdvancePayment;
 
 function TfrmLoanClassificationList.Save: boolean;
 begin
@@ -136,31 +127,6 @@ begin
     bteGroup.Text := lnc.Group.GroupName;
 end;
 
-procedure TfrmLoanClassificationList.FilterCharges;
-var
-  filter: string;
-  filters: TStringList;
-  i, cnt: integer;
-begin
-  filters := TStringList.Create;
-
-  if cbxNew.Checked then filters.Add('(for_new = 1)');
-  if cbxRenewal.Checked then filters.Add('(for_renew = 1)');
-
-  cnt := filters.Count - 1;
-
-  for i := 0 to cnt do
-  begin
-    filter := filter + filters[i];
-
-    if i < filters.Count - 1 then filter := filter + ' or ';
-  end;
-
-  grCharges.DataSource.DataSet.Filter := filter;
-
-  filters.Free;
-end;
-
 procedure TfrmLoanClassificationList.sbtnActivateClick(Sender: TObject);
 begin
   inherited;
@@ -181,6 +147,24 @@ begin
 
   // focus the first control
   dbluBranch.SetFocus;
+end;
+
+procedure TfrmLoanClassificationList.urlAdvancePaymentClick(Sender: TObject);
+begin
+  with TfrmLoanClassAdvancePaymentDetail.Create(nil) do
+  begin
+    ShowModal;
+    Free;
+  end;
+end;
+
+procedure TfrmLoanClassificationList.urlClassChargesClick(Sender: TObject);
+begin
+  with TfrmLoanClassChargeList.Create(nil) do
+  begin
+    ShowModal;
+    Free;
+  end;
 end;
 
 procedure TfrmLoanClassificationList.urlRefreshListClick(Sender: TObject);
@@ -204,16 +188,6 @@ begin
 
     SetUnboundControls;
   end;
-end;
-
-procedure TfrmLoanClassificationList.cbxNewClick(Sender: TObject);
-begin
-  FilterCharges;
-end;
-
-procedure TfrmLoanClassificationList.cbxRenewalClick(Sender: TObject);
-begin
-  FilterCharges;
 end;
 
 procedure TfrmLoanClassificationList.dbluBranchClick(Sender: TObject);
@@ -286,7 +260,6 @@ begin
 
   OpenDropdownDataSources(pnlDetail);
   OpenGridDataSources(pnlList);
-  OpenGridDataSources(pnlCharges);
 
   PopulateBranchComboBox(cmbBranch);
 
@@ -326,37 +299,6 @@ begin
   if Key in [VK_UP, VK_DOWN] then SetUnboundControls;
 end;
 
-procedure TfrmLoanClassificationList.btnRemoveChargeClick(Sender: TObject);
-const
-  CONF = 'Are you sure you want to delete the selected loan class charge?';
-var
-  cgType: string;
-begin
-
-  with TfrmDecisionBox.Create(nil, CONF) do
-  begin
-    try
-      if grCharges.DataSource.DataSet.RecordCount > 0 then
-      begin
-        cgType := grCharges.DataSource.DataSet.FieldByName('charge_type').AsString;
-
-        ShowModal;
-
-        if ModalResult = mrYes then
-        begin
-          grCharges.DataSource.DataSet.Delete;
-          lnc.RemoveClassCharge(cgType);
-        end;
-
-        Free;
-      end;
-    except
-      on e: Exception do
-        ShowMessage(e.Message);
-    end;
-  end;
-end;
-
 procedure TfrmLoanClassificationList.bteGroupButtonClick(Sender: TObject);
 begin
   inherited;
@@ -392,28 +334,12 @@ begin
   end;
 end;
 
-procedure TfrmLoanClassificationList.btnAddChargesClick(Sender: TObject);
-begin
-  inherited;
-  with TfrmLoanClassChargeDetail.Create(nil) do
-  begin
-    try
-      grCharges.DataSource.DataSet.Append;
-      ShowModal;
-      Free;
-    except
-      on e: Exception do
-        ShowMessage(e.Message);
-    end;
-  end;
-end;
-
 procedure TfrmLoanClassificationList.ChangeControlState;
 begin
   with grList.DataSource.DataSet do
   begin
-    btnAddCharge.Enabled := State <> dsInsert;
-    btnRemoveCharge.Enabled := State <> dsInsert;
+    urlClassCharges.Enabled := (State <> dsInsert) and (RecordCount > 0);
+    urlAdvancePayment.Enabled := (State <> dsInsert) and (RecordCount > 0);
   end;
 end;
 

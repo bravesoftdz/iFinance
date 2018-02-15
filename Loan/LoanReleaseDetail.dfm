@@ -202,6 +202,26 @@ inherited frmLoanReleaseDetail: TfrmLoanReleaseDetail
             Caption = '0.00'
             Transparent = True
           end
+          object JvLabel5: TJvLabel
+            Tag = -1
+            Left = 240
+            Top = 96
+            Width = 116
+            Height = 14
+            Caption = 'Advance payment:'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -12
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold]
+            ParentFont = False
+            Transparent = True
+            HotTrackFont.Charset = DEFAULT_CHARSET
+            HotTrackFont.Color = clWindowText
+            HotTrackFont.Height = -12
+            HotTrackFont.Name = 'Tahoma'
+            HotTrackFont.Style = []
+          end
           object pcAssessment: TRzPageControl
             Tag = 3
             Left = 19
@@ -350,22 +370,6 @@ inherited frmLoanReleaseDetail: TfrmLoanReleaseDetail
             TabOrder = 3
             OnChange = edReleasedAmountChange
             DisplayFormat = '###,##0.00'
-          end
-          object cbxAdvancePayment: TRzCheckBox
-            Left = 222
-            Top = 94
-            Width = 133
-            Height = 16
-            Caption = 'Advance payment:'
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -12
-            Font.Name = 'Tahoma'
-            Font.Style = [fsBold]
-            ParentFont = False
-            State = cbUnchecked
-            TabOrder = 4
-            OnClick = cbxAdvancePaymentClick
           end
         end
       end

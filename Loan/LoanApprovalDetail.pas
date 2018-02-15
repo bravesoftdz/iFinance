@@ -37,6 +37,7 @@ type
   protected
     procedure Save; override;
     procedure Cancel; override;
+    procedure BindToObject; override;
     function ValidEntry: boolean; override;
   end;
 
@@ -79,6 +80,12 @@ begin
   inherited;
   if (ln.Action = laApproving) and (ln.IsAssessed) and (ln.Assessment.Recommendation = rcApprove) then
     edAppvAmount.Value := ln.Assessment.RecommendedAmount;
+end;
+
+procedure TfrmLoanAppvDetail.BindToObject;
+begin
+  inherited;
+
 end;
 
 procedure TfrmLoanAppvDetail.Cancel;

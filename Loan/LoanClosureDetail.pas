@@ -24,6 +24,7 @@ type
   protected
     procedure Save; override;
     procedure Cancel; override;
+    procedure BindToObject; override;
     function ValidEntry: boolean; override;
   end;
 
@@ -33,6 +34,12 @@ implementation
 
 uses
   LoanData, FormsUtil, Loan, LoansAuxData, IFinanceDialogs;
+
+procedure TfrmLoanClosureDetail.BindToObject;
+begin
+  inherited;
+
+end;
 
 procedure TfrmLoanClosureDetail.Cancel;
 begin

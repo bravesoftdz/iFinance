@@ -36,11 +36,9 @@ type
   protected
     procedure Save; override;
     procedure Cancel; override;
+    procedure BindToObject; override;
     function ValidEntry: boolean; override;
   end;
-
-var
-  frmLoanClassChargeDetail: TfrmLoanClassChargeDetail;
 
 implementation
 
@@ -75,6 +73,12 @@ begin
   with dmLoansAux.dstClassCharges do
     if State in [dsInsert,dsEdit] then
       Post;
+end;
+
+procedure TfrmLoanClassChargeDetail.BindToObject;
+begin
+  inherited;
+
 end;
 
 procedure TfrmLoanClassChargeDetail.Cancel;

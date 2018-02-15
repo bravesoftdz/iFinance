@@ -3,7 +3,7 @@ unit LoanClassification;
 interface
 
 uses
-  LoanClassCharge, LoanType, LoansAuxData, Group;
+  LoanClassCharge, LoanType, LoansAuxData, Group, LoanClassAdvance, SysUtils;
 
 type TLoanClassAction = (lcaNone, lcaCreating, lcaActivating, lcaDeactivating);
 
@@ -26,6 +26,7 @@ type
     FAction: TLoanClassAction;
     FInterestComputationMethod: string;
     FIsScheduled: boolean;
+    FAdvancePayment: TLoanClassAdvance;
 
     function GetComakersNotRequired: boolean;
     function GetClassCharge(const i: integer): TLoanClassCharge;
@@ -38,6 +39,7 @@ type
     function GetInterestInDecimal: currency;
     function GetIsDiminishing: boolean;
     function GetIsFixed: boolean;
+    function GetHasAdvancePayment: boolean;
 
   public
     procedure Add;
@@ -47,6 +49,7 @@ type
     procedure AddClassCharge(cg: TLoanClassCharge);
     procedure RemoveClassCharge(const cgType: string);
     procedure EmptyClassCharges;
+    procedure RemoveAdvancePayment;
 
     function ClassChargeExists(const cgType: string;
         const forNew, forRenewal, forRestructure, forReloan: boolean): boolean;
@@ -77,6 +80,8 @@ type
     property IsDiminishing: boolean read GetIsDiminishing;
     property IsFixed: boolean read GetIsFixed;
     property IsScheduled: boolean read FIsScheduled write FIsScheduled;
+    property AdvancePayment: TLoanClassAdvance read FAdvancePayment write FAdvancePayment;
+    property HasAdvancePayment: boolean read GetHasAdvancePayment;
 
     constructor Create(const classificationId: integer; classificationName: string;
         const interest: real; const term: integer; const maxLoan: currency;
@@ -126,6 +131,11 @@ begin
     SetLength(FClassCharges,Length(FClassCharges) + 1);
     FClassCharges[Length(FClassCharges) - 1] := cg;
   end;
+end;
+
+procedure TLoanClassification.RemoveAdvancePayment;
+begin
+  FreeAndNil(FAdvancePayment);
 end;
 
 procedure TLoanClassification.RemoveClassCharge(const cgType: string);
@@ -208,6 +218,11 @@ end;
 function TLoanClassification.GetHasMaxAge: boolean;
 begin
   Result := FMaxAge > 0;
+end;
+
+function TLoanClassification.GetHasAdvancePayment: boolean;
+begin
+  Result := Assigned(FAdvancePayment);
 end;
 
 function TLoanClassification.GetHasConcurrent: boolean;

@@ -222,6 +222,15 @@
             <Form>frmLoanClosureDetail</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="LoanClassChargeList.pas">
+            <Form>frmLoanClassChargeList</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="LoanClassAdvancePayment.pas">
+            <Form>frmLoanClassAdvancePaymentDetail</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="LoanClassAdvance.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

@@ -69,6 +69,7 @@ type
   protected
     procedure Save; override;
     procedure Cancel; override;
+    procedure BindToObject; override;
     function ValidEntry: boolean; override;
   end;
 
@@ -126,6 +127,12 @@ procedure TfrmComakerDetail.urlCopyAddressClick(Sender: TObject);
 begin
   inherited;
   cm.CopyAddress;
+end;
+
+procedure TfrmComakerDetail.BindToObject;
+begin
+  inherited;
+
 end;
 
 procedure TfrmComakerDetail.bteEmployerAltBtnClick(Sender: TObject);

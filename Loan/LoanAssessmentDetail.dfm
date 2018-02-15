@@ -25,21 +25,21 @@ inherited frmLoanAssessmentDetail: TfrmLoanAssessmentDetail
     Width = 699
     Height = 360
     ExplicitWidth = 699
-    ExplicitHeight = 389
+    ExplicitHeight = 360
     inherited pnlDetail: TRzPanel
       Width = 682
       Height = 310
       ExplicitWidth = 682
-      ExplicitHeight = 339
+      ExplicitHeight = 310
       inherited pcDetail: TRzPageControl
         Width = 680
         Height = 308
         ExplicitWidth = 680
-        ExplicitHeight = 337
+        ExplicitHeight = 308
         FixedDimension = 20
         inherited tsDetail: TRzTabSheet
           ExplicitWidth = 680
-          ExplicitHeight = 337
+          ExplicitHeight = 308
           object JvLabel4: TJvLabel
             Tag = -1
             Left = 19
@@ -217,10 +217,6 @@ inherited frmLoanAssessmentDetail: TfrmLoanAssessmentDetail
             object tsFinInfo: TRzTabSheet
               Color = 14273211
               Caption = 'Financial info'
-              ExplicitLeft = 0
-              ExplicitTop = 0
-              ExplicitWidth = 0
-              ExplicitHeight = 158
               DesignSize = (
                 323
                 138)
@@ -247,7 +243,6 @@ inherited frmLoanAssessmentDetail: TfrmLoanAssessmentDetail
                 FrameVisible = True
                 FramingPreference = fpCustomFraming
                 FixedLineColor = 14273211
-                ExplicitHeight = 147
                 ColWidths = (
                   60
                   60
@@ -452,13 +447,13 @@ inherited frmLoanAssessmentDetail: TfrmLoanAssessmentDetail
       Left = 640
       Top = 327
       ExplicitLeft = 640
-      ExplicitTop = 356
+      ExplicitTop = 327
     end
     inherited pnlSave: TRzPanel
       Left = 584
       Top = 327
       ExplicitLeft = 584
-      ExplicitTop = 356
+      ExplicitTop = 327
     end
   end
 end

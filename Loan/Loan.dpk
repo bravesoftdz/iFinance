@@ -86,6 +86,9 @@ contains
   ClientLoan in 'ClientLoan.pas',
   LoanLedger in 'LoanLedger.pas' {frmLoanLedger},
   LoanClassChargeTypeList in 'LoanClassChargeTypeList.pas' {frmLoanClassChargeTypeList},
-  LoanClosureDetail in 'LoanClosureDetail.pas' {frmLoanClosureDetail};
+  LoanClosureDetail in 'LoanClosureDetail.pas' {frmLoanClosureDetail},
+  LoanClassChargeList in 'LoanClassChargeList.pas' {frmLoanClassChargeList},
+  LoanClassAdvancePayment in 'LoanClassAdvancePayment.pas' {frmLoanClassAdvancePaymentDetail},
+  LoanClassAdvance in 'LoanClassAdvance.pas';
 
 end.

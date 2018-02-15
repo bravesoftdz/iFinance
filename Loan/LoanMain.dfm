@@ -1172,7 +1172,7 @@ inherited frmLoanMain: TfrmLoanMain
           OnMouseUp = imgAssessmentMouseUp
         end
       end
-      object pnlRestructure: TRzPanel
+      object pnlReloan: TRzPanel
         Left = 13
         Top = 279
         Width = 40
@@ -1184,13 +1184,13 @@ inherited frmLoanMain: TfrmLoanMain
         Color = 12955288
         Enabled = False
         TabOrder = 5
-        object imgRestructure: TImage
+        object imgReloan: TImage
           Left = 4
           Top = 4
           Width = 32
           Height = 32
           Cursor = crHandPoint
-          Hint = 'Restructure'
+          Hint = 'Reloan'
           AutoSize = True
           Enabled = False
           ParentShowHint = False
@@ -1425,7 +1425,7 @@ inherited frmLoanMain: TfrmLoanMain
         Width = 507
         Height = 500
         Hint = ''
-        ActivePage = tsReleased
+        ActivePage = tsPending
         ActivePageDefault = tsPending
         Anchors = [akLeft, akTop, akRight, akBottom]
         FlatColor = 8675134

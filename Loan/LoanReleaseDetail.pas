@@ -31,8 +31,8 @@ type
     lblNetProceeds: TJvLabel;
     JvLabel3: TJvLabel;
     lblAppliedAmount: TJvLabel;
-    cbxAdvancePayment: TRzCheckBox;
     lblAdvancePayment: TJvLabel;
+    JvLabel5: TJvLabel;
     procedure FormShow(Sender: TObject);
     procedure grReleaseRecipientDblClick(Sender: TObject);
     procedure btnAddClick(Sender: TObject);
@@ -43,7 +43,6 @@ type
     procedure FormCreate(Sender: TObject);
     procedure urlApprovedAmountClick(Sender: TObject);
     procedure edReleasedAmountChange(Sender: TObject);
-    procedure cbxAdvancePaymentClick(Sender: TObject);
   private
     { Private declarations }
     procedure AddRow(rec: TReleaseRecipient);
@@ -60,6 +59,7 @@ type
   protected
     procedure Save; override;
     procedure Cancel; override;
+    procedure BindToObject; override;
     function ValidEntry: boolean; override;
   end;
 
@@ -198,6 +198,12 @@ begin
   end;
 end;
 
+procedure TfrmLoanReleaseDetail.BindToObject;
+begin
+  inherited;
+
+end;
+
 procedure TfrmLoanReleaseDetail.PopulateReleaseRecipient;
 var
   i, cnt: integer;
@@ -260,9 +266,6 @@ end;
 
 procedure TfrmLoanReleaseDetail.Save;
 begin
-  // bind controls
-  ln.HasAdvancePayment := cbxAdvancePayment.Checked;
-
   ln.Save;
 end;
 
@@ -359,26 +362,6 @@ end;
 procedure TfrmLoanReleaseDetail.Cancel;
 begin
   ln.Cancel;
-end;
-
-procedure TfrmLoanReleaseDetail.cbxAdvancePaymentClick(Sender: TObject);
-begin
-  if cbxAdvancePayment.Checked then
-  begin
-    if edReleasedAmount.Value > 0 then
-    begin
-      ln.HasAdvancePayment := cbxAdvancePayment.Checked;
-      lblAdvancePayment.Caption := FormatCurr('###,##0.00',ln.TotalAdvancePayment);
-
-      // recompute the net proceeds
-      lblNetProceeds.Caption := FormatCurr('###,###,##0.00',ln.NetProceeds);
-    end
-    else
-    begin
-      cbxAdvancePayment.Checked := false;
-      ShowErrorBox('Please enter release amount.');
-    end;
-  end;
 end;
 
 procedure TfrmLoanReleaseDetail.FormCreate(Sender: TObject);

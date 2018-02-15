@@ -60,6 +60,8 @@ type
     dscChargeTypes: TDataSource;
     dstCloseReason: TADODataSet;
     dscCloseReason: TDataSource;
+    dstAdvancePayment: TADODataSet;
+    dscAdvancePayment: TDataSource;
     procedure dstLoanClassBeforePost(DataSet: TDataSet);
     procedure dstLoanClassAfterOpen(DataSet: TDataSet);
     procedure DataModuleDestroy(Sender: TObject);
@@ -76,6 +78,9 @@ type
     procedure dstLoanTypesAfterPost(DataSet: TDataSet);
     procedure dstRecommendationAfterScroll(DataSet: TDataSet);
     procedure dstClassChargesCalcFields(DataSet: TDataSet);
+    procedure dstAdvancePaymentBeforeOpen(DataSet: TDataSet);
+    procedure dstAdvancePaymentAfterOpen(DataSet: TDataSet);
+    procedure dstAdvancePaymentBeforePost(DataSet: TDataSet);
   private
     { Private declarations }
   public
@@ -93,7 +98,7 @@ implementation
 
 uses
   AppData, DBUtil, LoanClassification, LoanClassCharge, LoanType, Loan,
-  Assessment, Group;
+  Assessment, Group, LoanClassAdvance;
 
 procedure TdmLoansAux.DataModuleDestroy(Sender: TObject);
 var
@@ -120,6 +125,37 @@ procedure TdmLoansAux.dstAcctTypesBeforePost(DataSet: TDataSet);
 begin
   with DataSet do
     if State = dsInsert then FieldByName('acct_type').AsInteger := GetAccountTypeId;
+end;
+
+procedure TdmLoansAux.dstAdvancePaymentAfterOpen(DataSet: TDataSet);
+var
+  LAdvancePayment: TLoanClassAdvance;
+begin
+  with DataSet do
+  begin
+    if RecordCount > 0 then
+    begin
+      Edit;
+
+      LAdvancePayment := TLoanClassAdvance.Create;
+      LAdvancePayment.Interest := FieldByName('int').AsInteger;
+      LAdvancePayment.Principal := FieldByName('principal').AsInteger;
+
+      lnc.AdvancePayment := LAdvancePayment;
+    end
+    else Append;
+  end;
+end;
+
+procedure TdmLoansAux.dstAdvancePaymentBeforeOpen(DataSet: TDataSet);
+begin
+  if Assigned(lnc) then
+    (DataSet as TADODataSet).Parameters.ParamByName('@class_id').Value := lnc.ClassificationId;
+end;
+
+procedure TdmLoansAux.dstAdvancePaymentBeforePost(DataSet: TDataSet);
+begin
+  if DataSet.State = dsInsert then DataSet.FieldByName('class_id').AsInteger := lnc.ClassificationId;
 end;
 
 procedure TdmLoansAux.dstClassChargesAfterOpen(DataSet: TDataSet);
@@ -286,6 +322,11 @@ begin
   // TODO: find a better solution
   dstClassCharges.Close;
   dstClassCharges.Open;
+
+  // refresh advance payment dataset
+  // TODO: find a better solution
+  dstAdvancePayment.Close;
+  dstAdvancePayment.Open;
 end;
 
 procedure TdmLoansAux.dstLoanClassBeforePost(DataSet: TDataSet);

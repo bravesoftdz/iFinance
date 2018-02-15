@@ -36,8 +36,8 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
     Left = 6
     Top = 64
     Width = 559
-    Height = 303
-    Anchors = [akLeft, akTop, akRight]
+    Height = 479
+    Anchors = [akLeft, akTop, akRight, akBottom]
     BorderOuter = fsNone
     BorderColor = 8675134
     BorderWidth = 1
@@ -47,7 +47,7 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
       Left = 1
       Top = 1
       Width = 557
-      Height = 301
+      Height = 477
       Align = alClient
       BorderStyle = bsNone
       DataSource = dmLoansAux.dscLoanClass
@@ -227,6 +227,36 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
       Height = 14
       Caption = 'Max'
       Transparent = True
+    end
+    object urlClassCharges: TRzURLLabel
+      Left = 14
+      Top = 345
+      Width = 71
+      Height = 14
+      Caption = 'Class charges'
+      Enabled = False
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 6572079
+      Font.Height = -12
+      Font.Name = 'Tahoma'
+      Font.Style = [fsUnderline]
+      ParentFont = False
+      OnClick = urlClassChargesClick
+    end
+    object urlAdvancePayment: TRzURLLabel
+      Left = 14
+      Top = 369
+      Width = 99
+      Height = 14
+      Caption = 'Advance payment'
+      Enabled = False
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 6572079
+      Font.Height = -12
+      Font.Name = 'Tahoma'
+      Font.Style = [fsUnderline]
+      ParentFont = False
+      OnClick = urlAdvancePaymentClick
     end
     object pnlAdd: TRzPanel
       Left = 8
@@ -599,263 +629,5 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
     ReadOnlyColor = clWhite
     Sorted = True
     TabOrder = 3
-  end
-  object pnlCharges: TRzPanel
-    Left = 6
-    Top = 395
-    Width = 559
-    Height = 119
-    Anchors = [akLeft, akTop, akRight, akBottom]
-    BorderOuter = fsNone
-    BorderColor = 8675134
-    BorderWidth = 1
-    ParentColor = True
-    TabOrder = 4
-    object grCharges: TRzDBGrid
-      Left = 1
-      Top = 1
-      Width = 557
-      Height = 117
-      Align = alClient
-      BorderStyle = bsNone
-      DataSource = dmLoansAux.dscClassCharges
-      DrawingStyle = gdsGradient
-      FixedColor = 12955288
-      GradientEndColor = 12955288
-      GradientStartColor = 12955288
-      Options = [dgTitles, dgIndicator, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
-      TabOrder = 0
-      TitleFont.Charset = DEFAULT_CHARSET
-      TitleFont.Color = clWindowText
-      TitleFont.Height = -12
-      TitleFont.Name = 'Tahoma'
-      TitleFont.Style = []
-      OnDblClick = grChargesDblClick
-      FrameColor = 14273211
-      FrameStyle = fsNone
-      FramingPreference = fpCustomFraming
-      LineColor = 14273211
-      AltRowShadingColor = 15854564
-      Columns = <
-        item
-          Expanded = False
-          FieldName = 'charge_name'
-          Title.Alignment = taCenter
-          Title.Caption = 'Charge'
-          Title.Font.Charset = DEFAULT_CHARSET
-          Title.Font.Color = clWindowText
-          Title.Font.Height = -12
-          Title.Font.Name = 'Tahoma'
-          Title.Font.Style = [fsBold]
-          Width = 130
-          Visible = True
-        end
-        item
-          Alignment = taRightJustify
-          Expanded = False
-          FieldName = 'charge_value_f'
-          Title.Alignment = taCenter
-          Title.Caption = 'Value'
-          Title.Font.Charset = DEFAULT_CHARSET
-          Title.Font.Color = clWindowText
-          Title.Font.Height = -12
-          Title.Font.Name = 'Tahoma'
-          Title.Font.Style = [fsBold]
-          Width = 60
-          Visible = True
-        end
-        item
-          Expanded = False
-          FieldName = 'value_type_desc'
-          Title.Alignment = taCenter
-          Title.Caption = 'Type'
-          Title.Font.Charset = DEFAULT_CHARSET
-          Title.Font.Color = clWindowText
-          Title.Font.Height = -12
-          Title.Font.Name = 'Tahoma'
-          Title.Font.Style = [fsBold]
-          Width = 80
-          Visible = True
-        end
-        item
-          Alignment = taRightJustify
-          Expanded = False
-          FieldName = 'ratio_amt_f'
-          Title.Alignment = taCenter
-          Title.Caption = 'Ratio'
-          Title.Font.Charset = DEFAULT_CHARSET
-          Title.Font.Color = clWindowText
-          Title.Font.Height = -12
-          Title.Font.Name = 'Tahoma'
-          Title.Font.Style = [fsBold]
-          Width = 60
-          Visible = True
-        end
-        item
-          Alignment = taRightJustify
-          Expanded = False
-          FieldName = 'max_value_f'
-          Title.Alignment = taCenter
-          Title.Caption = 'Maximum'
-          Title.Font.Charset = DEFAULT_CHARSET
-          Title.Font.Color = clWindowText
-          Title.Font.Height = -12
-          Title.Font.Name = 'Tahoma'
-          Title.Font.Style = [fsBold]
-          Width = 65
-          Visible = True
-        end
-        item
-          Expanded = False
-          FieldName = 'for_new_f'
-          Title.Alignment = taCenter
-          Title.Caption = 'NW'
-          Title.Font.Charset = DEFAULT_CHARSET
-          Title.Font.Color = clWindowText
-          Title.Font.Height = -12
-          Title.Font.Name = 'Tahoma'
-          Title.Font.Style = [fsBold]
-          Width = 30
-          Visible = True
-        end
-        item
-          Expanded = False
-          FieldName = 'for_renew_f'
-          Title.Alignment = taCenter
-          Title.Caption = 'RN'
-          Title.Font.Charset = DEFAULT_CHARSET
-          Title.Font.Color = clWindowText
-          Title.Font.Height = -12
-          Title.Font.Name = 'Tahoma'
-          Title.Font.Style = [fsBold]
-          Width = 30
-          Visible = True
-        end
-        item
-          Expanded = False
-          FieldName = 'for_restructure_f'
-          Title.Alignment = taCenter
-          Title.Caption = 'RS'
-          Title.Font.Charset = DEFAULT_CHARSET
-          Title.Font.Color = clWindowText
-          Title.Font.Height = -12
-          Title.Font.Name = 'Tahoma'
-          Title.Font.Style = [fsBold]
-          Width = 30
-          Visible = True
-        end
-        item
-          Expanded = False
-          FieldName = 'for_reloan_f'
-          Title.Alignment = taCenter
-          Title.Caption = 'RL'
-          Title.Font.Charset = DEFAULT_CHARSET
-          Title.Font.Color = clWindowText
-          Title.Font.Height = -12
-          Title.Font.Name = 'Tahoma'
-          Title.Font.Style = [fsBold]
-          Width = 30
-          Visible = True
-        end>
-    end
-  end
-  object RzGroupBox1: TRzGroupBox
-    Left = 6
-    Top = 372
-    Width = 559
-    Height = 22
-    Anchors = [akLeft, akTop, akRight]
-    BorderColor = 6572079
-    BorderSides = []
-    BorderWidth = 1
-    Caption = 'Charges'
-    CaptionFont.Charset = DEFAULT_CHARSET
-    CaptionFont.Color = clRed
-    CaptionFont.Height = -12
-    CaptionFont.Name = 'Tahoma'
-    CaptionFont.Style = [fsBold]
-    Color = 14273211
-    FlatColor = 6572079
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -12
-    Font.Name = 'Tahoma'
-    Font.Style = []
-    GradientColorStyle = gcsCustom
-    GroupStyle = gsUnderline
-    ParentFont = False
-    TabOrder = 5
-  end
-  object RzPanel1: TRzPanel
-    Left = 6
-    Top = 521
-    Width = 50
-    Height = 22
-    Anchors = [akLeft, akBottom]
-    BorderOuter = fsNone
-    BorderColor = 6572079
-    BorderWidth = 1
-    Color = 12955288
-    TabOrder = 6
-    object btnAddCharge: TRzShapeButton
-      Left = 0
-      Top = 0
-      Width = 50
-      Height = 22
-      Hint = 'Add a new charge'
-      BorderStyle = bsNone
-      Caption = 'Add'
-      ParentShowHint = False
-      ShowHint = True
-      OnClick = btnAddChargesClick
-    end
-  end
-  object RzPanel2: TRzPanel
-    Left = 62
-    Top = 521
-    Width = 50
-    Height = 22
-    Anchors = [akLeft, akBottom]
-    BorderOuter = fsNone
-    BorderColor = 6572079
-    BorderWidth = 1
-    Color = 12955288
-    TabOrder = 7
-    object btnRemoveCharge: TRzShapeButton
-      Left = 0
-      Top = 0
-      Width = 50
-      Height = 22
-      Hint = 'Remove selected charge'
-      BorderStyle = bsNone
-      Caption = 'Remove'
-      ParentShowHint = False
-      ShowHint = True
-      OnClick = btnRemoveChargeClick
-    end
-  end
-  object cbxNew: TRzCheckBox
-    Left = 369
-    Top = 524
-    Width = 95
-    Height = 16
-    Anchors = [akRight, akBottom]
-    Caption = 'For new loans'
-    Checked = True
-    State = cbChecked
-    TabOrder = 8
-    OnClick = cbxNewClick
-  end
-  object cbxRenewal: TRzCheckBox
-    Left = 477
-    Top = 524
-    Width = 83
-    Height = 16
-    Anchors = [akRight, akBottom]
-    Caption = 'For renewal'
-    Checked = True
-    State = cbChecked
-    TabOrder = 9
-    OnClick = cbxRenewalClick
   end
 end

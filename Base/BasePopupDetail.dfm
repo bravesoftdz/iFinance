@@ -2,7 +2,6 @@ inherited frmBasePopupDetail: TfrmBasePopupDetail
   Caption = 'frmBasePopupDetail'
   ClientHeight = 253
   ClientWidth = 533
-  OnClose = FormClose
   ExplicitWidth = 533
   ExplicitHeight = 253
   PixelsPerInch = 96
@@ -59,6 +58,8 @@ inherited frmBasePopupDetail: TfrmBasePopupDetail
           Color = 14273211
           TabVisible = False
           Caption = 'Change caption here'
+          ExplicitWidth = 0
+          ExplicitHeight = 0
         end
       end
     end

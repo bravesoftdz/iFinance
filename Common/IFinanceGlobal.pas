@@ -19,10 +19,8 @@ type
   TRules = class
   strict private
     FFirstPayment: TFirstPayment;
-    FAdvancePayment: integer;
   public
     property FirstPayment: TFirstPayment read FFirstPayment write FFirstPayment;
-    property AdvancePayment: integer read FAdvancePayment write FAdvancePayment;
 
     constructor Create;
   end;
@@ -155,7 +153,6 @@ begin
   FFirstPayment.MinDaysHalfInterest := 5;
   FFirstPayment.MaxDaysHalfInterest := 15;
 
-  FAdvancePayment := 2;
 end;
 
 end.

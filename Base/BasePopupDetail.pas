@@ -24,13 +24,11 @@ type
   protected
     procedure Save; virtual; abstract;
     procedure Cancel; virtual; abstract;
+    procedure BindToObject; virtual; abstract;
     function ValidEntry: boolean; virtual; abstract;
   public
     { Public declarations }
   end;
-
-var
-  frmBasePopupDetail: TfrmBasePopupDetail;
 
 implementation
 
@@ -54,6 +52,7 @@ end;
 procedure TfrmBasePopupDetail.btnYesClick(Sender: TObject);
 begin
   inherited;
+  BindToObject;
   if ValidEntry then
   begin
     try

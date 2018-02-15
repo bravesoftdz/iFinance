@@ -65,6 +65,7 @@ type
     dstLoanClose: TADODataSet;
     dscLoanClose: TDataSource;
     dstAdvancePayment: TADODataSet;
+    dstLoanClassAdvance: TADODataSet;
     procedure dstLoanBeforeOpen(DataSet: TDataSet);
     procedure dstLoanClassBeforeOpen(DataSet: TDataSet);
     procedure dstLoanBeforePost(DataSet: TDataSet);
@@ -117,10 +118,12 @@ type
     procedure dstLoanCloseBeforePost(DataSet: TDataSet);
     procedure dstAdvancePaymentBeforeOpen(DataSet: TDataSet);
     procedure dstAdvancePaymentAfterOpen(DataSet: TDataSet);
+    procedure dstLoanClassAdvanceBeforeOpen(DataSet: TDataSet);
   private
     { Private declarations }
     procedure SetLoanClassProperties;
     procedure AddLoanClassCharges;
+    procedure AddLoanClassAdvancePayment;
   public
     { Public declarations }
   end;
@@ -133,7 +136,7 @@ implementation
 uses
   AppData, Loan, DBUtil, IFinanceGlobal, LoanClassification, Comaker, FinInfo,
   MonthlyExpense, Alert, ReleaseRecipient, Recipient, LoanCharge, LoanClassCharge,
-  LoanType, Assessment, Location, Group, AppConstants;
+  LoanType, Assessment, Location, Group, AppConstants, LoanClassAdvance;
 
 {%CLASSGROUP 'Vcl.Controls.TControl'}
 
@@ -147,6 +150,25 @@ begin
     ln.AppliedAmount := FieldByName('amt_appl').AsCurrency;
     ln.DesiredTerm := FieldByName('des_term').AsInteger;
     ln.Balance := FieldByName('balance').AsCurrency;
+  end;
+end;
+
+procedure TdmLoan.AddLoanClassAdvancePayment;
+var
+  LLoanClassAdvance: TLoanClassAdvance;
+begin
+  with dstLoanClassAdvance do
+  begin
+    ln.LoanClass.RemoveAdvancePayment;
+    Filter := 'class_id = ' + QuotedStr(IntToStr(ln.LoanClass.ClassificationId));
+    if RecordCount > 0 then
+    begin
+      LLoanClassAdvance := TLoanClassAdvance.Create;
+      LLoanClassAdvance.Interest := FieldByName('int').AsInteger;
+      LLoanClassAdvance.Principal := FieldByName('principal').AsInteger;
+
+      ln.LoanClass.AdvancePayment := LLoanClassAdvance;
+    end;
   end;
 end;
 
@@ -463,6 +485,11 @@ begin
   (DataSet as TADODataSet).Parameters.ParamByName('@loan_id').Value := ln.Id;
 end;
 
+procedure TdmLoan.dstLoanClassAdvanceBeforeOpen(DataSet: TDataSet);
+begin
+  (DataSet as TADODataSet).Parameters.ParamByName('@entity_id').Value := ln.Client.Id;
+end;
+
 procedure TdmLoan.dstLoanClassAfterOpen(DataSet: TDataSet);
 begin
   // select the topmost loan class as default
@@ -544,6 +571,7 @@ begin
   end;
 
   AddLoanClassCharges;
+  AddLoanClassAdvancePayment;
 end;
 
 procedure TdmLoan.dstLoanClassBeforeOpen(DataSet: TDataSet);
@@ -555,6 +583,10 @@ begin
   // open class charges
   dstLoanClassCharges.Close;
   dstLoanClassCharges.Open;
+
+  // advance payment details
+  dstLoanClassAdvance.Close;
+  dstLoanClassAdvance.Open;
 end;
 
 procedure TdmLoan.dstLoanClassChargesBeforeOpen(DataSet: TDataSet);
@@ -748,5 +780,6 @@ procedure TdmLoan.dstStatusesBeforeOpen(DataSet: TDataSet);
 begin
   (DataSet as TADODataSet).Parameters.ParamByName('@loan_id').Value := ln.Id;
 end;
+
 
 end.

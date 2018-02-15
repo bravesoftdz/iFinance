@@ -80,8 +80,8 @@ type
     imgRejectLoan: TImage;
     pnlCancelLoan: TRzPanel;
     imgCancelLoan: TImage;
-    pnlRestructure: TRzPanel;
-    imgRestructure: TImage;
+    pnlReloan: TRzPanel;
+    imgReloan: TImage;
     pnlAdd: TRzPanel;
     btnAddComaker: TRzShapeButton;
     pnlRemoveComaker: TRzPanel;

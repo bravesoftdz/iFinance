@@ -1,6 +1,6 @@
 object dmLoan: TdmLoan
   OldCreateOrder = False
-  Height = 474
+  Height = 444
   Width = 744
   object dstLoan: TADODataSet
     Tag = 1
@@ -706,5 +706,30 @@ object dmLoan: TdmLoan
       end>
     Left = 55
     Top = 366
+  end
+  object dstLoanClassAdvance: TADODataSet
+    Connection = dmApplication.acMain
+    CursorType = ctStatic
+    Filtered = True
+    LockType = ltReadOnly
+    BeforeOpen = dstLoanClassAdvanceBeforeOpen
+    CommandText = 'sp_ln_get_loan_class_advance'
+    CommandType = cmdStoredProc
+    Parameters = <
+      item
+        Name = '@RETURN_VALUE'
+        DataType = ftInteger
+        Direction = pdReturnValue
+        Precision = 10
+      end
+      item
+        Name = '@entity_id'
+        Attributes = [paNullable]
+        DataType = ftString
+        Size = 10
+        Value = ''
+      end>
+    Left = 599
+    Top = 238
   end
 end

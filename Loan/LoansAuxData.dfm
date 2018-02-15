@@ -359,4 +359,35 @@ object dmLoansAux: TdmLoansAux
     Left = 431
     Top = 262
   end
+  object dstAdvancePayment: TADODataSet
+    Connection = dmApplication.acMain
+    CursorType = ctStatic
+    BeforeOpen = dstAdvancePaymentBeforeOpen
+    AfterOpen = dstAdvancePaymentAfterOpen
+    BeforePost = dstAdvancePaymentBeforePost
+    CommandText = 'sp_get_loan_class_advance_payment;1'
+    CommandType = cmdStoredProc
+    Parameters = <
+      item
+        Name = '@RETURN_VALUE'
+        DataType = ftInteger
+        Direction = pdReturnValue
+        Precision = 10
+        Value = 0
+      end
+      item
+        Name = '@class_id'
+        Attributes = [paNullable]
+        DataType = ftInteger
+        Precision = 10
+        Value = 0
+      end>
+    Left = 687
+    Top = 78
+  end
+  object dscAdvancePayment: TDataSource
+    DataSet = dstAdvancePayment
+    Left = 759
+    Top = 78
+  end
 end
