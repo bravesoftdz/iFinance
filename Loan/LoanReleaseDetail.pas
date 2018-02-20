@@ -385,8 +385,11 @@ begin
 
   ExtendLastColumn(grReleaseRecipient);
 
-  edAdvancePaymentMonths.IntValue := ln.LoanClass.AdvancePayment.NumberOfMonths;
-  edAdvancePaymentMonths.Enabled := ln.LoanClass.AdvancePayment.AdvanceMethod = amUponRelease;
+  if ln.LoanClass.HasAdvancePayment then
+  begin
+    edAdvancePaymentMonths.IntValue := ln.LoanClass.AdvancePayment.NumberOfMonths;
+    edAdvancePaymentMonths.Enabled := ln.LoanClass.AdvancePayment.AdvanceMethod = amUponRelease;
+  end;
 end;
 
 procedure TfrmLoanReleaseDetail.grReleaseRecipientDblClick(Sender: TObject);
@@ -406,10 +409,12 @@ begin
     error := 'Release amount is greater than the approved amount.'
   else if GetTotalReleased <> Ceil(ln.NetProceeds * 100/100) then
     error := 'TOTAL amount released is not equal to the NET proceeds.'
-  else if (ln.LoanClass.AdvancePayment.AdvanceMethod = amUponRelease)
+  else if (ln.LoanClass.HasAdvancePayment)
+    and (ln.LoanClass.AdvancePayment.AdvanceMethod = amUponRelease)
     and (ln.LoanClass.AdvancePayment.NumberOfMonths < 0) then
     error := 'Invalid value for advance payment.'
-  else if (ln.LoanClass.AdvancePayment.AdvanceMethod = amUponRelease)
+  else if (ln.LoanClass.HasAdvancePayment)
+    and (ln.LoanClass.AdvancePayment.AdvanceMethod = amUponRelease)
     and (ln.LoanClass.AdvancePayment.NumberOfMonths = 0) then
     error := ConfirmAdvancePayment
   else if ln.ReleaseAmount < ln.ApprovedAmount  then
@@ -458,12 +463,6 @@ procedure TfrmLoanReleaseDetail.edReleasedAmountChange(Sender: TObject);
 begin
   ln.ReleaseAmount := edReleasedAmount.Value;
 
-  ln.LoanClass.AdvancePayment.Interest := edAdvancePaymentMonths.IntValue;
-
-  if ln.LoanClass.AdvancePayment.IncludePrincipal then
-    ln.LoanClass.AdvancePayment.Principal := edAdvancePaymentMonths.IntValue;
-
-
   ln.ComputeCharges;
 
   lblCharges.Caption := FormatCurr('###,###,##0.00',ln.TotalCharges);
@@ -472,16 +471,21 @@ begin
 
   if ln.LoanClass.HasAdvancePayment then
   begin
+    ln.LoanClass.AdvancePayment.Interest := edAdvancePaymentMonths.IntValue;
+
+    if ln.LoanClass.AdvancePayment.IncludePrincipal then
+      ln.LoanClass.AdvancePayment.Principal := edAdvancePaymentMonths.IntValue;
+
     if ln.LoanClass.AdvancePayment.IncludePrincipal then
       lblAdvancePaymentMonths.Caption :=
         IntToStr(ln.LoanClass.AdvancePayment.NumberOfMonths) + ' months'
     else
       lblAdvancePaymentMonths.Caption :=
-        IntToStr(ln.LoanClass.AdvancePayment.NumberOfMonths) + ' months (Interest only)'
+        IntToStr(ln.LoanClass.AdvancePayment.NumberOfMonths) + ' months (Interest only)';
+
+    edAdvancePaymentMonths.Value := ln.LoanClass.AdvancePayment.NumberOfMonths;
   end
   else lblAdvancePaymentMonths.Caption := 'No advance payment required.';
-
-  edAdvancePaymentMonths.Value := ln.LoanClass.AdvancePayment.NumberOfMonths;
 end;
 
 end.

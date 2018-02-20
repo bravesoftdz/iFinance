@@ -177,7 +177,6 @@ type
     JvLabel44: TJvLabel;
     JvLabel45: TJvLabel;
     lblAdvancePayment: TJvLabel;
-    lblAdvancePaymentMonths: TJvLabel;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure bteClientButtonClick(Sender: TObject);
@@ -290,13 +289,14 @@ begin
 
     if ln.LoanClass.HasAdvancePayment then
     begin
-      if ln.LoanClass.AdvancePayment.Principal > 0 then
-        lblAdvancePaymentMonths.Caption :=
-          IntToStr(ln.LoanClass.AdvancePayment.NumberOfMonths) + ' months'
+      if ln.LoanClass.AdvancePayment.IncludePrincipal then
+        lblAdvancePayment.Caption := lblAdvancePayment.Caption + ' (' +
+          IntToStr(ln.AdvancePaymentCount) + ' months)'
       else
-        lblAdvancePaymentMonths.Caption :=
-          IntToStr(ln.LoanClass.AdvancePayment.NumberOfMonths) + ' months (Interest only)'
-    end;
+        lblAdvancePayment.Caption := lblAdvancePayment.Caption + ' (' +
+          IntToStr(ln.AdvancePaymentCount) + ' months - Interest only)'
+    end
+    else lblAdvancePayment.Caption := 'No advance payment required';
   end;
 
   with pcStatus do

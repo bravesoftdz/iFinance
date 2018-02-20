@@ -224,11 +224,22 @@ inherited frmLoanReleaseDetail: TfrmLoanReleaseDetail
           end
           object lblAdvancePaymentMonths: TJvLabel
             Tag = -1
-            Left = 374
+            Left = 240
             Top = 120
             Width = 6
             Height = 14
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clMaroon
+            Font.Height = -12
+            Font.Name = 'Tahoma'
+            Font.Style = []
+            ParentFont = False
             Transparent = True
+            HotTrackFont.Charset = DEFAULT_CHARSET
+            HotTrackFont.Color = clWindowText
+            HotTrackFont.Height = -12
+            HotTrackFont.Name = 'Tahoma'
+            HotTrackFont.Style = []
           end
           object pcAssessment: TRzPageControl
             Tag = 3

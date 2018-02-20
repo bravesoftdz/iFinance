@@ -98,6 +98,7 @@ type
     function GetAmortisation: currency;
     function GetTotalAdvancePayment: currency;
     function GetAdvancePayment(const i: integer): TAdvancePayment;
+    function GetAdvancePaymentCount: integer;
 
   public
     procedure Add; override;
@@ -179,6 +180,7 @@ type
     property Balance: currency read FBalance write FBalance;
     property TotalAdvancePayment: currency read GetTotalAdvancePayment;
     property AdvancePayment[const i: integer]: TAdvancePayment read GetAdvancePayment write SetAdvancePayment;
+    property AdvancePaymentCount: integer read GetAdvancePaymentCount;
 
     constructor Create;
     destructor Destroy; reintroduce;
@@ -790,6 +792,11 @@ end;
 function TLoan.GetAdvancePayment(const i: integer): TAdvancePayment;
 begin
   Result := FAdvancePayments[i];
+end;
+
+function TLoan.GetAdvancePaymentCount: integer;
+begin
+  Result := Length(FAdvancePayments);
 end;
 
 procedure TLoan.GetAlerts;
