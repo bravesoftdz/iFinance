@@ -360,7 +360,6 @@ object dmLoansAux: TdmLoansAux
     Top = 262
   end
   object dstAdvancePayment: TADODataSet
-    Active = True
     Connection = dmApplication.acMain
     CursorType = ctStatic
     BeforeOpen = dstAdvancePaymentBeforeOpen

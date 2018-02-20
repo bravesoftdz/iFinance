@@ -40,13 +40,13 @@ inherited frmClientMain: TfrmClientMain
     Width = 860
     Height = 552
     Hint = ''
-    ActivePage = tsClientInfo
+    ActivePage = tsLoansHistory
     Anchors = [akLeft, akTop, akRight, akBottom]
     BoldCurrentTab = True
     FlatColor = 6572079
     ShowFullFrame = False
     ShowShadow = False
-    TabIndex = 0
+    TabIndex = 3
     TabOrder = 1
     TabOrientation = toBottom
     TabStop = False
@@ -1964,18 +1964,22 @@ inherited frmClientMain: TfrmClientMain
           Height = 514
           Align = alClient
           BorderStyle = bsNone
+          Ctl3D = False
           DataSource = dmClient.dscLoans
           DrawingStyle = gdsGradient
           FixedColor = 12955288
           GradientEndColor = 12955288
           GradientStartColor = 12955288
           Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
+          ParentCtl3D = False
+          PopupMenu = ppLoans
           TabOrder = 0
           TitleFont.Charset = DEFAULT_CHARSET
           TitleFont.Color = clWindowText
           TitleFont.Height = -12
           TitleFont.Name = 'Tahoma'
           TitleFont.Style = []
+          OnDblClick = grLoansDblClick
           FrameStyle = fsNone
           FramingPreference = fpCustomFraming
           AltRowShadingColor = 15854564
@@ -3107,5 +3111,17 @@ inherited frmClientMain: TfrmClientMain
     OnFinished = PhotoLauncherFinished
     Left = 929
     Top = 332
+  end
+  object ppLoans: TPopupMenu
+    Left = 782
+    Top = 59
+    object Ledger1: TMenuItem
+      Caption = 'Ledger'
+      OnClick = Ledger1Click
+    end
+    object Loandetails1: TMenuItem
+      Caption = 'Loan details'
+      OnClick = Loandetails1Click
+    end
   end
 end

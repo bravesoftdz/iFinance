@@ -9,7 +9,7 @@ uses
   RzEdit, RzDBEdit, JvLabel, JvExControls, Vcl.DBCtrls, RzDBCmbo,
   Vcl.ComCtrls, RzDTP, RzDBDTP, RzButton, RzRadChk, RzDBChk, Data.DB, Vcl.Grids,
   Vcl.DBGrids, RzDBGrid, RzBtnEdt, RzLaunch, ClientIntf, Vcl.Imaging.pngimage,
-  RzCmboBx, RzLstBox, RzDBList, NewIntf, RzGrids, RzChkLst;
+  RzCmboBx, RzLstBox, RzDBList, NewIntf, RzGrids, RzChkLst, ADODB, Vcl.Menus;
 
 type
   TfrmClientMain = class(TfrmBaseDocked, ISave, IClient, INew)
@@ -187,6 +187,9 @@ type
     RzGroupBox8: TRzGroupBox;
     JvLabel32: TJvLabel;
     dbluInformationSource: TRzDBLookupComboBox;
+    ppLoans: TPopupMenu;
+    Ledger1: TMenuItem;
+    Loandetails1: TMenuItem;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -227,6 +230,9 @@ type
     procedure sbtnRemoveBankAccountClick(Sender: TObject);
     procedure sbtnAddGroupClick(Sender: TObject);
     procedure sbtnRemoveGroupClick(Sender: TObject);
+    procedure grLoansDblClick(Sender: TObject);
+    procedure Ledger1Click(Sender: TObject);
+    procedure Loandetails1Click(Sender: TObject);
   private
     { Private declarations }
     procedure CopyAddress;
@@ -242,6 +248,8 @@ type
     procedure NewAccount;
     procedure PopulateGroups;
     procedure ShowAlerts;
+    procedure ShowLedger;
+    procedure ShowLoanDetails;
 
     function CheckClientInfo: string;
     function CheckIdentInfo: string;
@@ -271,7 +279,7 @@ uses
   EmployerSearch, Employer, IdentityDoc, IFinanceGlobal,
   ReferenceSearch, Reference, LoansAuxData, LoanClassification,
   DBUtil, IFinanceDialogs, EntityUtils, Alert, Alerts, EntitiesData, GroupSearch,
-  Group;
+  Group, LoanLedger, Loan, LoanClient, AppConstants;
 
 {$R *.dfm}
 
@@ -1133,6 +1141,57 @@ begin
   end;
 end;
 
+procedure TfrmClientMain.ShowLedger;
+var
+  loanId: string;
+begin
+  with (dmClient.dstLedger as TADODataSet) do
+  begin
+    loanId := grLoans.DataSource.DataSet.FieldByName('loan_id').AsString;
+    Parameters.ParamByName('@loan_id').Value := loanId;
+    Parameters.ParamByName('@as_of_date').Value := ifn.AppDate;
+  end;
+
+  with TfrmLoanLedger.Create(self,dmClient.dscLedger) do
+  begin
+    Parent := self;
+    Show;
+    //Free;
+  end
+end;
+
+procedure TfrmClientMain.ShowLoanDetails;
+var
+  id: string;
+  intf: IDock;
+  empl: TEmployer;
+begin
+  with  grLoans.DataSource.DataSet do
+  begin
+    if RecordCount > 0 then
+    begin
+      empl := cln.Employer;
+
+      id := FieldByName('loan_id').AsString;
+
+      ln := TLoan.Create;
+      ln.Id := id;
+      ln.Client := TLoanClient.Create(cln.Id,
+                        cln.Name,
+                        empl,
+                        '', // FieldByName('client_addr').AsString,
+                        0,  // FieldByName('age').AsInteger,
+                        0,  // FieldByName('net_pay').AsCurrency,
+                        cln.IdentityDocsCount);
+      ln.Status := FieldByName('status_id').AsString;
+      ln.Action := laNone;
+
+      if Supports(Application.MainForm,IDock,intf) then
+        intf.DockForm(fmLoanMain);
+    end;
+  end;
+end;
+
 procedure TfrmClientMain.urlCopyAddressClick(Sender: TObject);
 begin
   inherited;
@@ -1225,6 +1284,12 @@ begin
   edAge.Text := IntToStr(age);
 end;
 
+procedure TfrmClientMain.grLoansDblClick(Sender: TObject);
+begin
+  inherited;
+  ShowLedger;
+end;
+
 procedure TfrmClientMain.PhotoLauncherFinished(Sender: TObject);
 begin
   inherited;
@@ -1250,6 +1315,12 @@ begin
   GetAge;
 end;
 
+procedure TfrmClientMain.Ledger1Click(Sender: TObject);
+begin
+  inherited;
+  ShowLedger;
+end;
+
 procedure TfrmClientMain.LoadPhoto;
 var
   filename: string;
@@ -1266,6 +1337,12 @@ begin
 
   if not Application.MainForm.Active then
     Application.MainForm.Enabled := true;
+end;
+
+procedure TfrmClientMain.Loandetails1Click(Sender: TObject);
+begin
+  inherited;
+  ShowLoanDetails;
 end;
 
 procedure TfrmClientMain.ChangeControlState;

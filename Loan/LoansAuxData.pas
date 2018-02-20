@@ -274,6 +274,8 @@ var
 begin
   with DataSet do
   begin
+    if State = dsInsert then Exit;
+    
     clId := FieldByName('class_id').AsInteger;
     groupId := FieldByName('grp_id').AsString;
     clName := FieldByName('class_name').AsString;

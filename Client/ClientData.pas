@@ -32,6 +32,17 @@ type
     dstComakers: TADODataSet;
     dscComakers: TDataSource;
     dstGroups: TADODataSet;
+    dstLedger: TADODataSet;
+    dstLedgerdue: TDateTimeField;
+    dstLedgerdocument_no: TStringField;
+    dstLedgerdebit_amt_p: TBCDField;
+    dstLedgercredit_amt_p: TBCDField;
+    dstLedgerbalance_p: TBCDField;
+    dstLedgerdebit_amt_i: TBCDField;
+    dstLedgercredit_amt_i: TBCDField;
+    dstLedgerbalance_i: TBCDField;
+    dstLedgersort_order: TSmallintField;
+    dscLedger: TDataSource;
     procedure dstPersonalInfoBeforeOpen(DataSet: TDataSet);
     procedure dstEntityBeforeOpen(DataSet: TDataSet);
     procedure dstContactInfoBeforeOpen(DataSet: TDataSet);
