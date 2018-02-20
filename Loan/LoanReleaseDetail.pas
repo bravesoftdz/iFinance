@@ -485,7 +485,7 @@ begin
 
     edAdvancePaymentMonths.Value := ln.LoanClass.AdvancePayment.NumberOfMonths;
   end
-  else lblAdvancePaymentMonths.Caption := 'No advance payment required.';
+  else lblAdvancePaymentMonths.Caption := 'No advance payment required';
 end;
 
 end.
