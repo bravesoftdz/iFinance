@@ -97,7 +97,7 @@ inherited frmLoanClassAdvancePaymentDetail: TfrmLoanClassAdvancePaymentDetail
             Items.Strings = (
               'None'
               'To be determined upon release'
-              'Number of months')
+              'Preset')
             Values.Strings = (
               '0'
               '1'

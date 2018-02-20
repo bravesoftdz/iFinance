@@ -133,19 +133,19 @@ var
 begin
   with DataSet do
   begin
+    LAdvancePayment := TLoanClassAdvance.Create;
+
     if RecordCount > 0 then
     begin
       Edit;
 
-      LAdvancePayment := TLoanClassAdvance.Create;
       LAdvancePayment.Interest := FieldByName('int').AsInteger;
       LAdvancePayment.Principal := FieldByName('principal').AsInteger;
       LAdvancePayment.AdvanceMethod := TAdvanceMethod(FieldByName('advance_method').AsInteger);
       LAdvancePayment.IncludePrincipal := FieldByName('include_principal').AsBoolean;
-
-      lnc.AdvancePayment := LAdvancePayment;
     end
     else Append;
+    lnc.AdvancePayment := LAdvancePayment;
   end;
 end;
 
