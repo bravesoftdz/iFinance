@@ -21,6 +21,7 @@ type
   protected
     procedure Save; override;
     procedure Cancel; override;
+    procedure BindToObject; override;
     function ValidEntry: boolean; override;
   public
     { Public declarations }
@@ -37,6 +38,12 @@ uses
   IFinanceGlobal, Posting;
 
 { TfrmBasePopupDetail1 }
+
+procedure TfrmDevParams.BindToObject;
+begin
+  inherited;
+
+end;
 
 procedure TfrmDevParams.Cancel;
 begin

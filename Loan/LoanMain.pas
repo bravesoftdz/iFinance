@@ -177,6 +177,7 @@ type
     JvLabel44: TJvLabel;
     JvLabel45: TJvLabel;
     lblAdvancePayment: TJvLabel;
+    lblAdvancePaymentMonths: TJvLabel;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure bteClientButtonClick(Sender: TObject);
@@ -286,6 +287,16 @@ begin
     lblNetProceeds.Caption := FormatCurr('###,###,##0.00',ln.TotalReleased);
     lblTotalCharges.Caption := FormatCurr('###,###,##0.00',ln.TotalCharges);
     lblAdvancePayment.Caption := FormatCurr('###,###,##0.00',advancePayment);
+
+    if ln.LoanClass.HasAdvancePayment then
+    begin
+      if ln.LoanClass.AdvancePayment.Principal > 0 then
+        lblAdvancePaymentMonths.Caption :=
+          IntToStr(ln.LoanClass.AdvancePayment.NumberOfMonths) + ' months'
+      else
+        lblAdvancePaymentMonths.Caption :=
+          IntToStr(ln.LoanClass.AdvancePayment.NumberOfMonths) + ' months (Interest only)'
+    end;
   end;
 
   with pcStatus do

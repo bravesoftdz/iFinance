@@ -166,6 +166,8 @@ begin
       LLoanClassAdvance := TLoanClassAdvance.Create;
       LLoanClassAdvance.Interest := FieldByName('int').AsInteger;
       LLoanClassAdvance.Principal := FieldByName('principal').AsInteger;
+      LLoanClassAdvance.AdvanceMethod := TAdvanceMethod(FieldByName('advance_method').AsInteger);
+      LLoanClassAdvance.IncludePrincipal := FieldByName('include_principal').AsBoolean;
 
       ln.LoanClass.AdvancePayment := LLoanClassAdvance;
     end;
@@ -216,6 +218,8 @@ begin
     begin
       ln.ClearAdvancePayments;
 
+      First;
+
       while not Eof do
       begin
         adv := TAdvancePayment.Create;
@@ -230,11 +234,12 @@ begin
         // principal
         paymentType := FieldByName('payment_type').AsString;
         if paymentType = TRttiEnumerationType.GetName<TPaymentTypes>(TPaymentTypes.PRN) then
+        begin
           adv.Principal := FieldByName('payment_amt').AsCurrency;
+          Next;
+        end;
 
         ln.AddAdvancePayment(adv);
-
-        Next;
       end;
     end;
   finally

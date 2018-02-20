@@ -1158,13 +1158,14 @@ inherited frmClientMain: TfrmClientMain
         ParentFont = False
         TabOrder = 40
       end
-      object RzDBLookupComboBox5: TRzDBLookupComboBox
+      object dbluInformationSource: TRzDBLookupComboBox
         Left = 467
         Top = 436
         Width = 187
         Height = 22
         DataField = 'source_id'
         DataSource = dmClient.dscPersonalInfo
+        Enabled = False
         KeyField = 'source_id'
         ListField = 'source_name'
         ListSource = dmAux.dscInfoSource
@@ -1172,6 +1173,7 @@ inherited frmClientMain: TfrmClientMain
         AllowNull = True
         FlatButtonColor = 6572079
         FlatButtons = True
+        DisabledColor = 14273211
         FrameColor = 8675134
         FrameHotColor = clBlack
         FrameVisible = True

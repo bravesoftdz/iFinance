@@ -140,6 +140,8 @@ begin
       LAdvancePayment := TLoanClassAdvance.Create;
       LAdvancePayment.Interest := FieldByName('int').AsInteger;
       LAdvancePayment.Principal := FieldByName('principal').AsInteger;
+      LAdvancePayment.AdvanceMethod := TAdvanceMethod(FieldByName('advance_method').AsInteger);
+      LAdvancePayment.IncludePrincipal := FieldByName('include_principal').AsBoolean;
 
       lnc.AdvancePayment := LAdvancePayment;
     end

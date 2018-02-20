@@ -186,7 +186,7 @@ type
     sbtnRemoveGroup: TRzShapeButton;
     RzGroupBox8: TRzGroupBox;
     JvLabel32: TJvLabel;
-    RzDBLookupComboBox5: TRzDBLookupComboBox;
+    dbluInformationSource: TRzDBLookupComboBox;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -559,6 +559,7 @@ begin
   inherited;
   cln.Referee := nil;
   bteReferee.Clear;
+  dbluInformationSource.Enabled := true;
 end;
 
 procedure TfrmClientMain.bteRefereeButtonClick(Sender: TObject);
@@ -577,6 +578,7 @@ begin
           begin
             bteReferee.Text := ref.Name;
             cln.Referee := ref;
+            dbluInformationSource.Enabled := false;
           end
           else
             ShowErrorBox('Referred by cannot be the same as client.');
@@ -1072,6 +1074,9 @@ begin
   // referee
   if Assigned(cln.Referee) then
     bteReferee.Text := cln.Referee.Name;
+
+  // information source .. disable when referee is present
+  dbluInformationSource.Enabled := not Assigned(cln.Referee);
 
   // landlord present address
   if Assigned(cln.LandlordPres) then

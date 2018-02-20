@@ -1,12 +1,12 @@
 
-delete acctinfo
-delete addressinfo
-delete contactinfo
-delete emplinfo
-delete expenseinfo
-delete identityinfo
-delete personalinfo
-delete refinfo
+--delete acctinfo
+--delete addressinfo
+--delete contactinfo
+--delete emplinfo
+--delete expenseinfo
+--delete identityinfo
+--delete personalinfo
+--delete refinfo
 
 delete [sequence]
 --delete employer
@@ -24,12 +24,12 @@ delete LoanReject
 delete LoanRelease
 delete Loan
 
-delete LoanClassCharge
-delete EntityGroup
-delete LoanClass
-delete GroupAttribute
-delete [Group]
-delete entity
+--delete LoanClassCharge
+--delete EntityGroup
+--delete LoanClass
+--delete GroupAttribute
+--delete [Group]
+--delete entity
 delete bankwithdrawal
 
 delete Ledger

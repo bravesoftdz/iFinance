@@ -195,7 +195,7 @@ inherited frmLoanReleaseDetail: TfrmLoanReleaseDetail
           end
           object lblAdvancePayment: TJvLabel
             Tag = -1
-            Left = 374
+            Left = 412
             Top = 96
             Width = 27
             Height = 14
@@ -222,12 +222,20 @@ inherited frmLoanReleaseDetail: TfrmLoanReleaseDetail
             HotTrackFont.Name = 'Tahoma'
             HotTrackFont.Style = []
           end
+          object lblAdvancePaymentMonths: TJvLabel
+            Tag = -1
+            Left = 374
+            Top = 120
+            Width = 6
+            Height = 14
+            Transparent = True
+          end
           object pcAssessment: TRzPageControl
             Tag = 3
             Left = 19
-            Top = 126
+            Top = 134
             Width = 488
-            Height = 153
+            Height = 145
             Hint = ''
             ActivePage = tsRecipients
             ActivePageDefault = tsRecipients
@@ -248,12 +256,12 @@ inherited frmLoanReleaseDetail: TfrmLoanReleaseDetail
               Caption = 'Recipients'
               DesignSize = (
                 486
-                128)
+                120)
               object grReleaseRecipient: TRzStringGrid
                 Left = 6
                 Top = 6
                 Width = 474
-                Height = 116
+                Height = 108
                 Anchors = [akLeft, akTop, akRight, akBottom]
                 Ctl3D = True
                 DrawingStyle = gdsGradient
@@ -286,12 +294,12 @@ inherited frmLoanReleaseDetail: TfrmLoanReleaseDetail
               Caption = 'Charges'
               DesignSize = (
                 486
-                128)
+                120)
               object grCharges: TRzStringGrid
                 Left = 6
                 Top = 6
                 Width = 474
-                Height = 116
+                Height = 108
                 Anchors = [akLeft, akTop, akRight, akBottom]
                 ColCount = 2
                 Ctl3D = True
@@ -370,6 +378,20 @@ inherited frmLoanReleaseDetail: TfrmLoanReleaseDetail
             TabOrder = 3
             OnChange = edReleasedAmountChange
             DisplayFormat = '###,##0.00'
+          end
+          object edAdvancePaymentMonths: TRzNumericEdit
+            Left = 374
+            Top = 90
+            Width = 27
+            Height = 22
+            DisabledColor = 14273211
+            Enabled = False
+            FrameColor = 8675134
+            FrameVisible = True
+            FramingPreference = fpCustomFraming
+            TabOrder = 4
+            OnChange = edReleasedAmountChange
+            DisplayFormat = '0'
           end
         end
       end

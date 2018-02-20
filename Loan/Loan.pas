@@ -732,6 +732,12 @@ begin
 
     if FLoanClass.HasAdvancePayment then
     begin
+      if FReleaseAmount <= 0 then
+      begin
+        Result := 0;
+        Exit;
+      end;
+
       balance := FReleaseAmount;
 
       cnt := FLoanClass.AdvancePayment.NumberOfMonths;
@@ -744,9 +750,9 @@ begin
         if FLoanClass.IsDiminishing then interest := Trunc(balance * FLoanClass.InterestInDecimal) + 1
         else interest := Trunc(FReleaseAmount * FLoanClass.InterestInDecimal) + 1;
 
-        if i = FLoanClass.AdvancePayment.Interest then adv.Interest := interest;
+        if i <= FLoanClass.AdvancePayment.Interest then adv.Interest := interest;
 
-        total := total + interest;
+        total := total + adv.Interest;
 
         // principal
         if FLoanClass.IsDiminishing then
@@ -756,9 +762,9 @@ begin
         end
         else principal := Trunc(FReleaseAmount / FApprovedTerm) + 1;
 
-        if i = FLoanClass.AdvancePayment.Principal then adv.Principal := principal;
+        if i <= FLoanClass.AdvancePayment.Principal then adv.Principal := principal;
 
-        total := total + principal;
+        total := total + adv.Principal;
 
         // get balance
         balance := balance - principal;

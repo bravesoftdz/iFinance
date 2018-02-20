@@ -1425,7 +1425,7 @@ inherited frmLoanMain: TfrmLoanMain
         Width = 507
         Height = 500
         Hint = ''
-        ActivePage = tsPending
+        ActivePage = tsReleased
         ActivePageDefault = tsPending
         Anchors = [akLeft, akTop, akRight, akBottom]
         FlatColor = 8675134
@@ -2397,6 +2397,25 @@ inherited frmLoanMain: TfrmLoanMain
               Height = 14
               Caption = '0.00'
               Transparent = True
+            end
+            object lblAdvancePaymentMonths: TJvLabel
+              Tag = -1
+              Left = 19
+              Top = 447
+              Width = 6
+              Height = 14
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clMaroon
+              Font.Height = -12
+              Font.Name = 'Tahoma'
+              Font.Style = []
+              ParentFont = False
+              Transparent = True
+              HotTrackFont.Charset = DEFAULT_CHARSET
+              HotTrackFont.Color = clWindowText
+              HotTrackFont.Height = -12
+              HotTrackFont.Name = 'Tahoma'
+              HotTrackFont.Style = []
             end
             object RzPanel7: TRzPanel
               Left = 0

@@ -33,6 +33,8 @@ type
     lblAppliedAmount: TJvLabel;
     lblAdvancePayment: TJvLabel;
     JvLabel5: TJvLabel;
+    lblAdvancePaymentMonths: TJvLabel;
+    edAdvancePaymentMonths: TRzNumericEdit;
     procedure FormShow(Sender: TObject);
     procedure grReleaseRecipientDblClick(Sender: TObject);
     procedure btnAddClick(Sender: TObject);
@@ -54,6 +56,7 @@ type
 
     function GetTotalReleased: currency;
     function ConfirmRelease: string;
+    function ConfirmAdvancePayment: string;
   public
     { Public declarations }
   protected
@@ -72,7 +75,7 @@ implementation
 
 uses
   Loan, ReleaseRecipientDetail, LoanData, FormsUtil, IFinanceGlobal,
-  Recipient, IFinanceDialogs;
+  Recipient, IFinanceDialogs, LoanClassAdvance;
 
 procedure TfrmLoanReleaseDetail.ClearRow(grid: TRzStringGrid; const row: Integer);
 var
@@ -381,6 +384,9 @@ begin
   PopulateReleaseRecipient;
 
   ExtendLastColumn(grReleaseRecipient);
+
+  edAdvancePaymentMonths.IntValue := ln.LoanClass.AdvancePayment.NumberOfMonths;
+  edAdvancePaymentMonths.Enabled := ln.LoanClass.AdvancePayment.AdvanceMethod = amUponRelease;
 end;
 
 procedure TfrmLoanReleaseDetail.grReleaseRecipientDblClick(Sender: TObject);
@@ -400,6 +406,12 @@ begin
     error := 'Release amount is greater than the approved amount.'
   else if GetTotalReleased <> Ceil(ln.NetProceeds * 100/100) then
     error := 'TOTAL amount released is not equal to the NET proceeds.'
+  else if (ln.LoanClass.AdvancePayment.AdvanceMethod = amUponRelease)
+    and (ln.LoanClass.AdvancePayment.NumberOfMonths < 0) then
+    error := 'Invalid value for advance payment.'
+  else if (ln.LoanClass.AdvancePayment.AdvanceMethod = amUponRelease)
+    and (ln.LoanClass.AdvancePayment.NumberOfMonths = 0) then
+    error := ConfirmAdvancePayment
   else if ln.ReleaseAmount < ln.ApprovedAmount  then
     error := ConfirmRelease;
 
@@ -422,6 +434,16 @@ begin
   Result := Ceil(total * 100 / 100);
 end;
 
+function TfrmLoanReleaseDetail.ConfirmAdvancePayment: string;
+var
+  msg: string;
+begin
+  msg := 'Advance payment has not been entered. Do you want to proceed?';
+
+  if ShowDecisionBox(msg) = mrYes then Result := ''
+  else Result := 'Releasing process cancelled.';
+end;
+
 function TfrmLoanReleaseDetail.ConfirmRelease: string;
 var
   msg: string;
@@ -436,11 +458,30 @@ procedure TfrmLoanReleaseDetail.edReleasedAmountChange(Sender: TObject);
 begin
   ln.ReleaseAmount := edReleasedAmount.Value;
 
+  ln.LoanClass.AdvancePayment.Interest := edAdvancePaymentMonths.IntValue;
+
+  if ln.LoanClass.AdvancePayment.IncludePrincipal then
+    ln.LoanClass.AdvancePayment.Principal := edAdvancePaymentMonths.IntValue;
+
+
   ln.ComputeCharges;
 
   lblCharges.Caption := FormatCurr('###,###,##0.00',ln.TotalCharges);
   lblNetProceeds.Caption := FormatCurr('###,###,##0.00',ln.NetProceeds);
   lblAdvancePayment.Caption := FormatCurr('###,###,##0.00',ln.TotalAdvancePayment);
+
+  if ln.LoanClass.HasAdvancePayment then
+  begin
+    if ln.LoanClass.AdvancePayment.IncludePrincipal then
+      lblAdvancePaymentMonths.Caption :=
+        IntToStr(ln.LoanClass.AdvancePayment.NumberOfMonths) + ' months'
+    else
+      lblAdvancePaymentMonths.Caption :=
+        IntToStr(ln.LoanClass.AdvancePayment.NumberOfMonths) + ' months (Interest only)'
+  end
+  else lblAdvancePaymentMonths.Caption := 'No advance payment required.';
+
+  edAdvancePaymentMonths.Value := ln.LoanClass.AdvancePayment.NumberOfMonths;
 end;
 
 end.

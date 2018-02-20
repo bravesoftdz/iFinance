@@ -216,8 +216,9 @@ begin
           interestSource := TRttiEnumerationType.GetName<TInterestSource>(TInterestSource.SYS);
           status := TRttiEnumerationType.GetName<TInterestStatus>(TInterestStatus.P);
 
-          // for FIXED accounts.. use the first day of the month
-          if (ALoan.LoanClass.IsDiminishing) and (not ALoan.LoanClass.IsScheduled) then
+          // for FIXED accounts.. use the first day of the month.. EXCEPT for loans with advance payment
+          if ((ALoan.LoanClass.IsDiminishing) and (not ALoan.LoanClass.IsScheduled))
+            or (ALoan.LoanClass.HasAdvancePayment) then
             PostInterest(interest,ALoan.Id,valueDate,interestSource,status)
           else PostInterest(interest,ALoan.Id,GetFirstDayOfValueDate(valueDate),interestSource,status);
 
@@ -516,6 +517,10 @@ begin
 
               PEN: Continue;
             end;
+
+            // some loan class only require interest for advance payment
+            // check the amount prior to posting.. ignore when ZERO
+            if payment = 0 then Continue;
 
             Append;
             FieldByName('payment_id').AsString := id;

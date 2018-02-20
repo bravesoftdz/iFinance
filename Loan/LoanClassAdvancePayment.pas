@@ -7,16 +7,16 @@ uses
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, BasePopupDetail, RzButton, RzTabs,
   Vcl.StdCtrls, RzLabel, Vcl.Imaging.pngimage, Vcl.ExtCtrls, RzPanel, RzRadChk,
   Vcl.Mask, RzEdit, RzRadGrp, RzDBRGrp, DB, LoanClassAdvance, JvExControls,
-  JvLabel;
+  JvLabel, RzDBChk;
 
 type
   TfrmLoanClassAdvancePaymentDetail = class(TfrmBasePopupDetail)
     edNumberOfMonths: TRzNumericEdit;
     RzGroupBox2: TRzGroupBox;
-    rbgAdvanceInterest: TRzDBRadioGroup;
+    rbgMethod: TRzDBRadioGroup;
     JvLabel14: TJvLabel;
-    cbxIncludePrincipal: TRzCheckBox;
-    procedure rbgAdvanceInterestChange(Sender: TObject);
+    cbxIncludePrincipal: TRzDBCheckBox;
+    procedure rbgMethodChange(Sender: TObject);
     procedure FormCreate(Sender: TObject);
   private
     { Private declarations }
@@ -44,9 +44,11 @@ begin
   begin
     if not Assigned(AdvancePayment) then lnc.AdvancePayment := TLoanClassAdvance.Create;
 
+    AdvancePayment.AdvanceMethod := TAdvanceMethod(StrToInt(rbgMethod.Value));
+
     // interest
-    if rbgAdvanceInterest.ItemIndex = 2 then lnc.AdvancePayment.Interest := edNumberOfMonths.IntValue
-    else lnc.AdvancePayment.Interest := StrToInt(rbgAdvanceInterest.Value);
+    if AdvancePayment.AdvanceMethod = amPreset then lnc.AdvancePayment.Interest := edNumberOfMonths.IntValue
+    else lnc.AdvancePayment.Interest := 0;
 
     // principal
     if cbxIncludePrincipal.Checked then lnc.AdvancePayment.Principal := lnc.AdvancePayment.Interest
@@ -70,35 +72,24 @@ begin
   // interest
   if Assigned(lnc.AdvancePayment) then
   begin
-    case lnc.AdvancePayment.Interest of
-      -1: interest := 1;
-       0: interest := 0;
-       else
-       begin
-         interest := 2;
-         edNumberOfMonths.IntValue := lnc.AdvancePayment.NumberOfMonths;
-       end;
-    end;
-    rbgAdvanceInterest.ItemIndex := interest;
+    rbgMethod.Value := VarToStr(lnc.AdvancePayment.AdvanceMethod);
+    edNumberOfMonths.IntValue := lnc.AdvancePayment.NumberOfMonths;
   end
-  else rbgAdvanceInterest.ItemIndex := 0;
+  else rbgMethod.Value := '0';
 
   // principal
   if Assigned(lnc.AdvancePayment) then
-  begin
-    cbxIncludePrincipal.ReadOnly := lnc.AdvancePayment.Interest = 0;
-    cbxIncludePrincipal.Checked := lnc.AdvancePayment.Principal <> 0;
-  end;
+    cbxIncludePrincipal.ReadOnly := lnc.AdvancePayment.AdvanceMethod = amNone;
 end;
 
-procedure TfrmLoanClassAdvancePaymentDetail.rbgAdvanceInterestChange(
+procedure TfrmLoanClassAdvancePaymentDetail.rbgMethodChange(
   Sender: TObject);
 begin
   inherited;
-  edNumberOfMonths.Enabled := rbgAdvanceInterest.ItemIndex = 2;
-  cbxIncludePrincipal.ReadOnly := rbgAdvanceInterest.ItemIndex = 0;
+  edNumberOfMonths.Enabled := rbgMethod.Value = VarToStr(amPreset);
+  cbxIncludePrincipal.ReadOnly := rbgMethod.Value = VarToStr(amNone);
 
-  if rbgAdvanceInterest.ItemIndex = 0 then
+  if rbgMethod.Value = VarToStr(amNone) then
     cbxIncludePrincipal.Checked := false;
 end;
 
@@ -117,8 +108,8 @@ function TfrmLoanClassAdvancePaymentDetail.ValidEntry: boolean;
 var
   error: string;
 begin
-  if (rbgAdvanceInterest.ItemIndex = 2) and (lnc.AdvancePayment.NumberOfMonths < 1) then
-    error := 'Advance interest should not be zero.';
+  if (lnc.AdvancePayment.AdvanceMethod = amPreset) and (lnc.AdvancePayment.NumberOfMonths < 1) then
+    error := 'Number of months should not be zero.';
 
   Result := error = '';
 
