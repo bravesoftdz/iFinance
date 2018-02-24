@@ -29,6 +29,7 @@ type
   protected
     procedure Save; override;
     procedure Cancel; override;
+    procedure BindToObject; override;
     function ValidEntry: boolean; override;
   end;
 
@@ -43,6 +44,12 @@ implementation
 
 uses
   PaymentData, IFinanceDialogs, Withdrawal, ActiveClientsSearch, ActiveClient;
+
+procedure TfrmWithdrawalDetail.BindToObject;
+begin
+  inherited;
+
+end;
 
 procedure TfrmWithdrawalDetail.bteClientButtonClick(Sender: TObject);
 begin

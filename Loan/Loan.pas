@@ -749,29 +749,32 @@ begin
         adv := TAdvancePayment.Create;
 
         // interest
-        if FLoanClass.IsDiminishing then interest := Trunc(balance * FLoanClass.InterestInDecimal) + 1
-        else interest := Trunc(FReleaseAmount * FLoanClass.InterestInDecimal) + 1;
+        if FLoanClass.IsDiminishing then interest := balance * FLoanClass.InterestInDecimal
+        else interest := FReleaseAmount * FLoanClass.InterestInDecimal;
 
         if i <= FLoanClass.AdvancePayment.Interest then adv.Interest := interest;
 
         total := total + adv.Interest;
 
         // principal
-        if FLoanClass.IsDiminishing then
+        if FLoanClass.AdvancePayment.IncludePrincipal then
         begin
-          if FLoanClass.IsScheduled then principal := Amortisation - interest
-          else principal := Trunc(FReleaseAmount / FApprovedTerm) + 1;
-        end
-        else principal := Trunc(FReleaseAmount / FApprovedTerm) + 1;
+          if FLoanClass.IsDiminishing then
+          begin
+            if FLoanClass.IsScheduled then principal := Amortisation - interest
+            else principal := FReleaseAmount / FApprovedTerm;
+          end
+          else principal := FReleaseAmount / FApprovedTerm;
 
-        if i <= FLoanClass.AdvancePayment.Principal then adv.Principal := principal;
+          if i <= FLoanClass.AdvancePayment.Principal then adv.Principal := principal;
 
-        total := total + adv.Principal;
+          total := total + adv.Principal;
 
-        // get balance
-        balance := balance - principal;
+          // get balance
+          balance := balance - principal;
 
-        adv.Balance := balance;
+          adv.Balance := balance;
+        end;
 
         ln.AddAdvancePayment(adv);
 
@@ -812,6 +815,7 @@ begin
   if (FLoanClass.IsDiminishing) and (FLoanClass.IsScheduled) then amort := FReleaseAmount * GetFactorWithInterest
   else amort := ((FReleaseAmount * FLoanClass.InterestInDecimal * FApprovedTerm) + FReleaseAmount) / FApprovedTerm;
 
+  // Note: Round off the AMORTISATION to "nearest peso" .. ex. 1.25 to 2.00
   Result := Trunc(amort) + 1;
 end;
 

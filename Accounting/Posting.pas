@@ -23,8 +23,7 @@ type
   public
      procedure Post(const ALoan: TLoan); overload;
      procedure Post(const APayment: TPayment); overload;
-     procedure PostInterest(const ADate: TDate; const ALoanId: string = '';
-      const isAdvancePayment: boolean = false); overload;
+     procedure PostInterest(const ADate: TDate; const ALoanId: string = ''); overload;
 
      constructor Create;
      destructor Destroy; override;
@@ -99,8 +98,7 @@ begin
   Result := interestId;
 end;
 
-procedure TPosting.PostInterest(const ADate: TDate; const ALoanId: string;
-  const isAdvancePayment: boolean);
+procedure TPosting.PostInterest(const ADate: TDate; const ALoanId: string);
 var
   refPostingId: string;
   interest, credit: currency;
@@ -133,8 +131,7 @@ begin
           primaryKey := dstScheduledInterest.FieldByName('interest_id').AsString;
           interest := dstScheduledInterest.FieldByName('interest_amt').AsCurrency;
 
-          if isAdvancePayment then valueDate := ifn.AppDate
-          else valuedate := dstScheduledInterest.FieldByName('interest_date').AsDateTime;
+          valuedate := dstScheduledInterest.FieldByName('interest_date').AsDateTime;
 
           PostEntry(refPostingId, interest, credit, eventObject, primaryKey, status, postDate, valueDate, caseType);
 
@@ -170,7 +167,7 @@ var
   refPostingId: string;
   principal, interest, balance, credit: currency;
   eventObject, primaryKey, status, caseType: string;
-  postDate, valueDate, valueDate2: TDateTime;
+  postDate, valueDate: TDateTime;
   i, cnt: integer;
   interestSource: string;
 begin
@@ -199,26 +196,22 @@ begin
 
         for i := 1 to cnt do
         begin
-          // post the interest for loans with advance payment
-          // valuedate is equal to date of release
-          if (ALoan.LoanClass.HasAdvancePayment) and (i <= ALoan.LoanClass.AdvancePayment.Interest) then
-            valueDate := ifn.AppDate
-          else
-            valueDate := GetValueDate(valueDate,IncMonth(ifn.AppDate,i));
+          valueDate := GetValueDate(valueDate,IncMonth(ifn.AppDate,i));
 
           // interest
           // post in the Interest table instead of in the Ledger
           // interest will be posted when the interest date arrives
-          // Note: Round off the values to "nearest peso" .. ex. 1.25 to 2.00
-          if ALoan.LoanClass.IsDiminishing then interest := Trunc(balance * ALoan.LoanClass.InterestInDecimal) + 1
-          else interest := Trunc(ALoan.ReleaseAmount * ALoan.LoanClass.InterestInDecimal) + 1;
+          if ALoan.LoanClass.IsDiminishing then interest := balance * ALoan.LoanClass.InterestInDecimal
+          else interest := ALoan.ReleaseAmount * ALoan.LoanClass.InterestInDecimal;
+
+          // round off to 2 decimal places
+          interest := RoundTo(interest,-2);
 
           interestSource := TRttiEnumerationType.GetName<TInterestSource>(TInterestSource.SYS);
           status := TRttiEnumerationType.GetName<TInterestStatus>(TInterestStatus.P);
 
-          // for FIXED accounts.. use the first day of the month.. EXCEPT for loans with advance payment
-          if ((ALoan.LoanClass.IsDiminishing) and (not ALoan.LoanClass.IsScheduled))
-            or (ALoan.LoanClass.HasAdvancePayment) then
+          // for FIXED accounts.. use the first day of the month..
+          if (ALoan.LoanClass.IsDiminishing) and (not ALoan.LoanClass.IsScheduled) then
             PostInterest(interest,ALoan.Id,valueDate,interestSource,status)
           else PostInterest(interest,ALoan.Id,GetFirstDayOfValueDate(valueDate),interestSource,status);
 
@@ -231,26 +224,16 @@ begin
               // use the balance for the last amount to be posted..
               // this ensures sum of principal is equal to the loan amount released
               if i = cnt then principal := balance
-              else principal := Trunc(ALoan.ReleaseAmount / ALoan.ApprovedTerm) + 1;
+              else principal := ALoan.ReleaseAmount / ALoan.ApprovedTerm;
             end;
           end
-          else principal := Trunc(ALoan.ReleaseAmount / ALoan.ApprovedTerm) + 1;
+          else principal := ALoan.ReleaseAmount / ALoan.ApprovedTerm;
 
           status := TRttiEnumerationType.GetName<TLedgerRecordStatus>(TLedgerRecordStatus.OPN);
 
           // for principal entries.. use the first day of the month
-          // if loan has advance payment.. use the application date
-          if (ALoan.LoanClass.HasAdvancePayment) and (i <= ALoan.LoanClass.AdvancePayment.Principal) then
-            valueDate2 := ifn.AppDate
-          else
-            valueDate2 := GetValueDate(valueDate,IncMonth(ifn.AppDate,i));
-
-          if (ALoan.LoanClass.HasAdvancePayment) and (i <= ALoan.LoanClass.AdvancePayment.Principal) then
-            PostEntry(refPostingId, principal, credit, eventObject, primaryKey, status,
-              postDate, valueDate2, caseType)
-          else
-            PostEntry(refPostingId, principal, credit, eventObject, primaryKey, status,
-              postDate, GetFirstDayOfValueDate(valueDate2), caseType);
+          PostEntry(refPostingId, principal, credit, eventObject, primaryKey, status,
+              postDate, GetFirstDayOfValueDate(valueDate), caseType);
 
           // get balance
           balance := balance - principal;
@@ -280,7 +263,9 @@ begin
   // post advance payment
   if ALoan.LoanClass.HasAdvancePayment then
   begin
-    PostInterest(ifn.AppDate,ALoan.Id,true);
+    // increment the date parameter with the number of months
+    // this ensures interests scheduled for future posting will be posted
+    PostInterest(IncMonth(ifn.AppDate,ALoan.LoanClass.AdvancePayment.NumberOfMonths),ALoan.Id);
     PostAdvancePayment(ALoan);
   end;
 end;
@@ -512,7 +497,7 @@ begin
                 begin
                   caseType :=  TRttiEnumerationType.GetName<TCaseTypes>(TCaseTypes.ITS);
                   payment := adv.Interest;
-                  balance := 0;
+                  balance := adv.Balance * -1;
                 end;
 
               PEN: Continue;

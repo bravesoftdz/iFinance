@@ -61,6 +61,7 @@ type
   protected
     procedure Save; override;
     procedure Cancel; override;
+    procedure BindToObject; override;
     function ValidEntry: boolean; override;
   end;
 
@@ -152,6 +153,12 @@ end;
 
 procedure TfrmPaymentDetail.Save;
 begin
+
+end;
+
+procedure TfrmPaymentDetail.BindToObject;
+begin
+  inherited;
 
 end;
 

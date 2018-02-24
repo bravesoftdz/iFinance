@@ -465,13 +465,12 @@ begin
 
   ln.ComputeCharges;
 
-  lblCharges.Caption := FormatCurr('###,###,##0.00',ln.TotalCharges);
-  lblNetProceeds.Caption := FormatCurr('###,###,##0.00',ln.NetProceeds);
-  lblAdvancePayment.Caption := FormatCurr('###,###,##0.00',ln.TotalAdvancePayment);
-
   if ln.LoanClass.HasAdvancePayment then
   begin
-    ln.LoanClass.AdvancePayment.Interest := edAdvancePaymentMonths.IntValue;
+    if ln.LoanClass.AdvancePayment.AdvanceMethod = amPreset then
+      edAdvancePaymentMonths.Value := ln.LoanClass.AdvancePayment.NumberOfMonths
+    else
+      ln.LoanClass.AdvancePayment.Interest := edAdvancePaymentMonths.IntValue;
 
     if ln.LoanClass.AdvancePayment.IncludePrincipal then
       ln.LoanClass.AdvancePayment.Principal := edAdvancePaymentMonths.IntValue;
@@ -482,10 +481,12 @@ begin
     else
       lblAdvancePaymentMonths.Caption :=
         IntToStr(ln.LoanClass.AdvancePayment.NumberOfMonths) + ' months (Interest only)';
-
-    edAdvancePaymentMonths.Value := ln.LoanClass.AdvancePayment.NumberOfMonths;
   end
   else lblAdvancePaymentMonths.Caption := 'No advance payment required';
+
+  lblCharges.Caption := FormatCurr('###,###,##0.00',ln.TotalCharges);
+  lblAdvancePayment.Caption := FormatCurr('###,###,##0.00',ln.TotalAdvancePayment);
+  lblNetProceeds.Caption := FormatCurr('###,###,##0.00',ln.NetProceeds);
 end;
 
 end.

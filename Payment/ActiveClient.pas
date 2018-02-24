@@ -3,7 +3,7 @@ unit ActiveClient;
 interface
 
 uses
-  AppConstants, System.Rtti, SysUtils, DateUtils, Ledger;
+  AppConstants, System.Rtti, SysUtils, DateUtils, Ledger, Math;
 
 type
 
@@ -308,7 +308,8 @@ begin
 
         // check if this is the first payment
         // check the rules for first payment
-        if IsFirstPayment then
+        // only applicable when no advance payment is made
+        if (IsFirstPayment) and (not HasAdvancePayment) then
         begin
           if ((days >= ifn.Rules.FirstPayment.MinDaysHalfInterest) and
             (days <= ifn.Rules.FirstPayment.MaxDaysHalfInterest))  then
@@ -317,12 +318,19 @@ begin
         end
         else computed := (FBalance * FInterestInDecimal * days) / ifn.DaysInAMonth;
 
+        // round off to 2 decimal places
+        computed := RoundTo(computed,-2);
+
         debitLedger.Debit := computed;
       end
       else // after schedule
       begin
         days := DaysBetween(NextPayment,paymentDate);
         additional := (FBalance * FInterestInDecimal * days) / ifn.DaysInAMonth;
+
+        // round off to 2 decimal places
+        additional := RoundTo(additional,-2);
+
         debitLedger.Debit := additional;
       end;
 
@@ -343,6 +351,10 @@ begin
 
     days := DaysBetween(paymentDate,GetLatestInterestDate(paymentDate));
     full := (FBalance * FInterestInDecimal * days) / ifn.DaysInAMonth;
+
+    // round off to 2 decimal places
+    full := RoundTo(full,-2);
+
     debitLedger.Debit := full;
 
     AddLedger(debitLedger);
