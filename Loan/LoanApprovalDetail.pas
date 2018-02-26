@@ -57,9 +57,9 @@ begin
   OpenDropdownDataSources(tsDetail);
 
   // applied amount
-  lblAppliedAmount.Caption := FormatFloat('###,##0.00',ln.AppliedAmount);
+  lblAppliedAmount.Caption := FormatCurr('###,##0.00',ln.AppliedAmount);
   // recommended amount
-  urlRecommendedAmount.Caption := FormatFloat('###,##0.00',ln.Assessment.RecommendedAmount);
+  urlRecommendedAmount.Caption := FormatCurr('###,##0.00',ln.Assessment.RecommendedAmount);
   // desired term
   urlDesiredTerm.Caption := IntToStr(ln.DesiredTerm);
 end;

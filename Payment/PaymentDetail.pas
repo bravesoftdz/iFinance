@@ -172,7 +172,7 @@ end;
 
 procedure TfrmPaymentDetail.SetTotalAmount;
 var
-  amount: real;
+  amount: currency;
 begin
   with lblTotal do
   begin
@@ -181,7 +181,7 @@ begin
     // change colour
     if amount < 0 then Color := clRed else Color := clBlack;
 
-    Caption := 'Total amount: ' + FormatFloat('###,###,##0.00',amount);
+    Caption := 'Total amount: ' + FormatCurr('###,###,##0.00',amount);
   end;
 end;
 
@@ -219,9 +219,9 @@ begin
   else if LDetail.TotalAmount <= 0 then error := 'No amount entered.'
   else if LDetail.Principal > LDetail.Loan.Balance then
     error := 'Principal amount is greater than to the loan balance.'
-  else if (not LDetail.IsFullPayment) and (LDetail.Interest > Ceil(LDetail.Loan.InterestTotalDue * 100) / 100) then
+  else if (not LDetail.IsFullPayment) and (LDetail.Interest > LDetail.Loan.InterestTotalDue) then
     error := 'Interest amount is greater than the total interest due.'
-  else if (not LDetail.IsFullPayment) and (LDetail.Principal > Ceil(LDetail.Loan.Balance * 100) / 100) then
+  else if (not LDetail.IsFullPayment) and (LDetail.Principal > LDetail.Loan.Balance) then
     error :=  'Principal amount is equal to the loan balance. If this is a full payment posting, tick the FULL PAYMENT box instead.'
   else if (pmt.IsWithdrawal) and (LDetail.TotalAmount > pmt.Withdrawn) then
     error := 'Total amount is greater than the remaining withdrawn amount.';
@@ -262,7 +262,7 @@ begin
   lblDays.Caption := IntToStr(DaysBetween(pmt.Date,pmt.Client.ActiveLoans[i].LastTransactionDate));
 
   urlPrincipalDue.Caption := FormatCurr('###,###,##0.00', pmt.Client.ActiveLoans[i].PrincipalDue);
-  urlInterestTotalDue.Caption := FormatCurr('###,###,##0.00', Ceil(pmt.Client.ActiveLoans[i].InterestDue * 100) / 100);
+  urlInterestTotalDue.Caption := FormatCurr('###,###,##0.00', pmt.Client.ActiveLoans[i].InterestDue);
 
   lblRemainingAmount.Caption := 'Remaining amount: ' + FormatCurr('###,###,##0.00', pmt.Withdrawn - pmt.TotalAmount);
 

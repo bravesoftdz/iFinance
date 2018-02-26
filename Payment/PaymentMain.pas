@@ -424,10 +424,10 @@ begin
     Cells[0,r] := detail.Loan.Id;
     Cells[1,r] := detail.Loan.LoanTypeName;
     Cells[2,r] := detail.Loan.AccountTypeName;
-    Cells[3,r] := FormatFloat('###,###,##0.00',detail.Principal);
-    Cells[4,r] := FormatFloat('###,###,##0.00',detail.Interest);
-    Cells[5,r] := FormatFloat('###,###,##0.00',detail.Penalty);
-    Cells[6,r] := FormatFloat('###,###,##0.00',detail.TotalAmount);
+    Cells[3,r] := FormatCurr('###,###,##0.00',detail.Principal);
+    Cells[4,r] := FormatCurr('###,###,##0.00',detail.Interest);
+    Cells[5,r] := FormatCurr('###,###,##0.00',detail.Penalty);
+    Cells[6,r] := FormatCurr('###,###,##0.00',detail.TotalAmount);
 
     Objects[0,r] := detail;
   end;
@@ -451,7 +451,7 @@ end;
 
 procedure TfrmPaymentMain.SetWithdrawnAmount;
 begin
-  lblWithdrawn.Caption := 'Amount withdrawn: ' + FormatFloat('###,##0.00',pmt.Withdrawn);
+  lblWithdrawn.Caption := 'Amount withdrawn: ' + FormatCurr('###,##0.00',pmt.Withdrawn);
 end;
 
 procedure TfrmPaymentMain.Retrieve;

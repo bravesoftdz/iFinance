@@ -251,7 +251,8 @@ var
   days: integer;
   py, pm, pd, vy, vm, vd: word;
 begin
-  due := 0;         // payment on schedule date
+  due := 0;         // total payment due on schedule date but excludes debits with partial payment
+                    // for debits with partial payment.. the balance variable is used
   additional := 0;  // payment after schedule date
   balance := 0;     // balance of previous interest
   computed := 0;    // payment before schedule date
@@ -273,7 +274,9 @@ begin
         if LLedger.ValueDate <= paymentDate then
         begin
           // if LLedger.ValueDate = NextPayment then due := LLedger.Debit
-          if LLedger.HasPartial then balance := balance + LLedger.Debit
+          if (LLedger.HasPartial) or (LLedger.ValueDate < paymentDate)
+            or ((LLedger.ValueDate = paymentDate) and (paymentdate <> NextPayment)) then
+            balance := balance + LLedger.Debit
           else due := due + LLedger.Debit;
         end;
       end
@@ -288,7 +291,6 @@ begin
     end;
   end;
 
-  // additional interest
   // payment is made before or after schedule date
   if (IsDiminishing) and (not IsScheduled) then
   begin
@@ -325,7 +327,13 @@ begin
       end
       else // after schedule
       begin
+        // additional interest
         days := DaysBetween(NextPayment,paymentDate);
+
+        // if payment date is more than a month from scheduled payment date
+        // divide the days with the days in a month and use the remainder
+        if days > ifn.DaysInAMonth then days := days mod ifn.DaysInAMonth;
+
         additional := (FBalance * FInterestInDecimal * days) / ifn.DaysInAMonth;
 
         // round off to 2 decimal places
@@ -498,7 +506,7 @@ begin
           LLedger.EventObject := FieldByName('event_object').AsString;
           LLedger.PrimaryKey := FieldByName('pk_event_object').AsString;
           LLedger.ValueDate := FieldByName('value_date').AsDateTime;
-          LLedger.Debit := FieldByName('payment_due').AsSingle;
+          LLedger.Debit := FieldByName('payment_due').AsCurrency;
           LLedger.CaseType := FieldByName('case_type').AsString;
           LLedger.CurrentStatus := FieldByName('status_code').AsString;
           LLedger.HasPartial := FieldByName('has_partial').AsInteger = 1;

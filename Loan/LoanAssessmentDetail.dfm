@@ -217,6 +217,10 @@ inherited frmLoanAssessmentDetail: TfrmLoanAssessmentDetail
             object tsFinInfo: TRzTabSheet
               Color = 14273211
               Caption = 'Financial info'
+              ExplicitLeft = 0
+              ExplicitTop = 0
+              ExplicitWidth = 0
+              ExplicitHeight = 0
               DesignSize = (
                 323
                 138)

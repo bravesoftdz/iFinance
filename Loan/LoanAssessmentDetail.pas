@@ -424,7 +424,7 @@ begin
   ExtendLastColumn(grMonExp);
 
   // applied amount
-  urlAppliedAmount.Caption := FormatFloat('###,##0.00',ln.AppliedAmount);
+  urlAppliedAmount.Caption := FormatCurr('###,##0.00',ln.AppliedAmount);
 end;
 
 function TfrmLoanAssessmentDetail.ValidEntry: boolean;

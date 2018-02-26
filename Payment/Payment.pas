@@ -261,7 +261,7 @@ begin
           FieldByName('remarks').AsString := FDetails[i].Remarks;
 
           if FDetails[i].IsFullPayment then FieldByName('balance').AsCurrency := 0
-          else FieldByName('balance').AsCurrency := FDetails[i].Loan.InterestDue - FDetails[i].Interest;
+          else FieldByName('balance').AsCurrency := (FDetails[i].Loan.InterestDue + FDetails[i].Loan.InterestBalance)  - FDetails[i].Interest;
 
           Post;
         end;
