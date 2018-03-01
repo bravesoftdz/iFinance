@@ -96,6 +96,9 @@ var
 
 implementation
 
+uses
+  IFinanceDialogs;
+
 { TClient }
 
 constructor TClient.Create;
@@ -178,29 +181,33 @@ procedure TClient.Save;
 var
   i: integer;
 begin
-  with dmClient do
-  begin
-    for i:=0 to ComponentCount - 1 do
-      if Components[i] is TADODataSet then
-        if (Components[i] as TADODataSet).State in [dsInsert,dsEdit] then
-        begin
-          (Components[i] as TADODataSet).Post;
+  try
+    with dmClient do
+    begin
+      for i:=0 to ComponentCount - 1 do
+        if Components[i] is TADODataSet then
+          if (Components[i] as TADODataSet).State in [dsInsert,dsEdit] then
+          begin
+            (Components[i] as TADODataSet).Post;
 
-          if (Components[i] as TADODataSet).Tag = 1 then
-            (Components[i] as TADODataSet).Edit; // set to edit mode to trigger BeforePost event during save routine
-        end;
+            if (Components[i] as TADODataSet).Tag = 1 then
+              (Components[i] as TADODataSet).Edit; // set to edit mode to trigger BeforePost event during save routine
+          end;
 
-  end;
+    end;
 
-  with dmRef do
-  begin
-    for i:=0 to ComponentCount - 1 do
-      if Components[i] is TADODataSet then
-        if ((Components[i] as TADODataSet).State in [dsInsert,dsEdit]) then
-          if ((Components[i] as TADODataSet).Modified) then
-            (Components[i] as TADODataSet).Post
-          else
-            (Components[i] as TADODataSet).Cancel;
+    with dmRef do
+    begin
+      for i:=0 to ComponentCount - 1 do
+        if Components[i] is TADODataSet then
+          if ((Components[i] as TADODataSet).State in [dsInsert,dsEdit]) then
+            if ((Components[i] as TADODataSet).Modified) then
+              (Components[i] as TADODataSet).Post
+            else
+              (Components[i] as TADODataSet).Cancel;
+    end;
+  except
+    on E: Exception do ShowErrorBox(E.Message);
   end;
 end;
 

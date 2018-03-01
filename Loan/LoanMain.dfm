@@ -2398,6 +2398,35 @@ inherited frmLoanMain: TfrmLoanMain
               Caption = '0.00'
               Transparent = True
             end
+            object JvLabel46: TJvLabel
+              Tag = -1
+              Left = 19
+              Top = 445
+              Width = 106
+              Height = 14
+              Caption = 'Promissory note:'
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -12
+              Font.Name = 'Tahoma'
+              Font.Style = [fsBold]
+              ParentFont = False
+              Transparent = True
+              HotTrackFont.Charset = DEFAULT_CHARSET
+              HotTrackFont.Color = clWindowText
+              HotTrackFont.Height = -12
+              HotTrackFont.Name = 'Tahoma'
+              HotTrackFont.Style = []
+            end
+            object RzDBLabel25: TRzDBLabel
+              Left = 139
+              Top = 445
+              Width = 69
+              Height = 14
+              AutoSize = True
+              DataField = 'pn_no'
+              DataSource = dmLoan.dscLoan
+            end
             object RzPanel7: TRzPanel
               Left = 0
               Top = 0

@@ -454,4 +454,36 @@ object dmClient: TdmClient
     Left = 680
     Top = 16
   end
+  object dstPromissoryNotes: TADODataSet
+    Connection = dmApplication.acMain
+    CursorType = ctStatic
+    Filtered = True
+    BeforeOpen = dstPromissoryNotesBeforeOpen
+    AfterOpen = dstPromissoryNotesAfterOpen
+    BeforePost = dstPromissoryNotesBeforePost
+    CommandText = 'sp_cl_get_promissory_notes;1'
+    CommandType = cmdStoredProc
+    Parameters = <
+      item
+        Name = '@RETURN_VALUE'
+        DataType = ftInteger
+        Direction = pdReturnValue
+        Precision = 10
+        Value = 0
+      end
+      item
+        Name = '@entity_id'
+        Attributes = [paNullable]
+        DataType = ftString
+        Size = 10
+        Value = #39#39
+      end>
+    Left = 616
+    Top = 72
+  end
+  object dscPromissoryNotes: TDataSource
+    DataSet = dstPromissoryNotes
+    Left = 680
+    Top = 72
+  end
 end

@@ -16,12 +16,17 @@ type
     FNetPay: currency;
     FLoans: array of TClientLoan;
     FValidIdentityDocs: integer;
+    FAvailablePromissoryNotes: array of string;
 
     procedure AddLoan(const loan: TClientLoan);
+    procedure AddPromissoryNote(const AValue: string);
 
     function GetLoan(const i: integer): TClientLoan;
+    function GetPromissoryNote(const i: integer): string;
+    function GetPromissoryNoteCount: integer;
   public
     procedure GetLoans;
+    procedure GetAvailablePromissoryNotes;
 
     function GetLoanClassCount(const classId: integer): integer;
     function GetLoanClassBalance(const classId: integer): real;
@@ -34,6 +39,8 @@ type
     property NetPay: currency read FNetPay write FNetPay;
     property Loans[const i: integer]: TClientLoan read GetLoan;
     property ValidIdentityDocs: integer read FValidIdentityDocs write FValidIdentityDocs;
+    property PromissoryNotes[const i: integer]: string read GetPromissoryNote;
+    property PromissoryNotesCount: integer read GetPromissoryNoteCount;
 
     constructor Create; overload;
     constructor Create(const id, name: string; emp: TEmployer; const addr: string); overload;
@@ -64,6 +71,12 @@ begin
   FName := name;
   FEmployer := emp;
   FAddress := addr;
+end;
+
+procedure TLoanClient.AddPromissoryNote(const AValue: string);
+begin
+  SetLength(FAvailablePromissoryNotes,Length(FAvailablePromissoryNotes) + 1);
+  FAvailablePromissoryNotes[Length(FAvailablePromissoryNotes) - 1] := AValue;
 end;
 
 constructor TLoanClient.Create(const id, name: string; emp: TEmployer; const addr: string;
@@ -107,6 +120,36 @@ begin
         AddLoan(TClientLoan.Create(FieldByName('loan_id').AsString,
                         FieldByName('class_id').AsInteger,
                         FieldByName('balance').AsCurrency));
+        Next;
+      end;
+    finally
+      Close;
+    end;
+  end;
+end;
+
+function TLoanClient.GetPromissoryNote(const i: integer): string;
+begin
+  Result := FAvailablePromissoryNotes[i];
+end;
+
+function TLoanClient.GetPromissoryNoteCount: integer;
+begin
+  Result := Length(FAvailablePromissoryNotes);
+end;
+
+procedure TLoanClient.GetAvailablePromissoryNotes;
+begin
+  // clear the promissory notes
+  FAvailablePromissoryNotes := [];
+
+  with dmLoan.dstPromissoryNotes do
+  begin
+    try
+      Open;
+      while not Eof do
+      begin
+        AddPromissoryNote(FieldByName('pn_no').AsString);
         Next;
       end;
     finally

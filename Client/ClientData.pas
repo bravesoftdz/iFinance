@@ -43,6 +43,8 @@ type
     dstLedgerbalance_i: TBCDField;
     dstLedgersort_order: TSmallintField;
     dscLedger: TDataSource;
+    dstPromissoryNotes: TADODataSet;
+    dscPromissoryNotes: TDataSource;
     procedure dstPersonalInfoBeforeOpen(DataSet: TDataSet);
     procedure dstEntityBeforeOpen(DataSet: TDataSet);
     procedure dstContactInfoBeforeOpen(DataSet: TDataSet);
@@ -79,6 +81,9 @@ type
     procedure dstClientLoanClass2AfterScroll(DataSet: TDataSet);
     procedure dstAcctInfoAfterPost(DataSet: TDataSet);
     procedure dstAcctInfoBeforeDelete(DataSet: TDataSet);
+    procedure dstPromissoryNotesBeforeOpen(DataSet: TDataSet);
+    procedure dstPromissoryNotesAfterOpen(DataSet: TDataSet);
+    procedure dstPromissoryNotesBeforePost(DataSet: TDataSet);
   private
     { Private declarations }
   public
@@ -481,6 +486,22 @@ begin
 end;
 
 procedure TdmClient.dstPersonalInfoBeforePost(DataSet: TDataSet);
+begin
+  if DataSet.State = dsInsert then
+    DataSet.FieldByName('entity_id').AsString := cln.Id;
+end;
+
+procedure TdmClient.dstPromissoryNotesAfterOpen(DataSet: TDataSet);
+begin
+  (DataSet as TADODataSet).Properties['Unique table'].Value := 'EntityPromissoryNote';
+end;
+
+procedure TdmClient.dstPromissoryNotesBeforeOpen(DataSet: TDataSet);
+begin
+  (DataSet as TADODataSet).Parameters.ParamByName('@entity_id').Value := cln.Id;
+end;
+
+procedure TdmClient.dstPromissoryNotesBeforePost(DataSet: TDataSet);
 begin
   if DataSet.State = dsInsert then
     DataSet.FieldByName('entity_id').AsString := cln.Id;

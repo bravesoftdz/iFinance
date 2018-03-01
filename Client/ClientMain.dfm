@@ -40,13 +40,13 @@ inherited frmClientMain: TfrmClientMain
     Width = 860
     Height = 552
     Hint = ''
-    ActivePage = tsLoansHistory
+    ActivePage = tsBankAcctInfo
     Anchors = [akLeft, akTop, akRight, akBottom]
     BoldCurrentTab = True
     FlatColor = 6572079
     ShowFullFrame = False
     ShowShadow = False
-    TabIndex = 3
+    TabIndex = 5
     TabOrder = 1
     TabOrientation = toBottom
     TabStop = False
@@ -2432,6 +2432,200 @@ inherited frmClientMain: TfrmClientMain
         end
       end
     end
+    object tsPromissoryNotes: TRzTabSheet
+      Color = 14273211
+      Caption = 'Promissory notes'
+      ExplicitWidth = 0
+      ExplicitHeight = 0
+      DesignSize = (
+        860
+        529)
+      object pnlPromissoryNotes: TRzPanel
+        Left = 6
+        Top = 6
+        Width = 572
+        Height = 516
+        Anchors = [akLeft, akTop, akRight, akBottom]
+        BorderOuter = fsNone
+        BorderColor = 8675134
+        BorderWidth = 1
+        ParentColor = True
+        TabOrder = 0
+        object grPromissoryNotes: TRzDBGrid
+          Left = 1
+          Top = 1
+          Width = 570
+          Height = 514
+          Align = alClient
+          BorderStyle = bsNone
+          DataSource = dmClient.dscPromissoryNotes
+          DrawingStyle = gdsGradient
+          FixedColor = 12955288
+          GradientEndColor = 12955288
+          GradientStartColor = 12955288
+          Options = [dgTitles, dgIndicator, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
+          TabOrder = 0
+          TitleFont.Charset = DEFAULT_CHARSET
+          TitleFont.Color = clWindowText
+          TitleFont.Height = -12
+          TitleFont.Name = 'Tahoma'
+          TitleFont.Style = []
+          FramingPreference = fpCustomFraming
+          QuickCompare.FieldName = 'expiry'
+          QuickCompare.FieldValue = 42644d
+          QuickCompare.Operation = qcoLessThan
+          QuickCompare.Color = 14277119
+          QuickCompare.FontColor = clRed
+          AltRowShadingColor = 15854564
+          AltRowShadingFixed = False
+          Columns = <
+            item
+              Expanded = False
+              FieldName = 'pn_no'
+              Title.Alignment = taCenter
+              Title.Caption = 'PN No.'
+              Title.Font.Charset = DEFAULT_CHARSET
+              Title.Font.Color = clWindowText
+              Title.Font.Height = -12
+              Title.Font.Name = 'Tahoma'
+              Title.Font.Style = [fsBold]
+              Width = 200
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'status_name'
+              Title.Alignment = taCenter
+              Title.Caption = 'Status'
+              Title.Font.Charset = DEFAULT_CHARSET
+              Title.Font.Color = clWindowText
+              Title.Font.Height = -12
+              Title.Font.Name = 'Tahoma'
+              Title.Font.Style = [fsBold]
+              Width = 100
+              Visible = True
+            end>
+        end
+      end
+      object RzPanel2: TRzPanel
+        Left = 584
+        Top = 6
+        Width = 276
+        Height = 516
+        Anchors = [akTop, akRight, akBottom]
+        BorderOuter = fsNone
+        BorderColor = 8675134
+        BorderWidth = 1
+        ParentColor = True
+        TabOrder = 1
+        DesignSize = (
+          276
+          516)
+        object JvLabel36: TJvLabel
+          Left = 13
+          Top = 39
+          Width = 39
+          Height = 14
+          Caption = 'PN no.'
+          Transparent = True
+        end
+        object RzPanel3: TRzPanel
+          Left = 8
+          Top = 486
+          Width = 50
+          Height = 22
+          Anchors = [akLeft, akBottom]
+          BorderOuter = fsNone
+          BorderColor = 6572079
+          BorderWidth = 1
+          Color = 12955288
+          TabOrder = 1
+          object sbtnNewPromissoryNote: TRzShapeButton
+            Left = 0
+            Top = 0
+            Width = 50
+            Height = 22
+            Hint = 'Add a new record'
+            BorderStyle = bsNone
+            Caption = 'New'
+            ParentShowHint = False
+            ShowHint = True
+            OnClick = sbtnNewPromissoryNoteClick
+          end
+        end
+        object RzPanel9: TRzPanel
+          Left = 1
+          Top = 1
+          Width = 274
+          Height = 19
+          Align = alTop
+          BorderOuter = fsNone
+          BorderSides = [sdBottom]
+          BorderColor = clBlack
+          BorderWidth = 1
+          Color = 8675134
+          GradientColorStyle = gcsCustom
+          GradientColorStart = 6572079
+          GradientColorStop = 8675134
+          TabOrder = 3
+          VisualStyle = vsGradient
+          object RzLabel3: TRzLabel
+            Left = 7
+            Top = 2
+            Width = 41
+            Height = 14
+            Caption = 'Details'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWhite
+            Font.Height = -12
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold]
+            ParentFont = False
+            Transparent = True
+          end
+        end
+        object RzPanel10: TRzPanel
+          Left = 217
+          Top = 486
+          Width = 50
+          Height = 22
+          Anchors = [akLeft, akBottom]
+          BorderOuter = fsNone
+          BorderColor = 6572079
+          BorderWidth = 1
+          Color = 12955288
+          TabOrder = 2
+          object sbtnRemovePromissoryNote: TRzShapeButton
+            Left = 0
+            Top = 0
+            Width = 50
+            Height = 22
+            Hint = 'Remove record'
+            BorderStyle = bsNone
+            Caption = 'Remove'
+            ParentShowHint = False
+            ShowHint = True
+            OnClick = sbtnRemovePromissoryNoteClick
+          end
+        end
+        object edPNNo: TRzDBEdit
+          Left = 72
+          Top = 33
+          Width = 185
+          Height = 22
+          DataSource = dmClient.dscPromissoryNotes
+          DataField = 'pn_no'
+          Ctl3D = True
+          DisabledColor = 14273211
+          FrameColor = 8675134
+          FrameVisible = True
+          FramingPreference = fpCustomFraming
+          ParentCtl3D = False
+          TabOnEnter = True
+          TabOrder = 0
+        end
+      end
+    end
   end
   object pnlToolbar: TRzPanel
     Left = 866
@@ -3103,6 +3297,69 @@ inherited frmClientMain: TfrmClientMain
         OnMouseUp = imgClientMainMouseUp
       end
     end
+    object pnlPromissoryNote: TRzPanel
+      Left = 16
+      Top = 279
+      Width = 40
+      Height = 40
+      Anchors = [akTop, akRight]
+      BorderOuter = fsNone
+      BorderColor = 6572079
+      BorderWidth = 1
+      Color = 12955288
+      TabOrder = 7
+      object imgPromissoryNotes: TImage
+        Left = 4
+        Top = 4
+        Width = 32
+        Height = 32
+        Cursor = crHandPoint
+        Hint = 'Promissory notes'
+        AutoSize = True
+        ParentShowHint = False
+        Picture.Data = {
+          0954506E67496D61676589504E470D0A1A0A0000000D49484452000000200000
+          00200806000000737A7AF4000004214944415478DAC5975B4C1C5518C7FF6766
+          966B165A28AC95365424C104DE34C6C4873EF8A2BBD5688C0F36F1C1D807ED85
+          2D292DD8E552566A62A28931F1D1A7263EA80FA6BAEB2D466B534329A1316D1F
+          48696D2BA043E9057077D83D73F13B67160AE310CB36B39EE490B0FFCC9CDFF7
+          FFBEF39D33CC711CFC9F83D1D49A92E92F4DA6C4244CD03CB422630C9A63A7A6
+          07A22F0A807024F9EDC2F0F34FC2B26D282CD8F56D0A505514F47D350A7DE0D9
+          1AB15CC396A1F4ECC7AF3C8DCED435682A43500CC25CD372F0516C07F67D7E06
+          7383D146B15663DDB1B4FEE96B3B31746A0A21B220281744F49CFE0CEEDC86DD
+          274EE1F6B1684402D40EA4F4936F3C830F4774B227A0F00BC3B281834F45F0C2
+          273F623E197301AAFA527AE69D68B02B7B46757F1AD9E102404522A51BC3515C
+          BA74914A549155EA37DC1DEB3C802E76998DF6F60E54F6A5B174DC0330313101
+          8572A0C93C287056C188872DCBA202B5294DAC28DD344DD89689C7DADAFC01AE
+          4C4E22A42978E283699CD8F537C6C62F809B1C3CCF611806E29DFBA050048FBF
+          FF4751FA81FD7B61D1FFADADADFE00BF5FBD2A1D08090788DEA12898E256A54D
+          3DC2227A46BF6A22C222F465075A5A5ABC005F13400CD7AF5F9300659AFBB06B
+          E1EA052CFAD596BDA2185D003804D0DCBC83005204B06B2DC0D4D40D7A5845C7
+          F0243E7BD9C4B9F1DF60927D399EC71259D8D5D52917684F5EF6E89CF4EC7FEA
+          F1F801E9C0F66DDBFD016666A6A465659A2A6AD9374251642245C5E8D201DB42
+          D3C34DFE00FA5F7F42A1FC852480A80337976CF905D26267C5E28DEA9C00C802
+          441EDAEA0F7073568746F97FB4EF224EBEAA6264EC3C4C5EB0306BE070F741A8
+          14E123890B45E9DD87E2B04D0B0D8D8DFE00B7E6E6C801456E453702378AF523
+          DC98EE3A60A37E4BBD07E028011C8FE1CEED3B8514040BB0B96E332A1304F0AE
+          0760617E1E2A155053F728BE7BBD0A23A3E3C873B79164B359F4F61C96166F3D
+          74B6A09F273D7FDF7ACF916EB90D6B6A6BD7029413003505641617099A15AA58
+          B9772E3001EEB6526F841BD13905C3A8535687C3A0E6879C17C0C864EE01B0C2
+          0BDC3BD4CA365A59A0089D73EA948E85CAEA6A7F807CCE9029A8DB7B1A3FBFB9
+          09BF8E8C81535EF3B91C326461FFD15EBAAC500EDFFA85F43AD24737A427DEEE
+          917DA0BCBCC21F8053BE441B5735F7347467E128A5B91CA1AAB1A275711C8742
+          65FE00A24D8A9CB907C8BFCF747969153DEE017401A0AA9A3F00958A7C30BCE7
+          079C8D47709A5290A7BC89D464B34BE84FF4CA1785F77CBF4AE7A4E76595DF97
+          2E2E2514E43A00A51B6B002AA913D2FDACA400740F85B1DC096B06D2FAFCD073
+          2505A81DFC060B49F75ADE10497CF193A156B573BA33DB017F9A895D26FA4C45
+          EEEE99D9F776BF24006A6836D3ACA7A996C800DA8F98A379437E9CD2ACA2590E
+          04F655E61DC2E7259A46A9165C77FC0329A46BA7F9F06AEA0000000049454E44
+          AE426082}
+        ShowHint = True
+        OnClick = imgPromissoryNotesClick
+        OnMouseDown = imgClientMainMouseDown
+        OnMouseUp = imgClientMainMouseUp
+      end
+    end
   end
   object PhotoLauncher: TRzLauncher
     Action = 'Open'
@@ -3113,8 +3370,8 @@ inherited frmClientMain: TfrmClientMain
     Top = 332
   end
   object ppLoans: TPopupMenu
-    Left = 782
-    Top = 59
+    Left = 14
+    Top = 515
     object Ledger1: TMenuItem
       Caption = 'Ledger'
       OnClick = Ledger1Click

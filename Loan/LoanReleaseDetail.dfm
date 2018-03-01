@@ -64,7 +64,7 @@ inherited frmLoanReleaseDetail: TfrmLoanReleaseDetail
           end
           object JvLabel1: TJvLabel
             Tag = -1
-            Left = 240
+            Left = 248
             Top = 47
             Width = 118
             Height = 14
@@ -84,7 +84,7 @@ inherited frmLoanReleaseDetail: TfrmLoanReleaseDetail
           end
           object urlApprovedAmount: TRzURLLabel
             Tag = 1
-            Left = 374
+            Left = 382
             Top = 47
             Width = 25
             Height = 14
@@ -108,7 +108,7 @@ inherited frmLoanReleaseDetail: TfrmLoanReleaseDetail
           end
           object JvLabel2: TJvLabel
             Tag = -1
-            Left = 240
+            Left = 248
             Top = 71
             Width = 55
             Height = 14
@@ -128,7 +128,7 @@ inherited frmLoanReleaseDetail: TfrmLoanReleaseDetail
           end
           object lblCharges: TJvLabel
             Tag = -1
-            Left = 374
+            Left = 382
             Top = 71
             Width = 27
             Height = 14
@@ -138,7 +138,7 @@ inherited frmLoanReleaseDetail: TfrmLoanReleaseDetail
           object JvLabel4: TJvLabel
             Tag = -1
             Left = 22
-            Top = 71
+            Top = 96
             Width = 86
             Height = 14
             Caption = 'Net proceeds:'
@@ -158,7 +158,7 @@ inherited frmLoanReleaseDetail: TfrmLoanReleaseDetail
           object lblNetProceeds: TJvLabel
             Tag = -1
             Left = 132
-            Top = 71
+            Top = 96
             Width = 27
             Height = 14
             Caption = '0.00'
@@ -166,7 +166,7 @@ inherited frmLoanReleaseDetail: TfrmLoanReleaseDetail
           end
           object JvLabel3: TJvLabel
             Tag = -1
-            Left = 240
+            Left = 248
             Top = 23
             Width = 104
             Height = 14
@@ -186,7 +186,7 @@ inherited frmLoanReleaseDetail: TfrmLoanReleaseDetail
           end
           object lblAppliedAmount: TJvLabel
             Tag = -1
-            Left = 374
+            Left = 382
             Top = 23
             Width = 27
             Height = 14
@@ -195,7 +195,7 @@ inherited frmLoanReleaseDetail: TfrmLoanReleaseDetail
           end
           object lblAdvancePayment: TJvLabel
             Tag = -1
-            Left = 412
+            Left = 420
             Top = 96
             Width = 27
             Height = 14
@@ -204,7 +204,7 @@ inherited frmLoanReleaseDetail: TfrmLoanReleaseDetail
           end
           object JvLabel5: TJvLabel
             Tag = -1
-            Left = 240
+            Left = 248
             Top = 96
             Width = 116
             Height = 14
@@ -224,7 +224,7 @@ inherited frmLoanReleaseDetail: TfrmLoanReleaseDetail
           end
           object lblAdvancePaymentMonths: TJvLabel
             Tag = -1
-            Left = 240
+            Left = 248
             Top = 120
             Width = 6
             Height = 14
@@ -240,6 +240,14 @@ inherited frmLoanReleaseDetail: TfrmLoanReleaseDetail
             HotTrackFont.Height = -12
             HotTrackFont.Name = 'Tahoma'
             HotTrackFont.Style = []
+          end
+          object JvLabel37: TJvLabel
+            Left = 19
+            Top = 47
+            Width = 89
+            Height = 14
+            Caption = 'Promissory note'
+            Transparent = True
           end
           object pcAssessment: TRzPageControl
             Tag = 3
@@ -381,7 +389,7 @@ inherited frmLoanReleaseDetail: TfrmLoanReleaseDetail
           object edReleasedAmount: TRzNumericEdit
             Left = 118
             Top = 17
-            Width = 91
+            Width = 107
             Height = 22
             FrameColor = 8675134
             FrameVisible = True
@@ -391,7 +399,7 @@ inherited frmLoanReleaseDetail: TfrmLoanReleaseDetail
             DisplayFormat = '###,##0.00'
           end
           object edAdvancePaymentMonths: TRzNumericEdit
-            Left = 374
+            Left = 382
             Top = 90
             Width = 27
             Height = 22
@@ -400,9 +408,18 @@ inherited frmLoanReleaseDetail: TfrmLoanReleaseDetail
             FrameColor = 8675134
             FrameVisible = True
             FramingPreference = fpCustomFraming
-            TabOrder = 4
+            TabOrder = 5
             OnChange = edReleasedAmountChange
             DisplayFormat = '0'
+          end
+          object cmbPromissoryNotes: TRzComboBox
+            Left = 118
+            Top = 41
+            Width = 107
+            Height = 22
+            TabOrder = 4
+            OnChange = cmbPromissoryNotesChange
+            OnClick = cmbPromissoryNotesChange
           end
         end
       end

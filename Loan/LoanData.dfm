@@ -733,4 +733,41 @@ object dmLoan: TdmLoan
     Left = 599
     Top = 238
   end
+  object dscPromissoryNotes: TDataSource
+    DataSet = dstPromissoryNotes
+    Left = 520
+    Top = 296
+  end
+  object dstPromissoryNotes: TADODataSet
+    Connection = dmApplication.acMain
+    CursorType = ctStatic
+    LockType = ltReadOnly
+    BeforeOpen = dstPromissoryNotesBeforeOpen
+    CommandText = 'sp_cl_get_promissory_notes;1'
+    CommandType = cmdStoredProc
+    Parameters = <
+      item
+        Name = '@RETURN_VALUE'
+        DataType = ftInteger
+        Direction = pdReturnValue
+        Precision = 10
+        Value = 0
+      end
+      item
+        Name = '@entity_id'
+        Attributes = [paNullable]
+        DataType = ftString
+        Size = 10
+        Value = #39#39
+      end
+      item
+        Name = '@available_only'
+        Attributes = [paNullable]
+        DataType = ftSmallint
+        Precision = 5
+        Value = 1
+      end>
+    Left = 456
+    Top = 296
+  end
 end

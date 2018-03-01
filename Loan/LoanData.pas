@@ -66,6 +66,8 @@ type
     dscLoanClose: TDataSource;
     dstAdvancePayment: TADODataSet;
     dstLoanClassAdvance: TADODataSet;
+    dscPromissoryNotes: TDataSource;
+    dstPromissoryNotes: TADODataSet;
     procedure dstLoanBeforeOpen(DataSet: TDataSet);
     procedure dstLoanClassBeforeOpen(DataSet: TDataSet);
     procedure dstLoanBeforePost(DataSet: TDataSet);
@@ -119,6 +121,7 @@ type
     procedure dstAdvancePaymentBeforeOpen(DataSet: TDataSet);
     procedure dstAdvancePaymentAfterOpen(DataSet: TDataSet);
     procedure dstLoanClassAdvanceBeforeOpen(DataSet: TDataSet);
+    procedure dstPromissoryNotesBeforeOpen(DataSet: TDataSet);
   private
     { Private declarations }
     procedure SetLoanClassProperties;
@@ -779,6 +782,11 @@ end;
 procedure TdmLoan.dstMonExpBeforePost(DataSet: TDataSet);
 begin
   DataSet.FieldByName('loan_id').AsString := ln.Id;
+end;
+
+procedure TdmLoan.dstPromissoryNotesBeforeOpen(DataSet: TDataSet);
+begin
+  (DataSet as TADODataSet).Parameters.ParamByName('@entity_id').Value := ln.Client.Id;
 end;
 
 procedure TdmLoan.dstStatusesBeforeOpen(DataSet: TDataSet);

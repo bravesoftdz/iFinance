@@ -190,6 +190,20 @@ type
     ppLoans: TPopupMenu;
     Ledger1: TMenuItem;
     Loandetails1: TMenuItem;
+    tsPromissoryNotes: TRzTabSheet;
+    pnlPromissoryNotes: TRzPanel;
+    grPromissoryNotes: TRzDBGrid;
+    RzPanel2: TRzPanel;
+    JvLabel36: TJvLabel;
+    RzPanel3: TRzPanel;
+    sbtnNewPromissoryNote: TRzShapeButton;
+    RzPanel9: TRzPanel;
+    RzLabel3: TRzLabel;
+    RzPanel10: TRzPanel;
+    sbtnRemovePromissoryNote: TRzShapeButton;
+    edPNNo: TRzDBEdit;
+    pnlPromissoryNote: TRzPanel;
+    imgPromissoryNotes: TImage;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -233,6 +247,9 @@ type
     procedure grLoansDblClick(Sender: TObject);
     procedure Ledger1Click(Sender: TObject);
     procedure Loandetails1Click(Sender: TObject);
+    procedure sbtnNewPromissoryNoteClick(Sender: TObject);
+    procedure sbtnRemovePromissoryNoteClick(Sender: TObject);
+    procedure imgPromissoryNotesClick(Sender: TObject);
   private
     { Private declarations }
     procedure CopyAddress;
@@ -246,6 +263,7 @@ type
     procedure NewFamRef;
     procedure NewIdentity;
     procedure NewAccount;
+    procedure NewPromissoryNote;
     procedure PopulateGroups;
     procedure ShowAlerts;
     procedure ShowLedger;
@@ -254,6 +272,7 @@ type
     function CheckClientInfo: string;
     function CheckIdentInfo: string;
     function CheckAcctInfo: string;
+    function CheckPromissoryNote: string;
   public
     { Public declarations }
     procedure Cancel;
@@ -292,6 +311,7 @@ const
   LOANS  = 3;
   GROUPS = 4;
   BANKACCOUNTS = 5;
+  PROMISSORYNOTES = 6;
 
 function TfrmClientMain.CheckClientInfo: string;
 var
@@ -338,6 +358,18 @@ begin
   Result := error;
 
   if Result <> '' then ShowErrorBox(error);
+end;
+
+function TfrmClientMain.CheckPromissoryNote: string;
+var
+  error: string;
+begin
+  if Trim(edPNNo.Text) = '' then error := 'Please enter PN number.';
+
+  Result := error;
+
+  if Result <> '' then ShowErrorBox(error);
+  
 end;
 
 function TfrmClientMain.CheckAcctInfo;
@@ -646,6 +678,7 @@ begin
         OpenDropdownDataSources(pnlFamRefDetail);
         ChangeFamRefControlState;
       end;
+
     IDENT:
       begin
         OpenGridDataSources(pnlIdentity);
@@ -655,19 +688,27 @@ begin
         grIdentityList.QuickCompare.Active := grIdentityList.DataSource.DataSet.RecordCount > 0;
         grIdentityList.QuickCompare.FieldValue := ifn.AppDate;
       end;
+
     LOANS:
       begin
         OpenGridDataSources(pnlLoans);
       end;
+
     GROUPS:
       begin
         PopulateGroups;
       end;
+
     BANKACCOUNTS:
       begin
         OpenGridDataSources(pnlAccounts);
         OpenDropdownDataSources(pnlAcctDetails);
         ChangeAccntInfoControlState;
+      end;
+
+    PROMISSORYNOTES:
+      begin
+        OpenGridDataSources(pnlPromissoryNotes);
       end;
   end;
 end;
@@ -720,6 +761,12 @@ procedure TfrmClientMain.imgLoanHistoryClick(Sender: TObject);
 begin
   inherited;
   SetActiveTab(LOANS);
+end;
+
+procedure TfrmClientMain.imgPromissoryNotesClick(Sender: TObject);
+begin
+  inherited;
+  SetActiveTab(PROMISSORYNOTES);
 end;
 
 procedure TfrmClientMain.imgTakePhotoClick(Sender: TObject);
@@ -789,6 +836,7 @@ begin
       CLIENT: error := CheckClientInfo;
       IDENT : error := CheckIdentInfo;
       BANKACCOUNTS: error := CheckAcctInfo;
+      PROMISSORYNOTES: error := CheckPromissoryNote;
 
     end;
 
@@ -868,6 +916,15 @@ begin
   end;
 end;
 
+procedure TfrmClientMain.NewPromissoryNote;
+begin
+  with grPromissoryNotes.DataSource.DataSet do
+  begin
+    Append;
+    edPNNo.SetFocus;
+  end;
+end;
+
 procedure TfrmClientMain.NewAccount;
 begin
   with grAccounts.DataSource.DataSet do
@@ -926,6 +983,12 @@ end;
 procedure TfrmClientMain.sbtnNewIdentDocClick(Sender: TObject);
 begin
   NewIdentity;
+end;
+
+procedure TfrmClientMain.sbtnNewPromissoryNoteClick(Sender: TObject);
+begin
+  inherited;
+  NewPromissoryNote;
 end;
 
 procedure TfrmClientMain.sbtnRemIdentDocClick(Sender: TObject);
@@ -1015,6 +1078,19 @@ begin
       end;
 
     end;
+  except
+    on e: Exception do
+      ShowErrorBox(e.Message);
+  end;
+end;
+
+procedure TfrmClientMain.sbtnRemovePromissoryNoteClick(Sender: TObject);
+const
+  CONF = 'Are you sure you want to remove the selected promissory note number?';
+begin
+  try
+    if grPromissoryNotes.DataSource.DataSet.RecordCount > 0 then
+      if ShowDecisionBox(CONF) = mrYes then grPromissoryNotes.DataSource.DataSet.Delete;
   except
     on e: Exception do
       ShowErrorBox(e.Message);

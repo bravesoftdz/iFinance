@@ -7,7 +7,8 @@ uses
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, BasePopupDetail, Data.DB, Vcl.Grids,
   Vcl.DBGrids, RzDBGrid, RzDBEdit, Vcl.StdCtrls, Vcl.Mask, RzEdit, JvExControls,
   JvLabel, RzButton, RzTabs, RzLabel, Vcl.Imaging.pngimage, Vcl.ExtCtrls,
-  RzPanel, RzGrids, ReleaseRecipient, LoanCharge, RzRadChk, Math;
+  RzPanel, RzGrids, ReleaseRecipient, LoanCharge, RzRadChk, Math, Vcl.DBCtrls,
+  RzDBCmbo, RzCmboBx;
 
 type
   TfrmLoanReleaseDetail = class(TfrmBasePopupDetail)
@@ -35,6 +36,8 @@ type
     JvLabel5: TJvLabel;
     lblAdvancePaymentMonths: TJvLabel;
     edAdvancePaymentMonths: TRzNumericEdit;
+    JvLabel37: TJvLabel;
+    cmbPromissoryNotes: TRzComboBox;
     procedure FormShow(Sender: TObject);
     procedure grReleaseRecipientDblClick(Sender: TObject);
     procedure btnAddClick(Sender: TObject);
@@ -45,6 +48,7 @@ type
     procedure FormCreate(Sender: TObject);
     procedure urlApprovedAmountClick(Sender: TObject);
     procedure edReleasedAmountChange(Sender: TObject);
+    procedure cmbPromissoryNotesChange(Sender: TObject);
   private
     { Private declarations }
     procedure AddRow(rec: TReleaseRecipient);
@@ -53,6 +57,7 @@ type
     procedure PopulateCharges;
     procedure ModifyRemove(const remove: boolean = false);
     procedure ClearRow(grid: TRzStringGrid; const row: integer);
+    procedure PopulatePromissoryNotes;
 
     function GetTotalReleased: currency;
     function ConfirmRelease: string;
@@ -96,6 +101,12 @@ begin
 
   // decrease row count
   grid.RowCount := grid.RowCount - 1;
+end;
+
+procedure TfrmLoanReleaseDetail.cmbPromissoryNotesChange(Sender: TObject);
+begin
+  inherited;
+  ln.PromissoryNote := cmbPromissoryNotes.Text;
 end;
 
 procedure TfrmLoanReleaseDetail.ModifyRemove(const remove: boolean);
@@ -267,6 +278,22 @@ begin
   end;
 end;
 
+procedure TfrmLoanReleaseDetail.PopulatePromissoryNotes;
+var
+  i, cnt: integer;
+begin
+  with cmbPromissoryNotes, ln.Client do
+  begin
+    Clear;
+
+    GetAvailablePromissoryNotes;
+
+    cnt := PromissoryNotesCount - 1;
+
+    for i := 0 to cnt do Items.Add(PromissoryNotes[i]);
+  end;
+end;
+
 procedure TfrmLoanReleaseDetail.Save;
 begin
   ln.Save;
@@ -370,6 +397,7 @@ end;
 procedure TfrmLoanReleaseDetail.FormCreate(Sender: TObject);
 begin
   inherited;
+  PopulatePromissoryNotes;
 
   // applied amount
   lblAppliedAmount.Caption := FormatCurr('###,##0.00',ln.AppliedAmount);

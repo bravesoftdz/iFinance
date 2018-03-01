@@ -57,6 +57,7 @@ type
     FApprovedTerm: integer;
     FBalance: currency;
     FAdvancePayments: array of TAdvancePayment;
+    FPromissoryNote: string;
 
     procedure SaveComakers;
     procedure SaveAssessments;
@@ -181,6 +182,7 @@ type
     property TotalAdvancePayment: currency read GetTotalAdvancePayment;
     property AdvancePayment[const i: integer]: TAdvancePayment read GetAdvancePayment write SetAdvancePayment;
     property AdvancePaymentCount: integer read GetAdvancePaymentCount;
+    property PromissoryNote: string read FPromissoryNote write FPromissoryNote;
 
     constructor Create;
     destructor Destroy; reintroduce;
@@ -680,6 +682,7 @@ begin
     else if ln.Action = laReleasing then
     begin
       FieldByName('balance').AsCurrency := FReleaseAmount;
+      FieldByName('pn_no').AsString := FPromissoryNote;
       FieldByName('status_id').AsString :=
           TRttiEnumerationType.GetName<TLoanStatus>(TLoanStatus.R)
     end
