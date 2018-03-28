@@ -8,7 +8,7 @@ uses
   RzDBChk, Vcl.DBCtrls, RzDBCmbo, Vcl.StdCtrls, Vcl.Mask, RzEdit, RzDBEdit,
   JvExControls, JvLabel, RzTabs, Vcl.Grids, Vcl.DBGrids, RzDBGrid, RzLabel,
   Vcl.ExtCtrls, RzPanel, SaveIntf, RzLstBox, RzChkLst, NewIntf, RzCmboBx,
-  RzGrids, RzBtnEdt;
+  RzGrids, RzBtnEdt, RzRadGrp, RzDBRGrp;
 
 type
   TfrmLoanClassificationList = class(TfrmBaseDocked,ISave,INew)
@@ -49,12 +49,12 @@ type
     RzShapeButton1: TRzShapeButton;
     JvLabel11: TJvLabel;
     JvLabel13: TJvLabel;
-    cbScheduled: TRzDBCheckBox;
     edComakersMax: TRzDBEdit;
     JvLabel2: TJvLabel;
     JvLabel8: TJvLabel;
     urlClassCharges: TRzURLLabel;
     urlAdvancePayment: TRzURLLabel;
+    rbgDiminishingType: TRzDBRadioGroup;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure urlRefreshListClick(Sender: TObject);
@@ -209,9 +209,10 @@ begin
   inherited;
   diminishing := dbluCompMethod.KeyValue = 'D';
 
-  if not diminishing then cbScheduled.Checked := false;
+  if not diminishing then rbgDiminishingType.Value := '0'
+  else rbgDiminishingType.Value := '1';
 
-  cbScheduled.ReadOnly := not diminishing;
+  rbgDiminishingType.ReadOnly := not diminishing;
 end;
 
 function TfrmLoanClassificationList.EntryIsValid: boolean;

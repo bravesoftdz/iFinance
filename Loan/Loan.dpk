@@ -41,7 +41,6 @@ requires
   JvCore,
   JvStdCtrls,
   JvControls,
-  RESTComponents,
   FireDAC;
 
 contains

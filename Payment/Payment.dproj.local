@@ -41,7 +41,6 @@
     <File Path="JvStdCtrls.dcp"/>
     <File Path="RaizeComponentsVcl.dcp"/>
     <File Path="RaizeComponentsVclDb.dcp"/>
-    <File Path="RESTComponents.dcp"/>
     <File Path="rtl.dcp"/>
     <File Path="vcl.dcp"/>
     <File Path="vcldb.dcp"/>

@@ -764,7 +764,7 @@ begin
         begin
           if FLoanClass.IsDiminishing then
           begin
-            if FLoanClass.IsScheduled then principal := Amortisation - interest
+            if FLoanClass.DiminishingType = dtScheduled then principal := Amortisation - interest
             else principal := FReleaseAmount / FApprovedTerm;
           end
           else principal := FReleaseAmount / FApprovedTerm;
@@ -815,7 +815,8 @@ function TLoan.GetAmortisation: currency;
 var
   amort: currency;
 begin
-  if (FLoanClass.IsDiminishing) and (FLoanClass.IsScheduled) then amort := FReleaseAmount * GetFactorWithInterest
+  // if (FLoanClass.IsDiminishing) and (FLoanClass.DiminishingType = dtScheduled) then amort := FReleaseAmount * GetFactorWithInterest
+  if FLoanClass.IsDiminishing then amort := FReleaseAmount * GetFactorWithInterest
   else amort := ((FReleaseAmount * FLoanClass.InterestInDecimal * FApprovedTerm) + FReleaseAmount) / FApprovedTerm;
 
   // Note: Round off the AMORTISATION to "nearest peso" .. ex. 1.25 to 2.00

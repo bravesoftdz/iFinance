@@ -34,7 +34,8 @@ implementation
 { TPosting }
 
 uses
-  AccountingData, IFinanceGlobal, IFinanceDialogs, AppConstants, DBUtil, Ledger;
+  AccountingData, IFinanceGlobal, IFinanceDialogs, AppConstants, DBUtil, Ledger,
+  LoanClassification;
 
 function TPosting.PostEntry(const refPostingId: string;
       const debit, credit: currency; const eventObject, primaryKey, status: string;
@@ -211,21 +212,26 @@ begin
           status := TRttiEnumerationType.GetName<TInterestStatus>(TInterestStatus.P);
 
           // for FIXED accounts.. use the first day of the month..
-          if (ALoan.LoanClass.IsDiminishing) and (not ALoan.LoanClass.IsScheduled) then
+          if (ALoan.LoanClass.IsDiminishing) and (ALoan.LoanClass.DiminishingType = dtFixed) then
             PostInterest(interest,ALoan.Id,valueDate,interestSource,status)
           else PostInterest(interest,ALoan.Id,GetFirstDayOfValueDate(valueDate),interestSource,status);
 
           // principal
           if ALoan.LoanClass.IsDiminishing then
           begin
-            if ALoan.LoanClass.IsScheduled then principal := ALoan.Amortisation - interest
+            // if ALoan.LoanClass.DiminishingType = dtScheduled then principal := ALoan.Amortisation - interest
+            // else
+            // begin
+            //  // use the balance for the last amount to be posted..
+            //  // this ensures sum of principal is equal to the loan amount released
+            //  if i = cnt then principal := balance
+            //  else principal := ALoan.ReleaseAmount / ALoan.ApprovedTerm;
+            // end;
+            if i < cnt then principal := ALoan.Amortisation - interest
             else
-            begin
               // use the balance for the last amount to be posted..
               // this ensures sum of principal is equal to the loan amount released
-              if i = cnt then principal := balance
-              else principal := ALoan.ReleaseAmount / ALoan.ApprovedTerm;
-            end;
+              principal := balance;
           end
           else principal := ALoan.ReleaseAmount / ALoan.ApprovedTerm;
 

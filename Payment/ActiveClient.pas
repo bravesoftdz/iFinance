@@ -3,7 +3,7 @@ unit ActiveClient;
 interface
 
 uses
-  AppConstants, System.Rtti, SysUtils, DateUtils, Ledger, Math;
+  AppConstants, System.Rtti, SysUtils, DateUtils, Ledger, Math, LoanClassification;
 
 type
 
@@ -16,10 +16,12 @@ type
     FInterestMethod: string;
     FPrincipalDue: currency;
     FInterestDue: currency;
-    FIsScheduled: boolean;
+    FPrincipalAmortisation: currency;
+    FInterestAmortisation: currency;
+    FDiminishingType: TDiminishingType;
     FLastTransactionDate: TDateTime;
     FInterestInDecimal: currency;
-    FInterestBalance: currency;
+    FInterestDeficit: currency;
     FInterestAdditional: currency;
     FInterestComputed: currency;
     FLedger: array of TLedger;
@@ -49,6 +51,7 @@ type
     function GetLatestInterestDate(const paymentDate: TDateTime): TDateTime;
     function GetInterestMethodName: string;
     function GetHasAdvancePayment: boolean;
+    function GetAmortisation: currency;
 
   public
     property Id: string read FId write FId;
@@ -60,11 +63,11 @@ type
     property IsFixed: boolean read GetIsFixed;
     property PrincipalDue: currency read FPrincipalDue;
     property InterestDue: currency read GetInterestDue;
-    property IsScheduled: boolean read FIsScheduled write FIsScheduled;
+    property DiminishingType: TDiminishingType read FDiminishingType write FDiminishingType;
     property LastTransactionDate: TDateTime read FLastTransactionDate write FLastTransactionDate;
     property InterestInDecimal: currency read FInterestInDecimal write FInterestInDecimal;
     property NextPayment: TDateTime read GetNextPayment;
-    property InterestBalance: currency read FInterestBalance write FInterestBalance;
+    property InterestDeficit: currency read FInterestDeficit write FInterestDeficit;
     property Ledger[const i: integer]: TLedger read GetLedger;
     property IsFirstPayment: boolean read GetIsFirstPayment;
     property LedgerCount: integer read GetLedgerCount;
@@ -82,6 +85,9 @@ type
     property InterestMethodName: string read GetInterestMethodName;
     property HasAdvancePayment: boolean read GetHasAdvancePayment;
     property PaymentsAdvance: integer write FPaymentsAdvance;
+    property Amortisation: currency read GetAmortisation;
+    property InterestAmortisation: currency read FInterestAmortisation;
+    property PrincipalAmortisation: currency read FPrincipalAmortisation;
 
     procedure GetPaymentDue(const paymentDate: TDateTime);
     procedure RetrieveLedger;
@@ -150,10 +156,11 @@ begin
 
         loan.Id := FieldByName('loan_id').AsString;
         loan.Balance := FieldByName('balance').AsCurrency;
+        loan.InterestDeficit := FieldByName('int_deficit').AsCurrency;
         loan.LoanTypeName := FieldByName('loan_type_name').AsString;
         loan.AccountTypeName := FieldByName('acct_type_name').AsString;
         loan.InterestMethod := FieldByName('int_comp_method').AsString;
-        loan.IsScheduled := FieldByName('is_scheduled').AsBoolean;
+        loan.DiminishingType := TDiminishingType(FieldByName('dim_type').AsInteger);
         loan.LastTransactionDate := FieldByName('last_transaction_date').AsDateTime;
         loan.InterestInDecimal := FieldByName('int_rate').AsCurrency / 100;
         loan.ApprovedTerm := FieldByName('terms').AsInteger;
@@ -219,6 +226,11 @@ begin
   SetLength(FLedger,0);
 end;
 
+function TLoan.GetAmortisation: currency;
+begin
+  Result := FPrincipalAmortisation + FInterestAmortisation;
+end;
+
 function TLoan.GetHasAdvancePayment: boolean;
 begin
   Result := FPaymentsAdvance > 0;
@@ -226,7 +238,7 @@ end;
 
 function TLoan.GetHasInterestBalance: boolean;
 begin
-  Result := FInterestBalance > 0;
+  Result := FInterestDeficit > 0;
 end;
 
 function TLoan.GetHasInterestComputed: boolean;
@@ -246,17 +258,18 @@ end;
 
 procedure TLoan.GetInterestDue(const paymentDate: TDateTime);
 var
-  due, additional, balance, computed, full: currency;
+  due, additional, deficit, computed, full, amort: currency;
   LLedger, debitLedger: TLedger;
   days: integer;
   py, pm, pd, vy, vm, vd: word;
 begin
-  due := 0;         // total payment due on schedule date but excludes debits with partial payment
-                    // for debits with partial payment.. the balance variable is used
-  additional := 0;  // payment after schedule date
-  balance := 0;     // balance of previous interest
-  computed := 0;    // payment before schedule date
-  full := 0;        // full payment
+  due := 0;           // total payment due on schedule date but excludes debits with partial payment
+                      // for debits with partial payment.. the balance variable is used
+  additional := 0;    // payment after schedule date
+  deficit := 0;       // balance of previous interest
+  computed := 0;      // payment before schedule date
+  full := 0;          // full payment
+  amort := 0;         // amortisation for the month of payment date
 
   // will be used only for fixed accounts
   // or diminishing scheduled accounts
@@ -269,30 +282,39 @@ begin
     if (LLedger.EventObject = TRttiEnumerationType.GetName<TEventObjects>(TEventObjects.ITR))
        and (LLedger.CaseType = TRttiEnumerationType.GetName<TCaseTypes>(TCaseTypes.ITS))then
     begin
-      if (IsDiminishing) and (not IsScheduled) then
-      begin
-        if LLedger.ValueDate <= paymentDate then
-        begin
-          // if LLedger.ValueDate = NextPayment then due := LLedger.Debit
-          if (LLedger.HasPartial) or (LLedger.ValueDate < paymentDate)
-            or ((LLedger.ValueDate = paymentDate) and (paymentdate <> NextPayment)) then
-            balance := balance + LLedger.Debit
-          else due := due + LLedger.Debit;
-        end;
-      end
-      else
-      begin
-        DecodeDate(LLedger.ValueDate,vy,vm,vd);
+      DecodeDate(LLedger.ValueDate,vy,vm,vd);
 
-        // only get the due for the month..
-        if (vm = pm) and (vy = py) then due := LLedger.Debit
-        else if (vm < pm) and (vy <= py) then balance := balance + LLedger.Debit;
+      // amortisation
+      if (vm = pm) and (vy = py) then amort := LLedger.Amortisation;
+
+      if LLedger.CurrentStatus = TRttiEnumerationType.GetName<TLedgerRecordStatus>(TLedgerRecordStatus.OPN) then
+      begin
+        if (IsDiminishing) and (DiminishingType = dtFixed) then
+        begin
+          if LLedger.ValueDate <= paymentDate then
+          begin
+            // if LLedger.ValueDate = NextPayment then due := LLedger.Debit
+            {if (LLedger.HasPartial) or (LLedger.ValueDate < paymentDate)
+              or ((LLedger.ValueDate = paymentDate) and (paymentdate <> NextPayment)) then
+              balance := balance + LLedger.Debit
+            else due := due + LLedger.Debit;  }
+            if (not LLedger.HasPartial) or (LLedger.ValueDate < paymentDate)
+              or ((LLedger.ValueDate = paymentDate) and (paymentdate <> NextPayment)) then
+                if (vm = pm) and (vy = py) then  due := LLedger.Debit
+          end;
+        end
+        else
+        begin
+          // only get the due for the month..
+          if (vm = pm) and (vy = py) then  due := LLedger.Debit
+          else if (vm < pm) and (vy <= py) then deficit := deficit + LLedger.Debit;
+        end;
       end;
     end;
-  end;
+  end;  // end for loop
 
   // payment is made before or after schedule date
-  if (IsDiminishing) and (not IsScheduled) then
+  if (IsDiminishing) and (DiminishingType = dtFixed) then
   begin
     if (paymentDate <> NextPayment) and (paymentDate <> FLastTransactionDate) then
     begin
@@ -311,14 +333,14 @@ begin
         // check if this is the first payment
         // check the rules for first payment
         // only applicable when no advance payment is made
-        if (IsFirstPayment) and (not HasAdvancePayment) then
+        {if (IsFirstPayment) and (not HasAdvancePayment) then
         begin
           if ((days >= ifn.Rules.FirstPayment.MinDaysHalfInterest) and
             (days <= ifn.Rules.FirstPayment.MaxDaysHalfInterest))  then
             computed := (FBalance * FInterestInDecimal * ifn.HalfMonth) / ifn.DaysInAMonth
           else computed := FBalance * FInterestInDecimal;
         end
-        else computed := (FBalance * FInterestInDecimal * days) / ifn.DaysInAMonth;
+        else} computed := (FBalance * FInterestInDecimal * days) / ifn.DaysInAMonth;
 
         // round off to 2 decimal places
         computed := RoundTo(computed,-2);
@@ -370,15 +392,15 @@ begin
 
   // set the different amounts
   FInterestDue := due;
-  FInterestBalance := balance;
   FInterestAdditional := additional;
   FInterestComputed := computed;
   FFullPaymentInterest := full;
+  FInterestAmortisation := amort;
 end;
 
 function TLoan.GetInterestDue: currency;
 begin
-  if HasInterestComputed then Result := FInterestComputed
+  if HasInterestComputed then Result := FInterestDue + FInterestComputed
   else if HasInterestAdditional then Result := FInterestDue + FInterestAdditional
   else if HasInterestDue then Result := FInterestDue
   else Result := 0;
@@ -386,14 +408,15 @@ end;
 
 function TLoan.GetInterestMethodName: string;
 begin
-  if (FInterestMethod = 'D') and (FIsScheduled) then Result := 'Diminishing*'
-  else if FInterestMethod = 'D' then Result := 'Diminishing'
+  if (FInterestMethod = 'D') and (DiminishingType = dtScheduled) then Result := 'Diminishing Scheduled'
+  else if FInterestMethod = 'D' then Result := 'Diminishing Fixed'
   else Result := 'Fixed';
 end;
 
 function TLoan.GetInterestTotalDue: currency;
 begin
-  Result := FInterestDue + FInterestBalance + FInterestAdditional + FInterestComputed;
+  // Result := FInterestDue + FInterestDeficit + FInterestAdditional + FInterestComputed;
+  Result := FInterestDeficit + FInterestAdditional + FInterestComputed;
 end;
 
 function TLoan.GetIsDiminishing: boolean;
@@ -462,7 +485,7 @@ end;
 
 procedure TLoan.GetPrincipalDue(const paymentDate: TDateTime);
 var
-  principal: currency;
+  principal, amortisation: currency;
   LLedger: TLedger;
   py, pm, pd, vy, vm, vd: word;
 begin
@@ -478,11 +501,16 @@ begin
       DecodeDate(LLedger.ValueDate,vy,vm,vd);
 
       // only get the due for the month.. exclude balance
-      if (vm = pm) and (vy = py) then principal := principal + LLedger.Debit;
+      if (vm = pm) and (vy = py) then
+      begin
+         principal := LLedger.Debit;
+         amortisation := LLedger.Amortisation;
+      end;
     end;
   end;
 
   FPrincipalDue := principal;
+  FPrincipalAmortisation := amortisation;
 end;
 
 procedure TLoan.RetrieveLedger;
@@ -506,6 +534,7 @@ begin
           LLedger.EventObject := FieldByName('event_object').AsString;
           LLedger.PrimaryKey := FieldByName('pk_event_object').AsString;
           LLedger.ValueDate := FieldByName('value_date').AsDateTime;
+          LLedger.Amortisation := FieldByName('amortisation').AsCurrency;
           LLedger.Debit := FieldByName('payment_due').AsCurrency;
           LLedger.CaseType := FieldByName('case_type').AsString;
           LLedger.CurrentStatus := FieldByName('status_code').AsString;

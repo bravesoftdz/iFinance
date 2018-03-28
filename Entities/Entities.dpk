@@ -40,9 +40,8 @@ requires
   JvStdCtrls,
   RaizeComponentsVcl,
   RaizeComponentsVclDb,
-  RESTComponents,
-  FireDAC,
-  JvDB;
+  JvDB,
+  FireDAC;
 
 contains
   Entity in 'Entity.pas',

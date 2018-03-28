@@ -59,7 +59,7 @@ procedure TfrmLoanLedger.FormCreate(Sender: TObject);
 begin
   inherited;
   grLedger.DataSource.DataSet.Open;
-  ExtendLastColumn(grLedger);
+  // ExtendLastColumn(grLedger);
 end;
 
 procedure TfrmLoanLedger.grLedgerDrawColumnCell(Sender: TObject;

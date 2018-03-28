@@ -118,7 +118,6 @@
         <DCCReference Include="JvStdCtrls.dcp"/>
         <DCCReference Include="vcldb.dcp"/>
         <DCCReference Include="RaizeComponentsVclDb.dcp"/>
-        <DCCReference Include="RESTComponents.dcp"/>
         <DCCReference Include="FireDAC.dcp"/>
         <DCCReference Include="PaymentMain.pas">
             <Form>frmPaymentMain</Form>

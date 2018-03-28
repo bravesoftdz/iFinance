@@ -270,7 +270,7 @@ var
   validFrom, validUntil: TDate;
   lt: TLoanType;
   gp: TGroup;
-  scheduled: boolean;
+  dimType: TDiminishingType;
 begin
   with DataSet do
   begin
@@ -288,7 +288,7 @@ begin
     validUntil := FieldByName('valid_until').AsDateTime;
     age := FieldByName('max_age').AsInteger;
     intCompMethod := FieldByName('int_comp_method').AsString;
-    scheduled := FieldByName('is_scheduled').AsBoolean;
+    dimType := TDiminishingType(FieldByName('dim_type').AsInteger);
 
     lt := TLoanType.Create(FieldByName('loan_type').AsInteger,
         FieldByName('loan_type_name').AsString);
@@ -301,7 +301,7 @@ begin
   if not Assigned(lnc) then
     lnc := TLoanClassification.Create(clId, clName, interest,
         term, maxLoan, comakersMin, comakersMax, validFrom, validUntil, age,lt, gp, intCompMethod,
-        scheduled)
+        dimType)
   else
   begin
     lnc.ClassificationId := clId;
@@ -317,7 +317,7 @@ begin
     lnc.LoanType := lt;
     lnc.Group := gp;
     lnc.InterestComputationMethod := intCompMethod;
-    lnc.IsScheduled := scheduled;
+    lnc.DiminishingType := dimType;
 
     lnc.EmptyClassCharges;
   end;

@@ -96,9 +96,8 @@
         <DCCReference Include="JvStdCtrls.dcp"/>
         <DCCReference Include="RaizeComponentsVcl.dcp"/>
         <DCCReference Include="RaizeComponentsVclDb.dcp"/>
-        <DCCReference Include="RESTComponents.dcp"/>
-        <DCCReference Include="FireDAC.dcp"/>
         <DCCReference Include="JvDB.dcp"/>
+        <DCCReference Include="FireDAC.dcp"/>
         <DCCReference Include="Entity.pas"/>
         <DCCReference Include="LandlordSearch.pas"/>
         <DCCReference Include="EntitiesData.pas">

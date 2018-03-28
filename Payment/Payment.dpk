@@ -40,7 +40,6 @@ requires
   JvStdCtrls,
   vcldb,
   RaizeComponentsVclDb,
-  RESTComponents,
   FireDAC;
 
 contains

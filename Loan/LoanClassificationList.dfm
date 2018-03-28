@@ -380,7 +380,7 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
       KeyField = 'value'
       ListField = 'display'
       ListSource = dmAux.dscPaymentFreq
-      TabOrder = 13
+      TabOrder = 12
       FlatButtons = True
       DisabledColor = clWhite
       FrameColor = 8675134
@@ -469,7 +469,7 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
       FrameVisible = True
       FramingPreference = fpCustomFraming
       TabOnEnter = True
-      TabOrder = 14
+      TabOrder = 13
       EditType = etDate
       Format = 'mm/dd/yyyy'
       FlatButtons = True
@@ -486,7 +486,7 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
       FrameVisible = True
       FramingPreference = fpCustomFraming
       TabOnEnter = True
-      TabOrder = 15
+      TabOrder = 14
       EditType = etDate
       Format = 'mm/dd/yyyy'
       FlatButtons = True
@@ -545,7 +545,7 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
       BorderColor = 6572079
       BorderWidth = 1
       Color = 12955288
-      TabOrder = 16
+      TabOrder = 15
       object sbtnActivate: TRzShapeButton
         Left = 0
         Top = 0
@@ -569,7 +569,7 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
       BorderColor = 6572079
       BorderWidth = 1
       Color = 12955288
-      TabOrder = 17
+      TabOrder = 16
       object RzShapeButton1: TRzShapeButton
         Left = 0
         Top = 0
@@ -582,18 +582,6 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
         ShowHint = True
         OnClick = sbtnNewClick
       end
-    end
-    object cbScheduled: TRzDBCheckBox
-      Left = 88
-      Top = 231
-      Width = 76
-      Height = 16
-      DataField = 'is_scheduled'
-      DataSource = dmLoansAux.dscLoanClass
-      ValueChecked = 'True'
-      ValueUnchecked = 'False'
-      Caption = 'Scheduled'
-      TabOrder = 12
     end
     object edComakersMax: TRzDBEdit
       Left = 207
@@ -612,6 +600,30 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
       ShowHint = True
       TabOnEnter = True
       TabOrder = 8
+    end
+    object rbgDiminishingType: TRzDBRadioGroup
+      Left = 81
+      Top = 227
+      Width = 176
+      Height = 24
+      DataField = 'dim_type'
+      DataSource = dmLoansAux.dscLoanClass
+      Items.Strings = (
+        'Scheduled'
+        'Fixed')
+      Values.Strings = (
+        '1'
+        '2')
+      BorderColor = 15263976
+      BorderSides = []
+      Caption = ''
+      Color = 14273211
+      Columns = 2
+      FlatColor = 14273211
+      GroupStyle = gsCustom
+      TabOnEnter = True
+      TabOrder = 17
+      TabStop = True
     end
   end
   object cmbBranch: TRzComboBox

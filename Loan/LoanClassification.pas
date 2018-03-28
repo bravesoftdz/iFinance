@@ -5,9 +5,11 @@ interface
 uses
   LoanClassCharge, LoanType, LoansAuxData, Group, LoanClassAdvance, SysUtils;
 
-type TLoanClassAction = (lcaNone, lcaCreating, lcaActivating, lcaDeactivating);
-
 type
+  TLoanClassAction = (lcaNone, lcaCreating, lcaActivating, lcaDeactivating);
+
+  TDiminishingType = (dtNone, dtScheduled, dtFixed);
+
   TLoanClassification = class
   private
     FClassificationId: integer;
@@ -25,7 +27,7 @@ type
     FMaxAge: integer;
     FAction: TLoanClassAction;
     FInterestComputationMethod: string;
-    FIsScheduled: boolean;
+    FDiminishingType: TDiminishingType;
     FAdvancePayment: TLoanClassAdvance;
 
     function GetComakersNotRequired: boolean;
@@ -79,7 +81,7 @@ type
     property InterestComputationMethod: string write FInterestComputationMethod;
     property IsDiminishing: boolean read GetIsDiminishing;
     property IsFixed: boolean read GetIsFixed;
-    property IsScheduled: boolean read FIsScheduled write FIsScheduled;
+    property DiminishingType: TDiminishingType read FDiminishingType write FDiminishingType;
     property AdvancePayment: TLoanClassAdvance read FAdvancePayment write FAdvancePayment;
     property HasAdvancePayment: boolean read GetHasAdvancePayment;
 
@@ -87,7 +89,7 @@ type
         const interest: real; const term: integer; const maxLoan: currency;
         const comakersMin, comakersMax: integer; const validFrom, validUntil: TDate; const age: integer;
         const lt: TLoanType; const gp: TGroup; const intCompMethod: string;
-        const ufr: boolean);
+        const ADimType: TDiminishingType = dtNone);
   end;
 
 var
@@ -102,7 +104,7 @@ constructor TLoanClassification.Create(const classificationId: integer; classifi
         const interest: real; const term: integer; const maxLoan: currency;
         const comakersMin, comakersMax: integer; const validFrom, validUntil: TDate; const age: integer;
         const lt: TLoanType; const gp: TGroup; const intCompMethod: string;
-        const ufr: boolean);
+        const ADimType: TDiminishingType);
 begin
   FClassificationId := classificationId;
   FClassificationName := classificationName;
@@ -117,7 +119,7 @@ begin
   FLoanType := lt;
   FGroup := gp;
   FInterestComputationMethod := intCompMethod;
-  FIsScheduled := ufr;
+  FDiminishingType := ADimType;
 
   // set action
   if IsActive then FAction := lcaNone

@@ -20,6 +20,7 @@ type
     FNewStatus: string;
     FFullPayment: boolean;
     FHasPartial: boolean;
+    FAmortisation: currency;
     function GetPosted: boolean;
     function GetStatusChanged: boolean;
     function GetUnreferencedPayment: boolean;
@@ -39,6 +40,7 @@ type
     property UnreferencedPayment: boolean read GetUnreferencedPayment;
     property FullPayment: boolean read FFullPayment write FFullPayment;
     property HasPartial: boolean read FHasPartial write FHasPartial;
+    property Amortisation: currency read FAmortisation write FAmortisation;
   end;
 
 implementation

@@ -119,7 +119,7 @@ var
 implementation
 
 uses
-  PaymentData, IFinanceDialogs, DBUtil, Posting, IFinanceGlobal, Ledger, AppConstants;
+  PaymentData, IFinanceDialogs, DBUtil, Posting, IFinanceGlobal, Ledger, AppConstants, LoanClassification;
 
 constructor TPayment.Create;
 begin
@@ -261,7 +261,8 @@ begin
           FieldByName('remarks').AsString := FDetails[i].Remarks;
 
           if FDetails[i].IsFullPayment then FieldByName('balance').AsCurrency := 0
-          else FieldByName('balance').AsCurrency := (FDetails[i].Loan.InterestDue + FDetails[i].Loan.InterestBalance)  - FDetails[i].Interest;
+          // else FieldByName('balance').AsCurrency := (FDetails[i].Loan.InterestDue + FDetails[i].Loan.InterestDeficit)  - FDetails[i].Interest;
+          else FieldByName('balance').AsCurrency := FDetails[i].Loan.InterestDue - FDetails[i].Interest;
 
           Post;
         end;
@@ -289,7 +290,7 @@ end;
 procedure TPayment.UpdateLoanRecord;
 var
   detail: TPaymentDetail;
-  balance: real;
+  balance, intDeficit: currency;
 begin
   // update the principal balance (field loan_balance)
   // update the last transaction date
@@ -303,9 +304,11 @@ begin
         if Locate('loan_id',detail.Loan.Id,[]) then
         begin
           balance := detail.Loan.Balance - detail.Principal;
+          intDeficit := detail.Loan.InterestDeficit + (detail.Loan.InterestDue - detail.Interest);
 
           Edit;
           FieldByName('balance').AsCurrency := balance;
+          FieldByName('int_deficit').AsCurrency := intDeficit;
           FieldByName('last_trans_date').AsDateTime := FDate;
 
           if detail.IsFullPayment then FieldByName('status_id').AsString := 'X';
@@ -505,12 +508,12 @@ begin
           payment := FInterest;
 
           // update interest schedule
-          if ((FLoan.IsDiminishing) and (not FLoan.IsScheduled)) or (FIsFullPayment) then
+          if ((FLoan.IsDiminishing) and (FLoan.DiminishingType = dtFixed)) or (FIsFullPayment) then
             if ((FLoan.HasInterestComputed) or (FLoan.HasInterestAdditional)) or (FIsFullPayment) then
               UpdateInterestSchedule;
 
           // save unposted interest
-          if (FIsFullPayment) or ((FLoan.IsDiminishing) and (not FLoan.IsScheduled) and (FLoan.NextPayment <> FPaymentDate)) then
+          if (FIsFullPayment) or ((FLoan.IsDiminishing) and (FLoan.DiminishingType = dtFixed) and (FLoan.NextPayment <> FPaymentDate)) then
             SaveInterest;
         end;
 
@@ -530,7 +533,7 @@ begin
     begin
       debitLedger := FLoan.Ledger[i];
 
-      if debitLedger.CaseType = caseType then
+      if (debitLedger.CaseType = caseType) and  (debitLedger.Debit > 0) then
       begin
         creditLedger := TLedger.Create;
 
@@ -556,7 +559,14 @@ begin
       end;
 
       Inc(i);
-    end;
+    end; // end while
+
+    // for extra payment.. add the amount to the last credit ledger
+    // this happens when payment is before payment date
+    // normal practice is to collect the monthly amortization regardless of when payment is made
+    // this is only applicable to diminishing fixed loans
+    if balance > 0 then creditLedger.Credit := creditLedger.Credit + balance;
+
   end;
 
 end;
@@ -604,7 +614,7 @@ begin
         if not LLedger.Posted then
         begin
           if (not FIsFullPayment)
-             or ((FIsFullPayment) and ((LLedger.FullPayment) or ((FLoan.IsDiminishing) and (not FLoan.IsScheduled)))) then
+             or ((FIsFullPayment) and ((LLedger.FullPayment) or ((FLoan.IsDiminishing) and (FLoan.DiminishingType = dtFixed)))) then
           begin
             interest := LLedger.Debit;
             loanId := FLoan.Id;
@@ -628,10 +638,9 @@ var
   m, d, y, mm, dd, yy, pm, pd, py, nm, nd, ny: word;
   pending: boolean;
   i: integer;
-  newInterest, balance: currency;
   sameMonth: boolean;
 begin
-  DecodeDate(Floan.NextPayment,ny,nm,nd);
+  DecodeDate(FLoan.NextPayment,ny,nm,nd);
   DecodeDate(FPaymentDate,py,pm,pd);
 
   sameMonth := (ny = py) and (nm = pm); // payment is the same as the month of the scheduled interest but not on the scheduled date
@@ -644,8 +653,6 @@ begin
     begin
       // filter the dataset
       Filter := 'loan_id = ' + QuotedStr(FLoan.Id);
-
-      balance := FLoan.Balance - FPrincipal;
 
       while not Eof do
       begin
@@ -666,16 +673,7 @@ begin
             FieldByName('interest_status_id').AsString :=
               TRttiEnumerationType.GetName<TInterestStatus>(TInterestStatus.D)
           else if (y = yy) and (m = mm) and (d <> dd) then
-          begin
-            if HasPrincipal then
-            begin
-              newInterest := balance * FLoan.InterestInDecimal;
-              FieldByName('interest_amt').AsCurrency := newInterest;
-              balance := balance - (FLoan.ReleaseAmount / FLoan.ApprovedTerm);
-            end;
-
             FieldByName('interest_date').AsDateTime := newDate;
-          end;
 
           Post;
           Inc(i);

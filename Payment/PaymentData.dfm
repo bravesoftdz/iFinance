@@ -314,7 +314,7 @@ object dmPayment: TdmPayment
     end
     object dstLedgerbalance_i: TBCDField
       FieldName = 'balance_i'
-      DisplayFormat = '###,###,##0.00;-;-'
+      DisplayFormat = '###,###,##0.00;(###,###,##0.00);-'
       Precision = 10
       Size = 2
     end
