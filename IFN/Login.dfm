@@ -65,7 +65,7 @@ inherited frmLogin: TfrmLogin
     end
     object Label1: TLabel
       Left = 125
-      Top = 107
+      Top = 104
       Width = 54
       Height = 14
       Caption = 'Username'
@@ -331,13 +331,13 @@ inherited frmLogin: TfrmLogin
       Width = 406
       Height = 6
       Anchors = [akLeft, akBottom]
-      BarColor = 6008319
-      BarColorStop = 6008319
+      BarColor = 13479828
+      BarColorStop = 13282190
       BarStyle = bsGradient
       BorderOuter = fsFlat
       BorderWidth = 0
       Font.Charset = DEFAULT_CHARSET
-      Font.Color = 6008319
+      Font.Color = 13479828
       Font.Height = -11
       Font.Name = 'Tahoma'
       Font.Style = []
@@ -383,13 +383,13 @@ inherited frmLogin: TfrmLogin
     end
     object edUsername: TRzEdit
       Left = 189
-      Top = 101
+      Top = 98
       Width = 121
       Height = 22
       Text = ''
       CharCase = ecUpperCase
-      DisabledColor = 14273211
-      FrameColor = 8675134
+      DisabledColor = 15327448
+      FrameColor = 14272955
       FrameVisible = True
       FramingPreference = fpCustomFraming
       TabOnEnter = True
@@ -402,8 +402,8 @@ inherited frmLogin: TfrmLogin
       Width = 121
       Height = 22
       Text = ''
-      DisabledColor = 14273211
-      FrameColor = 8675134
+      DisabledColor = 15327448
+      FrameColor = 14272955
       FrameVisible = True
       FramingPreference = fpCustomFraming
       PasswordChar = '*'
@@ -417,9 +417,9 @@ inherited frmLogin: TfrmLogin
       Height = 22
       Anchors = [akLeft, akBottom]
       BorderOuter = fsNone
-      BorderColor = 6572079
+      BorderColor = 14272955
       BorderWidth = 1
-      Color = 14273211
+      Color = 15327448
       TabOrder = 2
       object btnClose: TRzShapeButton
         Left = 0
@@ -438,9 +438,9 @@ inherited frmLogin: TfrmLogin
       Height = 22
       Anchors = [akLeft, akBottom]
       BorderOuter = fsNone
-      BorderColor = 6572079
+      BorderColor = 14272955
       BorderWidth = 1
-      Color = 14273211
+      Color = 15327448
       TabOrder = 3
       object btnLogin: TRzShapeButton
         Left = 0

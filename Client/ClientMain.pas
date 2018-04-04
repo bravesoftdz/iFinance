@@ -98,27 +98,11 @@ type
     RzGroupBox4: TRzGroupBox;
     RzGroupBox5: TRzGroupBox;
     pnlToolbar: TRzPanel;
-    pnlClientMainBtn: TRzPanel;
-    imgClientMain: TImage;
-    pnlFamRefBtn: TRzPanel;
-    imgFamRef: TImage;
-    pnlIdentInfoBtn: TRzPanel;
-    imgIdentInfo: TImage;
-    pnlLoanHistoryBtn: TRzPanel;
-    imgLoanHistory: TImage;
-    pnlGroups: TRzPanel;
-    imgGroups: TImage;
     RzGroupBox6: TRzGroupBox;
     RzGroupBox7: TRzGroupBox;
-    pnlTakePhoto: TRzPanel;
-    imgTakePhoto: TImage;
-    pnlPhoto: TRzPanel;
-    imgClient: TImage;
     pnlFamRefDetail: TRzPanel;
     pnlAddFamRef: TRzPanel;
     sbtnNewFamRef: TRzShapeButton;
-    pnlDetailHead: TRzPanel;
-    lblDetailHeadCaption: TRzLabel;
     JvLabel40: TJvLabel;
     RzDBEdit3: TRzDBEdit;
     JvLabel41: TJvLabel;
@@ -150,8 +134,6 @@ type
     JvLabel52: TJvLabel;
     pnlIdentDoc: TRzPanel;
     sbtnNewIdentDoc: TRzShapeButton;
-    RzPanel4: TRzPanel;
-    RzLabel1: TRzLabel;
     pnlRemIdentDoc: TRzPanel;
     sbtnRemIdentDoc: TRzShapeButton;
     cmbIdType: TRzDBLookupComboBox;
@@ -164,12 +146,8 @@ type
     JvLabel48: TJvLabel;
     RzPanel5: TRzPanel;
     sbtnNewBankAccount: TRzShapeButton;
-    RzPanel6: TRzPanel;
-    RzLabel2: TRzLabel;
     RzPanel7: TRzPanel;
     sbtnRemoveBankAccount: TRzShapeButton;
-    RzPanel8: TRzPanel;
-    imgBankAccount: TImage;
     JvLabel34: TJvLabel;
     JvLabel33: TJvLabel;
     edCardNo: TRzDBEdit;
@@ -202,8 +180,18 @@ type
     RzPanel10: TRzPanel;
     sbtnRemovePromissoryNote: TRzShapeButton;
     edPNNo: TRzDBEdit;
-    pnlPromissoryNote: TRzPanel;
-    imgPromissoryNotes: TImage;
+    urlHome: TRzURLLabel;
+    urlFamilyAndReferences: TRzURLLabel;
+    urlIdentityInformation: TRzURLLabel;
+    urlBankAccountInformation: TRzURLLabel;
+    urlLoanHistory: TRzURLLabel;
+    urlGroups: TRzURLLabel;
+    urlPromissoryNotes: TRzURLLabel;
+    urlPhoto: TRzURLLabel;
+    tsPhoto: TRzTabSheet;
+    pnlPhoto: TRzPanel;
+    imgClient: TImage;
+    JvLabel38: TJvLabel;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -223,23 +211,12 @@ type
     procedure dteBirthdateChange(Sender: TObject);
     procedure cmbIdTypeClick(Sender: TObject);
     procedure urlCopyClientAddressClick(Sender: TObject);
-    procedure imgClientMainMouseDown(Sender: TObject; Button: TMouseButton;
-      Shift: TShiftState; X, Y: Integer);
-    procedure imgClientMainMouseUp(Sender: TObject; Button: TMouseButton;
-      Shift: TShiftState; X, Y: Integer);
-    procedure imgClientMainClick(Sender: TObject);
-    procedure imgFamRefClick(Sender: TObject);
-    procedure imgIdentInfoClick(Sender: TObject);
-    procedure imgGroupsClick(Sender: TObject);
-    procedure imgLoanHistoryClick(Sender: TObject);
-    procedure imgTakePhotoClick(Sender: TObject);
     procedure sbtnNewFamRefClick(Sender: TObject);
     procedure sbtnRemoveFamRefClick(Sender: TObject);
     procedure sbtnRemIdentDocClick(Sender: TObject);
     procedure sbtnNewIdentDocClick(Sender: TObject);
     procedure dbluResStatusPresClick(Sender: TObject);
     procedure dbluResStatusProvClick(Sender: TObject);
-    procedure imgBankAccountClick(Sender: TObject);
     procedure sbtnNewBankAccountClick(Sender: TObject);
     procedure sbtnRemoveBankAccountClick(Sender: TObject);
     procedure sbtnAddGroupClick(Sender: TObject);
@@ -249,7 +226,14 @@ type
     procedure Loandetails1Click(Sender: TObject);
     procedure sbtnNewPromissoryNoteClick(Sender: TObject);
     procedure sbtnRemovePromissoryNoteClick(Sender: TObject);
-    procedure imgPromissoryNotesClick(Sender: TObject);
+    procedure urlHomeClick(Sender: TObject);
+    procedure urlFamilyAndReferencesClick(Sender: TObject);
+    procedure urlIdentityInformationClick(Sender: TObject);
+    procedure urlBankAccountInformationClick(Sender: TObject);
+    procedure urlLoanHistoryClick(Sender: TObject);
+    procedure urlGroupsClick(Sender: TObject);
+    procedure urlPromissoryNotesClick(Sender: TObject);
+    procedure urlPhotoClick(Sender: TObject);
   private
     { Private declarations }
     procedure CopyAddress;
@@ -710,84 +694,6 @@ begin
       begin
         OpenGridDataSources(pnlPromissoryNotes);
       end;
-  end;
-end;
-
-procedure TfrmClientMain.imgBankAccountClick(Sender: TObject);
-begin
-  inherited;
-  SetActiveTab(BANKACCOUNTS);
-end;
-
-procedure TfrmClientMain.imgClientMainClick(Sender: TObject);
-begin
-  inherited;
-  SetActiveTab(CLIENT);
-end;
-
-procedure TfrmClientMain.imgClientMainMouseDown(Sender: TObject;
-  Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
-begin
-  inherited;
-  ButtonDown(Sender);
-end;
-
-procedure TfrmClientMain.imgClientMainMouseUp(Sender: TObject;
-  Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
-begin
-  inherited;
-  ButtonUp(Sender);
-end;
-
-procedure TfrmClientMain.imgFamRefClick(Sender: TObject);
-begin
-  inherited;
-  SetActiveTab(FAMREF);
-end;
-
-procedure TfrmClientMain.imgIdentInfoClick(Sender: TObject);
-begin
-  inherited;
-  SetActiveTab(IDENT);
-end;
-
-procedure TfrmClientMain.imgGroupsClick(Sender: TObject);
-begin
-  inherited;
-  SetActiveTab(GROUPS);
-end;
-
-procedure TfrmClientMain.imgLoanHistoryClick(Sender: TObject);
-begin
-  inherited;
-  SetActiveTab(LOANS);
-end;
-
-procedure TfrmClientMain.imgPromissoryNotesClick(Sender: TObject);
-begin
-  inherited;
-  SetActiveTab(PROMISSORYNOTES);
-end;
-
-procedure TfrmClientMain.imgTakePhotoClick(Sender: TObject);
-var
-  fileName: string;
-begin
-  inherited;
-  try
-    if not PhotoLauncher.Running then
-    begin
-      fileName := FormatDateTime('mmddyyyhhmmss',Now);
-
-      cln.Photo := fileName + '.bmp';
-
-      PhotoLauncher.Parameters := ifn.PhotoPath + ' ' + Trim(fileName);
-      PhotoLauncher.Launch;
-      Application.MainForm.Enabled := false;
-    end;
-  except
-    on e: Exception do
-      ShowErrorBox(e.Message);
   end;
 end;
 
@@ -1268,6 +1174,12 @@ begin
   end;
 end;
 
+procedure TfrmClientMain.urlBankAccountInformationClick(Sender: TObject);
+begin
+  inherited;
+  SetActiveTab(BANKACCOUNTS);
+end;
+
 procedure TfrmClientMain.urlCopyAddressClick(Sender: TObject);
 begin
   inherited;
@@ -1278,6 +1190,12 @@ procedure TfrmClientMain.urlCopyClientAddressClick(Sender: TObject);
 begin
   inherited;
   refc.CopyClientAddress;
+end;
+
+procedure TfrmClientMain.urlHomeClick(Sender: TObject);
+begin
+  inherited;
+  SetActiveTab(CLIENT);
 end;
 
 procedure TfrmClientMain.urlRefreshRefListClick(Sender: TObject);
@@ -1385,6 +1303,58 @@ begin
   for i := 0 to cnt do lbGroups.AddObject(cln.Groups[i].Name, cln.groups[i]);
 end;
 
+procedure TfrmClientMain.urlFamilyAndReferencesClick(Sender: TObject);
+begin
+  inherited;
+  SetActiveTab(FAMREF);
+end;
+
+procedure TfrmClientMain.urlGroupsClick(Sender: TObject);
+begin
+  inherited;
+  SetActiveTab(GROUPS);
+end;
+
+procedure TfrmClientMain.urlIdentityInformationClick(Sender: TObject);
+begin
+  inherited;
+  SetActiveTab(IDENT);
+end;
+
+procedure TfrmClientMain.urlLoanHistoryClick(Sender: TObject);
+begin
+  inherited;
+  SetActiveTab(LOANS);
+end;
+
+procedure TfrmClientMain.urlPhotoClick(Sender: TObject);
+var
+  fileName: string;
+begin
+  inherited;
+  try
+    if not PhotoLauncher.Running then
+    begin
+      fileName := FormatDateTime('mmddyyyhhmmss',Now);
+
+      cln.Photo := fileName + '.bmp';
+
+      PhotoLauncher.Parameters := ifn.PhotoPath + ' ' + Trim(fileName);
+      PhotoLauncher.Launch;
+      Application.MainForm.Enabled := false;
+    end;
+  except
+    on e: Exception do
+      ShowErrorBox(e.Message);
+  end;
+end;
+
+procedure TfrmClientMain.urlPromissoryNotesClick(Sender: TObject);
+begin
+  inherited;
+  SetActiveTab(PROMISSORYNOTES);
+end;
+
 procedure TfrmClientMain.dteBirthdateChange(Sender: TObject);
 begin
   inherited;
@@ -1431,7 +1401,7 @@ begin
   edFirstName.ReadOnly := hasId;
   edMiddleName.ReadOnly := hasId;
 
-  pnlToolBar.Visible := hasId;
+  pnlToolBar.Enabled := hasId;
 end;
 
 procedure TfrmClientMain.ChangeFamRefControlState;

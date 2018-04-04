@@ -100,6 +100,7 @@
         <DCCReference Include="JvDB.dcp"/>
         <DCCReference Include="RaizeComponentsVcl.dcp"/>
         <DCCReference Include="RaizeComponentsVclDb.dcp"/>
+        <DCCReference Include="FireDAC.dcp"/>
         <DCCReference Include="SaveIntf.pas"/>
         <DCCReference Include="FormsUtil.pas"/>
         <DCCReference Include="DockedFormIntf.pas"/>

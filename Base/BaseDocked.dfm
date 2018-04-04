@@ -1,8 +1,6 @@
 inherited frmBaseDocked: TfrmBaseDocked
   Align = alClient
   Caption = 'frmBaseDocked'
-  Color = 14273211
-  OnClose = FormClose
   PixelsPerInch = 96
   TextHeight = 14
   object pnlTitle: TRzPanel
@@ -13,12 +11,12 @@ inherited frmBaseDocked: TfrmBaseDocked
     Align = alTop
     BorderOuter = fsNone
     BorderSides = [sdBottom]
-    BorderColor = clBlack
+    BorderColor = 14272955
     BorderWidth = 1
-    Color = 8675134
+    Color = 15327448
     GradientColorStyle = gcsCustom
-    GradientColorStart = 6572079
-    GradientColorStop = 8675134
+    GradientColorStart = 15327448
+    GradientColorStop = 15327448
     TabOrder = 0
     VisualStyle = vsGradient
     object lblTitle: TRzLabel
@@ -28,7 +26,7 @@ inherited frmBaseDocked: TfrmBaseDocked
       Height = 14
       Caption = 'Change caption here'
       Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWhite
+      Font.Color = 8675134
       Font.Height = -12
       Font.Name = 'Tahoma'
       Font.Style = [fsBold]

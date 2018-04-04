@@ -141,6 +141,8 @@ type
     imgInfoSources: TImage;
     pnlLoanClosureReasonsList: TRzPanel;
     imgLoanClosureReasonsList: TImage;
+    pnlSearchClient: TRzPanel;
+    imgSearchClient: TImage;
     procedure tbAddClientClick(Sender: TObject);
     procedure lblRecentlyAddedClick(Sender: TObject);
     procedure lbxRecentDblClick(Sender: TObject);
@@ -191,6 +193,7 @@ type
     procedure imgChargeTypesClick(Sender: TObject);
     procedure imgInfoSourcesClick(Sender: TObject);
     procedure imgLoanClosureReasonsListClick(Sender: TObject);
+    procedure imgSearchClientClick(Sender: TObject);
   private
     { Private declarations }
     DOCKED_FORM: TForms;
@@ -605,6 +608,11 @@ end;
 procedure TfrmMain.FormShow(Sender: TObject);
 begin
   SetCaptions;
+end;
+
+procedure TfrmMain.imgSearchClientClick(Sender: TObject);
+begin
+  OpenClientList(cftRecent);
 end;
 
 procedure TfrmMain.imgAcctTypeClick(Sender: TObject);

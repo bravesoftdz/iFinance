@@ -15,7 +15,7 @@ inherited frmBasePopup: TfrmBasePopup
     Height = 21
     Align = alTop
     BorderOuter = fsNone
-    BorderColor = clBlack
+    BorderColor = 8675134
     BorderWidth = 1
     Color = 8675134
     GradientColorStyle = gcsCustom
@@ -84,9 +84,9 @@ inherited frmBasePopup: TfrmBasePopup
     Align = alClient
     BorderOuter = fsNone
     BorderSides = [sdLeft, sdRight, sdBottom]
-    BorderColor = clBlack
+    BorderColor = 14272955
     BorderWidth = 1
-    Color = 12955288
+    Color = 15327448
     TabOrder = 1
   end
 end

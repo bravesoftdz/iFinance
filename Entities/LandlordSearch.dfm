@@ -10,9 +10,7 @@ inherited frmLandlordSearch: TfrmLandlordSearch
     end
   end
   inherited pnlMain: TRzPanel
-    ExplicitHeight = 321
     inherited pnlSearch: TRzPanel
-      ExplicitHeight = 245
       inherited grSearch: TRzDBGrid
         DataSource = dmEntities.dscEntities
         Columns = <
@@ -25,15 +23,6 @@ inherited frmLandlordSearch: TfrmLandlordSearch
             Visible = True
           end>
       end
-    end
-    inherited pnlSelect: TRzPanel
-      ExplicitTop = 289
-    end
-    inherited pnlNew: TRzPanel
-      ExplicitTop = 289
-    end
-    inherited pnlCancel: TRzPanel
-      ExplicitTop = 289
     end
   end
 end

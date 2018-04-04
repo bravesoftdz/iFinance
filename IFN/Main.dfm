@@ -27,9 +27,9 @@ object frmMain: TfrmMain
     Height = 21
     Align = alTop
     BorderOuter = fsNone
-    BorderColor = 6572079
+    BorderColor = 8675134
     BorderWidth = 1
-    Color = 14273211
+    Color = 8675134
     GradientColorStyle = gcsCustom
     GradientColorStart = 6572079
     GradientColorStop = 8675134
@@ -128,9 +128,9 @@ object frmMain: TfrmMain
     Align = alClient
     BorderOuter = fsNone
     BorderSides = [sdLeft, sdRight, sdBottom]
-    BorderColor = 6572079
+    BorderColor = 14272955
     BorderWidth = 1
-    Color = 12955288
+    Color = 15327448
     TabOrder = 1
     DesignSize = (
       1190
@@ -144,7 +144,7 @@ object frmMain: TfrmMain
       Anchors = [akRight, akBottom]
       Caption = 'Today is January 01, 2017'
       Font.Charset = DEFAULT_CHARSET
-      Font.Color = 6572079
+      Font.Color = clBlack
       Font.Height = -12
       Font.Name = 'Tahoma'
       Font.Style = []
@@ -159,7 +159,7 @@ object frmMain: TfrmMain
       Anchors = [akRight, akBottom]
       Caption = 'Version 1.0.0.0'
       Font.Charset = DEFAULT_CHARSET
-      Font.Color = 6572079
+      Font.Color = clBlack
       Font.Height = -12
       Font.Name = 'Tahoma'
       Font.Style = []
@@ -174,7 +174,7 @@ object frmMain: TfrmMain
       Anchors = [akRight, akBottom]
       Caption = 'Location: Dumaguete'
       Font.Charset = DEFAULT_CHARSET
-      Font.Color = 6572079
+      Font.Color = clBlack
       Font.Height = -12
       Font.Name = 'Tahoma'
       Font.Style = []
@@ -202,30 +202,30 @@ object frmMain: TfrmMain
       Width = 1151
       Height = 74
       Hint = ''
-      ActivePage = tsAdministration
+      ActivePage = tsHome
       ActivePageDefault = tsHome
       BoldCurrentTab = True
-      ButtonColor = 12955288
-      UseColoredTabs = True
+      ButtonColor = 15327448
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
       Font.Height = -12
       Font.Name = 'Tahoma'
       Font.Style = []
-      FlatColor = 6572079
+      FlatColor = 14272955
       ParentFont = False
       ShowShadow = False
       TabOverlap = 0
-      TabColors.Shadow = 14273211
-      TabColors.Unselected = 14273211
-      TabIndex = 1
+      TabColors.HighlightBar = 15327448
+      TabColors.Shadow = 15327448
+      TabColors.Unselected = 15327448
+      TabIndex = 0
       TabOrder = 2
       TabStop = False
       TabStyle = tsSquareCorners
       UseGradients = False
       FixedDimension = 20
       object tsHome: TRzTabSheet
-        Color = 12955288
+        Color = 15327448
         Caption = 'Home'
         object pnlAddClient: TRzPanel
           Left = 5
@@ -233,9 +233,9 @@ object frmMain: TfrmMain
           Width = 40
           Height = 40
           BorderOuter = fsNone
-          BorderColor = 6572079
+          BorderColor = 14272955
           BorderWidth = 1
-          Color = 14273211
+          Color = 15327448
           TabOrder = 0
           object imgAddClient: TImage
             Left = 4
@@ -330,9 +330,9 @@ object frmMain: TfrmMain
           Width = 40
           Height = 40
           BorderOuter = fsNone
-          BorderColor = 6572079
+          BorderColor = 14272955
           BorderWidth = 1
-          Color = 14273211
+          Color = 15327448
           TabOrder = 1
           object imgCancel: TImage
             Left = 4
@@ -422,9 +422,9 @@ object frmMain: TfrmMain
           Width = 40
           Height = 40
           BorderOuter = fsNone
-          BorderColor = 6572079
+          BorderColor = 14272955
           BorderWidth = 1
-          Color = 14273211
+          Color = 15327448
           TabOrder = 2
           object imgNewLoan: TImage
             Left = 4
@@ -575,9 +575,9 @@ object frmMain: TfrmMain
           Width = 40
           Height = 40
           BorderOuter = fsNone
-          BorderColor = 6572079
+          BorderColor = 14272955
           BorderWidth = 1
-          Color = 14273211
+          Color = 15327448
           TabOrder = 3
           object imgNewPayment: TImage
             Left = 4
@@ -666,9 +666,9 @@ object frmMain: TfrmMain
           Width = 40
           Height = 40
           BorderOuter = fsNone
-          BorderColor = 6572079
+          BorderColor = 14272955
           BorderWidth = 1
-          Color = 14273211
+          Color = 15327448
           TabOrder = 4
           object imgSave: TImage
             Left = 4
@@ -756,9 +756,98 @@ object frmMain: TfrmMain
             OnMouseUp = imgAddClientMouseUp
           end
         end
+        object pnlSearchClient: TRzPanel
+          Left = 246
+          Top = 5
+          Width = 40
+          Height = 40
+          BorderOuter = fsNone
+          BorderColor = 14272955
+          BorderWidth = 1
+          Color = 15327448
+          TabOrder = 5
+          object imgSearchClient: TImage
+            Left = 4
+            Top = 4
+            Width = 32
+            Height = 32
+            Cursor = crHandPoint
+            Hint = 'Search client'
+            AutoSize = True
+            ParentShowHint = False
+            Picture.Data = {
+              0954506E67496D61676589504E470D0A1A0A0000000D49484452000000200000
+              00200806000000737A7AF4000007714944415478DAC5960B5094D715C7FFDFBE
+              17587679AC8467C4AA3045050A88B120C536F181609A9620CDB4195A5FB1442C
+              3601E5FD92984E33354E1393383A1A33A9D6760CBEA6A303653551812A0ADA0A
+              1951F11158605996C7BEBF9EFBB1587414B08DD36FE6B07CF7BBF7FE7FF79C73
+              CFBD1CCFF3F87F3EDC44DF8A8A4BE36572C55B1C876504AAE4C70DE2386E84FE
+              9E181A32BD5D5D55D9414DFFD54A1E0BF08BD7B334B366879D51AB5573121312
+              307346283C54AA87FA0C9A4CF8FA4607CE9C3D0BA3D1D4DADE763D71FFBEBDFD
+              FF2B005750549C2293CA8FA6A5A6202A2A724A9334375F46CDD1E3B0DA2CA955
+              15E5C79FC61BE301B8FC2D05691A8DD791F5EB5643AD560B8DB5576EE2C885AF
+              71A1FD3E44DC687727E54DFC2C7FBC3C7F2616474E17DA8C4623767DB41BFDFD
+              8697DFA9AEAA992AC40380E5292B7C1725FD40BF767516BCBCBC31303882ECDD
+              B5B83DE080976F203CD5BE90483988C51C81883064EC41D7FD4EF8BB71D8B97A
+              313C3D943018FAF0F1EEBDD0D5FF5D7BE2F8B19EA7019016959435AF4859F6DD
+              F97171E8370D21FDBD9350688211131682E4592A84FAC861B4383068750A76D3
+              60C3AD012B6EDDEC44D7ED9B38B47919342A77343436E2D8F193D72ACA4AA268
+              5EDB5400B8CCD77E1E111B1BDB92BB692373307EF5611DF43677BCB92402D141
+              6E308CD805F121121EB633E33142D63BE2847ED8817B77EE41441ED9FDEB641A
+              2FC27B7F781F4D4D4D733FFFECD3AB9385820148F3B616FE7565EA8A152FCC8F
+              C5E9964EFCFED40DC44784237B911F7A866C305A1D82A0600ED72F81F49A9DB0
+              D03B4FD35CBE78156F2484E0C579C138D7D0842F8E1E3BB67D5BE52B93798101
+              A80A8A4ABA37AC5BAB08F0F341DE9FAFA06350810D8B4311A896C260B63F1026
+              3D981900FD324F0CD8489A1292E739E8F5FD90187AF0EEABF370AFBB171F7CF4
+              B1B9AAA26C1ACD6F9A0CC0774B61B1BEBCA41822870569BBFE016F9F4054A404
+              937BAD182411B34BDCC28FDAB000C0533252C09C3C19E020D3D55FC6D13762E0
+              9428505C568EEACA722DCDDF3319C0B4FCAD855DA5C585103BACC8D8FF2F21E3
+              7393FDD147B11F26F131612B75B6D010E601B61B842DC90048DDEEE07046F74F
+              1CCA0A87532C47697925DED956E9475DBA2705C8DB52D05552542078E0F583B7
+              A052A991B5408B7E4A3CB6722B13A71AC0CC42269588201A032040BB9D01F038
+              AB6BC7A799D3050F945554617B75D5D4018A0BB752BA8C604D4D0FDC150AA447
+              532DB03947015CC236F2B95C2686944C221905B03171EB2884EECB5BD8F3630A
+              BB5489F2CA6D5307787B4BC1ED35BFCC92FBF9A8B1A361189D261E31CF7BC04D
+              2126005E10B750F151D0BB4C2E865C3089B0BFAC94A41602EDEE1A865D6FC46F
+              1678A0ABD7884FF6ECB5BC5B5D15321500DFEC3773FE94B632F58771D19168BA
+              6FC3E13627BCDC01AD4A46AB16514C4550BAC4C700640C8076808D6A8395005A
+              AE1A9012E8409CBF0C0D97E86CA8A9A9FDE3CEF733A692849E2FBEB424357151
+              D281EC0DEB8530EC6891A1CF6287BB8C874229191594B90098FBA522210F7857
+              0EDCFDC60C73AF19B99176F0520576ECFC007F397C68C9D5D6967353D98632B2
+              C09C9CCDA7972E7B69464CD43C0C50F2ED6AF7A41A668152E68042CEE22E2171
+              1189B3F88B20968EE680BE87AA61B71D1BC24D5093972E345DC4A5E6CB4ECAA9
+              EFD0E7BB98422162A6D14E9B3677CDDAF5F599AB32A0F55663C0CCE3F07D2F18
+              AC22C82504227740CA56CE20C4620CDBC474028AE0C6DB901E60207111BEE9ED
+              C39EBDFBB02AE3559C3FDF88DC4DD9728CEEDE0901D82325F35BBA74F9AAA8E8
+              EFFDEE679919F0F5D680A3BAD03AA8C2B5210FDCB1281F0CA2BC44907C0411EE
+              26CC510D525190414FE2FBF67F86E8A828FC34FD2768BDD6865ADD05E46D5A3D
+              21C4F8FB005308A47C78252262DEF6E4E424C4C544C369270F3AED140EDA8FF8
+              CFA58CA75DC18924E024123492DBEBEAEA111E1E06FF007F2424245288DC606C
+              3F807B759F60E1E6734F84E01EF99F721FCF797BFBCC5C95F9DA873E3EDED363
+              636210141C08AD568BB10B2CDD07A9F6EB71A7F32E3BF560B6589D41C1412276
+              8991CA151049DCB03429121AD91DE07A3ECE9E011273EB1E0BC13DE65D41E643
+              E63F7B7658584262D23A954A1547EFF2F100F4584C2653635DEDE95D1D1D37FA
+              F2F20B4E84848642225763AEFC0A5E901D00920E528A93EEF55C82703E16E249
+              B762A9CB1BEC5EE64DC66EA49271FD1989DDB5C50C6462B280DFE697EA12427A
+              91E676049C9286D36E41D27E82903E1162C26BB94B9479840D123DF29D258585
+              CCECEACB8EDED02FCA7FA40BF3BC8BE7354EA186083324ED73416C16204C66C7
+              C2E55BEBCFB3854C04F0B48F6C0CE25079AA2E5E73055A4F25944AB10B823CA1
+              A075B4BD8586AFEC88CF3EC592DEFC6D023C0471B07CA56E81A6791C04492DFE
+              1C68DD887317255898738AE559DFB70DF008449A6E8EE70DCCF0B28F86434E9F
+              BC02F0E5251B1272FE269C94CF02E09170A4099E784EA380D49D9ADD95F8AACD
+              17DFDF78F299023CEC89D2541DCB362A5F94C94EA4979C5840ED6D6486670930
+              1E2290CCC3D546B55B38A4D83DC1FAAC01C620584D91BADED9E93804572DF837
+              5847244B2FB3D7520000000049454E44AE426082}
+            Proportional = True
+            ShowHint = True
+            OnClick = imgSearchClientClick
+            OnMouseDown = imgAddClientMouseDown
+            OnMouseUp = imgAddClientMouseUp
+          end
+        end
       end
       object tsAdministration: TRzTabSheet
-        Color = 12955288
+        Color = 15327448
         Caption = 'Administration'
         object pnlBank: TRzPanel
           Left = 91
@@ -2048,12 +2137,8 @@ object frmMain: TfrmMain
         end
       end
       object tsTools: TRzTabSheet
-        Color = 12955288
+        Color = 15327448
         Caption = 'Tools'
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
         object urlChangeDate: TRzURLLabel
           Tag = 1
           Left = 15
@@ -2073,7 +2158,7 @@ object frmMain: TfrmMain
       end
     end
     object pnlNavBar: TRzPanel
-      Left = 17
+      Left = 20
       Top = 98
       Width = 193
       Height = 470
@@ -2089,6 +2174,7 @@ object frmMain: TfrmMain
       Font.Style = []
       ParentFont = False
       TabOrder = 0
+      Visible = False
       object npMain: TJvNavigationPane
         Left = 1
         Top = 1
@@ -2523,15 +2609,15 @@ object frmMain: TfrmMain
       end
     end
     object pnlDockMain: TRzPanel
-      Left = 227
+      Left = 18
       Top = 98
-      Width = 942
+      Width = 1151
       Height = 470
       Anchors = [akLeft, akTop, akRight, akBottom]
       BorderOuter = fsNone
-      BorderColor = 6572079
+      BorderColor = 14272955
       BorderWidth = 1
-      Color = 14273211
+      Color = 15327448
       TabOrder = 1
     end
   end

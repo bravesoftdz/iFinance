@@ -40,7 +40,8 @@ requires
   JvStdCtrls,
   JvDB,
   RaizeComponentsVcl,
-  RaizeComponentsVclDb;
+  RaizeComponentsVclDb,
+  FireDAC;
 
 contains
   SaveIntf in 'SaveIntf.pas',

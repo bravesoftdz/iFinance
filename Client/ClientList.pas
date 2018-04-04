@@ -11,16 +11,23 @@ uses
 type
   TfrmClientList = class(TfrmBaseDocked, IDockedForm, IClientFilter)
     pnlSearch: TRzPanel;
-    pnlList: TRzPanel;
-    grList: TRzDBGrid;
     Label1: TLabel;
     edSearchKey: TRzEdit;
+    pnlDockMain: TRzPanel;
+    lblRecentlyAdded: TRzURLLabel;
+    lblActiveClients: TRzURLLabel;
+    lblAllClients: TRzURLLabel;
     cbxNonClients: TCheckBox;
+    pnlList: TRzPanel;
+    grList: TRzDBGrid;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure grListDblClick(Sender: TObject);
     procedure edSearchKeyChange(Sender: TObject);
     procedure cbxNonClientsClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
+    procedure lblRecentlyAddedClick(Sender: TObject);
+    procedure lblActiveClientsClick(Sender: TObject);
+    procedure lblAllClientsClick(Sender: TObject);
   private
     { Private declarations }
     procedure InitSearchParams;
@@ -30,9 +37,6 @@ type
     procedure FilterList(const filterType: TClientFilterType;
         const nonClients: boolean = false);
   end;
-
-var
-  frmClientList: TfrmClientList;
 
 implementation
 
@@ -49,6 +53,24 @@ begin
   // set search values
   edSearchKey.Text := clp.SearchKey;
   cbxNonClients.Checked := clp.ShowNonClients;
+end;
+
+procedure TfrmClientList.lblActiveClientsClick(Sender: TObject);
+begin
+  inherited;
+  FilterList(cftActive);
+end;
+
+procedure TfrmClientList.lblAllClientsClick(Sender: TObject);
+begin
+  inherited;
+  FilterList(cftAll);
+end;
+
+procedure TfrmClientList.lblRecentlyAddedClick(Sender: TObject);
+begin
+  inherited;
+  FilterList(cftRecent);
 end;
 
 procedure TfrmClientList.FormClose(Sender: TObject; var Action: TCloseAction);
