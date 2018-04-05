@@ -28,28 +28,34 @@ inherited frmDesignationList: TfrmDesignationList
         end>
     end
   end
+  inherited pnlSearch: TRzPanel
+    ExplicitTop = 0
+  end
   inherited pnlDetail: TRzPanel
     object JvLabel1: TJvLabel [0]
       Left = 13
-      Top = 39
+      Top = 23
       Width = 65
       Height = 14
       Caption = 'Designation'
       Transparent = True
     end
+    inherited pnlAdd: TRzPanel
+      ExplicitTop = 429
+    end
     object edDesignation: TRzDBEdit
       Left = 82
-      Top = 33
+      Top = 17
       Width = 182
       Height = 22
       DataSource = dmAux.dscDesignations
       DataField = 'designation'
       CharCase = ecUpperCase
       DisabledColor = clWhite
-      FrameColor = 8675134
+      FrameColor = 14272955
       FrameVisible = True
       FramingPreference = fpCustomFraming
-      TabOrder = 2
+      TabOrder = 1
     end
   end
 end

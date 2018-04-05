@@ -8,14 +8,9 @@ inherited frmErrorBox: TfrmErrorBox
   TextHeight = 14
   inherited pnlTitle: TRzPanel
     Width = 357
-    BorderColor = 240
-    Color = 2960895
-    GradientColorStart = 2960895
-    GradientColorStop = 4737279
-    ExplicitWidth = 357
     inherited imgClose: TImage
-      Left = 336
-      ExplicitLeft = 336
+      Left = 337
+      ExplicitLeft = 337
     end
     inherited lblCaption: TRzLabel
       Width = 28
@@ -26,8 +21,6 @@ inherited frmErrorBox: TfrmErrorBox
   inherited pnlMain: TRzPanel
     Width = 357
     Height = 108
-    BorderColor = 240
-    Color = 10921727
     ExplicitWidth = 357
     ExplicitHeight = 108
     object lblMessage: TJvLabel
@@ -96,9 +89,9 @@ inherited frmErrorBox: TfrmErrorBox
       Height = 22
       Anchors = [akLeft, akBottom]
       BorderOuter = fsNone
-      BorderColor = 240
+      BorderColor = 14272955
       BorderWidth = 1
-      Color = 8553215
+      Color = 15327448
       TabOrder = 0
       object btnClose: TRzShapeButton
         Left = 0

@@ -23,6 +23,7 @@ type
   protected
     procedure Save; override;
     procedure Cancel; override;
+    procedure BindToObject; override;
     function ValidEntry: boolean; override;
   end;
 
@@ -64,6 +65,12 @@ begin
 
     ln.AddMonthlyExpense(TMonthlyExpense.Create(expType,expName,expAmount),true);
   end;
+end;
+
+procedure TfrmMonthlyExpDetail.BindToObject;
+begin
+  inherited;
+
 end;
 
 procedure TfrmMonthlyExpDetail.Cancel;

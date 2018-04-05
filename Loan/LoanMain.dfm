@@ -1,17 +1,17 @@
 inherited frmLoanMain: TfrmLoanMain
   Caption = 'frmLoanMain'
   ClientHeight = 542
-  ClientWidth = 931
+  ClientWidth = 1155
   OnCreate = FormCreate
-  ExplicitWidth = 947
+  ExplicitWidth = 1171
   ExplicitHeight = 581
   PixelsPerInch = 96
   TextHeight = 14
   inherited pnlTitle: TRzPanel
-    Width = 931
+    Width = 1155
     ExplicitWidth = 931
     DesignSize = (
-      931
+      1155
       28)
     inherited lblTitle: TRzLabel
       Width = 73
@@ -19,7 +19,7 @@ inherited frmLoanMain: TfrmLoanMain
       ExplicitWidth = 73
     end
     object lblHeader: TRzLabel
-      Left = 856
+      Left = 1080
       Top = 7
       Width = 64
       Height = 14
@@ -27,7 +27,7 @@ inherited frmLoanMain: TfrmLoanMain
       Anchors = [akTop, akRight]
       Caption = 'NEW LOAN'
       Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWhite
+      Font.Color = 8675134
       Font.Height = -12
       Font.Name = 'Tahoma'
       Font.Style = [fsBold]
@@ -39,27 +39,28 @@ inherited frmLoanMain: TfrmLoanMain
   object pnlMain: TRzPanel
     Left = 0
     Top = 28
-    Width = 931
+    Width = 1155
     Height = 514
     Align = alClient
     BorderOuter = fsNone
     BorderSides = [sdLeft, sdRight, sdBottom]
     ParentColor = True
     TabOrder = 1
+    ExplicitWidth = 931
     DesignSize = (
-      931
+      1155
       514)
     object pnlApplication: TRzPanel
       Tag = 100
-      Left = 6
+      Left = 182
       Top = 6
       Width = 356
       Height = 502
       Anchors = [akLeft, akTop, akBottom]
       BorderOuter = fsNone
-      BorderColor = 8675134
+      BorderColor = 15327448
       BorderWidth = 1
-      Color = 14273211
+      Color = 15327448
       TabOrder = 0
       DesignSize = (
         356
@@ -67,7 +68,7 @@ inherited frmLoanMain: TfrmLoanMain
       object c: TJvLabel
         Tag = -1
         Left = 19
-        Top = 51
+        Top = 45
         Width = 32
         Height = 14
         Caption = 'Client'
@@ -76,7 +77,7 @@ inherited frmLoanMain: TfrmLoanMain
       object JvLabel2: TJvLabel
         Tag = -1
         Left = 19
-        Top = 207
+        Top = 209
         Width = 56
         Height = 14
         Caption = 'Loan class'
@@ -85,7 +86,7 @@ inherited frmLoanMain: TfrmLoanMain
       object JvLabel12: TJvLabel
         Tag = -1
         Left = 233
-        Top = 230
+        Top = 235
         Width = 34
         Height = 14
         Caption = 'Int %'
@@ -94,7 +95,7 @@ inherited frmLoanMain: TfrmLoanMain
       object JvLabel7: TJvLabel
         Tag = -1
         Left = 19
-        Top = 231
+        Top = 236
         Width = 70
         Height = 14
         Caption = 'Date applied'
@@ -103,7 +104,7 @@ inherited frmLoanMain: TfrmLoanMain
       object JvLabel5: TJvLabel
         Tag = -1
         Left = 19
-        Top = 255
+        Top = 263
         Width = 88
         Height = 14
         Caption = 'Amount applied'
@@ -112,7 +113,7 @@ inherited frmLoanMain: TfrmLoanMain
       object JvLabel9: TJvLabel
         Tag = -1
         Left = 19
-        Top = 279
+        Top = 290
         Width = 72
         Height = 14
         Caption = 'Desired term'
@@ -121,7 +122,7 @@ inherited frmLoanMain: TfrmLoanMain
       object JvLabel6: TJvLabel
         Tag = -1
         Left = 19
-        Top = 303
+        Top = 317
         Width = 46
         Height = 14
         Caption = 'Purpose'
@@ -130,7 +131,7 @@ inherited frmLoanMain: TfrmLoanMain
       object JvLabel21: TJvLabel
         Tag = -1
         Left = 209
-        Top = 255
+        Top = 263
         Width = 27
         Height = 14
         Caption = 'Max.'
@@ -139,7 +140,7 @@ inherited frmLoanMain: TfrmLoanMain
       object JvLabel22: TJvLabel
         Tag = -1
         Left = 209
-        Top = 279
+        Top = 290
         Width = 27
         Height = 14
         Caption = 'Max.'
@@ -165,7 +166,7 @@ inherited frmLoanMain: TfrmLoanMain
       object JvLabel20: TJvLabel
         Tag = -1
         Left = 19
-        Top = 75
+        Top = 72
         Width = 45
         Height = 14
         Caption = 'Address'
@@ -183,7 +184,7 @@ inherited frmLoanMain: TfrmLoanMain
       object JvLabel34: TJvLabel
         Tag = -1
         Left = 19
-        Top = 143
+        Top = 146
         Width = 45
         Height = 14
         Caption = 'Net pay'
@@ -192,7 +193,7 @@ inherited frmLoanMain: TfrmLoanMain
       object edDesiredTerm: TRzDBNumericEdit
         Tag = 1
         Left = 114
-        Top = 273
+        Top = 284
         Width = 80
         Height = 22
         DataSource = dmLoan.dscLoan
@@ -200,7 +201,7 @@ inherited frmLoanMain: TfrmLoanMain
         Alignment = taLeftJustify
         DisabledColor = clWhite
         Enabled = False
-        FrameColor = 8675134
+        FrameColor = 14272955
         FrameVisible = True
         FramingPreference = fpCustomFraming
         TabOnEnter = True
@@ -210,7 +211,7 @@ inherited frmLoanMain: TfrmLoanMain
       object edAppAmount: TRzDBNumericEdit
         Tag = 1
         Left = 114
-        Top = 249
+        Top = 257
         Width = 80
         Height = 22
         DataSource = dmLoan.dscLoan
@@ -218,7 +219,7 @@ inherited frmLoanMain: TfrmLoanMain
         Alignment = taLeftJustify
         DisabledColor = clWhite
         Enabled = False
-        FrameColor = 8675134
+        FrameColor = 14272955
         FrameVisible = True
         FramingPreference = fpCustomFraming
         TabOnEnter = True
@@ -228,14 +229,14 @@ inherited frmLoanMain: TfrmLoanMain
       object dteDateApplied: TRzDBDateTimeEdit
         Tag = 1
         Left = 114
-        Top = 225
+        Top = 230
         Width = 105
         Height = 22
         DataSource = dmLoan.dscLoan
         DataField = 'date_appl'
         DisabledColor = clWhite
         Enabled = False
-        FrameColor = 8675134
+        FrameColor = 14272955
         FrameVisible = True
         FramingPreference = fpCustomFraming
         TabOnEnter = True
@@ -247,7 +248,7 @@ inherited frmLoanMain: TfrmLoanMain
       object edInterest: TRzDBNumericEdit
         Tag = -1
         Left = 280
-        Top = 225
+        Top = 230
         Width = 49
         Height = 22
         TabStop = False
@@ -255,12 +256,12 @@ inherited frmLoanMain: TfrmLoanMain
         DataField = 'int_rate'
         ReadOnly = True
         Alignment = taLeftJustify
-        Color = 14273211
+        Color = 15327448
         DisabledColor = clWhite
-        FrameColor = 8675134
+        FrameColor = 14272955
         FrameVisible = True
         FramingPreference = fpCustomFraming
-        ReadOnlyColor = 14273211
+        ReadOnlyColor = 15327448
         TabOnEnter = True
         TabOrder = 2
         IntegersOnly = False
@@ -269,7 +270,7 @@ inherited frmLoanMain: TfrmLoanMain
       object dbluLoanClass: TRzDBLookupComboBox
         Tag = 1
         Left = 114
-        Top = 201
+        Top = 203
         Width = 215
         Height = 22
         DataField = 'class_id'
@@ -281,7 +282,7 @@ inherited frmLoanMain: TfrmLoanMain
         TabOrder = 1
         FlatButtons = True
         DisabledColor = clWhite
-        FrameColor = 8675134
+        FrameColor = 14272955
         FrameHotColor = clBlack
         FrameVisible = True
         FramingPreference = fpCustomFraming
@@ -289,13 +290,13 @@ inherited frmLoanMain: TfrmLoanMain
       end
       object bteClient: TRzButtonEdit
         Left = 114
-        Top = 45
+        Top = 39
         Width = 215
         Height = 22
         Text = ''
         Color = clWhite
         DisabledColor = clWhite
-        FrameColor = 8675134
+        FrameColor = 14272955
         FrameVisible = True
         FramingPreference = fpCustomFraming
         ParentShowHint = False
@@ -317,7 +318,7 @@ inherited frmLoanMain: TfrmLoanMain
       object RzDBNumericEdit1: TRzDBNumericEdit
         Tag = -1
         Left = 242
-        Top = 249
+        Top = 257
         Width = 87
         Height = 22
         Hint = 'Maximum loanable amout'
@@ -326,12 +327,12 @@ inherited frmLoanMain: TfrmLoanMain
         DataField = 'max_loan'
         ReadOnly = True
         Alignment = taLeftJustify
-        Color = 14273211
+        Color = 15327448
         DisabledColor = clWhite
-        FrameColor = 8675134
+        FrameColor = 14272955
         FrameVisible = True
         FramingPreference = fpCustomFraming
-        ReadOnlyColor = 14273211
+        ReadOnlyColor = 15327448
         TabOnEnter = True
         TabOrder = 6
         IntegersOnly = False
@@ -340,7 +341,7 @@ inherited frmLoanMain: TfrmLoanMain
       object RzDBNumericEdit2: TRzDBNumericEdit
         Tag = -1
         Left = 280
-        Top = 273
+        Top = 284
         Width = 49
         Height = 22
         Hint = 'Maximum allowed term'
@@ -349,12 +350,12 @@ inherited frmLoanMain: TfrmLoanMain
         DataField = 'term'
         ReadOnly = True
         Alignment = taLeftJustify
-        Color = 14273211
+        Color = 15327448
         DisabledColor = clWhite
-        FrameColor = 8675134
+        FrameColor = 14272955
         FrameVisible = True
         FramingPreference = fpCustomFraming
-        ReadOnlyColor = 14273211
+        ReadOnlyColor = 15327448
         TabOnEnter = True
         TabOrder = 7
         IntegersOnly = False
@@ -363,11 +364,11 @@ inherited frmLoanMain: TfrmLoanMain
       object lbxComakers: TRzListBox
         Tag = -1
         Left = 19
-        Top = 361
+        Top = 371
         Width = 310
-        Height = 69
+        Height = 57
         Color = clWhite
-        FrameColor = 8675134
+        FrameColor = 14272955
         FrameVisible = True
         FramingPreference = fpCustomFraming
         ItemHeight = 14
@@ -377,17 +378,17 @@ inherited frmLoanMain: TfrmLoanMain
       object mmAddress: TRzMemo
         Tag = -1
         Left = 114
-        Top = 69
+        Top = 66
         Width = 215
         Height = 32
         TabStop = False
-        Color = 14273211
+        Color = 15327448
         ReadOnly = True
         TabOrder = 10
-        FrameColor = 8675134
+        FrameColor = 14272955
         FrameVisible = True
         FramingPreference = fpCustomFraming
-        ReadOnlyColor = 14273211
+        ReadOnlyColor = 15327448
       end
       object mmEmployer: TRzMemo
         Tag = -1
@@ -396,18 +397,18 @@ inherited frmLoanMain: TfrmLoanMain
         Width = 215
         Height = 32
         TabStop = False
-        Color = 14273211
+        Color = 15327448
         ReadOnly = True
         TabOrder = 11
-        FrameColor = 8675134
+        FrameColor = 14272955
         FrameVisible = True
         FramingPreference = fpCustomFraming
-        ReadOnlyColor = 14273211
+        ReadOnlyColor = 15327448
       end
       object RzGroupBox1: TRzGroupBox
         Tag = -1
         Left = 19
-        Top = 339
+        Top = 347
         Width = 310
         Height = 22
         Anchors = [akLeft, akTop, akRight]
@@ -420,8 +421,8 @@ inherited frmLoanMain: TfrmLoanMain
         CaptionFont.Height = -12
         CaptionFont.Name = 'Tahoma'
         CaptionFont.Style = [fsBold]
-        Color = 14273211
-        FlatColor = 6572079
+        Color = 15327448
+        FlatColor = 12493963
         Font.Charset = DEFAULT_CHARSET
         Font.Color = 6572079
         Font.Height = -12
@@ -448,8 +449,8 @@ inherited frmLoanMain: TfrmLoanMain
         CaptionFont.Height = -12
         CaptionFont.Name = 'Tahoma'
         CaptionFont.Style = [fsBold]
-        Color = 14273211
-        FlatColor = 6572079
+        Color = 15327448
+        FlatColor = 12493963
         Font.Charset = DEFAULT_CHARSET
         Font.Color = 6572079
         Font.Height = -12
@@ -463,7 +464,7 @@ inherited frmLoanMain: TfrmLoanMain
       object RzGroupBox3: TRzGroupBox
         Tag = -1
         Left = 19
-        Top = 23
+        Top = 15
         Width = 310
         Height = 22
         Anchors = [akLeft, akTop, akRight]
@@ -476,8 +477,8 @@ inherited frmLoanMain: TfrmLoanMain
         CaptionFont.Height = -12
         CaptionFont.Name = 'Tahoma'
         CaptionFont.Style = [fsBold]
-        Color = 14273211
-        FlatColor = 6572079
+        Color = 15327448
+        FlatColor = 12493963
         Font.Charset = DEFAULT_CHARSET
         Font.Color = 6572079
         Font.Height = -12
@@ -495,9 +496,9 @@ inherited frmLoanMain: TfrmLoanMain
         Width = 50
         Height = 22
         BorderOuter = fsNone
-        BorderColor = 6572079
+        BorderColor = 14272955
         BorderWidth = 1
-        Color = 12955288
+        Color = 15327448
         TabOrder = 15
         object btnAddComaker: TRzShapeButton
           Tag = 1
@@ -519,9 +520,9 @@ inherited frmLoanMain: TfrmLoanMain
         Width = 50
         Height = 22
         BorderOuter = fsNone
-        BorderColor = 6572079
+        BorderColor = 14272955
         BorderWidth = 1
-        Color = 12955288
+        Color = 15327448
         TabOrder = 16
         object btnRemoveComaker: TRzShapeButton
           Tag = 1
@@ -540,13 +541,13 @@ inherited frmLoanMain: TfrmLoanMain
       object pnlClientRecord: TRzPanel
         Tag = -1
         Left = 309
-        Top = 17
+        Top = 9
         Width = 20
         Height = 20
         BorderOuter = fsNone
-        BorderColor = 6572079
+        BorderColor = 14272955
         BorderWidth = 1
-        Color = 12955288
+        Color = 15327448
         TabOrder = 17
         Visible = False
         object imgClientRecord: TImage
@@ -596,13 +597,13 @@ inherited frmLoanMain: TfrmLoanMain
       object pnlAlerts: TRzPanel
         Tag = -1
         Left = 285
-        Top = 17
+        Top = 9
         Width = 20
         Height = 20
         BorderOuter = fsNone
-        BorderColor = 6572079
+        BorderColor = 14272955
         BorderWidth = 1
-        Color = 12955288
+        Color = 15327448
         TabOrder = 18
         Visible = False
         object imgAlerts: TImage
@@ -653,7 +654,7 @@ inherited frmLoanMain: TfrmLoanMain
       object dbluPurpose: TRzDBLookupComboBox
         Tag = 1
         Left = 114
-        Top = 297
+        Top = 311
         Width = 215
         Height = 22
         DataField = 'purp_id'
@@ -665,7 +666,7 @@ inherited frmLoanMain: TfrmLoanMain
         TabOrder = 8
         FlatButtons = True
         DisabledColor = clWhite
-        FrameColor = 8675134
+        FrameColor = 14272955
         FrameHotColor = clBlack
         FrameVisible = True
         FramingPreference = fpCustomFraming
@@ -674,771 +675,190 @@ inherited frmLoanMain: TfrmLoanMain
       object edNetPay: TRzNumericEdit
         Tag = -1
         Left = 114
-        Top = 137
+        Top = 140
         Width = 80
         Height = 22
         TabStop = False
-        Color = 14273211
-        FrameColor = 8675134
+        Color = 15327448
+        FrameColor = 14272955
         FrameVisible = True
         FramingPreference = fpCustomFraming
         ReadOnly = True
-        ReadOnlyColor = 14273211
+        ReadOnlyColor = 15327448
         TabOrder = 19
         DisplayFormat = '###,##,##0.00'
       end
     end
     object pnlToolbar: TRzPanel
-      Left = 871
-      Top = -3
-      Width = 69
-      Height = 511
-      Anchors = [akTop, akRight, akBottom]
+      Left = 0
+      Top = 0
+      Width = 175
+      Height = 514
+      Align = alLeft
       BorderOuter = fsNone
-      BorderSides = []
-      BorderColor = 6572079
+      BorderSides = [sdRight]
+      BorderColor = 14272955
       BorderWidth = 1
-      Color = 14273211
+      Color = 15327448
       Enabled = False
       TabOrder = 1
-      DesignSize = (
-        69
-        511)
-      object pnlAssessmentBtn: TRzPanel
-        Left = 13
-        Top = 9
-        Width = 40
-        Height = 40
-        Anchors = [akTop, akRight]
-        BorderOuter = fsNone
-        BorderColor = 6572079
-        BorderWidth = 1
-        Color = 12955288
+      object urlAssessment: TRzURLLabel
+        Left = 18
+        Top = 19
+        Width = 64
+        Height = 14
+        Caption = 'Assessment'
         Enabled = False
-        TabOrder = 0
-        object imgAssessment: TImage
-          Left = 4
-          Top = 4
-          Width = 32
-          Height = 32
-          Cursor = crHandPoint
-          Hint = 'Assessment'
-          AutoSize = True
-          Enabled = False
-          ParentShowHint = False
-          Picture.Data = {
-            0954506E67496D61676589504E470D0A1A0A0000000D49484452000000200000
-            00200806000000737A7AF400000006624B474400FF00FF00FFA0BDA793000000
-            097048597300000048000000480046C96B3E0000000976704167000000200000
-            00200087FA9C9D0000068F4944415478DAAD97094C54571486FF370B8B0C9BAD
-            126190AA68AC855423B88060AC46166BC001AB621769EB52236A8C5DAC4D1353
-            35DD92366A89694C5514342E807641DA06446BD5CA262820B8216318C75AC561
-            98F5CDF4DCCBCC0882CA6B7A939B9977DFBCF77FE7DC73CE3D2300501C2D2A2A
-            8620CC713A1C7042EA604F0890090244513CF65A6666262DD8FBF9A1D7C52FCB
-            2C4ED186F11B92BCE9DA0AFE24E04F000F35E9E992A51F1F7ABD1EBF9795152D
-            5EB4683E5D8A3DC51BB75658542F8D86A1AB135D972E2266CB7C0EC100861C29
-            2CD467CC9B871B375BC9118234FB9D4E8C782102FB0B0AF07A5616743A1DCA4F
-            9DAAC85AB06096CB135E7BF20B2C0F4D06A478BD0283C988CE2E337C5A1B31E9
-            DB6C6FA636F47061E19D4C0268BDD5C601060AC1C4D98C181E8EFC8307312739
-            0541418168D7DDC1E9B3E7DA1668D2C7EECE3B688C8D1D8FE0E040ECCADB8D64
-            D92C74984D08686FC494EF560CEE0570AB4D0B994C26C9030E8A9BE1E16A1410
-            40864683CECE2E3C373808BAFB6668378F404BDC1E4C9B3A01D7AF35A3A9B909
-            CDDA9B58AC8FC0C4DC6553E8F1E65E006DDADBFF09205C1DC601B2162E848576
-            DE64032E7D1086696BDE00C2976047FE25286C463435D543F49661C7E75F25D2
-            A33758D8F402D0DE6E27006931C000D461A1B850558D96EBADB4E32A44946723
-            7E1589872D03CE6F025A0E639D963E2D0FF0CD175B3CE2EE202480A304A0C1ED
-            761D4FA7DEA33B26D85EA39F2465EBFE2A7FF8FBFBF1EB336BC3119F43E2A14B
-            81B39B49FC3825BA1307EA2290B5ADBA9778F7DB19C05102A0FDD351F008828C
-            437467B700B94CC1A79DF25774D868DDD907107225A054E1CA27C391B8E6AD6E
-            CBDDE2721976D58DC6D2ED67FA88F701D0EBFF8652EE05054D27A5B14C90C35B
-            E183B11F0BA8DD648285F6D1E174F4D09641207181C41B36AA919843E26A9778
-            3389CB1CF8BE662496EFACEC57BC0FC03FF71E40A7BD8B797963B037AD865B9E
-            7D3C1A735F9E898DAFFE028B9D001CDDF585790A042AD09E376C0845C2EA1E96
-            371F03AB43B917C2109AB50BF3664D1D450BDAC7C5FB00747418D070B1052B4F
-            4C44CD5627954C0171EA49D8FEEE7998AC26D8D916700FD0E6302F297D79B427
-            AC7EB3873859EEB461DBD910ACCEBB82A29F4AA0999B1AE2B21E4F05786830A2
-            B1B60539A51378BC2545A5628E7A33C6C74461DFFEBD888C1CC5232066723C0E
-            15FE88172BD7BAA27D691FF1253F5C418002385A5C0CCAB081011808A0BEBA01
-            EF954C42666C1A3E4A2DC61F7F5620764A0C4F37B00C111410BC7D50B75E4DD1
-            4E968732CB3FEB259EBDFB0A449309412A5F5099C7FC8C8C817AC0805B37DAD0
-            71DFC06F5AED660C7E3E0823468EE400824CCEF7BC6E7D0815996C97DBB7F412
-            7F7B0F1337C361B7203830502A4027E47205658182DF61FB2D8A6CDAC1CA80A0
-            F0C28D7387E06BBD8831B33E042AD691F8CF3CE098F83B7B99B8958BB3078202
-            03A40118A98E375F6DC65DBDDE737348480846478EA66F541FBC7C7061DF2A24
-            2ED90C7BEBAF40C361285A4F60DBB9502CA38013CD762ECEFA0A360202FCA501
-            98E898AC387512C9C9C93099CD301A8DA8AEAAC2F4E933205328A1AD2E829FA1
-            1443231360D335A2EECC19FC55DB86657BAFC24E07AF5B9C6D17AF90FE2A6900
-            66B315274F967100635717BA68D6D65463E6CCD9C82F3880C6D3791480FEC849
-            F24359793DEE05C421267529442BD507BB958B32F1C993A7F04F95CA4F1A80C5
-            62457979591F0FCC9E3D1B972B7FC38AF55F2376B80DCB57ACC4A8B84CB092E0
-            A41871F2E2E4E471C23EDD1EF0F31B2411C06A455363139D09EDFC064BBB61C3
-            4211151D85AD9FBE4F0DC70C8C8F4B858D84453B0B4C112E55CFE067856B6990
-            AFC434B4D86C940172DE13B8CF44D1650D2BBDECBD0E517459E8C0B386AF8F8F
-            3400EA6A71F9F265B4B7F7F4C0308C1B37AEBB1001AE63B99FC1F354F0FC867D
-            F3F2F69606C01E2C2D2DED1503559595484A4AF2F47F6CF29EC1D3233C8272F7
-            0D6E58A552290D808D13274A0820C5930535D5D53C08737373111D1D8D848404
-            ECDCB9135151511E7136131313F96FD87A7C7C3C5F532814D2014A4A4A909292
-            C23DD0C9B2C0E581479E76F6E99A9FE40139C5936480FAFA7A68B55A8F885AAD
-            E656F58C81FEDAF69EEBEEEF2C980706E06A4A9F359E1880FDBDD80573A4A808
-            F3359AA703D0997D47939636E0974B1985C78E21233DFDE90085C5C5D7C83A95
-            835928C1CA67B880670B79A293FE778E7A1A4010CD1134835DD7FFE760D6DC47
-            7743FAE04900D4538335F55EFFB3B87BB046D448D3D6DFCD7F010D20D27C34C1
-            F97D0000004174455874636F6D6D656E74004C69737420746F20646F20312063
-            68656B65642066726F6D2049636F6E2047616C6C65727920687474703A2F2F69
-            636F6E67616C2E636F6D2F01A9220A0000002574455874646174653A63726561
-            746500323031312D30382D32315431343A31303A31342D30363A3030494BEBB0
-            0000002574455874646174653A6D6F6469667900323031312D30382D32315431
-            343A31303A31342D30363A30303816530C0000001974455874536F6674776172
-            650041646F626520496D616765526561647971C9653C0000000049454E44AE42
-            6082}
-          ShowHint = True
-          OnClick = imgAssessmentClick
-          OnMouseDown = imgAssessmentMouseDown
-          OnMouseUp = imgAssessmentMouseUp
-        end
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = 6572079
+        Font.Height = -12
+        Font.Name = 'Tahoma'
+        Font.Style = [fsUnderline]
+        ParentFont = False
+        OnClick = urlAssessmentClick
       end
-      object pnlApproveLoan: TRzPanel
-        Left = 13
-        Top = 54
-        Width = 40
-        Height = 40
-        Anchors = [akTop, akRight]
-        BorderOuter = fsNone
-        BorderColor = 6572079
-        BorderWidth = 1
-        Color = 12955288
+      object urlApproval: TRzURLLabel
+        Left = 18
+        Top = 43
+        Width = 54
+        Height = 14
+        Caption = 'Appproval'
         Enabled = False
-        TabOrder = 1
-        object imgApproval: TImage
-          Left = 4
-          Top = 4
-          Width = 32
-          Height = 32
-          Cursor = crHandPoint
-          Hint = 'Approval'
-          AutoSize = True
-          Enabled = False
-          ParentShowHint = False
-          Picture.Data = {
-            0954506E67496D61676589504E470D0A1A0A0000000D49484452000000200000
-            00200806000000737A7AF400000006624B474400FF00FF00FFA0BDA793000000
-            097048597300000048000000480046C96B3E0000000976704167000000200000
-            00200087FA9C9D000007554944415478DA9D976B5094D719C77F7B6301111603
-            E282C0222028A4788B26A3823A588C4882C6A9DAD6F6436C3BEDB47126A33656
-            F3A5459D499DCCD84C3393D67EC824D344C716532A35536307076D6B02410101
-            B9EE72595640968BC8B2EC6ECF79F7D2E5A242DE996767F65C9EFFFF39E7B91D
-            1573FC36BE4164F8620EA1E6871E15DFF28FAB5441E2E1AECAC5872336CE579E
-            63782E7A55CF9ADFF216CB34915C0E0D217BF3CACDA4C425931863C4E39E6074
-            6288C70EBB902186C607E9ECB3F2606808EBC0386E3775E3768AAF9FA64DE8F1
-            7C13029AFC53BCAFD7F3E39FBEFC261B333732ECECC2895DEC9AC0E371E372BB
-            70B95C820C4C381D0C0C3FC0DADF86A5BF11CB83517A06C03DC91FCA7FC9CF84
-            3ED77C08E8B69DC6FC62C61AE3DB7BDE658416C6DC16BAFBEE627B58CFC0501B
-            E3E32EE5D8FD5AF43A1D51E1894446A412AA8DA7B5A79A7B5DB5620F0C8F612D
-            3F4AB258E99C0B01DDD6123A5EDFFE83F8E2F5FB1874D7D03B584BCDFD8B389C
-            6ED46AEF26D52C3B3DBE1F9D564B5CD45671422154B75DA3A7DF41773F3DFF38
-            86693A89E96A74F9A7B11CC87B6DC9CE75858C6BDAA96B2FA5A3A70E8D06D4AA
-            D9816710F178C918C2D3880E5FCB972D5730CB2BE9A3B7FC1849C12482D569F2
-            7FCD0759A929AFFFBCF030BA887EAA9B2F08F6CD01F0F97E6EC122322C8945E1
-            2FF19FA6CB34753AB0DBF9D3D513FCC4EF13815B5C7F88CCD84CEEFD6AEF51E2
-            8C6134584A31DB6AD1A8E70F1EECF2F234E449846A32A86CB8C2FD4EB035B0F2
-            F6791AE5B45F75C8F6D3D4ECDA90BB62CBAA0D383C5DDC6EFC64DE967B7C802E
-            B7D7348DEFCAE45882211FEB432BD52DF5745A69287F8B5562D584A2DEB489F8
-            AC62BA0FBF7210D3D2782AEACF3239E9521C6E3EE06E198EE260776797617FDC
-            4445FB11746A2F09AD5A4742E41E6E365CE44EAB87BA5212DA2BE99104345B4F
-            707C7576C26F766DD8862ED4CE5D739962FD5C8DF7833B047851E6A7A42EDAA7
-            8CFFB9C684DD6156AE51AE3146E462EEB550D5D241B785B7BF28E18CC408FBF6
-            29AA727396AFD8B626976EFBBFE81B6E5536CD1FFC1301BE3F30E7981CE08F5F
-            C528A720AD89D027A19A3451597F83F66E1AAE1E67AD2410BDE31D1E16BE90C9
-            E69C02BE6A7F1FA7CB39E5EEFD4EA57A1678F4FE29F31DF6CBFCBD69373A8DF7
-            BF56A5237EE16EAEDFB9C83D0B941F6191D4192B083C285893CC96D5C5DC6A3D
-            A758EF0793A1E4F231F03B956A3A78C64CF0D6C14F05F80142B4DE7D8A2E21A9
-            86837C51F311B5ED82C05116CBA9C582802D37DBC0F675DFE34BF3EF03D94E82
-            8BE4475ED2590CA119943616112223431D04BE7C76F0B2FB07D0FBD6068C9104
-            A2A610885308BCFC5B6CEBD235EC7CE1105F5B3F081CBF0C27435832DFCDEAF0
-            29BEC0DFEEEF57EE54127B651EE04F25B05310C83609851B0E51DB773E906E9D
-            C2C21FADEE17CA9E0B286919FC984B8D07D99BF91169D1DF9F0A6E7F32788040
-            E46C04CE625B293274C1EA03743CBA24EEDC1920B02BAD145354F133A341016F
-            7E32B8F419990BE243A738A14220B6A0849B2949A4E78986C31D6A6664D2A228
-            90CE3731294988A336EC7F3A788B00D7FA0AD62C6B248108AD084387370CDB2C
-            347F7E928D4A186EFC0527539FE7CDB5A9264C0949F48CDF403DDDD3D30589A8
-            99245A879E6E793081B85091884406AA6EEDA0B596776FBE47899288A29359B1
-            E90DAA7252556CCAFC0E5DCEBF32E976CE0CB7B4A92414F096B9812BC7AFDBC3
-            AD466F2AAEFC1D6B07CD3428A958C8921D25DC485ECAB235E9591845CFD7EDB8
-            863A48814242C8ABCB2E9112F51AED437FE1B3B6BDE8D54F07F73B9F519F4F6F
-            BF95AF9BEB3177D176F524B962B8D7BFCF90B89E4DABF651B63C1136AD90CD48
-            137657CB5412BE4A2715CA717FA97E1678944694635706B744396E12E5B8E602
-            459DB7A91453F640399624F38E71CE98CCAB194BF5BC9851CC80FBDF8CB82C04
-            97057FDB85EAD9C54A713C8D6848D42FF15FD9907439B09AF9ACE21D0E8B292B
-            FE72EC55478490941D67B8BE348EE792E32258975A88DD5385DDDD227BFE7955
-            47B938529D8641B596AA56D192D946E9B231200AD036312BB200A3043524F87C
-            41669C650567284B8C232621464F4E4A3E1ABD833E570593323F78FECF7806A8
-            6F42169D184D1E6E879E3BEDD74443EAA0D346FFE7C729122BE43B4134EC535B
-            32FFA71312E33B893243248B96C6427A7C96788C6433A1B632EAEE60DC63155D
-            A573DA461DA12A230BD426F46EA3781BD4D1D2534F9768CBEDC33CBCEA059796
-            F7F384A6743A89E4BC239C8C3452182FCE25D6A022666132B15149444718D16A
-            42A6F47E2ED70483A356FA862CF48F98E9B37B9487C9B0952B156729114BCCD3
-            C19F44C04F225AC892F81CB29FDFCBA990704CD10B6141A857A6372C323A1E8D
-            7B65704478D7181DB59738D173873A31DD2B6490393E4C827D22DCE717B10B62
-            89137D63912191EDDA705266BCF684A6C931DAED9DFCB3FE32658FFAB089D13E
-            DF7D8F31CFA759F0BCCE4764819048215142C280E94D9B0CF9C7428684C897F1
-            231FB0B4FA1B3D4E673B11992FC405A065F64010A50B71094C3CC9E2E9DFFF00
-            361B1D0A41A691180000004974455874636F6D6D656E74004F6B207965732061
-            6363657074207375636365737320636865636B2066726F6D2049636F6E204761
-            6C6C65727920687474703A2F2F69636F6E67616C2E636F6D2F929D1323000000
-            2574455874646174653A63726561746500323031312D30382D32315431343A31
-            303A31322D30363A30302A9BDE8A0000002574455874646174653A6D6F646966
-            7900323031312D30382D32315431343A31303A31322D30363A30305BC6663600
-            00001974455874536F6674776172650041646F626520496D6167655265616479
-            71C9653C0000000049454E44AE426082}
-          ShowHint = True
-          OnClick = imgApprovalClick
-          OnMouseDown = imgAssessmentMouseDown
-          OnMouseUp = imgAssessmentMouseUp
-        end
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = 6572079
+        Font.Height = -12
+        Font.Name = 'Tahoma'
+        Font.Style = [fsUnderline]
+        ParentFont = False
+        OnClick = urlApprovalClick
       end
-      object pnlReleaseLoan: TRzPanel
-        Left = 13
-        Top = 99
-        Width = 40
-        Height = 40
-        Anchors = [akTop, akRight]
-        BorderOuter = fsNone
-        BorderColor = 6572079
-        BorderWidth = 1
-        Color = 12955288
+      object urlRelease: TRzURLLabel
+        Left = 18
+        Top = 67
+        Width = 41
+        Height = 14
+        Caption = 'Release'
         Enabled = False
-        TabOrder = 2
-        object imgReleaseLoan: TImage
-          Left = 4
-          Top = 4
-          Width = 32
-          Height = 32
-          Cursor = crHandPoint
-          Hint = 'Release'
-          AutoSize = True
-          Enabled = False
-          ParentShowHint = False
-          Picture.Data = {
-            0954506E67496D61676589504E470D0A1A0A0000000D49484452000000200000
-            00200806000000737A7AF400000006624B474400FF00FF00FFA0BDA793000000
-            097048597300000048000000480046C96B3E0000000976704167000000200000
-            00200087FA9C9D000007444944415478DAED577B5054D71DFEEEDD0525B84B14
-            760926584AA2A334A95AA3D5714453159B6890C5C7F80CA9E38388AFA4420231
-            52D411A3240D2A55A2A56014353C162D1A048D918C26192BC69A8015622D8998
-            CB9B250AECEEDDDBDF39777711BA99E92471FC2787393CF69EF33BDFF9FDBEEF
-            FB5D044551F02087F033009ADAB89DD1450E419EEE501CF7E5105110212A9A13
-            196B0AA3E84F7B6F00BAB88C28CB5B2BF68101102042A04F3D25867DEEDAC486
-            6BC9F7AD659F2B7070007FCC5C868CB8223D3D6AEF0DC0B02A23AA7EFBB2BD58
-            BD3B06DE5E7D088802ABCD869EE52168229B741B2712B6CEE170D054EE81C30E
-            17288E175F67B57561D7AA1C24EC8BC5EEB822233D6EE80DC0B876CF2C69F392
-            77B0F55002BCB4DE3C60C4B8099029B8425F02D483DBEFB4A3A2AA0AF5CD4D7C
-            B371803F7E336C1874BE3A0EC4B556436B4B3FF99803B6D9AD485AB81D6F64AD
-            43FA4B0581B4ADFE7F00BCFCEE1C69E3E21D482F4C814F9FBE84BE2F860F09A3
-            A0B2BA88022A04EA78F9190C0C084060803FFF5C6A6C425D632322C327D31A81
-            D6A81C12450DAE5CAFA4DB77A2A3AB136BA393B1E9BD78FC79799E6700EBF7CF
-            9312176CC1C6ACF598FFAC09B25D864C7C6025600B3414F01F9557E836760C34
-            1878EA557209A86B68A0AC69F174D870CA98CC0BC14AA0A1BA6BB41A1CFEC08C
-            4D4BD2909ABB01694B8F78069090355F5A3F2F195B0E2461CED4285E02762381
-            33093CFDC73F3C89A1A183E9302F3737D8739BDD866B37AA11F9BBE7781954F2
-            293C86462322AFB4081B5ED88AB4A32978F30FB99E0124662F94D6CC4EC48EDC
-            4D981D11454144147F5482164B1B06F83D0CD39419C83F65C6A85F8DEC453895
-            9897BEBC8CD9D34C309F2E46735B2BFAD39E99CF3CCBA3B37D090B93919E978A
-            CD8B733C0348CA5E24AD9C158FF4A3A998F3FBD938FB5939AAFF530351A3E15A
-            7238C9A54AAEA7E604A722180145B784154EE0EEE70AE705CBA4E0D428F785D5
-            05511CC0B9CA348911CEA188F0D13D82FD858790B1FA3DD4DCAAE21AFEFE2138
-            BD41E8214315632F73704997800D090EC32B994B91B1D2AC5765989D279DBF6E
-            C0D3A14D58187E1B39274EE09D955958F79725A4086FBE8911500D2BB853C7D4
-            C1C8C6F8C29F51793879B9247B66A90F1195ADEF2265EC8CCB46C2BBCC17CC46
-            0E203CA54C9A323E0C5F5CABC7BA88733877E54BC4CE781DDB721389741A3C3F
-            610267B84D16088CE0AC3DF385EF70A9AA120D2DAA2F18FAFB63D4B030F2857E
-            EE12B0A1A152965E28E77B545F78D3ED0B1CC0A49412695AF8AF71FD1B0BC63E
-            7A01BF0868C0E8C74DD865DE0CDD435EB8D96EC2C7957AEC597E956E2052A934
-            60F17F0A5FE000A2DF2A9602828722C4E08B73155F61D6C86A0C0EEA443F1FB2
-            542DB06CCF60AC328DC0DBEF5720F3A56ACA84173EFDE7552EC181C64037317F
-            882F70007F2A2C902EDE0AC1D45183D07CD78EAF6A9BD1D2D8068B4D818DD22C
-            0876AC881A8DBA361B0ACA2AB17F552D2EFFAB86F39EB9A66B30C2B21457FDBB
-            0691244385775741F505FA9D5934F78518F2852329D8BEE4300760D87E3431BF
-            F8DA94F090B050FCD2DF0781BE5A5E2FC6B4AE2E1B63177CBD457C50D58A2783
-            F4283EF305B2D6D6A1A1AD03DF52DA05A7525C3DA3A2EA73EE2745674E9297B4
-            E261BD1F664C9CC6295C50760CF10B366267FE36A4BE789003D0D10C7972D1B6
-            D8E0E163573EF64428B4D4C96462B4AF97808ECE2E0EE4AE5556BBA0A08141EF
-            8B92D2ABC87E5922BFA8ED0980DCEF72E5259822A2515052C86DDC2EDB31736A
-            2457666199196BE72661AF390D5B620E70005465B03E3D704CECAE447DF0D005
-            7EFEFE186034E0219D2FAC56AB6A33CE3A2BF0C2C5F20A1C58DF82264B171A9A
-            9BE17A43E0259099355761FAC419387FA91C773BDAE1E3A3C3B811E33917CC67
-            F2111B1D8FBF1E4FC7A645D981AE770BD105826650E2D1E2D3576E8868B41071
-            44F27441C69867C613F34594975EC0C1572DB879BB11B5B7BE415060F03D2414
-            F16D431D6541C05343467243E23DC5F98CC9F1D8E93CBC18B91A39C5BB91BCE0
-            6F6E005CAE3419A3826A2CC7AAAD76859B97B756C6FCD47E983C7D324A8ACA90
-            9B780777BB34242905E59F9DC223C64130FA07F100F54DB721D57F8D0963A7F1
-            72A9C00468491585A7F2D1DADE4A4AA0B7A345493878622F36CCDBDF03806B18
-            334B13A489A39FC3DFCFE661D26F27E1D0593D3EFC5C44FE1BA463AB08591678
-            DDEF747C87EB37AEA2A5AD916FECEF178021A14F917C75E488B2DB31B5D4410F
-            1FCFA60C68391F96CF5D832327B3903437D33380D4F75748A688181C29DE8B90
-            C71EC79811E3A8960E3436DD4445E5457EB80015046F304277A3E26F468AFA76
-            E426A6C040ABADDA4E3FE74E5F4A19C9C16B73F67806B0A3304E9A39753111CA
-            CA83B27EC80ACA0F16BA0FEC6E46DDC36323BA671D8BA715BD71ACEC00E2A333
-            3C0230A4E42C33EBFDFA8EEF66BEEB36DDDF7FCC6017B0B4759E4F8ED967F214
-            8DF9C2209A014E89DE8FC15A2B234EAD2700EC501FA88AF8F1D7F53C584A3B69
-            76DCAF03FEEFF1E0FF377CD000FE0B110B56937451D8D4000000407445587463
-            6F6D6D656E740047656E65726F7369747920636F6D70616E792066726F6D2049
-            636F6E2047616C6C65727920687474703A2F2F69636F6E67616C2E636F6D2F40
-            55DBA60000002574455874646174653A63726561746500323031312D30382D32
-            315431343A31323A34392D30363A303064895429000000257445587464617465
-            3A6D6F6469667900323031312D30382D32315431343A31323A34392D30363A30
-            3015D4EC950000001974455874536F6674776172650041646F626520496D6167
-            65526561647971C9653C0000000049454E44AE426082}
-          ShowHint = True
-          OnClick = imgReleaseLoanClick
-          OnMouseDown = imgAssessmentMouseDown
-          OnMouseUp = imgAssessmentMouseUp
-        end
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = 6572079
+        Font.Height = -12
+        Font.Name = 'Tahoma'
+        Font.Style = [fsUnderline]
+        ParentFont = False
+        OnClick = urlReleaseClick
       end
-      object pnlRejectLoan: TRzPanel
-        Left = 13
-        Top = 144
-        Width = 40
-        Height = 40
-        Anchors = [akTop, akRight]
-        BorderOuter = fsNone
-        BorderColor = 6572079
-        BorderWidth = 1
-        Color = 12955288
+      object urlReject: TRzURLLabel
+        Left = 18
+        Top = 91
+        Width = 35
+        Height = 14
+        Caption = 'Reject'
         Enabled = False
-        TabOrder = 3
-        object imgRejectLoan: TImage
-          Left = 4
-          Top = 4
-          Width = 32
-          Height = 32
-          Cursor = crHandPoint
-          Hint = 'Rejection'
-          AutoSize = True
-          Enabled = False
-          ParentShowHint = False
-          Picture.Data = {
-            0954506E67496D61676589504E470D0A1A0A0000000D49484452000000200000
-            00200806000000737A7AF400000006624B474400FF00FF00FFA0BDA793000000
-            097048597300000048000000480046C96B3E0000000976704167000000200000
-            00200087FA9C9D000005F14944415478DAC5967B6C53551CC7BFF7DEF676EB5E
-            1D1B5B87B2178C95BD1F8CA13CD48557308C773451439CC4180D420C3331E12F
-            62D4108801122573F31D35D1BF0C3126249A98F817E3B18D3118B02ECCB1B56E
-            ACB4DDDAB5BDF7FA3BF7DEDE15A465631A4E7272CFED393DDFCFEF717EE7728A
-            A2E071362E1680E3B8D83973E7C9DA11D12267F19C02056C8E638BC021661D0D
-            83530AC292D2D679DDDFBAFF931BDED98A33ED7800FC992315AF172D123F5DF2
-            CCAB90A63D90433E28612F94884F1F7B683CC9B68114017C5E057E920E8695AE
-            5058F978EDA1AE6FD83EA73B7EF8D1CC05B62BB264E8ECDBB7CF428F502280A4
-            3F8E559F2D2AB4AE494D230939EA01CD644591C127E7C1627F561D73721811EF
-            1528534EF8EF4EC27B5741C01F81CFEF3B71D5FEE1815DCDEB09326CE8D8EDF6
-            05F4984804603B7FAA6E223D3D049359002FF0104C2608823666213167D74248
-            2D26BA30F3A5EA09161A79721052701891A971043D5EFC3C75183BB7AEC7EDD1
-            117D1D505F5B934B0F773C008A7DCD90982CE7AA962BB8CF7A05F945E9B0E436
-            01423279875946EE55A22E5634A18817A6E00D7CDEF732769207BC5E9FA1E328
-            2D490860EB3C593551D57C0072600272C40F39CC62EE53632E87281F2409A2BD
-            89DEA7550FB030A800ECA9C2D0C69C0C910BA0EDDCD3D8D5BC11114A94A85641
-            FEE2840039E4015749A59D8464C4CC6AF6C92CFE391032CA482BA889EA000A66
-            4078023111407BE73AECDCB609A1D0B401505C54F8108053B5AEEC2C119C89E2
-            CDE24EF1375167F1674BCCB652F0962CD209DD0BA07A401B3300910BA2EDC273
-            AA0726830123074A9614C705309F3B517DCB6295ED0FB65E4191A310A6CC7ACD
-            5A167F1255A210900C201E11CD031737A80074228CDD4A97C5CF818C9ECF1A3C
-            A59B0F420A7828917C90C274D629F64A58CB0599CEB390514A5A4C3C32231E63
-            BD7A34E929F253E8B8B49942B0111E8FC7D0295BEE880B90D3DBB1CA55E0C857
-            134D89B13E1A7F8899E093720CEB550FC4C4DEF000C1998400016C5173607C7C
-            DCD8A7B2A22C01C0174FB9788136E0058A3B3BF7263507048A7F4A5A0AF8D402
-            5A678EB15E8AB1FE3E0F3080AEADD8B57D2346DD6EC3949AAACAF800974E57BB
-            384E3B3233539C6AFDD2AA1A702905A411D6852543383614CC231C018A1C85A0
-            67BB0A307C7B14D13A575F5B1D1FA0A77DA5CBB1E55D28540322147350EC152A
-            2A72C80B29E4A723F884E67E3DE1EECF81E83B3342E4A6D1D1BD0DBB096070E8
-            2FAAA01AC1CA15750942F0E56A57C1F252CA8188EE81981CA01F84A485F49466
-            DCCF2E996838546F68FBF13CA50B1F427BD7F304B0094EA7533DE66CB7C6C686
-            F800DD6D8DAED4CC0C88D664F5EC9B4C2204B3487960A6FB80D74A6DB4E2EA65
-            5731C6FA3E3CA7E68CBBBF1BBF060E62CF8E4DB87E73403385205635D4C705C8
-            3AF5E692775639D25AD36C1966754E9F5766DC60AC6747D266CF8359B4A8B082
-            286A858BCC770F3A31EAEC1F391BD9DFF764DE82268E854CF7664B4B4B5C002B
-            3D1651670B2CF7F8FFDEC6B71F5CDAB26645FE8B99F65C8A2D9D188210CC66F5
-            2F9313E318B8DC3BB6BAB5770FFD401706CC7A676D82BA1371AE635E174EA66E
-            42FC66FDFD68C59965658E7266B539D90A514C82447933E9B90367EF95B135AD
-            979B69DD1075F6D5223068FDBF61FDB7841F2409DB863A9BFDF81BA523F662BA
-            13283F2CD61444E8B261E283570CF141EA63BAE003DBA30208BF7D54D1915FB8
-            68AF2D2F1FD6D44C4C07FCF08EBB71ABFFDAD8DA598ACF072095BE177C8BCBEB
-            91969D878097EA452888E1AB9750F7D6C5D57A7C1F2A3E1F80ECCE13957F57AE
-            DF8D506092BEFD2670676800E77A86BE7EE568FF619A1F9D8DF87C0072FE3C56
-            DE5DBE6E333B2908DC1DC770DF05AC78BBBB8A5E07A025D8ACDAA30264FD7264
-            F9F7358D8D1B2CA9E970DFECC585CB435FBD74B4FF3D9A7343ADD1FF2F40C64F
-            871DC76BAA4A5EB3DA1662E4DA79D4EFEF9AB3F5F301B0BEBFB770C79686CC6F
-            59F9BD717BFABB173EE83B3457EBE703C02A1A8B3F5D8B1075E161EAFEB988CF
-            07802D62D592956D56DDE8D31881B95A3F1F80FFACFD0BE071B47F007F66BCEE
-            90DEBA900000003874455874636F6D6D656E74005468756D6220646F776E2066
-            726F6D2049636F6E2047616C6C65727920687474703A2F2F69636F6E67616C2E
-            636F6D2F45A079980000002574455874646174653A6372656174650032303131
-            2D30382D32315431343A31323A30312D30363A3030D32C14B400000025744558
-            74646174653A6D6F6469667900323031312D30382D32315431343A31323A3031
-            2D30363A3030A271AC080000001974455874536F6674776172650041646F6265
-            20496D616765526561647971C9653C0000000049454E44AE426082}
-          ShowHint = True
-          OnClick = imgRejectLoanClick
-          OnMouseDown = imgAssessmentMouseDown
-          OnMouseUp = imgAssessmentMouseUp
-        end
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = 6572079
+        Font.Height = -12
+        Font.Name = 'Tahoma'
+        Font.Style = [fsUnderline]
+        ParentFont = False
+        OnClick = urlRejectClick
       end
-      object pnlCancelLoan: TRzPanel
-        Left = 13
-        Top = 189
-        Width = 40
-        Height = 40
-        Hint = 'Cancel loan'
-        Anchors = [akTop, akRight]
-        BorderOuter = fsNone
-        BorderColor = 6572079
-        BorderWidth = 1
-        Color = 12955288
+      object urlCancel: TRzURLLabel
+        Left = 18
+        Top = 115
+        Width = 35
+        Height = 14
+        Caption = 'Cancel'
         Enabled = False
-        TabOrder = 4
-        object imgCancelLoan: TImage
-          Left = 4
-          Top = 4
-          Width = 32
-          Height = 32
-          Cursor = crHandPoint
-          Hint = 'Cancellation'
-          AutoSize = True
-          Enabled = False
-          ParentShowHint = False
-          Picture.Data = {
-            0954506E67496D61676589504E470D0A1A0A0000000D49484452000000200000
-            00200806000000737A7AF400000006624B474400FF00FF00FFA0BDA793000000
-            097048597300000048000000480046C96B3E0000000976704167000000200000
-            00200087FA9C9D0000063D4944415478DAB597794C14571CC7BFB3BBAC0BB8A2
-            C8E1B95E94430E2F62ADA20BA8D162D5A6C56289A8096D6DD354B0FF18121450
-            9BFED5A66D349AA68978C4DA685AAB428DBDBC41052D8780208720C22E2B8A2B
-            F7EE4C7FEFED0C720B093EF697256F76E6F779BF7B04009AC97B32CFD804D51A
-            499200FABC9625D04710A091C48CDADD51EFD28E4DDE86DE7BCF85E7FBD62E84
-            5D14A1125E8F7E910EA656A9907CEE164CBB578FA12DAB02E0E99196693EB061
-            09B6675441A31630D20CCCA836BB841FD64CC7E7A7AEC39212E5455B0D0A8097
-            7B6AA6E9449C1169971F41FB9A003A0820C53805B1C72EA33135CA9BB6CC5D00
-            6E2999A6731FADC077D926A8B9AF46188008483F12177963ED4F7FA129AD17C0
-            E85D99266BEA32C2141D3BAFB2C17001259942AB823EF50A5EECED05E04200CD
-            29E1C8C92D8424A806D74DE61154C37313CF2E0AF005F303E19A76092D0301DC
-            CD2B01546ABECDDC20F54849490650E15EC17F14D5125D177BFDA637ACE3F7EC
-            3B2828047383FD08E0DF8101F20B4B21A835D06834BD2C487F9447229D82AD9A
-            478F11B57AE5902D9071E1220C93262038D07770807BC5E5503B69B123311146
-            A391948A5D75C96EB7E3FDE868AA1576589F5BB1F8AD454306B891950DFD6857
-            04CFF619DC05C525951C60D4A851DCD7ECC44C98C74532776767276C361BD41A
-            3502FCFD860C50545C0289EE0B0C9805D73DFD01243B004ACAAA09C00909DBBF
-            80313C9C9F3A2666234E9EFC99BB6143F4071CC2D3633CBCBDBD860C603299D1
-            D0604190FF0C8705F60D00505A5EC38350890116BDDC023C33245EAAED7412BF
-            3766911534430660562B2B7D80005F03015CEE0BE04C002D29469455D6921A81
-            9BBF7B082A892FF1C8EF264350EE282B022F70BE33A7C085005A0702A8785807
-            F11519CEEBC060A552B9DEED374A1D9869F026804B68DD3B0040558D8903381E
-            801EAD59F95745D70AF3F31CA9C92DD10D8CBA9D4041ACA23812344EE0AD95EB
-            B623243010533DC6C239F56FB4A5ADEA1FA0FA91458E01357FA0626A25FF2559
-            5B6575358C618BFB35407B79292A0F7E8BFAF3BF72207E1F01B82E5D89E0842F
-            E172BE0352D2927E00762F436D7D235444BE6DDB2758BE7C45571A6EDAB409E9
-            E9E9FC9BD506736323E6CF09E9A3FCC1377B5177F208A6BDB31EE343E641E3EA
-            EA08C2E6663C2DB80BF39F99386A5881EF4FECEF1FA0AEA1890CA0814EA7E337
-            B234544ECDBE590AB2BDB68E0EF8CC9CD1437951F20E3CBBFE0FE626EE446779
-            11DA6F5D85ADA18E5FD3784E846EE1328CF20D44F18FFB515F6F3EFCF6EDB28F
-            998A1E00A627564A2F27C4C7C723323212717171387AE4083725B3446C6C2C07
-            D06AB5F0A05AA02C6B5101EE6E790F0B9292D19E791AB6DA8734FE509ACA2E60
-            0148F90BA729D3A15BB7117907F6E37E83C5B8F54ED9D51E00E6A7CD641315D4
-            6A350F3A918F6842573C30E54CBC3C3D7AF48BFC8478B84FF086DE5C49A72F25
-            E56A390B944C90E4A1C00E271F7FB41866A3E097E3D757659744BE04D8B50C96
-            672D3438082F3348428FDEAFB8431425C7453AA15AEF86BC39131096B40BAD67
-            8E43626E23E93BDDD273094C207097E8ADB879E820C26F148D7DD90BC8024DCF
-            DBF8E4F2EA254FCFF440D598B1C80D22800F63D0967B036EBFE70C7A67D3FA50
-            8A87A5C8CABC88881B455EF248F687E9596A38E5900D8336F8DE8BCD0E5A175C
-            099E843757AE40477505F4A7AF0D7A8B353A0CDA193EC8CACA45C4F5426F3E15
-            7BED3CF15BBB6EDC924E511A967E9100DA9DF5B8752A0621F3E6F05E21B6B5F2
-            CED7E7412C96C8FC2A9D33B9C209374B2A1071AD8003E8490C241E2C6386AEBE
-            6B6932E619BE5A10E0BFC07DDC588814EDFDBEE0C82F262CCD2DCF9A70BBBCE6
-            CEFAECA2D582ACD4994487E18F9B6C397F36CD3362CBACA9874383031C96E967
-            546381AD92E7CDDB05C5385E55BFF940C5E3B32331806B49261D0BF5FBDECF7D
-            CCBAD0A040DE039432EE502EF71772714EE13DDC6F7C7E362EE77E025D7A3C12
-            008A1BA7A5CFF7FDDACF5DBFC667BA810A157954A9151413168B050FAAAA49B9
-            3563EB9DD224DAA56A05EB48BD82B051DA8D64F2668357D8BA89EE9F8ED7A843
-            142F30254F6CF6FCB3758D878E569B599AD49234412EC523B51804EB3EEE7004
-            F468798F2D56995E9050BB452349B3BC37E2AF81EC793408F0A0D6A2472D4607
-            492B4927BAE5C8FFF9F8F4C1826346B80000004574455874636F6D6D656E7400
-            4170706C69636174696F6E20666F726D2064656C6574652066726F6D2049636F
-            6E2047616C6C65727920687474703A2F2F69636F6E67616C2E636F6D2F53289D
-            FE0000002574455874646174653A63726561746500323031312D30382D323154
-            31343A31303A33342D30363A30300B6EECCD0000002574455874646174653A6D
-            6F6469667900323031312D30382D32315431343A31303A33342D30363A30307A
-            3354710000001974455874536F6674776172650041646F626520496D61676552
-            6561647971C9653C0000000049454E44AE426082}
-          ShowHint = True
-          OnClick = imgCancelLoanClick
-          OnMouseDown = imgAssessmentMouseDown
-          OnMouseUp = imgAssessmentMouseUp
-        end
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = 6572079
+        Font.Height = -12
+        Font.Name = 'Tahoma'
+        Font.Style = [fsUnderline]
+        ParentFont = False
+        OnClick = urlCancelClick
       end
-      object pnlReloan: TRzPanel
-        Left = 13
-        Top = 279
-        Width = 40
-        Height = 40
-        Anchors = [akTop, akRight]
-        BorderOuter = fsNone
-        BorderColor = 6572079
-        BorderWidth = 1
-        Color = 12955288
+      object urlClose: TRzURLLabel
+        Left = 18
+        Top = 139
+        Width = 77
+        Height = 14
+        Caption = 'Close this loan'
         Enabled = False
-        TabOrder = 5
-        object imgReloan: TImage
-          Left = 4
-          Top = 4
-          Width = 32
-          Height = 32
-          Cursor = crHandPoint
-          Hint = 'Reloan'
-          AutoSize = True
-          Enabled = False
-          ParentShowHint = False
-          Picture.Data = {
-            0954506E67496D61676589504E470D0A1A0A0000000D49484452000000200000
-            00200806000000737A7AF400000006624B474400FF00FF00FFA0BDA793000000
-            097048597300000048000000480046C96B3E0000000976704167000000200000
-            00200087FA9C9D0000071D4944415478DAA5970B50545518C7FF771F17905C34
-            1F692AA889636526A6BD7C62633ED05905CDC6D1516B9C1AC732F331A5586E21
-            9593C6588D33258C46354EC6C3847CE03341515331134D5C45D1059695856597
-            759FB7EF9CBD8BD0B2B23B1DE6ECE5DEF3F87EF77B9DEF0A9224411004552F5D
-            617EB3474872792400AC87D7940A0122BC7BEA3F9D319B6EDDA1AE136480CE9A
-            8F7EB734EAA6862DB8753B7CDD04EDF61379B62F92E7D0AD271C801E51EB0A8D
-            CD69D3F0DBD51A086C40103A5CCCD67AE9AA1DD20BC2BB3990B6A660DF3F7548
-            C92ACEB16F4A9E1B0A841FA067D4BA82DAE6B424145EAB819221840040042441
-            42D26002782F0FD7D64F427CB7475078D58839D967ABEDE9D3E368962B2C8083
-            D78D50903D4310CF3DC5EB95F0EAA09E1056E4C148EBEF58EC48E81D23439C31
-            D8D367F47F184400C0617D5DD800AF3CD18303B8366B09C0817ABB0B237A6BC8
-            1C26822835D836068768018824003B011CAB34412184073061407732412EA48C
-            64B8E9BEFE3ED0705FC0E04781237A0B419CACABD74DEDD31E440040F1AD7BDC
-            01C30118DBBF1B16EF2EC38E929BB4A382625283D19A89B8E34C4065DA79C46C
-            38028BEE95AE34BDA143805355F52102087C1EC947DFCE51E81B23B6191D9726
-            207120D0A7D77CAC3EB112960D098FD16363870067EE983B00F00956082A4A3E
-            11E42F3C66B836D855410A8850030B32047CBFF07DEC2ADD82BDFAC9285B7720
-            34807386461E814210E10A850A2A45249C2E1BF65D588773FA6CDC3635F8E6CB
-            EBC8873950D6920D303797A3E8EF5F50720979873E4640820A00B8586B914505
-            BC37095743AD8AC4FEF31B50A6CFC2F3839EC7982163D1491461F516D00C65CB
-            4AAFE445843419C72ADEC1F0BE8B70F0D20E945C46C1C1B5988556A93A00E06F
-            63533B00B435BDB948C2B71F4A46B4DA8A592F26C1642B81D176016E8F036EA9
-            AA257B4A92CF456DF77DF94C496649E8F726D6FE9889036BA0A1C1A6A000574D
-            D6167BFA1BB3B3A88CC2EE532BE070FC05ED8B1371D9F82D1A9DD55CDDCCEE2D
-            6693AF0CC2EBF5AD5792626E5703C78B71FC481A92E9517D50808A7BB636004C
-            F52A65240CF5E5D8BC77383E9CBB0C574C99B07BAC50A9809A3AA0A212A83400
-            0EA71F983A5DDF9CE3DBA7B28AF2C1611C3BBE09CBE9F666FB1A584B001B9370
-            C36C6BA37C05C575843A0A5F17CE42AFC72BD0BF9F1A35D632F205E08F52C07C
-            4F83F9E3B6A1BB2616CFC48DE16B22290AA65018BEB500D0EB813DA7A7E3426A
-            C1481ABA055F2E700705B8D5D0DC16806C1F4D4E3665A380D4B78793DAF57048
-            4DA8A3803A7D52836D4B1AB98ADD544778250F07EE14A1C0D4740113C70371EE
-            455859F201ACBA21B1B49D217814C80077E930695D8E28C9F3BDB479F26611AB
-            9669607759F8F8812260CEB09F30E1E97970B83DF078DD64772F01281145C089
-            3A01DA915AE892F311B1FE329C69433BC80332404DD3FD3600CC015D1E175666
-            F741656D438B6FB0C269EBA2620C8B1B4DF91F70BAE968F63865A713A15692EF
-            9023982DE7307FDB486E32C811212AD058B00A3DE8892B00C0D4ECE485865F12
-            453FD782481BA8140FCA0476658EA6CB9F89DFCEEEC1C94F24D89D6E1EFF829C
-            B0449540F9E267EC3CB11C5BE6EE4653F32DF28F28CCCB9CCBC2919F0D010016
-            873B200C3986E093EE4FB722D95D979702973517476F00A51F4B6876839F0D0C
-            8EC13AE8EC5BB04D89D9235EC7B8C153B1FFCF051451C0EECB64C2D5E0260908
-            C3DC72033F8E832462391BC620A77806348A7D58AF2DC0B48CE9F86CB1446600
-            EC0E336ACCA568B056A2E8C2528C887D0A2B26A5E3DCCDCF616C2C4595193876
-            11478EA681956CA6808264CFD56A280521A026F4E578910BFFB5588BCEEA022C
-            49CC604997DEF27D6E5BC9EB9BC82C38AC5F345E881F85B1F15A181A4EE35AED
-            2EDA17C83F0F5CCA415265098A69B625008015A53E80FFBC3D9940AD7C047927
-            53A089DC87D75E5885D29B5FE2B9D8F7B8BA7D5AF3B92FEDC8211C143146EB19
-            D4355DE26542D145E06E05B28BBF422A4DAB6EE3846D34807634403B88EA2E48
-            DD2162CB1B33515E93CFEDCD04458B5D69DCFF3DC16B6AD85C669EA699665886
-            3C5E06D4DEC589A3E9582A27242B5BD00AA0B09695E5F957AADB2DCBFD1AC83F
-            9582AE31FB111F2B3B9C9CEB15425B73B19F7B94F36E501ABE6150A2AEDCF3CD
-            992C64D2C86DEA8DFE84D402401F26B5A17E987C57B41006CF0F1818E713B633
-            D75784285ACD61EE30B44F3C66242CC1ACDC4498D68F7A961E110E3F07025371
-            6F5DE1759B47E8ECF2EBB5DD30A09C20A849AD5D10AF5E83992F1FC5A02780EC
-            5D94965D7AA8042B0179B929D89F572239D49592DB52FDD1F82769A046660BC8
-            845DE8FF01D4BB0221D5A33CE125AEC607939391585A42DEBD0A4C7DED95DEEC
-            6D28F8F82918B4282505229ABA88D05B04F59E9352F1B5A61B5ECA598121B2A0
-            F61ACBD1363CA42C0F43EE030DC81A7B5CBEAF7A0840D0F67F005863474C147C
-            FE6797DF34ACF62F1268704E03CE1E960000003A74455874636F6D6D656E7400
-            5061676520726566726573682066726F6D2049636F6E2047616C6C6572792068
-            7474703A2F2F69636F6E67616C2E636F6D2F9F38850C00000025744558746461
-            74653A63726561746500323031312D30382D32315431343A31313A32382D3036
-            3A3030EFA6ED190000002574455874646174653A6D6F6469667900323031312D
-            30382D32315431343A31313A32382D30363A30309EFB55A50000001974455874
-            536F6674776172650041646F626520496D616765526561647971C9653C000000
-            0049454E44AE426082}
-          ShowHint = True
-          OnMouseDown = imgAssessmentMouseDown
-          OnMouseUp = imgAssessmentMouseUp
-        end
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = 6572079
+        Font.Height = -12
+        Font.Name = 'Tahoma'
+        Font.Style = [fsUnderline]
+        ParentFont = False
+        OnClick = urlCloseClick
       end
-      object pnlLedger: TRzPanel
-        Left = 13
-        Top = 471
-        Width = 40
-        Height = 40
-        Anchors = [akRight, akBottom]
-        BorderOuter = fsNone
-        BorderColor = 6572079
-        BorderWidth = 1
-        Color = 12955288
+      object urlReloan: TRzURLLabel
+        Left = 18
+        Top = 163
+        Width = 36
+        Height = 14
+        Caption = 'Reloan'
         Enabled = False
-        TabOrder = 6
-        object imgLedger: TImage
-          Left = 4
-          Top = 4
-          Width = 32
-          Height = 32
-          Cursor = crHandPoint
-          Hint = 'Ledger'
-          AutoSize = True
-          Enabled = False
-          ParentShowHint = False
-          Picture.Data = {
-            0954506E67496D61676589504E470D0A1A0A0000000D49484452000000200000
-            00200806000000737A7AF4000004184944415478DABD974F4C14571CC7BF333B
-            2BBBA08026C57A688CB10714DB534FC643037A7010D3368D36A2D843E3CDC4E8
-            814451018184736FC683A5A5A94DE33F6439548887DA73ABF2E76043A8078518
-            852DB20BBB33CFDFEFED1B61373BFB1EA4F2C8DB1DBE3BF3DE677EBFEFFCDE3C
-            0B80F361C7E0ED05CF6ACCF8802FA06D96FC14F248AC52B3498CDA4079440CBE
-            B8DCF8059FB3A9F2522239D771503FF3FFD8AA2E0F21D9E95632C007F1B6C4CC
-            C21502F8A3891063046C97B894EF6509E75F5F45CFE65374BC41E9069AA06BFD
-            34B06F00E5178790EA726B18A0267621319DEA22803F0F0391B80680F26465D0
-            4E03B7F3C022AAE26DA031BB9702F6DE45BC6D08E96E77AB04885F189C5EE872
-            71716012B61D856559E1F9B70422960F87BEB3C2822772B0269ACF1EF333B8D2
-            B403E56D09A4BA1B03807B04D08847FFE58C6387CF2F9B13016E8E4CE0ABFA5A
-            643D738D0DCE41F8741399B06D90000EE50062E7EF4D130D1ECF0999A7120190
-            D17122160D3C4A03D7D1C0424DA6D77C26A0EB3FA9B2405147BAA7006034B93E
-            00759521004F1772292809C0B9A5D0FE363C86AF1B76C353E136D182147C5C8E
-            7C80C003BD034FC8843C492913D2C06412DB6653F9F054E532D17C21A4115B9B
-            F614F7C0545A1F81C05C37862770B421DF703A4DA8086C8FA1780AA6E8119567
-            692210A5817FBD3F8623FB7723A32633D184C879607B3C04E0593A00286D421E
-            F817CAED370DF993E9B400E0A3B008CC2C2DDF65291372687FBE3F8E63FB77E5
-            855BA7050B5DCD86420032618A4CF87D625456E15226CCB9DB96066363799E6F
-            AC09FEA39F4EBB75548A09A0D084B3CA282611E8A73B6B2EB85B9DA6CA00AA23
-            21297895517932F040FFEF63683E909F6F9D266491B3B0251A0290CC423EAB26
-            003FD1C0C70B26D3690C60D3F5954E08C02200DD0B914C01F5BE9171B4D45368
-            956EA2050F7819424C788D6839499A3A44C6B2659DE7FAEEF9BEB1266F8EA2F0
-            1D45A4A8097DC308F06ADFF760022D9FD7C257BA8926565C9F17813202481300
-            A7CED310C84A48DFD787C7F16DC32E64946EA2B1BD22BC96D0718C00160B0184
-            21000FF00355B893BCCA056931D002002B0C809B0F0D80EA7D34700B0DBCB2FD
-            38328613F57A8D5BDE6AB81260BD9A7A2D5F3B8075E6163D677669D7AA174C2E
-            C98E7AD1941B13FA3FB638FB70A6F7D8976B073877077F9FFA0C694F84162F2E
-            3A15548DF6F6FF856487CB3B9FC09F5C165E52FF37EF8D685500676F63B1FB20
-            E6973C326E7180080154C71C54F50C63BED3AD25E9B5FA892FE0C53F2501686B
-            36BDDAAD99D57A17A2F7B0D1B9D5ED4398EB70B7D2E14CB12CD56CEB4CFCF326
-            8B8D195A32759B53CEA143398CD241864ECE7A7EA80D7870CE778583F9E797DC
-            9D6100D5D47750DF0C68ABF05A9A50A19FA43E5B14927A05967794EFA3F1BBD6
-            1B2C9BF05D7B0B8DCCDF6F37B4D2B00000000049454E44AE426082}
-          ShowHint = True
-          OnClick = imgLedgerClick
-          OnMouseDown = imgAssessmentMouseDown
-          OnMouseUp = imgAssessmentMouseUp
-        end
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = 6572079
+        Font.Height = -12
+        Font.Name = 'Tahoma'
+        Font.Style = [fsUnderline]
+        ParentFont = False
       end
-      object pnlCloseLoan: TRzPanel
-        Left = 13
-        Top = 234
-        Width = 40
-        Height = 40
-        Hint = 'Close loan'
-        Anchors = [akTop, akRight]
-        BorderOuter = fsNone
-        BorderColor = 6572079
-        BorderWidth = 1
-        Color = 12955288
+      object urlLedger: TRzURLLabel
+        Left = 18
+        Top = 187
+        Width = 68
+        Height = 14
+        Caption = 'Open ledger'
         Enabled = False
-        TabOrder = 7
-        object imgCloseLoan: TImage
-          Left = 4
-          Top = 4
-          Width = 32
-          Height = 32
-          Cursor = crHandPoint
-          Hint = 'Close loan'
-          AutoSize = True
-          Enabled = False
-          ParentShowHint = False
-          Picture.Data = {
-            0954506E67496D61676589504E470D0A1A0A0000000D49484452000000200000
-            00200806000000737A7AF4000004B04944415478DAB5975D4C5B6518C7FF6F3F
-            60B3A51FAC207430286BA174B8DDCCB931909A4C4D74CE64D9857189594CFC8A
-            064DFCB859A289D118E385D98D37BBD06457665723D18B916CF2B12D53C68402
-            9B80A36ED079A08E02FDA4ED393EEFE9D76140E9187D92A7B4E7BC3CFFDF79DE
-            E77DDFE7306C6CDA9E43CE698852A5443F1863A9ABD9BFD98FEC75FE4B626CB6
-            A37FA486BEC6F30567C86FDA4BFB1DDE86F73EB41A1A9B911466202592109371
-            4871EE0948C90492F49D91F3EBE2327949298233D398BF7ED5E7BE36569F0F82
-            E517B77B1B3EF8D46ADC5587D0579D142646FFA1CA3D35CB04608A4C509ED41A
-            44DA5E41D0EF4760F0779FFBEAFA106C2371D36E3B425F92B8189703E7C74E01
-            3051924183078E20F4DF032C0CDD581782AD2DEEF0DADEEEB41A1D8D887EFB09
-            406986469B9BF7028C89491962715F1B8204B1343ABC26C4C311B5979F76786B
-            4FBD6335DB1D583EF3F9A6C473102215A30A01E77ECA4400C189319FFBCAE80A
-            08B642FC40A3B7E6F537AD265B03C4B3DF40E24FC1D3BE09F194A5A743C5E0AF
-            7B0AE1C0024253933E77FF481682E5C49BBCD61327ADA6061BD8B93354DD8F2B
-            AEC884247214CC553B6488C8F43FBE8E34048FAEFDADD5355375F47885B1AE1E
-            EAF367099CD2AEDA1A712504AF89FBC61A449616119DFD77AEA37778275730F5
-            1C6C9AB79FFE1AA53F7E07890FDC62F18CA9F8129518A6F4D588DC19477B9FC7
-            CC552A7B9E69126C9F7D01FDB9EF216A4A68A46ACBC5E52C90AB0962BCB40251
-            EF249EEDF33C990238D824D47F741A86F33FA4008AF0F419D310C02DB509F1BB
-            533C031900A7B0EBFD8F61EEFA890036B7E40ACE007D8C269F40C2770FEDBDC3
-            3980DAB73AB1A3FB67885B54F9F90046A26A2484FB0A80434EC1FAC6BBA8EABF
-            8064910A300B407BC2D09208714E5002340BD5AF9D82F58F6E0250171DE0CF07
-            3188F37E05406BB35079FC24EA3CFD04A0C2C6A7F4E60134147F405880B41850
-            02B8848AA327609B18283E805A85EB77E7C0C2C11C402F01985F3C86C67BA348
-            C8E92F2EC0B5BF67A05A8EA1BD67280D70D82598DC2FC0E9F72299DAAF8A0340
-            0FA72580FEB149A8E9A45400EC118CAD6E3843B3B4554A108B04A0A2E95511C4
-            15CF6DF0D6A62D0370A9ADE5B6C16637EBCBCB614B86E8E0D87A082ECE533B34
-            7E0791580C4909F3CFF50E39E5C388DC71B1D5F5ABA97EB78543D8D5F114C416
-            CD454A5CC2CDBF261189C6101745FF913ECF4B746B423E8EC92DE43682B8400D
-            A8456F32A3691BED07E0108F47C1C519C5191C1B473812C3B224FA9FEFF3BC4A
-            B7A6C8FDD986240D517FF1B0ABCB505D6BD1198D7019B7C937370B9112076E8C
-            DC528A1FA34B5E2E8E7443923105C49EAEB2CA2A8BCE60404B8549DE1945F1D1
-            AA421627EE81E15184A31112975689F371AB9A522584AE7C87454F107B7756C9
-            23A50233C168BBE5553C30EC4138BCBEF85A002B20BA0962BBC164D197E9B1CF
-            6E939BCBD56A6B844A8A1818BCB9A1F87A002B21DA5ABAB6EB7416D021C53320
-            F1A521A58B931A57392B1235B0BC05975F48521B8E9AA620268A79C5F3012821
-            6C97DBF7FEA261F2725D27E7ABC3242404689DBF8C74B5E3115FCD1E86E06FB9
-            65058CCF182F9625F2E97CE28500642074E425058A676C993C840D5ECFFF074E
-            041D7198DBBD120000000049454E44AE426082}
-          ShowHint = True
-          OnClick = imgCloseLoanClick
-          OnMouseDown = imgAssessmentMouseDown
-          OnMouseUp = imgAssessmentMouseUp
-        end
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = 6572079
+        Font.Height = -12
+        Font.Name = 'Tahoma'
+        Font.Style = [fsUnderline]
+        ParentFont = False
+        OnClick = urlLedgerClick
       end
     end
     object pnlStatus: TRzPanel
-      Left = 368
+      Left = 544
       Top = 6
-      Width = 509
+      Width = 605
       Height = 502
       Anchors = [akLeft, akTop, akRight, akBottom]
       BorderOuter = fsNone
-      BorderColor = 8675134
+      BorderColor = 14272955
       BorderWidth = 1
       Color = 14273211
       Ctl3D = False
       ParentCtl3D = False
       TabOrder = 2
-      DesignSize = (
-        509
-        502)
       object pcStatus: TRzPageControl
         Left = 1
         Top = 1
-        Width = 507
+        Width = 603
         Height = 500
         Hint = ''
-        ActivePage = tsReleased
+        ActivePage = tsAssessment
         ActivePageDefault = tsPending
-        Anchors = [akLeft, akTop, akRight, akBottom]
-        FlatColor = 8675134
+        Align = alClient
+        Color = 15327448
+        FlatColor = 15327448
+        ParentColor = False
         ShowCardFrame = False
         ShowShadow = False
         TabOrder = 0
         TabStop = False
         Transparent = True
+        ExplicitWidth = 99
         FixedDimension = 20
         object tsAssessment: TRzTabSheet
-          Color = 14273211
+          Color = 15327448
           TabVisible = False
           Caption = 'Assessment'
+          ExplicitWidth = 507
           object JvLabel29: TJvLabel
             Tag = -1
             Left = 19
@@ -1463,20 +883,21 @@ inherited frmLoanMain: TfrmLoanMain
             Tag = 200
             Left = 0
             Top = 0
-            Width = 507
+            Width = 603
             Height = 500
             Align = alClient
             BorderOuter = fsNone
             BorderColor = 8675134
-            Color = 14273211
+            Color = 15327448
             TabOrder = 0
+            ExplicitWidth = 507
             DesignSize = (
-              507
+              603
               500)
             object JvLabel10: TJvLabel
               Tag = -1
               Left = 19
-              Top = 33
+              Top = 17
               Width = 92
               Height = 14
               Caption = 'Date assessed:'
@@ -1496,7 +917,7 @@ inherited frmLoanMain: TfrmLoanMain
             object JvLabel11: TJvLabel
               Tag = -1
               Left = 20
-              Top = 201
+              Top = 185
               Width = 56
               Height = 14
               Caption = 'Amount:'
@@ -1516,26 +937,21 @@ inherited frmLoanMain: TfrmLoanMain
             object JvLabel24: TJvLabel
               Tag = -1
               Left = 155
-              Top = 33
-              Width = 54
+              Top = 17
+              Width = 47
               Height = 14
               Caption = 'Capacity'
               Font.Charset = DEFAULT_CHARSET
               Font.Color = clWindowText
               Font.Height = -12
               Font.Name = 'Tahoma'
-              Font.Style = [fsBold]
+              Font.Style = []
               ParentFont = False
               Transparent = True
-              HotTrackFont.Charset = DEFAULT_CHARSET
-              HotTrackFont.Color = clWindowText
-              HotTrackFont.Height = -12
-              HotTrackFont.Name = 'Tahoma'
-              HotTrackFont.Style = []
             end
             object RzDBLabel1: TRzDBLabel
               Left = 20
-              Top = 53
+              Top = 37
               Width = 62
               Height = 14
               AutoSize = True
@@ -1544,7 +960,7 @@ inherited frmLoanMain: TfrmLoanMain
             end
             object RzDBLabel2: TRzDBLabel
               Left = 21
-              Top = 221
+              Top = 205
               Width = 62
               Height = 14
               AutoSize = True
@@ -1553,11 +969,13 @@ inherited frmLoanMain: TfrmLoanMain
             end
             object RzDBLabel3: TRzDBLabel
               Left = 232
-              Top = 33
-              Width = 233
+              Top = 17
+              Width = 346
               Height = 36
+              Color = clWhite
+              ParentColor = False
               WordWrap = True
-              BorderColor = 8675134
+              BorderColor = 14272955
               BorderWidth = 1
               DataField = 'capacity'
               DataSource = dmLoan.dscLoanAss
@@ -1565,30 +983,27 @@ inherited frmLoanMain: TfrmLoanMain
             object JvLabel35: TJvLabel
               Tag = -1
               Left = 155
-              Top = 75
-              Width = 61
+              Top = 59
+              Width = 54
               Height = 14
               Caption = 'Character'
               Font.Charset = DEFAULT_CHARSET
               Font.Color = clWindowText
               Font.Height = -12
               Font.Name = 'Tahoma'
-              Font.Style = [fsBold]
+              Font.Style = []
               ParentFont = False
               Transparent = True
-              HotTrackFont.Charset = DEFAULT_CHARSET
-              HotTrackFont.Color = clWindowText
-              HotTrackFont.Height = -12
-              HotTrackFont.Name = 'Tahoma'
-              HotTrackFont.Style = []
             end
             object RzDBLabel16: TRzDBLabel
               Left = 232
-              Top = 75
-              Width = 233
+              Top = 59
+              Width = 346
               Height = 36
+              Color = clWhite
+              ParentColor = False
               WordWrap = True
-              BorderColor = 8675134
+              BorderColor = 14272955
               BorderWidth = 1
               DataField = 'character'
               DataSource = dmLoan.dscLoanAss
@@ -1596,30 +1011,27 @@ inherited frmLoanMain: TfrmLoanMain
             object JvLabel36: TJvLabel
               Tag = -1
               Left = 155
-              Top = 117
-              Width = 44
+              Top = 101
+              Width = 37
               Height = 14
               Caption = 'Capital'
               Font.Charset = DEFAULT_CHARSET
               Font.Color = clWindowText
               Font.Height = -12
               Font.Name = 'Tahoma'
-              Font.Style = [fsBold]
+              Font.Style = []
               ParentFont = False
               Transparent = True
-              HotTrackFont.Charset = DEFAULT_CHARSET
-              HotTrackFont.Color = clWindowText
-              HotTrackFont.Height = -12
-              HotTrackFont.Name = 'Tahoma'
-              HotTrackFont.Style = []
             end
             object RzDBLabel17: TRzDBLabel
               Left = 232
-              Top = 117
-              Width = 233
+              Top = 101
+              Width = 346
               Height = 36
+              Color = clWhite
+              ParentColor = False
               WordWrap = True
-              BorderColor = 8675134
+              BorderColor = 14272955
               BorderWidth = 1
               DataField = 'capital'
               DataSource = dmLoan.dscLoanAss
@@ -1627,30 +1039,27 @@ inherited frmLoanMain: TfrmLoanMain
             object JvLabel37: TJvLabel
               Tag = -1
               Left = 155
-              Top = 159
-              Width = 68
+              Top = 143
+              Width = 58
               Height = 14
               Caption = 'Conditions'
               Font.Charset = DEFAULT_CHARSET
               Font.Color = clWindowText
               Font.Height = -12
               Font.Name = 'Tahoma'
-              Font.Style = [fsBold]
+              Font.Style = []
               ParentFont = False
               Transparent = True
-              HotTrackFont.Charset = DEFAULT_CHARSET
-              HotTrackFont.Color = clWindowText
-              HotTrackFont.Height = -12
-              HotTrackFont.Name = 'Tahoma'
-              HotTrackFont.Style = []
             end
             object RzDBLabel18: TRzDBLabel
               Left = 232
-              Top = 159
-              Width = 233
+              Top = 143
+              Width = 346
               Height = 36
+              Color = clWhite
+              ParentColor = False
               WordWrap = True
-              BorderColor = 8675134
+              BorderColor = 14272955
               BorderWidth = 1
               DataField = 'conditions'
               DataSource = dmLoan.dscLoanAss
@@ -1658,30 +1067,27 @@ inherited frmLoanMain: TfrmLoanMain
             object JvLabel38: TJvLabel
               Tag = -1
               Left = 155
-              Top = 201
-              Width = 59
+              Top = 185
+              Width = 50
               Height = 14
               Caption = 'Collateral'
               Font.Charset = DEFAULT_CHARSET
               Font.Color = clWindowText
               Font.Height = -12
               Font.Name = 'Tahoma'
-              Font.Style = [fsBold]
+              Font.Style = []
               ParentFont = False
               Transparent = True
-              HotTrackFont.Charset = DEFAULT_CHARSET
-              HotTrackFont.Color = clWindowText
-              HotTrackFont.Height = -12
-              HotTrackFont.Name = 'Tahoma'
-              HotTrackFont.Style = []
             end
             object RzDBLabel19: TRzDBLabel
               Left = 232
-              Top = 201
-              Width = 233
+              Top = 185
+              Width = 346
               Height = 36
+              Color = clWhite
+              ParentColor = False
               WordWrap = True
-              BorderColor = 8675134
+              BorderColor = 14272955
               BorderWidth = 1
               DataField = 'collateral'
               DataSource = dmLoan.dscLoanAss
@@ -1689,30 +1095,27 @@ inherited frmLoanMain: TfrmLoanMain
             object JvLabel39: TJvLabel
               Tag = -1
               Left = 155
-              Top = 243
-              Width = 55
+              Top = 227
+              Width = 49
               Height = 14
               Caption = 'Comaker'
               Font.Charset = DEFAULT_CHARSET
               Font.Color = clWindowText
               Font.Height = -12
               Font.Name = 'Tahoma'
-              Font.Style = [fsBold]
+              Font.Style = []
               ParentFont = False
               Transparent = True
-              HotTrackFont.Charset = DEFAULT_CHARSET
-              HotTrackFont.Color = clWindowText
-              HotTrackFont.Height = -12
-              HotTrackFont.Name = 'Tahoma'
-              HotTrackFont.Style = []
             end
             object RzDBLabel20: TRzDBLabel
               Left = 232
-              Top = 243
-              Width = 233
+              Top = 227
+              Width = 346
               Height = 36
+              Color = clWhite
+              ParentColor = False
               WordWrap = True
-              BorderColor = 8675134
+              BorderColor = 14272955
               BorderWidth = 1
               DataField = 'comaker'
               DataSource = dmLoan.dscLoanAss
@@ -1720,7 +1123,7 @@ inherited frmLoanMain: TfrmLoanMain
             object JvLabel40: TJvLabel
               Tag = -1
               Left = 19
-              Top = 117
+              Top = 101
               Width = 113
               Height = 14
               Caption = 'Recommendation:'
@@ -1739,58 +1142,26 @@ inherited frmLoanMain: TfrmLoanMain
             end
             object RzDBLabel21: TRzDBLabel
               Left = 19
-              Top = 137
+              Top = 121
               Width = 69
               Height = 14
               AutoSize = True
               DataField = 'recommendation'
               DataSource = dmLoan.dscLoanAss
             end
-            object RzPanel3: TRzPanel
-              Tag = -1
-              Left = 0
-              Top = 0
-              Width = 507
-              Height = 17
-              Align = alTop
-              BorderOuter = fsNone
-              BorderSides = [sdBottom]
-              BorderColor = clBlack
-              BorderWidth = 1
-              Color = 8675134
-              GradientColorStyle = gcsCustom
-              GradientColorStart = 6572079
-              GradientColorStop = 8675134
-              TabOrder = 0
-              VisualStyle = vsGradient
-              object RzLabel2: TRzLabel
-                Tag = -1
-                Left = 7
-                Top = 2
-                Width = 110
-                Height = 13
-                Caption = 'Assessment details'
-                Font.Charset = DEFAULT_CHARSET
-                Font.Color = clWhite
-                Font.Height = -11
-                Font.Name = 'Tahoma'
-                Font.Style = [fsBold]
-                ParentFont = False
-                Transparent = True
-              end
-            end
             object pnlEditAssessment: TRzPanel
-              Left = 450
+              Left = 546
               Top = 471
               Width = 50
               Height = 22
               Anchors = [akRight, akBottom]
               BorderOuter = fsNone
-              BorderColor = 6572079
+              BorderColor = 14272955
               BorderWidth = 1
-              Color = 12955288
-              TabOrder = 1
+              Color = 15327448
+              TabOrder = 0
               OnClick = pnlEditAssessmentClick
+              ExplicitLeft = 450
               object btnEditAssessment: TRzShapeButton
                 Left = 0
                 Top = 0
@@ -1807,45 +1178,45 @@ inherited frmLoanMain: TfrmLoanMain
             object pcAssessment: TRzPageControl
               Tag = 3
               Left = 19
-              Top = 297
-              Width = 463
+              Top = 281
+              Width = 559
               Height = 148
               Hint = ''
-              ActivePage = tsFinInfo
+              ActivePage = tsMonExp
               ActivePageDefault = tsFinInfo
               Anchors = [akLeft, akTop, akRight, akBottom]
-              ButtonColor = 14273211
-              FlatColor = 8675134
+              ButtonColor = 15327448
+              FlatColor = 14272955
               ShowShadow = False
               TabOverlap = 0
-              TabColors.HighlightBar = 14273211
-              TabColors.Shadow = 14273211
-              TabColors.Unselected = 14273211
-              TabIndex = 0
-              TabOrder = 2
+              TabColors.HighlightBar = 15327448
+              TabColors.Shadow = 15327448
+              TabColors.Unselected = 15327448
+              TabIndex = 1
+              TabOrder = 1
               TabStyle = tsRoundCorners
               FixedDimension = 20
               object tsFinInfo: TRzTabSheet
-                Color = 14273211
+                Color = 15327448
                 Caption = 'Financial info'
+                ExplicitWidth = 461
                 DesignSize = (
-                  461
+                  557
                   123)
                 object grFinInfo: TRzDBGrid
                   Left = 5
                   Top = 5
-                  Width = 451
+                  Width = 547
                   Height = 113
                   Anchors = [akLeft, akTop, akRight, akBottom]
+                  BorderStyle = bsNone
                   Color = clWhite
                   Ctl3D = True
                   DataSource = dmLoan.dscFinInfo
-                  DefaultDrawing = False
-                  DrawingStyle = gdsGradient
-                  FixedColor = 14273211
+                  FixedColor = clWhite
                   GradientEndColor = 12955288
                   GradientStartColor = 12955288
-                  Options = [dgTitles, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
+                  Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
                   ParentCtl3D = False
                   ReadOnly = True
                   TabOrder = 0
@@ -1856,9 +1227,9 @@ inherited frmLoanMain: TfrmLoanMain
                   TitleFont.Style = []
                   FrameColor = 8675134
                   FrameHotStyle = fsNone
-                  FrameVisible = True
+                  FrameStyle = fsNone
                   FramingPreference = fpCustomFraming
-                  FixedLineColor = 14273211
+                  FixedLineColor = clWhite
                   LineColor = 14273211
                   AltRowShadingColor = 15854564
                   Columns = <
@@ -1906,25 +1277,26 @@ inherited frmLoanMain: TfrmLoanMain
                 end
               end
               object tsMonExp: TRzTabSheet
-                Color = 14273211
+                Color = 15327448
                 Caption = 'Monthly expenses'
+                ExplicitWidth = 461
                 DesignSize = (
-                  461
+                  557
                   123)
                 object grMonExp: TRzDBGrid
                   Left = 5
                   Top = 5
-                  Width = 451
+                  Width = 547
                   Height = 113
                   Anchors = [akLeft, akTop, akRight, akBottom]
+                  BorderStyle = bsNone
                   Color = clWhite
                   Ctl3D = True
                   DataSource = dmLoan.dscMonExp
-                  DrawingStyle = gdsGradient
-                  FixedColor = 14273211
+                  FixedColor = clWhite
                   GradientEndColor = 12955288
                   GradientStartColor = 12955288
-                  Options = [dgTitles, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
+                  Options = [dgTitles, dgIndicator, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
                   ParentCtl3D = False
                   ReadOnly = True
                   TabOrder = 0
@@ -1936,9 +1308,9 @@ inherited frmLoanMain: TfrmLoanMain
                   DisabledColor = 14273211
                   FrameColor = 8675134
                   FrameHotStyle = fsNone
-                  FrameVisible = True
+                  FrameStyle = fsNone
                   FramingPreference = fpCustomFraming
-                  FixedLineColor = 14273211
+                  FixedLineColor = clWhite
                   LineColor = 14273211
                   AltRowShadingColor = 15854564
                   Columns = <
@@ -1975,9 +1347,10 @@ inherited frmLoanMain: TfrmLoanMain
           end
         end
         object tsApproval: TRzTabSheet
-          Color = 14273211
+          Color = 15327448
           TabVisible = False
           Caption = 'Approval'
+          ExplicitWidth = 507
           object JvLabel30: TJvLabel
             Tag = -1
             Left = 19
@@ -2002,20 +1375,21 @@ inherited frmLoanMain: TfrmLoanMain
             Tag = 200
             Left = 0
             Top = 0
-            Width = 507
+            Width = 603
             Height = 500
             Align = alClient
             BorderOuter = fsNone
-            BorderColor = 8675134
-            Color = 14273211
+            BorderColor = 14272955
+            Color = 15327448
             TabOrder = 0
+            ExplicitWidth = 507
             DesignSize = (
-              507
+              603
               500)
             object JvLabel13: TJvLabel
               Tag = -1
               Left = 19
-              Top = 33
+              Top = 17
               Width = 97
               Height = 14
               Caption = 'Date approved:'
@@ -2035,7 +1409,7 @@ inherited frmLoanMain: TfrmLoanMain
             object JvLabel14: TJvLabel
               Tag = -1
               Left = 19
-              Top = 56
+              Top = 40
               Width = 118
               Height = 14
               Caption = 'Approved amount:'
@@ -2055,7 +1429,7 @@ inherited frmLoanMain: TfrmLoanMain
             object JvLabel16: TJvLabel
               Tag = -1
               Left = 19
-              Top = 79
+              Top = 63
               Width = 99
               Height = 14
               Caption = 'Approved term:'
@@ -2075,7 +1449,7 @@ inherited frmLoanMain: TfrmLoanMain
             object JvLabel17: TJvLabel
               Tag = -1
               Left = 19
-              Top = 125
+              Top = 109
               Width = 58
               Height = 14
               Caption = 'Remarks:'
@@ -2094,7 +1468,7 @@ inherited frmLoanMain: TfrmLoanMain
             end
             object JvLabel28: TJvLabel
               Left = 19
-              Top = 102
+              Top = 86
               Width = 113
               Height = 14
               Caption = 'Approval method:'
@@ -2113,7 +1487,7 @@ inherited frmLoanMain: TfrmLoanMain
             end
             object RzDBLabel4: TRzDBLabel
               Left = 168
-              Top = 33
+              Top = 17
               Width = 62
               Height = 14
               AutoSize = True
@@ -2122,7 +1496,7 @@ inherited frmLoanMain: TfrmLoanMain
             end
             object RzDBLabel5: TRzDBLabel
               Left = 168
-              Top = 56
+              Top = 40
               Width = 62
               Height = 14
               AutoSize = True
@@ -2131,7 +1505,7 @@ inherited frmLoanMain: TfrmLoanMain
             end
             object RzDBLabel6: TRzDBLabel
               Left = 168
-              Top = 79
+              Top = 63
               Width = 62
               Height = 14
               AutoSize = True
@@ -2140,7 +1514,7 @@ inherited frmLoanMain: TfrmLoanMain
             end
             object RzDBLabel7: TRzDBLabel
               Left = 168
-              Top = 102
+              Top = 86
               Width = 62
               Height = 14
               AutoSize = True
@@ -2149,55 +1523,25 @@ inherited frmLoanMain: TfrmLoanMain
             end
             object RzDBLabel8: TRzDBLabel
               Left = 96
-              Top = 125
-              Width = 377
+              Top = 109
+              Width = 473
               Height = 72
               WordWrap = True
               DataField = 'remarks'
               DataSource = dmLoan.dscLoanAppv
             end
-            object RzPanel5: TRzPanel
-              Left = 0
-              Top = 0
-              Width = 507
-              Height = 17
-              Align = alTop
-              BorderOuter = fsNone
-              BorderSides = [sdBottom]
-              BorderColor = clBlack
-              BorderWidth = 1
-              GradientColorStyle = gcsCustom
-              GradientColorStart = 6572079
-              GradientColorStop = 8675134
-              TabOrder = 0
-              VisualStyle = vsGradient
-              object RzLabel3: TRzLabel
-                Tag = -1
-                Left = 7
-                Top = 2
-                Width = 92
-                Height = 13
-                Caption = 'Approval details'
-                Font.Charset = DEFAULT_CHARSET
-                Font.Color = clWhite
-                Font.Height = -11
-                Font.Name = 'Tahoma'
-                Font.Style = [fsBold]
-                ParentFont = False
-                Transparent = True
-              end
-            end
             object pnlEditApproval: TRzPanel
-              Left = 450
+              Left = 546
               Top = 471
               Width = 50
               Height = 22
               Anchors = [akRight, akBottom]
               BorderOuter = fsNone
-              BorderColor = 6572079
+              BorderColor = 14272955
               BorderWidth = 1
-              Color = 12955288
-              TabOrder = 1
+              Color = 15327448
+              TabOrder = 0
+              ExplicitLeft = 450
               object btnEditApproval: TRzShapeButton
                 Left = 0
                 Top = 0
@@ -2214,9 +1558,10 @@ inherited frmLoanMain: TfrmLoanMain
           end
         end
         object tsReleased: TRzTabSheet
-          Color = 14273211
+          Color = 15327448
           TabVisible = False
           Caption = 'Released'
+          ExplicitWidth = 507
           object JvLabel33: TJvLabel
             Tag = -1
             Left = 19
@@ -2241,22 +1586,23 @@ inherited frmLoanMain: TfrmLoanMain
             Tag = -1
             Left = 0
             Top = 0
-            Width = 507
+            Width = 603
             Height = 500
             Align = alClient
             BorderOuter = fsNone
             BorderColor = 8675134
-            Color = 14273211
+            Color = 15327448
             Ctl3D = False
             ParentCtl3D = False
             TabOrder = 0
+            ExplicitWidth = 507
             DesignSize = (
-              507
+              603
               500)
             object JvLabel15: TJvLabel
               Tag = -1
               Left = 19
-              Top = 33
+              Top = 17
               Width = 118
               Height = 14
               Caption = 'Approved amount:'
@@ -2275,7 +1621,7 @@ inherited frmLoanMain: TfrmLoanMain
             end
             object RzDBLabel15: TRzDBLabel
               Left = 143
-              Top = 33
+              Top = 17
               Width = 69
               Height = 14
               AutoSize = True
@@ -2284,8 +1630,8 @@ inherited frmLoanMain: TfrmLoanMain
             end
             object JvLabel26: TJvLabel
               Tag = -1
-              Left = 19
-              Top = 396
+              Left = 243
+              Top = 41
               Width = 88
               Height = 14
               Caption = 'Total charges:'
@@ -2304,8 +1650,8 @@ inherited frmLoanMain: TfrmLoanMain
             end
             object lblTotalCharges: TJvLabel
               Tag = -1
-              Left = 115
-              Top = 396
+              Left = 339
+              Top = 41
               Width = 27
               Height = 14
               Caption = '0.00'
@@ -2314,7 +1660,7 @@ inherited frmLoanMain: TfrmLoanMain
             object JvLabel27: TJvLabel
               Tag = -1
               Left = 19
-              Top = 211
+              Top = 65
               Width = 86
               Height = 14
               Caption = 'Net proceeds:'
@@ -2334,7 +1680,7 @@ inherited frmLoanMain: TfrmLoanMain
             object lblNetProceeds: TJvLabel
               Tag = -1
               Left = 115
-              Top = 211
+              Top = 65
               Width = 27
               Height = 14
               Caption = '0.00'
@@ -2342,8 +1688,8 @@ inherited frmLoanMain: TfrmLoanMain
             end
             object lblReleaseAmount: TJvLabel
               Tag = -1
-              Left = 387
-              Top = 33
+              Left = 129
+              Top = 41
               Width = 27
               Height = 14
               Caption = '0.00'
@@ -2351,8 +1697,8 @@ inherited frmLoanMain: TfrmLoanMain
             end
             object JvLabel42: TJvLabel
               Tag = -1
-              Left = 277
-              Top = 33
+              Left = 19
+              Top = 41
               Width = 104
               Height = 14
               Caption = 'Release amount:'
@@ -2371,8 +1717,8 @@ inherited frmLoanMain: TfrmLoanMain
             end
             object JvLabel45: TJvLabel
               Tag = -1
-              Left = 19
-              Top = 420
+              Left = 243
+              Top = 65
               Width = 116
               Height = 14
               Caption = 'Advance payment:'
@@ -2391,17 +1737,19 @@ inherited frmLoanMain: TfrmLoanMain
             end
             object lblAdvancePayment: TJvLabel
               Tag = -1
-              Left = 147
-              Top = 420
-              Width = 27
-              Height = 14
+              Left = 371
+              Top = 65
+              Width = 212
+              Height = 34
+              AutoSize = False
               Caption = '0.00'
               Transparent = True
+              WordWrap = True
             end
             object JvLabel46: TJvLabel
               Tag = -1
-              Left = 19
-              Top = 445
+              Left = 243
+              Top = 17
               Width = 106
               Height = 14
               Caption = 'Promissory note:'
@@ -2419,211 +1767,20 @@ inherited frmLoanMain: TfrmLoanMain
               HotTrackFont.Style = []
             end
             object RzDBLabel25: TRzDBLabel
-              Left = 139
-              Top = 445
+              Left = 363
+              Top = 17
               Width = 69
               Height = 14
               AutoSize = True
               DataField = 'pn_no'
               DataSource = dmLoan.dscLoan
             end
-            object RzPanel7: TRzPanel
-              Left = 0
-              Top = 0
-              Width = 507
-              Height = 17
-              Align = alTop
-              BorderOuter = fsNone
-              BorderSides = [sdBottom]
-              BorderColor = clBlack
-              BorderWidth = 1
-              GradientColorStyle = gcsCustom
-              GradientColorStart = 6572079
-              GradientColorStop = 8675134
-              TabOrder = 0
-              VisualStyle = vsGradient
-              object RzLabel4: TRzLabel
-                Tag = -1
-                Left = 7
-                Top = 2
-                Width = 86
-                Height = 13
-                Caption = 'Release details'
-                Font.Charset = DEFAULT_CHARSET
-                Font.Color = clWhite
-                Font.Height = -11
-                Font.Name = 'Tahoma'
-                Font.Style = [fsBold]
-                ParentFont = False
-                Transparent = True
-              end
-            end
-            object grRecipients: TRzDBGrid
-              Left = 19
-              Top = 87
-              Width = 468
-              Height = 118
-              Anchors = [akLeft, akTop, akRight]
-              Ctl3D = True
-              DataSource = dmLoan.dscLoanRelease
-              DrawingStyle = gdsGradient
-              FixedColor = 14273211
-              GradientEndColor = 12955288
-              GradientStartColor = 12955288
-              Options = [dgTitles, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
-              ParentCtl3D = False
-              ReadOnly = True
-              TabOrder = 1
-              TitleFont.Charset = DEFAULT_CHARSET
-              TitleFont.Color = clWindowText
-              TitleFont.Height = -12
-              TitleFont.Name = 'Tahoma'
-              TitleFont.Style = []
-              DisabledColor = clWhite
-              FrameColor = 8675134
-              FrameHotColor = clWhite
-              FrameHotStyle = fsNone
-              FrameVisible = True
-              FramingPreference = fpCustomFraming
-              FixedLineColor = 14273211
-              LineColor = 14273211
-              AltRowShadingColor = 15854564
-              Columns = <
-                item
-                  Color = clWhite
-                  Expanded = False
-                  FieldName = 'date_rel_f'
-                  Title.Alignment = taCenter
-                  Title.Caption = 'Date'
-                  Title.Font.Charset = DEFAULT_CHARSET
-                  Title.Font.Color = clWindowText
-                  Title.Font.Height = -12
-                  Title.Font.Name = 'Tahoma'
-                  Title.Font.Style = [fsBold]
-                  Width = 75
-                  Visible = True
-                end
-                item
-                  Color = clWhite
-                  Expanded = False
-                  FieldName = 'recipient_name'
-                  Title.Alignment = taCenter
-                  Title.Caption = 'Recipient'
-                  Title.Font.Charset = DEFAULT_CHARSET
-                  Title.Font.Color = clWindowText
-                  Title.Font.Height = -12
-                  Title.Font.Name = 'Tahoma'
-                  Title.Font.Style = [fsBold]
-                  Width = 140
-                  Visible = True
-                end
-                item
-                  Expanded = False
-                  FieldName = 'loc_name'
-                  Title.Alignment = taCenter
-                  Title.Caption = 'Branch'
-                  Title.Font.Charset = DEFAULT_CHARSET
-                  Title.Font.Color = clWindowText
-                  Title.Font.Height = -12
-                  Title.Font.Name = 'Tahoma'
-                  Title.Font.Style = [fsBold]
-                  Width = 75
-                  Visible = True
-                end
-                item
-                  Color = clWhite
-                  Expanded = False
-                  FieldName = 'method_name'
-                  Title.Alignment = taCenter
-                  Title.Caption = 'Method'
-                  Title.Font.Charset = DEFAULT_CHARSET
-                  Title.Font.Color = clWindowText
-                  Title.Font.Height = -12
-                  Title.Font.Name = 'Tahoma'
-                  Title.Font.Style = [fsBold]
-                  Width = 60
-                  Visible = True
-                end
-                item
-                  Alignment = taRightJustify
-                  Color = clWhite
-                  Expanded = False
-                  FieldName = 'rel_amt_f'
-                  Title.Alignment = taRightJustify
-                  Title.Caption = 'Amount'
-                  Title.Font.Charset = DEFAULT_CHARSET
-                  Title.Font.Color = clWindowText
-                  Title.Font.Height = -12
-                  Title.Font.Name = 'Tahoma'
-                  Title.Font.Style = [fsBold]
-                  Width = 80
-                  Visible = True
-                end>
-            end
-            object grCharges: TRzDBGrid
-              Left = 19
-              Top = 271
-              Width = 468
-              Height = 119
-              Anchors = [akLeft, akTop, akRight]
-              Ctl3D = True
-              DataSource = dmLoan.dscLoanCharge
-              DrawingStyle = gdsGradient
-              FixedColor = 14273211
-              GradientEndColor = 12955288
-              GradientStartColor = 12955288
-              Options = [dgTitles, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
-              ParentCtl3D = False
-              TabOrder = 2
-              TitleFont.Charset = DEFAULT_CHARSET
-              TitleFont.Color = clWindowText
-              TitleFont.Height = -12
-              TitleFont.Name = 'Tahoma'
-              TitleFont.Style = []
-              FrameColor = 8675134
-              FrameVisible = True
-              FramingPreference = fpCustomFraming
-              FixedLineColor = 14273211
-              LineColor = clWhite
-              AltRowShadingColor = 15854564
-              Columns = <
-                item
-                  Color = clWhite
-                  Expanded = False
-                  FieldName = 'charge_name'
-                  Title.Alignment = taCenter
-                  Title.Caption = 'Charge'
-                  Title.Font.Charset = DEFAULT_CHARSET
-                  Title.Font.Color = clWindowText
-                  Title.Font.Height = -12
-                  Title.Font.Name = 'Tahoma'
-                  Title.Font.Style = [fsBold]
-                  Width = 150
-                  Visible = True
-                end
-                item
-                  Alignment = taRightJustify
-                  Color = clWhite
-                  Expanded = False
-                  FieldName = 'charge_amt_f'
-                  Title.Alignment = taRightJustify
-                  Title.Caption = 'Amount'
-                  Title.Font.Charset = DEFAULT_CHARSET
-                  Title.Font.Color = clWindowText
-                  Title.Font.Height = -12
-                  Title.Font.Name = 'Tahoma'
-                  Title.Font.Style = [fsBold]
-                  Width = 100
-                  Visible = True
-                end>
-            end
             object RzGroupBox6: TRzGroupBox
               Tag = -1
               Left = 19
-              Top = 65
-              Width = 468
+              Top = 105
+              Width = 564
               Height = 22
-              Anchors = [akLeft, akTop, akRight]
               BorderColor = 6572079
               BorderSides = []
               BorderWidth = 1
@@ -2633,8 +1790,8 @@ inherited frmLoanMain: TfrmLoanMain
               CaptionFont.Height = -12
               CaptionFont.Name = 'Tahoma'
               CaptionFont.Style = [fsBold]
-              Color = 14273211
-              FlatColor = 6572079
+              Color = 15327448
+              FlatColor = 12493963
               Font.Charset = DEFAULT_CHARSET
               Font.Color = 6572079
               Font.Height = -12
@@ -2643,15 +1800,14 @@ inherited frmLoanMain: TfrmLoanMain
               GradientColorStyle = gcsCustom
               GroupStyle = gsUnderline
               ParentFont = False
-              TabOrder = 3
+              TabOrder = 0
             end
             object RzGroupBox7: TRzGroupBox
               Tag = -1
               Left = 19
               Top = 249
-              Width = 468
-              Height = 22
-              Anchors = [akLeft, akTop, akRight]
+              Width = 564
+              Height = 36
               BorderColor = 6572079
               BorderSides = []
               BorderWidth = 1
@@ -2661,8 +1817,8 @@ inherited frmLoanMain: TfrmLoanMain
               CaptionFont.Height = -12
               CaptionFont.Name = 'Tahoma'
               CaptionFont.Style = [fsBold]
-              Color = 14273211
-              FlatColor = 6572079
+              Color = 15327448
+              FlatColor = 12493963
               Font.Charset = DEFAULT_CHARSET
               Font.Color = 6572079
               Font.Height = -12
@@ -2671,20 +1827,21 @@ inherited frmLoanMain: TfrmLoanMain
               GradientColorStyle = gcsCustom
               GroupStyle = gsUnderline
               ParentFont = False
-              TabOrder = 4
+              TabOrder = 1
             end
             object RzPanel2: TRzPanel
-              Left = 450
+              Left = 546
               Top = 471
               Width = 50
               Height = 22
               Anchors = [akRight, akBottom]
               BorderOuter = fsNone
-              BorderColor = 6572079
+              BorderColor = 14272955
               BorderWidth = 1
-              Color = 12955288
-              TabOrder = 5
+              Color = 15327448
+              TabOrder = 2
               OnClick = pnlEditRejectionClick
+              ExplicitLeft = 450
               object RzShapeButton1: TRzShapeButton
                 Left = 0
                 Top = 0
@@ -2698,12 +1855,188 @@ inherited frmLoanMain: TfrmLoanMain
                 OnClick = btnEditApprovalClick
               end
             end
+            object RzPanel3: TRzPanel
+              Left = 17
+              Top = 128
+              Width = 566
+              Height = 99
+              BorderOuter = fsNone
+              BorderColor = 14272955
+              BorderWidth = 1
+              Color = 15327448
+              TabOrder = 3
+              object grRecipients: TRzDBGrid
+                Left = 1
+                Top = 1
+                Width = 564
+                Height = 97
+                Align = alClient
+                BorderStyle = bsNone
+                Ctl3D = False
+                DataSource = dmLoan.dscLoanRelease
+                FixedColor = clWhite
+                GradientEndColor = 12955288
+                GradientStartColor = 12955288
+                Options = [dgTitles, dgIndicator, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
+                ParentCtl3D = False
+                ReadOnly = True
+                TabOrder = 0
+                TitleFont.Charset = DEFAULT_CHARSET
+                TitleFont.Color = clWindowText
+                TitleFont.Height = -12
+                TitleFont.Name = 'Tahoma'
+                TitleFont.Style = []
+                DisabledColor = clWhite
+                FrameColor = 14272955
+                FrameHotColor = clWhite
+                FrameHotStyle = fsNone
+                FrameStyle = fsNone
+                FramingPreference = fpCustomFraming
+                FixedLineColor = clWhite
+                LineColor = 14273211
+                AltRowShadingColor = 15854564
+                Columns = <
+                  item
+                    Expanded = False
+                    FieldName = 'date_rel_f'
+                    Title.Alignment = taCenter
+                    Title.Caption = 'Date'
+                    Title.Font.Charset = DEFAULT_CHARSET
+                    Title.Font.Color = clWindowText
+                    Title.Font.Height = -12
+                    Title.Font.Name = 'Tahoma'
+                    Title.Font.Style = [fsBold]
+                    Width = 75
+                    Visible = True
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'recipient_name'
+                    Title.Alignment = taCenter
+                    Title.Caption = 'Recipient'
+                    Title.Font.Charset = DEFAULT_CHARSET
+                    Title.Font.Color = clWindowText
+                    Title.Font.Height = -12
+                    Title.Font.Name = 'Tahoma'
+                    Title.Font.Style = [fsBold]
+                    Width = 140
+                    Visible = True
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'loc_name'
+                    Title.Alignment = taCenter
+                    Title.Caption = 'Branch'
+                    Title.Font.Charset = DEFAULT_CHARSET
+                    Title.Font.Color = clWindowText
+                    Title.Font.Height = -12
+                    Title.Font.Name = 'Tahoma'
+                    Title.Font.Style = [fsBold]
+                    Width = 75
+                    Visible = True
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'method_name'
+                    Title.Alignment = taCenter
+                    Title.Caption = 'Method'
+                    Title.Font.Charset = DEFAULT_CHARSET
+                    Title.Font.Color = clWindowText
+                    Title.Font.Height = -12
+                    Title.Font.Name = 'Tahoma'
+                    Title.Font.Style = [fsBold]
+                    Width = 60
+                    Visible = True
+                  end
+                  item
+                    Alignment = taRightJustify
+                    Expanded = False
+                    FieldName = 'rel_amt_f'
+                    Title.Alignment = taRightJustify
+                    Title.Caption = 'Amount'
+                    Title.Font.Charset = DEFAULT_CHARSET
+                    Title.Font.Color = clWindowText
+                    Title.Font.Height = -12
+                    Title.Font.Name = 'Tahoma'
+                    Title.Font.Style = [fsBold]
+                    Width = 80
+                    Visible = True
+                  end>
+              end
+            end
+            object RzPanel4: TRzPanel
+              Left = 17
+              Top = 272
+              Width = 566
+              Height = 119
+              BorderOuter = fsNone
+              BorderColor = 14272955
+              BorderWidth = 1
+              Color = 15327448
+              TabOrder = 4
+              object grCharges: TRzDBGrid
+                Left = 1
+                Top = 1
+                Width = 564
+                Height = 117
+                Align = alClient
+                BorderStyle = bsNone
+                Ctl3D = True
+                DataSource = dmLoan.dscLoanCharge
+                FixedColor = clWhite
+                GradientEndColor = 12955288
+                GradientStartColor = 12955288
+                Options = [dgTitles, dgIndicator, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
+                ParentCtl3D = False
+                TabOrder = 0
+                TitleFont.Charset = DEFAULT_CHARSET
+                TitleFont.Color = clWindowText
+                TitleFont.Height = -12
+                TitleFont.Name = 'Tahoma'
+                TitleFont.Style = []
+                FrameColor = 14272955
+                FrameVisible = True
+                FramingPreference = fpCustomFraming
+                FixedLineColor = clWhite
+                LineColor = clWhite
+                AltRowShadingColor = 15854564
+                Columns = <
+                  item
+                    Expanded = False
+                    FieldName = 'charge_name'
+                    Title.Alignment = taCenter
+                    Title.Caption = 'Charge'
+                    Title.Font.Charset = DEFAULT_CHARSET
+                    Title.Font.Color = clWindowText
+                    Title.Font.Height = -12
+                    Title.Font.Name = 'Tahoma'
+                    Title.Font.Style = [fsBold]
+                    Width = 150
+                    Visible = True
+                  end
+                  item
+                    Alignment = taRightJustify
+                    Expanded = False
+                    FieldName = 'charge_amt_f'
+                    Title.Alignment = taRightJustify
+                    Title.Caption = 'Amount'
+                    Title.Font.Charset = DEFAULT_CHARSET
+                    Title.Font.Color = clWindowText
+                    Title.Font.Height = -12
+                    Title.Font.Name = 'Tahoma'
+                    Title.Font.Style = [fsBold]
+                    Width = 100
+                    Visible = True
+                  end>
+              end
+            end
           end
         end
         object tsRejected: TRzTabSheet
-          Color = 14273211
+          Color = 15327448
           TabVisible = False
           Caption = 'Rejected'
+          ExplicitWidth = 507
           object JvLabel32: TJvLabel
             Tag = -1
             Left = 19
@@ -2728,20 +2061,21 @@ inherited frmLoanMain: TfrmLoanMain
             Tag = -1
             Left = 0
             Top = 0
-            Width = 507
+            Width = 603
             Height = 500
             Align = alClient
             BorderOuter = fsNone
             BorderColor = 8675134
-            Color = 14273211
+            Color = 15327448
             TabOrder = 0
+            ExplicitWidth = 507
             DesignSize = (
-              507
+              603
               500)
             object JvLabel3: TJvLabel
               Tag = -1
               Left = 19
-              Top = 33
+              Top = 17
               Width = 89
               Height = 14
               Caption = 'Date rejected:'
@@ -2760,7 +2094,7 @@ inherited frmLoanMain: TfrmLoanMain
             end
             object RzDBLabel12: TRzDBLabel
               Left = 136
-              Top = 33
+              Top = 17
               Width = 69
               Height = 14
               AutoSize = True
@@ -2768,8 +2102,8 @@ inherited frmLoanMain: TfrmLoanMain
               DataSource = dmLoan.dscLoanReject
             end
             object RzDBLabel13: TRzDBLabel
-              Left = 136
-              Top = 56
+              Left = 96
+              Top = 40
               Width = 69
               Height = 14
               AutoSize = True
@@ -2778,8 +2112,8 @@ inherited frmLoanMain: TfrmLoanMain
             end
             object RzDBLabel14: TRzDBLabel
               Left = 96
-              Top = 79
-              Width = 353
+              Top = 63
+              Width = 489
               Height = 72
               WordWrap = True
               DataField = 'remarks'
@@ -2788,7 +2122,7 @@ inherited frmLoanMain: TfrmLoanMain
             object JvLabel8: TJvLabel
               Tag = -1
               Left = 19
-              Top = 79
+              Top = 63
               Width = 58
               Height = 14
               Caption = 'Remarks:'
@@ -2808,7 +2142,7 @@ inherited frmLoanMain: TfrmLoanMain
             object JvLabel25: TJvLabel
               Tag = -1
               Left = 19
-              Top = 56
+              Top = 40
               Width = 51
               Height = 14
               Caption = 'Reason:'
@@ -2825,49 +2159,19 @@ inherited frmLoanMain: TfrmLoanMain
               HotTrackFont.Name = 'Tahoma'
               HotTrackFont.Style = []
             end
-            object RzPanel11: TRzPanel
-              Left = 0
-              Top = 0
-              Width = 507
-              Height = 17
-              Align = alTop
-              BorderOuter = fsNone
-              BorderSides = [sdBottom]
-              BorderColor = clBlack
-              BorderWidth = 1
-              GradientColorStyle = gcsCustom
-              GradientColorStart = 6572079
-              GradientColorStop = 8675134
-              TabOrder = 0
-              VisualStyle = vsGradient
-              object RzLabel6: TRzLabel
-                Tag = -1
-                Left = 7
-                Top = 2
-                Width = 95
-                Height = 13
-                Caption = 'Rejection details'
-                Font.Charset = DEFAULT_CHARSET
-                Font.Color = clWhite
-                Font.Height = -11
-                Font.Name = 'Tahoma'
-                Font.Style = [fsBold]
-                ParentFont = False
-                Transparent = True
-              end
-            end
             object pnlEditRejection: TRzPanel
-              Left = 450
+              Left = 546
               Top = 471
               Width = 50
               Height = 22
               Anchors = [akRight, akBottom]
               BorderOuter = fsNone
-              BorderColor = 6572079
+              BorderColor = 14272955
               BorderWidth = 1
-              Color = 12955288
-              TabOrder = 1
+              Color = 15327448
+              TabOrder = 0
               OnClick = pnlEditRejectionClick
+              ExplicitLeft = 450
               object btnEditRejection: TRzShapeButton
                 Left = 0
                 Top = 0
@@ -2884,9 +2188,10 @@ inherited frmLoanMain: TfrmLoanMain
           end
         end
         object tsCancelled: TRzTabSheet
-          Color = 14273211
+          Color = 15327448
           TabVisible = False
           Caption = 'Cancelled'
+          ExplicitWidth = 507
           object JvLabel31: TJvLabel
             Tag = -1
             Left = 19
@@ -2911,21 +2216,22 @@ inherited frmLoanMain: TfrmLoanMain
             Tag = -1
             Left = 0
             Top = 0
-            Width = 507
+            Width = 603
             Height = 500
             Align = alClient
             BorderOuter = fsNone
             BorderSides = [sdTop]
             BorderColor = 8675134
-            Color = 14273211
+            Color = 15327448
             TabOrder = 0
+            ExplicitWidth = 507
             DesignSize = (
-              507
+              603
               500)
             object JvLabel18: TJvLabel
               Tag = -1
               Left = 19
-              Top = 33
+              Top = 17
               Width = 94
               Height = 14
               Caption = 'Date cancelled:'
@@ -2945,7 +2251,7 @@ inherited frmLoanMain: TfrmLoanMain
             object JvLabel19: TJvLabel
               Tag = -1
               Left = 19
-              Top = 79
+              Top = 63
               Width = 58
               Height = 14
               Caption = 'Remarks:'
@@ -2965,7 +2271,7 @@ inherited frmLoanMain: TfrmLoanMain
             object JvLabel23: TJvLabel
               Tag = -1
               Left = 19
-              Top = 56
+              Top = 40
               Width = 51
               Height = 14
               Caption = 'Reason:'
@@ -2984,7 +2290,7 @@ inherited frmLoanMain: TfrmLoanMain
             end
             object RzDBLabel9: TRzDBLabel
               Left = 136
-              Top = 33
+              Top = 17
               Width = 62
               Height = 14
               AutoSize = True
@@ -2992,8 +2298,8 @@ inherited frmLoanMain: TfrmLoanMain
               DataSource = dmLoan.dscLoanCancel
             end
             object RzDBLabel10: TRzDBLabel
-              Left = 136
-              Top = 56
+              Left = 96
+              Top = 40
               Width = 69
               Height = 14
               AutoSize = True
@@ -3002,55 +2308,25 @@ inherited frmLoanMain: TfrmLoanMain
             end
             object RzDBLabel11: TRzDBLabel
               Left = 96
-              Top = 79
-              Width = 353
+              Top = 63
+              Width = 481
               Height = 72
               WordWrap = True
               DataField = 'remarks'
               DataSource = dmLoan.dscLoanCancel
             end
-            object RzPanel9: TRzPanel
-              Left = 0
-              Top = 0
-              Width = 507
-              Height = 17
-              Align = alTop
-              BorderOuter = fsNone
-              BorderSides = [sdBottom]
-              BorderColor = clBlack
-              BorderWidth = 1
-              GradientColorStyle = gcsCustom
-              GradientColorStart = 6572079
-              GradientColorStop = 8675134
-              TabOrder = 0
-              VisualStyle = vsGradient
-              object RzLabel5: TRzLabel
-                Tag = -1
-                Left = 7
-                Top = 2
-                Width = 110
-                Height = 13
-                Caption = 'Cancellation details'
-                Font.Charset = DEFAULT_CHARSET
-                Font.Color = clWhite
-                Font.Height = -11
-                Font.Name = 'Tahoma'
-                Font.Style = [fsBold]
-                ParentFont = False
-                Transparent = True
-              end
-            end
             object pnlEditCancel: TRzPanel
-              Left = 450
+              Left = 546
               Top = 471
               Width = 50
               Height = 22
               Anchors = [akRight, akBottom]
               BorderOuter = fsNone
-              BorderColor = 6572079
+              BorderColor = 14272955
               BorderWidth = 1
-              Color = 12955288
-              TabOrder = 1
+              Color = 15327448
+              TabOrder = 0
+              ExplicitLeft = 450
               object btnEditCancel: TRzShapeButton
                 Left = 0
                 Top = 0
@@ -3067,22 +2343,24 @@ inherited frmLoanMain: TfrmLoanMain
           end
         end
         object tsPending: TRzTabSheet
-          Color = 14273211
+          Color = 15327448
           TabVisible = False
           Caption = 'Pending'
+          ExplicitWidth = 507
           object pnlPending: TRzPanel
             Tag = -1
             Left = 0
             Top = 0
-            Width = 507
+            Width = 603
             Height = 500
             Align = alClient
             BorderOuter = fsNone
             BorderSides = []
             BorderColor = 8675134
             BorderWidth = 1
-            Color = 14273211
+            Color = 15327448
             TabOrder = 0
+            ExplicitWidth = 730
             object JvLabel1: TJvLabel
               Tag = -1
               Left = 19
@@ -3106,12 +2384,13 @@ inherited frmLoanMain: TfrmLoanMain
           end
         end
         object tsClosed: TRzTabSheet
-          Color = 14273211
+          Color = 15327448
           TabVisible = False
           Caption = 'Closed'
+          ExplicitWidth = 507
           object RzDBLabel22: TRzDBLabel
-            Left = 144
-            Top = 64
+            Left = 96
+            Top = 40
             Width = 69
             Height = 14
             AutoSize = True
@@ -3119,17 +2398,17 @@ inherited frmLoanMain: TfrmLoanMain
             DataSource = dmLoan.dscLoanClose
           end
           object RzDBLabel23: TRzDBLabel
-            Left = 104
-            Top = 87
-            Width = 353
+            Left = 96
+            Top = 63
+            Width = 481
             Height = 72
             WordWrap = True
             DataField = 'remarks'
             DataSource = dmLoan.dscLoanClose
           end
           object RzDBLabel24: TRzDBLabel
-            Left = 144
-            Top = 41
+            Left = 120
+            Top = 17
             Width = 69
             Height = 14
             AutoSize = True
@@ -3138,8 +2417,8 @@ inherited frmLoanMain: TfrmLoanMain
           end
           object JvLabel41: TJvLabel
             Tag = -1
-            Left = 27
-            Top = 41
+            Left = 19
+            Top = 17
             Width = 77
             Height = 14
             Caption = 'Date closed:'
@@ -3158,8 +2437,8 @@ inherited frmLoanMain: TfrmLoanMain
           end
           object JvLabel43: TJvLabel
             Tag = -1
-            Left = 27
-            Top = 64
+            Left = 19
+            Top = 40
             Width = 51
             Height = 14
             Caption = 'Reason:'
@@ -3178,8 +2457,8 @@ inherited frmLoanMain: TfrmLoanMain
           end
           object JvLabel44: TJvLabel
             Tag = -1
-            Left = 27
-            Top = 87
+            Left = 19
+            Top = 63
             Width = 58
             Height = 14
             Caption = 'Remarks:'
@@ -3195,37 +2474,6 @@ inherited frmLoanMain: TfrmLoanMain
             HotTrackFont.Height = -12
             HotTrackFont.Name = 'Tahoma'
             HotTrackFont.Style = []
-          end
-          object RzPanel1: TRzPanel
-            Left = 0
-            Top = 0
-            Width = 507
-            Height = 17
-            Align = alTop
-            BorderOuter = fsNone
-            BorderSides = [sdBottom]
-            BorderColor = clBlack
-            BorderWidth = 1
-            GradientColorStyle = gcsCustom
-            GradientColorStart = 6572079
-            GradientColorStop = 8675134
-            TabOrder = 0
-            VisualStyle = vsGradient
-            object RzLabel1: TRzLabel
-              Tag = -1
-              Left = 7
-              Top = 2
-              Width = 83
-              Height = 13
-              Caption = 'Closure details'
-              Font.Charset = DEFAULT_CHARSET
-              Font.Color = clWhite
-              Font.Height = -11
-              Font.Name = 'Tahoma'
-              Font.Style = [fsBold]
-              ParentFont = False
-              Transparent = True
-            end
           end
         end
       end

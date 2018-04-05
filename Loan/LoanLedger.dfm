@@ -1,21 +1,21 @@
 inherited frmLoanLedger: TfrmLoanLedger
   Caption = 'frmLoanLedger'
-  ClientHeight = 405
-  ClientWidth = 699
+  ClientHeight = 494
+  ClientWidth = 709
   Position = poOwnerFormCenter
   OnCreate = FormCreate
-  ExplicitWidth = 699
-  ExplicitHeight = 405
+  ExplicitWidth = 709
+  ExplicitHeight = 494
   PixelsPerInch = 96
   TextHeight = 14
   inherited pnlTitle: TRzPanel
-    Width = 699
-    ExplicitWidth = 689
+    Width = 709
+    ExplicitWidth = 699
     DesignSize = (
-      699
+      709
       21)
     inherited imgClose: TImage
-      Left = 678
+      Left = 688
       ExplicitLeft = 389
     end
     inherited lblCaption: TRzLabel
@@ -25,35 +25,37 @@ inherited frmLoanLedger: TfrmLoanLedger
     end
   end
   inherited pnlMain: TRzPanel
-    Width = 699
-    Height = 384
-    ExplicitWidth = 689
+    Width = 709
+    Height = 473
+    ExplicitWidth = 699
     ExplicitHeight = 384
     object pnlLedger: TRzPanel
       Left = 8
-      Top = 24
-      Width = 683
-      Height = 352
+      Top = 32
+      Width = 693
+      Height = 387
       Anchors = [akLeft, akTop, akRight, akBottom]
       BorderOuter = fsNone
-      BorderColor = 8675134
+      BorderColor = 14272955
       BorderWidth = 1
       ParentColor = True
       TabOrder = 0
-      ExplicitWidth = 673
+      ExplicitWidth = 710
+      ExplicitHeight = 377
       object grLedger: TRzDBGrid
         Left = 1
         Top = 1
-        Width = 681
-        Height = 350
+        Width = 691
+        Height = 385
         Align = alClient
         BorderStyle = bsNone
+        Ctl3D = False
         DataSource = dmLoan.dscLedger
-        DrawingStyle = gdsGradient
-        FixedColor = 12955288
+        FixedColor = clWhite
         GradientEndColor = 12955288
         GradientStartColor = 12955288
-        Options = [dgTitles, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
+        Options = [dgTitles, dgIndicator, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
+        ParentCtl3D = False
         ReadOnly = True
         TabOrder = 0
         TitleFont.Charset = DEFAULT_CHARSET
@@ -181,21 +183,21 @@ inherited frmLoanLedger: TfrmLoanLedger
       end
     end
     object RzPanel1: TRzPanel
-      Left = 190
-      Top = 5
+      Left = 202
+      Top = 13
       Width = 238
       Height = 19
       BorderOuter = fsNone
       BorderSides = [sdLeft, sdTop, sdRight]
-      BorderColor = 8675134
+      BorderColor = 14272955
       BorderWidth = 1
-      Color = 12955288
+      Color = 15327448
       GradientColorStyle = gcsCustom
       GradientColorStart = 12955288
       GradientColorStop = 12955288
       GradientDirection = gdVerticalEnd
       TabOrder = 1
-      VisualStyle = vsGradient
+      VisualStyle = vsClassic
       object RzLabel1: TRzLabel
         Left = 95
         Top = 3
@@ -212,21 +214,21 @@ inherited frmLoanLedger: TfrmLoanLedger
       end
     end
     object RzPanel2: TRzPanel
-      Left = 427
-      Top = 5
+      Left = 439
+      Top = 13
       Width = 238
       Height = 19
       BorderOuter = fsNone
       BorderSides = [sdLeft, sdTop, sdRight]
-      BorderColor = 8675134
+      BorderColor = 14272955
       BorderWidth = 1
-      Color = 12955288
+      Color = 15327448
       GradientColorStyle = gcsCustom
       GradientColorStart = 12955288
       GradientColorStop = 12955288
       GradientDirection = gdVerticalEnd
       TabOrder = 2
-      VisualStyle = vsGradient
+      VisualStyle = vsClassic
       object RzLabel2: TRzLabel
         Left = 95
         Top = 3

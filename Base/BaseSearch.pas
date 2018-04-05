@@ -39,9 +39,6 @@ type
     procedure Cancel; virtual; abstract;
   end;
 
-var
-  frmBaseSearch: TfrmBaseSearch;
-
 implementation
 
 {$R *.dfm}

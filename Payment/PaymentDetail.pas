@@ -199,7 +199,7 @@ var
   i: integer;
 begin
   i := pmt.Client.IndexOf(pmt.Details[pmt.DetailCount-1].Loan);
-  edInterest.Value := pmt.Client.ActiveLoans[i].InterestDue;
+  edInterest.Value := pmt.Client.ActiveLoans[i].InterestAmortisation;
 end;
 
 procedure TfrmPaymentDetail.urlLedgerClick(Sender: TObject);
@@ -213,7 +213,7 @@ var
   i: integer;
 begin
   i := pmt.Client.IndexOf(pmt.Details[pmt.DetailCount-1].Loan);
-  edPrincipal.Value := pmt.Client.ActiveLoans[i].PrincipalDue;
+  edPrincipal.Value := pmt.Client.ActiveLoans[i].PrincipalAmortisation;
 end;
 
 function TfrmPaymentDetail.ValidEntry: boolean;

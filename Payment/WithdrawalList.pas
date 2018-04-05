@@ -13,8 +13,6 @@ type
     pnlList: TRzPanel;
     grList: TRzDBGrid;
     pnlDetail: TRzPanel;
-    pnlDetailHead: TRzPanel;
-    lblDetailHeadCaption: TRzLabel;
     RzCheckBox1: TRzCheckBox;
     pnlAdd: TRzPanel;
     sbtnNew: TRzShapeButton;

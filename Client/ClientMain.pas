@@ -175,8 +175,6 @@ type
     JvLabel36: TJvLabel;
     RzPanel3: TRzPanel;
     sbtnNewPromissoryNote: TRzShapeButton;
-    RzPanel9: TRzPanel;
-    RzLabel3: TRzLabel;
     RzPanel10: TRzPanel;
     sbtnRemovePromissoryNote: TRzShapeButton;
     edPNNo: TRzDBEdit;

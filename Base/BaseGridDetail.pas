@@ -18,8 +18,6 @@ type
     edSearchKey: TRzEdit;
     pnlDetail: TRzPanel;
     pnlAdd: TRzPanel;
-    pnlDetailHead: TRzPanel;
-    lblDetailHeadCaption: TRzLabel;
     sbtnNew: TRzShapeButton;
     procedure FormCreate(Sender: TObject);
     procedure edSearchKeyChange(Sender: TObject);

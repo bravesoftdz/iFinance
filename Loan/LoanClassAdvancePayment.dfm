@@ -1,10 +1,10 @@
 inherited frmLoanClassAdvancePaymentDetail: TfrmLoanClassAdvancePaymentDetail
   Caption = 'frmLoanClassAdvancePaymentDetail'
-  ClientHeight = 271
+  ClientHeight = 250
   ClientWidth = 288
   OnCreate = FormCreate
   ExplicitWidth = 288
-  ExplicitHeight = 271
+  ExplicitHeight = 250
   PixelsPerInch = 96
   TextHeight = 14
   inherited pnlTitle: TRzPanel
@@ -22,27 +22,27 @@ inherited frmLoanClassAdvancePaymentDetail: TfrmLoanClassAdvancePaymentDetail
   end
   inherited pnlMain: TRzPanel
     Width = 288
-    Height = 250
+    Height = 229
     ExplicitWidth = 288
-    ExplicitHeight = 250
+    ExplicitHeight = 229
     inherited pnlDetail: TRzPanel
       Width = 271
-      Height = 201
+      Height = 180
       ExplicitWidth = 271
-      ExplicitHeight = 201
+      ExplicitHeight = 180
       inherited pcDetail: TRzPageControl
         Width = 269
-        Height = 199
+        Height = 178
         ExplicitWidth = 269
-        ExplicitHeight = 199
+        ExplicitHeight = 178
         FixedDimension = 20
         inherited tsDetail: TRzTabSheet
           ExplicitWidth = 269
-          ExplicitHeight = 199
+          ExplicitHeight = 178
           object JvLabel14: TJvLabel
             Tag = -1
             Left = 19
-            Top = 119
+            Top = 111
             Width = 105
             Height = 14
             Caption = 'Number of months'
@@ -50,12 +50,12 @@ inherited frmLoanClassAdvancePaymentDetail: TfrmLoanClassAdvancePaymentDetail
           end
           object edNumberOfMonths: TRzNumericEdit
             Left = 138
-            Top = 113
+            Top = 105
             Width = 31
             Height = 22
-            DisabledColor = 14273211
+            DisabledColor = 15327448
             Enabled = False
-            FrameColor = 8675134
+            FrameColor = 14272955
             FrameVisible = True
             FramingPreference = fpCustomFraming
             TabOrder = 2
@@ -63,7 +63,7 @@ inherited frmLoanClassAdvancePaymentDetail: TfrmLoanClassAdvancePaymentDetail
           end
           object RzGroupBox2: TRzGroupBox
             Left = 19
-            Top = 23
+            Top = 15
             Width = 230
             Height = 22
             BorderColor = 6572079
@@ -75,8 +75,8 @@ inherited frmLoanClassAdvancePaymentDetail: TfrmLoanClassAdvancePaymentDetail
             CaptionFont.Height = -12
             CaptionFont.Name = 'Tahoma'
             CaptionFont.Style = [fsBold]
-            Color = 14273211
-            FlatColor = 6572079
+            Color = 15327448
+            FlatColor = 12493963
             Font.Charset = DEFAULT_CHARSET
             Font.Color = 6572079
             Font.Height = -12
@@ -89,7 +89,7 @@ inherited frmLoanClassAdvancePaymentDetail: TfrmLoanClassAdvancePaymentDetail
           end
           object rbgMethod: TRzDBRadioGroup
             Left = 9
-            Top = 42
+            Top = 34
             Width = 240
             Height = 63
             DataField = 'advance_method'
@@ -106,7 +106,7 @@ inherited frmLoanClassAdvancePaymentDetail: TfrmLoanClassAdvancePaymentDetail
             BorderColor = 15263976
             BorderSides = []
             Caption = ''
-            Color = 14273211
+            Color = 15327448
             FlatColor = 14273211
             GroupStyle = gsCustom
             TabOnEnter = True
@@ -116,7 +116,7 @@ inherited frmLoanClassAdvancePaymentDetail: TfrmLoanClassAdvancePaymentDetail
           end
           object cbxIncludePrincipal: TRzDBCheckBox
             Left = 19
-            Top = 151
+            Top = 143
             Width = 106
             Height = 16
             DataField = 'include_principal'
@@ -131,15 +131,15 @@ inherited frmLoanClassAdvancePaymentDetail: TfrmLoanClassAdvancePaymentDetail
     end
     inherited pnlCancel: TRzPanel
       Left = 229
-      Top = 218
+      Top = 197
       ExplicitLeft = 229
-      ExplicitTop = 218
+      ExplicitTop = 197
     end
     inherited pnlSave: TRzPanel
       Left = 173
-      Top = 218
+      Top = 197
       ExplicitLeft = 173
-      ExplicitTop = 218
+      ExplicitTop = 197
     end
   end
 end

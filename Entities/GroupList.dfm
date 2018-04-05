@@ -10,7 +10,12 @@ inherited frmGroupList: TfrmGroupList
     end
   end
   inherited pnlList: TRzPanel
+    Top = 36
+    Height = 432
+    ExplicitTop = 36
+    ExplicitHeight = 432
     inherited grList: TRzDBGrid
+      Height = 430
       Anchors = [akLeft, akTop, akRight]
       Columns = <
         item
@@ -26,7 +31,7 @@ inherited frmGroupList: TfrmGroupList
       Left = 1
       Top = 1
       Width = 481
-      Height = 401
+      Height = 430
       SelectionPen.Color = clBtnShadow
       Align = alClient
       BorderStyle = bsNone
@@ -40,11 +45,15 @@ inherited frmGroupList: TfrmGroupList
       OnChange = tvGroupChange
       OnDragDrop = tvGroupDragDrop
       OnDragOver = tvGroupDragOver
+      ExplicitHeight = 428
     end
   end
   inherited pnlSearch: TRzPanel
+    ExplicitTop = 0
     inherited Label1: TLabel
+      Top = 13
       Caption = 'Branch'
+      ExplicitTop = 13
     end
     inherited edSearchKey: TRzEdit
       Top = 41
@@ -55,13 +64,13 @@ inherited frmGroupList: TfrmGroupList
     end
     object cmbBranch: TRzComboBox
       Left = 51
-      Top = 9
+      Top = 7
       Width = 438
       Height = 22
       AllowEdit = False
       Anchors = [akLeft, akTop, akRight]
       Ctl3D = False
-      FrameColor = 6572079
+      FrameColor = 14272955
       FrameVisible = True
       FramingPreference = fpCustomFraming
       ParentCtl3D = False
@@ -72,9 +81,13 @@ inherited frmGroupList: TfrmGroupList
     end
   end
   inherited pnlDetail: TRzPanel
+    Top = 7
+    Height = 461
+    ExplicitTop = 7
+    ExplicitHeight = 461
     object JvLabel1: TJvLabel [0]
       Left = 13
-      Top = 39
+      Top = 23
       Width = 33
       Height = 14
       Caption = 'Name'
@@ -82,7 +95,7 @@ inherited frmGroupList: TfrmGroupList
     end
     object JvLabel12: TJvLabel [1]
       Left = 13
-      Top = 63
+      Top = 50
       Width = 38
       Height = 14
       Caption = 'Parent'
@@ -90,7 +103,7 @@ inherited frmGroupList: TfrmGroupList
     end
     object JvLabel14: TJvLabel [2]
       Left = 13
-      Top = 145
+      Top = 134
       Width = 81
       Height = 14
       Caption = 'Maximum total'
@@ -98,7 +111,7 @@ inherited frmGroupList: TfrmGroupList
     end
     object JvLabel2: TJvLabel [3]
       Left = 13
-      Top = 169
+      Top = 161
       Width = 57
       Height = 14
       Caption = 'Loan type'
@@ -106,7 +119,7 @@ inherited frmGroupList: TfrmGroupList
     end
     object JvLabel5: TJvLabel [4]
       Left = 13
-      Top = 193
+      Top = 188
       Width = 63
       Height = 14
       Caption = 'Concurrent'
@@ -114,28 +127,26 @@ inherited frmGroupList: TfrmGroupList
     end
     object JvLabel4: TJvLabel [5]
       Left = 13
-      Top = 217
+      Top = 215
       Width = 71
       Height = 14
       Caption = 'ID'#39's required'
       Transparent = True
     end
     inherited pnlAdd: TRzPanel
+      Top = 431
       TabOrder = 9
-    end
-    inherited pnlDetailHead: TRzPanel
-      TabOrder = 8
-      ExplicitWidth = 275
+      ExplicitTop = 429
     end
     object edGroupName: TRzDBEdit
       Left = 60
-      Top = 33
+      Top = 17
       Width = 204
       Height = 22
       DataSource = dmEntities.dscGroups
       DataField = 'grp_name'
       CharCase = ecUpperCase
-      FrameColor = 8675134
+      FrameColor = 14272955
       FrameVisible = True
       FramingPreference = fpCustomFraming
       TabOnEnter = True
@@ -144,7 +155,7 @@ inherited frmGroupList: TfrmGroupList
     object cbxPublic: TRzDBCheckBox
       Tag = 1
       Left = 112
-      Top = 237
+      Top = 236
       Width = 50
       Height = 16
       DataField = 'is_gov'
@@ -158,7 +169,7 @@ inherited frmGroupList: TfrmGroupList
     end
     object cbxActive: TRzDBCheckBox
       Left = 60
-      Top = 84
+      Top = 71
       Width = 53
       Height = 16
       DataField = 'is_active'
@@ -166,13 +177,13 @@ inherited frmGroupList: TfrmGroupList
       ValueChecked = '1'
       ValueUnchecked = '0'
       Caption = 'Active'
-      FrameColor = 8675134
+      FrameColor = 14272955
       TabOnEnter = True
       TabOrder = 2
     end
     object dbluParentGroup: TRzDBLookupComboBox
       Left = 60
-      Top = 57
+      Top = 44
       Width = 204
       Height = 22
       DataField = 'par_grp_id'
@@ -184,7 +195,7 @@ inherited frmGroupList: TfrmGroupList
       AllowNull = True
       FlatButtonColor = 8675134
       FlatButtons = True
-      FrameColor = 8675134
+      FrameColor = 14272955
       FrameHotColor = clBlack
       FrameVisible = True
       FramingPreference = fpCustomFraming
@@ -193,14 +204,14 @@ inherited frmGroupList: TfrmGroupList
     object edMaxTotal: TRzDBNumericEdit
       Tag = 1
       Left = 112
-      Top = 139
+      Top = 128
       Width = 152
       Height = 22
       DataSource = dmEntities.dscGroupAttribute
       DataField = 'max_tot_amt'
       Alignment = taLeftJustify
       DisabledColor = 14273211
-      FrameColor = 8675134
+      FrameColor = 14272955
       FrameVisible = True
       FramingPreference = fpCustomFraming
       TabOnEnter = True
@@ -210,7 +221,7 @@ inherited frmGroupList: TfrmGroupList
     end
     object RzGroupBox1: TRzGroupBox
       Left = 13
-      Top = 117
+      Top = 104
       Width = 251
       Height = 22
       Anchors = [akLeft, akTop, akRight]
@@ -223,8 +234,8 @@ inherited frmGroupList: TfrmGroupList
       CaptionFont.Height = -12
       CaptionFont.Name = 'Tahoma'
       CaptionFont.Style = [fsBold]
-      Color = 14273211
-      FlatColor = 6572079
+      Color = 15327448
+      FlatColor = 12493963
       Font.Charset = DEFAULT_CHARSET
       Font.Color = 6572079
       Font.Height = -12
@@ -233,12 +244,12 @@ inherited frmGroupList: TfrmGroupList
       GradientColorStyle = gcsCustom
       GroupStyle = gsUnderline
       ParentFont = False
-      TabOrder = 10
+      TabOrder = 8
     end
     object dbluLoanType: TRzDBLookupComboBox
       Tag = 1
       Left = 112
-      Top = 163
+      Top = 155
       Width = 152
       Height = 22
       DataField = 'loan_type'
@@ -249,7 +260,7 @@ inherited frmGroupList: TfrmGroupList
       TabOrder = 4
       FlatButtons = True
       DisabledColor = 14273211
-      FrameColor = 8675134
+      FrameColor = 14272955
       FrameHotColor = clBlack
       FrameVisible = True
       FramingPreference = fpCustomFraming
@@ -258,14 +269,14 @@ inherited frmGroupList: TfrmGroupList
     object edConcurrent: TRzDBEdit
       Tag = 1
       Left = 112
-      Top = 187
+      Top = 182
       Width = 49
       Height = 22
       DataSource = dmEntities.dscGroupAttribute
       DataField = 'concurrent'
       CharCase = ecUpperCase
       DisabledColor = 14273211
-      FrameColor = 8675134
+      FrameColor = 14272955
       FrameVisible = True
       FramingPreference = fpCustomFraming
       TabOnEnter = True
@@ -273,14 +284,14 @@ inherited frmGroupList: TfrmGroupList
     end
     object edIdentityDocs: TRzDBEdit
       Left = 112
-      Top = 211
+      Top = 209
       Width = 49
       Height = 22
       DataSource = dmEntities.dscGroupAttribute
       DataField = 'ident_docs'
       CharCase = ecUpperCase
       DisabledColor = clWhite
-      FrameColor = 8675134
+      FrameColor = 14272955
       FrameVisible = True
       FramingPreference = fpCustomFraming
       TabOnEnter = True

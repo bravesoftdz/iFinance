@@ -1,14 +1,14 @@
 inherited frmPaymentList: TfrmPaymentList
   Caption = 'frmPaymentList'
   ClientHeight = 479
-  ClientWidth = 786
+  ClientWidth = 977
   OnCreate = FormCreate
-  ExplicitWidth = 802
+  ExplicitWidth = 993
   ExplicitHeight = 518
   PixelsPerInch = 96
   TextHeight = 14
   inherited pnlTitle: TRzPanel
-    Width = 786
+    Width = 977
     ExplicitWidth = 786
     inherited lblTitle: TRzLabel
       Width = 82
@@ -19,29 +19,31 @@ inherited frmPaymentList: TfrmPaymentList
   object pnlList: TRzPanel
     Left = 6
     Top = 35
-    Width = 491
+    Width = 682
     Height = 438
     Anchors = [akLeft, akTop, akRight, akBottom]
     BorderOuter = fsNone
-    BorderColor = 8675134
+    BorderColor = 14272955
     BorderWidth = 1
     Color = 14273211
+    Ctl3D = False
+    ParentCtl3D = False
     TabOrder = 1
+    ExplicitWidth = 491
     object grList: TRzDBGrid
       Left = 1
       Top = 1
-      Width = 489
+      Width = 680
       Height = 436
       Align = alClient
       BorderStyle = bsNone
       Color = clWhite
-      Ctl3D = True
+      Ctl3D = False
       DataSource = dmApplication.dscPayments
-      DrawingStyle = gdsGradient
-      FixedColor = 6572079
+      FixedColor = clWhite
       GradientEndColor = 12955288
       GradientStartColor = 12955288
-      Options = [dgTitles, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
+      Options = [dgTitles, dgIndicator, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
       ParentCtl3D = False
       TabOrder = 0
       TitleFont.Charset = DEFAULT_CHARSET
@@ -50,10 +52,11 @@ inherited frmPaymentList: TfrmPaymentList
       TitleFont.Name = 'Tahoma'
       TitleFont.Style = []
       OnDblClick = grListDblClick
-      FrameColor = 6572079
+      FrameColor = 15327448
+      FrameSides = []
       FrameStyle = fsNone
       FramingPreference = fpCustomFraming
-      FixedLineColor = 6572079
+      FixedLineColor = clWhite
       LineColor = 6572079
       AltRowShadingColor = 15854564
       AltRowShadingFixed = False
@@ -126,22 +129,23 @@ inherited frmPaymentList: TfrmPaymentList
     end
   end
   object pnlDetail: TRzPanel
-    Left = 503
+    Left = 694
     Top = 35
     Width = 276
     Height = 438
     Anchors = [akTop, akRight, akBottom]
     BorderOuter = fsNone
-    BorderColor = 8675134
+    BorderColor = 14272955
     BorderWidth = 1
     ParentColor = True
     TabOrder = 2
+    ExplicitLeft = 503
     DesignSize = (
       276
       438)
     object JvLabel1: TJvLabel
       Left = 13
-      Top = 87
+      Top = 71
       Width = 39
       Height = 14
       Caption = 'Branch'
@@ -149,98 +153,66 @@ inherited frmPaymentList: TfrmPaymentList
     end
     object JvLabel2: TJvLabel
       Left = 13
-      Top = 39
+      Top = 23
       Width = 63
       Height = 14
       Caption = 'Date range'
       Transparent = True
     end
-    object pnlDetailHead: TRzPanel
-      Left = 1
-      Top = 1
-      Width = 274
-      Height = 19
-      Align = alTop
-      BorderOuter = fsNone
-      BorderSides = [sdBottom]
-      BorderColor = clBlack
-      BorderWidth = 1
-      Color = 8675134
-      GradientColorStyle = gcsCustom
-      GradientColorStart = 6572079
-      GradientColorStop = 8675134
-      TabOrder = 0
-      VisualStyle = vsGradient
-      object lblDetailHeadCaption: TRzLabel
-        Left = 7
-        Top = 2
-        Width = 30
-        Height = 14
-        Caption = 'Filter'
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clWhite
-        Font.Height = -12
-        Font.Name = 'Tahoma'
-        Font.Style = [fsBold]
-        ParentFont = False
-        Transparent = True
-      end
-    end
     object cmbBranch: TRzComboBox
       Left = 13
-      Top = 106
+      Top = 90
       Width = 248
       Height = 22
       AllowEdit = False
       Anchors = [akLeft, akTop, akRight]
       Ctl3D = False
-      FrameColor = 6572079
+      FrameColor = 14272955
       FrameVisible = True
       FramingPreference = fpCustomFraming
       ParentCtl3D = False
       ReadOnlyColor = clWhite
       Sorted = True
-      TabOrder = 3
+      TabOrder = 2
     end
     object dteFrom: TRzDateTimeEdit
       Left = 13
-      Top = 58
+      Top = 42
       Width = 121
       Height = 22
       EditType = etDate
       Format = 'mm/dd/yyyy'
       FlatButtonColor = 6572079
       FlatButtons = True
-      FrameColor = 6572079
+      FrameColor = 14272955
+      FrameVisible = True
+      FramingPreference = fpCustomFraming
+      TabOrder = 0
+    end
+    object dteUntil: TRzDateTimeEdit
+      Left = 140
+      Top = 42
+      Width = 121
+      Height = 22
+      EditType = etDate
+      Format = 'mm/dd/yyyy'
+      FlatButtonColor = 6572079
+      FlatButtons = True
+      FrameColor = 14272955
       FrameVisible = True
       FramingPreference = fpCustomFraming
       TabOrder = 1
     end
-    object dteUntil: TRzDateTimeEdit
-      Left = 140
-      Top = 58
-      Width = 121
-      Height = 22
-      EditType = etDate
-      Format = 'mm/dd/yyyy'
-      FlatButtonColor = 6572079
-      FlatButtons = True
-      FrameColor = 6572079
-      FrameVisible = True
-      FramingPreference = fpCustomFraming
-      TabOrder = 2
-    end
     object pnlGo: TRzPanel
-      Left = 219
-      Top = 410
+      Left = 13
+      Top = 146
       Width = 50
       Height = 22
-      Anchors = [akRight, akBottom]
       BorderOuter = fsNone
-      BorderColor = 6572079
+      BorderColor = 14272955
       BorderWidth = 1
-      Color = 12955288
-      TabOrder = 4
+      Color = 15327448
+      TabOrder = 3
       object btnGo: TRzShapeButton
         Left = 0
         Top = 0

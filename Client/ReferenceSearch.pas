@@ -22,9 +22,6 @@ type
     procedure Cancel; override;
   end;
 
-var
-  frmReferenceSearch: TfrmReferenceSearch;
-
 implementation
 
 {$R *.dfm}

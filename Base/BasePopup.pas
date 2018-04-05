@@ -21,9 +21,6 @@ type
     { Public declarations }
   end;
 
-var
-  frmBasePopup: TfrmBasePopup;
-
 implementation
 
 {$R *.dfm}

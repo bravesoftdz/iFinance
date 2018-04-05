@@ -12,17 +12,20 @@ inherited frmBaseGridDetail: TfrmBaseGridDetail
   PixelsPerInch = 96
   TextHeight = 14
   inherited pnlTitle: TRzPanel
+    Top = -30
     Width = 778
+    Align = alNone
+    ExplicitTop = -30
     ExplicitWidth = 778
   end
   object pnlList: TRzPanel
     Left = 6
-    Top = 65
+    Top = 38
     Width = 483
-    Height = 403
+    Height = 430
     Anchors = [akLeft, akTop, akRight, akBottom]
     BorderOuter = fsNone
-    BorderColor = 8675134
+    BorderColor = 14272955
     BorderWidth = 1
     ParentColor = True
     TabOrder = 1
@@ -30,15 +33,16 @@ inherited frmBaseGridDetail: TfrmBaseGridDetail
       Left = 1
       Top = 1
       Width = 481
-      Height = 401
+      Height = 428
       Align = alClient
       BorderStyle = bsNone
+      Ctl3D = False
       DataSource = dmEntities.dscGroups
-      DrawingStyle = gdsGradient
-      FixedColor = 12955288
+      FixedColor = clWhite
       GradientEndColor = 12955288
       GradientStartColor = 12955288
       Options = [dgTitles, dgIndicator, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
+      ParentCtl3D = False
       TabOrder = 0
       TitleFont.Charset = DEFAULT_CHARSET
       TitleFont.Color = clWindowText
@@ -47,6 +51,7 @@ inherited frmBaseGridDetail: TfrmBaseGridDetail
       TitleFont.Style = []
       DisabledColor = clWhite
       FrameColor = 6572079
+      FrameSides = []
       FrameStyle = fsNone
       FramingPreference = fpCustomFraming
       FixedLineColor = clWhite
@@ -56,7 +61,7 @@ inherited frmBaseGridDetail: TfrmBaseGridDetail
   end
   object pnlSearch: TRzPanel
     Left = 0
-    Top = 28
+    Top = 0
     Width = 778
     Height = 33
     Align = alTop
@@ -64,6 +69,7 @@ inherited frmBaseGridDetail: TfrmBaseGridDetail
     BorderSides = [sdLeft, sdTop, sdRight]
     ParentColor = True
     TabOrder = 2
+    ExplicitTop = 28
     DesignSize = (
       778
       33)
@@ -81,7 +87,7 @@ inherited frmBaseGridDetail: TfrmBaseGridDetail
       Height = 22
       Text = ''
       Anchors = [akLeft, akTop, akRight]
-      FrameColor = 8675134
+      FrameColor = 14272955
       FrameVisible = True
       FramingPreference = fpCustomFraming
       TabOrder = 0
@@ -90,29 +96,30 @@ inherited frmBaseGridDetail: TfrmBaseGridDetail
   end
   object pnlDetail: TRzPanel
     Left = 495
-    Top = 65
+    Top = 9
     Width = 277
-    Height = 403
+    Height = 459
     Anchors = [akTop, akRight, akBottom]
     BorderOuter = fsNone
-    BorderColor = 8675134
+    BorderColor = 14272955
     BorderWidth = 1
     ParentColor = True
     TabOrder = 3
     DesignSize = (
       277
-      403)
+      459)
     object pnlAdd: TRzPanel
       Left = 8
-      Top = 373
+      Top = 429
       Width = 50
       Height = 22
       Anchors = [akLeft, akBottom]
       BorderOuter = fsNone
-      BorderColor = 6572079
+      BorderColor = 14272955
       BorderWidth = 1
-      Color = 12955288
+      Color = 15327448
       TabOrder = 0
+      ExplicitTop = 373
       object sbtnNew: TRzShapeButton
         Left = 0
         Top = 0
@@ -124,38 +131,6 @@ inherited frmBaseGridDetail: TfrmBaseGridDetail
         ParentShowHint = False
         ShowHint = True
         OnClick = sbtnNewClick
-      end
-    end
-    object pnlDetailHead: TRzPanel
-      Left = 1
-      Top = 1
-      Width = 275
-      Height = 19
-      Align = alTop
-      BorderOuter = fsNone
-      BorderSides = [sdBottom]
-      BorderColor = clBlack
-      BorderWidth = 1
-      Color = 8675134
-      GradientColorStyle = gcsCustom
-      GradientColorStart = 6572079
-      GradientColorStop = 8675134
-      TabOrder = 1
-      VisualStyle = vsGradient
-      ExplicitWidth = 274
-      object lblDetailHeadCaption: TRzLabel
-        Left = 7
-        Top = 2
-        Width = 41
-        Height = 14
-        Caption = 'Details'
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clWhite
-        Font.Height = -12
-        Font.Name = 'Tahoma'
-        Font.Style = [fsBold]
-        ParentFont = False
-        Transparent = True
       end
     end
   end

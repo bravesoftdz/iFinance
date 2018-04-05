@@ -85,6 +85,7 @@ contains
   Duplicate in 'Duplicate.pas' {frmDuplicate},
   EntityUtils in 'EntityUtils.pas',
   InfoSourceList in 'InfoSourceList.pas' {frmInfoSourceList},
-  LoanClosureReasonList in 'LoanClosureReasonList.pas' {frmLoanCloseReasonList};
+  LoanClosureReasonList in 'LoanClosureReasonList.pas' {frmLoanCloseReasonList},
+  MaintenanceDrawer in 'MaintenanceDrawer.pas' {frmMaintenanceDrawer};
 
 end.

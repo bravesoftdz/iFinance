@@ -9,26 +9,19 @@ inherited frmAlerts: TfrmAlerts
   TextHeight = 14
   inherited pnlTitle: TRzPanel
     Width = 527
-    BorderColor = 886527
-    Color = 4235263
-    GradientColorStart = 5220351
-    GradientColorStop = 5220351
-    ExplicitWidth = 527
     inherited imgClose: TImage
       Left = 506
-      ExplicitLeft = 313
+      ExplicitLeft = 506
     end
     inherited lblCaption: TRzLabel
-      Width = 34
-      Caption = 'Alerts'
-      ExplicitWidth = 34
+      Width = 68
+      Caption = 'Client alerts'
+      ExplicitWidth = 68
     end
   end
   inherited pnlMain: TRzPanel
     Width = 527
     Height = 265
-    BorderColor = 886527
-    Color = 9225983
     ExplicitWidth = 527
     ExplicitHeight = 265
     object mmAlerts: TRzMemo
@@ -40,7 +33,7 @@ inherited frmAlerts: TfrmAlerts
       TabStop = False
       Anchors = [akLeft, akTop, akRight, akBottom]
       BorderStyle = bsNone
-      Color = 9225983
+      Color = 15327448
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clBlack
       Font.Height = -12
@@ -48,22 +41,22 @@ inherited frmAlerts: TfrmAlerts
       Font.Style = []
       ParentFont = False
       TabOrder = 0
-      DisabledColor = 9225983
-      FrameColor = 9225983
+      DisabledColor = 15327448
+      FrameColor = 15327448
       FrameVisible = True
       FramingPreference = fpCustomFraming
       ReadOnlyColor = 13948116
     end
     object pnlContinue: TRzPanel
-      Left = 459
-      Top = 235
+      Left = 456
+      Top = 233
       Width = 60
       Height = 22
       Anchors = [akRight, akBottom]
       BorderOuter = fsNone
-      BorderColor = 886527
+      BorderColor = 14272955
       BorderWidth = 1
-      Color = 7124735
+      Color = 15327448
       TabOrder = 1
       object btnContinue: TRzShapeButton
         Left = 0

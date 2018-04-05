@@ -28,31 +28,37 @@ inherited frmLoanCloseReasonList: TfrmLoanCloseReasonList
         end>
     end
   end
+  inherited pnlSearch: TRzPanel
+    ExplicitTop = 0
+  end
   inherited pnlDetail: TRzPanel
     object JvLabel1: TJvLabel [0]
       Left = 13
-      Top = 39
+      Top = 23
       Width = 41
       Height = 14
       Caption = 'Reason'
       Transparent = True
     end
+    inherited pnlAdd: TRzPanel
+      ExplicitTop = 429
+    end
     object edReason: TRzDBEdit
-      Left = 82
-      Top = 33
-      Width = 182
+      Left = 60
+      Top = 17
+      Width = 204
       Height = 22
       DataSource = dmAux.dscLoanCloseReasons
       DataField = 'reason_name'
       DisabledColor = clWhite
-      FrameColor = 8675134
+      FrameColor = 14272955
       FrameVisible = True
       FramingPreference = fpCustomFraming
-      TabOrder = 2
+      TabOrder = 1
     end
     object cbSystem: TRzDBCheckBox
-      Left = 82
-      Top = 64
+      Left = 60
+      Top = 48
       Width = 59
       Height = 16
       DataField = 'is_system'
@@ -63,8 +69,8 @@ inherited frmLoanCloseReasonList: TfrmLoanCloseReasonList
       TabOrder = 3
     end
     object cbAutoPosting: TRzDBCheckBox
-      Left = 82
-      Top = 89
+      Left = 60
+      Top = 73
       Width = 90
       Height = 16
       DataField = 'is_auto_post'
@@ -72,7 +78,7 @@ inherited frmLoanCloseReasonList: TfrmLoanCloseReasonList
       ValueChecked = 'True'
       ValueUnchecked = 'False'
       Caption = 'Auto-posting'
-      TabOrder = 4
+      TabOrder = 2
     end
   end
 end

@@ -37,20 +37,10 @@ type
     JvLabel20: TJvLabel;
     JvLabel4: TJvLabel;
     pnlAssessment: TRzPanel;
-    RzPanel3: TRzPanel;
-    RzLabel2: TRzLabel;
     pnlApproval: TRzPanel;
-    RzPanel5: TRzPanel;
-    RzLabel3: TRzLabel;
     pnlRelease: TRzPanel;
-    RzPanel7: TRzPanel;
-    RzLabel4: TRzLabel;
     pnlCancellation: TRzPanel;
-    RzPanel9: TRzPanel;
-    RzLabel5: TRzLabel;
     pnlRejection: TRzPanel;
-    RzPanel11: TRzPanel;
-    RzLabel6: TRzLabel;
     JvLabel10: TJvLabel;
     JvLabel11: TJvLabel;
     JvLabel13: TJvLabel;
@@ -62,26 +52,12 @@ type
     JvLabel19: TJvLabel;
     JvLabel23: TJvLabel;
     JvLabel28: TJvLabel;
-    grRecipients: TRzDBGrid;
-    grCharges: TRzDBGrid;
     mmAddress: TRzMemo;
     mmEmployer: TRzMemo;
     RzGroupBox1: TRzGroupBox;
     RzGroupBox2: TRzGroupBox;
     RzGroupBox3: TRzGroupBox;
     pnlToolbar: TRzPanel;
-    pnlAssessmentBtn: TRzPanel;
-    imgAssessment: TImage;
-    pnlApproveLoan: TRzPanel;
-    imgApproval: TImage;
-    pnlReleaseLoan: TRzPanel;
-    imgReleaseLoan: TImage;
-    pnlRejectLoan: TRzPanel;
-    imgRejectLoan: TImage;
-    pnlCancelLoan: TRzPanel;
-    imgCancelLoan: TImage;
-    pnlReloan: TRzPanel;
-    imgReloan: TImage;
     pnlAdd: TRzPanel;
     btnAddComaker: TRzShapeButton;
     pnlRemoveComaker: TRzPanel;
@@ -101,8 +77,6 @@ type
     RzDBLabel8: TRzDBLabel;
     pnlEditApproval: TRzPanel;
     btnEditApproval: TRzShapeButton;
-    pnlLedger: TRzPanel;
-    imgLedger: TImage;
     tsReleased: TRzTabSheet;
     tsRejected: TRzTabSheet;
     tsCancelled: TRzTabSheet;
@@ -164,14 +138,10 @@ type
     RzDBLabel21: TRzDBLabel;
     lblReleaseAmount: TJvLabel;
     JvLabel42: TJvLabel;
-    pnlCloseLoan: TRzPanel;
-    imgCloseLoan: TImage;
     tsClosed: TRzTabSheet;
     RzDBLabel22: TRzDBLabel;
     RzDBLabel23: TRzDBLabel;
     RzDBLabel24: TRzDBLabel;
-    RzPanel1: TRzPanel;
-    RzLabel1: TRzLabel;
     JvLabel41: TJvLabel;
     JvLabel43: TJvLabel;
     JvLabel44: TJvLabel;
@@ -179,13 +149,23 @@ type
     lblAdvancePayment: TJvLabel;
     JvLabel46: TJvLabel;
     RzDBLabel25: TRzDBLabel;
+    urlAssessment: TRzURLLabel;
+    urlApproval: TRzURLLabel;
+    urlRelease: TRzURLLabel;
+    urlReject: TRzURLLabel;
+    urlCancel: TRzURLLabel;
+    urlClose: TRzURLLabel;
+    urlReloan: TRzURLLabel;
+    urlLedger: TRzURLLabel;
+    RzPanel3: TRzPanel;
+    grRecipients: TRzDBGrid;
+    RzPanel4: TRzPanel;
+    grCharges: TRzDBGrid;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure bteClientButtonClick(Sender: TObject);
     procedure lbxComakersDblClick(Sender: TObject);
     procedure btnAddComakerClick(Sender: TObject);
-    procedure imgAssessmentClick(Sender: TObject);
-    procedure imgApprovalClick(Sender: TObject);
     procedure imgAssessmentMouseDown(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
     procedure imgAssessmentMouseUp(Sender: TObject; Button: TMouseButton;
@@ -193,16 +173,18 @@ type
     procedure pnlEditAssessmentClick(Sender: TObject);
     procedure btnEditApprovalClick(Sender: TObject);
     procedure btnRemoveComakerClick(Sender: TObject);
-    procedure imgCancelLoanClick(Sender: TObject);
-    procedure imgRejectLoanClick(Sender: TObject);
     procedure pnlEditRejectionClick(Sender: TObject);
     procedure btnEditCancelClick(Sender: TObject);
-    procedure imgReleaseLoanClick(Sender: TObject);
     procedure btnEditAssessmentClick(Sender: TObject);
     procedure imgClientRecordClick(Sender: TObject);
     procedure imgAlertsClick(Sender: TObject);
-    procedure imgLedgerClick(Sender: TObject);
-    procedure imgCloseLoanClick(Sender: TObject);
+    procedure urlAssessmentClick(Sender: TObject);
+    procedure urlApprovalClick(Sender: TObject);
+    procedure urlReleaseClick(Sender: TObject);
+    procedure urlRejectClick(Sender: TObject);
+    procedure urlCancelClick(Sender: TObject);
+    procedure urlCloseClick(Sender: TObject);
+    procedure urlLedgerClick(Sender: TObject);
   private
     { Private declarations }
     procedure ChangeControlState;
@@ -747,10 +729,10 @@ end;
 
 procedure TfrmLoanMain.InitForm;
 begin
-  ExtendLastColumn(grFinInfo);
-  ExtendLastColumn(grMonExp);
-  ExtendLastColumn(grRecipients);
-  ExtendLastColumn(grCharges);
+  // ExtendLastColumn(grFinInfo);
+  // ExtendLastColumn(grMonExp);
+  // ExtendLastColumn(grRecipients);
+  // ExtendLastColumn(grCharges);
 
   ChangeControlState;
 
@@ -796,20 +778,6 @@ begin
   ShowAlerts;
 end;
 
-procedure TfrmLoanMain.imgApprovalClick(Sender: TObject);
-begin
-  inherited;
-  if (ln.HasLoanState(lsApproved)) or (ln.IsFinalised) then SetActiveTab(APPROVAL)
-  else ApproveLoan;
-end;
-
-procedure TfrmLoanMain.imgAssessmentClick(Sender: TObject);
-begin
-  inherited;
-  if (ln.HasLoanState(lsAssessed)) or (ln.IsFinalised) then SetActiveTab(ASSESSED)
-  else AssessLoan;
-end;
-
 procedure TfrmLoanMain.imgAssessmentMouseDown(Sender: TObject;
   Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
 begin
@@ -822,13 +790,6 @@ procedure TfrmLoanMain.imgAssessmentMouseUp(Sender: TObject;
 begin
   inherited;
   ButtonUp(Sender);
-end;
-
-procedure TfrmLoanMain.imgCancelLoanClick(Sender: TObject);
-begin
-  inherited;
-  if (ln.HasLoanState(lsCancelled)) or (ln.IsClosed) then SetActiveTab(CANCELLATION)
-  else CancelLoan;
 end;
 
 procedure TfrmLoanMain.imgClientRecordClick(Sender: TObject);
@@ -848,33 +809,6 @@ begin
     if Supports(Application.MainForm,IDock,intf) then
       intf.DockForm(fmClientMain);
   end;
-end;
-
-procedure TfrmLoanMain.imgCloseLoanClick(Sender: TObject);
-begin
-  inherited;
-  if ln.IsClosed then SetActiveTab(CLOSED)
-  else CloseLoan;
-end;
-
-procedure TfrmLoanMain.imgRejectLoanClick(Sender: TObject);
-begin
-  inherited;
-  if (ln.HasLoanState(lsRejected)) or (ln.IsFinalised) then SetActiveTab(REJECTION)
-  else RejectLoan;
-end;
-
-procedure TfrmLoanMain.imgReleaseLoanClick(Sender: TObject);
-begin
-  inherited;
-  if (ln.HasLoanState(lsActive)) or (ln.IsFinalised) then SetActiveTab(RELEASED)
-  else ReleaseLoan;
-end;
-
-procedure TfrmLoanMain.imgLedgerClick(Sender: TObject);
-begin
-  inherited;
-  ShowLedger;
 end;
 
 procedure TfrmLoanMain.RetrieveLoan;
@@ -1036,6 +970,54 @@ begin
       //Free;
     end
   end;
+end;
+
+procedure TfrmLoanMain.urlApprovalClick(Sender: TObject);
+begin
+  inherited;
+  if (ln.HasLoanState(lsApproved)) or (ln.IsFinalised) then SetActiveTab(APPROVAL)
+  else ApproveLoan;
+end;
+
+procedure TfrmLoanMain.urlAssessmentClick(Sender: TObject);
+begin
+  inherited;
+  if (ln.HasLoanState(lsAssessed)) or (ln.IsFinalised) then SetActiveTab(ASSESSED)
+  else AssessLoan;
+end;
+
+procedure TfrmLoanMain.urlCancelClick(Sender: TObject);
+begin
+  inherited;
+  if (ln.HasLoanState(lsCancelled)) or (ln.IsClosed) then SetActiveTab(CANCELLATION)
+  else CancelLoan;
+end;
+
+procedure TfrmLoanMain.urlCloseClick(Sender: TObject);
+begin
+  inherited;
+  if ln.IsClosed then SetActiveTab(CLOSED)
+  else CloseLoan;
+end;
+
+procedure TfrmLoanMain.urlLedgerClick(Sender: TObject);
+begin
+  inherited;
+  ShowLedger;
+end;
+
+procedure TfrmLoanMain.urlRejectClick(Sender: TObject);
+begin
+  inherited;
+  if (ln.HasLoanState(lsRejected)) or (ln.IsFinalised) then SetActiveTab(REJECTION)
+  else RejectLoan;
+end;
+
+procedure TfrmLoanMain.urlReleaseClick(Sender: TObject);
+begin
+  inherited;
+  if (ln.HasLoanState(lsActive)) or (ln.IsFinalised) then SetActiveTab(RELEASED)
+  else ReleaseLoan;
 end;
 
 procedure TfrmLoanMain.PopulateComakers;

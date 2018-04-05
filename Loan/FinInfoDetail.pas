@@ -25,6 +25,7 @@ type
   protected
     procedure Save; override;
     procedure Cancel; override;
+    procedure BindToObject; override;
     function ValidEntry: boolean; override;
   end;
 
@@ -67,6 +68,12 @@ begin
 
     ln.AddFinancialInfo(TFinInfo.Create(compId,compName,monthly,balance),true);
   end;
+end;
+
+procedure TfrmFinInfoDetail.BindToObject;
+begin
+  inherited;
+
 end;
 
 procedure TfrmFinInfoDetail.Cancel;

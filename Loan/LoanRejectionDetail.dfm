@@ -1,15 +1,15 @@
 inherited frmLoanRejectionDetail: TfrmLoanRejectionDetail
   Caption = 'frmLoanRejectionDetail'
-  ClientHeight = 200
+  ClientHeight = 213
   ClientWidth = 347
   OnCreate = FormCreate
   ExplicitWidth = 347
-  ExplicitHeight = 200
+  ExplicitHeight = 213
   PixelsPerInch = 96
   TextHeight = 14
   inherited pnlTitle: TRzPanel
     Width = 347
-    ExplicitWidth = 346
+    ExplicitWidth = 347
     inherited imgClose: TImage
       Left = 326
       ExplicitLeft = 325
@@ -22,23 +22,23 @@ inherited frmLoanRejectionDetail: TfrmLoanRejectionDetail
   end
   inherited pnlMain: TRzPanel
     Width = 347
-    Height = 179
-    ExplicitWidth = 346
-    ExplicitHeight = 190
+    Height = 192
+    ExplicitWidth = 347
+    ExplicitHeight = 179
     inherited pnlDetail: TRzPanel
       Width = 331
-      Height = 131
+      Height = 144
       ExplicitWidth = 331
       ExplicitHeight = 131
       inherited pcDetail: TRzPageControl
         Width = 329
-        Height = 129
+        Height = 142
         ExplicitWidth = 329
         ExplicitHeight = 129
         FixedDimension = 20
         inherited tsDetail: TRzTabSheet
-          ExplicitWidth = 514
-          ExplicitHeight = 181
+          ExplicitWidth = 329
+          ExplicitHeight = 129
           object JvLabel17: TJvLabel
             Tag = -1
             Left = 19
@@ -51,7 +51,7 @@ inherited frmLoanRejectionDetail: TfrmLoanRejectionDetail
           object JvLabel18: TJvLabel
             Tag = -1
             Left = 19
-            Top = 48
+            Top = 51
             Width = 41
             Height = 14
             Caption = 'Reason'
@@ -60,7 +60,7 @@ inherited frmLoanRejectionDetail: TfrmLoanRejectionDetail
           object JvLabel24: TJvLabel
             Tag = -1
             Left = 19
-            Top = 72
+            Top = 78
             Width = 47
             Height = 14
             Caption = 'Remarks'
@@ -74,7 +74,7 @@ inherited frmLoanRejectionDetail: TfrmLoanRejectionDetail
             DataSource = dmLoan.dscLoanReject
             DataField = 'date_rejected'
             DisabledColor = clWhite
-            FrameColor = 8675134
+            FrameColor = 14272955
             FrameVisible = True
             FramingPreference = fpCustomFraming
             TabOnEnter = True
@@ -85,7 +85,7 @@ inherited frmLoanRejectionDetail: TfrmLoanRejectionDetail
           end
           object dbluReason: TRzDBLookupComboBox
             Left = 113
-            Top = 41
+            Top = 44
             Width = 193
             Height = 22
             DataField = 'reason_id'
@@ -96,7 +96,7 @@ inherited frmLoanRejectionDetail: TfrmLoanRejectionDetail
             TabOrder = 1
             FlatButtons = True
             DisabledColor = clWhite
-            FrameColor = 8675134
+            FrameColor = 14272955
             FrameHotColor = clBlack
             FrameVisible = True
             FramingPreference = fpCustomFraming
@@ -104,13 +104,13 @@ inherited frmLoanRejectionDetail: TfrmLoanRejectionDetail
           end
           object mmRemarks: TRzDBMemo
             Left = 113
-            Top = 65
+            Top = 71
             Width = 193
             Height = 45
             DataField = 'remarks'
             DataSource = dmLoan.dscLoanReject
             TabOrder = 2
-            FrameColor = 8675134
+            FrameColor = 14272955
             FrameHotColor = 8675134
             FrameVisible = True
             FramingPreference = fpCustomFraming
@@ -121,13 +121,13 @@ inherited frmLoanRejectionDetail: TfrmLoanRejectionDetail
     end
     inherited pnlCancel: TRzPanel
       Left = 289
-      Top = 148
+      Top = 161
       ExplicitLeft = 289
       ExplicitTop = 148
     end
     inherited pnlSave: TRzPanel
       Left = 233
-      Top = 148
+      Top = 161
       ExplicitLeft = 233
       ExplicitTop = 148
     end

@@ -32,7 +32,7 @@ inherited frmBasePopupDetail: TfrmBasePopupDetail
       Height = 183
       Anchors = [akLeft, akTop, akRight, akBottom]
       BorderOuter = fsNone
-      BorderColor = 6572079
+      BorderColor = 14272955
       BorderWidth = 1
       Color = 14273211
       TabOrder = 0
@@ -46,7 +46,7 @@ inherited frmBasePopupDetail: TfrmBasePopupDetail
         Align = alClient
         ButtonColor = 14273211
         UseColoredTabs = True
-        FlatColor = 14273211
+        FlatColor = 14272955
         ShowCardFrame = False
         ShowFocusRect = False
         ShowFullFrame = False
@@ -55,11 +55,9 @@ inherited frmBasePopupDetail: TfrmBasePopupDetail
         TabStop = False
         FixedDimension = 20
         object tsDetail: TRzTabSheet
-          Color = 14273211
+          Color = 15327448
           TabVisible = False
           Caption = 'Change caption here'
-          ExplicitWidth = 0
-          ExplicitHeight = 0
         end
       end
     end
@@ -70,9 +68,9 @@ inherited frmBasePopupDetail: TfrmBasePopupDetail
       Height = 22
       Anchors = [akRight, akBottom]
       BorderOuter = fsNone
-      BorderColor = 6572079
+      BorderColor = 14272955
       BorderWidth = 1
-      Color = 14273211
+      Color = 15327448
       TabOrder = 1
       object btnCancel: TRzShapeButton
         Left = 0
@@ -91,9 +89,9 @@ inherited frmBasePopupDetail: TfrmBasePopupDetail
       Height = 22
       Anchors = [akRight, akBottom]
       BorderOuter = fsNone
-      BorderColor = 6572079
+      BorderColor = 14272955
       BorderWidth = 1
-      Color = 14273211
+      Color = 15327448
       TabOrder = 2
       object btnSave: TRzShapeButton
         Left = 0

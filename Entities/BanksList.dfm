@@ -8,7 +8,10 @@ inherited frmBanksList: TfrmBanksList
   PixelsPerInch = 96
   TextHeight = 14
   inherited pnlTitle: TRzPanel
+    Top = -30
     Width = 877
+    Align = alNone
+    ExplicitTop = -30
     ExplicitWidth = 877
     inherited lblTitle: TRzLabel
       Width = 58
@@ -18,12 +21,12 @@ inherited frmBanksList: TfrmBanksList
   end
   object pnlList: TRzPanel
     Left = 6
-    Top = 35
+    Top = 9
     Width = 581
-    Height = 230
+    Height = 224
     Anchors = [akLeft, akTop, akRight]
     BorderOuter = fsNone
-    BorderColor = 8675134
+    BorderColor = 14272955
     BorderWidth = 1
     Color = 14273211
     TabOrder = 1
@@ -31,22 +34,25 @@ inherited frmBanksList: TfrmBanksList
       Left = 1
       Top = 1
       Width = 579
-      Height = 228
+      Height = 222
       Align = alClient
       BorderStyle = bsNone
+      Ctl3D = False
       DataSource = dmAux.dscBanks
-      DrawingStyle = gdsGradient
-      FixedColor = 12955288
+      FixedColor = clWhite
       GradientEndColor = 12955288
       GradientStartColor = 12955288
       Options = [dgTitles, dgIndicator, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
+      ParentCtl3D = False
       TabOrder = 0
       TitleFont.Charset = DEFAULT_CHARSET
       TitleFont.Color = clWindowText
       TitleFont.Height = -12
       TitleFont.Name = 'Tahoma'
       TitleFont.Style = []
+      FrameStyle = fsNone
       FramingPreference = fpCustomFraming
+      FixedLineColor = clWhite
       AltRowShadingColor = 15854564
       Columns = <
         item
@@ -79,21 +85,21 @@ inherited frmBanksList: TfrmBanksList
   end
   object pnlDetail: TRzPanel
     Left = 594
-    Top = 35
+    Top = 9
     Width = 276
-    Height = 457
+    Height = 483
     Anchors = [akTop, akRight, akBottom]
     BorderOuter = fsNone
-    BorderColor = 8675134
+    BorderColor = 14272955
     BorderWidth = 1
     ParentColor = True
     TabOrder = 2
     DesignSize = (
       276
-      457)
+      483)
     object JvLabel1: TJvLabel
       Left = 13
-      Top = 39
+      Top = 23
       Width = 62
       Height = 14
       Caption = 'Bank name'
@@ -101,7 +107,7 @@ inherited frmBanksList: TfrmBanksList
     end
     object JvLabel3: TJvLabel
       Left = 13
-      Top = 63
+      Top = 50
       Width = 39
       Height = 14
       Caption = 'Branch'
@@ -109,14 +115,14 @@ inherited frmBanksList: TfrmBanksList
     end
     object pnlAdd: TRzPanel
       Left = 8
-      Top = 427
+      Top = 453
       Width = 50
       Height = 22
       Anchors = [akLeft, akBottom]
       BorderOuter = fsNone
-      BorderColor = 6572079
+      BorderColor = 14272955
       BorderWidth = 1
-      Color = 12955288
+      Color = 15327448
       TabOrder = 2
       object sbtnNew: TRzShapeButton
         Left = 0
@@ -131,75 +137,44 @@ inherited frmBanksList: TfrmBanksList
         OnClick = sbtnNewClick
       end
     end
-    object pnlDetailHead: TRzPanel
-      Left = 1
-      Top = 1
-      Width = 274
-      Height = 19
-      Align = alTop
-      BorderOuter = fsNone
-      BorderSides = [sdBottom]
-      BorderColor = clBlack
-      BorderWidth = 1
-      Color = 8675134
-      GradientColorStyle = gcsCustom
-      GradientColorStart = 6572079
-      GradientColorStop = 8675134
-      TabOrder = 3
-      VisualStyle = vsGradient
-      object lblDetailHeadCaption: TRzLabel
-        Left = 7
-        Top = 2
-        Width = 41
-        Height = 14
-        Caption = 'Details'
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clWhite
-        Font.Height = -12
-        Font.Name = 'Tahoma'
-        Font.Style = [fsBold]
-        ParentFont = False
-        Transparent = True
-      end
-    end
     object edBankName: TRzDBEdit
       Left = 81
-      Top = 33
+      Top = 17
       Width = 176
       Height = 22
       DataSource = dmAux.dscBanks
       DataField = 'bank_name'
       ReadOnly = True
       CharCase = ecUpperCase
-      Color = 14273211
+      Color = 15327448
       FocusColor = clWhite
-      FrameColor = 8675134
+      FrameColor = 14272955
       FrameVisible = True
       FramingPreference = fpCustomFraming
-      ReadOnlyColor = 14273211
+      ReadOnlyColor = 15327448
       TabOrder = 0
     end
     object mmBranch: TRzDBMemo
       Left = 81
-      Top = 57
+      Top = 44
       Width = 176
       Height = 53
       DataField = 'branch'
       DataSource = dmAux.dscBranches
       TabOrder = 1
-      FrameColor = 8675134
+      FrameColor = 14272955
       FrameVisible = True
       FramingPreference = fpCustomFraming
     end
   end
   object pnlBranches: TRzPanel
     Left = 6
-    Top = 271
+    Top = 239
     Width = 581
-    Height = 221
+    Height = 253
     Anchors = [akLeft, akTop, akRight, akBottom]
     BorderOuter = fsNone
-    BorderColor = 8675134
+    BorderColor = 14272955
     BorderWidth = 1
     Color = 14273211
     TabOrder = 3
@@ -207,22 +182,25 @@ inherited frmBanksList: TfrmBanksList
       Left = 1
       Top = 1
       Width = 579
-      Height = 219
+      Height = 251
       Align = alClient
       BorderStyle = bsNone
+      Ctl3D = False
       DataSource = dmAux.dscBranches
-      DrawingStyle = gdsGradient
-      FixedColor = 12955288
+      FixedColor = clWhite
       GradientEndColor = 12955288
       GradientStartColor = 12955288
       Options = [dgTitles, dgIndicator, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
+      ParentCtl3D = False
       TabOrder = 0
       TitleFont.Charset = DEFAULT_CHARSET
       TitleFont.Color = clWindowText
       TitleFont.Height = -12
       TitleFont.Name = 'Tahoma'
       TitleFont.Style = []
+      FrameStyle = fsNone
       FramingPreference = fpCustomFraming
+      FixedLineColor = clWhite
       AltRowShadingColor = 15854564
       Columns = <
         item

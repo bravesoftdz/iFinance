@@ -10,6 +10,10 @@ inherited frmWarningBox: TfrmWarningBox
     end
   end
   inherited pnlMain: TRzPanel
+    inherited lblMessage: TJvLabel
+      Top = 26
+      ExplicitTop = 26
+    end
     inherited Image1: TImage
       Picture.Data = {
         0954506E67496D61676589504E470D0A1A0A0000000D49484452000000200000
@@ -64,6 +68,14 @@ inherited frmWarningBox: TfrmWarningBox
         646174653A6D6F6469667900323031312D30382D32315431343A31303A32312D
         30363A3030E4A17B480000001974455874536F6674776172650041646F626520
         496D616765526561647971C9653C0000000049454E44AE426082}
+    end
+    inherited pnlNo: TRzPanel
+      BorderColor = 14272955
+      Color = 15327448
+    end
+    inherited pnlYes: TRzPanel
+      BorderColor = 14272955
+      Color = 15327448
     end
   end
 end

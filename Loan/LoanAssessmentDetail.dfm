@@ -166,7 +166,7 @@ inherited frmLoanAssessmentDetail: TfrmLoanAssessmentDetail
             DataSource = dmLoan.dscLoanAss
             DataField = 'date_ass'
             DisabledColor = clWhite
-            FrameColor = 8675134
+            FrameColor = 14272955
             FrameVisible = True
             FramingPreference = fpCustomFraming
             TabOnEnter = True
@@ -186,7 +186,7 @@ inherited frmLoanAssessmentDetail: TfrmLoanAssessmentDetail
             DataField = 'rec_amt'
             Alignment = taLeftJustify
             DisabledColor = clWhite
-            FrameColor = 8675134
+            FrameColor = 14272955
             FrameVisible = True
             FramingPreference = fpCustomFraming
             TabOnEnter = True
@@ -204,23 +204,21 @@ inherited frmLoanAssessmentDetail: TfrmLoanAssessmentDetail
             ActivePage = tsFinInfo
             ActivePageDefault = tsFinInfo
             ButtonColor = 14273211
-            FlatColor = 8675134
+            Color = 15327448
+            FlatColor = 14272955
+            ParentColor = False
             ShowShadow = False
             TabOverlap = 0
-            TabColors.HighlightBar = 14273211
-            TabColors.Shadow = 14273211
-            TabColors.Unselected = 14273211
+            TabColors.HighlightBar = 15327448
+            TabColors.Shadow = 15327448
+            TabColors.Unselected = 15327448
             TabIndex = 0
             TabOrder = 3
             TabStyle = tsRoundCorners
             FixedDimension = 20
             object tsFinInfo: TRzTabSheet
-              Color = 14273211
+              Color = 15327448
               Caption = 'Financial info'
-              ExplicitLeft = 0
-              ExplicitTop = 0
-              ExplicitWidth = 0
-              ExplicitHeight = 0
               DesignSize = (
                 323
                 138)
@@ -230,9 +228,9 @@ inherited frmLoanAssessmentDetail: TfrmLoanAssessmentDetail
                 Width = 311
                 Height = 127
                 Anchors = [akLeft, akTop, akRight, akBottom]
+                BorderStyle = bsNone
                 ColCount = 3
-                Ctl3D = True
-                DrawingStyle = gdsGradient
+                Ctl3D = False
                 FixedColor = 14273211
                 FixedCols = 0
                 RowCount = 1
@@ -243,7 +241,7 @@ inherited frmLoanAssessmentDetail: TfrmLoanAssessmentDetail
                 ParentCtl3D = False
                 TabOrder = 0
                 OnDblClick = grFinInfoDblClick
-                FrameColor = 8675134
+                FrameColor = 14272955
                 FrameVisible = True
                 FramingPreference = fpCustomFraming
                 FixedLineColor = 14273211
@@ -256,12 +254,8 @@ inherited frmLoanAssessmentDetail: TfrmLoanAssessmentDetail
               end
             end
             object tsMonExp: TRzTabSheet
-              Color = 14273211
+              Color = 15327448
               Caption = 'Monthly expenses'
-              ExplicitLeft = 0
-              ExplicitTop = 0
-              ExplicitWidth = 0
-              ExplicitHeight = 158
               DesignSize = (
                 323
                 138)
@@ -273,9 +267,9 @@ inherited frmLoanAssessmentDetail: TfrmLoanAssessmentDetail
                 Anchors = [akLeft, akTop, akRight, akBottom]
                 BevelInner = bvNone
                 BevelOuter = bvNone
+                BorderStyle = bsNone
                 ColCount = 2
-                Ctl3D = True
-                DrawingStyle = gdsGradient
+                Ctl3D = False
                 FixedColor = 14273211
                 FixedCols = 0
                 RowCount = 1
@@ -286,11 +280,10 @@ inherited frmLoanAssessmentDetail: TfrmLoanAssessmentDetail
                 ParentCtl3D = False
                 TabOrder = 0
                 OnDblClick = grMonExpDblClick
-                FrameColor = 8675134
+                FrameColor = 14272955
                 FrameVisible = True
                 FramingPreference = fpCustomFraming
                 FixedLineColor = 14273211
-                ExplicitHeight = 147
                 ColWidths = (
                   60
                   60)
@@ -308,7 +301,7 @@ inherited frmLoanAssessmentDetail: TfrmLoanAssessmentDetail
             DataSource = dmLoan.dscLoanAss
             MaxLength = 200
             TabOrder = 6
-            FrameColor = 8675134
+            FrameColor = 14272955
             FrameVisible = True
             FramingPreference = fpCustomFraming
           end
@@ -318,9 +311,9 @@ inherited frmLoanAssessmentDetail: TfrmLoanAssessmentDetail
             Width = 50
             Height = 22
             BorderOuter = fsNone
-            BorderColor = 6572079
+            BorderColor = 14272955
             BorderWidth = 1
-            Color = 12955288
+            Color = 15327448
             TabOrder = 4
             object btnAdd: TRzShapeButton
               Left = 0
@@ -338,17 +331,17 @@ inherited frmLoanAssessmentDetail: TfrmLoanAssessmentDetail
           object pnlRemoveComaker: TRzPanel
             Left = 75
             Top = 273
-            Width = 50
+            Width = 60
             Height = 22
             BorderOuter = fsNone
-            BorderColor = 6572079
+            BorderColor = 14272955
             BorderWidth = 1
-            Color = 12955288
+            Color = 15327448
             TabOrder = 5
             object btnRemove: TRzShapeButton
               Left = 0
               Top = 0
-              Width = 50
+              Width = 60
               Height = 22
               Hint = 'Remove'
               BorderStyle = bsNone
@@ -367,7 +360,7 @@ inherited frmLoanAssessmentDetail: TfrmLoanAssessmentDetail
             DataSource = dmLoan.dscLoanAss
             MaxLength = 200
             TabOrder = 7
-            FrameColor = 8675134
+            FrameColor = 14272955
             FrameVisible = True
             FramingPreference = fpCustomFraming
           end
@@ -380,7 +373,7 @@ inherited frmLoanAssessmentDetail: TfrmLoanAssessmentDetail
             DataSource = dmLoan.dscLoanAss
             MaxLength = 200
             TabOrder = 8
-            FrameColor = 8675134
+            FrameColor = 14272955
             FrameVisible = True
             FramingPreference = fpCustomFraming
           end
@@ -393,7 +386,7 @@ inherited frmLoanAssessmentDetail: TfrmLoanAssessmentDetail
             DataSource = dmLoan.dscLoanAss
             MaxLength = 200
             TabOrder = 9
-            FrameColor = 8675134
+            FrameColor = 14272955
             FrameVisible = True
             FramingPreference = fpCustomFraming
           end
@@ -406,7 +399,7 @@ inherited frmLoanAssessmentDetail: TfrmLoanAssessmentDetail
             DataSource = dmLoan.dscLoanAss
             MaxLength = 200
             TabOrder = 10
-            FrameColor = 8675134
+            FrameColor = 14272955
             FrameVisible = True
             FramingPreference = fpCustomFraming
           end
@@ -419,7 +412,7 @@ inherited frmLoanAssessmentDetail: TfrmLoanAssessmentDetail
             DataSource = dmLoan.dscLoanAss
             MaxLength = 200
             TabOrder = 11
-            FrameColor = 8675134
+            FrameColor = 14272955
             FrameVisible = True
             FramingPreference = fpCustomFraming
           end
@@ -438,7 +431,7 @@ inherited frmLoanAssessmentDetail: TfrmLoanAssessmentDetail
             OnClick = dbluRecommendationClick
             FlatButtons = True
             DisabledColor = clWhite
-            FrameColor = 8675134
+            FrameColor = 14272955
             FrameHotColor = clBlack
             FrameVisible = True
             FramingPreference = fpCustomFraming

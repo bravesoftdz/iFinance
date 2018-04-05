@@ -31,6 +31,7 @@ type
   protected
     procedure Save; override;
     procedure Cancel; override;
+    procedure BindToObject; override;
     function ValidEntry: boolean; override;
   end;
 
@@ -80,6 +81,12 @@ begin
 
     ln.AddReleaseRecipient(rrp,true);
   end;
+end;
+
+procedure TfrmReleaseRecipientDetail.BindToObject;
+begin
+  inherited;
+
 end;
 
 procedure TfrmReleaseRecipientDetail.bteRecipientButtonClick(Sender: TObject);

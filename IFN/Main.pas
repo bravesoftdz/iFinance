@@ -110,39 +110,19 @@ type
     pnlSave: TRzPanel;
     imgSave: TImage;
     lblWelcome: TRzLabel;
-    pnlBank: TRzPanel;
-    imgBanks: TImage;
-    pnlCompetitor: TRzPanel;
-    imgCompetitor: TImage;
-    pnlDesignationList: TRzPanel;
-    imgDesignationList: TImage;
-    pnlEmployer: TRzPanel;
-    imgEmployer: TImage;
-    pnlGroups: TRzPanel;
-    imgGroups: TImage;
-    pnlLoanCancellationReasonList: TRzPanel;
-    imgLoanCancellationReasonList: TImage;
-    pnlLoanClass: TRzPanel;
-    imgLoanClass: TImage;
-    pnlLoanType: TRzPanel;
-    imgLoanType: TImage;
-    pnlPurpose: TRzPanel;
-    imgPurpose: TImage;
-    pnlRejectionReasonList: TRzPanel;
-    imgRejectionReasonList: TImage;
-    pnlSettings: TRzPanel;
-    imgSettings: TImage;
-    pnlAcctType: TRzPanel;
-    imgAcctType: TImage;
     urlChangeDate: TRzURLLabel;
-    pnlChargeTypes: TRzPanel;
-    imgChargeTypes: TImage;
-    pnlInfoSources: TRzPanel;
-    imgInfoSources: TImage;
-    pnlLoanClosureReasonsList: TRzPanel;
-    imgLoanClosureReasonsList: TImage;
     pnlSearchClient: TRzPanel;
     imgSearchClient: TImage;
+    pnlLoanList: TRzPanel;
+    imgLoanList: TImage;
+    pnlMaintenance: TRzPanel;
+    imgMaintenance: TImage;
+    pnlSettings: TRzPanel;
+    imgSettings: TImage;
+    pnlWithdrawals: TRzPanel;
+    imgWithdrawals: TImage;
+    pnlPaymentList: TRzPanel;
+    imgPaymentList: TImage;
     procedure tbAddClientClick(Sender: TObject);
     procedure lblRecentlyAddedClick(Sender: TObject);
     procedure lbxRecentDblClick(Sender: TObject);
@@ -175,7 +155,7 @@ type
     procedure imgSaveClick(Sender: TObject);
     procedure imgCancelClick(Sender: TObject);
     procedure acGenericNewExecute(Sender: TObject);
-    procedure imgGroupsClick(Sender: TObject);
+    procedure imgMaintenanceClick(Sender: TObject);
     procedure imgLoanTypeClick(Sender: TObject);
     procedure imgAcctTypeClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -194,6 +174,9 @@ type
     procedure imgInfoSourcesClick(Sender: TObject);
     procedure imgLoanClosureReasonsListClick(Sender: TObject);
     procedure imgSearchClientClick(Sender: TObject);
+    procedure imgLoanListClick(Sender: TObject);
+    procedure imgWithdrawalsClick(Sender: TObject);
+    procedure imgPaymentListClick(Sender: TObject);
   private
     { Private declarations }
     DOCKED_FORM: TForms;
@@ -221,13 +204,10 @@ implementation
 {$R *.dfm}
 
 uses
-  ClientMain, SaveIntf, ClientList, DockedFormIntf, GroupList, EmployerList,
-  BanksList, DesignationList, LoanClassificationList, ConfBox, ErrorBox, ClientIntf,
-  LoanMain, LoanList, LoanIntf, CompetitorList, FormsUtil, IFinanceGlobal,
-  PurposeList, IFinanceDialogs, NewIntf, LoanTypeList, AccountTypeList,
-  LoanCancellationReasonList, LoanRejectionReasonList, AppSettings,
+  ClientMain, SaveIntf, ClientList, DockedFormIntf,  LoanMain, LoanList, LoanIntf,
+  FormsUtil, IFinanceGlobal, IFinanceDialogs, NewIntf, AppSettings,
   PaymentMain, PaymentIntf, PaymentList, AccountingData, WithdrawalList, DevParams,
-  LoanClassChargeTypeList, InfoSourceList, LoanClosureReasonList;
+  MaintenanceDrawer, ClientIntf;
 
 constructor TRecentClient.Create(const id, displayId, name: string);
 begin
@@ -444,10 +424,10 @@ const
   INVENTORY = 3;
   REPORTS = 4;
 begin
-  case npMain.ActivePageIndex of
+  {case npMain.ActivePageIndex of
     CLIENTS: OpenClientList(cftRecent);
     LOANS: OpenLoanList(lftPending);
-  end;
+  end;}
 end;
 
 procedure TfrmMain.tbAddClientClick(Sender: TObject);
@@ -554,26 +534,13 @@ begin
     case fm of
       fmClientMain: frm := TfrmClientMain.Create(Application);
       fmClientList: frm := TfrmClientList.Create(Application);
-      fmGroupList : frm := TfrmGroupList.Create(Application);
-      fmEmployerList: frm := TfrmEmployerList.Create(Application);
-      fmBanksList: frm := TfrmBanksList.Create(Application);
-      fmDesignationList: frm := TfrmDesignationList.Create(Application);
-      fmLoanClassList: frm := TfrmLoanClassificationList.Create(Application);
       fmLoanMain: frm := TfrmLoanMain.Create(Application);
       fmLoanList: frm := TfrmLoanList.Create(Application);
-      fmCompetitorList: frm := TfrmCompetitorList.Create(Application);
-      fmPurposeList: frm := TfrmPurposeList.Create(Application);
-      fmLoanTypeList: frm := TfrmLoanTypeList.Create(Application);
-      fmAcctTypeList: frm := TfrmAccountTypeList.Create(Application);
-      fmLoanCancelReasonList: frm := TfrmLoanCancelReasonList.Create(Application);
-      fmLoanRejectReasonList: frm := TfrmLoanRejectionReasonList.Create(Application);
       fmSettings: frm := TfrmAppSettings.Create(Application);
       fmPaymentMain: frm := TfrmPaymentMain.Create(Application);
       fmPaymentList: frm := TfrmPaymentList.Create(Application);
       fmWithdrawalList: frm := TfrmWithdrawalList.Create(Application);
-      fmChargeTypeList: frm := TfrmLoanClassChargeTypeList.Create(Application);
-      fmInfoSourceList: frm := TfrmInfoSourceList.Create(Application);
-      fmLoanCloseReasonList: frm := TfrmLoanCloseReasonList.Create(Application);
+      fmMaintenanceDrawer: frm := TfrmMaintenanceDrawer.Create(Application);
       else
         frm := nil;
     end;
@@ -608,6 +575,11 @@ end;
 procedure TfrmMain.FormShow(Sender: TObject);
 begin
   SetCaptions;
+end;
+
+procedure TfrmMain.imgPaymentListClick(Sender: TObject);
+begin
+  DockForm(fmPaymentList);
 end;
 
 procedure TfrmMain.imgSearchClientClick(Sender: TObject);
@@ -656,9 +628,9 @@ begin
   Application.Terminate;
 end;
 
-procedure TfrmMain.imgGroupsClick(Sender: TObject);
+procedure TfrmMain.imgMaintenanceClick(Sender: TObject);
 begin
-  DockForm(fmGroupList);
+  DockForm(fmMaintenanceDrawer);
 end;
 
 procedure TfrmMain.imgInfoSourcesClick(Sender: TObject);
@@ -674,6 +646,11 @@ end;
 procedure TfrmMain.imgLoanClosureReasonsListClick(Sender: TObject);
 begin
   DockForm(fmLoanCloseReasonList);
+end;
+
+procedure TfrmMain.imgLoanListClick(Sender: TObject);
+begin
+  OpenLoanList(lftPending);
 end;
 
 procedure TfrmMain.imgLoanTypeClick(Sender: TObject);
@@ -718,6 +695,11 @@ end;
 procedure TfrmMain.imgSettingsClick(Sender: TObject);
 begin
   DockForm(fmSettings);
+end;
+
+procedure TfrmMain.imgWithdrawalsClick(Sender: TObject);
+begin
+  DockForm(fmWithdrawalList);
 end;
 
 procedure TfrmMain.acGenericNewExecute(Sender: TObject);

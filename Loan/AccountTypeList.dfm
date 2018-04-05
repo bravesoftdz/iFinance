@@ -41,10 +41,13 @@ inherited frmAccountTypeList: TfrmAccountTypeList
         end>
     end
   end
+  inherited pnlSearch: TRzPanel
+    ExplicitTop = 0
+  end
   inherited pnlDetail: TRzPanel
     object JvLabel1: TJvLabel [0]
       Left = 13
-      Top = 39
+      Top = 23
       Width = 33
       Height = 14
       Caption = 'Name'
@@ -52,7 +55,7 @@ inherited frmAccountTypeList: TfrmAccountTypeList
     end
     object JvLabel2: TJvLabel [1]
       Left = 13
-      Top = 63
+      Top = 50
       Width = 62
       Height = 14
       Caption = 'Description'
@@ -60,19 +63,17 @@ inherited frmAccountTypeList: TfrmAccountTypeList
     end
     inherited pnlAdd: TRzPanel
       TabOrder = 2
-    end
-    inherited pnlDetailHead: TRzPanel
-      TabOrder = 3
+      ExplicitTop = 429
     end
     object edTypeName: TRzDBEdit
       Left = 80
-      Top = 33
+      Top = 17
       Width = 184
       Height = 22
       DataSource = dmLoansAux.dscAcctTypes
       DataField = 'acct_type_name'
       CharCase = ecUpperCase
-      FrameColor = 8675134
+      FrameColor = 14272955
       FrameVisible = True
       FramingPreference = fpCustomFraming
       TabOnEnter = True
@@ -80,13 +81,13 @@ inherited frmAccountTypeList: TfrmAccountTypeList
     end
     object RzDBMemo1: TRzDBMemo
       Left = 80
-      Top = 57
+      Top = 44
       Width = 184
       Height = 46
       DataField = 'acct_type_desc'
       DataSource = dmLoansAux.dscAcctTypes
       TabOrder = 1
-      FrameColor = 8675134
+      FrameColor = 14272955
       FrameVisible = True
       FramingPreference = fpCustomFraming
       TabOnEnter = True

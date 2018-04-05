@@ -50,7 +50,7 @@ inherited frmMonthlyExpDetail: TfrmMonthlyExpDetail
           end
           object JvLabel2: TJvLabel
             Left = 19
-            Top = 47
+            Top = 50
             Width = 45
             Height = 14
             Caption = 'Monthly'
@@ -71,7 +71,7 @@ inherited frmMonthlyExpDetail: TfrmMonthlyExpDetail
             AllowNull = True
             FlatButtons = True
             DisabledColor = clWhite
-            FrameColor = 8675134
+            FrameColor = 14272955
             FrameHotColor = clBlack
             FrameVisible = True
             FramingPreference = fpCustomFraming
@@ -79,13 +79,13 @@ inherited frmMonthlyExpDetail: TfrmMonthlyExpDetail
           end
           object edMonthly: TRzDBNumericEdit
             Left = 81
-            Top = 41
+            Top = 44
             Width = 168
             Height = 22
             DataSource = dmLoan.dscMonExp
             DataField = 'monthly'
             Alignment = taLeftJustify
-            FrameColor = 8675134
+            FrameColor = 14272955
             FrameVisible = True
             FramingPreference = fpCustomFraming
             TabOnEnter = True

@@ -1,18 +1,18 @@
 inherited frmComakerDetail: TfrmComakerDetail
   Caption = 'frmComakerDetail'
-  ClientHeight = 393
-  ClientWidth = 685
+  ClientHeight = 428
+  ClientWidth = 694
   OnCreate = FormCreate
   OnShow = FormShow
-  ExplicitWidth = 685
-  ExplicitHeight = 393
+  ExplicitWidth = 694
+  ExplicitHeight = 428
   PixelsPerInch = 96
   TextHeight = 14
   inherited pnlTitle: TRzPanel
-    Width = 685
+    Width = 694
     ExplicitWidth = 685
     inherited imgClose: TImage
-      Left = 664
+      Left = 673
       ExplicitLeft = 653
     end
     inherited lblCaption: TRzLabel
@@ -22,18 +22,18 @@ inherited frmComakerDetail: TfrmComakerDetail
     end
   end
   inherited pnlMain: TRzPanel
-    Width = 685
-    Height = 372
+    Width = 694
+    Height = 407
     ExplicitWidth = 685
     ExplicitHeight = 372
     inherited pnlDetail: TRzPanel
-      Width = 669
-      Height = 326
+      Width = 678
+      Height = 361
       ExplicitWidth = 669
       ExplicitHeight = 326
       inherited pcDetail: TRzPageControl
-        Width = 667
-        Height = 324
+        Width = 676
+        Height = 359
         TabOrientation = toBottom
         ExplicitWidth = 667
         ExplicitHeight = 324
@@ -44,7 +44,7 @@ inherited frmComakerDetail: TfrmComakerDetail
           ExplicitHeight = 325
           object JvLabel1: TJvLabel
             Left = 35
-            Top = 40
+            Top = 42
             Width = 54
             Height = 14
             Caption = 'Lastname'
@@ -52,7 +52,7 @@ inherited frmComakerDetail: TfrmComakerDetail
           end
           object JvLabel2: TJvLabel
             Left = 35
-            Top = 64
+            Top = 69
             Width = 54
             Height = 14
             Caption = 'Firstname'
@@ -60,7 +60,7 @@ inherited frmComakerDetail: TfrmComakerDetail
           end
           object JvLabel3: TJvLabel
             Left = 35
-            Top = 88
+            Top = 96
             Width = 36
             Height = 14
             Caption = 'Middle'
@@ -68,7 +68,7 @@ inherited frmComakerDetail: TfrmComakerDetail
           end
           object JvLabel7: TJvLabel
             Left = 35
-            Top = 146
+            Top = 156
             Width = 52
             Height = 14
             Caption = 'Birthdate'
@@ -76,7 +76,7 @@ inherited frmComakerDetail: TfrmComakerDetail
           end
           object JvLabel12: TJvLabel
             Left = 35
-            Top = 170
+            Top = 183
             Width = 58
             Height = 14
             Caption = 'Civil status'
@@ -84,7 +84,7 @@ inherited frmComakerDetail: TfrmComakerDetail
           end
           object JvLabel8: TJvLabel
             Left = 223
-            Top = 170
+            Top = 183
             Width = 22
             Height = 14
             Caption = 'Sex'
@@ -92,7 +92,7 @@ inherited frmComakerDetail: TfrmComakerDetail
           end
           object JvLabel22: TJvLabel
             Left = 359
-            Top = 40
+            Top = 42
             Width = 68
             Height = 14
             Caption = 'Cell/Tel. no.'
@@ -100,7 +100,7 @@ inherited frmComakerDetail: TfrmComakerDetail
           end
           object JvLabel4: TJvLabel
             Left = 359
-            Top = 103
+            Top = 107
             Width = 37
             Height = 14
             Caption = 'Street'
@@ -108,7 +108,7 @@ inherited frmComakerDetail: TfrmComakerDetail
           end
           object JvLabel5: TJvLabel
             Left = 359
-            Top = 127
+            Top = 134
             Width = 51
             Height = 14
             Caption = 'Barangay'
@@ -116,7 +116,7 @@ inherited frmComakerDetail: TfrmComakerDetail
           end
           object JvLabel6: TJvLabel
             Left = 359
-            Top = 151
+            Top = 161
             Width = 70
             Height = 14
             Caption = 'City or town'
@@ -124,7 +124,7 @@ inherited frmComakerDetail: TfrmComakerDetail
           end
           object urlCopyAddress: TRzURLLabel
             Left = 359
-            Top = 175
+            Top = 188
             Width = 232
             Height = 14
             Caption = 'Copy present address to provincial address'
@@ -138,7 +138,7 @@ inherited frmComakerDetail: TfrmComakerDetail
           end
           object JvLabel9: TJvLabel
             Left = 359
-            Top = 226
+            Top = 241
             Width = 37
             Height = 14
             Caption = 'Street'
@@ -146,7 +146,7 @@ inherited frmComakerDetail: TfrmComakerDetail
           end
           object JvLabel10: TJvLabel
             Left = 359
-            Top = 250
+            Top = 268
             Width = 51
             Height = 14
             Caption = 'Barangay'
@@ -154,7 +154,7 @@ inherited frmComakerDetail: TfrmComakerDetail
           end
           object JvLabel11: TJvLabel
             Left = 359
-            Top = 274
+            Top = 295
             Width = 70
             Height = 14
             Caption = 'City or town'
@@ -162,7 +162,7 @@ inherited frmComakerDetail: TfrmComakerDetail
           end
           object JvLabel23: TJvLabel
             Left = 39
-            Top = 226
+            Top = 241
             Width = 52
             Height = 14
             Caption = 'Employer'
@@ -170,7 +170,7 @@ inherited frmComakerDetail: TfrmComakerDetail
           end
           object JvLabel24: TJvLabel
             Left = 39
-            Top = 250
+            Top = 268
             Width = 45
             Height = 14
             Caption = 'Address'
@@ -178,7 +178,7 @@ inherited frmComakerDetail: TfrmComakerDetail
           end
           object JvLabel28: TJvLabel
             Left = 39
-            Top = 291
+            Top = 322
             Width = 73
             Height = 14
             Caption = 'Service years'
@@ -186,13 +186,13 @@ inherited frmComakerDetail: TfrmComakerDetail
           end
           object edMiddlename: TRzDBEdit
             Left = 114
-            Top = 82
+            Top = 90
             Width = 207
             Height = 22
             DataSource = dmComaker.dscPersonalInfo
             DataField = 'middlename'
             CharCase = ecUpperCase
-            FrameColor = 8675134
+            FrameColor = 14272955
             FrameVisible = True
             FramingPreference = fpCustomFraming
             ReadOnlyColor = 14273211
@@ -201,13 +201,13 @@ inherited frmComakerDetail: TfrmComakerDetail
           end
           object edFirstname: TRzDBEdit
             Left = 114
-            Top = 58
+            Top = 63
             Width = 207
             Height = 22
             DataSource = dmComaker.dscPersonalInfo
             DataField = 'firstname'
             CharCase = ecUpperCase
-            FrameColor = 8675134
+            FrameColor = 14272955
             FrameVisible = True
             FramingPreference = fpCustomFraming
             ReadOnlyColor = 14273211
@@ -216,14 +216,14 @@ inherited frmComakerDetail: TfrmComakerDetail
           end
           object edLastname: TRzDBEdit
             Left = 114
-            Top = 34
+            Top = 36
             Width = 207
             Height = 22
             DataSource = dmComaker.dscPersonalInfo
             DataField = 'lastname'
             CharCase = ecUpperCase
             Ctl3D = True
-            FrameColor = 8675134
+            FrameColor = 14272955
             FrameVisible = True
             FramingPreference = fpCustomFraming
             ParentCtl3D = False
@@ -233,12 +233,12 @@ inherited frmComakerDetail: TfrmComakerDetail
           end
           object dteBirthdate: TRzDBDateTimeEdit
             Left = 114
-            Top = 140
+            Top = 150
             Width = 95
             Height = 22
             DataSource = dmComaker.dscPersonalInfo
             DataField = 'birth_date'
-            FrameColor = 8675134
+            FrameColor = 14272955
             FrameVisible = True
             FramingPreference = fpCustomFraming
             TabOnEnter = True
@@ -249,7 +249,7 @@ inherited frmComakerDetail: TfrmComakerDetail
           end
           object RzDBLookupComboBox1: TRzDBLookupComboBox
             Left = 114
-            Top = 164
+            Top = 177
             Width = 95
             Height = 22
             DataField = 'civil_status'
@@ -260,7 +260,7 @@ inherited frmComakerDetail: TfrmComakerDetail
             TabOrder = 4
             AllowNull = True
             FlatButtons = True
-            FrameColor = 8675134
+            FrameColor = 14272955
             FrameHotColor = clBlack
             FrameVisible = True
             FramingPreference = fpCustomFraming
@@ -268,7 +268,7 @@ inherited frmComakerDetail: TfrmComakerDetail
           end
           object RzDBLookupComboBox2: TRzDBLookupComboBox
             Left = 255
-            Top = 164
+            Top = 177
             Width = 66
             Height = 22
             DataField = 'gender'
@@ -278,20 +278,20 @@ inherited frmComakerDetail: TfrmComakerDetail
             ListSource = dmComaker.dscGender
             TabOrder = 5
             FlatButtons = True
-            FrameColor = 8675134
+            FrameColor = 14272955
             FrameVisible = True
             FramingPreference = fpCustomFraming
             TabOnEnter = True
           end
           object RzDBEdit11: TRzDBEdit
             Left = 438
-            Top = 34
+            Top = 36
             Width = 100
             Height = 22
             DataSource = dmComaker.dscContactInfo
             DataField = 'mobile_no'
             Ctl3D = True
-            FrameColor = 8675134
+            FrameColor = 14272955
             FrameVisible = True
             FramingPreference = fpCustomFraming
             ParentCtl3D = False
@@ -300,13 +300,13 @@ inherited frmComakerDetail: TfrmComakerDetail
           end
           object RzDBEdit10: TRzDBEdit
             Left = 541
-            Top = 34
+            Top = 36
             Width = 104
             Height = 22
             DataSource = dmComaker.dscContactInfo
             DataField = 'home_phone'
             Ctl3D = True
-            FrameColor = 8675134
+            FrameColor = 14272955
             FrameVisible = True
             FramingPreference = fpCustomFraming
             ParentCtl3D = False
@@ -315,13 +315,13 @@ inherited frmComakerDetail: TfrmComakerDetail
           end
           object RzDBEdit4: TRzDBEdit
             Left = 438
-            Top = 97
+            Top = 101
             Width = 207
             Height = 22
             DataSource = dmComaker.dscAddressInfo
             DataField = 'st'
             Ctl3D = True
-            FrameColor = 8675134
+            FrameColor = 14272955
             FrameVisible = True
             FramingPreference = fpCustomFraming
             ParentCtl3D = False
@@ -330,13 +330,13 @@ inherited frmComakerDetail: TfrmComakerDetail
           end
           object RzDBEdit5: TRzDBEdit
             Left = 438
-            Top = 121
+            Top = 128
             Width = 207
             Height = 22
             DataSource = dmComaker.dscAddressInfo
             DataField = 'brgy'
             Ctl3D = True
-            FrameColor = 8675134
+            FrameColor = 14272955
             FrameVisible = True
             FramingPreference = fpCustomFraming
             ParentCtl3D = False
@@ -345,7 +345,7 @@ inherited frmComakerDetail: TfrmComakerDetail
           end
           object RzDBLookupComboBox3: TRzDBLookupComboBox
             Left = 438
-            Top = 145
+            Top = 155
             Width = 207
             Height = 22
             DataField = 'post_code'
@@ -357,7 +357,7 @@ inherited frmComakerDetail: TfrmComakerDetail
             AllowNull = True
             FlatButtonColor = 8675134
             FlatButtons = True
-            FrameColor = 8675134
+            FrameColor = 14272955
             FrameHotColor = clBlack
             FrameVisible = True
             FramingPreference = fpCustomFraming
@@ -365,7 +365,7 @@ inherited frmComakerDetail: TfrmComakerDetail
           end
           object RzDBLookupComboBox4: TRzDBLookupComboBox
             Left = 438
-            Top = 268
+            Top = 289
             Width = 207
             Height = 22
             DataField = 'post_code'
@@ -376,7 +376,7 @@ inherited frmComakerDetail: TfrmComakerDetail
             TabOrder = 16
             AllowNull = True
             FlatButtons = True
-            FrameColor = 8675134
+            FrameColor = 14272955
             FrameHotColor = 8675134
             FrameVisible = True
             FramingPreference = fpCustomFraming
@@ -384,13 +384,13 @@ inherited frmComakerDetail: TfrmComakerDetail
           end
           object RzDBEdit7: TRzDBEdit
             Left = 438
-            Top = 244
+            Top = 262
             Width = 207
             Height = 22
             DataSource = dmComaker.dscAddressInfo2
             DataField = 'brgy'
             Ctl3D = True
-            FrameColor = 8675134
+            FrameColor = 14272955
             FrameVisible = True
             FramingPreference = fpCustomFraming
             ParentCtl3D = False
@@ -399,13 +399,13 @@ inherited frmComakerDetail: TfrmComakerDetail
           end
           object RzDBEdit6: TRzDBEdit
             Left = 438
-            Top = 220
+            Top = 235
             Width = 207
             Height = 22
             DataSource = dmComaker.dscAddressInfo2
             DataField = 'st'
             Ctl3D = True
-            FrameColor = 8675134
+            FrameColor = 14272955
             FrameVisible = True
             FramingPreference = fpCustomFraming
             ParentCtl3D = False
@@ -415,12 +415,12 @@ inherited frmComakerDetail: TfrmComakerDetail
           object bteEmployer: TRzButtonEdit
             Tag = 1
             Left = 114
-            Top = 220
+            Top = 235
             Width = 207
             Height = 22
             Text = ''
             Color = clWhite
-            FrameColor = 8675134
+            FrameColor = 14272955
             FrameVisible = True
             FramingPreference = fpCustomFraming
             ParentShowHint = False
@@ -445,13 +445,13 @@ inherited frmComakerDetail: TfrmComakerDetail
           object mmEmployerAddress: TRzMemo
             Tag = 1
             Left = 114
-            Top = 244
+            Top = 262
             Width = 207
-            Height = 39
+            Height = 49
             Color = clWhite
             ReadOnly = True
             TabOrder = 7
-            FrameColor = 8675134
+            FrameColor = 14272955
             FrameVisible = True
             FramingPreference = fpCustomFraming
             ReadOnlyColor = clWhite
@@ -459,13 +459,13 @@ inherited frmComakerDetail: TfrmComakerDetail
           end
           object RzDBEdit12: TRzDBEdit
             Left = 114
-            Top = 285
+            Top = 316
             Width = 59
             Height = 22
             DataSource = dmComaker.dscEmplInfo
             DataField = 'serv_len'
             Ctl3D = True
-            FrameColor = 8675134
+            FrameColor = 14272955
             FrameVisible = True
             FramingPreference = fpCustomFraming
             ParentCtl3D = False
@@ -474,7 +474,7 @@ inherited frmComakerDetail: TfrmComakerDetail
           end
           object RzGroupBox1: TRzGroupBox
             Left = 19
-            Top = 118
+            Top = 126
             Width = 302
             Height = 22
             BorderColor = 6572079
@@ -486,8 +486,8 @@ inherited frmComakerDetail: TfrmComakerDetail
             CaptionFont.Height = -12
             CaptionFont.Name = 'Tahoma'
             CaptionFont.Style = [fsBold]
-            Color = 14273211
-            FlatColor = 6572079
+            Color = 15327448
+            FlatColor = 12493963
             Font.Charset = DEFAULT_CHARSET
             Font.Color = 6572079
             Font.Height = -12
@@ -500,7 +500,7 @@ inherited frmComakerDetail: TfrmComakerDetail
           end
           object RzGroupBox3: TRzGroupBox
             Left = 19
-            Top = 198
+            Top = 211
             Width = 302
             Height = 22
             BorderColor = 6572079
@@ -512,8 +512,8 @@ inherited frmComakerDetail: TfrmComakerDetail
             CaptionFont.Height = -12
             CaptionFont.Name = 'Tahoma'
             CaptionFont.Style = [fsBold]
-            Color = 14273211
-            FlatColor = 6572079
+            Color = 15327448
+            FlatColor = 12493963
             Font.Charset = DEFAULT_CHARSET
             Font.Color = 6572079
             Font.Height = -12
@@ -538,8 +538,8 @@ inherited frmComakerDetail: TfrmComakerDetail
             CaptionFont.Height = -12
             CaptionFont.Name = 'Tahoma'
             CaptionFont.Style = [fsBold]
-            Color = 14273211
-            FlatColor = 6572079
+            Color = 15327448
+            FlatColor = 12493963
             Font.Charset = DEFAULT_CHARSET
             Font.Color = 6572079
             Font.Height = -12
@@ -578,7 +578,7 @@ inherited frmComakerDetail: TfrmComakerDetail
           end
           object RzGroupBox6: TRzGroupBox
             Left = 343
-            Top = 75
+            Top = 77
             Width = 302
             Height = 22
             BorderColor = 6572079
@@ -590,8 +590,8 @@ inherited frmComakerDetail: TfrmComakerDetail
             CaptionFont.Height = -12
             CaptionFont.Name = 'Tahoma'
             CaptionFont.Style = [fsBold]
-            Color = 14273211
-            FlatColor = 6572079
+            Color = 15327448
+            FlatColor = 12493963
             Font.Charset = DEFAULT_CHARSET
             Font.Color = 6572079
             Font.Height = -12
@@ -630,7 +630,7 @@ inherited frmComakerDetail: TfrmComakerDetail
           end
           object RzGroupBox8: TRzGroupBox
             Left = 343
-            Top = 198
+            Top = 211
             Width = 302
             Height = 22
             BorderColor = 6572079
@@ -642,8 +642,8 @@ inherited frmComakerDetail: TfrmComakerDetail
             CaptionFont.Height = -12
             CaptionFont.Name = 'Tahoma'
             CaptionFont.Style = [fsBold]
-            Color = 14273211
-            FlatColor = 6572079
+            Color = 15327448
+            FlatColor = 12493963
             Font.Charset = DEFAULT_CHARSET
             Font.Color = 6572079
             Font.Height = -12
@@ -684,14 +684,14 @@ inherited frmComakerDetail: TfrmComakerDetail
       end
     end
     inherited pnlCancel: TRzPanel
-      Left = 627
-      Top = 341
+      Left = 636
+      Top = 376
       ExplicitLeft = 627
       ExplicitTop = 341
     end
     inherited pnlSave: TRzPanel
-      Left = 571
-      Top = 341
+      Left = 580
+      Top = 376
       ExplicitLeft = 571
       ExplicitTop = 341
     end
@@ -709,8 +709,8 @@ inherited frmComakerDetail: TfrmComakerDetail
       CaptionFont.Height = -12
       CaptionFont.Name = 'Tahoma'
       CaptionFont.Style = [fsBold]
-      Color = 14273211
-      FlatColor = 6572079
+      Color = 15327448
+      FlatColor = 12493963
       Font.Charset = DEFAULT_CHARSET
       Font.Color = 6572079
       Font.Height = -12

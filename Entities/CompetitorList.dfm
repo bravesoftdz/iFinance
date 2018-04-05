@@ -29,6 +29,7 @@ inherited frmCompetitorList: TfrmCompetitorList
     end
   end
   inherited pnlSearch: TRzPanel
+    ExplicitTop = 0
     inherited Label1: TLabel
       Caption = 'Branch'
     end
@@ -47,7 +48,7 @@ inherited frmCompetitorList: TfrmCompetitorList
       AllowEdit = False
       Anchors = [akLeft, akTop, akRight]
       Ctl3D = False
-      FrameColor = 6572079
+      FrameColor = 14272955
       FrameVisible = True
       FramingPreference = fpCustomFraming
       ParentCtl3D = False
@@ -60,24 +61,27 @@ inherited frmCompetitorList: TfrmCompetitorList
   inherited pnlDetail: TRzPanel
     object JvLabel1: TJvLabel [0]
       Left = 13
-      Top = 39
+      Top = 23
       Width = 33
       Height = 14
       Caption = 'Name'
       Transparent = True
     end
+    inherited pnlAdd: TRzPanel
+      ExplicitTop = 429
+    end
     object edCompName: TRzDBEdit
       Left = 58
-      Top = 33
+      Top = 17
       Width = 207
       Height = 22
       DataSource = dmAux.dscCompetitors
       DataField = 'comp_name'
       CharCase = ecUpperCase
-      FrameColor = 8675134
+      FrameColor = 14272955
       FrameVisible = True
       FramingPreference = fpCustomFraming
-      TabOrder = 2
+      TabOrder = 1
     end
   end
 end

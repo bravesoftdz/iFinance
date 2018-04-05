@@ -24,6 +24,7 @@ inherited frmLoanReleaseDetail: TfrmLoanReleaseDetail
   inherited pnlMain: TRzPanel
     Width = 541
     Height = 372
+    ExplicitTop = 23
     ExplicitWidth = 541
     ExplicitHeight = 372
     inherited pnlDetail: TRzPanel
@@ -259,19 +260,20 @@ inherited frmLoanReleaseDetail: TfrmLoanReleaseDetail
             ActivePage = tsRecipients
             ActivePageDefault = tsRecipients
             Anchors = [akLeft, akTop, akRight, akBottom]
-            ButtonColor = 14273211
-            FlatColor = 8675134
+            ButtonColor = 15327448
+            FlatColor = 14272955
             ShowShadow = False
             TabOverlap = 0
-            TabColors.Shadow = 14273211
-            TabColors.Unselected = 14273211
+            TabColors.HighlightBar = 15327448
+            TabColors.Shadow = 15327448
+            TabColors.Unselected = 15327448
             TabIndex = 0
             TabOrder = 0
             TabStyle = tsRoundCorners
             OnChange = pcAssessmentChange
             FixedDimension = 20
             object tsRecipients: TRzTabSheet
-              Color = 14273211
+              Color = 15327448
               Caption = 'Recipients'
               DesignSize = (
                 486
@@ -282,8 +284,7 @@ inherited frmLoanReleaseDetail: TfrmLoanReleaseDetail
                 Width = 474
                 Height = 108
                 Anchors = [akLeft, akTop, akRight, akBottom]
-                Ctl3D = True
-                DrawingStyle = gdsGradient
+                Ctl3D = False
                 FixedColor = 14273211
                 FixedCols = 0
                 RowCount = 1
@@ -294,7 +295,7 @@ inherited frmLoanReleaseDetail: TfrmLoanReleaseDetail
                 ParentCtl3D = False
                 TabOrder = 0
                 OnDblClick = grReleaseRecipientDblClick
-                FrameColor = 8675134
+                FrameColor = 14272955
                 FrameVisible = True
                 FramingPreference = fpCustomFraming
                 FixedLineColor = 14273211
@@ -309,7 +310,7 @@ inherited frmLoanReleaseDetail: TfrmLoanReleaseDetail
               end
             end
             object tsCharges: TRzTabSheet
-              Color = 14273211
+              Color = 15327448
               Caption = 'Charges'
               DesignSize = (
                 486
@@ -321,8 +322,7 @@ inherited frmLoanReleaseDetail: TfrmLoanReleaseDetail
                 Height = 108
                 Anchors = [akLeft, akTop, akRight, akBottom]
                 ColCount = 2
-                Ctl3D = True
-                DrawingStyle = gdsGradient
+                Ctl3D = False
                 FixedColor = 14273211
                 FixedCols = 0
                 RowCount = 1
@@ -332,7 +332,7 @@ inherited frmLoanReleaseDetail: TfrmLoanReleaseDetail
                 Options = [goRowSelect]
                 ParentCtl3D = False
                 TabOrder = 0
-                FrameColor = 8675134
+                FrameColor = 14272955
                 FrameVisible = True
                 FramingPreference = fpCustomFraming
                 FixedLineColor = 14273211
@@ -347,18 +347,18 @@ inherited frmLoanReleaseDetail: TfrmLoanReleaseDetail
           object RzPanel1: TRzPanel
             Left = 75
             Top = 285
-            Width = 50
+            Width = 60
             Height = 22
             Anchors = [akLeft, akBottom]
             BorderOuter = fsNone
-            BorderColor = 6572079
+            BorderColor = 14272955
             BorderWidth = 1
-            Color = 14273211
+            Color = 15327448
             TabOrder = 1
             object btnRemove: TRzShapeButton
               Left = 0
               Top = 0
-              Width = 50
+              Width = 60
               Height = 22
               BorderStyle = bsNone
               Caption = 'Remove'
@@ -372,9 +372,9 @@ inherited frmLoanReleaseDetail: TfrmLoanReleaseDetail
             Height = 22
             Anchors = [akLeft, akBottom]
             BorderOuter = fsNone
-            BorderColor = 6572079
+            BorderColor = 14272955
             BorderWidth = 1
-            Color = 14273211
+            Color = 15327448
             TabOrder = 2
             object btnAdd: TRzShapeButton
               Left = 0
@@ -391,7 +391,7 @@ inherited frmLoanReleaseDetail: TfrmLoanReleaseDetail
             Top = 17
             Width = 107
             Height = 22
-            FrameColor = 8675134
+            FrameColor = 14272955
             FrameVisible = True
             FramingPreference = fpCustomFraming
             TabOrder = 3
@@ -403,9 +403,9 @@ inherited frmLoanReleaseDetail: TfrmLoanReleaseDetail
             Top = 90
             Width = 27
             Height = 22
-            DisabledColor = 14273211
+            DisabledColor = 15327448
             Enabled = False
-            FrameColor = 8675134
+            FrameColor = 14272955
             FrameVisible = True
             FramingPreference = fpCustomFraming
             TabOrder = 5
@@ -417,6 +417,11 @@ inherited frmLoanReleaseDetail: TfrmLoanReleaseDetail
             Top = 41
             Width = 107
             Height = 22
+            Ctl3D = False
+            FrameColor = 14272955
+            FrameVisible = True
+            FramingPreference = fpCustomFraming
+            ParentCtl3D = False
             TabOrder = 4
             OnChange = cmbPromissoryNotesChange
             OnClick = cmbPromissoryNotesChange

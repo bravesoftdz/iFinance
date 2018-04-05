@@ -54,10 +54,13 @@ inherited frmLoanTypeList: TfrmLoanTypeList
         end>
     end
   end
+  inherited pnlSearch: TRzPanel
+    ExplicitTop = 0
+  end
   inherited pnlDetail: TRzPanel
     object JvLabel1: TJvLabel [0]
       Left = 13
-      Top = 63
+      Top = 50
       Width = 48
       Height = 14
       Caption = 'Account'
@@ -65,7 +68,7 @@ inherited frmLoanTypeList: TfrmLoanTypeList
     end
     object JvLabel2: TJvLabel [1]
       Left = 13
-      Top = 87
+      Top = 77
       Width = 32
       Height = 14
       Caption = 'Desc.'
@@ -73,7 +76,7 @@ inherited frmLoanTypeList: TfrmLoanTypeList
     end
     object JvLabel3: TJvLabel [2]
       Left = 13
-      Top = 39
+      Top = 23
       Width = 33
       Height = 14
       Caption = 'Name'
@@ -81,20 +84,17 @@ inherited frmLoanTypeList: TfrmLoanTypeList
     end
     inherited pnlAdd: TRzPanel
       TabOrder = 3
-    end
-    inherited pnlDetailHead: TRzPanel
-      TabOrder = 4
-      ExplicitWidth = 275
+      ExplicitTop = 429
     end
     object edTypeName: TRzDBEdit
       Left = 80
-      Top = 33
+      Top = 17
       Width = 184
       Height = 22
       DataSource = dmLoansAux.dscLoanTypes
       DataField = 'loan_type_name'
       CharCase = ecUpperCase
-      FrameColor = 8675134
+      FrameColor = 14272955
       FrameVisible = True
       FramingPreference = fpCustomFraming
       TabOnEnter = True
@@ -102,13 +102,13 @@ inherited frmLoanTypeList: TfrmLoanTypeList
     end
     object RzDBMemo1: TRzDBMemo
       Left = 80
-      Top = 81
+      Top = 71
       Width = 184
       Height = 46
       DataField = 'loan_type_desc'
       DataSource = dmLoansAux.dscLoanTypes
       TabOrder = 2
-      FrameColor = 8675134
+      FrameColor = 14272955
       FrameVisible = True
       FramingPreference = fpCustomFraming
       TabOnEnter = True
@@ -116,7 +116,7 @@ inherited frmLoanTypeList: TfrmLoanTypeList
     object dbluAccountType: TRzDBLookupComboBox
       Tag = 1
       Left = 80
-      Top = 57
+      Top = 44
       Width = 184
       Height = 22
       DataField = 'acct_type'
@@ -127,7 +127,7 @@ inherited frmLoanTypeList: TfrmLoanTypeList
       TabOrder = 1
       FlatButtons = True
       DisabledColor = clWhite
-      FrameColor = 8675134
+      FrameColor = 14272955
       FrameHotColor = clBlack
       FrameVisible = True
       FramingPreference = fpCustomFraming

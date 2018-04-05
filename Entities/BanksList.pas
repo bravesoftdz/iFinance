@@ -19,8 +19,6 @@ type
     pnlDetail: TRzPanel;
     pnlAdd: TRzPanel;
     sbtnNew: TRzShapeButton;
-    pnlDetailHead: TRzPanel;
-    lblDetailHeadCaption: TRzLabel;
     pnlBranches: TRzPanel;
     grBranches: TRzDBGrid;
     procedure FormShow(Sender: TObject);

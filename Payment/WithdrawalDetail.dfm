@@ -1,9 +1,9 @@
 inherited frmWithdrawalDetail: TfrmWithdrawalDetail
   Caption = 'frmWithdrawalDetail'
-  ClientHeight = 224
+  ClientHeight = 243
   ClientWidth = 387
   ExplicitWidth = 387
-  ExplicitHeight = 224
+  ExplicitHeight = 243
   PixelsPerInch = 96
   TextHeight = 14
   inherited pnlTitle: TRzPanel
@@ -21,17 +21,17 @@ inherited frmWithdrawalDetail: TfrmWithdrawalDetail
   end
   inherited pnlMain: TRzPanel
     Width = 387
-    Height = 203
+    Height = 222
     ExplicitWidth = 387
     ExplicitHeight = 203
     inherited pnlDetail: TRzPanel
       Width = 370
-      Height = 154
+      Height = 173
       ExplicitWidth = 370
       ExplicitHeight = 154
       inherited pcDetail: TRzPageControl
         Width = 368
-        Height = 152
+        Height = 171
         ExplicitWidth = 368
         ExplicitHeight = 152
         FixedDimension = 20
@@ -50,7 +50,7 @@ inherited frmWithdrawalDetail: TfrmWithdrawalDetail
           object c: TJvLabel
             Tag = -1
             Left = 19
-            Top = 45
+            Top = 48
             Width = 32
             Height = 14
             Caption = 'Client'
@@ -65,7 +65,7 @@ inherited frmWithdrawalDetail: TfrmWithdrawalDetail
           object JvLabel1: TJvLabel
             Tag = -1
             Left = 19
-            Top = 69
+            Top = 75
             Width = 70
             Height = 14
             Caption = 'Account no.'
@@ -80,7 +80,7 @@ inherited frmWithdrawalDetail: TfrmWithdrawalDetail
           object JvLabel5: TJvLabel
             Tag = -1
             Left = 19
-            Top = 119
+            Top = 131
             Width = 46
             Height = 14
             Caption = 'Amount'
@@ -89,7 +89,7 @@ inherited frmWithdrawalDetail: TfrmWithdrawalDetail
           object JvLabel2: TJvLabel
             Tag = -1
             Left = 19
-            Top = 93
+            Top = 102
             Width = 48
             Height = 14
             Caption = 'Card no.'
@@ -110,7 +110,7 @@ inherited frmWithdrawalDetail: TfrmWithdrawalDetail
             DataSource = dmPayment.dscWithdrawal
             DataField = 'wd_date'
             DisabledColor = clWhite
-            FrameColor = 8675134
+            FrameColor = 14272955
             FrameVisible = True
             FramingPreference = fpCustomFraming
             TabOnEnter = True
@@ -122,14 +122,14 @@ inherited frmWithdrawalDetail: TfrmWithdrawalDetail
           object edWithdrawn: TRzDBNumericEdit
             Tag = 1
             Left = 114
-            Top = 111
+            Top = 123
             Width = 105
             Height = 22
             DataSource = dmPayment.dscWithdrawal
             DataField = 'wd_amt'
             Alignment = taLeftJustify
             DisabledColor = clWhite
-            FrameColor = 8675134
+            FrameColor = 14272955
             FrameVisible = True
             FramingPreference = fpCustomFraming
             TabOnEnter = True
@@ -138,29 +138,29 @@ inherited frmWithdrawalDetail: TfrmWithdrawalDetail
           end
           object edCardNo: TRzEdit
             Left = 114
-            Top = 87
+            Top = 96
             Width = 231
             Height = 22
             Text = ''
             CharCase = ecUpperCase
-            Color = 14273211
+            Color = 15327448
             DisabledColor = 14273211
-            FrameColor = 8675134
+            FrameColor = 14272955
             FrameVisible = True
             FramingPreference = fpCustomFraming
             ReadOnly = True
-            ReadOnlyColor = 14273211
+            ReadOnlyColor = 15327448
             TabOrder = 3
           end
           object bteClient: TRzButtonEdit
             Left = 114
-            Top = 39
+            Top = 42
             Width = 231
             Height = 22
             Text = ''
             Color = clWhite
             DisabledColor = clWhite
-            FrameColor = 8675134
+            FrameColor = 14272955
             FrameVisible = True
             FramingPreference = fpCustomFraming
             ParentShowHint = False
@@ -182,7 +182,7 @@ inherited frmWithdrawalDetail: TfrmWithdrawalDetail
           object dbluAccount: TRzDBLookupComboBox
             Tag = 1
             Left = 114
-            Top = 63
+            Top = 69
             Width = 231
             Height = 22
             DataField = 'acct_no'
@@ -194,7 +194,7 @@ inherited frmWithdrawalDetail: TfrmWithdrawalDetail
             TabOrder = 2
             FlatButtons = True
             DisabledColor = clWhite
-            FrameColor = 8675134
+            FrameColor = 14272955
             FrameHotColor = clBlack
             FrameVisible = True
             FramingPreference = fpCustomFraming
@@ -205,13 +205,13 @@ inherited frmWithdrawalDetail: TfrmWithdrawalDetail
     end
     inherited pnlCancel: TRzPanel
       Left = 328
-      Top = 171
+      Top = 190
       ExplicitLeft = 328
       ExplicitTop = 171
     end
     inherited pnlSave: TRzPanel
       Left = 272
-      Top = 171
+      Top = 190
       ExplicitLeft = 272
       ExplicitTop = 171
     end

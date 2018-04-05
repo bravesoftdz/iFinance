@@ -3,12 +3,15 @@ inherited frmLoanClassChargeList: TfrmLoanClassChargeList
   ClientWidth = 689
   OnCreate = FormCreate
   ExplicitWidth = 689
+  ExplicitHeight = 281
   PixelsPerInch = 96
   TextHeight = 14
   inherited pnlTitle: TRzPanel
     Width = 689
+    ExplicitWidth = 689
     inherited imgClose: TImage
       Left = 668
+      ExplicitLeft = 668
     end
     inherited lblCaption: TRzLabel
       Width = 126
@@ -18,28 +21,29 @@ inherited frmLoanClassChargeList: TfrmLoanClassChargeList
   end
   inherited pnlMain: TRzPanel
     Width = 689
+    ExplicitWidth = 689
     object pnlCharges: TRzPanel
       Left = 8
-      Top = 6
+      Top = 8
       Width = 673
-      Height = 215
+      Height = 212
       Anchors = [akLeft, akTop, akRight, akBottom]
       BorderOuter = fsNone
-      BorderColor = 8675134
+      BorderColor = 14272955
       BorderWidth = 1
+      Ctl3D = False
       ParentColor = True
+      ParentCtl3D = False
       TabOrder = 0
-      ExplicitWidth = 749
       object grCharges: TRzDBGrid
         Left = 1
         Top = 1
         Width = 671
-        Height = 213
+        Height = 210
         Align = alClient
         BorderStyle = bsNone
         DataSource = dmLoansAux.dscClassCharges
-        DrawingStyle = gdsGradient
-        FixedColor = 12955288
+        FixedColor = clWhite
         GradientEndColor = 12955288
         GradientStartColor = 12955288
         Options = [dgTitles, dgIndicator, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
@@ -50,8 +54,10 @@ inherited frmLoanClassChargeList: TfrmLoanClassChargeList
         TitleFont.Name = 'Tahoma'
         TitleFont.Style = []
         FrameColor = 14273211
+        FrameSides = []
         FrameStyle = fsNone
         FramingPreference = fpCustomFraming
+        FixedLineColor = clWhite
         LineColor = 14273211
         AltRowShadingColor = 15854564
         Columns = <
@@ -184,9 +190,9 @@ inherited frmLoanClassChargeList: TfrmLoanClassChargeList
       Height = 22
       Anchors = [akLeft, akBottom]
       BorderOuter = fsNone
-      BorderColor = 6572079
+      BorderColor = 14272955
       BorderWidth = 1
-      Color = 14273211
+      Color = 15327448
       TabOrder = 1
       object btnAddCharge: TRzShapeButton
         Left = 0
@@ -204,18 +210,18 @@ inherited frmLoanClassChargeList: TfrmLoanClassChargeList
     object RzPanel2: TRzPanel
       Left = 64
       Top = 229
-      Width = 50
+      Width = 60
       Height = 22
       Anchors = [akLeft, akBottom]
       BorderOuter = fsNone
-      BorderColor = 6572079
+      BorderColor = 14272955
       BorderWidth = 1
-      Color = 14273211
+      Color = 15327448
       TabOrder = 2
       object btnRemoveCharge: TRzShapeButton
         Left = 0
         Top = 0
-        Width = 50
+        Width = 60
         Height = 22
         Hint = 'Remove selected charge'
         BorderStyle = bsNone

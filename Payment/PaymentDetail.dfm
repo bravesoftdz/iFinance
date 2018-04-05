@@ -476,14 +476,14 @@ inherited frmPaymentDetail: TfrmPaymentDetail
           object lblRemainingAmount: TJvLabel
             Left = 19
             Top = 229
-            Width = 147
+            Width = 129
             Height = 14
             Caption = 'Remaining amount: xxx'
             Font.Charset = DEFAULT_CHARSET
-            Font.Color = clRed
+            Font.Color = clMaroon
             Font.Height = -12
             Font.Name = 'Tahoma'
-            Font.Style = [fsBold]
+            Font.Style = []
             ParentFont = False
             Transparent = True
             Visible = False

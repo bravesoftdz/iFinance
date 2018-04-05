@@ -7,7 +7,8 @@ type TForms = (fmNone, fmClientMain, fmClientList, fmGroupList, fmEmployerList,
                 fmLoanList, fmCompetitorList, fmPurposeList,fmLoanTypeList,
                 fmAcctTypeList, fmLoanCancelReasonList, fmLoanRejectReasonList,
                 fmSettings, fmPaymentMain, fmPaymentList, fmWithdrawalList,
-                fmChargeTypeList,fmInfoSourceList,fmLoanCloseReasonList);
+                fmChargeTypeList,fmInfoSourceList,fmLoanCloseReasonList,
+                fmMaintenanceDrawer);
 
 {
 

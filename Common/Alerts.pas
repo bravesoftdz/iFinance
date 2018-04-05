@@ -20,9 +20,6 @@ type
     { Public declarations }
   end;
 
-var
-  frmAlerts: TfrmAlerts;
-
 implementation
 
 uses

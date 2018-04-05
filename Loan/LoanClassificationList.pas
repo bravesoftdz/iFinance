@@ -36,8 +36,6 @@ type
     pnlDetail: TRzPanel;
     pnlAdd: TRzPanel;
     sbtnNew: TRzShapeButton;
-    pnlDetailHead: TRzPanel;
-    lblDetailHeadCaption: TRzLabel;
     JvLabel14: TJvLabel;
     RzDBEdit2: TRzDBEdit;
     Label1: TLabel;

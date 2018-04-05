@@ -28,27 +28,33 @@ inherited frmPurposeList: TfrmPurposeList
         end>
     end
   end
+  inherited pnlSearch: TRzPanel
+    ExplicitTop = 0
+  end
   inherited pnlDetail: TRzPanel
     object JvLabel1: TJvLabel [0]
       Left = 13
-      Top = 39
+      Top = 23
       Width = 46
       Height = 14
       Caption = 'Purpose'
       Transparent = True
     end
+    inherited pnlAdd: TRzPanel
+      ExplicitTop = 429
+    end
     object edPurpose: TRzDBEdit
-      Left = 82
-      Top = 33
-      Width = 182
+      Left = 65
+      Top = 17
+      Width = 199
       Height = 22
       DataSource = dmAux.dscPurpose
       DataField = 'purpose'
       DisabledColor = clWhite
-      FrameColor = 8675134
+      FrameColor = 14272955
       FrameVisible = True
       FramingPreference = fpCustomFraming
-      TabOrder = 2
+      TabOrder = 1
     end
   end
 end

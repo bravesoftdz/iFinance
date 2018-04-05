@@ -1,11 +1,11 @@
 inherited frmFinInfoDetail: TfrmFinInfoDetail
   Caption = 'frmFinInfoDetail'
-  ClientHeight = 183
+  ClientHeight = 187
   ClientWidth = 298
   OnCreate = FormCreate
   OnShow = FormShow
   ExplicitWidth = 298
-  ExplicitHeight = 183
+  ExplicitHeight = 187
   PixelsPerInch = 96
   TextHeight = 14
   inherited pnlTitle: TRzPanel
@@ -23,17 +23,17 @@ inherited frmFinInfoDetail: TfrmFinInfoDetail
   end
   inherited pnlMain: TRzPanel
     Width = 298
-    Height = 162
+    Height = 166
     ExplicitWidth = 298
     ExplicitHeight = 162
     inherited pnlDetail: TRzPanel
       Width = 281
-      Height = 113
+      Height = 117
       ExplicitWidth = 281
       ExplicitHeight = 113
       inherited pcDetail: TRzPageControl
         Width = 279
-        Height = 111
+        Height = 115
         Anchors = [akLeft, akTop]
         ExplicitWidth = 279
         ExplicitHeight = 111
@@ -51,7 +51,7 @@ inherited frmFinInfoDetail: TfrmFinInfoDetail
           end
           object JvLabel2: TJvLabel
             Left = 19
-            Top = 47
+            Top = 50
             Width = 45
             Height = 14
             Caption = 'Monthly'
@@ -59,7 +59,7 @@ inherited frmFinInfoDetail: TfrmFinInfoDetail
           end
           object JvLabel3: TJvLabel
             Left = 19
-            Top = 71
+            Top = 77
             Width = 43
             Height = 14
             Caption = 'Balance'
@@ -80,7 +80,7 @@ inherited frmFinInfoDetail: TfrmFinInfoDetail
             AllowNull = True
             FlatButtons = True
             DisabledColor = clWhite
-            FrameColor = 8675134
+            FrameColor = 14272955
             FrameHotColor = clBlack
             FrameVisible = True
             FramingPreference = fpCustomFraming
@@ -88,13 +88,13 @@ inherited frmFinInfoDetail: TfrmFinInfoDetail
           end
           object edMonthly: TRzDBNumericEdit
             Left = 81
-            Top = 41
+            Top = 44
             Width = 168
             Height = 22
             DataSource = dmLoan.dscFinInfo
             DataField = 'mon_due'
             Alignment = taLeftJustify
-            FrameColor = 8675134
+            FrameColor = 14272955
             FrameVisible = True
             FramingPreference = fpCustomFraming
             TabOnEnter = True
@@ -105,13 +105,13 @@ inherited frmFinInfoDetail: TfrmFinInfoDetail
           end
           object edBalance: TRzDBNumericEdit
             Left = 81
-            Top = 65
+            Top = 71
             Width = 168
             Height = 22
             DataSource = dmLoan.dscFinInfo
             DataField = 'loan_bal'
             Alignment = taLeftJustify
-            FrameColor = 8675134
+            FrameColor = 14272955
             FrameVisible = True
             FramingPreference = fpCustomFraming
             TabOnEnter = True
@@ -125,13 +125,13 @@ inherited frmFinInfoDetail: TfrmFinInfoDetail
     end
     inherited pnlCancel: TRzPanel
       Left = 239
-      Top = 130
+      Top = 134
       ExplicitLeft = 239
       ExplicitTop = 130
     end
     inherited pnlSave: TRzPanel
       Left = 183
-      Top = 130
+      Top = 134
       ExplicitLeft = 183
       ExplicitTop = 130
     end

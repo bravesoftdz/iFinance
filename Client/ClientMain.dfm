@@ -10,7 +10,7 @@ inherited frmClientMain: TfrmClientMain
   TextHeight = 14
   inherited pnlTitle: TRzPanel
     Width = 1136
-    ExplicitWidth = 1125
+    ExplicitWidth = 1136
     inherited lblTitle: TRzLabel
       Width = 78
       Caption = 'Client record'
@@ -40,24 +40,22 @@ inherited frmClientMain: TfrmClientMain
     Width = 961
     Height = 552
     Hint = ''
-    ActivePage = tsClientInfo
+    ActivePage = tsPromissoryNotes
     Align = alClient
     BoldCurrentTab = True
     UseColoredTabs = True
     FlatColor = 6572079
     ShowFullFrame = False
     ShowShadow = False
-    TabIndex = 0
+    TabIndex = 6
     TabOrder = 1
     TabOrientation = toBottom
     TabStop = False
     TabStyle = tsRoundCorners
-    ExplicitWidth = 950
     FixedDimension = 20
     object tsClientInfo: TRzTabSheet
       Color = 15327448
       Caption = 'Client information'
-      ExplicitWidth = 950
       object JvLabel1: TJvLabel
         Left = 34
         Top = 49
@@ -1172,7 +1170,6 @@ inherited frmClientMain: TfrmClientMain
     object tsReferences: TRzTabSheet
       Color = 15327448
       Caption = 'Family and references'
-      ExplicitWidth = 950
       DesignSize = (
         961
         529)
@@ -1219,7 +1216,7 @@ inherited frmClientMain: TfrmClientMain
           BorderStyle = bsNone
           Ctl3D = False
           DataSource = dmRef.dscRefInfo
-          FixedColor = 6572079
+          FixedColor = clWhite
           GradientEndColor = 15327448
           GradientStartColor = 15327448
           Options = [dgTitles, dgIndicator, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
@@ -1234,7 +1231,7 @@ inherited frmClientMain: TfrmClientMain
           FrameSides = []
           FrameStyle = fsNone
           FramingPreference = fpCustomFraming
-          FixedLineColor = 6572079
+          FixedLineColor = clWhite
           LineColor = clWhite
           AltRowShadingColor = 15854564
           Columns = <
@@ -1379,7 +1376,6 @@ inherited frmClientMain: TfrmClientMain
           BorderWidth = 1
           Color = 15327448
           TabOrder = 12
-          ExplicitTop = 486
           object sbtnNewFamRef: TRzShapeButton
             Left = 0
             Top = 0
@@ -1601,7 +1597,6 @@ inherited frmClientMain: TfrmClientMain
           BorderWidth = 1
           Color = 15327448
           TabOrder = 11
-          ExplicitTop = 486
           object sbtnRemoveFamRef: TRzShapeButton
             Left = 0
             Top = 0
@@ -1620,7 +1615,6 @@ inherited frmClientMain: TfrmClientMain
     object tsIdentityInfo: TRzTabSheet
       Color = 15327448
       Caption = 'Identity information'
-      ExplicitWidth = 950
       DesignSize = (
         961
         529)
@@ -1644,7 +1638,7 @@ inherited frmClientMain: TfrmClientMain
           BorderStyle = bsNone
           Ctl3D = False
           DataSource = dmClient.dscIdentInfo
-          FixedColor = 6572079
+          FixedColor = clWhite
           GradientEndColor = 12955288
           GradientStartColor = 12955288
           Options = [dgTitles, dgIndicator, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
@@ -1655,9 +1649,11 @@ inherited frmClientMain: TfrmClientMain
           TitleFont.Height = -12
           TitleFont.Name = 'Tahoma'
           TitleFont.Style = []
+          FrameSides = []
           FrameStyle = fsNone
           FramingPreference = fpCustomFraming
-          FixedLineColor = 6572079
+          FixedLineColor = clWhite
+          LineColor = 6572079
           QuickCompare.FieldName = 'expiry'
           QuickCompare.FieldValue = 42644d
           QuickCompare.Operation = qcoLessThan
@@ -1776,7 +1772,6 @@ inherited frmClientMain: TfrmClientMain
           BorderWidth = 1
           Color = 15327448
           TabOrder = 3
-          ExplicitTop = 486
           object sbtnNewIdentDoc: TRzShapeButton
             Left = 0
             Top = 0
@@ -1880,7 +1875,6 @@ inherited frmClientMain: TfrmClientMain
     object tsLoansHistory: TRzTabSheet
       Color = 15327448
       Caption = 'Loans history'
-      ExplicitWidth = 950
       DesignSize = (
         961
         529)
@@ -1904,7 +1898,7 @@ inherited frmClientMain: TfrmClientMain
           BorderStyle = bsNone
           Ctl3D = False
           DataSource = dmClient.dscLoans
-          FixedColor = 6572079
+          FixedColor = clWhite
           GradientEndColor = 12955288
           GradientStartColor = 12955288
           Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
@@ -1917,9 +1911,10 @@ inherited frmClientMain: TfrmClientMain
           TitleFont.Name = 'Tahoma'
           TitleFont.Style = []
           OnDblClick = grLoansDblClick
+          FrameSides = []
           FrameStyle = fsNone
           FramingPreference = fpCustomFraming
-          FixedLineColor = 6572079
+          FixedLineColor = clWhite
           AltRowShadingColor = 15854564
           Columns = <
             item
@@ -1967,7 +1962,6 @@ inherited frmClientMain: TfrmClientMain
     object tsGroups: TRzTabSheet
       Color = 15327448
       Caption = 'Groups'
-      ExplicitWidth = 950
       DesignSize = (
         961
         529)
@@ -1977,7 +1971,7 @@ inherited frmClientMain: TfrmClientMain
         Width = 926
         Height = 22
         Anchors = [akLeft, akTop, akRight]
-        BorderColor = 6572079
+        BorderColor = 15327448
         BorderSides = []
         BorderWidth = 1
         Caption = 'Groups'
@@ -1986,8 +1980,9 @@ inherited frmClientMain: TfrmClientMain
         CaptionFont.Height = -12
         CaptionFont.Name = 'Tahoma'
         CaptionFont.Style = [fsBold]
-        Color = 14273211
-        FlatColor = 6572079
+        Color = 15327448
+        FlatColor = 15327448
+        FlatColorAdjustment = 0
         Font.Charset = DEFAULT_CHARSET
         Font.Color = 6572079
         Font.Height = -12
@@ -1997,16 +1992,16 @@ inherited frmClientMain: TfrmClientMain
         GroupStyle = gsUnderline
         ParentFont = False
         TabOrder = 0
-        ExplicitWidth = 915
       end
       object lbGroups: TRzListBox
-        Left = 35
-        Top = 40
-        Width = 809
-        Height = 417
-        Color = 14273211
+        Left = 19
+        Top = 32
+        Width = 926
+        Height = 401
+        Anchors = [akLeft, akTop, akRight, akBottom]
+        Color = 15327448
         Columns = 3
-        FrameStyle = fsNone
+        FrameColor = 14272955
         FrameVisible = True
         FramingPreference = fpCustomFraming
         ItemHeight = 14
@@ -2014,14 +2009,14 @@ inherited frmClientMain: TfrmClientMain
       end
       object pnlAddGroup: TRzPanel
         Left = 19
-        Top = 494
+        Top = 470
         Width = 78
         Height = 22
         Anchors = [akLeft, akBottom]
         BorderOuter = fsNone
-        BorderColor = 6572079
+        BorderColor = 14272955
         BorderWidth = 1
-        Color = 12955288
+        Color = 15327448
         TabOrder = 2
         object sbtnAddGroup: TRzShapeButton
           Left = 0
@@ -2038,14 +2033,14 @@ inherited frmClientMain: TfrmClientMain
       end
       object pnlRemoveGroup: TRzPanel
         Left = 104
-        Top = 494
+        Top = 470
         Width = 78
         Height = 22
         Anchors = [akLeft, akBottom]
         BorderOuter = fsNone
-        BorderColor = 6572079
+        BorderColor = 14272955
         BorderWidth = 1
-        Color = 12955288
+        Color = 15327448
         TabOrder = 3
         object sbtnRemoveGroup: TRzShapeButton
           Left = 0
@@ -2064,7 +2059,6 @@ inherited frmClientMain: TfrmClientMain
     object tsBankAcctInfo: TRzTabSheet
       Color = 15327448
       Caption = 'Bank account info'
-      ExplicitWidth = 950
       DesignSize = (
         961
         529)
@@ -2087,7 +2081,7 @@ inherited frmClientMain: TfrmClientMain
           Align = alClient
           BorderStyle = bsNone
           DataSource = dmClient.dscAcctInfo
-          FixedColor = 6572079
+          FixedColor = clWhite
           GradientEndColor = 12955288
           GradientStartColor = 12955288
           Options = [dgTitles, dgIndicator, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
@@ -2099,7 +2093,7 @@ inherited frmClientMain: TfrmClientMain
           TitleFont.Style = []
           FrameStyle = fsNone
           FramingPreference = fpCustomFraming
-          FixedLineColor = 6572079
+          FixedLineColor = clWhite
           QuickCompare.FieldName = 'expiry'
           QuickCompare.FieldValue = 42644d
           QuickCompare.Operation = qcoLessThan
@@ -2348,7 +2342,6 @@ inherited frmClientMain: TfrmClientMain
     object tsPromissoryNotes: TRzTabSheet
       Color = 15327448
       Caption = 'Promissory notes'
-      ExplicitWidth = 950
       DesignSize = (
         961
         529)
@@ -2359,11 +2352,10 @@ inherited frmClientMain: TfrmClientMain
         Height = 516
         Anchors = [akLeft, akTop, akRight, akBottom]
         BorderOuter = fsNone
-        BorderColor = 8675134
+        BorderColor = 14272955
         BorderWidth = 1
         ParentColor = True
         TabOrder = 0
-        ExplicitWidth = 662
         object grPromissoryNotes: TRzDBGrid
           Left = 1
           Top = 1
@@ -2371,19 +2363,22 @@ inherited frmClientMain: TfrmClientMain
           Height = 514
           Align = alClient
           BorderStyle = bsNone
+          Ctl3D = False
           DataSource = dmClient.dscPromissoryNotes
-          DrawingStyle = gdsGradient
-          FixedColor = 12955288
+          FixedColor = clWhite
           GradientEndColor = 12955288
           GradientStartColor = 12955288
           Options = [dgTitles, dgIndicator, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
+          ParentCtl3D = False
           TabOrder = 0
           TitleFont.Charset = DEFAULT_CHARSET
           TitleFont.Color = clWindowText
           TitleFont.Height = -12
           TitleFont.Name = 'Tahoma'
           TitleFont.Style = []
+          FrameStyle = fsNone
           FramingPreference = fpCustomFraming
+          FixedLineColor = clWhite
           QuickCompare.FieldName = 'expiry'
           QuickCompare.FieldValue = 42644d
           QuickCompare.Operation = qcoLessThan
@@ -2427,17 +2422,16 @@ inherited frmClientMain: TfrmClientMain
         Height = 516
         Anchors = [akTop, akRight, akBottom]
         BorderOuter = fsNone
-        BorderColor = 8675134
+        BorderColor = 14272955
         BorderWidth = 1
         ParentColor = True
         TabOrder = 1
-        ExplicitLeft = 674
         DesignSize = (
           276
           516)
         object JvLabel36: TJvLabel
           Left = 13
-          Top = 39
+          Top = 23
           Width = 39
           Height = 14
           Caption = 'PN no.'
@@ -2450,9 +2444,9 @@ inherited frmClientMain: TfrmClientMain
           Height = 22
           Anchors = [akLeft, akBottom]
           BorderOuter = fsNone
-          BorderColor = 6572079
+          BorderColor = 14272955
           BorderWidth = 1
-          Color = 12955288
+          Color = 15327448
           TabOrder = 1
           object sbtnNewPromissoryNote: TRzShapeButton
             Left = 0
@@ -2467,52 +2461,21 @@ inherited frmClientMain: TfrmClientMain
             OnClick = sbtnNewPromissoryNoteClick
           end
         end
-        object RzPanel9: TRzPanel
-          Left = 1
-          Top = 1
-          Width = 274
-          Height = 19
-          Align = alTop
-          BorderOuter = fsNone
-          BorderSides = [sdBottom]
-          BorderColor = clBlack
-          BorderWidth = 1
-          Color = 8675134
-          GradientColorStyle = gcsCustom
-          GradientColorStart = 6572079
-          GradientColorStop = 8675134
-          TabOrder = 3
-          VisualStyle = vsGradient
-          object RzLabel3: TRzLabel
-            Left = 7
-            Top = 2
-            Width = 41
-            Height = 14
-            Caption = 'Details'
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clWhite
-            Font.Height = -12
-            Font.Name = 'Tahoma'
-            Font.Style = [fsBold]
-            ParentFont = False
-            Transparent = True
-          end
-        end
         object RzPanel10: TRzPanel
-          Left = 217
+          Left = 65
           Top = 486
-          Width = 50
+          Width = 60
           Height = 22
           Anchors = [akLeft, akBottom]
           BorderOuter = fsNone
-          BorderColor = 6572079
+          BorderColor = 14272955
           BorderWidth = 1
-          Color = 12955288
+          Color = 15327448
           TabOrder = 2
           object sbtnRemovePromissoryNote: TRzShapeButton
             Left = 0
             Top = 0
-            Width = 50
+            Width = 60
             Height = 22
             Hint = 'Remove record'
             BorderStyle = bsNone
@@ -2524,14 +2487,14 @@ inherited frmClientMain: TfrmClientMain
         end
         object edPNNo: TRzDBEdit
           Left = 72
-          Top = 33
+          Top = 17
           Width = 185
           Height = 22
           DataSource = dmClient.dscPromissoryNotes
           DataField = 'pn_no'
           Ctl3D = True
           DisabledColor = 14273211
-          FrameColor = 8675134
+          FrameColor = 14272955
           FrameVisible = True
           FramingPreference = fpCustomFraming
           ParentCtl3D = False
@@ -2543,7 +2506,6 @@ inherited frmClientMain: TfrmClientMain
     object tsPhoto: TRzTabSheet
       Color = 15327448
       Caption = 'Photo'
-      ExplicitWidth = 950
       object pnlPhoto: TRzPanel
         Left = 627
         Top = 25

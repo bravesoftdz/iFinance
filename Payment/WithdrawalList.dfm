@@ -1,14 +1,14 @@
 inherited frmWithdrawalList: TfrmWithdrawalList
   Caption = 'frmWithdrawalList'
   ClientHeight = 479
-  ClientWidth = 786
+  ClientWidth = 929
   OnCreate = FormCreate
-  ExplicitWidth = 802
+  ExplicitWidth = 945
   ExplicitHeight = 518
   PixelsPerInch = 96
   TextHeight = 14
   inherited pnlTitle: TRzPanel
-    Width = 786
+    Width = 929
     ExplicitWidth = 786
     inherited lblTitle: TRzLabel
       Width = 92
@@ -19,29 +19,29 @@ inherited frmWithdrawalList: TfrmWithdrawalList
   object pnlList: TRzPanel
     Left = 6
     Top = 35
-    Width = 491
+    Width = 634
     Height = 438
     Anchors = [akLeft, akTop, akRight, akBottom]
     BorderOuter = fsNone
-    BorderColor = 8675134
+    BorderColor = 14272955
     BorderWidth = 1
     Color = 14273211
     TabOrder = 1
+    ExplicitWidth = 491
     object grList: TRzDBGrid
       Left = 1
       Top = 1
-      Width = 489
+      Width = 632
       Height = 436
       Align = alClient
       BorderStyle = bsNone
       Color = clWhite
-      Ctl3D = True
+      Ctl3D = False
       DataSource = dmPayment.dscWithdrawal
-      DrawingStyle = gdsGradient
-      FixedColor = 6572079
+      FixedColor = clWhite
       GradientEndColor = 12955288
       GradientStartColor = 12955288
-      Options = [dgTitles, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
+      Options = [dgTitles, dgIndicator, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
       ParentCtl3D = False
       TabOrder = 0
       TitleFont.Charset = DEFAULT_CHARSET
@@ -53,7 +53,7 @@ inherited frmWithdrawalList: TfrmWithdrawalList
       FrameColor = 6572079
       FrameStyle = fsNone
       FramingPreference = fpCustomFraming
-      FixedLineColor = 6572079
+      FixedLineColor = clWhite
       LineColor = 6572079
       AltRowShadingColor = 15854564
       AltRowShadingFixed = False
@@ -114,70 +114,40 @@ inherited frmWithdrawalList: TfrmWithdrawalList
     end
   end
   object pnlDetail: TRzPanel
-    Left = 503
+    Left = 646
     Top = 35
     Width = 276
     Height = 438
     Anchors = [akTop, akRight, akBottom]
     BorderOuter = fsNone
-    BorderColor = 8675134
+    BorderColor = 14272955
     BorderWidth = 1
     ParentColor = True
     TabOrder = 2
+    ExplicitLeft = 503
     DesignSize = (
       276
       438)
-    object pnlDetailHead: TRzPanel
-      Left = 1
-      Top = 1
-      Width = 274
-      Height = 19
-      Align = alTop
-      BorderOuter = fsNone
-      BorderSides = [sdBottom]
-      BorderColor = clBlack
-      BorderWidth = 1
-      Color = 8675134
-      GradientColorStyle = gcsCustom
-      GradientColorStart = 6572079
-      GradientColorStop = 8675134
-      TabOrder = 0
-      VisualStyle = vsGradient
-      object lblDetailHeadCaption: TRzLabel
-        Left = 7
-        Top = 2
-        Width = 30
-        Height = 14
-        Caption = 'Filter'
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clWhite
-        Font.Height = -12
-        Font.Name = 'Tahoma'
-        Font.Style = [fsBold]
-        ParentFont = False
-        Transparent = True
-      end
-    end
     object RzCheckBox1: TRzCheckBox
-      Left = 13
-      Top = 39
+      Left = 15
+      Top = 13
       Width = 72
       Height = 16
       Caption = 'Unposted'
       State = cbUnchecked
-      TabOrder = 1
+      TabOrder = 0
     end
     object pnlAdd: TRzPanel
-      Left = 6
-      Top = 410
+      Left = 8
+      Top = 408
       Width = 50
       Height = 22
       Anchors = [akLeft, akBottom]
       BorderOuter = fsNone
-      BorderColor = 6572079
+      BorderColor = 14272955
       BorderWidth = 1
-      Color = 12955288
-      TabOrder = 2
+      Color = 15327448
+      TabOrder = 1
       object sbtnNew: TRzShapeButton
         Left = 0
         Top = 0

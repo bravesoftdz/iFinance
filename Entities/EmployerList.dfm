@@ -1,5 +1,7 @@
 inherited frmEmployerList: TfrmEmployerList
   Caption = 'frmEmployerList'
+  ClientWidth = 1011
+  ExplicitWidth = 1027
   PixelsPerInch = 96
   TextHeight = 14
   inherited pnlTitle: TRzPanel
@@ -10,7 +12,10 @@ inherited frmEmployerList: TfrmEmployerList
     end
   end
   inherited pnlList: TRzPanel
+    Width = 716
+    ParentCtl3D = False
     inherited grList: TRzDBGrid
+      Width = 714
       DataSource = dmEntities.dscEmployers
       OnCellClick = grListCellClick
       OnKeyUp = grListKeyUp
@@ -57,23 +62,26 @@ inherited frmEmployerList: TfrmEmployerList
     end
   end
   inherited pnlSearch: TRzPanel
+    Width = 1011
+    ExplicitTop = 0
     inherited Label1: TLabel
       Caption = 'Branch'
     end
     inherited edSearchKey: TRzEdit
       Top = 49
+      Width = 670
       Enabled = False
       ExplicitTop = 49
     end
     object cmbBranch: TRzComboBox
       Left = 51
       Top = 9
-      Width = 438
+      Width = 671
       Height = 22
       AllowEdit = False
       Anchors = [akLeft, akTop, akRight]
       Ctl3D = False
-      FrameColor = 6572079
+      FrameColor = 14272955
       FrameVisible = True
       FramingPreference = fpCustomFraming
       ParentCtl3D = False
@@ -81,12 +89,14 @@ inherited frmEmployerList: TfrmEmployerList
       Sorted = True
       TabOrder = 1
       OnChange = cmbBranchChange
+      ExplicitWidth = 438
     end
   end
   inherited pnlDetail: TRzPanel
+    Left = 728
     object JvLabel1: TJvLabel [0]
       Left = 13
-      Top = 39
+      Top = 23
       Width = 33
       Height = 14
       Caption = 'Name'
@@ -94,7 +104,7 @@ inherited frmEmployerList: TfrmEmployerList
     end
     object JvLabel2: TJvLabel [1]
       Left = 13
-      Top = 118
+      Top = 108
       Width = 35
       Height = 14
       Caption = 'Group'
@@ -102,7 +112,7 @@ inherited frmEmployerList: TfrmEmployerList
     end
     object JvLabel3: TJvLabel [2]
       Left = 13
-      Top = 63
+      Top = 50
       Width = 45
       Height = 14
       Caption = 'Address'
@@ -110,20 +120,18 @@ inherited frmEmployerList: TfrmEmployerList
     end
     inherited pnlAdd: TRzPanel
       TabOrder = 3
-    end
-    inherited pnlDetailHead: TRzPanel
-      TabOrder = 4
+      ExplicitTop = 429
     end
     object edEmployerName: TRzDBEdit
       Left = 63
-      Top = 33
+      Top = 17
       Width = 201
       Height = 22
       DataSource = dmEntities.dscEmployers
       DataField = 'emp_name'
       CharCase = ecUpperCase
       DisabledColor = clWhite
-      FrameColor = 8675134
+      FrameColor = 14272955
       FrameVisible = True
       FramingPreference = fpCustomFraming
       TabOnEnter = True
@@ -131,14 +139,14 @@ inherited frmEmployerList: TfrmEmployerList
     end
     object RzDBMemo1: TRzDBMemo
       Left = 63
-      Top = 57
+      Top = 44
       Width = 201
       Height = 53
       DataField = 'emp_add'
       DataSource = dmEntities.dscEmployers
       TabOrder = 1
       DisabledColor = clWhite
-      FrameColor = 8675134
+      FrameColor = 14272955
       FrameVisible = True
       FramingPreference = fpCustomFraming
       TabOnEnter = True
@@ -146,12 +154,12 @@ inherited frmEmployerList: TfrmEmployerList
     object bteGroup: TRzButtonEdit
       Tag = 1
       Left = 63
-      Top = 112
+      Top = 102
       Width = 201
       Height = 22
       Text = ''
       Color = clWhite
-      FrameColor = 8675134
+      FrameColor = 14272955
       FrameVisible = True
       FramingPreference = fpCustomFraming
       ParentShowHint = False

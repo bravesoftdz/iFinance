@@ -32,9 +32,11 @@ inherited frmActiveLoans: TfrmActiveLoans
       Height = 138
       Anchors = [akLeft, akTop, akRight, akBottom]
       BorderOuter = fsNone
-      BorderColor = 6572079
+      BorderColor = 14272955
       BorderWidth = 1
       Color = 14273211
+      Ctl3D = False
+      ParentCtl3D = False
       TabOrder = 0
       object grLoans: TRzStringGrid
         Left = 1
@@ -47,8 +49,7 @@ inherited frmActiveLoans: TfrmActiveLoans
         BorderStyle = bsNone
         ColCount = 4
         Ctl3D = True
-        DrawingStyle = gdsGradient
-        FixedColor = 12955288
+        FixedColor = clWhite
         FixedCols = 0
         RowCount = 1
         FixedRows = 0
@@ -64,7 +65,7 @@ inherited frmActiveLoans: TfrmActiveLoans
         FrameStyle = fsNone
         FrameVisible = True
         FramingPreference = fpCustomFraming
-        FixedLineColor = 14273211
+        FixedLineColor = 14272955
         LineColor = clWhite
         UseDrawingStyle = False
         ColWidths = (

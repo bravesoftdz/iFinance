@@ -26,16 +26,16 @@ inherited frmClientList: TfrmClientList
       727
       33)
     object Label1: TLabel
-      Left = 192
+      Left = 181
       Top = 15
       Width = 37
       Height = 14
       Caption = 'Search'
     end
     object edSearchKey: TRzEdit
-      Left = 240
+      Left = 227
       Top = 9
-      Width = 479
+      Width = 492
       Height = 22
       Text = ''
       Anchors = [akLeft, akTop, akRight]
@@ -135,7 +135,7 @@ inherited frmClientList: TfrmClientList
       Color = clWhite
       Ctl3D = False
       DataSource = dmApplication.dscClients
-      FixedColor = 6572079
+      FixedColor = clWhite
       GradientEndColor = 15327448
       GradientStartColor = 15327448
       Options = [dgTitles, dgIndicator, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
@@ -151,7 +151,7 @@ inherited frmClientList: TfrmClientList
       FrameSides = []
       FrameStyle = fsNone
       FramingPreference = fpCustomFraming
-      FixedLineColor = 6572079
+      FixedLineColor = clWhite
       LineColor = 6572079
       AltRowShadingColor = 15854564
       AltRowShadingFixed = False

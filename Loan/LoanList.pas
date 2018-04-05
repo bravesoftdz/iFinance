@@ -17,13 +17,23 @@ type
     edSearchKey: TRzEdit;
     pnlList: TRzPanel;
     grList: TRzDBGrid;
-    pnlDetail: TRzPanel;
-    JvLabel1: TJvLabel;
-    pnlDetailHead: TRzPanel;
-    lblDetailHeadCaption: TRzLabel;
-    cmbBranch: TRzComboBox;
+    pnlDockMain: TRzPanel;
+    urlPending: TRzURLLabel;
+    urlAssessed: TRzURLLabel;
+    urlApproved: TRzURLLabel;
+    urlActive: TRzURLLabel;
+    urlCancelled: TRzURLLabel;
+    urlRejected: TRzURLLabel;
+    urlClosed: TRzURLLabel;
     procedure grListDblClick(Sender: TObject);
     procedure edSearchKeyChange(Sender: TObject);
+    procedure urlPendingClick(Sender: TObject);
+    procedure urlAssessedClick(Sender: TObject);
+    procedure urlApprovedClick(Sender: TObject);
+    procedure urlActiveClick(Sender: TObject);
+    procedure urlCancelledClick(Sender: TObject);
+    procedure urlRejectedClick(Sender: TObject);
+    procedure urlClosedClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -31,9 +41,6 @@ type
     procedure FilterList(const filterType: TLoanFilterType);
     procedure SetTitle(const title: string);
   end;
-
-var
-  frmLoanList: TfrmLoanList;
 
 implementation
 
@@ -99,6 +106,55 @@ end;
 procedure TfrmLoanList.SetTitle(const title: string);
 begin
   lblTitle.Caption := title;
+end;
+
+procedure TfrmLoanList.urlActiveClick(Sender: TObject);
+begin
+  inherited;
+  FilterList(lftActive);
+  SetTitle('Active loans');
+end;
+
+procedure TfrmLoanList.urlApprovedClick(Sender: TObject);
+begin
+  inherited;
+  FilterList(lftApproved);
+  SetTitle('Approved loans');
+end;
+
+procedure TfrmLoanList.urlAssessedClick(Sender: TObject);
+begin
+  inherited;
+  FilterList(lftAssessed);
+  SetTitle('Assessed loans');
+end;
+
+procedure TfrmLoanList.urlCancelledClick(Sender: TObject);
+begin
+  inherited;
+  FilterList(lftCancelled);
+  SetTitle('Cancelled loans');
+end;
+
+procedure TfrmLoanList.urlClosedClick(Sender: TObject);
+begin
+  inherited;
+  FilterList(lftClosed);
+  SetTitle('Closed loans');
+end;
+
+procedure TfrmLoanList.urlPendingClick(Sender: TObject);
+begin
+  inherited;
+  FilterList(lftPending);
+  SetTitle('Pending loans');
+end;
+
+procedure TfrmLoanList.urlRejectedClick(Sender: TObject);
+begin
+  inherited;
+  FilterList(lftRejected);
+  SetTitle('Rejected loans');
 end;
 
 end.

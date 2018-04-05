@@ -2,7 +2,6 @@ inherited frmBaseSearch: TfrmBaseSearch
   Caption = 'frmBaseSearch'
   ClientHeight = 342
   ClientWidth = 314
-  OnClose = FormClose
   OnCreate = FormCreate
   ExplicitWidth = 314
   ExplicitHeight = 342
@@ -35,13 +34,13 @@ inherited frmBaseSearch: TfrmBaseSearch
       Caption = 'Search'
     end
     object edSearchKey: TRzEdit
-      Left = 47
+      Left = 51
       Top = 8
-      Width = 257
+      Width = 253
       Height = 22
       Text = ''
       Anchors = [akLeft, akTop, akRight]
-      FrameColor = 8675134
+      FrameColor = 14272955
       FrameVisible = True
       FramingPreference = fpCustomFraming
       TabOrder = 0
@@ -49,12 +48,12 @@ inherited frmBaseSearch: TfrmBaseSearch
     end
     object pnlSearch: TRzPanel
       Left = 8
-      Top = 35
+      Top = 37
       Width = 296
       Height = 245
       Anchors = [akLeft, akTop, akRight, akBottom]
       BorderOuter = fsNone
-      BorderColor = 6572079
+      BorderColor = 14272955
       BorderWidth = 1
       Color = 14273211
       TabOrder = 1
@@ -65,12 +64,11 @@ inherited frmBaseSearch: TfrmBaseSearch
         Height = 243
         Align = alClient
         BorderStyle = bsNone
-        Ctl3D = True
-        DrawingStyle = gdsGradient
-        FixedColor = 12955288
+        Ctl3D = False
+        FixedColor = clWhite
         GradientEndColor = 12955288
         GradientStartColor = 12955288
-        Options = [dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
+        Options = [dgIndicator, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
         ParentCtl3D = False
         TabOrder = 0
         TitleFont.Charset = DEFAULT_CHARSET
@@ -79,10 +77,10 @@ inherited frmBaseSearch: TfrmBaseSearch
         TitleFont.Name = 'Tahoma'
         TitleFont.Style = []
         OnDblClick = grSearchDblClick
+        FrameSides = []
         FrameStyle = fsNone
-        FrameVisible = True
         FramingPreference = fpCustomFraming
-        FixedLineColor = 12955288
+        FixedLineColor = clWhite
         AltRowShadingColor = 16249582
       end
     end
@@ -93,9 +91,9 @@ inherited frmBaseSearch: TfrmBaseSearch
       Height = 22
       Anchors = [akLeft, akBottom]
       BorderOuter = fsNone
-      BorderColor = 6572079
+      BorderColor = 14272955
       BorderWidth = 1
-      Color = 14273211
+      Color = 15327448
       TabOrder = 2
       object btnSelect: TRzShapeButton
         Left = 0
@@ -116,9 +114,9 @@ inherited frmBaseSearch: TfrmBaseSearch
       Height = 22
       Anchors = [akLeft, akBottom]
       BorderOuter = fsNone
-      BorderColor = 6572079
+      BorderColor = 14272955
       BorderWidth = 1
-      Color = 14273211
+      Color = 15327448
       TabOrder = 3
       object btnNew: TRzShapeButton
         Left = 0
@@ -139,9 +137,9 @@ inherited frmBaseSearch: TfrmBaseSearch
       Height = 22
       Anchors = [akRight, akBottom]
       BorderOuter = fsNone
-      BorderColor = 6572079
+      BorderColor = 14272955
       BorderWidth = 1
-      Color = 14273211
+      Color = 15327448
       TabOrder = 4
       object btnCancel: TRzShapeButton
         Left = 0

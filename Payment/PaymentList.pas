@@ -14,8 +14,6 @@ type
     grList: TRzDBGrid;
     pnlDetail: TRzPanel;
     JvLabel1: TJvLabel;
-    pnlDetailHead: TRzPanel;
-    lblDetailHeadCaption: TRzLabel;
     cmbBranch: TRzComboBox;
     dteFrom: TRzDateTimeEdit;
     JvLabel2: TJvLabel;

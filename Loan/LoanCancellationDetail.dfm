@@ -1,10 +1,10 @@
 inherited frmLoanCancellationDetail: TfrmLoanCancellationDetail
   Caption = 'frmLoanCancellationDetail'
-  ClientHeight = 196
+  ClientHeight = 211
   ClientWidth = 347
   OnCreate = FormCreate
   ExplicitWidth = 347
-  ExplicitHeight = 196
+  ExplicitHeight = 211
   PixelsPerInch = 96
   TextHeight = 14
   inherited pnlTitle: TRzPanel
@@ -22,23 +22,23 @@ inherited frmLoanCancellationDetail: TfrmLoanCancellationDetail
   end
   inherited pnlMain: TRzPanel
     Width = 347
-    Height = 175
+    Height = 190
     ExplicitWidth = 347
-    ExplicitHeight = 179
+    ExplicitHeight = 175
     inherited pnlDetail: TRzPanel
       Width = 331
-      Height = 128
+      Height = 143
       ExplicitWidth = 331
-      ExplicitHeight = 132
+      ExplicitHeight = 128
       inherited pcDetail: TRzPageControl
         Width = 329
-        Height = 126
+        Height = 141
         ExplicitWidth = 329
-        ExplicitHeight = 130
+        ExplicitHeight = 126
         FixedDimension = 20
         inherited tsDetail: TRzTabSheet
           ExplicitWidth = 329
-          ExplicitHeight = 130
+          ExplicitHeight = 126
           object JvLabel17: TJvLabel
             Tag = -1
             Left = 19
@@ -51,7 +51,7 @@ inherited frmLoanCancellationDetail: TfrmLoanCancellationDetail
           object JvLabel18: TJvLabel
             Tag = -1
             Left = 19
-            Top = 48
+            Top = 51
             Width = 41
             Height = 14
             Caption = 'Reason'
@@ -60,7 +60,7 @@ inherited frmLoanCancellationDetail: TfrmLoanCancellationDetail
           object JvLabel24: TJvLabel
             Tag = -1
             Left = 19
-            Top = 72
+            Top = 78
             Width = 47
             Height = 14
             Caption = 'Remarks'
@@ -68,7 +68,7 @@ inherited frmLoanCancellationDetail: TfrmLoanCancellationDetail
           end
           object dbluReason: TRzDBLookupComboBox
             Left = 113
-            Top = 41
+            Top = 44
             Width = 193
             Height = 22
             DataField = 'reason_id'
@@ -79,7 +79,7 @@ inherited frmLoanCancellationDetail: TfrmLoanCancellationDetail
             TabOrder = 1
             FlatButtons = True
             DisabledColor = clWhite
-            FrameColor = 8675134
+            FrameColor = 14272955
             FrameHotColor = clBlack
             FrameVisible = True
             FramingPreference = fpCustomFraming
@@ -93,7 +93,7 @@ inherited frmLoanCancellationDetail: TfrmLoanCancellationDetail
             DataSource = dmLoan.dscLoanCancel
             DataField = 'cancelled_date'
             DisabledColor = clWhite
-            FrameColor = 8675134
+            FrameColor = 14272955
             FrameVisible = True
             FramingPreference = fpCustomFraming
             TabOnEnter = True
@@ -104,13 +104,13 @@ inherited frmLoanCancellationDetail: TfrmLoanCancellationDetail
           end
           object mmRemarks: TRzDBMemo
             Left = 113
-            Top = 65
+            Top = 71
             Width = 193
             Height = 45
             DataField = 'remarks'
             DataSource = dmLoan.dscLoanCancel
             TabOrder = 2
-            FrameColor = 8675134
+            FrameColor = 14272955
             FrameVisible = True
             FramingPreference = fpCustomFraming
             TabOnEnter = True
@@ -120,15 +120,15 @@ inherited frmLoanCancellationDetail: TfrmLoanCancellationDetail
     end
     inherited pnlCancel: TRzPanel
       Left = 289
-      Top = 145
+      Top = 160
       ExplicitLeft = 289
-      ExplicitTop = 149
+      ExplicitTop = 145
     end
     inherited pnlSave: TRzPanel
       Left = 233
-      Top = 145
+      Top = 160
       ExplicitLeft = 233
-      ExplicitTop = 149
+      ExplicitTop = 145
     end
   end
 end
