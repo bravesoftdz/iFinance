@@ -43,6 +43,10 @@ type
     lblRemainingAmount: TJvLabel;
     JvLabel14: TJvLabel;
     urlAmortization: TRzURLLabel;
+    JvLabel15: TJvLabel;
+    lblTotalInterestDue: TJvLabel;
+    JvLabel16: TJvLabel;
+    lblPrincipalDeficit: TJvLabel;
     procedure FormCreate(Sender: TObject);
     procedure FormKeyPress(Sender: TObject; var Key: Char);
     procedure edPrincipalChange(Sender: TObject);
@@ -255,6 +259,7 @@ begin
   lblType.Caption := pmt.Client.ActiveLoans[i].LoanTypeName;
   lblAccount.Caption := pmt.Client.ActiveLoans[i].AccountTypeName + ' - ' + pmt.Client.ActiveLoans[i].InterestMethodName;
   lblLoanBalance.Caption := FormatCurr('###,###,##0.00', pmt.Client.ActiveLoans[i].Balance);
+  lblPrincipalDeficit.Caption := FormatCurr('###,###,##0.00;(###,###,##0.00);-', pmt.Client.ActiveLoans[i].PrincipalDeficit);
   lblInterestDeficit.Caption := FormatCurr('###,###,##0.00;(###,###,##0.00);-', pmt.Client.ActiveLoans[i].InterestDeficit);
   urlAmortization.Caption := FormatCurr('###,###,##0.00', pmt.Client.ActiveLoans[i].Amortisation);
 
@@ -268,6 +273,7 @@ begin
   else
     lblInterestDueOnPaymentDate.Caption := FormatCurr('###,###,##0.00;-;-', pmt.Client.ActiveLoans[i].InterestDue);
 
+  lblTotalInterestDue.Caption := FormatCurr('###,###,##0.00;-;-', pmt.Client.ActiveLoans[i].InterestDue + pmt.Client.ActiveLoans[i].InterestDeficit);
   lblLastTransaction.Caption := FormatDateTime('mm/dd/yyyy', pmt.Client.ActiveLoans[i].LastTransactionDate);
   lblDays.Caption := IntToStr(DaysBetween(pmt.Date,pmt.Client.ActiveLoans[i].LastTransactionDate));
 

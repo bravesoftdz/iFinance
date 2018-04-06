@@ -8,24 +8,19 @@ inherited frmDuplicate: TfrmDuplicate
   TextHeight = 14
   inherited pnlTitle: TRzPanel
     Width = 346
-    Color = 2960895
-    GradientColorStart = 2960895
-    GradientColorStop = 4737279
-    ExplicitWidth = 346
     inherited imgClose: TImage
-      Left = 325
-      ExplicitLeft = 291
+      Left = 326
+      ExplicitLeft = 326
     end
     inherited lblCaption: TRzLabel
-      Width = 94
-      Caption = 'Duplicate names'
-      ExplicitWidth = 94
+      Width = 62
+      Caption = 'Duplicates '
+      ExplicitWidth = 62
     end
   end
   inherited pnlMain: TRzPanel
     Width = 346
     Height = 280
-    Color = 10921727
     ExplicitWidth = 346
     ExplicitHeight = 280
     object RzLabel2: TRzLabel
@@ -103,7 +98,7 @@ inherited frmDuplicate: TfrmDuplicate
       Height = 218
       Anchors = [akLeft, akTop, akRight, akBottom]
       BorderOuter = fsNone
-      BorderColor = 6572079
+      BorderColor = 14272955
       BorderWidth = 1
       Color = 14273211
       TabOrder = 0
@@ -116,7 +111,6 @@ inherited frmDuplicate: TfrmDuplicate
         BorderStyle = bsNone
         Ctl3D = True
         DataSource = dmApplication.dscDuplicate
-        DrawingStyle = gdsGradient
         FixedColor = 12955288
         GradientEndColor = 12955288
         GradientStartColor = 12955288

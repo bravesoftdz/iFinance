@@ -295,7 +295,7 @@ end;
 
 procedure TfrmPaymentMain.SetTotalAmount;
 begin
-  lblTotalAmount.Caption := 'Total amount paid: ' + FormatFloat('###,###,##0.00',pmt.TotalAmount);
+  lblTotalAmount.Caption := 'Total amount paid: ' + FormatCurr('###,###,##0.00',pmt.TotalAmount);
 end;
 
 procedure TfrmPaymentMain.imgAddPaymentClick(Sender: TObject);
@@ -443,7 +443,7 @@ procedure TfrmPaymentMain.SetUnboundControls;
 begin
   edClient.Text := pmt.Client.Name;
 
-  cmbPaymentMethod.ItemIndex := Integer(pmt.PaymentMethod.Method);
+  cmbPaymentMethod.ItemIndex := Integer(pmt.PaymentMethod.Method) - 1;
 
   lblReferenceNo.Caption := pmt.ReferenceNo;
   lblPosted.Caption := IfThen(pmt.IsPosted,'Yes','No');

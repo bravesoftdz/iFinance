@@ -2,7 +2,6 @@ inherited frmDevParams: TfrmDevParams
   Caption = 'frmDevParams'
   ClientHeight = 190
   ClientWidth = 374
-  Position = poDesktopCenter
   OnCreate = FormCreate
   ExplicitWidth = 374
   ExplicitHeight = 190

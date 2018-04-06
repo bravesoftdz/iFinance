@@ -23,7 +23,7 @@ inherited frmBanksList: TfrmBanksList
     Left = 6
     Top = 9
     Width = 581
-    Height = 224
+    Height = 120
     Anchors = [akLeft, akTop, akRight]
     BorderOuter = fsNone
     BorderColor = 14272955
@@ -34,7 +34,7 @@ inherited frmBanksList: TfrmBanksList
       Left = 1
       Top = 1
       Width = 579
-      Height = 222
+      Height = 118
       Align = alClient
       BorderStyle = bsNone
       Ctl3D = False
@@ -169,9 +169,9 @@ inherited frmBanksList: TfrmBanksList
   end
   object pnlBranches: TRzPanel
     Left = 6
-    Top = 239
+    Top = 135
     Width = 581
-    Height = 253
+    Height = 357
     Anchors = [akLeft, akTop, akRight, akBottom]
     BorderOuter = fsNone
     BorderColor = 14272955
@@ -182,7 +182,7 @@ inherited frmBanksList: TfrmBanksList
       Left = 1
       Top = 1
       Width = 579
-      Height = 251
+      Height = 355
       Align = alClient
       BorderStyle = bsNone
       Ctl3D = False

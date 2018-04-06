@@ -40,14 +40,14 @@ inherited frmClientMain: TfrmClientMain
     Width = 961
     Height = 552
     Hint = ''
-    ActivePage = tsPromissoryNotes
+    ActivePage = tsLoansHistory
     Align = alClient
     BoldCurrentTab = True
     UseColoredTabs = True
     FlatColor = 6572079
     ShowFullFrame = False
     ShowShadow = False
-    TabIndex = 6
+    TabIndex = 3
     TabOrder = 1
     TabOrientation = toBottom
     TabStop = False

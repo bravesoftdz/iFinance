@@ -55,9 +55,6 @@ type
     function Save: boolean; override;
   end;
 
-var
-  frmGroupList: TfrmGroupList;
-
 implementation
 
 {$R *.dfm}

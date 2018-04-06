@@ -9,8 +9,8 @@
     <Transaction>2018/01/18 12:24:51.000.706,C:\Projects\iFinance\Entities\Unit1.pas=C:\Projects\iFinance\Entities\LoanClosureReasonList.pas</Transaction>
     <Transaction>2018/01/18 12:24:51.000.706,C:\Projects\iFinance\Entities\Unit1.dfm=C:\Projects\iFinance\Entities\LoanClosureReasonList.dfm</Transaction>
     <Transaction>2018/03/27 07:33:45.000.681,=FireDAC.dcp</Transaction>
-    <Transaction>2018/04/05 12:28:04.633,=C:\Projects\iFinance\Entities\Unit1.pas</Transaction>
-    <Transaction>2018/04/05 12:28:45.807,C:\Projects\iFinance\Entities\MaintenanceDrawer.dfm=C:\Projects\iFinance\Entities\Unit1.dfm</Transaction>
-    <Transaction>2018/04/05 12:28:45.807,C:\Projects\iFinance\Entities\MaintenanceDrawer.pas=C:\Projects\iFinance\Entities\Unit1.pas</Transaction>
+    <Transaction>2018/04/05 12:28:04.000.633,=C:\Projects\iFinance\Entities\Unit1.pas</Transaction>
+    <Transaction>2018/04/05 12:28:45.000.807,C:\Projects\iFinance\Entities\MaintenanceDrawer.pas=C:\Projects\iFinance\Entities\Unit1.pas</Transaction>
+    <Transaction>2018/04/05 12:28:45.000.807,C:\Projects\iFinance\Entities\MaintenanceDrawer.dfm=C:\Projects\iFinance\Entities\Unit1.dfm</Transaction>
   </Transactions>
 </BorlandProject>

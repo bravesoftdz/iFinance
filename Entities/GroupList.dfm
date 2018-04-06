@@ -45,7 +45,6 @@ inherited frmGroupList: TfrmGroupList
       OnChange = tvGroupChange
       OnDragDrop = tvGroupDragDrop
       OnDragOver = tvGroupDragOver
-      ExplicitHeight = 428
     end
   end
   inherited pnlSearch: TRzPanel
@@ -136,7 +135,7 @@ inherited frmGroupList: TfrmGroupList
     inherited pnlAdd: TRzPanel
       Top = 431
       TabOrder = 9
-      ExplicitTop = 429
+      ExplicitTop = 431
     end
     object edGroupName: TRzDBEdit
       Left = 60
@@ -210,7 +209,7 @@ inherited frmGroupList: TfrmGroupList
       DataSource = dmEntities.dscGroupAttribute
       DataField = 'max_tot_amt'
       Alignment = taLeftJustify
-      DisabledColor = 14273211
+      DisabledColor = 15327448
       FrameColor = 14272955
       FrameVisible = True
       FramingPreference = fpCustomFraming
@@ -259,7 +258,7 @@ inherited frmGroupList: TfrmGroupList
       ListSource = dmAux.dscLoanType
       TabOrder = 4
       FlatButtons = True
-      DisabledColor = 14273211
+      DisabledColor = 15327448
       FrameColor = 14272955
       FrameHotColor = clBlack
       FrameVisible = True
@@ -275,7 +274,7 @@ inherited frmGroupList: TfrmGroupList
       DataSource = dmEntities.dscGroupAttribute
       DataField = 'concurrent'
       CharCase = ecUpperCase
-      DisabledColor = 14273211
+      DisabledColor = 15327448
       FrameColor = 14272955
       FrameVisible = True
       FramingPreference = fpCustomFraming
@@ -290,7 +289,7 @@ inherited frmGroupList: TfrmGroupList
       DataSource = dmEntities.dscGroupAttribute
       DataField = 'ident_docs'
       CharCase = ecUpperCase
-      DisabledColor = clWhite
+      DisabledColor = 15327448
       FrameColor = 14272955
       FrameVisible = True
       FramingPreference = fpCustomFraming

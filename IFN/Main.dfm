@@ -136,7 +136,7 @@ object frmMain: TfrmMain
       1190
       607)
     object lblDate: TLabel
-      Left = 601
+      Left = 361
       Top = 579
       Width = 144
       Height = 14
@@ -166,7 +166,7 @@ object frmMain: TfrmMain
       ParentFont = False
     end
     object lblLocation: TLabel
-      Left = 859
+      Left = 667
       Top = 579
       Width = 118
       Height = 14
@@ -227,6 +227,23 @@ object frmMain: TfrmMain
       object tsHome: TRzTabSheet
         Color = 15327448
         Caption = 'Home'
+        DesignSize = (
+          1149
+          49)
+        object Label1: TLabel
+          Left = 944
+          Top = 5
+          Width = 72
+          Height = 14
+          Anchors = [akRight, akBottom]
+          Caption = 'Recent items'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = 8675134
+          Font.Height = -12
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
+        end
         object pnlAddClient: TRzPanel
           Left = 5
           Top = 5
@@ -1294,6 +1311,22 @@ object frmMain: TfrmMain
             OnMouseDown = imgAddClientMouseDown
             OnMouseUp = imgAddClientMouseUp
           end
+        end
+        object cmbRecentItems: TRzComboBox
+          Left = 944
+          Top = 23
+          Width = 199
+          Height = 22
+          Anchors = [akRight, akBottom]
+          Color = clWhite
+          Ctl3D = False
+          FrameColor = 14272955
+          FrameVisible = True
+          FramingPreference = fpCustomFraming
+          ParentCtl3D = False
+          ReadOnlyColor = 15327448
+          TabOrder = 11
+          OnClick = cmbRecentItemsClick
         end
       end
       object tsAdministration: TRzTabSheet

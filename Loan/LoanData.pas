@@ -68,6 +68,9 @@ type
     dstLoanClassAdvance: TADODataSet;
     dscPromissoryNotes: TDataSource;
     dstPromissoryNotes: TADODataSet;
+    dstLedgerid: TStringField;
+    dstLedgerprincipal_deficit: TBCDField;
+    dstLedgerinterest_deficit: TBCDField;
     procedure dstLoanBeforeOpen(DataSet: TDataSet);
     procedure dstLoanClassBeforeOpen(DataSet: TDataSet);
     procedure dstLoanBeforePost(DataSet: TDataSet);

@@ -30,14 +30,6 @@ inherited frmAppSettings: TfrmAppSettings
     Caption = 'Maximum no. of days'
     Transparent = True
   end
-  object JvLabel4: TJvLabel [3]
-    Left = 41
-    Top = 257
-    Width = 147
-    Height = 14
-    Caption = 'Maximum comakered loans'
-    Transparent = True
-  end
   inherited pnlTitle: TRzPanel
     Width = 803
     ExplicitWidth = 803
@@ -61,8 +53,8 @@ inherited frmAppSettings: TfrmAppSettings
     CaptionFont.Height = -12
     CaptionFont.Name = 'Tahoma'
     CaptionFont.Style = [fsBold]
-    Color = 14273211
-    FlatColor = 6572079
+    Color = 15327448
+    FlatColor = 12493963
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -12
@@ -79,7 +71,7 @@ inherited frmAppSettings: TfrmAppSettings
     Width = 121
     Height = 22
     Text = ''
-    FrameColor = 8675134
+    FrameColor = 14272955
     FrameVisible = True
     FramingPreference = fpCustomFraming
     TabOrder = 2
@@ -90,7 +82,7 @@ inherited frmAppSettings: TfrmAppSettings
     Width = 121
     Height = 22
     Text = ''
-    FrameColor = 8675134
+    FrameColor = 14272955
     FrameVisible = True
     FramingPreference = fpCustomFraming
     TabOrder = 3
@@ -109,8 +101,8 @@ inherited frmAppSettings: TfrmAppSettings
     CaptionFont.Height = -12
     CaptionFont.Name = 'Tahoma'
     CaptionFont.Style = [fsBold]
-    Color = 14273211
-    FlatColor = 6572079
+    Color = 15327448
+    FlatColor = 12493963
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -12
@@ -127,7 +119,7 @@ inherited frmAppSettings: TfrmAppSettings
     Width = 41
     Height = 22
     Text = ''
-    FrameColor = 8675134
+    FrameColor = 14272955
     FrameVisible = True
     FramingPreference = fpCustomFraming
     TabOrder = 5
@@ -141,42 +133,5 @@ inherited frmAppSettings: TfrmAppSettings
     Checked = True
     State = cbChecked
     TabOrder = 6
-  end
-  object RzGroupBox3: TRzGroupBox
-    Left = 26
-    Top = 228
-    Width = 231
-    Height = 22
-    BorderColor = 6572079
-    BorderSides = []
-    BorderWidth = 1
-    Caption = 'Comakers'
-    CaptionFont.Charset = DEFAULT_CHARSET
-    CaptionFont.Color = clRed
-    CaptionFont.Height = -12
-    CaptionFont.Name = 'Tahoma'
-    CaptionFont.Style = [fsBold]
-    Color = 14273211
-    FlatColor = 6572079
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -12
-    Font.Name = 'Tahoma'
-    Font.Style = []
-    GradientColorStyle = gcsCustom
-    GroupStyle = gsUnderline
-    ParentFont = False
-    TabOrder = 7
-  end
-  object RzEdit3: TRzEdit
-    Left = 216
-    Top = 251
-    Width = 41
-    Height = 22
-    Text = ''
-    FrameColor = 8675134
-    FrameVisible = True
-    FramingPreference = fpCustomFraming
-    TabOrder = 8
   end
 end

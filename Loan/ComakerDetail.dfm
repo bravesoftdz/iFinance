@@ -10,7 +10,7 @@ inherited frmComakerDetail: TfrmComakerDetail
   TextHeight = 14
   inherited pnlTitle: TRzPanel
     Width = 694
-    ExplicitWidth = 685
+    ExplicitWidth = 694
     inherited imgClose: TImage
       Left = 673
       ExplicitLeft = 653
@@ -24,24 +24,24 @@ inherited frmComakerDetail: TfrmComakerDetail
   inherited pnlMain: TRzPanel
     Width = 694
     Height = 407
-    ExplicitWidth = 685
-    ExplicitHeight = 372
+    ExplicitWidth = 694
+    ExplicitHeight = 407
     inherited pnlDetail: TRzPanel
       Width = 678
       Height = 361
-      ExplicitWidth = 669
-      ExplicitHeight = 326
+      ExplicitWidth = 678
+      ExplicitHeight = 361
       inherited pcDetail: TRzPageControl
         Width = 676
         Height = 359
         TabOrientation = toBottom
-        ExplicitWidth = 667
-        ExplicitHeight = 324
+        ExplicitWidth = 676
+        ExplicitHeight = 359
         FixedDimension = 20
         inherited tsDetail: TRzTabSheet
           Caption = 'Comaker details'
-          ExplicitWidth = 667
-          ExplicitHeight = 325
+          ExplicitWidth = 676
+          ExplicitHeight = 360
           object JvLabel1: TJvLabel
             Left = 35
             Top = 42
@@ -195,7 +195,7 @@ inherited frmComakerDetail: TfrmComakerDetail
             FrameColor = 14272955
             FrameVisible = True
             FramingPreference = fpCustomFraming
-            ReadOnlyColor = 14273211
+            ReadOnlyColor = clWhite
             TabOnEnter = True
             TabOrder = 2
           end
@@ -210,7 +210,7 @@ inherited frmComakerDetail: TfrmComakerDetail
             FrameColor = 14272955
             FrameVisible = True
             FramingPreference = fpCustomFraming
-            ReadOnlyColor = 14273211
+            ReadOnlyColor = clWhite
             TabOnEnter = True
             TabOrder = 1
           end
@@ -227,7 +227,7 @@ inherited frmComakerDetail: TfrmComakerDetail
             FrameVisible = True
             FramingPreference = fpCustomFraming
             ParentCtl3D = False
-            ReadOnlyColor = 14273211
+            ReadOnlyColor = clWhite
             TabOnEnter = True
             TabOrder = 0
           end
@@ -686,14 +686,14 @@ inherited frmComakerDetail: TfrmComakerDetail
     inherited pnlCancel: TRzPanel
       Left = 636
       Top = 376
-      ExplicitLeft = 627
-      ExplicitTop = 341
+      ExplicitLeft = 636
+      ExplicitTop = 376
     end
     inherited pnlSave: TRzPanel
       Left = 580
       Top = 376
-      ExplicitLeft = 571
-      ExplicitTop = 341
+      ExplicitLeft = 580
+      ExplicitTop = 376
     end
     object RzGroupBox2: TRzGroupBox
       Left = 28

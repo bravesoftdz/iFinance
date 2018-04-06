@@ -18,9 +18,6 @@ type
     JvLabel3: TJvLabel;
     RzEdit2: TRzEdit;
     cbxNew: TRzCheckBox;
-    RzGroupBox3: TRzGroupBox;
-    JvLabel4: TJvLabel;
-    RzEdit3: TRzEdit;
   private
     { Private declarations }
   public

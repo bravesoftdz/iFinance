@@ -290,7 +290,7 @@ end;
 procedure TPayment.UpdateLoanRecord;
 var
   detail: TPaymentDetail;
-  balance, intDeficit: currency;
+  balance, intDeficit, prcDeficit: currency;
 begin
   // update the principal balance (field loan_balance)
   // update the last transaction date
@@ -304,10 +304,12 @@ begin
         if Locate('loan_id',detail.Loan.Id,[]) then
         begin
           balance := detail.Loan.Balance - detail.Principal;
+          prcDeficit := detail.Loan.PrincipalDeficit + (detail.Loan.PrincipalDue - detail.Principal);
           intDeficit := detail.Loan.InterestDeficit + (detail.Loan.InterestDue - detail.Interest);
 
           Edit;
           FieldByName('balance').AsCurrency := balance;
+          FieldByName('prc_deficit').AsCurrency := prcDeficit;
           FieldByName('int_deficit').AsCurrency := intDeficit;
           FieldByName('last_trans_date').AsDateTime := FDate;
 

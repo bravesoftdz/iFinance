@@ -183,7 +183,7 @@ inherited frmPaymentMain: TfrmPaymentMain
   end
   inherited pnlTitle: TRzPanel
     Width = 776
-    ExplicitWidth = 734
+    ExplicitWidth = 776
     inherited lblTitle: TRzLabel
       Width = 54
       Caption = 'Payment'
@@ -201,8 +201,6 @@ inherited frmPaymentMain: TfrmPaymentMain
     BorderWidth = 1
     Color = 14273211
     TabOrder = 1
-    ExplicitWidth = 856
-    ExplicitHeight = 160
     object grDetail: TRzStringGrid
       Left = 1
       Top = 1
@@ -231,10 +229,6 @@ inherited frmPaymentMain: TfrmPaymentMain
       LineColor = clWindow
       UseDrawingStyle = False
       OnResize = grDetailResize
-      ExplicitLeft = 0
-      ExplicitTop = -75
-      ExplicitWidth = 774
-      ExplicitHeight = 158
       ColWidths = (
         60
         60
@@ -259,7 +253,6 @@ inherited frmPaymentMain: TfrmPaymentMain
     BorderWidth = 1
     Color = 15327448
     TabOrder = 2
-    ExplicitTop = 320
     object imgAddPayment: TImage
       Left = 4
       Top = 4
@@ -359,7 +352,6 @@ inherited frmPaymentMain: TfrmPaymentMain
     ReadOnly = True
     ReadOnlyColor = clWhite
     TabOrder = 6
-    ExplicitWidth = 501
   end
   object pnlDeletePayment: TRzPanel
     Left = 65
@@ -372,7 +364,6 @@ inherited frmPaymentMain: TfrmPaymentMain
     BorderWidth = 1
     Color = 15327448
     TabOrder = 3
-    ExplicitTop = 320
     object imgDeletePayment: TImage
       Left = 4
       Top = 4
@@ -484,7 +475,6 @@ inherited frmPaymentMain: TfrmPaymentMain
     ReadOnly = True
     Color = clWhite
     DisabledColor = clWhite
-    FocusColor = 15327448
     FrameColor = 14272955
     FrameVisible = True
     FramingPreference = fpCustomFraming

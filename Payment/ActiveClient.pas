@@ -13,6 +13,7 @@ type
     FLoanTypeName: string;
     FAccountTypeName: string;
     FBalance: currency;
+    FPrincipalDeficit: currency;
     FInterestMethod: string;
     FPrincipalDue: currency;
     FInterestDue: currency;
@@ -56,6 +57,7 @@ type
   public
     property Id: string read FId write FId;
     property Balance: currency read FBalance write FBalance;
+    property PrincipalDeficit: currency read FPrincipalDeficit write FPrincipalDeficit;
     property LoanTypeName: string read FLoanTypeName write FLoanTypeName;
     property AccountTypeName: string read FAccountTypeName write FAccountTypeName;
     property InterestMethod: string write FInterestMethod;
@@ -156,6 +158,7 @@ begin
 
         loan.Id := FieldByName('loan_id').AsString;
         loan.Balance := FieldByName('balance').AsCurrency;
+        loan.PrincipalDeficit := FieldByName('prc_deficit').AsCurrency;
         loan.InterestDeficit := FieldByName('int_deficit').AsCurrency;
         loan.LoanTypeName := FieldByName('loan_type_name').AsString;
         loan.AccountTypeName := FieldByName('acct_type_name').AsString;

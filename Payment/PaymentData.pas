@@ -34,6 +34,9 @@ type
     dstLedgerbalance_i: TBCDField;
     dstLedgersort_order: TSmallintField;
     dstLedgerdocument_no: TStringField;
+    dstLedgerid: TStringField;
+    dstLedgerprincipal_deficit: TBCDField;
+    dstLedgerinterest_deficit: TBCDField;
     procedure dstPaymentBeforeOpen(DataSet: TDataSet);
     procedure dstPaymentNewRecord(DataSet: TDataSet);
     procedure dstActiveLoansBeforeOpen(DataSet: TDataSet);

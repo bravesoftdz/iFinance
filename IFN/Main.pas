@@ -9,7 +9,7 @@ uses
   Vcl.ImgList, Vcl.ComCtrls, Vcl.ToolWin, AppConstants, Vcl.StdCtrls, RzLabel,
   JvImageList, RzStatus, StatusIntf, DockIntf, RzLstBox, Client, Vcl.AppEvnts,
   ClientListIntf, Generics.Collections, LoanListIntf, Loan, LoanClient, RzTabs,
-  Vcl.Imaging.pngimage, System.Actions, Vcl.ActnList, Vcl.Buttons;
+  Vcl.Imaging.pngimage, System.Actions, Vcl.ActnList, Vcl.Buttons, RzCmboBx;
 
 type
   TRecentClient = class
@@ -123,6 +123,8 @@ type
     imgWithdrawals: TImage;
     pnlPaymentList: TRzPanel;
     imgPaymentList: TImage;
+    cmbRecentItems: TRzComboBox;
+    Label1: TLabel;
     procedure tbAddClientClick(Sender: TObject);
     procedure lblRecentlyAddedClick(Sender: TObject);
     procedure lbxRecentDblClick(Sender: TObject);
@@ -177,6 +179,7 @@ type
     procedure imgLoanListClick(Sender: TObject);
     procedure imgWithdrawalsClick(Sender: TObject);
     procedure imgPaymentListClick(Sender: TObject);
+    procedure cmbRecentItemsClick(Sender: TObject);
   private
     { Private declarations }
     DOCKED_FORM: TForms;
@@ -186,6 +189,8 @@ type
     procedure OpenLoanList(const filterType: TLoanFilterType = lftAll);
     procedure ShowDevParams;
     procedure SetCaptions;
+    procedure OpenRecentClient(AClient: TRecentClient);
+    procedure OpenRecentLoan(ALoan: TRecentLoan);
   public
     { Public declarations }
     procedure DockForm(const fm: TForms; const title: string = '');
@@ -272,6 +277,78 @@ begin
 
   if Supports(pnlDockMain.Controls[0] as TForm,ILoanListFilter,intf) then
     intf.FilterList(filterType);
+end;
+
+procedure TfrmMain.OpenRecentClient(AClient: TRecentClient);
+var
+  intf: IClient;
+begin
+  if Assigned(cln) then
+  begin
+    AddRecentClient(cln);
+
+    cln.Destroy;
+
+    cln := TClient.Create;
+
+    cln.Id := TRecentClient(AClient).Id;
+    cln.DisplayId := TRecentClient(AClient).DisplayId;
+    cln.Name := TRecentClient(AClient).Name;
+    cln.Retrieve(true);
+
+    if Supports(pnlDockMain.Controls[0] as TForm,IClient,intf) then
+    begin
+      intf.SetClientName;
+      intf.SetUnboundControls;
+      intf.LoadPhoto;
+      intf.SetLandLordControlsPres;
+      intf.SetLandLordControlsProv;
+    end;
+  end
+  else
+  begin
+    cln := TClient.Create;
+    cln.Id := TRecentClient(AClient).Id;
+    cln.DisplayId := TRecentClient(AClient).DisplayId;
+    DockForm(fmClientMain);
+  end;
+end;
+
+procedure TfrmMain.OpenRecentLoan(ALoan: TRecentLoan);
+var
+  intf: ILoan;
+begin
+  if Assigned(ln) then
+  begin
+    AddRecentLoan(ln);
+
+    ln.Destroy;
+
+    ln := TLoan.Create;
+
+    ln.Id := TRecentLoan(ALoan).Id;
+    ln.Client := TRecentLoan(ALoan).Client;
+    ln.Status := TRecentLoan(ALoan).Status;
+    ln.Action := laNone;
+    ln.Retrieve(true);
+
+    if Supports(pnlDockMain.Controls[0] as TForm,ILoan,intf) then
+    begin
+      intf.SetLoanHeaderCaption;
+      intf.RefreshDropDownSources;
+      intf.SetUnboundControls;
+      intf.InitForm;
+    end;
+  end
+  else
+  begin
+    ln := TLoan.Create;
+    ln.Id := TRecentLoan(ALoan).Id;
+    ln.Client := TRecentLoan(ALoan).Client;
+    ln.Status := TRecentLoan(ALoan).Status;
+    ln.Action := laNone;
+    DockForm(fmLoanMain);
+  end;
 end;
 
 procedure TfrmMain.pnlTitleMouseDown(Sender: TObject; Button: TMouseButton;
@@ -767,7 +844,8 @@ begin
     end;
 
     RecentClients.Add(rc);
-    lbxRecent.Items.AddObject(rc.Name,rc);
+    // lbxRecent.Items.AddObject(rc.Name,rc);
+    cmbRecentItems.Items.AddObject(rc.Name,TObject(rc));
   end;
 end;
 
@@ -796,7 +874,24 @@ begin
     end;
 
     RecentLoans.Add(ll);
-    lbxRecentLoans.Items.AddObject(ll.Client.Name,ll);
+    // lbxRecentLoans.Items.AddObject(ll.Client.Name,ll);
+    cmbRecentItems.Items.AddObject(ll.Id + ' ' + ll.Client.Name,ll);
+  end;
+end;
+
+procedure TfrmMain.cmbRecentItemsClick(Sender: TObject);
+var
+  obj: TObject;
+  intf: IClient;
+  index: integer;
+begin
+  index := cmbRecentItems.ItemIndex;
+
+  if index > -1 then
+  begin
+    obj := cmbRecentItems.Items.Objects[index];
+    if obj is TRecentClient then OpenRecentClient((obj as TRecentClient))
+    else OpenRecentLoan((obj as TRecentLoan));
   end;
 end;
 

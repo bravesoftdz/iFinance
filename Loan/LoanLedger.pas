@@ -16,6 +16,10 @@ type
     RzLabel1: TRzLabel;
     RzPanel2: TRzPanel;
     RzLabel2: TRzLabel;
+    RzLabel3: TRzLabel;
+    lblPrincipalDeficit: TRzLabel;
+    lblInterestDeficit: TRzLabel;
+    RzLabel4: TRzLabel;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure grLedgerDrawColumnCell(Sender: TObject; const Rect: TRect;
@@ -23,6 +27,7 @@ type
     procedure imgCloseClick(Sender: TObject);
   private
     { Private declarations }
+    procedure GetTotalDeficit;
   public
     { Public declarations }
     constructor Create(AOwner: TComponent); overload; override;
@@ -60,6 +65,21 @@ begin
   inherited;
   grLedger.DataSource.DataSet.Open;
   // ExtendLastColumn(grLedger);
+  GetTotalDeficit;
+end;
+
+procedure TfrmLoanLedger.GetTotalDeficit;
+var
+  principal, interest: currency;
+begin
+  with grLedger.DataSource.DataSet do
+  begin
+    principal := FieldByName('principal_deficit').AsCurrency;
+    interest := FieldByName('interest_deficit').AsCurrency;
+  end;
+
+  lblPrincipalDeficit.Caption := FormatCurr('###,###,##0.00;(###,###,##0.00);-',principal);
+  lblInterestDeficit.Caption := FormatCurr('###,###,##0.00;(###,###,##0.00);-',interest);
 end;
 
 procedure TfrmLoanLedger.grLedgerDrawColumnCell(Sender: TObject;

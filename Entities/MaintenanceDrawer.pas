@@ -5,11 +5,11 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, BaseDocked, RzLabel, Vcl.StdCtrls,
-  Vcl.ExtCtrls, RzPanel, RzCmboBx, RzTabs, AppConstants;
+  Vcl.ExtCtrls, RzPanel, RzCmboBx, RzTabs, AppConstants, SaveIntf, NewIntf;
 
 type
-  TfrmMaintenanceDrawer = class(TfrmBaseDocked)
-    pnlDockMain: TRzPanel;
+  TfrmMaintenanceDrawer = class(TfrmBaseDocked,ISave,INew)
+    pnlMenu: TRzPanel;
     DockPanel: TRzPanel;
     cmbType: TRzComboBox;
     lblDate: TLabel;
@@ -51,6 +51,9 @@ type
     procedure DockForm(const fm: TForms; const title: string = '');
   public
     { Public declarations }
+    function Save: boolean;
+    procedure Cancel;
+    procedure New;
   end;
 
 implementation
@@ -62,6 +65,19 @@ uses
   CompetitorList, FormsUtil, IFinanceGlobal, PurposeList, IFinanceDialogs, LoanTypeList,
   AccountTypeList, LoanCancellationReasonList, LoanRejectionReasonList,
   LoanClassChargeTypeList, InfoSourceList, LoanClosureReasonList;
+
+procedure TfrmMaintenanceDrawer.Cancel;
+var
+  intf: ISave;
+begin
+  try
+    if DockPanel.ControlCount > 0 then
+      if Supports(DockPanel.Controls[0] as TForm,ISave,intf) then
+        intf.Cancel;
+  except
+    on e:Exception do ShowErrorBox(e.Message);
+  end;
+end;
 
 procedure TfrmMaintenanceDrawer.cmbTypeClick(Sender: TObject);
 begin
@@ -78,12 +94,12 @@ begin
   begin
     control := 0;
 
-    while control < pnlDockMain.ControlCount do
+    while control < DockPanel.ControlCount do
     begin
-      if pnlDockMain.Controls[control] is TForm then
+      if DockPanel.Controls[control] is TForm then
       begin
-        (pnlDockMain.Controls[control] as TForm).Close;
-        (pnlDockMain.Controls[control] as TForm).Free;
+        (DockPanel.Controls[control] as TForm).Close;
+        (DockPanel.Controls[control] as TForm).Free;
       end;
 
       Inc(control);
@@ -119,6 +135,32 @@ begin
       frm.ManualDock(DockPanel);
       frm.Show;
     end;
+  end;
+end;
+
+procedure TfrmMaintenanceDrawer.New;
+var
+  intf: INew;
+begin
+  try
+    if DockPanel.ControlCount > 0 then
+      if Supports(DockPanel.Controls[0] as TForm,INew,intf) then
+        intf.New;
+  except
+    on e:Exception do ShowErrorBox(e.Message);
+  end;
+end;
+
+function TfrmMaintenanceDrawer.Save: boolean;
+var
+  intf: ISave;
+begin
+  try
+    if DockPanel.ControlCount > 0 then
+      if Supports(DockPanel.Controls[0] as TForm,ISave,intf) then
+        Result := intf.Save;
+  except
+    on e:Exception do ShowErrorBox(e.Message);
   end;
 end;
 

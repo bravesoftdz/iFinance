@@ -1279,7 +1279,7 @@ end;
 procedure TfrmClientMain.grLoansDblClick(Sender: TObject);
 begin
   inherited;
-  ShowLedger;
+  ShowLoanDetails;
 end;
 
 procedure TfrmClientMain.PhotoLauncherFinished(Sender: TObject);

@@ -15,7 +15,7 @@ inherited frmMaintenanceDrawer: TfrmMaintenanceDrawer
       ExplicitWidth = 78
     end
   end
-  object pnlDockMain: TRzPanel
+  object pnlMenu: TRzPanel
     Left = 0
     Top = 28
     Width = 175
@@ -68,7 +68,7 @@ inherited frmMaintenanceDrawer: TfrmMaintenanceDrawer
       Width = 155
       Height = 314
       Hint = ''
-      ActivePage = tsLoanRelated
+      ActivePage = tsEntities
       ActivePageDefault = tsEntities
       Anchors = [akLeft, akTop, akRight, akBottom]
       FlatColor = 15327448

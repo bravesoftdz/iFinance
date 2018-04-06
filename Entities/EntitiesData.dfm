@@ -1,7 +1,7 @@
 object dmEntities: TdmEntities
   OldCreateOrder = False
-  Height = 469
-  Width = 783
+  Height = 447
+  Width = 771
   object dstEntities: TADODataSet
     Connection = dmApplication.acMain
     CursorType = ctStatic

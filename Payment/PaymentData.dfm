@@ -326,5 +326,20 @@ object dmPayment: TdmPayment
       FixedChar = True
       Size = 25
     end
+    object dstLedgerid: TStringField
+      FieldName = 'id'
+    end
+    object dstLedgerprincipal_deficit: TBCDField
+      FieldName = 'principal_deficit'
+      ReadOnly = True
+      Precision = 10
+      Size = 2
+    end
+    object dstLedgerinterest_deficit: TBCDField
+      FieldName = 'interest_deficit'
+      ReadOnly = True
+      Precision = 10
+      Size = 2
+    end
   end
 end

@@ -10,7 +10,7 @@ inherited frmLoanLedger: TfrmLoanLedger
   TextHeight = 14
   inherited pnlTitle: TRzPanel
     Width = 709
-    ExplicitWidth = 699
+    ExplicitWidth = 709
     DesignSize = (
       709
       21)
@@ -27,8 +27,66 @@ inherited frmLoanLedger: TfrmLoanLedger
   inherited pnlMain: TRzPanel
     Width = 709
     Height = 473
-    ExplicitWidth = 699
-    ExplicitHeight = 384
+    ExplicitWidth = 709
+    ExplicitHeight = 473
+    object RzLabel3: TRzLabel
+      Left = 248
+      Top = 437
+      Width = 77
+      Height = 14
+      Caption = 'Total deficit:'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -12
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+      Transparent = True
+    end
+    object lblPrincipalDeficit: TRzLabel
+      Left = 390
+      Top = 437
+      Width = 25
+      Height = 14
+      Alignment = taRightJustify
+      Caption = '0.00'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -12
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+      Transparent = True
+    end
+    object lblInterestDeficit: TRzLabel
+      Left = 654
+      Top = 437
+      Width = 25
+      Height = 14
+      Alignment = taRightJustify
+      Caption = '0.00'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -12
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+      Transparent = True
+    end
+    object RzLabel4: TRzLabel
+      Left = 504
+      Top = 437
+      Width = 77
+      Height = 14
+      Caption = 'Total deficit:'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -12
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+      Transparent = True
+    end
     object pnlLedger: TRzPanel
       Left = 8
       Top = 32
@@ -40,8 +98,6 @@ inherited frmLoanLedger: TfrmLoanLedger
       BorderWidth = 1
       ParentColor = True
       TabOrder = 0
-      ExplicitWidth = 710
-      ExplicitHeight = 377
       object grLedger: TRzDBGrid
         Left = 1
         Top = 1
@@ -112,7 +168,7 @@ inherited frmLoanLedger: TfrmLoanLedger
             Visible = True
           end
           item
-            Color = 14281433
+            Color = 15134950
             Expanded = False
             FieldName = 'credit_amt_p'
             Title.Alignment = taCenter
@@ -154,7 +210,7 @@ inherited frmLoanLedger: TfrmLoanLedger
             Visible = True
           end
           item
-            Color = 14281433
+            Color = 15134950
             Expanded = False
             FieldName = 'credit_amt_i'
             Title.Alignment = taCenter
