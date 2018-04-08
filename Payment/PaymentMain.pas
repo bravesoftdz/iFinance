@@ -30,6 +30,7 @@ type
     cmbPaymentMethod: TRzComboBox;
     JvLabel3: TJvLabel;
     lblWithdrawn: TJvLabel;
+    JvLabel5: TJvLabel;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure imgAddPaymentClick(Sender: TObject);

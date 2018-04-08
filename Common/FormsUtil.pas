@@ -16,7 +16,7 @@ procedure ExtendLastColumn(grid: TRzDBGrid); overload;
 procedure ExtendLastColumn(grid: TRzStringGrid); overload;
 procedure PopulateBranchComboBox(comboBox: TRzComboBox);
 procedure PopulateComboBox(source: TDataSet; comboBox: TRzComboBox;
-  const codeField, nameField: string); overload;
+  const codeField, nameField: string; const closeOpenSource: boolean = false); overload;
 procedure PopulatePaymentMethodComboBox(comboBox: TRzComboBox; const bankWithdrawalOnly: boolean = false);
 
 function FirstRow(grid: TRzStringGrid): boolean;
@@ -130,16 +130,21 @@ begin
 end;
 
 procedure PopulateComboBox(source: TDataSet; comboBox: TRzComboBox;
-  const codeField, nameField: string); overload;
+  const codeField, nameField: string; const closeOpenSource: boolean); overload;
 begin
   with source, comboBox do
   begin
+    if closeOpenSource then source.Open;
+
     DisableControls;
     while not Eof do
     begin
       AddItemValue(FieldByName(nameField).AsString,FieldByName(codeField).AsString);
       Next;
     end;
+
+    if closeOpenSource then source.Close;
+
     EnableControls;
   end;
 end;

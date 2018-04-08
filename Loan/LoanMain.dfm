@@ -9,7 +9,7 @@ inherited frmLoanMain: TfrmLoanMain
   TextHeight = 14
   inherited pnlTitle: TRzPanel
     Width = 1155
-    ExplicitWidth = 931
+    ExplicitWidth = 1155
     DesignSize = (
       1155
       28)
@@ -46,7 +46,6 @@ inherited frmLoanMain: TfrmLoanMain
     BorderSides = [sdLeft, sdRight, sdBottom]
     ParentColor = True
     TabOrder = 1
-    ExplicitWidth = 931
     DesignSize = (
       1155
       514)
@@ -795,9 +794,9 @@ inherited frmLoanMain: TfrmLoanMain
       object urlReloan: TRzURLLabel
         Left = 18
         Top = 163
-        Width = 36
+        Width = 113
         Height = 14
-        Caption = 'Reloan'
+        Caption = 'Reloan / Restructure'
         Enabled = False
         Font.Charset = DEFAULT_CHARSET
         Font.Color = 6572079
@@ -841,7 +840,7 @@ inherited frmLoanMain: TfrmLoanMain
         Width = 603
         Height = 500
         Hint = ''
-        ActivePage = tsAssessment
+        ActivePage = tsPending
         ActivePageDefault = tsPending
         Align = alClient
         Color = 15327448
@@ -852,13 +851,11 @@ inherited frmLoanMain: TfrmLoanMain
         TabOrder = 0
         TabStop = False
         Transparent = True
-        ExplicitWidth = 99
         FixedDimension = 20
         object tsAssessment: TRzTabSheet
           Color = 15327448
           TabVisible = False
           Caption = 'Assessment'
-          ExplicitWidth = 507
           object JvLabel29: TJvLabel
             Tag = -1
             Left = 19
@@ -890,7 +887,6 @@ inherited frmLoanMain: TfrmLoanMain
             BorderColor = 8675134
             Color = 15327448
             TabOrder = 0
-            ExplicitWidth = 507
             DesignSize = (
               603
               500)
@@ -1161,7 +1157,6 @@ inherited frmLoanMain: TfrmLoanMain
               Color = 15327448
               TabOrder = 0
               OnClick = pnlEditAssessmentClick
-              ExplicitLeft = 450
               object btnEditAssessment: TRzShapeButton
                 Left = 0
                 Top = 0
@@ -1182,7 +1177,7 @@ inherited frmLoanMain: TfrmLoanMain
               Width = 559
               Height = 148
               Hint = ''
-              ActivePage = tsMonExp
+              ActivePage = tsFinInfo
               ActivePageDefault = tsFinInfo
               Anchors = [akLeft, akTop, akRight, akBottom]
               ButtonColor = 15327448
@@ -1192,14 +1187,13 @@ inherited frmLoanMain: TfrmLoanMain
               TabColors.HighlightBar = 15327448
               TabColors.Shadow = 15327448
               TabColors.Unselected = 15327448
-              TabIndex = 1
+              TabIndex = 0
               TabOrder = 1
               TabStyle = tsRoundCorners
               FixedDimension = 20
               object tsFinInfo: TRzTabSheet
                 Color = 15327448
                 Caption = 'Financial info'
-                ExplicitWidth = 461
                 DesignSize = (
                   557
                   123)
@@ -1279,7 +1273,6 @@ inherited frmLoanMain: TfrmLoanMain
               object tsMonExp: TRzTabSheet
                 Color = 15327448
                 Caption = 'Monthly expenses'
-                ExplicitWidth = 461
                 DesignSize = (
                   557
                   123)
@@ -1350,7 +1343,6 @@ inherited frmLoanMain: TfrmLoanMain
           Color = 15327448
           TabVisible = False
           Caption = 'Approval'
-          ExplicitWidth = 507
           object JvLabel30: TJvLabel
             Tag = -1
             Left = 19
@@ -1382,7 +1374,6 @@ inherited frmLoanMain: TfrmLoanMain
             BorderColor = 14272955
             Color = 15327448
             TabOrder = 0
-            ExplicitWidth = 507
             DesignSize = (
               603
               500)
@@ -1541,7 +1532,6 @@ inherited frmLoanMain: TfrmLoanMain
               BorderWidth = 1
               Color = 15327448
               TabOrder = 0
-              ExplicitLeft = 450
               object btnEditApproval: TRzShapeButton
                 Left = 0
                 Top = 0
@@ -1561,7 +1551,6 @@ inherited frmLoanMain: TfrmLoanMain
           Color = 15327448
           TabVisible = False
           Caption = 'Released'
-          ExplicitWidth = 507
           object JvLabel33: TJvLabel
             Tag = -1
             Left = 19
@@ -1595,7 +1584,6 @@ inherited frmLoanMain: TfrmLoanMain
             Ctl3D = False
             ParentCtl3D = False
             TabOrder = 0
-            ExplicitWidth = 507
             DesignSize = (
               603
               500)
@@ -1841,7 +1829,6 @@ inherited frmLoanMain: TfrmLoanMain
               Color = 15327448
               TabOrder = 2
               OnClick = pnlEditRejectionClick
-              ExplicitLeft = 450
               object RzShapeButton1: TRzShapeButton
                 Left = 0
                 Top = 0
@@ -2036,7 +2023,6 @@ inherited frmLoanMain: TfrmLoanMain
           Color = 15327448
           TabVisible = False
           Caption = 'Rejected'
-          ExplicitWidth = 507
           object JvLabel32: TJvLabel
             Tag = -1
             Left = 19
@@ -2068,7 +2054,6 @@ inherited frmLoanMain: TfrmLoanMain
             BorderColor = 8675134
             Color = 15327448
             TabOrder = 0
-            ExplicitWidth = 507
             DesignSize = (
               603
               500)
@@ -2171,7 +2156,6 @@ inherited frmLoanMain: TfrmLoanMain
               Color = 15327448
               TabOrder = 0
               OnClick = pnlEditRejectionClick
-              ExplicitLeft = 450
               object btnEditRejection: TRzShapeButton
                 Left = 0
                 Top = 0
@@ -2191,7 +2175,6 @@ inherited frmLoanMain: TfrmLoanMain
           Color = 15327448
           TabVisible = False
           Caption = 'Cancelled'
-          ExplicitWidth = 507
           object JvLabel31: TJvLabel
             Tag = -1
             Left = 19
@@ -2224,7 +2207,6 @@ inherited frmLoanMain: TfrmLoanMain
             BorderColor = 8675134
             Color = 15327448
             TabOrder = 0
-            ExplicitWidth = 507
             DesignSize = (
               603
               500)
@@ -2326,7 +2308,6 @@ inherited frmLoanMain: TfrmLoanMain
               BorderWidth = 1
               Color = 15327448
               TabOrder = 0
-              ExplicitLeft = 450
               object btnEditCancel: TRzShapeButton
                 Left = 0
                 Top = 0
@@ -2346,7 +2327,6 @@ inherited frmLoanMain: TfrmLoanMain
           Color = 15327448
           TabVisible = False
           Caption = 'Pending'
-          ExplicitWidth = 507
           object pnlPending: TRzPanel
             Tag = -1
             Left = 0
@@ -2360,7 +2340,6 @@ inherited frmLoanMain: TfrmLoanMain
             BorderWidth = 1
             Color = 15327448
             TabOrder = 0
-            ExplicitWidth = 730
             object JvLabel1: TJvLabel
               Tag = -1
               Left = 19
@@ -2387,7 +2366,6 @@ inherited frmLoanMain: TfrmLoanMain
           Color = 15327448
           TabVisible = False
           Caption = 'Closed'
-          ExplicitWidth = 507
           object RzDBLabel22: TRzDBLabel
             Left = 96
             Top = 40

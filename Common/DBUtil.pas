@@ -15,6 +15,8 @@ procedure RefreshDataSet(const key: integer; const keyField: string; DataSet: TD
 procedure RefreshDataSet(const key, keyField: string; DataSet: TDataSet); overload;
 procedure SetCreatedFields(dataSet: TDataSet);
 procedure ExecuteSQL(const sql: string);
+procedure ExecuteSP(const sp: string);
+procedure FixSequence;
 
 function GetEntityId: string;
 function GetGroupId: string;
@@ -69,8 +71,17 @@ end;
 
 procedure ExecuteSQL(const sql: string);
 begin
-  with dmApplication.acMain do
-    Execute(sql);
+  with dmApplication.acMain do Execute(sql);
+end;
+
+procedure ExecuteSP(const sp: string);
+begin
+  with dmApplication.acMain do Execute('EXEC ' + sp);
+end;
+
+procedure FixSequence;
+begin
+  ExecuteSP('dbo.sp_dev_fix_sequence');
 end;
 
 function GetSequenceID(const seqObj: TSequenceObject): integer;

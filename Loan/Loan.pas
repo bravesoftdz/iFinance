@@ -67,6 +67,7 @@ type
     procedure SaveRelease;
     procedure SaveClosure;
     procedure SetAdvancePayment(const i: integer; const Value: TAdvancePayment);
+    procedure UpdateLoan;
 
     function GetIsPending: boolean;
     function GetIsAssessed: boolean;
@@ -246,7 +247,10 @@ begin
   else if ln.Action = laClosing then
     SaveClosure
   else if ln.Action = laReleasing then
+  begin
     SaveRelease;
+    if FLoanClass.HasAdvancePayment then UpdateLoan;
+  end;
 
   ln.Action := laNone;
 end;
@@ -407,6 +411,41 @@ begin
         dstLoanClose.FieldByName('closed_by').AsString := ifn.User.UserId;
       end;
     end
+
+  end;
+end;
+
+procedure TLoan.UpdateLoan;
+var
+  adv: TAdvancePayment;
+  balance, intDeficit, prcDeficit: currency;
+begin
+  // update the principal balance (field loan_balance)
+  // update the last transaction date
+  // update the loan status for full payment
+
+  try
+    with dmLoan.dstLoan do
+    begin
+      intDeficit := 0;
+      prcDeficit := 0;
+
+      for adv in FAdvancePayments do
+      begin
+        intDeficit := intDeficit + adv.Interest;
+        prcDeficit := prcDeficit + adv.Principal;
+      end;
+
+      balance := FReleaseAmount - TotalAdvancePayment;
+
+      Edit;
+      FieldByName('balance').AsCurrency := balance;
+      FieldByName('prc_deficit').AsCurrency := prcDeficit;
+      FieldByName('int_deficit').AsCurrency := intDeficit;
+
+      Post;
+    end;
+  except
 
   end;
 end;
@@ -755,6 +794,9 @@ begin
         if FLoanClass.IsDiminishing then interest := balance * FLoanClass.InterestInDecimal
         else interest := FReleaseAmount * FLoanClass.InterestInDecimal;
 
+        // round off to 2 decimal places
+        interest := RoundTo(interest,-2);
+
         if i <= FLoanClass.AdvancePayment.Interest then adv.Interest := interest;
 
         total := total + adv.Interest;
@@ -762,11 +804,7 @@ begin
         // principal
         if FLoanClass.AdvancePayment.IncludePrincipal then
         begin
-          if FLoanClass.IsDiminishing then
-          begin
-            if FLoanClass.DiminishingType = dtScheduled then principal := Amortisation - interest
-            else principal := FReleaseAmount / FApprovedTerm;
-          end
+          if FLoanClass.IsDiminishing then principal := Amortisation - interest
           else principal := FReleaseAmount / FApprovedTerm;
 
           if i <= FLoanClass.AdvancePayment.Principal then adv.Principal := principal;

@@ -71,9 +71,6 @@ type
     function ValidEntry: boolean; override;
   end;
 
-var
-  frmLoanReleaseDetail: TfrmLoanReleaseDetail;
-
 implementation
 
 {$R *.dfm}

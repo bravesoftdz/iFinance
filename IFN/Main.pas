@@ -110,7 +110,6 @@ type
     pnlSave: TRzPanel;
     imgSave: TImage;
     lblWelcome: TRzLabel;
-    urlChangeDate: TRzURLLabel;
     pnlSearchClient: TRzPanel;
     imgSearchClient: TImage;
     pnlLoanList: TRzPanel;
@@ -125,6 +124,10 @@ type
     imgPaymentList: TImage;
     cmbRecentItems: TRzComboBox;
     Label1: TLabel;
+    pnlChangeDate: TRzPanel;
+    imgChangeDate: TImage;
+    pnlFixSequence: TRzPanel;
+    imgFixSequence: TImage;
     procedure tbAddClientClick(Sender: TObject);
     procedure lblRecentlyAddedClick(Sender: TObject);
     procedure lbxRecentDblClick(Sender: TObject);
@@ -170,7 +173,6 @@ type
     procedure urlPaymentsClick(Sender: TObject);
     procedure urlWithdrawalsClick(Sender: TObject);
     procedure urlClosedClick(Sender: TObject);
-    procedure urlChangeDateClick(Sender: TObject);
     procedure imgMinimizeClick(Sender: TObject);
     procedure imgChargeTypesClick(Sender: TObject);
     procedure imgInfoSourcesClick(Sender: TObject);
@@ -180,6 +182,8 @@ type
     procedure imgWithdrawalsClick(Sender: TObject);
     procedure imgPaymentListClick(Sender: TObject);
     procedure cmbRecentItemsClick(Sender: TObject);
+    procedure imgChangeDateClick(Sender: TObject);
+    procedure imgFixSequenceClick(Sender: TObject);
   private
     { Private declarations }
     DOCKED_FORM: TForms;
@@ -209,10 +213,10 @@ implementation
 {$R *.dfm}
 
 uses
-  ClientMain, SaveIntf, ClientList, DockedFormIntf,  LoanMain, LoanList, LoanIntf,
+  ClientMain, SaveIntf, ClientList, DockedFormIntf, LoanMain, LoanList, LoanIntf,
   FormsUtil, IFinanceGlobal, IFinanceDialogs, NewIntf, AppSettings,
   PaymentMain, PaymentIntf, PaymentList, AccountingData, WithdrawalList, DevParams,
-  MaintenanceDrawer, ClientIntf;
+  MaintenanceDrawer, ClientIntf, DBUtil;
 
 constructor TRecentClient.Create(const id, displayId, name: string);
 begin
@@ -562,11 +566,6 @@ begin
   OpenLoanList(lftCancelled);
 end;
 
-procedure TfrmMain.urlChangeDateClick(Sender: TObject);
-begin
-  ShowDevParams;
-end;
-
 procedure TfrmMain.urlDeniedClick(Sender: TObject);
 begin
   OpenLoanList(lftRejected);
@@ -695,6 +694,11 @@ begin
   end;
 end;
 
+procedure TfrmMain.imgChangeDateClick(Sender: TObject);
+begin
+  ShowDevParams;
+end;
+
 procedure TfrmMain.imgChargeTypesClick(Sender: TObject);
 begin
   DockForm(fmChargeTypeList);
@@ -703,6 +707,16 @@ end;
 procedure TfrmMain.imgCloseClick(Sender: TObject);
 begin
   Application.Terminate;
+end;
+
+procedure TfrmMain.imgFixSequenceClick(Sender: TObject);
+begin
+  try
+    FixSequence;
+    ShowConfirmationBox('ID sequence fixed successfully.');
+  except
+    on E: Exception do ShowErrorBox(E.Message);
+  end;
 end;
 
 procedure TfrmMain.imgMaintenanceClick(Sender: TObject);

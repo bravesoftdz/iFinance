@@ -503,7 +503,7 @@ begin
                 begin
                   caseType :=  TRttiEnumerationType.GetName<TCaseTypes>(TCaseTypes.ITS);
                   payment := adv.Interest;
-                  balance := adv.Balance * -1;
+                  balance := adv.Interest;
                 end;
 
               PEN: Continue;

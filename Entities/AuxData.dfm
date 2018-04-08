@@ -43,7 +43,6 @@ object dmAux: TdmAux
     Connection = dmApplication.acMain
     CursorType = ctStatic
     LockType = ltReadOnly
-    AfterScroll = dstBanksAfterScroll
     CommandText = 'sp_get_banks;1'
     CommandType = cmdStoredProc
     Parameters = <>

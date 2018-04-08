@@ -50,7 +50,6 @@ type
     dstLoanCloseReasons: TADODataSet;
     dscLoanCloseReasons: TDataSource;
     procedure dstBranchesBeforePost(DataSet: TDataSet);
-    procedure dstBanksAfterScroll(DataSet: TDataSet);
     procedure dstBranchesNewRecord(DataSet: TDataSet);
     procedure dstDesignationsBeforePost(DataSet: TDataSet);
     procedure dstCompetitorsBeforePost(DataSet: TDataSet);
@@ -77,12 +76,6 @@ uses
 
 {$R *.dfm}
 
-procedure TdmAux.dstBanksAfterScroll(DataSet: TDataSet);
-begin
-  dstBranches.Filter := 'bank_code = ' +
-        QuotedStr(DataSet.FieldByName('bank_code').AsString);
-end;
-
 procedure TdmAux.dstBranchesBeforePost(DataSet: TDataSet);
 var
   id: string;
@@ -98,7 +91,6 @@ procedure TdmAux.dstBranchesNewRecord(DataSet: TDataSet);
 begin
   with DataSet do
   begin
-    FieldByName('bank_code').AsString := dstBanks.FieldByName('bank_code').AsString;
     FieldByName('loc_code').AsString := ifn.LocationCode;
   end;
 end;

@@ -1,10 +1,10 @@
 inherited frmPaymentMain: TfrmPaymentMain
   Caption = 'frmPaymentMain'
   ClientHeight = 382
-  ClientWidth = 776
+  ClientWidth = 906
   OnCreate = FormCreate
   OnShow = FormShow
-  ExplicitWidth = 792
+  ExplicitWidth = 922
   ExplicitHeight = 421
   PixelsPerInch = 96
   TextHeight = 14
@@ -53,7 +53,7 @@ inherited frmPaymentMain: TfrmPaymentMain
   end
   object lblTotalAmount: TJvLabel [3]
     Tag = -1
-    Left = 746
+    Left = 876
     Top = 325
     Width = 6
     Height = 14
@@ -62,7 +62,7 @@ inherited frmPaymentMain: TfrmPaymentMain
     Font.Color = clBlack
     Font.Height = -12
     Font.Name = 'Tahoma'
-    Font.Style = []
+    Font.Style = [fsBold]
     Anchors = [akRight, akBottom]
     ParentFont = False
     Transparent = True
@@ -71,6 +71,7 @@ inherited frmPaymentMain: TfrmPaymentMain
     HotTrackFont.Height = -12
     HotTrackFont.Name = 'Tahoma'
     HotTrackFont.Style = []
+    ExplicitLeft = 746
   end
   object JvLabel2: TJvLabel [4]
     Left = 23
@@ -164,7 +165,7 @@ inherited frmPaymentMain: TfrmPaymentMain
   end
   object lblWithdrawn: TJvLabel [9]
     Tag = -1
-    Left = 554
+    Left = 558
     Top = 89
     Width = 6
     Height = 14
@@ -181,9 +182,29 @@ inherited frmPaymentMain: TfrmPaymentMain
     HotTrackFont.Name = 'Tahoma'
     HotTrackFont.Style = []
   end
+  object JvLabel5: TJvLabel [10]
+    Left = 708
+    Top = 89
+    Width = 157
+    Height = 14
+    Caption = 'This is an advance payment.'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clMaroon
+    Font.Height = -12
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    Anchors = [akTop, akRight]
+    ParentFont = False
+    Transparent = True
+    HotTrackFont.Charset = DEFAULT_CHARSET
+    HotTrackFont.Color = clWindowText
+    HotTrackFont.Height = -12
+    HotTrackFont.Name = 'Tahoma'
+    HotTrackFont.Style = []
+  end
   inherited pnlTitle: TRzPanel
-    Width = 776
-    ExplicitWidth = 776
+    Width = 906
+    ExplicitWidth = 906
     inherited lblTitle: TRzLabel
       Width = 54
       Caption = 'Payment'
@@ -192,9 +213,9 @@ inherited frmPaymentMain: TfrmPaymentMain
   end
   object pnlDetail: TRzPanel
     Left = 22
-    Top = 121
-    Width = 730
-    Height = 148
+    Top = 136
+    Width = 860
+    Height = 133
     Anchors = [akLeft, akTop, akRight, akBottom]
     BorderOuter = fsNone
     BorderColor = 14272955
@@ -204,14 +225,14 @@ inherited frmPaymentMain: TfrmPaymentMain
     object grDetail: TRzStringGrid
       Left = 1
       Top = 1
-      Width = 728
-      Height = 146
+      Width = 858
+      Height = 131
       Align = alClient
       BevelInner = bvNone
       BevelOuter = bvNone
       BorderStyle = bsNone
       ColCount = 8
-      Ctl3D = True
+      Ctl3D = False
       FixedColor = clWhite
       FixedCols = 0
       RowCount = 1
@@ -229,6 +250,7 @@ inherited frmPaymentMain: TfrmPaymentMain
       LineColor = clWindow
       UseDrawingStyle = False
       OnResize = grDetailResize
+      ExplicitHeight = 146
       ColWidths = (
         60
         60
@@ -339,7 +361,7 @@ inherited frmPaymentMain: TfrmPaymentMain
   object edClient: TRzEdit
     Left = 377
     Top = 53
-    Width = 375
+    Width = 505
     Height = 22
     Text = ''
     Anchors = [akLeft, akTop, akRight]
