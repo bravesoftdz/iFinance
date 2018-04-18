@@ -342,4 +342,58 @@ object dmPayment: TdmPayment
       Size = 2
     end
   end
+  object fmtPaymentDetail: TFDMemTable
+    FieldDefs = <
+      item
+        Name = 'LoanId'
+        DataType = ftString
+        Size = 20
+      end
+      item
+        Name = 'LoanType'
+        DataType = ftString
+        Size = 20
+      end
+      item
+        Name = 'AccountType'
+        DataType = ftString
+        Size = 20
+      end
+      item
+        Name = 'Principal'
+        DataType = ftString
+        Size = 20
+      end
+      item
+        Name = 'Interest'
+        DataType = ftString
+        Size = 20
+      end
+      item
+        Name = 'Penalty'
+        DataType = ftString
+        Size = 20
+      end
+      item
+        Name = 'TotalAmount'
+        DataType = ftString
+        Size = 20
+      end>
+    IndexDefs = <>
+    FetchOptions.AssignedValues = [evMode]
+    FetchOptions.Mode = fmAll
+    ResourceOptions.AssignedValues = [rvSilentMode]
+    ResourceOptions.SilentMode = True
+    UpdateOptions.AssignedValues = [uvCheckRequired, uvAutoCommitUpdates]
+    UpdateOptions.CheckRequired = False
+    UpdateOptions.AutoCommitUpdates = True
+    StoreDefs = True
+    Left = 256
+    Top = 208
+  end
+  object dscDetail: TDataSource
+    DataSet = fmtPaymentDetail
+    Left = 335
+    Top = 206
+  end
 end

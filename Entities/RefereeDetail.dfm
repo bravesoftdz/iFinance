@@ -1,9 +1,9 @@
 inherited frmRefereeDetail: TfrmRefereeDetail
   Caption = 'frmRefereeDetail'
-  ClientHeight = 208
+  ClientHeight = 216
   ClientWidth = 370
   ExplicitWidth = 370
-  ExplicitHeight = 208
+  ExplicitHeight = 216
   PixelsPerInch = 96
   TextHeight = 14
   inherited pnlTitle: TRzPanel
@@ -21,17 +21,17 @@ inherited frmRefereeDetail: TfrmRefereeDetail
   end
   inherited pnlMain: TRzPanel
     Width = 370
-    Height = 187
+    Height = 195
     ExplicitWidth = 370
     ExplicitHeight = 187
     inherited pnlDetail: TRzPanel
       Width = 353
-      Height = 138
+      Height = 146
       ExplicitWidth = 353
       ExplicitHeight = 138
       inherited pcDetail: TRzPageControl
         Width = 351
-        Height = 136
+        Height = 144
         ExplicitWidth = 351
         ExplicitHeight = 136
         FixedDimension = 20
@@ -48,7 +48,7 @@ inherited frmRefereeDetail: TfrmRefereeDetail
           end
           object JvLabel2: TJvLabel
             Left = 19
-            Top = 47
+            Top = 50
             Width = 54
             Height = 14
             Caption = 'Firstname'
@@ -56,7 +56,7 @@ inherited frmRefereeDetail: TfrmRefereeDetail
           end
           object JvLabel3: TJvLabel
             Left = 19
-            Top = 71
+            Top = 77
             Width = 36
             Height = 14
             Caption = 'Middle'
@@ -64,7 +64,7 @@ inherited frmRefereeDetail: TfrmRefereeDetail
           end
           object JvLabel22: TJvLabel
             Left = 19
-            Top = 95
+            Top = 104
             Width = 65
             Height = 14
             Caption = 'Cell/tel. no.'
@@ -72,13 +72,13 @@ inherited frmRefereeDetail: TfrmRefereeDetail
           end
           object RzDBEdit11: TRzDBEdit
             Left = 114
-            Top = 89
+            Top = 98
             Width = 102
             Height = 22
             DataSource = dmEntities.dscRefContact
             DataField = 'mobile_no'
             Ctl3D = True
-            FrameColor = 8675134
+            FrameColor = 14272955
             FrameVisible = True
             FramingPreference = fpCustomFraming
             ParentCtl3D = False
@@ -86,14 +86,14 @@ inherited frmRefereeDetail: TfrmRefereeDetail
             TabOrder = 3
           end
           object RzDBEdit10: TRzDBEdit
-            Left = 219
-            Top = 89
-            Width = 102
+            Left = 221
+            Top = 98
+            Width = 100
             Height = 22
             DataSource = dmEntities.dscRefContact
             DataField = 'home_phone'
             Ctl3D = True
-            FrameColor = 8675134
+            FrameColor = 14272955
             FrameVisible = True
             FramingPreference = fpCustomFraming
             ParentCtl3D = False
@@ -102,13 +102,13 @@ inherited frmRefereeDetail: TfrmRefereeDetail
           end
           object edMiddleName: TRzDBEdit
             Left = 114
-            Top = 65
+            Top = 71
             Width = 207
             Height = 22
             DataSource = dmEntities.dscRefPersonal
             DataField = 'middlename'
             CharCase = ecUpperCase
-            FrameColor = 8675134
+            FrameColor = 14272955
             FrameVisible = True
             FramingPreference = fpCustomFraming
             TabOnEnter = True
@@ -116,13 +116,13 @@ inherited frmRefereeDetail: TfrmRefereeDetail
           end
           object edFirstname: TRzDBEdit
             Left = 114
-            Top = 41
+            Top = 44
             Width = 207
             Height = 22
             DataSource = dmEntities.dscRefPersonal
             DataField = 'firstname'
             CharCase = ecUpperCase
-            FrameColor = 8675134
+            FrameColor = 14272955
             FrameVisible = True
             FramingPreference = fpCustomFraming
             TabOnEnter = True
@@ -136,7 +136,7 @@ inherited frmRefereeDetail: TfrmRefereeDetail
             DataSource = dmEntities.dscRefPersonal
             DataField = 'lastname'
             CharCase = ecUpperCase
-            FrameColor = 8675134
+            FrameColor = 14272955
             FrameVisible = True
             FramingPreference = fpCustomFraming
             TabOnEnter = True
@@ -147,13 +147,13 @@ inherited frmRefereeDetail: TfrmRefereeDetail
     end
     inherited pnlCancel: TRzPanel
       Left = 311
-      Top = 155
+      Top = 163
       ExplicitLeft = 311
       ExplicitTop = 155
     end
     inherited pnlSave: TRzPanel
       Left = 255
-      Top = 155
+      Top = 163
       ExplicitLeft = 255
       ExplicitTop = 155
     end

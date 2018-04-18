@@ -97,6 +97,9 @@
         <DCCReference Include="JvStdCtrls.dcp"/>
         <DCCReference Include="JvControls.dcp"/>
         <DCCReference Include="adortl.dcp"/>
+        <DCCReference Include="FireDAC.dcp"/>
+        <DCCReference Include="FireDACCommonDriver.dcp"/>
+        <DCCReference Include="FireDACCommon.dcp"/>
         <DCCReference Include="AppSettings.pas">
             <Form>frmAppSettings</Form>
             <FormType>dfm</FormType>

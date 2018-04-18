@@ -26,6 +26,7 @@ type
   protected
     procedure Save; override;
     procedure Cancel; override;
+    procedure BindToObject; override;
     function ValidEntry: boolean; override;
   end;
 
@@ -38,6 +39,12 @@ implementation
 
 uses
   EntitiesData, Referee, IFinanceDialogs, EntityUtils;
+
+procedure TfrmRefereeDetail.BindToObject;
+begin
+  inherited;
+
+end;
 
 procedure TfrmRefereeDetail.Cancel;
 begin

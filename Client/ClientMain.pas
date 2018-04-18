@@ -9,7 +9,8 @@ uses
   RzEdit, RzDBEdit, JvLabel, JvExControls, Vcl.DBCtrls, RzDBCmbo,
   Vcl.ComCtrls, RzDTP, RzDBDTP, RzButton, RzRadChk, RzDBChk, Data.DB, Vcl.Grids,
   Vcl.DBGrids, RzDBGrid, RzBtnEdt, RzLaunch, ClientIntf, Vcl.Imaging.pngimage,
-  RzCmboBx, RzLstBox, RzDBList, NewIntf, RzGrids, RzChkLst, ADODB, Vcl.Menus;
+  RzCmboBx, RzLstBox, RzDBList, NewIntf, RzGrids, RzChkLst, ADODB, Vcl.Menus,
+  DSPack, DXSUtil, DirectShow9, JPEG;
 
 type
   TfrmClientMain = class(TfrmBaseDocked, ISave, IClient, INew)
@@ -86,7 +87,6 @@ type
     grIdentityList: TRzDBGrid;
     pnlLoans: TRzPanel;
     grLoans: TRzDBGrid;
-    PhotoLauncher: TRzLauncher;
     RzDBNumericEdit1: TRzDBNumericEdit;
     RzDBNumericEdit2: TRzDBNumericEdit;
     urlRefreshRefList: TRzURLLabel;
@@ -187,9 +187,19 @@ type
     urlPromissoryNotes: TRzURLLabel;
     urlPhoto: TRzURLLabel;
     tsPhoto: TRzTabSheet;
+    JvLabel38: TJvLabel;
     pnlPhoto: TRzPanel;
     imgClient: TImage;
-    JvLabel38: TJvLabel;
+    VideoWindow: TVideoWindow;
+    ListBox: TListBox;
+    ListBox2: TListBox;
+    pnlTakePhoto: TRzPanel;
+    btnTakePhoto: TRzShapeButton;
+    pnlCancel: TRzPanel;
+    btnCancel: TRzShapeButton;
+    SampleGrabber: TSampleGrabber;
+    VideoSourceFilter: TFilter;
+    CaptureGraph: TFilterGraph;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -232,8 +242,13 @@ type
     procedure urlGroupsClick(Sender: TObject);
     procedure urlPromissoryNotesClick(Sender: TObject);
     procedure urlPhotoClick(Sender: TObject);
+    procedure btnTakePhotoClick(Sender: TObject);
+    procedure btnCancelClick(Sender: TObject);
   private
     { Private declarations }
+    VideoDevice: TSysDevEnum;
+    VideoMediaTypes: TEnumMediaType;
+
     procedure CopyAddress;
     procedure GetAge;
     procedure ChangeControlState;
@@ -251,6 +266,12 @@ type
     procedure ShowLedger;
     procedure ShowLoanDetails;
 
+    procedure InitPhotoCapture;
+    procedure SetImageDevice;
+    procedure StartCapture;
+    procedure GetSnapshot;
+    procedure CancelPhotoCapture;
+
     function CheckClientInfo: string;
     function CheckIdentInfo: string;
     function CheckAcctInfo: string;
@@ -260,17 +281,14 @@ type
     procedure Cancel;
 
     procedure SetClientName;
-    procedure SetUnboundControls(const changeTab: boolean = true);
     procedure LoadPhoto;
+    procedure SetUnboundControls(const changeTab: boolean = true);
     procedure SetLandLordControlsPres;
     procedure SetLandLordControlsProv;
 
     function Save: boolean;
     procedure New;
   end;
-
-var
-  frmClientMain: TfrmClientMain;
 
 implementation
 
@@ -294,6 +312,7 @@ const
   GROUPS = 4;
   BANKACCOUNTS = 5;
   PROMISSORYNOTES = 6;
+  CLIENTPHOTO = 7;
 
 function TfrmClientMain.CheckClientInfo: string;
 var
@@ -616,6 +635,33 @@ begin
 
 end;
 
+procedure TfrmClientMain.btnCancelClick(Sender: TObject);
+begin
+  inherited;
+  CancelPhotoCapture;
+end;
+
+procedure TfrmClientMain.btnTakePhotoClick(Sender: TObject);
+begin
+  inherited;
+  try
+    if VideoWindow.Visible then
+    begin
+      GetSnapshot;
+      CancelPhotoCapture;
+      LoadPhoto;
+    end
+    else
+    begin
+      ListBox.ItemIndex := 0;
+      SetImageDevice;
+      VideoWindow.Visible := true;
+    end
+  except
+    on E: Exception do ShowErrorBox(E.Message);
+  end;
+end;
+
 procedure TfrmClientMain.FormClose(Sender: TObject; var Action: TCloseAction);
 var
   intf: IDock;
@@ -629,12 +675,6 @@ begin
   dmRef.Destroy;
 
   cln.Destroy;
-
-  // close photo utility
-  if PhotoLauncher.Running then
-    SendMessage(FindWindow(nil,'PhotoUtil'),WM_CLOSE,0,0);
-
-  Application.BringToFront;
   inherited;
 end;
 
@@ -644,6 +684,19 @@ var
 begin
   for i := 0 to pcClient.PageCount - 1 do
     pcClient.Pages[i].TabVisible := false;
+end;
+
+procedure TfrmClientMain.InitPhotoCapture;
+var
+  i: integer;
+begin
+  VideoDevice := TSysDevEnum.Create(CLSID_VideoInputDeviceCategory);
+  for i := 0 to VideoDevice.CountFilters - 1 do
+    ListBox.Items.Add(VideoDevice.Filters[i].FriendlyName);
+
+  VideoMediaTypes := TEnumMediaType.Create;
+
+  LoadPhoto;
 end;
 
 procedure TfrmClientMain.SetActiveTab(const tabIndex: Integer);
@@ -692,6 +745,11 @@ begin
       begin
         OpenGridDataSources(pnlPromissoryNotes);
       end;
+
+    CLIENTPHOTO:
+      begin
+        InitPhotoCapture;
+      end;
   end;
 end;
 
@@ -731,40 +789,50 @@ function TfrmClientMain.Save: boolean;
 var
   error: string;
 begin
+  Result := false;
 
   try
-    error := '';
-
-    case pcClient.ActivePageIndex of
-
-      CLIENT: error := CheckClientInfo;
-      IDENT : error := CheckIdentInfo;
-      BANKACCOUNTS: error := CheckAcctInfo;
-      PROMISSORYNOTES: error := CheckPromissoryNote;
-
-    end;
-
-    Result := error = '';
-
-    if Result then
-    begin
-      // alerts
-      case pcClient.ActivePageIndex of
-
-        CLIENT: ShowAlerts;
-
-      end;
-
-      cln.Save;
-      SetClientName;
+    try
+      error := '';
 
       case pcClient.ActivePageIndex of
 
-        CLIENT, FAMREF: Exit;
-        IDENT : ChangeIdentControlState;
+        CLIENT: error := CheckClientInfo;
+        IDENT : error := CheckIdentInfo;
+        BANKACCOUNTS: error := CheckAcctInfo;
+        PROMISSORYNOTES: error := CheckPromissoryNote;
 
       end;
 
+      Result := error = '';
+
+      if Result then
+      begin
+        // alerts
+        case pcClient.ActivePageIndex of
+
+          CLIENT: ShowAlerts;
+
+        end;
+
+        cln.Save;
+        SetClientName;
+
+        case pcClient.ActivePageIndex of
+
+          CLIENT, FAMREF: Exit;
+          IDENT : ChangeIdentControlState;
+
+        end;
+
+        Result := true;
+      end;
+    except
+      on E: Exception do
+      begin
+        ShowErrorBox('Unable to save client record.');
+        Result := false;
+      end;
     end;
   finally
 
@@ -1016,6 +1084,15 @@ begin
   end;
 end;
 
+procedure TfrmClientMain.CancelPhotoCapture;
+begin
+  CaptureGraph.Active := false;
+  VideoWindow.Visible := false;
+
+  if Assigned(VideoDevice) then VideoDevice.Free;
+  if Assigned(VideoMediaTypes) then VideoMediaTypes.Free;
+end;
+
 procedure TfrmClientMain.SetClientName;
 var
   displayId: string;
@@ -1028,6 +1105,41 @@ begin
   lblClientName.Caption := UpperCase(cln.Name + '   ' + displayId);
 
   ChangeControlState;
+end;
+
+procedure TfrmClientMain.SetImageDevice;
+var
+ PinList: TPinList;
+ i: integer;
+begin
+  if ListBox.Items.Count = 0 then
+  begin
+    // lblStatus.Caption := 'No imaging device found.';
+    Exit;
+  end;
+
+  VideoDevice.SelectGUIDCategory(CLSID_VideoInputDeviceCategory);
+  if ListBox.ItemIndex <> -1 then
+  begin
+    // Set the device which we work with
+    VideoSourceFilter.BaseFilter.Moniker := VideoDevice.GetMoniker(ListBox.ItemIndex);
+    VideoSourceFilter.FilterGraph := CaptureGraph;
+    CaptureGraph.Active := true;
+    PinList := DXSUtil.TPinList.Create(VideoSourceFilter as IBaseFilter);
+    ListBox2.Clear;
+    VideoMediaTypes.Assign(PinList.First);
+
+    // Adding permission to ListBox2, which supports device
+    for i := 0 to VideoMediaTypes.Count - 1 do
+      ListBox2.Items.Add(VideoMediaTypes.MediaDescription[i]);
+
+    CaptureGraph.Active := false;
+    PinList.Free;
+
+    ListBox2.ItemIndex := 0;
+
+    StartCapture;
+  end;
 end;
 
 procedure TfrmClientMain.SetUnboundControls(const changeTab: boolean = true);
@@ -1104,10 +1216,7 @@ begin
       alrt.Add('No contact numbers entered.');
 
     if not cln.Adding then
-    begin
       if cln.IdentityDocsCount = 0 then alrt.Add('No identity documents added.');
-
-    end;
 
     if alrt.Count > 0 then
       with TfrmAlerts.Create(self) do
@@ -1170,6 +1279,36 @@ begin
         intf.DockForm(fmLoanMain);
     end;
   end;
+end;
+
+procedure TfrmClientMain.StartCapture;
+var
+ PinList: TPinList;
+begin
+  // Activating graph filter, at this stage the source filter is added to the graph
+  CaptureGraph.Active := true;
+
+  // The configuration of the output device
+  if VideoSourceFilter.FilterGraph <> nil then
+  begin
+    PinList := TPinList.Create(VideoSourceFilter as IBaseFilter);
+    if ListBox2.ItemIndex <> -1 then
+    with (PinList.First as IAMStreamConfig) do
+      SetFormat(VideoMediaTypes.Items[ListBox2.ItemIndex].AMMediaType^);
+    PinList.Free;
+  end;
+
+  // now render streams
+  with CaptureGraph as IcaptureGraphBuilder2 do
+  begin
+    // Hooking up a preview video (VideoWindow)
+    if VideoSourceFilter.BaseFilter.DataLength > 0 then
+      RenderStream(@PIN_CATEGORY_PREVIEW, nil, VideoSourceFilter as IBaseFilter,
+        SampleGrabber as IBaseFilter , VideoWindow as IBaseFilter);
+   end;
+
+ //Launch video
+ CaptureGraph.Play;
 end;
 
 procedure TfrmClientMain.urlBankAccountInformationClick(Sender: TObject);
@@ -1253,7 +1392,7 @@ begin
   if dteBirthdate.Text <> '' then
   begin
     DecodeDate(dteBirthdate.Date, Year, Month, Day);
-    DecodeDate(Date, CurrentYear, CurrentMonth, CurrentDay);
+    DecodeDate(ifn.AppDate, CurrentYear, CurrentMonth, CurrentDay);
 
     if (Year = CurrentYear) and (Month = CurrentMonth) and (Day = CurrentDay) then
     begin
@@ -1274,6 +1413,35 @@ begin
   end;
 
   edAge.Text := IntToStr(age);
+end;
+
+procedure TfrmClientMain.GetSnapshot;
+var
+  path: string;
+  filename: string;
+  jpg: TJPEGImage;
+begin
+  jpg := TJPEGImage.Create;
+  try
+    path := '';
+
+    SampleGrabber.GetBitmap(imgClient.Picture.Bitmap);
+
+    path := ifn.PhotoPath;
+
+    filename := cln.Id + '.jpg';
+
+    // save file
+    if not DirectoryExists(path) then CreateDir(path);
+
+    jpg.CompressionQuality := 50;
+    jpg.Assign(imgClient.Picture.Bitmap);
+    jpg.SaveToFile(path + filename);
+
+    VideoWindow.Visible := false;
+  finally
+    jpg.Free;
+  end;
 end;
 
 procedure TfrmClientMain.grLoansDblClick(Sender: TObject);
@@ -1326,25 +1494,9 @@ begin
 end;
 
 procedure TfrmClientMain.urlPhotoClick(Sender: TObject);
-var
-  fileName: string;
 begin
   inherited;
-  try
-    if not PhotoLauncher.Running then
-    begin
-      fileName := FormatDateTime('mmddyyyhhmmss',Now);
-
-      cln.Photo := fileName + '.bmp';
-
-      PhotoLauncher.Parameters := ifn.PhotoPath + ' ' + Trim(fileName);
-      PhotoLauncher.Launch;
-      Application.MainForm.Enabled := false;
-    end;
-  except
-    on e: Exception do
-      ShowErrorBox(e.Message);
-  end;
+  SetActiveTab(CLIENTPHOTO);
 end;
 
 procedure TfrmClientMain.urlPromissoryNotesClick(Sender: TObject);
@@ -1367,20 +1519,23 @@ end;
 
 procedure TfrmClientMain.LoadPhoto;
 var
-  filename: string;
+  imageFile: string;
+  jpg: TJPEGImage;
 begin
-  filename := ifn.PhotoPath + Trim(cln.Photo);
+  jpg := TJPEGImage.Create;
+  try
+    imageFile := ifn.PhotoPath + Trim(cln.Photo);
 
-  if FileExists(fileName) then
-  begin
-    imgClient.Picture.LoadFromFile(fileName);
-    imgClient.Visible := true;
-  end
-  else
-    imgClient.Visible := false;
+    if FileExists(imageFile) then
+    begin
+      jpg.LoadFromFile(imageFile);
+      imgClient.Picture.Assign(jpg);
+      imgClient.Visible := true;
+    end else imgClient.Visible := false;
 
-  if not Application.MainForm.Active then
-    Application.MainForm.Enabled := true;
+  finally
+    jpg.Free;
+  end;
 end;
 
 procedure TfrmClientMain.Loandetails1Click(Sender: TObject);

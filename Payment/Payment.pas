@@ -80,6 +80,7 @@ type
     function GetIsWithdrawal: boolean;
     function GetIsAdvance: boolean;
     function GetIsLate: boolean;
+    function GetChangeAmount: currency;
 
   public
     property Client: TActiveClient read FClient write FClient;
@@ -100,6 +101,7 @@ type
     property IsWithdrawal: boolean read GetIsWithdrawal;
     property IsAdvance: boolean read GetIsAdvance;
     property IsLate: boolean read GetIsLate;
+    property ChangeAmount: currency read GetChangeAmount;
 
     procedure Add;
     procedure AddDetail(const detail: TPaymentDetail);
@@ -261,7 +263,6 @@ begin
           FieldByName('remarks').AsString := FDetails[i].Remarks;
 
           if FDetails[i].IsFullPayment then FieldByName('balance').AsCurrency := 0
-          // else FieldByName('balance').AsCurrency := (FDetails[i].Loan.InterestDue + FDetails[i].Loan.InterestDeficit)  - FDetails[i].Interest;
           else FieldByName('balance').AsCurrency := FDetails[i].Loan.InterestDue - FDetails[i].Interest;
 
           Post;
@@ -294,6 +295,7 @@ var
 begin
   // update the principal balance (field loan_balance)
   // update the last transaction date
+  // update principal and interest deficits
   // update the loan status for full payment
 
   try
@@ -305,7 +307,10 @@ begin
         begin
           balance := detail.Loan.Balance - detail.Principal;
           prcDeficit := detail.Loan.PrincipalDeficit + (detail.Loan.PrincipalDue - detail.Principal);
-          intDeficit := detail.Loan.InterestDeficit + (detail.Loan.InterestDue - detail.Interest);
+
+          if FDate < detail.Loan.NextPayment then intDeficit := detail.Loan.InterestDeficit - detail.Interest + detail.Loan.InterestComputed
+          else if FDate > detail.Loan.NextPayment then intDeficit := detail.Loan.InterestDeficit - detail.Interest + detail.Loan.InterestAdditional
+          else intDeficit := detail.Loan.InterestDeficit;
 
           Edit;
           FieldByName('balance').AsCurrency := balance;
@@ -376,6 +381,12 @@ begin
       if (Eof) or (loan.Id <> currentLoanId) then AddDetail(detail);
     end;
   end;
+end;
+
+function TPayment.GetChangeAmount: currency;
+begin
+  if IsWithdrawal then Result := Withdrawn - TotalAmount
+  else Result := 0;
 end;
 
 function TPayment.GetDetail(const i: Integer): TPaymentDetail;

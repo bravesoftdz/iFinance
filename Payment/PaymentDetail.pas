@@ -261,7 +261,7 @@ begin
   lblLoanBalance.Caption := FormatCurr('###,###,##0.00', pmt.Client.ActiveLoans[i].Balance);
   lblPrincipalDeficit.Caption := FormatCurr('###,###,##0.00;(###,###,##0.00);-', pmt.Client.ActiveLoans[i].PrincipalDeficit);
   lblInterestDeficit.Caption := FormatCurr('###,###,##0.00;(###,###,##0.00);-', pmt.Client.ActiveLoans[i].InterestDeficit);
-  urlAmortization.Caption := FormatCurr('###,###,##0.00', pmt.Client.ActiveLoans[i].Amortisation);
+  urlAmortization.Caption := FormatCurr('###,###,##0.00', pmt.Client.ActiveLoans[i].Amortization);
 
   if pmt.Details[pmt.DetailCount-1].IsFullPayment then
   begin
@@ -273,7 +273,8 @@ begin
   else
     lblInterestDueOnPaymentDate.Caption := FormatCurr('###,###,##0.00;-;-', pmt.Client.ActiveLoans[i].InterestDue);
 
-  lblTotalInterestDue.Caption := FormatCurr('###,###,##0.00;-;-', pmt.Client.ActiveLoans[i].InterestDue + pmt.Client.ActiveLoans[i].InterestDeficit);
+  // lblTotalInterestDue.Caption := FormatCurr('###,###,##0.00;-;-', pmt.Client.ActiveLoans[i].InterestDue + pmt.Client.ActiveLoans[i].InterestDeficit);
+  lblTotalInterestDue.Caption := FormatCurr('###,###,##0.00;-;-', pmt.Client.ActiveLoans[i].TotalInterestDue);
   lblLastTransaction.Caption := FormatDateTime('mm/dd/yyyy', pmt.Client.ActiveLoans[i].LastTransactionDate);
   lblDays.Caption := IntToStr(DaysBetween(pmt.Date,pmt.Client.ActiveLoans[i].LastTransactionDate));
 

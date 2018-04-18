@@ -40,7 +40,10 @@ requires
   JvCore,
   JvStdCtrls,
   JvControls,
-  adortl;
+  adortl,
+  FireDAC,
+  FireDACCommonDriver,
+  FireDACCommon;
 
 contains
   AppSettings in 'AppSettings.pas' {frmAppSettings},

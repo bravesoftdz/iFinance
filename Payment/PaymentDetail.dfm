@@ -9,7 +9,7 @@ inherited frmPaymentDetail: TfrmPaymentDetail
   TextHeight = 14
   inherited pnlTitle: TRzPanel
     Width = 742
-    ExplicitWidth = 551
+    ExplicitWidth = 742
     inherited imgClose: TImage
       Left = 721
       ExplicitLeft = 318
@@ -23,8 +23,8 @@ inherited frmPaymentDetail: TfrmPaymentDetail
   inherited pnlMain: TRzPanel
     Width = 742
     Height = 284
-    ExplicitWidth = 551
-    ExplicitHeight = 351
+    ExplicitWidth = 742
+    ExplicitHeight = 284
     object urlLedger: TRzURLLabel [0]
       Tag = 1
       Left = 10
@@ -45,17 +45,17 @@ inherited frmPaymentDetail: TfrmPaymentDetail
     inherited pnlDetail: TRzPanel
       Width = 725
       Height = 235
-      ExplicitWidth = 534
-      ExplicitHeight = 302
+      ExplicitWidth = 725
+      ExplicitHeight = 235
       inherited pcDetail: TRzPageControl
         Width = 723
         Height = 233
-        ExplicitWidth = 532
-        ExplicitHeight = 300
+        ExplicitWidth = 723
+        ExplicitHeight = 233
         FixedDimension = 20
         inherited tsDetail: TRzTabSheet
-          ExplicitWidth = 532
-          ExplicitHeight = 300
+          ExplicitWidth = 723
+          ExplicitHeight = 233
           object JvLabel1: TJvLabel
             Left = 268
             Top = 31
@@ -530,8 +530,8 @@ inherited frmPaymentDetail: TfrmPaymentDetail
           object JvLabel15: TJvLabel
             Left = 474
             Top = 156
-            Width = 126
-            Height = 18
+            Width = 116
+            Height = 14
             Caption = 'Total interest due:'
             Font.Charset = DEFAULT_CHARSET
             Font.Color = clWindowText
@@ -610,7 +610,7 @@ inherited frmPaymentDetail: TfrmPaymentDetail
             Font.Height = -19
             Font.Name = 'Tahoma'
             Font.Style = []
-            FrameColor = 8675134
+            FrameColor = 14272955
             FrameVisible = True
             FramingPreference = fpCustomFraming
             ParentFont = False
@@ -632,7 +632,7 @@ inherited frmPaymentDetail: TfrmPaymentDetail
             Font.Height = -19
             Font.Name = 'Tahoma'
             Font.Style = []
-            FrameColor = 8675134
+            FrameColor = 14272955
             FrameVisible = True
             FramingPreference = fpCustomFraming
             ParentFont = False
@@ -678,14 +678,14 @@ inherited frmPaymentDetail: TfrmPaymentDetail
     inherited pnlCancel: TRzPanel
       Left = 683
       Top = 252
-      ExplicitLeft = 492
-      ExplicitTop = 319
+      ExplicitLeft = 683
+      ExplicitTop = 252
     end
     inherited pnlSave: TRzPanel
       Left = 627
       Top = 252
-      ExplicitLeft = 436
-      ExplicitTop = 319
+      ExplicitLeft = 627
+      ExplicitTop = 252
       inherited btnSave: TRzShapeButton
         Caption = 'Add'
       end

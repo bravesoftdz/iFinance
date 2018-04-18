@@ -161,6 +161,7 @@ object dmApplication: TdmApplication
     CursorType = ctStatic
     Filtered = True
     LockType = ltReadOnly
+    OnCalcFields = dstPaymentsCalcFields
     CommandText = 'sp_pmt_get_payments;1'
     CommandType = cmdStoredProc
     Parameters = <
@@ -237,6 +238,24 @@ object dmApplication: TdmApplication
     end
     object dstPaymentspmt_method: TWordField
       FieldName = 'pmt_method'
+    end
+    object dstPaymentswd_id: TStringField
+      FieldName = 'wd_id'
+      Size = 17
+    end
+    object dstPaymentsis_advance: TBooleanField
+      FieldName = 'is_advance'
+    end
+    object dstPaymentswd_amt: TBCDField
+      FieldName = 'wd_amt'
+      DisplayFormat = '###,###,##0.00;;-'
+      Precision = 10
+      Size = 2
+    end
+    object dstPaymentschange: TCurrencyField
+      FieldKind = fkCalculated
+      FieldName = 'change'
+      Calculated = True
     end
   end
   object dscPayments: TDataSource

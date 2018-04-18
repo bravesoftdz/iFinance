@@ -6,13 +6,14 @@ uses
   System.SysUtils, System.Classes, BaseDocked, Vcl.Controls, Vcl.StdCtrls,
   RzLabel, Vcl.ExtCtrls, RzPanel, Vcl.Mask, RzEdit, RzBtnEdt, JvExControls,
   JvLabel, Vcl.Grids, RzGrids, RzDBEdit, SaveIntf, System.UITypes, PaymentIntf,
-  Vcl.Imaging.pngimage, Payment, StrUtils, Vcl.Graphics, System.Types, RzCmboBx;
+  Vcl.Imaging.pngimage, Payment, StrUtils, Vcl.Graphics, System.Types, RzCmboBx,
+  Data.DB, Vcl.DBGrids, RzDBGrid;
 
 type
   TfrmPaymentMain = class(TfrmBaseDocked, ISave, IPayment)
     c: TJvLabel;
     pnlDetail: TRzPanel;
-    grDetail: TRzStringGrid;
+    grDetailStringGrid: TRzStringGrid;
     JvLabel7: TJvLabel;
     JvLabel1: TJvLabel;
     lblTotalAmount: TJvLabel;
@@ -31,6 +32,8 @@ type
     JvLabel3: TJvLabel;
     lblWithdrawn: TJvLabel;
     JvLabel5: TJvLabel;
+    grDetail: TRzDBGrid;
+    lblChange: TJvLabel;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure imgAddPaymentClick(Sender: TObject);
@@ -40,8 +43,8 @@ type
       Shift: TShiftState; X, Y: Integer);
     procedure FormShow(Sender: TObject);
     procedure imgDeletePaymentClick(Sender: TObject);
-    procedure grDetailResize(Sender: TObject);
-    procedure grDetailDrawCell(Sender: TObject; ACol, ARow: Integer;
+    procedure grDetailStringGridResize(Sender: TObject);
+    procedure grDetailStringGridDrawCell(Sender: TObject; ACol, ARow: Integer;
       Rect: TRect; State: TGridDrawState);
     procedure dtePaymentDateChange(Sender: TObject);
   private
@@ -51,7 +54,7 @@ type
     function PaymentIsValid: boolean;
 
     procedure ShowPaymentDetail;
-    procedure SetTotalAmount;
+    procedure SetAmounts;
     procedure PopulateDetail;
     procedure AddRow(const detail: TPaymentDetail);
     procedure RemoveRow(const row: integer);
@@ -59,7 +62,6 @@ type
     procedure Retrieve;
     procedure ChangeControlState;
     procedure DeletePayment;
-    procedure SetWithdrawnAmount;
     procedure BindControlToObject;
   public
     { Public declarations }
@@ -181,7 +183,7 @@ begin
         if ModalResult = mrOK then
         begin
           AddRow(pmt.Details[pmt.DetailCount-1]);
-          SetTotalAmount;
+          SetAmounts;
         end;
 
       except
@@ -220,7 +222,7 @@ begin
       if pmt.IsWithdrawal then
       begin
         edClient.Text := pmt.Client.Name;
-        SetWithdrawnAmount;
+        SetAmounts;
       end;
     end
     else Retrieve;
@@ -241,12 +243,12 @@ begin
   PopulateDetail;
 end;
 
-procedure TfrmPaymentMain.grDetailDrawCell(Sender: TObject; ACol, ARow: Integer;
+procedure TfrmPaymentMain.grDetailStringGridDrawCell(Sender: TObject; ACol, ARow: Integer;
   Rect: TRect; State: TGridDrawState);
 var
   cellStr: string;
 begin
-  with grDetail do
+  with grDetailStringGrid do
   begin
     cellStr := Cells[ACol,ARow];
 
@@ -265,10 +267,10 @@ begin
   end;
 end;
 
-procedure TfrmPaymentMain.grDetailResize(Sender: TObject);
+procedure TfrmPaymentMain.grDetailStringGridResize(Sender: TObject);
 begin
   inherited;
-  ExtendLastColumn(grDetail);
+  ExtendLastColumn(grDetailStringGrid);
 end;
 
 procedure TfrmPaymentMain.AddActiveLoan;
@@ -294,9 +296,12 @@ begin
   else ShowErrorBox('Adding a NEW payment has been restricted.');
 end;
 
-procedure TfrmPaymentMain.SetTotalAmount;
+procedure TfrmPaymentMain.SetAmounts;
 begin
+  lblWithdrawn.Caption := 'Amount withdrawn: ' + FormatCurr('###,##0.00',pmt.Withdrawn);
   lblTotalAmount.Caption := 'Total amount paid: ' + FormatCurr('###,###,##0.00',pmt.TotalAmount);
+  lblChange.Caption := 'Change: ' + FormatCurr('###,###,##0.00',pmt.ChangeAmount);
+  lblChange.Visible := pmt.IsWithdrawal;
 end;
 
 procedure TfrmPaymentMain.imgAddPaymentClick(Sender: TObject);
@@ -332,9 +337,10 @@ begin
     begin
       if ShowDecisionBox('Are you sure you want to delete the selected payment?') = mrYes then
       begin
-        pmt.RemoveDetail(TPaymentDetail(grDetail.Objects[0,grDetail.Row]).Loan);
-        RemoveRow(grDetail.Row);
-        SetTotalAmount;
+        pmt.RemoveDetail(TPaymentDetail(grDetailStringGrid.Objects[0,grDetailStringGrid.Row]).Loan);
+        RemoveRow(grDetailStringGrid.Row);
+        grDetail.DataSource.DataSet.Delete;
+        SetAmounts;
       end;
     end;
   end
@@ -351,7 +357,7 @@ procedure TfrmPaymentMain.RemoveRow(const row: Integer);
 var
   rw, cl: integer;
 begin
-  with grDetail do
+  with grDetailStringGrid do
   begin
     // clear the object in the deleted row
     Objects[0,row] := nil;
@@ -380,7 +386,7 @@ procedure TfrmPaymentMain.PopulateDetail;
 var
   i, cnt: integer;
 begin
-  with grDetail do
+  with grDetailStringGrid do
   begin
     RowCount := RowCount + 1;
 
@@ -416,9 +422,9 @@ procedure TfrmPaymentMain.AddRow(const detail: TPaymentDetail);
 var
   r: integer;
 begin
-  with grDetail do
+  with grDetailStringGrid do
   begin
-    if not FirstRow(grDetail) then RowCount := RowCount + 1;
+    if not FirstRow(grDetailStringGrid) then RowCount := RowCount + 1;
 
     r := RowCount - FixedRows;
 
@@ -431,6 +437,22 @@ begin
     Cells[6,r] := FormatCurr('###,###,##0.00',detail.TotalAmount);
 
     Objects[0,r] := detail;
+  end;
+
+  // add to memory table
+  with grDetail.DataSource.DataSet, detail do
+  begin
+    if not Active then Open;
+
+    Append;
+    FieldByName('LoanId').AsString := Loan.Id;
+    FieldByName('LoanType').AsString := Loan.LoanTypeName;
+    FieldByName('AccountType').AsString := Loan.AccountTypeName;
+    FieldByName('Principal').AsString := FormatCurr('###,###,##0.00',Principal);
+    FieldByName('Interest').AsString := FormatCurr('###,###,##0.00',Interest);
+    FieldByName('Penalty').AsString := FormatCurr('###,###,##0.00',Penalty);
+    FieldByName('TotalAmount').AsString := FormatCurr('###,###,##0.00',TotalAmount);
+    grDetail.DataSource.DataSet.Post;
   end;
 end;
 
@@ -450,17 +472,12 @@ begin
   lblPosted.Caption := IfThen(pmt.IsPosted,'Yes','No');
 end;
 
-procedure TfrmPaymentMain.SetWithdrawnAmount;
-begin
-  lblWithdrawn.Caption := 'Amount withdrawn: ' + FormatCurr('###,##0.00',pmt.Withdrawn);
-end;
-
 procedure TfrmPaymentMain.Retrieve;
 begin
   pmt.Retrieve;
 
   SetUnboundControls;
-  SetTotalAmount;
+  SetAmounts;
 end;
 
 procedure TfrmPaymentMain.ChangeControlState;

@@ -202,7 +202,7 @@ object frmMain: TfrmMain
       Width = 1151
       Height = 74
       Hint = ''
-      ActivePage = tsTools
+      ActivePage = tsHome
       ActivePageDefault = tsHome
       BoldCurrentTab = True
       ButtonColor = 15327448
@@ -218,7 +218,7 @@ object frmMain: TfrmMain
       TabColors.HighlightBar = 15327448
       TabColors.Shadow = 15327448
       TabColors.Unselected = 15327448
-      TabIndex = 1
+      TabIndex = 0
       TabOrder = 2
       TabStop = False
       TabStyle = tsSquareCorners
@@ -1333,10 +1333,18 @@ object frmMain: TfrmMain
         Color = 15327448
         TabVisible = False
         Caption = 'Administration'
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
       end
       object tsTools: TRzTabSheet
         Color = 15327448
         Caption = 'Tools'
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
         object pnlChangeDate: TRzPanel
           Left = 5
           Top = 5

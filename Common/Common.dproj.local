@@ -4,4 +4,51 @@
     <Transaction>2017/09/15 16:17:29.000.516,C:\Projects\iFinance\Common\Ledger.pas=</Transaction>
     <Transaction>2018/04/04 22:22:59.000.021,=FireDAC.dcp</Transaction>
   </Transactions>
+	<ProjectSortOrder AutoSort="0" SortType="0">
+    <File Path="..\..\iFinance"/>
+    <File Path="..\Base"/>
+    <File Path="..\Base\BasePopup.pas"/>
+    <File Path="..\Base\BasePopup.dfm"/>
+    <File Path="Alert.pas"/>
+    <File Path="Alerts.pas"/>
+    <File Path="Alerts.dfm"/>
+    <File Path="AppConstants.pas"/>
+    <File Path="AppData.pas"/>
+    <File Path="AppData.dfm"/>
+    <File Path="AppUtil.pas"/>
+    <File Path="Branch.pas"/>
+    <File Path="ConfBox.pas"/>
+    <File Path="ConfBox.dfm"/>
+    <File Path="ConnUtil.pas"/>
+    <File Path="DBUtil.pas"/>
+    <File Path="DecisionBox.pas"/>
+    <File Path="DecisionBox.dfm"/>
+    <File Path="DockedFormIntf.pas"/>
+    <File Path="DockIntf.pas"/>
+    <File Path="ErrorBox.pas"/>
+    <File Path="ErrorBox.dfm"/>
+    <File Path="FormsUtil.pas"/>
+    <File Path="IFinanceDialogs.pas"/>
+    <File Path="IFinanceGlobal.pas"/>
+    <File Path="InfoBox.pas"/>
+    <File Path="InfoBox.dfm"/>
+    <File Path="NewIntf.pas"/>
+    <File Path="SaveIntf.pas"/>
+    <File Path="User.pas"/>
+    <File Path="WarningBox.pas"/>
+    <File Path="WarningBox.dfm"/>
+    <File Path="adortl.dcp"/>
+    <File Path="dbrtl.dcp"/>
+    <File Path="FireDAC.dcp"/>
+    <File Path="Jcl.dcp"/>
+    <File Path="JvCore.dcp"/>
+    <File Path="JvDB.dcp"/>
+    <File Path="JvStdCtrls.dcp"/>
+    <File Path="RaizeComponentsVcl.dcp"/>
+    <File Path="RaizeComponentsVclDb.dcp"/>
+    <File Path="rtl.dcp"/>
+    <File Path="vcl.dcp"/>
+    <File Path="vcldb.dcp"/>
+    <File Path="vclimg.dcp"/>
+  </ProjectSortOrder>
 </BorlandProject>

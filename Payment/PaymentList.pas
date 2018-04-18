@@ -33,9 +33,6 @@ type
     { Public declarations }
   end;
 
-var
-  frmPaymentList: TfrmPaymentList;
-
 implementation
 
 {$R *.dfm}
@@ -100,6 +97,7 @@ begin
       pmt.ReferenceNo := FieldByname('ref_no').AsString;
       pmt.PostDate := FieldByName('post_date').AsDateTime;
       pmt.LocationCode := FieldByName('loc_code').AsString;
+      pmt.Withdrawn := FieldByName('wd_amt').AsCurrency;
 
       paymentMethod := TPaymentMethod.Create;
       paymentMethod.Method := TMethod(FieldByName('pmt_method').AsInteger);

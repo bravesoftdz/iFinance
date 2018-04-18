@@ -3,7 +3,10 @@ unit PaymentData;
 interface
 
 uses
-  System.SysUtils, System.Classes, Data.DB, Data.Win.ADODB;
+  System.SysUtils, System.Classes, Data.DB, Data.Win.ADODB, FireDAC.Stan.Intf,
+  FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
+  FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Comp.DataSet,
+  FireDAC.Comp.Client;
 
 type
   TdmPayment = class(TDataModule)
@@ -37,6 +40,8 @@ type
     dstLedgerid: TStringField;
     dstLedgerprincipal_deficit: TBCDField;
     dstLedgerinterest_deficit: TBCDField;
+    fmtPaymentDetail: TFDMemTable;
+    dscDetail: TDataSource;
     procedure dstPaymentBeforeOpen(DataSet: TDataSet);
     procedure dstPaymentNewRecord(DataSet: TDataSet);
     procedure dstActiveLoansBeforeOpen(DataSet: TDataSet);

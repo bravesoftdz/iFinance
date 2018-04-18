@@ -1,10 +1,10 @@
 inherited frmDevParams: TfrmDevParams
   Caption = 'frmDevParams'
-  ClientHeight = 190
+  ClientHeight = 216
   ClientWidth = 374
   OnCreate = FormCreate
   ExplicitWidth = 374
-  ExplicitHeight = 190
+  ExplicitHeight = 216
   PixelsPerInch = 96
   TextHeight = 14
   inherited pnlTitle: TRzPanel
@@ -22,23 +22,23 @@ inherited frmDevParams: TfrmDevParams
   end
   inherited pnlMain: TRzPanel
     Width = 374
-    Height = 169
+    Height = 195
     ExplicitWidth = 374
-    ExplicitHeight = 169
+    ExplicitHeight = 195
     inherited pnlDetail: TRzPanel
       Width = 357
-      Height = 120
+      Height = 146
       ExplicitWidth = 357
-      ExplicitHeight = 120
+      ExplicitHeight = 146
       inherited pcDetail: TRzPageControl
         Width = 355
-        Height = 118
+        Height = 144
         ExplicitWidth = 355
-        ExplicitHeight = 118
+        ExplicitHeight = 144
         FixedDimension = 20
         inherited tsDetail: TRzTabSheet
           ExplicitWidth = 355
-          ExplicitHeight = 118
+          ExplicitHeight = 144
           object JvLabel7: TJvLabel
             Tag = -1
             Left = 19
@@ -51,7 +51,7 @@ inherited frmDevParams: TfrmDevParams
           object JvLabel1: TJvLabel
             Tag = -1
             Left = 19
-            Top = 71
+            Top = 95
             Width = 347
             Height = 32
             AutoSize = False
@@ -95,25 +95,35 @@ inherited frmDevParams: TfrmDevParams
             EditType = etDate
             Format = 'mm/dd/yyyy'
             FlatButtons = True
-            FrameColor = 8675134
+            FrameColor = 14272955
             FrameVisible = True
             FramingPreference = fpCustomFraming
             TabOrder = 0
+          end
+          object cbxUpdateDeficits: TRzCheckBox
+            Left = 19
+            Top = 49
+            Width = 101
+            Height = 16
+            Caption = 'Update deficits'
+            Checked = True
+            State = cbChecked
+            TabOrder = 1
           end
         end
       end
     end
     inherited pnlCancel: TRzPanel
       Left = 315
-      Top = 137
+      Top = 163
       ExplicitLeft = 315
-      ExplicitTop = 137
+      ExplicitTop = 163
     end
     inherited pnlSave: TRzPanel
       Left = 259
-      Top = 137
+      Top = 163
       ExplicitLeft = 259
-      ExplicitTop = 137
+      ExplicitTop = 163
     end
   end
 end

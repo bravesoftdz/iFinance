@@ -442,6 +442,7 @@ begin
       FieldByName('balance').AsCurrency := balance;
       FieldByName('prc_deficit').AsCurrency := prcDeficit;
       FieldByName('int_deficit').AsCurrency := intDeficit;
+      FieldByName('amort').AsCurrency := Amortisation;
 
       Post;
     end;
@@ -853,7 +854,6 @@ function TLoan.GetAmortisation: currency;
 var
   amort: currency;
 begin
-  // if (FLoanClass.IsDiminishing) and (FLoanClass.DiminishingType = dtScheduled) then amort := FReleaseAmount * GetFactorWithInterest
   if FLoanClass.IsDiminishing then amort := FReleaseAmount * GetFactorWithInterest
   else amort := ((FReleaseAmount * FLoanClass.InterestInDecimal * FApprovedTerm) + FReleaseAmount) / FApprovedTerm;
 
@@ -1017,7 +1017,7 @@ end;
 procedure TLoan.ClearAdvancePayments;
 var
   adv: TAdvancePayment;
-  i: integer;
+  // i: integer;
 begin
   //for i := Low(FAdvancePayments) to High(FAdvancePayments) do
   //begin

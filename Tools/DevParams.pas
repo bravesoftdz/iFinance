@@ -6,7 +6,7 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, BasePopupDetail, RzButton, RzTabs,
   Vcl.StdCtrls, RzLabel, Vcl.Imaging.pngimage, Vcl.ExtCtrls, RzPanel,
-  JvExControls, JvLabel, Vcl.Mask, RzEdit;
+  JvExControls, JvLabel, Vcl.Mask, RzEdit, DateUtils, RzRadChk;
 
 type
   TfrmDevParams = class(TfrmBasePopupDetail)
@@ -14,10 +14,12 @@ type
     dteApplicationDate: TRzDateTimeEdit;
     JvLabel1: TJvLabel;
     urlNextMonth: TRzURLLabel;
+    cbxUpdateDeficits: TRzCheckBox;
     procedure FormCreate(Sender: TObject);
     procedure urlNextMonthClick(Sender: TObject);
   private
     { Private declarations }
+    FStartDate: TDateTime;
   protected
     procedure Save; override;
     procedure Cancel; override;
@@ -27,15 +29,12 @@ type
     { Public declarations }
   end;
 
-var
-  frmDevParams: TfrmDevParams;
-
 implementation
 
 {$R *.dfm}
 
 uses
-  IFinanceGlobal, Posting;
+  IFinanceGlobal, Posting, DBUtil;
 
 { TfrmBasePopupDetail1 }
 
@@ -56,16 +55,28 @@ begin
   inherited;
   // initialise controls
   dteApplicationDate.Date := ifn.AppDate;
+  FStartDate := ifn.AppDate;
 end;
 
 procedure TfrmDevParams.Save;
 var
   LPosting: TPosting;
+  LDate, LNewDate: TDateTime;
 begin
   ifn.AppDate := dteApplicationDate.Date;
   LPosting := TPosting.Create;
   try
-    LPosting.PostInterest(ifn.AppDate);
+    LDate := IncDay(FStartDate);
+    LNewDate := ifn.AppDate;
+
+    while LDate <= LNewDate do
+    begin
+      LPosting.PostInterest(LDate);
+
+      if cbxUpdateDeficits.Checked then UpdateLoanDeficit(LDate);
+
+      LDate := IncDay(LDate);
+    end;
   finally
     LPosting.Free;
   end;

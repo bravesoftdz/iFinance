@@ -65,8 +65,6 @@ begin
 end;
 
 procedure TfrmLoanClassAdvancePaymentDetail.FormCreate(Sender: TObject);
-var
-  interest, principal: integer;
 begin
   inherited;
   // interest

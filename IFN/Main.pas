@@ -778,8 +778,7 @@ begin
       if Supports(pnlDockMain.Controls[0] as TForm,ISave,intf) then
         if intf.Save then ShowConfirmationBox;
   except
-    on e:Exception do
-      ShowErrorBox(e.Message);
+    on e:Exception do ShowErrorBox(e.Message);
   end;
 end;
 
@@ -896,7 +895,6 @@ end;
 procedure TfrmMain.cmbRecentItemsClick(Sender: TObject);
 var
   obj: TObject;
-  intf: IClient;
   index: integer;
 begin
   index := cmbRecentItems.ItemIndex;

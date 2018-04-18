@@ -1,11 +1,11 @@
 inherited frmLoanAssessmentDetail: TfrmLoanAssessmentDetail
   Caption = 'frmLoanAssessmentDetail'
-  ClientHeight = 381
+  ClientHeight = 393
   ClientWidth = 699
   OnCreate = FormCreate
   OnShow = FormShow
   ExplicitWidth = 699
-  ExplicitHeight = 381
+  ExplicitHeight = 393
   PixelsPerInch = 96
   TextHeight = 14
   inherited pnlTitle: TRzPanel
@@ -23,17 +23,17 @@ inherited frmLoanAssessmentDetail: TfrmLoanAssessmentDetail
   end
   inherited pnlMain: TRzPanel
     Width = 699
-    Height = 360
+    Height = 372
     ExplicitWidth = 699
     ExplicitHeight = 360
     inherited pnlDetail: TRzPanel
       Width = 682
-      Height = 310
+      Height = 322
       ExplicitWidth = 682
       ExplicitHeight = 310
       inherited pcDetail: TRzPageControl
         Width = 680
-        Height = 308
+        Height = 320
         ExplicitWidth = 680
         ExplicitHeight = 308
         FixedDimension = 20
@@ -52,7 +52,7 @@ inherited frmLoanAssessmentDetail: TfrmLoanAssessmentDetail
           object JvLabel11: TJvLabel
             Tag = -1
             Left = 19
-            Top = 71
+            Top = 77
             Width = 72
             Height = 14
             Caption = 'Rec. amount'
@@ -61,7 +61,7 @@ inherited frmLoanAssessmentDetail: TfrmLoanAssessmentDetail
           object JvLabel1: TJvLabel
             Tag = -1
             Left = 241
-            Top = 47
+            Top = 50
             Width = 100
             Height = 14
             Caption = 'Applied amount'
@@ -81,7 +81,7 @@ inherited frmLoanAssessmentDetail: TfrmLoanAssessmentDetail
           object urlAppliedAmount: TRzURLLabel
             Tag = 1
             Left = 241
-            Top = 71
+            Top = 77
             Width = 25
             Height = 14
             Caption = '0.00'
@@ -106,7 +106,7 @@ inherited frmLoanAssessmentDetail: TfrmLoanAssessmentDetail
           object JvLabel3: TJvLabel
             Tag = -1
             Left = 366
-            Top = 68
+            Top = 71
             Width = 54
             Height = 14
             Caption = 'Character'
@@ -115,7 +115,7 @@ inherited frmLoanAssessmentDetail: TfrmLoanAssessmentDetail
           object JvLabel5: TJvLabel
             Tag = -1
             Left = 366
-            Top = 113
+            Top = 119
             Width = 37
             Height = 14
             Caption = 'Capital'
@@ -124,7 +124,7 @@ inherited frmLoanAssessmentDetail: TfrmLoanAssessmentDetail
           object JvLabel6: TJvLabel
             Tag = -1
             Left = 366
-            Top = 158
+            Top = 167
             Width = 58
             Height = 14
             Caption = 'Conditions'
@@ -133,7 +133,7 @@ inherited frmLoanAssessmentDetail: TfrmLoanAssessmentDetail
           object JvLabel7: TJvLabel
             Tag = -1
             Left = 366
-            Top = 203
+            Top = 215
             Width = 50
             Height = 14
             Caption = 'Collateral'
@@ -142,7 +142,7 @@ inherited frmLoanAssessmentDetail: TfrmLoanAssessmentDetail
           object JvLabel8: TJvLabel
             Tag = -1
             Left = 366
-            Top = 248
+            Top = 263
             Width = 49
             Height = 14
             Caption = 'Comaker'
@@ -151,7 +151,7 @@ inherited frmLoanAssessmentDetail: TfrmLoanAssessmentDetail
           object JvLabel9: TJvLabel
             Tag = -1
             Left = 19
-            Top = 47
+            Top = 50
             Width = 97
             Height = 14
             Caption = 'Recommendation'
@@ -179,7 +179,7 @@ inherited frmLoanAssessmentDetail: TfrmLoanAssessmentDetail
           object edRecAmount: TRzDBNumericEdit
             Tag = 3
             Left = 120
-            Top = 65
+            Top = 71
             Width = 97
             Height = 22
             DataSource = dmLoan.dscLoanAss
@@ -197,9 +197,9 @@ inherited frmLoanAssessmentDetail: TfrmLoanAssessmentDetail
           object pcAssessment: TRzPageControl
             Tag = 3
             Left = 20
-            Top = 104
+            Top = 110
             Width = 325
-            Height = 163
+            Height = 157
             Hint = ''
             ActivePage = tsFinInfo
             ActivePageDefault = tsFinInfo
@@ -219,18 +219,19 @@ inherited frmLoanAssessmentDetail: TfrmLoanAssessmentDetail
             object tsFinInfo: TRzTabSheet
               Color = 15327448
               Caption = 'Financial info'
+              ExplicitHeight = 138
               DesignSize = (
                 323
-                138)
+                132)
               object grFinInfo: TRzStringGrid
                 Left = 6
                 Top = 6
                 Width = 311
-                Height = 127
+                Height = 121
                 Anchors = [akLeft, akTop, akRight, akBottom]
                 BorderStyle = bsNone
                 ColCount = 3
-                Ctl3D = False
+                Ctl3D = True
                 FixedColor = 14273211
                 FixedCols = 0
                 RowCount = 1
@@ -245,6 +246,7 @@ inherited frmLoanAssessmentDetail: TfrmLoanAssessmentDetail
                 FrameVisible = True
                 FramingPreference = fpCustomFraming
                 FixedLineColor = 14273211
+                ExplicitHeight = 127
                 ColWidths = (
                   60
                   60
@@ -256,20 +258,21 @@ inherited frmLoanAssessmentDetail: TfrmLoanAssessmentDetail
             object tsMonExp: TRzTabSheet
               Color = 15327448
               Caption = 'Monthly expenses'
+              ExplicitHeight = 138
               DesignSize = (
                 323
-                138)
+                132)
               object grMonExp: TRzStringGrid
                 Left = 6
                 Top = 6
                 Width = 311
-                Height = 127
+                Height = 121
                 Anchors = [akLeft, akTop, akRight, akBottom]
                 BevelInner = bvNone
                 BevelOuter = bvNone
                 BorderStyle = bsNone
                 ColCount = 2
-                Ctl3D = False
+                Ctl3D = True
                 FixedColor = 14273211
                 FixedCols = 0
                 RowCount = 1
@@ -284,6 +287,7 @@ inherited frmLoanAssessmentDetail: TfrmLoanAssessmentDetail
                 FrameVisible = True
                 FramingPreference = fpCustomFraming
                 FixedLineColor = 14273211
+                ExplicitHeight = 127
                 ColWidths = (
                   60
                   60)
@@ -353,7 +357,7 @@ inherited frmLoanAssessmentDetail: TfrmLoanAssessmentDetail
           end
           object RzDBMemo1: TRzDBMemo
             Left = 432
-            Top = 62
+            Top = 65
             Width = 217
             Height = 43
             DataField = 'character'
@@ -366,7 +370,7 @@ inherited frmLoanAssessmentDetail: TfrmLoanAssessmentDetail
           end
           object RzDBMemo2: TRzDBMemo
             Left = 432
-            Top = 107
+            Top = 113
             Width = 217
             Height = 43
             DataField = 'capital'
@@ -379,7 +383,7 @@ inherited frmLoanAssessmentDetail: TfrmLoanAssessmentDetail
           end
           object RzDBMemo3: TRzDBMemo
             Left = 432
-            Top = 152
+            Top = 161
             Width = 217
             Height = 43
             DataField = 'conditions'
@@ -392,7 +396,7 @@ inherited frmLoanAssessmentDetail: TfrmLoanAssessmentDetail
           end
           object RzDBMemo4: TRzDBMemo
             Left = 432
-            Top = 197
+            Top = 209
             Width = 217
             Height = 43
             DataField = 'collateral'
@@ -405,7 +409,7 @@ inherited frmLoanAssessmentDetail: TfrmLoanAssessmentDetail
           end
           object RzDBMemo5: TRzDBMemo
             Left = 432
-            Top = 242
+            Top = 257
             Width = 217
             Height = 43
             DataField = 'comaker'
@@ -419,7 +423,7 @@ inherited frmLoanAssessmentDetail: TfrmLoanAssessmentDetail
           object dbluRecommendation: TRzDBLookupComboBox
             Tag = 1
             Left = 120
-            Top = 41
+            Top = 44
             Width = 97
             Height = 22
             DataField = 'rec_code'
@@ -442,13 +446,13 @@ inherited frmLoanAssessmentDetail: TfrmLoanAssessmentDetail
     end
     inherited pnlCancel: TRzPanel
       Left = 640
-      Top = 327
+      Top = 339
       ExplicitLeft = 640
       ExplicitTop = 327
     end
     inherited pnlSave: TRzPanel
       Left = 584
-      Top = 327
+      Top = 339
       ExplicitLeft = 584
       ExplicitTop = 327
     end

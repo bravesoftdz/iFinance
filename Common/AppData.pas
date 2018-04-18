@@ -33,10 +33,15 @@ type
     dstDuplicate: TADODataSet;
     dscDuplicate: TDataSource;
     dstPaymentspmt_method: TWordField;
+    dstPaymentswd_id: TStringField;
+    dstPaymentsis_advance: TBooleanField;
+    dstPaymentswd_amt: TBCDField;
+    dstPaymentschange: TCurrencyField;
     procedure DataModuleCreate(Sender: TObject);
     procedure acMainBeforeConnect(Sender: TObject);
     procedure DataModuleDestroy(Sender: TObject);
     procedure acCoreBeforeConnect(Sender: TObject);
+    procedure dstPaymentsCalcFields(DataSet: TDataSet);
   private
     { Private declarations }
   public
@@ -70,6 +75,15 @@ end;
 procedure TdmApplication.DataModuleDestroy(Sender: TObject);
 begin
   acMain.Close;
+end;
+
+procedure TdmApplication.dstPaymentsCalcFields(DataSet: TDataSet);
+begin
+  with DataSet do
+  begin
+    FieldByName('change').AsCurrency :=
+      FieldByName('wd_amt').AsCurrency - FieldByName('total_amount').AsCurrency;
+  end;
 end;
 
 end.

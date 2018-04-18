@@ -54,7 +54,7 @@ inherited frmPaymentMain: TfrmPaymentMain
   object lblTotalAmount: TJvLabel [3]
     Tag = -1
     Left = 876
-    Top = 325
+    Top = 312
     Width = 6
     Height = 14
     Alignment = taRightJustify
@@ -62,7 +62,7 @@ inherited frmPaymentMain: TfrmPaymentMain
     Font.Color = clBlack
     Font.Height = -12
     Font.Name = 'Tahoma'
-    Font.Style = [fsBold]
+    Font.Style = []
     Anchors = [akRight, akBottom]
     ParentFont = False
     Transparent = True
@@ -71,7 +71,6 @@ inherited frmPaymentMain: TfrmPaymentMain
     HotTrackFont.Height = -12
     HotTrackFont.Name = 'Tahoma'
     HotTrackFont.Style = []
-    ExplicitLeft = 746
   end
   object JvLabel2: TJvLabel [4]
     Left = 23
@@ -165,15 +164,17 @@ inherited frmPaymentMain: TfrmPaymentMain
   end
   object lblWithdrawn: TJvLabel [9]
     Tag = -1
-    Left = 558
-    Top = 89
+    Left = 876
+    Top = 281
     Width = 6
     Height = 14
+    Alignment = taRightJustify
     Font.Charset = DEFAULT_CHARSET
-    Font.Color = clMaroon
+    Font.Color = clBlack
     Font.Height = -12
     Font.Name = 'Tahoma'
     Font.Style = []
+    Anchors = [akRight, akBottom]
     ParentFont = False
     Transparent = True
     HotTrackFont.Charset = DEFAULT_CHARSET
@@ -183,8 +184,8 @@ inherited frmPaymentMain: TfrmPaymentMain
     HotTrackFont.Style = []
   end
   object JvLabel5: TJvLabel [10]
-    Left = 708
-    Top = 89
+    Left = 725
+    Top = 91
     Width = 157
     Height = 14
     Caption = 'This is an advance payment.'
@@ -196,6 +197,29 @@ inherited frmPaymentMain: TfrmPaymentMain
     Anchors = [akTop, akRight]
     ParentFont = False
     Transparent = True
+    Visible = False
+    HotTrackFont.Charset = DEFAULT_CHARSET
+    HotTrackFont.Color = clWindowText
+    HotTrackFont.Height = -12
+    HotTrackFont.Name = 'Tahoma'
+    HotTrackFont.Style = []
+  end
+  object lblChange: TJvLabel [11]
+    Tag = -1
+    Left = 876
+    Top = 344
+    Width = 6
+    Height = 14
+    Alignment = taRightJustify
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clBlack
+    Font.Height = -12
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    Anchors = [akRight, akBottom]
+    ParentFont = False
+    Transparent = True
+    Visible = False
     HotTrackFont.Charset = DEFAULT_CHARSET
     HotTrackFont.Color = clWindowText
     HotTrackFont.Height = -12
@@ -222,7 +246,7 @@ inherited frmPaymentMain: TfrmPaymentMain
     BorderWidth = 1
     Color = 14273211
     TabOrder = 1
-    object grDetail: TRzStringGrid
+    object grDetailStringGrid: TRzStringGrid
       Left = 1
       Top = 1
       Width = 858
@@ -243,14 +267,13 @@ inherited frmPaymentMain: TfrmPaymentMain
       ParentCtl3D = False
       ScrollBars = ssVertical
       TabOrder = 0
-      OnDrawCell = grDetailDrawCell
+      OnDrawCell = grDetailStringGridDrawCell
       FrameColor = 8675134
       FramingPreference = fpCustomFraming
       FixedLineColor = 14272955
       LineColor = clWindow
       UseDrawingStyle = False
-      OnResize = grDetailResize
-      ExplicitHeight = 146
+      OnResize = grDetailStringGridResize
       ColWidths = (
         60
         60
@@ -262,6 +285,129 @@ inherited frmPaymentMain: TfrmPaymentMain
         60)
       RowHeights = (
         18)
+    end
+    object grDetail: TRzDBGrid
+      Left = 1
+      Top = 1
+      Width = 858
+      Height = 131
+      Align = alClient
+      BorderStyle = bsNone
+      Color = clWhite
+      Ctl3D = False
+      DataSource = dmPayment.dscDetail
+      FixedColor = clWhite
+      GradientEndColor = 12955288
+      GradientStartColor = 12955288
+      Options = [dgTitles, dgIndicator, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
+      ParentCtl3D = False
+      TabOrder = 1
+      TitleFont.Charset = DEFAULT_CHARSET
+      TitleFont.Color = clWindowText
+      TitleFont.Height = -12
+      TitleFont.Name = 'Tahoma'
+      TitleFont.Style = []
+      FrameColor = 14272955
+      FrameSides = []
+      FrameStyle = fsNone
+      FramingPreference = fpCustomFraming
+      FixedLineColor = clWhite
+      LineColor = 6572079
+      AltRowShadingColor = 15854564
+      AltRowShadingFixed = False
+      Columns = <
+        item
+          Expanded = False
+          FieldName = 'LoanId'
+          Title.Alignment = taCenter
+          Title.Caption = 'Loan ID'
+          Title.Font.Charset = DEFAULT_CHARSET
+          Title.Font.Color = clWindowText
+          Title.Font.Height = -12
+          Title.Font.Name = 'Tahoma'
+          Title.Font.Style = [fsBold]
+          Width = 120
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'LoanType'
+          Title.Alignment = taCenter
+          Title.Caption = 'Type'
+          Title.Font.Charset = DEFAULT_CHARSET
+          Title.Font.Color = clWindowText
+          Title.Font.Height = -12
+          Title.Font.Name = 'Tahoma'
+          Title.Font.Style = [fsBold]
+          Width = 120
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'AccountType'
+          Title.Alignment = taCenter
+          Title.Caption = 'Account'
+          Title.Font.Charset = DEFAULT_CHARSET
+          Title.Font.Color = clWindowText
+          Title.Font.Height = -12
+          Title.Font.Name = 'Tahoma'
+          Title.Font.Style = [fsBold]
+          Width = 120
+          Visible = True
+        end
+        item
+          Alignment = taRightJustify
+          Expanded = False
+          FieldName = 'Interest'
+          Title.Alignment = taCenter
+          Title.Font.Charset = DEFAULT_CHARSET
+          Title.Font.Color = clWindowText
+          Title.Font.Height = -12
+          Title.Font.Name = 'Tahoma'
+          Title.Font.Style = [fsBold]
+          Width = 100
+          Visible = True
+        end
+        item
+          Alignment = taRightJustify
+          Expanded = False
+          FieldName = 'Principal'
+          Title.Alignment = taCenter
+          Title.Font.Charset = DEFAULT_CHARSET
+          Title.Font.Color = clWindowText
+          Title.Font.Height = -12
+          Title.Font.Name = 'Tahoma'
+          Title.Font.Style = [fsBold]
+          Width = 100
+          Visible = True
+        end
+        item
+          Alignment = taRightJustify
+          Expanded = False
+          FieldName = 'Penalty'
+          Title.Alignment = taCenter
+          Title.Font.Charset = DEFAULT_CHARSET
+          Title.Font.Color = clWindowText
+          Title.Font.Height = -12
+          Title.Font.Name = 'Tahoma'
+          Title.Font.Style = [fsBold]
+          Width = 100
+          Visible = True
+        end
+        item
+          Alignment = taRightJustify
+          Expanded = False
+          FieldName = 'TotalAmount'
+          Title.Alignment = taCenter
+          Title.Caption = 'Total amount'
+          Title.Font.Charset = DEFAULT_CHARSET
+          Title.Font.Color = clWindowText
+          Title.Font.Height = -12
+          Title.Font.Name = 'Tahoma'
+          Title.Font.Style = [fsBold]
+          Width = 100
+          Visible = True
+        end>
     end
   end
   object pnlAddPayment: TRzPanel

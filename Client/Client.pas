@@ -207,7 +207,11 @@ begin
               (Components[i] as TADODataSet).Cancel;
     end;
   except
-    on E: Exception do ShowErrorBox(E.Message);
+    on E: Exception do
+    begin
+      ShowErrorBox(E.Message);
+      Abort;
+    end;
   end;
 end;
 

@@ -40,7 +40,8 @@ requires
   Jcl,
   JvCore,
   JvStdCtrls,
-  JvControls;
+  JvControls,
+  DSPack_DXE4;
 
 contains
   ClientMain in 'ClientMain.pas' {frmClientMain},

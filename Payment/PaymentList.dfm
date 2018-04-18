@@ -9,7 +9,7 @@ inherited frmPaymentList: TfrmPaymentList
   TextHeight = 14
   inherited pnlTitle: TRzPanel
     Width = 977
-    ExplicitWidth = 786
+    ExplicitWidth = 977
     inherited lblTitle: TRzLabel
       Width = 82
       Caption = 'Payments list'
@@ -29,7 +29,6 @@ inherited frmPaymentList: TfrmPaymentList
     Ctl3D = False
     ParentCtl3D = False
     TabOrder = 1
-    ExplicitWidth = 491
     object grList: TRzDBGrid
       Left = 1
       Top = 1
@@ -102,6 +101,19 @@ inherited frmPaymentList: TfrmPaymentList
         end
         item
           Expanded = False
+          FieldName = 'wd_amt'
+          Title.Alignment = taCenter
+          Title.Caption = 'Withdrawn'
+          Title.Font.Charset = DEFAULT_CHARSET
+          Title.Font.Color = clWindowText
+          Title.Font.Height = -12
+          Title.Font.Name = 'Tahoma'
+          Title.Font.Style = [fsBold]
+          Width = 100
+          Visible = True
+        end
+        item
+          Expanded = False
           FieldName = 'total_amount'
           Title.Alignment = taCenter
           Title.Caption = 'Amount'
@@ -115,15 +127,15 @@ inherited frmPaymentList: TfrmPaymentList
         end
         item
           Expanded = False
-          FieldName = 'ref_no'
+          FieldName = 'change'
           Title.Alignment = taCenter
-          Title.Caption = 'Reference no.'
+          Title.Caption = 'Change'
           Title.Font.Charset = DEFAULT_CHARSET
           Title.Font.Color = clWindowText
           Title.Font.Height = -12
           Title.Font.Name = 'Tahoma'
           Title.Font.Style = [fsBold]
-          Width = 140
+          Width = 100
           Visible = True
         end>
     end
@@ -139,7 +151,6 @@ inherited frmPaymentList: TfrmPaymentList
     BorderWidth = 1
     ParentColor = True
     TabOrder = 2
-    ExplicitLeft = 503
     DesignSize = (
       276
       438)

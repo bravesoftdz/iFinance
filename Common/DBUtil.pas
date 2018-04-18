@@ -17,6 +17,7 @@ procedure SetCreatedFields(dataSet: TDataSet);
 procedure ExecuteSQL(const sql: string);
 procedure ExecuteSP(const sp: string);
 procedure FixSequence;
+procedure UpdateLoanDeficit(const ADate: TDateTime);
 
 function GetEntityId: string;
 function GetGroupId: string;
@@ -82,6 +83,11 @@ end;
 procedure FixSequence;
 begin
   ExecuteSP('dbo.sp_dev_fix_sequence');
+end;
+
+procedure UpdateLoanDeficit(const ADate: TDateTime);
+begin
+  ExecuteSP('dbo.sp_ln_update_deficits ' + QuotedStr(FormatDateTime('yyyy-mm-dd',ADate)));
 end;
 
 function GetSequenceID(const seqObj: TSequenceObject): integer;
