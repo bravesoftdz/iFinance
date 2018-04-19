@@ -81,8 +81,10 @@ procedure TdmApplication.dstPaymentsCalcFields(DataSet: TDataSet);
 begin
   with DataSet do
   begin
-    FieldByName('change').AsCurrency :=
-      FieldByName('wd_amt').AsCurrency - FieldByName('total_amount').AsCurrency;
+    if FieldByName('wd_amt').AsCurrency > 0 then
+      FieldByName('change').AsCurrency :=
+        FieldByName('wd_amt').AsCurrency - FieldByName('total_amount').AsCurrency
+    else FieldByName('change').AsCurrency := 0;
   end;
 end;
 

@@ -89,6 +89,9 @@ begin
 
   if rbgMethod.Value = VarToStr(amNone) then
     cbxIncludePrincipal.Checked := false;
+
+  if rbgMethod.Value <> VarToStr(amPreset) then edNumberOfMonths.Value := 0;
+  
 end;
 
 procedure TfrmLoanClassAdvancePaymentDetail.Save;

@@ -165,6 +165,11 @@ if (UserExists) and (PasswordIsValid) then
         SettingAccessRights;
         LoadSettings;
 
+        {$ifdef TESTMODE}
+        LoadTestInfo;
+        {$endif}
+
+
         ModalResult := 1;
       except
         on e: Exception do

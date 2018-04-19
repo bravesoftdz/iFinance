@@ -54,7 +54,7 @@ inherited frmPaymentMain: TfrmPaymentMain
   object lblTotalAmount: TJvLabel [3]
     Tag = -1
     Left = 876
-    Top = 312
+    Top = 280
     Width = 6
     Height = 14
     Alignment = taRightJustify
@@ -62,7 +62,7 @@ inherited frmPaymentMain: TfrmPaymentMain
     Font.Color = clBlack
     Font.Height = -12
     Font.Name = 'Tahoma'
-    Font.Style = []
+    Font.Style = [fsBold]
     Anchors = [akRight, akBottom]
     ParentFont = False
     Transparent = True
@@ -164,16 +164,15 @@ inherited frmPaymentMain: TfrmPaymentMain
   end
   object lblWithdrawn: TJvLabel [9]
     Tag = -1
-    Left = 876
+    Left = 435
     Top = 281
     Width = 6
     Height = 14
-    Alignment = taRightJustify
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clBlack
     Font.Height = -12
     Font.Name = 'Tahoma'
-    Font.Style = []
+    Font.Style = [fsBold]
     Anchors = [akRight, akBottom]
     ParentFont = False
     Transparent = True
@@ -206,16 +205,15 @@ inherited frmPaymentMain: TfrmPaymentMain
   end
   object lblChange: TJvLabel [11]
     Tag = -1
-    Left = 876
-    Top = 344
+    Left = 435
+    Top = 312
     Width = 6
     Height = 14
-    Alignment = taRightJustify
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clBlack
     Font.Height = -12
     Font.Name = 'Tahoma'
-    Font.Style = []
+    Font.Style = [fsBold]
     Anchors = [akRight, akBottom]
     ParentFont = False
     Transparent = True

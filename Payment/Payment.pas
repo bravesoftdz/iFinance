@@ -263,7 +263,7 @@ begin
           FieldByName('remarks').AsString := FDetails[i].Remarks;
 
           if FDetails[i].IsFullPayment then FieldByName('balance').AsCurrency := 0
-          else FieldByName('balance').AsCurrency := FDetails[i].Loan.InterestDue - FDetails[i].Interest;
+          else FieldByName('balance').AsCurrency := FDetails[i].Loan.InterestDueOnPaymentDate - FDetails[i].Interest;
 
           Post;
         end;
@@ -306,11 +306,11 @@ begin
         if Locate('loan_id',detail.Loan.Id,[]) then
         begin
           balance := detail.Loan.Balance - detail.Principal;
-          prcDeficit := detail.Loan.PrincipalDeficit + (detail.Loan.PrincipalDue - detail.Principal);
 
-          if FDate < detail.Loan.NextPayment then intDeficit := detail.Loan.InterestDeficit - detail.Interest + detail.Loan.InterestComputed
-          else if FDate > detail.Loan.NextPayment then intDeficit := detail.Loan.InterestDeficit - detail.Interest + detail.Loan.InterestAdditional
-          else intDeficit := detail.Loan.InterestDeficit;
+          if FDate <> detail.Loan.NextPayment then prcDeficit := detail.Loan.PrincipalDeficit - detail.Principal
+          else prcDeficit := detail.Loan.PrincipalDeficit + (detail.Loan.PrincipalAmortisation - detail.Principal);
+
+          intDeficit := detail.Loan.InterestDeficit + (detail.Loan.InterestDueOnPaymentDate - detail.Interest);
 
           Edit;
           FieldByName('balance').AsCurrency := balance;

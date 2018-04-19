@@ -24,21 +24,21 @@ inherited frmLoanAppvDetail: TfrmLoanAppvDetail
     Width = 443
     Height = 262
     ExplicitWidth = 443
-    ExplicitHeight = 244
+    ExplicitHeight = 262
     inherited pnlDetail: TRzPanel
       Width = 426
       Height = 216
       ExplicitWidth = 426
-      ExplicitHeight = 198
+      ExplicitHeight = 216
       inherited pcDetail: TRzPageControl
         Width = 424
         Height = 214
         ExplicitWidth = 424
-        ExplicitHeight = 196
+        ExplicitHeight = 214
         FixedDimension = 20
         inherited tsDetail: TRzTabSheet
           ExplicitWidth = 424
-          ExplicitHeight = 196
+          ExplicitHeight = 214
           object JvLabel8: TJvLabel
             Tag = -1
             Left = 19
@@ -276,13 +276,13 @@ inherited frmLoanAppvDetail: TfrmLoanAppvDetail
       Left = 384
       Top = 232
       ExplicitLeft = 384
-      ExplicitTop = 214
+      ExplicitTop = 232
     end
     inherited pnlSave: TRzPanel
       Left = 328
       Top = 232
       ExplicitLeft = 328
-      ExplicitTop = 214
+      ExplicitTop = 232
     end
   end
 end

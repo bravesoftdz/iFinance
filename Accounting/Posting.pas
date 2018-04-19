@@ -518,7 +518,7 @@ begin
             FieldByName('loan_id').AsString := ALoan.id;
             FieldByName('payment_amt').AsCurrency := payment;
             FieldByName('payment_type').AsString := TRttiEnumerationType.GetName<TPaymentTypes>(paymentType);
-            FieldByName('balance').AsCurrency := balance;
+            FieldByName('balance').AsCurrency := 0 - balance;
             Post;
 
             // increment "k" variable until case type is found

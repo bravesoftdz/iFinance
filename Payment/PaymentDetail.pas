@@ -268,13 +268,12 @@ begin
     if (pmt.Client.ActiveLoans[i].IsFixed) or ((pmt.Client.ActiveLoans[i].IsDiminishing) and (pmt.Client.ActiveLoans[i].DiminishingType = dtScheduled)) then
       lblInterestDueOnPaymentDate.Caption := FormatCurr('###,###,##0.00;-;-', pmt.Client.ActiveLoans[i].FullPaymentInterest)
     else
-      lblInterestDueOnPaymentDate.Caption := FormatCurr('###,###,##0.00;-;-', pmt.Client.ActiveLoans[i].InterestDue);
+      lblInterestDueOnPaymentDate.Caption := FormatCurr('###,###,##0.00;-;-', pmt.Client.ActiveLoans[i].InterestDueOnPaymentDate);
   end
   else
-    lblInterestDueOnPaymentDate.Caption := FormatCurr('###,###,##0.00;-;-', pmt.Client.ActiveLoans[i].InterestDue);
+    lblInterestDueOnPaymentDate.Caption := FormatCurr('###,###,##0.00;-;-', pmt.Client.ActiveLoans[i].InterestDueOnPaymentDate);
 
-  // lblTotalInterestDue.Caption := FormatCurr('###,###,##0.00;-;-', pmt.Client.ActiveLoans[i].InterestDue + pmt.Client.ActiveLoans[i].InterestDeficit);
-  lblTotalInterestDue.Caption := FormatCurr('###,###,##0.00;-;-', pmt.Client.ActiveLoans[i].TotalInterestDue);
+  lblTotalInterestDue.Caption := FormatCurr('###,###,##0.00;-;-', pmt.Client.ActiveLoans[i].InterestTotalDue);
   lblLastTransaction.Caption := FormatDateTime('mm/dd/yyyy', pmt.Client.ActiveLoans[i].LastTransactionDate);
   lblDays.Caption := IntToStr(DaysBetween(pmt.Date,pmt.Client.ActiveLoans[i].LastTransactionDate));
 

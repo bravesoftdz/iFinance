@@ -2,11 +2,14 @@ unit AppUtil;
 
 interface
 
-uses Winapi.Windows, System.SysUtils, System.Classes, Math;
+uses Winapi.Windows, System.SysUtils, System.Classes, Math, IniFiles, IFinanceGlobal;
 
 function GetAppVersionStr(const exeName : string): string;
 function RestoreIfRunning(const appHandle : THandle;
   maxInstances : integer = 1): boolean;
+
+procedure SaveTestInfo;
+procedure LoadTestInfo;
 
 implementation
 
@@ -42,7 +45,11 @@ begin
     [LongRec(FixedPtr.dwFileVersionMS).Hi,  //major
      LongRec(FixedPtr.dwFileVersionMS).Lo,  //minor
      LongRec(FixedPtr.dwFileVersionLS).Hi,  //release
-     LongRec(FixedPtr.dwFileVersionLS).Lo]) //build
+     LongRec(FixedPtr.dwFileVersionLS).Lo]); //build
+
+  {$ifdef TESTMODE}
+  Result := Result + ' Test mode';
+  {$endif}
 end;
 
 function RestoreIfRunning(const appHandle : THandle;
@@ -113,6 +120,48 @@ begin
     end;
   end;
 end; (*RestoreIfRunning*)
+
+procedure SaveTestInfo;
+const
+  IFN_INI = 'ifn.ini';
+var
+  dir, inifile, section, connStr: string;
+  Ini: TInifile;
+  provider, user, pw, server, db, datasource: string;
+begin
+  // application path parameter is only used by the windows service
+  dir := GetCurrentDir;
+
+  // specify section
+  section := 'APPLICATION';
+
+  inifile := dir + '\' + IFN_INI;
+
+  Ini := TIniFile.Create(inifile);
+
+  Ini.WriteDateTime(section,'LastDate',ifn.AppDate);
+end;
+
+procedure LoadTestInfo;
+const
+  IFN_INI = 'ifn.ini';
+var
+  dir, inifile, section, connStr: string;
+  Ini: TInifile;
+  provider, user, pw, server, db, datasource: string;
+begin
+  // application path parameter is only used by the windows service
+  dir := GetCurrentDir;
+
+  // specify section
+  section := 'APPLICATION';
+
+  inifile := dir + '\' + IFN_INI;
+
+  Ini := TIniFile.Create(inifile);
+
+  ifn.AppDate := Ini.ReadDateTime(section,'LastDate',Date)
+end;
 
 initialization
 //nothing special here

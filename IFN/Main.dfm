@@ -17,6 +17,7 @@ object frmMain: TfrmMain
   OldCreateOrder = False
   Position = poScreenCenter
   OnCreate = FormCreate
+  OnDestroy = FormDestroy
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
@@ -199,7 +200,7 @@ object frmMain: TfrmMain
       Tag = 3
       Left = 18
       Top = 9
-      Width = 1151
+      Width = 903
       Height = 74
       Hint = ''
       ActivePage = tsHome
@@ -227,23 +228,7 @@ object frmMain: TfrmMain
       object tsHome: TRzTabSheet
         Color = 15327448
         Caption = 'Home'
-        DesignSize = (
-          1149
-          49)
-        object Label1: TLabel
-          Left = 912
-          Top = 5
-          Width = 91
-          Height = 14
-          Anchors = [akRight, akBottom]
-          Caption = 'Recent selection'
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = 8675134
-          Font.Height = -12
-          Font.Name = 'Tahoma'
-          Font.Style = []
-          ParentFont = False
-        end
+        ExplicitWidth = 1149
         object pnlAddClient: TRzPanel
           Left = 5
           Top = 5
@@ -1312,39 +1297,17 @@ object frmMain: TfrmMain
             OnMouseUp = imgAddClientMouseUp
           end
         end
-        object cmbRecentItems: TRzComboBox
-          Left = 912
-          Top = 23
-          Width = 231
-          Height = 22
-          Anchors = [akRight, akBottom]
-          Color = clWhite
-          Ctl3D = False
-          FrameColor = 14272955
-          FrameVisible = True
-          FramingPreference = fpCustomFraming
-          ParentCtl3D = False
-          ReadOnlyColor = 15327448
-          TabOrder = 11
-          OnClick = cmbRecentItemsClick
-        end
       end
       object tsAdministration: TRzTabSheet
         Color = 15327448
         TabVisible = False
         Caption = 'Administration'
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
+        ExplicitWidth = 1149
       end
       object tsTools: TRzTabSheet
         Color = 15327448
         Caption = 'Tools'
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
+        ExplicitWidth = 1149
         object pnlChangeDate: TRzPanel
           Left = 5
           Top = 5
@@ -1995,6 +1958,55 @@ object frmMain: TfrmMain
       BorderWidth = 1
       Color = 15327448
       TabOrder = 1
+    end
+    object RzPanel1: TRzPanel
+      Left = 920
+      Top = 32
+      Width = 249
+      Height = 51
+      BorderOuter = fsNone
+      BorderSides = [sdTop, sdRight, sdBottom]
+      BorderColor = 14272955
+      BorderWidth = 1
+      Color = 15327448
+      TabOrder = 3
+      DesignSize = (
+        249
+        51)
+      object Label1: TLabel
+        Left = 10
+        Top = 4
+        Width = 123
+        Height = 14
+        Anchors = [akRight, akBottom]
+        Caption = 'Recent clients or loans'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = 8675134
+        Font.Height = -12
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ParentFont = False
+        ExplicitLeft = 197
+        ExplicitTop = 5
+      end
+      object cmbRecentItems: TRzComboBox
+        Left = 10
+        Top = 22
+        Width = 231
+        Height = 21
+        Anchors = [akRight, akBottom]
+        Color = clWhite
+        Ctl3D = False
+        FrameColor = 14272955
+        FrameVisible = True
+        FramingPreference = fpCustomFraming
+        ParentCtl3D = False
+        ReadOnlyColor = 15327448
+        TabOrder = 0
+        OnClick = cmbRecentItemsClick
+        ExplicitLeft = 197
+        ExplicitTop = 23
+      end
     end
   end
   object mmMain: TMainMenu

@@ -15,11 +15,8 @@ type
     FBalance: currency;
     FPrincipalDeficit: currency;
     FInterestMethod: string;
-    FPrincipalDue: currency;
-    FInterestDue: currency;
     FPrincipalAmortisation: currency;
     FInterestAmortisation: currency;
-    FUnpaidPostedInterest: currency;
     FDiminishingType: TDiminishingType;
     FLastTransactionDate: TDateTime;
     FInterestInDecimal: currency;
@@ -47,15 +44,12 @@ type
     function GetLedgerCount: integer;
     function GetHasInterestBalance: boolean;
     function GetHasInterestComputed: boolean;
-    function GetHasInterestDue: boolean;
     function GetHasInterstAdditional: boolean;
     function GetInterestTotalDue: currency;
-    function GetInterestDue: currency; overload;
     function GetLatestInterestDate(const paymentDate: TDateTime): TDateTime;
     function GetInterestMethodName: string;
     function GetHasAdvancePayment: boolean;
-    function GetTotalInterestDue: currency;
-    function GetHasUnpaidPostedInterest: boolean;
+    function GetInterestDueOnPaymentDate: currency;
 
   public
     property Id: string read FId write FId;
@@ -66,8 +60,6 @@ type
     property InterestMethod: string write FInterestMethod;
     property IsDiminishing: boolean read GetIsDiminishing;
     property IsFixed: boolean read GetIsFixed;
-    property PrincipalDue: currency read FPrincipalDue;
-    property InterestDue: currency read GetInterestDue;
     property DiminishingType: TDiminishingType read FDiminishingType write FDiminishingType;
     property LastTransactionDate: TDateTime read FLastTransactionDate write FLastTransactionDate;
     property InterestInDecimal: currency read FInterestInDecimal write FInterestInDecimal;
@@ -78,11 +70,9 @@ type
     property LedgerCount: integer read GetLedgerCount;
     property InterestAdditional: currency read FInterestAdditional;
     property InterestComputed: currency read FInterestComputed;
-    property HasInterestDue: boolean read GetHasInterestDue;
     property HasInterestBalance: boolean read GetHasInterestBalance;
     property HasInterestComputed: boolean read GetHasInterestComputed;
     property HasInterestAdditional: boolean read GetHasInterstAdditional;
-    property HasUnpaidPostedInterest: boolean read GetHasUnpaidPostedInterest;
     property InterestTotalDue: currency read GetInterestTotalDue;
     property ReleaseAmount: currency read FReleaseAmount write FReleaseAmount;
     property ApprovedTerm: integer read FApprovedTerm write FApprovedTerm;
@@ -94,8 +84,7 @@ type
     property Amortization: currency read FAmortization write FAmortization;
     property InterestAmortisation: currency read FInterestAmortisation;
     property PrincipalAmortisation: currency read FPrincipalAmortisation;
-    property UnpaidPostedInterest: currency read FUnpaidPostedInterest;
-    property TotalInterestDue: currency read GetTotalInterestDue;
+    property InterestDueOnPaymentDate: currency read GetInterestDueOnPaymentDate;
 
     procedure GetPaymentDue(const paymentDate: TDateTime);
     procedure RetrieveLedger;
@@ -251,36 +240,23 @@ begin
   Result := FInterestComputed > 0;
 end;
 
-function TLoan.GetHasInterestDue: boolean;
-begin
-  Result := FInterestDue > 0;
-end;
-
 function TLoan.GetHasInterstAdditional: boolean;
 begin
   Result := FInterestAdditional > 0;
 end;
 
-function TLoan.GetHasUnpaidPostedInterest: boolean;
-begin
-  Result := FUnpaidPostedInterest > 0;
-end;
-
 procedure TLoan.GetInterestDue(const paymentDate: TDateTime);
 var
-  due, additional, deficit, computed, full, amort, unPaidPosted: currency;
+  amort, additional, computed, full, tmp: currency;
   LLedger, debitLedger: TLedger;
   days: integer;
   py, pm, pd, vy, vm, vd: word;
 begin
-  due := 0;           // total payment due on schedule date but excludes debits with partial payment
-                      // for debits with partial payment.. the unPaidPosted variable is used
   additional := 0;    // payment after schedule date
-  deficit := 0;       // balance of previous interest
   computed := 0;      // payment before schedule date
   full := 0;          // full payment
   amort := 0;         // amortisation for the month of payment date
-  unPaidPosted := 0;  // posted interest but without partial payments
+  tmp := 0;           // stores the first amount in the Ledger.. used when no amortisation is found as of payment date
 
   // will be used only for fixed accounts
   // or diminishing scheduled accounts
@@ -293,37 +269,16 @@ begin
     if (LLedger.EventObject = TRttiEnumerationType.GetName<TEventObjects>(TEventObjects.ITR))
        and (LLedger.CaseType = TRttiEnumerationType.GetName<TCaseTypes>(TCaseTypes.ITS))then
     begin
+      if tmp = 0 then tmp := LLedger.Amortisation;
+
       DecodeDate(LLedger.ValueDate,vy,vm,vd);
 
       // amortisation
       if (vm = pm) and (vy = py) then amort := LLedger.Amortisation;
-
-      if LLedger.CurrentStatus = TRttiEnumerationType.GetName<TLedgerRecordStatus>(TLedgerRecordStatus.OPN) then
-      begin
-        if (IsDiminishing) and (DiminishingType = dtFixed) then
-        begin
-          if LLedger.ValueDate <= paymentDate then
-          begin
-            // if LLedger.ValueDate = NextPayment then due := LLedger.Debit
-            {if (LLedger.HasPartial) or (LLedger.ValueDate < paymentDate)
-              or ((LLedger.ValueDate = paymentDate) and (paymentdate <> NextPayment)) then
-              balance := balance + LLedger.Debit
-            else due := due + LLedger.Debit;  }
-            if (not LLedger.HasPartial) or (LLedger.ValueDate < paymentDate)
-              or ((LLedger.ValueDate = paymentDate) and (paymentdate <> NextPayment)) then
-                if (vm = pm) and (vy = py) then  due := LLedger.Debit
-                else unPaidPosted := unPaidPosted + LLedger.Debit;
-          end;
-        end
-        else
-        begin
-          // only get the due for the month..
-          if (vm = pm) and (vy = py) then  due := LLedger.Debit
-          else if (vm < pm) and (vy <= py) then deficit := deficit + LLedger.Debit;
-        end;
-      end;
     end;
   end;  // end for loop
+
+  if amort = 0 then amort := tmp;
 
   // payment is made before or after schedule date
   if (IsDiminishing) and (DiminishingType = dtFixed) then
@@ -403,20 +358,17 @@ begin
   end;;
 
   // set the different amounts
-  FInterestDue := due;
   FInterestAdditional := additional;
   FInterestComputed := computed;
   FFullPaymentInterest := full;
   FInterestAmortisation := amort;
-  FUnpaidPostedInterest := unPaidPosted;
 end;
 
-function TLoan.GetInterestDue: currency;
+function TLoan.GetInterestDueOnPaymentDate: currency;
 begin
-  if HasInterestComputed then Result := FInterestDue + FInterestComputed
-  else if HasInterestAdditional then Result := FInterestDue + FInterestAdditional
-  else if HasInterestDue then Result := FInterestDue
-  else Result := 0;
+  if HasInterestComputed then Result := FInterestComputed
+  else if HasInterestAdditional then Result := FInterestAmortisation + FInterestAdditional
+  else Result := FInterestAmortisation;
 end;
 
 function TLoan.GetInterestMethodName: string;
@@ -428,7 +380,7 @@ end;
 
 function TLoan.GetInterestTotalDue: currency;
 begin
-  Result := FInterestDeficit + FInterestAdditional + FInterestComputed;
+  Result := FInterestDeficit + InterestDueOnPaymentDate;
 end;
 
 function TLoan.GetIsDiminishing: boolean;
@@ -497,11 +449,12 @@ end;
 
 procedure TLoan.GetPrincipalDue(const paymentDate: TDateTime);
 var
-  principal, amortisation: currency;
+  amort, tmp: currency;
   LLedger: TLedger;
   py, pm, pd, vy, vm, vd: word;
 begin
-  principal := 0;
+  amort := 0;
+  tmp := 0; // check the GetInterestDue function for usage of this variable
 
   DecodeDate(paymentDate,py,pm,pd);
 
@@ -510,24 +463,18 @@ begin
     if (LLedger.EventObject = TRttiEnumerationType.GetName<TEventObjects>(TEventObjects.LON))
        and (LLedger.CaseType = TRttiEnumerationType.GetName<TCaseTypes>(TCaseTypes.PRC))then
     begin
+      if tmp = 0 then tmp := LLedger.Amortisation;
+
       DecodeDate(LLedger.ValueDate,vy,vm,vd);
 
       // only get the due for the month.. exclude balance
-      if (vm = pm) and (vy = py) then
-      begin
-         principal := LLedger.Debit;
-         amortisation := LLedger.Amortisation;
-      end;
+      if (vm = pm) and (vy = py) then amort := LLedger.Amortisation;
     end;
   end;
 
-  FPrincipalDue := principal;
-  FPrincipalAmortisation := amortisation;
-end;
+  if amort = 0 then amort := tmp;
 
-function TLoan.GetTotalInterestDue: currency;
-begin
-  Result := FInterestDue + FUnpaidPostedInterest + FInterestAdditional;
+  FPrincipalAmortisation := amort;
 end;
 
 procedure TLoan.RetrieveLedger;

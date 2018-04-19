@@ -1,11 +1,11 @@
 inherited frmLoanClassChargeDetail: TfrmLoanClassChargeDetail
   Caption = 'frmLoanClassChargeDetail'
-  ClientHeight = 336
+  ClientHeight = 364
   ClientWidth = 292
   OnCreate = FormCreate
   OnShow = FormShow
   ExplicitWidth = 292
-  ExplicitHeight = 336
+  ExplicitHeight = 364
   PixelsPerInch = 96
   TextHeight = 14
   inherited pnlTitle: TRzPanel
@@ -23,17 +23,17 @@ inherited frmLoanClassChargeDetail: TfrmLoanClassChargeDetail
   end
   inherited pnlMain: TRzPanel
     Width = 292
-    Height = 315
+    Height = 343
     ExplicitWidth = 292
     ExplicitHeight = 315
     inherited pnlDetail: TRzPanel
       Width = 276
-      Height = 269
+      Height = 297
       ExplicitWidth = 276
       ExplicitHeight = 269
       inherited pcDetail: TRzPageControl
         Width = 274
-        Height = 267
+        Height = 295
         ExplicitWidth = 274
         ExplicitHeight = 267
         FixedDimension = 20
@@ -50,7 +50,7 @@ inherited frmLoanClassChargeDetail: TfrmLoanClassChargeDetail
           end
           object JvLabel2: TJvLabel
             Left = 19
-            Top = 47
+            Top = 50
             Width = 32
             Height = 14
             Caption = 'Value'
@@ -58,7 +58,7 @@ inherited frmLoanClassChargeDetail: TfrmLoanClassChargeDetail
           end
           object JvLabel3: TJvLabel
             Left = 19
-            Top = 117
+            Top = 124
             Width = 33
             Height = 14
             Caption = 'Ratio '
@@ -66,7 +66,7 @@ inherited frmLoanClassChargeDetail: TfrmLoanClassChargeDetail
           end
           object JvLabel4: TJvLabel
             Left = 19
-            Top = 141
+            Top = 151
             Width = 52
             Height = 14
             Caption = 'Maximum'
@@ -74,7 +74,7 @@ inherited frmLoanClassChargeDetail: TfrmLoanClassChargeDetail
           end
           object rbgValueType: TRzDBRadioGroup
             Left = 73
-            Top = 65
+            Top = 70
             Width = 176
             Height = 40
             DataField = 'value_type'
@@ -91,7 +91,7 @@ inherited frmLoanClassChargeDetail: TfrmLoanClassChargeDetail
             BorderColor = 15263976
             BorderSides = []
             Caption = ''
-            Color = 14273211
+            Color = 15327448
             Columns = 2
             FlatColor = 14273211
             GroupStyle = gsCustom
@@ -102,13 +102,13 @@ inherited frmLoanClassChargeDetail: TfrmLoanClassChargeDetail
           end
           object edValue: TRzDBNumericEdit
             Left = 81
-            Top = 41
+            Top = 44
             Width = 168
             Height = 22
             DataSource = dmLoansAux.dscClassCharges
             DataField = 'charge_value'
             Alignment = taLeftJustify
-            FrameColor = 8675134
+            FrameColor = 14272955
             FrameVisible = True
             FramingPreference = fpCustomFraming
             TabOnEnter = True
@@ -131,7 +131,7 @@ inherited frmLoanClassChargeDetail: TfrmLoanClassChargeDetail
             AllowNull = True
             FlatButtons = True
             DisabledColor = clWhite
-            FrameColor = 8675134
+            FrameColor = 14272955
             FrameHotColor = clBlack
             FrameVisible = True
             FramingPreference = fpCustomFraming
@@ -139,16 +139,16 @@ inherited frmLoanClassChargeDetail: TfrmLoanClassChargeDetail
           end
           object edRatio: TRzDBNumericEdit
             Left = 81
-            Top = 111
+            Top = 118
             Width = 168
             Height = 22
             DataSource = dmLoansAux.dscClassCharges
             DataField = 'ratio_amt'
             Alignment = taLeftJustify
-            DisabledColor = 14273211
+            DisabledColor = 15327448
             Enabled = False
             FocusColor = clWhite
-            FrameColor = 8675134
+            FrameColor = 14272955
             FrameVisible = True
             FramingPreference = fpCustomFraming
             ReadOnlyColor = 14273211
@@ -159,16 +159,16 @@ inherited frmLoanClassChargeDetail: TfrmLoanClassChargeDetail
           end
           object edMaximum: TRzDBNumericEdit
             Left = 81
-            Top = 135
+            Top = 145
             Width = 168
             Height = 22
             DataSource = dmLoansAux.dscClassCharges
             DataField = 'max_value'
             Alignment = taLeftJustify
-            DisabledColor = 14273211
+            DisabledColor = 15327448
             Enabled = False
             FocusColor = clWhite
-            FrameColor = 8675134
+            FrameColor = 14272955
             FrameVisible = True
             FramingPreference = fpCustomFraming
             ReadOnlyColor = 14273211
@@ -179,7 +179,7 @@ inherited frmLoanClassChargeDetail: TfrmLoanClassChargeDetail
           end
           object RzGroupBox2: TRzGroupBox
             Left = 19
-            Top = 190
+            Top = 206
             Width = 230
             Height = 22
             BorderColor = 6572079
@@ -191,8 +191,8 @@ inherited frmLoanClassChargeDetail: TfrmLoanClassChargeDetail
             CaptionFont.Height = -12
             CaptionFont.Name = 'Tahoma'
             CaptionFont.Style = [fsBold]
-            Color = 14273211
-            FlatColor = 6572079
+            Color = 15327448
+            FlatColor = 12493963
             Font.Charset = DEFAULT_CHARSET
             Font.Color = 6572079
             Font.Height = -12
@@ -205,7 +205,7 @@ inherited frmLoanClassChargeDetail: TfrmLoanClassChargeDetail
           end
           object chbForNew: TRzDBCheckBox
             Left = 19
-            Top = 213
+            Top = 232
             Width = 44
             Height = 16
             DataField = 'for_new'
@@ -217,7 +217,7 @@ inherited frmLoanClassChargeDetail: TfrmLoanClassChargeDetail
           end
           object chbForRenewal: TRzDBCheckBox
             Left = 115
-            Top = 213
+            Top = 232
             Width = 65
             Height = 16
             DataField = 'for_renew'
@@ -229,7 +229,7 @@ inherited frmLoanClassChargeDetail: TfrmLoanClassChargeDetail
           end
           object chbForRestructure: TRzDBCheckBox
             Left = 19
-            Top = 235
+            Top = 254
             Width = 83
             Height = 16
             DataField = 'for_restructure'
@@ -241,7 +241,7 @@ inherited frmLoanClassChargeDetail: TfrmLoanClassChargeDetail
           end
           object chbForReloan: TRzDBCheckBox
             Left = 115
-            Top = 235
+            Top = 254
             Width = 55
             Height = 16
             DataField = 'for_reloan'
@@ -253,7 +253,7 @@ inherited frmLoanClassChargeDetail: TfrmLoanClassChargeDetail
           end
           object rbgMaxValueType: TRzDBRadioGroup
             Left = 73
-            Top = 158
+            Top = 171
             Width = 160
             Height = 23
             DataField = 'max_value_type'
@@ -269,7 +269,7 @@ inherited frmLoanClassChargeDetail: TfrmLoanClassChargeDetail
             BorderColor = 15263976
             BorderSides = []
             Caption = ''
-            Color = 14273211
+            Color = 15327448
             Columns = 2
             FlatColor = 14273211
             GroupStyle = gsCustom
@@ -283,13 +283,13 @@ inherited frmLoanClassChargeDetail: TfrmLoanClassChargeDetail
     end
     inherited pnlCancel: TRzPanel
       Left = 234
-      Top = 284
+      Top = 312
       ExplicitLeft = 234
       ExplicitTop = 284
     end
     inherited pnlSave: TRzPanel
       Left = 179
-      Top = 284
+      Top = 312
       ExplicitLeft = 179
       ExplicitTop = 284
     end

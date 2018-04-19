@@ -4,24 +4,24 @@
     <Transaction>2016/09/01 15:33:54.000.468,=rtl.dcp</Transaction>
     <Transaction>2017/04/18 12:28:23.000.946,=rtl.dcp</Transaction>
     <Transaction>2017/04/18 12:28:35.000.097,=C:\Users\BryanGarcia\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
-    <Transaction>2017/04/18 12:30:33.000.997,C:\_Projects\iFinance\Accounting\Posting.pas=C:\Users\BryanGarcia\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
-    <Transaction>2017/04/18 12:30:46.000.128,C:\_Projects\iFinance\Accounting\Accounting.dproj=C:\Users\BryanGarcia\Documents\Embarcadero\Studio\Projects\Package1.dproj</Transaction>
+    <Transaction>2017/04/18 12:30:33.000.997,C:\Users\BryanGarcia\Documents\Embarcadero\Studio\Projects\Unit1.pas=C:\_Projects\iFinance\Accounting\Posting.pas</Transaction>
+    <Transaction>2017/04/18 12:30:46.000.128,C:\Users\BryanGarcia\Documents\Embarcadero\Studio\Projects\Package1.dproj=C:\_Projects\iFinance\Accounting\Accounting.dproj</Transaction>
     <Transaction>2017/04/18 12:37:09.000.578,=C:\_Projects\iFinance\Accounting\Unit1.pas</Transaction>
-    <Transaction>2017/04/18 12:37:26.000.632,C:\_Projects\iFinance\Accounting\AccountingData.pas=C:\_Projects\iFinance\Accounting\Unit1.pas</Transaction>
-    <Transaction>2017/04/18 12:37:26.000.632,C:\_Projects\iFinance\Accounting\AccountingData.dfm=C:\_Projects\iFinance\Accounting\Unit1.dfm</Transaction>
+    <Transaction>2017/04/18 12:37:26.000.632,C:\_Projects\iFinance\Accounting\Unit1.dfm=C:\_Projects\iFinance\Accounting\AccountingData.dfm</Transaction>
+    <Transaction>2017/04/18 12:37:26.000.632,C:\_Projects\iFinance\Accounting\Unit1.pas=C:\_Projects\iFinance\Accounting\AccountingData.pas</Transaction>
+    <Transaction>2017/04/18 12:46:40.000.847,=vcl.dcp</Transaction>
     <Transaction>2017/04/18 12:46:40.000.859,=dbrtl.dcp</Transaction>
     <Transaction>2017/04/18 12:46:40.000.896,=Jcl.dcp</Transaction>
-    <Transaction>2017/04/18 12:46:40.000.834,=vclimg.dcp</Transaction>
     <Transaction>2017/04/18 12:46:40.000.920,=JvStdCtrls.dcp</Transaction>
+    <Transaction>2017/04/18 12:46:40.000.834,=vclimg.dcp</Transaction>
+    <Transaction>2017/04/18 12:46:40.000.883,=RaizeComponentsVcl.dcp</Transaction>
     <Transaction>2017/04/18 12:46:40.000.871,=adortl.dcp</Transaction>
     <Transaction>2017/04/18 12:46:40.000.908,=JvCore.dcp</Transaction>
-    <Transaction>2017/04/18 12:46:40.000.883,=RaizeComponentsVcl.dcp</Transaction>
-    <Transaction>2017/04/18 12:46:40.000.847,=vcl.dcp</Transaction>
     <Transaction>2017/08/31 10:06:22.000.678,=C:\Projects\iFinance\Accounting\Unit1.pas</Transaction>
-    <Transaction>2017/08/31 10:07:12.000.934,C:\Projects\iFinance\Accounting\Ledger.pas=C:\Projects\iFinance\Accounting\Posting.pas</Transaction>
-    <Transaction>2017/11/11 15:32:18.000.335,C:\Projects\iFinance\Accounting\Ledger.pas=C:\Projects\iFinance\Accounting\Posting.pas</Transaction>
+    <Transaction>2017/08/31 10:07:12.000.934,C:\Projects\iFinance\Accounting\Posting.pas=C:\Projects\iFinance\Accounting\Ledger.pas</Transaction>
+    <Transaction>2017/11/11 15:32:18.000.335,C:\Projects\iFinance\Accounting\Posting.pas=C:\Projects\iFinance\Accounting\Ledger.pas</Transaction>
     <Transaction>2017/11/11 15:47:59.000.587,=C:\Projects\iFinance\Accounting\Unit1.pas</Transaction>
-    <Transaction>2017/11/11 16:15:44.000.119,C:\Projects\iFinance\Accounting\Unit1.pas=C:\Projects\iFinance\Accounting\Ledger.pas</Transaction>
+    <Transaction>2017/11/11 16:15:44.000.119,C:\Projects\iFinance\Accounting\Ledger.pas=C:\Projects\iFinance\Accounting\Unit1.pas</Transaction>
   </Transactions>
 	<ProjectSortOrder AutoSort="0" SortType="0">
     <File Path="AccountingData.pas"/>

@@ -432,8 +432,8 @@ begin
 
       for adv in FAdvancePayments do
       begin
-        intDeficit := intDeficit + adv.Interest;
-        prcDeficit := prcDeficit + adv.Principal;
+        intDeficit := intDeficit - adv.Interest;
+        prcDeficit := prcDeficit - adv.Principal;
       end;
 
       balance := FReleaseAmount - TotalAdvancePayment;
@@ -966,21 +966,30 @@ begin
     charge.ChargeType := classCharge.ChargeType;
     charge.ChargeName := classCharge.ChargeName;
 
-    if classCharge.ValueType = vtFixed then
-      charge.Amount := classCharge.ChargeValue
-    else if classCharge.ValueType = vtPercentage then
-      charge.Amount := (classCharge.ChargeValue * FReleaseAmount) / 100
-    else if classCharge.ValueType = vtRatio then
+    if FReleaseAmount > 0 then
     begin
-      if classCharge.MaxValueType = mvtAmount then
+      if classCharge.ValueType = vtFixed then
+        charge.Amount := classCharge.ChargeValue
+      else if classCharge.ValueType = vtPercentage then
+        charge.Amount := (classCharge.ChargeValue * FReleaseAmount) / 100
+      else if classCharge.ValueType = vtRatio then
       begin
-        charge.Amount := classCharge.ChargeValue * (FReleaseAmount / classCharge.RatioAmount) * FApprovedTerm;
-        if charge.Amount > classCharge.MaxValue then
-          charge.Amount := classCharge.MaxValue;
-      end
-      else
-        charge.Amount := classCharge.ChargeValue * (FReleaseAmount / classCharge.RatioAmount) * classCharge.MaxValue;
-    end;
+        if classCharge.MaxValueType = mvtAmount then
+        begin
+          charge.Amount := classCharge.ChargeValue * (FReleaseAmount / classCharge.RatioAmount) * FApprovedTerm;
+          if charge.Amount > classCharge.MaxValue then
+            charge.Amount := classCharge.MaxValue;
+        end
+        else
+        begin
+          if classCharge.MaxValue > FApprovedTerm then
+            charge.Amount := classCharge.ChargeValue * (FReleaseAmount / classCharge.RatioAmount) * FApprovedTerm
+          else
+            charge.Amount := classCharge.ChargeValue * (FReleaseAmount / classCharge.RatioAmount) * classCharge.MaxValue
+        end;
+      end;
+    end
+    else charge.Amount := 0;
 
     AddLoanCharge(charge,true);
   end;

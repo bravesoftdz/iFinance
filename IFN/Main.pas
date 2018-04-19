@@ -122,12 +122,13 @@ type
     imgWithdrawals: TImage;
     pnlPaymentList: TRzPanel;
     imgPaymentList: TImage;
-    cmbRecentItems: TRzComboBox;
-    Label1: TLabel;
     pnlChangeDate: TRzPanel;
     imgChangeDate: TImage;
     pnlFixSequence: TRzPanel;
     imgFixSequence: TImage;
+    RzPanel1: TRzPanel;
+    Label1: TLabel;
+    cmbRecentItems: TRzComboBox;
     procedure tbAddClientClick(Sender: TObject);
     procedure lblRecentlyAddedClick(Sender: TObject);
     procedure lbxRecentDblClick(Sender: TObject);
@@ -184,6 +185,7 @@ type
     procedure cmbRecentItemsClick(Sender: TObject);
     procedure imgChangeDateClick(Sender: TObject);
     procedure imgFixSequenceClick(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
   private
     { Private declarations }
     DOCKED_FORM: TForms;
@@ -216,7 +218,7 @@ uses
   ClientMain, SaveIntf, ClientList, DockedFormIntf, LoanMain, LoanList, LoanIntf,
   FormsUtil, IFinanceGlobal, IFinanceDialogs, NewIntf, AppSettings,
   PaymentMain, PaymentIntf, PaymentList, AccountingData, WithdrawalList, DevParams,
-  MaintenanceDrawer, ClientIntf, DBUtil;
+  MaintenanceDrawer, ClientIntf, DBUtil, AppUtil;
 
 constructor TRecentClient.Create(const id, displayId, name: string);
 begin
@@ -646,6 +648,13 @@ begin
   RecentLoans := TObjectList<TRecentLoan>.Create;
 
   npMain.ActivePage := nppClient;
+end;
+
+procedure TfrmMain.FormDestroy(Sender: TObject);
+begin
+   {$ifdef TESTMODE}
+  SaveTestInfo;
+  {$endif}
 end;
 
 procedure TfrmMain.FormShow(Sender: TObject);

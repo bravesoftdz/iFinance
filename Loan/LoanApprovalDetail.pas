@@ -105,8 +105,8 @@ begin
     error := 'Invalid value for approved term.'
   else if dbluAppvMethod.Text = '' then
     error := 'Please select approval method.'
-  else if edAppvTerm.Value > ln.DesiredTerm then
-    error := 'Approved term exceeds the desired term.'
+  else if edAppvTerm.Value > ln.LoanClass.Term then
+    error := 'Approved term exceeds the maximum term set for the selected loan class.'
   else if edAppvAmount.Value > ln.LoanClass.MaxLoan then
     error := 'Approved amount exceeds the maximum loanable amount for the selected loan class.'
   else if edAppvAmount.Value > ln.Assessment.RecommendedAmount then

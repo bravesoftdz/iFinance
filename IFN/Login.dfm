@@ -364,12 +364,13 @@ inherited frmLogin: TfrmLogin
       ParentFont = False
     end
     object lblVersion: TLabel
-      Left = 345
-      Top = 203
-      Width = 74
-      Height = 13
+      Left = 176
+      Top = 204
+      Width = 243
+      Height = 12
       Alignment = taRightJustify
       Anchors = [akRight, akBottom]
+      AutoSize = False
       Caption = 'Version 1.0.0.0'
       Color = clWhite
       Font.Charset = ANSI_CHARSET

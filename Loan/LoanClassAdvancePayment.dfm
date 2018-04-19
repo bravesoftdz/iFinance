@@ -60,6 +60,7 @@ inherited frmLoanClassAdvancePaymentDetail: TfrmLoanClassAdvancePaymentDetail
             FramingPreference = fpCustomFraming
             TabOrder = 2
             DisplayFormat = '0'
+            FlatButtonColor = 15327448
           end
           object RzGroupBox2: TRzGroupBox
             Left = 19

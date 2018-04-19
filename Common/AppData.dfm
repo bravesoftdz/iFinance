@@ -255,6 +255,7 @@ object dmApplication: TdmApplication
     object dstPaymentschange: TCurrencyField
       FieldKind = fkCalculated
       FieldName = 'change'
+      DisplayFormat = '###,###,##0.00;;-'
       Calculated = True
     end
   end
