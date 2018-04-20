@@ -3,12 +3,12 @@ unit ClientMain;
 interface
 
 uses
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, BaseDocked, Vcl.StdCtrls,
   Vcl.ExtCtrls, SaveIntf, RzLabel, RzPanel, RzTabs, Vcl.Mask, StatusIntf,
   RzEdit, RzDBEdit, JvLabel, JvExControls, Vcl.DBCtrls, RzDBCmbo,
   Vcl.ComCtrls, RzDTP, RzDBDTP, RzButton, RzRadChk, RzDBChk, Data.DB, Vcl.Grids,
-  Vcl.DBGrids, RzDBGrid, RzBtnEdt, RzLaunch, ClientIntf, Vcl.Imaging.pngimage,
+  Vcl.DBGrids, RzDBGrid, RzBtnEdt, ClientIntf,
   RzCmboBx, RzLstBox, RzDBList, NewIntf, RzGrids, RzChkLst, ADODB, Vcl.Menus,
   DSPack, DXSUtil, DirectShow9, JPEG;
 
@@ -198,7 +198,7 @@ type
     pnlCancel: TRzPanel;
     btnCancel: TRzShapeButton;
     SampleGrabber: TSampleGrabber;
-    VideoSourceFilter: TFilter;
+    VideoSourceFilter: DSPack.TFilter;
     CaptureGraph: TFilterGraph;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
@@ -1284,6 +1284,7 @@ end;
 procedure TfrmClientMain.StartCapture;
 var
  PinList: TPinList;
+ intf: IBaseFilter;
 begin
   // Activating graph filter, at this stage the source filter is added to the graph
   CaptureGraph.Active := true;
@@ -1303,8 +1304,11 @@ begin
   begin
     // Hooking up a preview video (VideoWindow)
     if VideoSourceFilter.BaseFilter.DataLength > 0 then
-      RenderStream(@PIN_CATEGORY_PREVIEW, nil, VideoSourceFilter as IBaseFilter,
-        SampleGrabber as IBaseFilter , VideoWindow as IBaseFilter);
+      if Supports(VideoSourceFilter,IBaseFilter,intf) then
+        if Supports(SampleGrabber,IBaseFilter,intf) then
+          if Supports(VideoWindow,IBaseFilter,intf) then
+      RenderStream(@PIN_CATEGORY_PREVIEW, nil, VideoSourceFilter as DirectShow9.IBaseFilter,
+        SampleGrabber as DirectShow9.IBaseFilter , VideoWindow as DirectShow9.IBaseFilter);
    end;
 
  //Launch video
@@ -1524,7 +1528,7 @@ var
 begin
   jpg := TJPEGImage.Create;
   try
-    imageFile := ifn.PhotoPath + Trim(cln.Photo);
+    imageFile := ifn.PhotoPath + Trim(cln.Id) + '.jpg';
 
     if FileExists(imageFile) then
     begin

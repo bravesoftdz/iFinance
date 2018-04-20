@@ -40,14 +40,14 @@ inherited frmClientMain: TfrmClientMain
     Width = 961
     Height = 552
     Hint = ''
-    ActivePage = tsLoansHistory
+    ActivePage = tsPhoto
     Align = alClient
     BoldCurrentTab = True
     UseColoredTabs = True
     FlatColor = 6572079
     ShowFullFrame = False
     ShowShadow = False
-    TabIndex = 3
+    TabIndex = 7
     TabOrder = 1
     TabOrientation = toBottom
     TabStop = False
@@ -2591,8 +2591,9 @@ inherited frmClientMain: TfrmClientMain
           Top = 1
           Width = 522
           Height = 371
+          FilterGraph = CaptureGraph
           VMROptions.Mode = vmrRenderless
-          Color = 15327448
+          Color = clBlack
           Visible = False
           Align = alClient
         end
@@ -2806,6 +2807,7 @@ inherited frmClientMain: TfrmClientMain
     end
   end
   object SampleGrabber: TSampleGrabber
+    FilterGraph = CaptureGraph
     MediaType.data = {
       7669647300001000800000AA00389B717DEB36E44F52CE119F530020AF0BA770
       FFFFFFFF0000000001000000809F580556C3CE11BF0100AA0055595A00000000
@@ -2815,6 +2817,7 @@ inherited frmClientMain: TfrmClientMain
   end
   object VideoSourceFilter: TFilter
     BaseFilter.data = {00000000}
+    FilterGraph = CaptureGraph
     Left = 176
     Top = 65489
   end
