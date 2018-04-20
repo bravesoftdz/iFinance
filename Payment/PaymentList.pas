@@ -98,6 +98,7 @@ begin
       pmt.PostDate := FieldByName('post_date').AsDateTime;
       pmt.LocationCode := FieldByName('loc_code').AsString;
       pmt.Withdrawn := FieldByName('wd_amt').AsCurrency;
+      pmt.IsAdvance := FieldByName('is_advance').AsBoolean;
 
       paymentMethod := TPaymentMethod.Create;
       paymentMethod.Method := TMethod(FieldByName('pmt_method').AsInteger);

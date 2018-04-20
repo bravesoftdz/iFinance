@@ -217,23 +217,10 @@ begin
           else PostInterest(interest,ALoan.Id,GetFirstDayOfValueDate(valueDate),interestSource,status);
 
           // principal
-          if ALoan.LoanClass.IsDiminishing then
-          begin
-            // if ALoan.LoanClass.DiminishingType = dtScheduled then principal := ALoan.Amortisation - interest
-            // else
-            // begin
-            //  // use the balance for the last amount to be posted..
-            //  // this ensures sum of principal is equal to the loan amount released
-            //  if i = cnt then principal := balance
-            //  else principal := ALoan.ReleaseAmount / ALoan.ApprovedTerm;
-            // end;
-            if i < cnt then principal := ALoan.Amortisation - interest
-            else
-              // use the balance for the last amount to be posted..
-              // this ensures sum of principal is equal to the loan amount released
-              principal := balance;
-          end
-          else principal := ALoan.ReleaseAmount / ALoan.ApprovedTerm;
+          // use the balance for the last amount to be posted..
+          // this ensures sum of principal is equal to the loan amount released
+          if i < cnt then principal := ALoan.Amortisation - interest
+          else principal := balance;
 
           status := TRttiEnumerationType.GetName<TLedgerRecordStatus>(TLedgerRecordStatus.OPN);
 

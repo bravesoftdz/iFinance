@@ -121,7 +121,7 @@ var
 implementation
 
 uses
-  PaymentData, IFinanceGlobal, IFinanceDialogs;
+  PaymentData, IFinanceGlobal, IFinanceDialogs, Payment;
 
 constructor TActiveClient.Create;
 begin
@@ -321,7 +321,8 @@ begin
 
         // if payment date is more than a month from scheduled payment date
         // divide the days with the days in a month and use the remainder
-        if days > ifn.DaysInAMonth then days := days mod ifn.DaysInAMonth;
+        // if days > ifn.DaysInAMonth then days := days mod ifn.DaysInAMonth;
+        days := days mod ifn.DaysInAMonth;
 
         additional := (FBalance * FInterestInDecimal * days) / ifn.DaysInAMonth;
 
@@ -331,7 +332,7 @@ begin
         debitLedger.Debit := additional;
       end;
 
-      AddLedger(debitLedger);
+      if debitLedger.Debit > 0 then AddLedger(debitLedger);
     end;
   end
   else // for full payment
@@ -366,9 +367,13 @@ end;
 
 function TLoan.GetInterestDueOnPaymentDate: currency;
 begin
-  if HasInterestComputed then Result := FInterestComputed
-  else if HasInterestAdditional then Result := FInterestAmortisation + FInterestAdditional
-  else Result := FInterestAmortisation;
+  if (pmt.Date <> NextPayment) and (pmt.Date <> FLastTransactionDate) then
+  begin
+    if HasInterestComputed then Result := FInterestComputed
+    else if HasInterestAdditional then Result := FInterestAmortisation + FInterestAdditional
+    else Result := FInterestAmortisation;
+  end
+  else Result := 0;
 end;
 
 function TLoan.GetInterestMethodName: string;

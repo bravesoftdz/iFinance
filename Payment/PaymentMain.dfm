@@ -182,8 +182,8 @@ inherited frmPaymentMain: TfrmPaymentMain
     HotTrackFont.Name = 'Tahoma'
     HotTrackFont.Style = []
   end
-  object JvLabel5: TJvLabel [10]
-    Left = 725
+  object lblAdvancePayment: TJvLabel [10]
+    Left = 549
     Top = 91
     Width = 157
     Height = 14
@@ -193,7 +193,6 @@ inherited frmPaymentMain: TfrmPaymentMain
     Font.Height = -12
     Font.Name = 'Tahoma'
     Font.Style = []
-    Anchors = [akTop, akRight]
     ParentFont = False
     Transparent = True
     Visible = False

@@ -37,7 +37,10 @@ requires
   RaizeComponentsVcl,
   Jcl,
   JvCore,
-  JvStdCtrls;
+  JvStdCtrls,
+  FireDAC,
+  FireDACCommonDriver,
+  FireDACCommon;
 
 contains
   Posting in 'Posting.pas',

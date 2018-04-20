@@ -31,7 +31,7 @@ type
     cmbPaymentMethod: TRzComboBox;
     JvLabel3: TJvLabel;
     lblWithdrawn: TJvLabel;
-    JvLabel5: TJvLabel;
+    lblAdvancePayment: TJvLabel;
     grDetail: TRzDBGrid;
     lblChange: TJvLabel;
     procedure FormCreate(Sender: TObject);
@@ -470,6 +470,8 @@ begin
 
   lblReferenceNo.Caption := pmt.ReferenceNo;
   lblPosted.Caption := IfThen(pmt.IsPosted,'Yes','No');
+
+  lblAdvancePayment.Visible := pmt.IsAdvance;
 end;
 
 procedure TfrmPaymentMain.Retrieve;

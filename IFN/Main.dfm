@@ -228,7 +228,6 @@ object frmMain: TfrmMain
       object tsHome: TRzTabSheet
         Color = 15327448
         Caption = 'Home'
-        ExplicitWidth = 1149
         object pnlAddClient: TRzPanel
           Left = 5
           Top = 5
@@ -1302,12 +1301,10 @@ object frmMain: TfrmMain
         Color = 15327448
         TabVisible = False
         Caption = 'Administration'
-        ExplicitWidth = 1149
       end
       object tsTools: TRzTabSheet
         Color = 15327448
         Caption = 'Tools'
-        ExplicitWidth = 1149
         object pnlChangeDate: TRzPanel
           Left = 5
           Top = 5
@@ -1993,19 +1990,23 @@ object frmMain: TfrmMain
         Left = 10
         Top = 22
         Width = 231
-        Height = 21
+        Height = 22
         Anchors = [akRight, akBottom]
         Color = clWhite
         Ctl3D = False
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -12
+        Font.Name = 'Tahoma'
+        Font.Style = []
         FrameColor = 14272955
         FrameVisible = True
         FramingPreference = fpCustomFraming
         ParentCtl3D = False
+        ParentFont = False
         ReadOnlyColor = 15327448
         TabOrder = 0
         OnClick = cmbRecentItemsClick
-        ExplicitLeft = 197
-        ExplicitTop = 23
       end
     end
   end

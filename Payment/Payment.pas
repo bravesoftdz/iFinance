@@ -68,6 +68,7 @@ type
     FPaymentMethod: TPaymentMethod;
     FWithdrawn: currency;
     FWithdrawalId: string;
+    FIsAdvance: boolean;
 
     procedure SaveDetails;
     procedure UpdateLoanRecord;
@@ -78,7 +79,6 @@ type
     function GetIsPosted: boolean;
     function GetIsNew: boolean;
     function GetIsWithdrawal: boolean;
-    function GetIsAdvance: boolean;
     function GetIsLate: boolean;
     function GetChangeAmount: currency;
 
@@ -99,7 +99,7 @@ type
     property Withdrawn: currency read FWithdrawn write FWithdrawn;
     property WithdrawalId: string read FWithdrawalId write FWithdrawalId;
     property IsWithdrawal: boolean read GetIsWithdrawal;
-    property IsAdvance: boolean read GetIsAdvance;
+    property IsAdvance: boolean read FIsAdvance write FIsAdvance;
     property IsLate: boolean read GetIsLate;
     property ChangeAmount: currency read GetChangeAmount;
 
@@ -431,11 +431,6 @@ end;
 function TPayment.GetIsWithdrawal: boolean;
 begin
   Result := FPaymentMethod.Method = mdBankWithdrawal;
-end;
-
-function TPayment.GetIsAdvance: boolean;
-begin
-  Result := FDate < ifn.AppDate;
 end;
 
 function TPayment.GetIsLate: boolean;
