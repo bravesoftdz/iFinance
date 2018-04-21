@@ -373,6 +373,7 @@ begin
     else if HasInterestAdditional then Result := FInterestAmortisation + FInterestAdditional
     else Result := FInterestAmortisation;
   end
+  else if pmt.Date = NextPayment then Result := FInterestAmortisation
   else Result := 0;
 end;
 

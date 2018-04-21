@@ -391,20 +391,6 @@ inherited frmPaymentDetail: TfrmPaymentDetail
             HotTrackFont.Name = 'Tahoma'
             HotTrackFont.Style = []
           end
-          object lblInterestDueOnPaymentDate: TJvLabel
-            Left = 641
-            Top = 131
-            Width = 32
-            Height = 14
-            Caption = 'xxxxx'
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -12
-            Font.Name = 'Tahoma'
-            Font.Style = []
-            ParentFont = False
-            Transparent = True
-          end
           object JvLabel7: TJvLabel
             Left = 474
             Top = 81
@@ -598,6 +584,21 @@ inherited frmPaymentDetail: TfrmPaymentDetail
             HotTrackFont.Height = -12
             HotTrackFont.Name = 'Tahoma'
             HotTrackFont.Style = []
+          end
+          object urlInterestDueOnPaymentDate: TRzURLLabel
+            Tag = 1
+            Left = 640
+            Top = 131
+            Width = 25
+            Height = 14
+            Caption = '0.00'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clGreen
+            Font.Height = -12
+            Font.Name = 'Tahoma'
+            Font.Style = [fsUnderline]
+            ParentFont = False
+            OnClick = urlInterestDueOnPaymentDateClick
           end
           object edPrincipal: TRzNumericEdit
             Left = 19
