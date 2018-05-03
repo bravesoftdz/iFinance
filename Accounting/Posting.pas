@@ -102,7 +102,7 @@ end;
 procedure TPosting.PostInterest(const ADate: TDate; const ALoanId: string);
 var
   refPostingId: string;
-  interest, credit: currency;
+  interest, credit, balance, interestRate : currency;
   eventObject, primaryKey, status, caseType: string;
   postDate, valueDate: TDateTime;
 begin
@@ -130,14 +130,18 @@ begin
         begin
           // post the interest in the ledger
           primaryKey := dstScheduledInterest.FieldByName('interest_id').AsString;
-          interest := dstScheduledInterest.FieldByName('interest_amt').AsCurrency;
+          interestRate := dstScheduledInterest.FieldByName('int_rate').AsCurrency;
+          balance := dstScheduledInterest.FieldByName('balance').AsCurrency;
+
+          interest := RoundTo(balance * (interestRate / 100),-2);
 
           valuedate := dstScheduledInterest.FieldByName('interest_date').AsDateTime;
 
           PostEntry(refPostingId, interest, credit, eventObject, primaryKey, status, postDate, valueDate, caseType);
 
-          // change the status of the interest in the Interest table
+          // change the status and amount of the interest in the Interest table
           dstScheduledInterest.Edit;
+          dstScheduledInterest.FieldByName('interest_amt').AsCurrency := interest;
           dstScheduledInterest.FieldByName('interest_status_id').AsString :=
               TRttiEnumerationType.GetName<TInterestStatus>(TInterestStatus.T);
           dstScheduledInterest.Post;
@@ -294,6 +298,9 @@ begin
   // check for leap year
   if (not IsLeapYear(year1)) and (month2 = MonthFebruary) and (day1 = 29) then
     Result := ADate2
+  // when day falls on a 31st.. use 30 instead
+  else if (day1 = 31) and (month2 <> MonthFebruary) then
+    Result := EncodeDate(year2,month2,30)
   else Result := EncodeDate(year2,month2,day1);
 end;
 
@@ -505,7 +512,10 @@ begin
             FieldByName('loan_id').AsString := ALoan.id;
             FieldByName('payment_amt').AsCurrency := payment;
             FieldByName('payment_type').AsString := TRttiEnumerationType.GetName<TPaymentTypes>(paymentType);
-            FieldByName('balance').AsCurrency := 0 - balance;
+
+            if paymentType = INT then FieldByName('balance').AsCurrency := 0 - balance
+            else FieldByName('balance').AsCurrency := balance;
+
             Post;
 
             // increment "k" variable until case type is found

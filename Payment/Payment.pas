@@ -647,6 +647,7 @@ var
   pending: boolean;
   i: integer;
   sameMonth: boolean;
+  newInterest, LBalance: currency;
 begin
   DecodeDate(FLoan.NextPayment,ny,nm,nd);
   DecodeDate(FPaymentDate,py,pm,pd);
@@ -661,6 +662,8 @@ begin
     begin
       // filter the dataset
       Filter := 'loan_id = ' + QuotedStr(FLoan.Id);
+
+      LBalance := FLoan.Balance - FPrincipal;
 
       while not Eof do
       begin
@@ -681,7 +684,16 @@ begin
             FieldByName('interest_status_id').AsString :=
               TRttiEnumerationType.GetName<TInterestStatus>(TInterestStatus.D)
           else if (y = yy) and (m = mm) and (d <> dd) then
+          begin
+            if HasPrincipal then
+            begin
+              newInterest := LBalance * FLoan.InterestInDecimal;
+              FieldByName('interest_amt').AsCurrency := newInterest;
+              LBalance := LBalance - (FLoan.ReleaseAmount / FLoan.ApprovedTerm);
+            end;
+
             FieldByName('interest_date').AsDateTime := newDate;
+          end;
 
           Post;
           Inc(i);

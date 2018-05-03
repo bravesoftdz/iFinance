@@ -38,7 +38,7 @@ inherited frmGroupSearch: TfrmGroupSearch
       Height = 272
       Anchors = [akLeft, akTop, akRight, akBottom]
       BorderOuter = fsNone
-      BorderColor = 6572079
+      BorderColor = 14272955
       BorderWidth = 1
       Color = 14273211
       TabOrder = 0
@@ -67,9 +67,9 @@ inherited frmGroupSearch: TfrmGroupSearch
       Height = 22
       Anchors = [akLeft, akBottom]
       BorderOuter = fsNone
-      BorderColor = 6572079
+      BorderColor = 14272955
       BorderWidth = 1
-      Color = 14273211
+      Color = 15327448
       TabOrder = 1
       object btnSelect: TRzShapeButton
         Left = 0
@@ -90,9 +90,9 @@ inherited frmGroupSearch: TfrmGroupSearch
       Height = 22
       Anchors = [akRight, akBottom]
       BorderOuter = fsNone
-      BorderColor = 6572079
+      BorderColor = 14272955
       BorderWidth = 1
-      Color = 14273211
+      Color = 15327448
       TabOrder = 2
       object btnCancel: TRzShapeButton
         Left = 0

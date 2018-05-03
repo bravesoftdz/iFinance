@@ -40,14 +40,14 @@ inherited frmClientMain: TfrmClientMain
     Width = 961
     Height = 552
     Hint = ''
-    ActivePage = tsPhoto
+    ActivePage = tsClientInfo
     Align = alClient
     BoldCurrentTab = True
     UseColoredTabs = True
     FlatColor = 6572079
     ShowFullFrame = False
     ShowShadow = False
-    TabIndex = 7
+    TabIndex = 0
     TabOrder = 1
     TabOrientation = toBottom
     TabStop = False
@@ -56,6 +56,8 @@ inherited frmClientMain: TfrmClientMain
     object tsClientInfo: TRzTabSheet
       Color = 15327448
       Caption = 'Client information'
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object JvLabel1: TJvLabel
         Left = 34
         Top = 49
@@ -589,7 +591,7 @@ inherited frmClientMain: TfrmClientMain
         FrameVisible = True
         FramingPreference = fpCustomFraming
         ReadOnly = True
-        ReadOnlyColor = 14273211
+        ReadOnlyColor = 15327448
         TabOnEnter = True
         TabOrder = 17
       end
@@ -706,7 +708,7 @@ inherited frmClientMain: TfrmClientMain
         FrameVisible = True
         FramingPreference = fpCustomFraming
         ReadOnly = True
-        ReadOnlyColor = 14273211
+        ReadOnlyColor = 15327448
         TabOnEnter = True
         TabOrder = 23
       end
@@ -1170,6 +1172,8 @@ inherited frmClientMain: TfrmClientMain
     object tsReferences: TRzTabSheet
       Color = 15327448
       Caption = 'Family and references'
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       DesignSize = (
         961
         529)
@@ -1615,6 +1619,8 @@ inherited frmClientMain: TfrmClientMain
     object tsIdentityInfo: TRzTabSheet
       Color = 15327448
       Caption = 'Identity information'
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       DesignSize = (
         961
         529)
@@ -1875,6 +1881,8 @@ inherited frmClientMain: TfrmClientMain
     object tsLoansHistory: TRzTabSheet
       Color = 15327448
       Caption = 'Loans history'
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       DesignSize = (
         961
         529)
@@ -2018,6 +2026,8 @@ inherited frmClientMain: TfrmClientMain
     object tsGroups: TRzTabSheet
       Color = 15327448
       Caption = 'Groups'
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       DesignSize = (
         961
         529)
@@ -2115,6 +2125,8 @@ inherited frmClientMain: TfrmClientMain
     object tsBankAcctInfo: TRzTabSheet
       Color = 15327448
       Caption = 'Bank account info'
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       DesignSize = (
         961
         529)
@@ -2398,6 +2410,8 @@ inherited frmClientMain: TfrmClientMain
     object tsPromissoryNotes: TRzTabSheet
       Color = 15327448
       Caption = 'Promissory notes'
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       DesignSize = (
         961
         529)

@@ -195,8 +195,18 @@ var
   i: integer;
 begin
   i := pmt.Client.IndexOf(pmt.Details[pmt.DetailCount-1].Loan);
-  edInterest.Value := pmt.Client.ActiveLoans[i].InterestAmortisation;
-  edPrincipal.Value := pmt.Client.ActiveLoans[i].PrincipalAmortisation;
+
+  if pmt.Client.ActiveLoans[i].Amortization = (pmt.Client.ActiveLoans[i].InterestAmortisation + pmt.Client.ActiveLoans[i].PrincipalAmortisation) then
+  begin
+    edInterest.Value := pmt.Client.ActiveLoans[i].InterestAmortisation;
+    edPrincipal.Value := pmt.Client.ActiveLoans[i].PrincipalAmortisation;
+  end
+  else
+  begin
+    edInterest.Value := pmt.Client.ActiveLoans[i].InterestAmortisation;
+    if (pmt.Client.ActiveLoans[i].Amortization - pmt.Client.ActiveLoans[i].InterestAmortisation) > 0 then
+      edPrincipal.Value := pmt.Client.ActiveLoans[i].Amortization - pmt.Client.ActiveLoans[i].InterestAmortisation;
+  end
 end;
 
 procedure TfrmPaymentDetail.urlInterestAmortizationClick(Sender: TObject);

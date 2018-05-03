@@ -324,10 +324,11 @@ begin
         // if days > ifn.DaysInAMonth then days := days mod ifn.DaysInAMonth;
         days := days mod ifn.DaysInAMonth;
 
-        additional := (FBalance * FInterestInDecimal * days) / ifn.DaysInAMonth;
+        // additional := (FBalance * FInterestInDecimal * days) / ifn.DaysInAMonth;
+        additional := (FBalance * FInterestInDecimal) / ifn.DaysInAMonth;
 
-        // round off to 2 decimal places
-        additional := RoundTo(additional,-2);
+        // round off to 2 decimal places before multiplying to number of days
+        additional := RoundTo(additional,-2) * days;
 
         debitLedger.Debit := additional;
       end;
@@ -367,14 +368,17 @@ end;
 
 function TLoan.GetInterestDueOnPaymentDate: currency;
 begin
-  if (pmt.Date <> NextPayment) and (pmt.Date <> FLastTransactionDate) then
+  if (IsDiminishing) and (FDiminishingType = dtFixed) then
   begin
-    if HasInterestComputed then Result := FInterestComputed
-    else if HasInterestAdditional then Result := FInterestAmortisation + FInterestAdditional
-    else Result := FInterestAmortisation;
+    if (pmt.Date <> NextPayment) and (pmt.Date <> FLastTransactionDate) then
+    begin
+      if HasInterestComputed then Result := FInterestComputed
+      else if HasInterestAdditional then Result := FInterestAmortisation + FInterestAdditional
+      else Result := FInterestAmortisation;
+    end
+    else if pmt.Date = NextPayment then Result := FInterestAmortisation
+    else Result := 0;
   end
-  else if pmt.Date = NextPayment then Result := FInterestAmortisation
-  else Result := 0;
 end;
 
 function TLoan.GetInterestMethodName: string;
