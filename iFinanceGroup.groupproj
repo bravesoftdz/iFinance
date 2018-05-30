@@ -24,6 +24,9 @@
         <Projects Include="Payment\Payment.dproj">
             <Dependencies/>
         </Projects>
+        <Projects Include="Security\Security.dproj">
+            <Dependencies/>
+        </Projects>
         <Projects Include="Tools\Tools.dproj">
             <Dependencies/>
         </Projects>
@@ -101,6 +104,15 @@
     <Target Name="Payment:Make">
         <MSBuild Projects="Payment\Payment.dproj" Targets="Make"/>
     </Target>
+    <Target Name="Security">
+        <MSBuild Projects="Security\Security.dproj"/>
+    </Target>
+    <Target Name="Security:Clean">
+        <MSBuild Projects="Security\Security.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="Security:Make">
+        <MSBuild Projects="Security\Security.dproj" Targets="Make"/>
+    </Target>
     <Target Name="Tools">
         <MSBuild Projects="Tools\Tools.dproj"/>
     </Target>
@@ -120,13 +132,13 @@
         <MSBuild Projects="IFN\iFinance.dproj" Targets="Make"/>
     </Target>
     <Target Name="Build">
-        <CallTarget Targets="Accounting;Base;Client;Common;Entities;Loan;Payment;Tools;iFinance"/>
+        <CallTarget Targets="Accounting;Base;Client;Common;Entities;Loan;Payment;Security;Tools;iFinance"/>
     </Target>
     <Target Name="Clean">
-        <CallTarget Targets="Accounting:Clean;Base:Clean;Client:Clean;Common:Clean;Entities:Clean;Loan:Clean;Payment:Clean;Tools:Clean;iFinance:Clean"/>
+        <CallTarget Targets="Accounting:Clean;Base:Clean;Client:Clean;Common:Clean;Entities:Clean;Loan:Clean;Payment:Clean;Security:Clean;Tools:Clean;iFinance:Clean"/>
     </Target>
     <Target Name="Make">
-        <CallTarget Targets="Accounting:Make;Base:Make;Client:Make;Common:Make;Entities:Make;Loan:Make;Payment:Make;Tools:Make;iFinance:Make"/>
+        <CallTarget Targets="Accounting:Make;Base:Make;Client:Make;Common:Make;Entities:Make;Loan:Make;Payment:Make;Security:Make;Tools:Make;iFinance:Make"/>
     </Target>
     <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
 </Project>

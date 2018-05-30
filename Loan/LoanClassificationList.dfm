@@ -163,7 +163,7 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
     end
     object JvLabel12: TJvLabel
       Left = 13
-      Top = 265
+      Top = 292
       Width = 50
       Height = 14
       Caption = 'Payment'
@@ -195,7 +195,7 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
     end
     object JvLabel10: TJvLabel
       Left = 13
-      Top = 292
+      Top = 319
       Width = 56
       Height = 14
       Caption = 'Valid from'
@@ -211,7 +211,7 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
     end
     object JvLabel11: TJvLabel
       Left = 13
-      Top = 319
+      Top = 346
       Width = 54
       Height = 14
       Caption = 'Valid until'
@@ -235,7 +235,7 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
     end
     object urlClassCharges: TRzURLLabel
       Left = 14
-      Top = 356
+      Top = 396
       Width = 71
       Height = 14
       Caption = 'Class charges'
@@ -250,7 +250,7 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
     end
     object urlAdvancePayment: TRzURLLabel
       Left = 14
-      Top = 380
+      Top = 420
       Width = 99
       Height = 14
       Caption = 'Advance payment'
@@ -262,6 +262,14 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
       Font.Style = [fsUnderline]
       ParentFont = False
       OnClick = urlAdvancePaymentClick
+    end
+    object JvLabel15: TJvLabel
+      Left = 14
+      Top = 265
+      Width = 128
+      Height = 14
+      Caption = 'Max. advance payment'
+      Transparent = True
     end
     object pnlAdd: TRzPanel
       Left = 8
@@ -346,7 +354,7 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
     end
     object dbluPayFreq: TRzDBLookupComboBox
       Left = 88
-      Top = 259
+      Top = 286
       Width = 176
       Height = 22
       DataField = 'pay_freq'
@@ -354,7 +362,7 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
       KeyField = 'value'
       ListField = 'display'
       ListSource = dmAux.dscPaymentFreq
-      TabOrder = 11
+      TabOrder = 13
       FlatButtons = True
       DisabledColor = clWhite
       FrameColor = 14272955
@@ -433,7 +441,7 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
     end
     object dteFrom: TRzDBDateTimeEdit
       Left = 88
-      Top = 286
+      Top = 313
       Width = 105
       Height = 22
       DataSource = dmLoansAux.dscLoanClass
@@ -443,14 +451,14 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
       FrameVisible = True
       FramingPreference = fpCustomFraming
       TabOnEnter = True
-      TabOrder = 12
+      TabOrder = 14
       EditType = etDate
       Format = 'mm/dd/yyyy'
       FlatButtons = True
     end
     object dteUntil: TRzDBDateTimeEdit
       Left = 88
-      Top = 313
+      Top = 340
       Width = 105
       Height = 22
       DataSource = dmLoansAux.dscLoanClass
@@ -460,7 +468,7 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
       FrameVisible = True
       FramingPreference = fpCustomFraming
       TabOnEnter = True
-      TabOrder = 13
+      TabOrder = 15
       EditType = etDate
       Format = 'mm/dd/yyyy'
       FlatButtons = True
@@ -519,7 +527,7 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
       BorderColor = 14272955
       BorderWidth = 1
       Color = 15327448
-      TabOrder = 14
+      TabOrder = 16
       object sbtnActivate: TRzShapeButton
         Left = 0
         Top = 0
@@ -543,7 +551,7 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
       BorderColor = 14272955
       BorderWidth = 1
       Color = 15327448
-      TabOrder = 15
+      TabOrder = 17
       object RzShapeButton1: TRzShapeButton
         Left = 0
         Top = 0
@@ -593,11 +601,29 @@ inherited frmLoanClassificationList: TfrmLoanClassificationList
       Caption = ''
       Color = 15327448
       Columns = 2
+      Enabled = False
       FlatColor = 15327448
       GroupStyle = gsCustom
       TabOnEnter = True
-      TabOrder = 16
+      TabOrder = 11
       TabStop = True
+    end
+    object edMaxAdvancePayment: TRzDBNumericEdit
+      Left = 148
+      Top = 259
+      Width = 116
+      Height = 22
+      DataSource = dmLoansAux.dscLoanClass
+      DataField = 'max_advance_pmt'
+      Alignment = taLeftJustify
+      DisabledColor = clWhite
+      FrameColor = 14272955
+      FrameVisible = True
+      FramingPreference = fpCustomFraming
+      TabOnEnter = True
+      TabOrder = 12
+      DisplayFormat = '###,##0.00'
+      FlatButtons = True
     end
   end
   object cmbBranch: TRzComboBox

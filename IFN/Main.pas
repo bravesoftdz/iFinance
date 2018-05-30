@@ -129,6 +129,8 @@ type
     RzPanel1: TRzPanel;
     Label1: TLabel;
     cmbRecentItems: TRzComboBox;
+    pnlSecurity: TRzPanel;
+    imgSecurity: TImage;
     procedure tbAddClientClick(Sender: TObject);
     procedure lblRecentlyAddedClick(Sender: TObject);
     procedure lbxRecentDblClick(Sender: TObject);
@@ -186,6 +188,7 @@ type
     procedure imgChangeDateClick(Sender: TObject);
     procedure imgFixSequenceClick(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
+    procedure imgSecurityClick(Sender: TObject);
   private
     { Private declarations }
     DOCKED_FORM: TForms;
@@ -218,7 +221,7 @@ uses
   ClientMain, SaveIntf, ClientList, DockedFormIntf, LoanMain, LoanList, LoanIntf,
   FormsUtil, IFinanceGlobal, IFinanceDialogs, NewIntf, AppSettings,
   PaymentMain, PaymentIntf, PaymentList, AccountingData, WithdrawalList, DevParams,
-  MaintenanceDrawer, ClientIntf, DBUtil, AppUtil;
+  MaintenanceDrawer, ClientIntf, DBUtil, AppUtil, SecurityMain;
 
 constructor TRecentClient.Create(const id, displayId, name: string);
 begin
@@ -619,6 +622,7 @@ begin
       fmPaymentList: frm := TfrmPaymentList.Create(Application);
       fmWithdrawalList: frm := TfrmWithdrawalList.Create(Application);
       fmMaintenanceDrawer: frm := TfrmMaintenanceDrawer.Create(Application);
+      fmSecurityDrawer: frm := TfrmSecurityMain.Create(Application);
       else
         frm := nil;
     end;
@@ -670,6 +674,11 @@ end;
 procedure TfrmMain.imgSearchClientClick(Sender: TObject);
 begin
   OpenClientList(cftRecent);
+end;
+
+procedure TfrmMain.imgSecurityClick(Sender: TObject);
+begin
+  DockForm(fmSecurityDrawer);
 end;
 
 procedure TfrmMain.imgAcctTypeClick(Sender: TObject);

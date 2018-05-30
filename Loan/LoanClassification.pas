@@ -29,6 +29,7 @@ type
     FInterestComputationMethod: string;
     FDiminishingType: TDiminishingType;
     FAdvancePayment: TLoanClassAdvance;
+    FMaxAdvanceInterestPayment: currency;
 
     function GetComakersNotRequired: boolean;
     function GetClassCharge(const i: integer): TLoanClassCharge;
@@ -84,6 +85,7 @@ type
     property DiminishingType: TDiminishingType read FDiminishingType write FDiminishingType;
     property AdvancePayment: TLoanClassAdvance read FAdvancePayment write FAdvancePayment;
     property HasAdvancePayment: boolean read GetHasAdvancePayment;
+    property MaxAdvanceInterestPayment: currency read FMaxAdvanceInterestPayment write FMaxAdvanceInterestPayment;
 
     constructor Create(const classificationId: integer; classificationName: string;
         const interest: real; const term: integer; const maxLoan: currency;

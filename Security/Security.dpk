@@ -1,0 +1,69 @@
+package Security;
+
+{$R *.res}
+{$IFDEF IMPLICITBUILDING This IFDEF should not be used by users}
+{$ALIGN 8}
+{$ASSERTIONS ON}
+{$BOOLEVAL OFF}
+{$DEBUGINFO OFF}
+{$EXTENDEDSYNTAX ON}
+{$IMPORTEDDATA ON}
+{$IOCHECKS ON}
+{$LOCALSYMBOLS ON}
+{$LONGSTRINGS ON}
+{$OPENSTRINGS ON}
+{$OPTIMIZATION OFF}
+{$OVERFLOWCHECKS OFF}
+{$RANGECHECKS OFF}
+{$REFERENCEINFO ON}
+{$SAFEDIVIDE OFF}
+{$STACKFRAMES ON}
+{$TYPEDADDRESS OFF}
+{$VARSTRINGCHECKS ON}
+{$WRITEABLECONST OFF}
+{$MINENUMSIZE 1}
+{$IMAGEBASE $400000}
+{$DEFINE DEBUG}
+{$ENDIF IMPLICITBUILDING}
+{$RUNONLY}
+{$IMPLICITBUILD ON}
+
+requires
+  rtl,
+  vcl,
+  RaizeComponentsVcl,
+  vclimg,
+  dbrtl,
+  FireDAC,
+  FireDACCommonDriver,
+  FireDACCommon,
+  vcldb,
+  bindengine,
+  FireDACIBDriver,
+  bindcomp,
+  bindcompvcl,
+  RaizeComponentsVclDb,
+  Jcl,
+  JvCore,
+  JvStdCtrls,
+  JvPageComps,
+  bdertl,
+  frce,
+  LockBoxDR,
+  adortl;
+
+contains
+  SecurityData in 'SecurityData.pas' {dmSecurity: TDataModule},
+  User in 'User.pas',
+  SecurityMain in 'SecurityMain.pas' {frmSecurityMain},
+  BaseGridDetail in '..\Base\BaseGridDetail.pas' {frmBaseGridDetail},
+  BaseDocked in '..\Base\BaseDocked.pas' {frmBaseDocked},
+  ChangePassword in 'ChangePassword.pas' {frmChangePassword},
+  Users in 'Users.pas' {frmUsers},
+  Roles in 'Roles.pas' {frmRoles},
+  Role in 'Role.pas',
+  BasePopupDetail in '..\Base\BasePopupDetail.pas' {frmBasePopupDetail},
+  AssignRights in 'AssignRights.pas' {frmAssignRights},
+  SecurityUtil in 'SecurityUtil.pas';
+
+end.

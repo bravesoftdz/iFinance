@@ -53,6 +53,8 @@ type
     urlClassCharges: TRzURLLabel;
     urlAdvancePayment: TRzURLLabel;
     rbgDiminishingType: TRzDBRadioGroup;
+    JvLabel15: TJvLabel;
+    edMaxAdvancePayment: TRzDBNumericEdit;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure urlRefreshListClick(Sender: TObject);

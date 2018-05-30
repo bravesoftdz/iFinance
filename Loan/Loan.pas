@@ -858,7 +858,8 @@ begin
   else amort := ((FReleaseAmount * FLoanClass.InterestInDecimal * FApprovedTerm) + FReleaseAmount) / FApprovedTerm;
 
   // Note: Round off the AMORTISATION to "nearest peso" .. ex. 1.25 to 2.00
-  Result := Trunc(amort) + 1;
+  if amort <> Trunc(amort) then Result := amort + 1
+  else Result := amort;
 end;
 
 procedure TLoan.AddReleaseRecipient(const rec: TReleaseRecipient; const overwrite: boolean);
@@ -1197,7 +1198,7 @@ end;
 
 function TLoan.GetFactorWithInterest: currency;
 var
-  divisor: real;
+  divisor: currency;
 begin
   divisor := 1 - (1 / Power(1 + FLoanClass.InterestInDecimal, FApprovedTerm));
 

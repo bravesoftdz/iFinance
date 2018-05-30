@@ -112,7 +112,6 @@
         <DCCReference Include="AppUtil.pas"/>
         <DCCReference Include="DBUtil.pas"/>
         <DCCReference Include="IFinanceGlobal.pas"/>
-        <DCCReference Include="User.pas"/>
         <DCCReference Include="ConnUtil.pas"/>
         <DCCReference Include="DockIntf.pas"/>
         <DCCReference Include="ConfBox.pas">

@@ -52,7 +52,6 @@ contains
   AppUtil in 'AppUtil.pas',
   DBUtil in 'DBUtil.pas',
   IFinanceGlobal in 'IFinanceGlobal.pas',
-  User in 'User.pas',
   ConnUtil in 'ConnUtil.pas',
   DockIntf in 'DockIntf.pas',
   ConfBox in 'ConfBox.pas' {frmConfBox},

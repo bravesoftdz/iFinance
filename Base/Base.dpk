@@ -38,7 +38,8 @@ requires
   RaizeComponentsVclDb,
   Jcl,
   JvCore,
-  JvStdCtrls;
+  JvStdCtrls,
+  adortl;
 
 contains
   BaseForm in 'BaseForm.pas' {frmBase},

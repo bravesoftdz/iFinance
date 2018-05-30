@@ -182,7 +182,11 @@ begin
   eventObject := TRttiEnumerationType.GetName<TEventObjects>(TEventObjects.LON);
   primaryKey := ALoan.Id;
   caseType := TRttiEnumerationType.GetName<TCaseTypes>(TCaseTypes.PRC);
-  valuedate := ifn.AppDate;
+
+  // initialise value date depending on computation method
+  if ALoan.LoanClass.IsFixed then valueDate := IncDay(ifn.AppDate)
+  else valuedate := ifn.AppDate;
+
   postDate := ifn.AppDate;
 
   balance := ALoan.ReleaseAmount;
@@ -215,10 +219,10 @@ begin
           interestSource := TRttiEnumerationType.GetName<TInterestSource>(TInterestSource.SYS);
           status := TRttiEnumerationType.GetName<TInterestStatus>(TInterestStatus.P);
 
-          // for FIXED accounts.. use the first day of the month..
-          if (ALoan.LoanClass.IsDiminishing) and (ALoan.LoanClass.DiminishingType = dtFixed) then
-            PostInterest(interest,ALoan.Id,valueDate,interestSource,status)
-          else PostInterest(interest,ALoan.Id,GetFirstDayOfValueDate(valueDate),interestSource,status);
+          // for DIMINISHING SCHEDULED accounts.. use the first day of the month..
+          if (ALoan.LoanClass.IsDiminishing) and (ALoan.LoanClass.DiminishingType = dtScheduled) then
+            PostInterest(interest,ALoan.Id,GetFirstDayOfValueDate(valueDate),interestSource,status)
+          else PostInterest(interest,ALoan.Id,valueDate,interestSource,status);
 
           // principal
           // use the balance for the last amount to be posted..

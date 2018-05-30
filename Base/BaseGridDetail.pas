@@ -28,7 +28,11 @@ type
     { Private declarations }
   protected
     procedure SearchList; virtual; abstract;
+    procedure BindToObject; virtual; abstract;
+
     function EntryIsValid: boolean; virtual; abstract;
+    function NewIsAllowed: boolean; virtual; abstract;
+    function EditIsAllowed: boolean; virtual; abstract;
   public
     { Public declarations }
     function Save: boolean; virtual;
@@ -78,18 +82,21 @@ begin
   with grList.DataSource.DataSet do
   begin
     if State in [dsInsert,dsEdit] then
+    begin
+      BindToObject;
       if EntryIsValid then
       begin
         grList.DataSource.DataSet.Post;
         grList.Enabled := true;
         Result := true;
       end
+    end;
   end;
 end;
 
 procedure TfrmBaseGridDetail.sbtnNewClick(Sender: TObject);
 begin
-  New;
+  if NewIsAllowed then New;
 end;
 
 procedure TfrmBaseGridDetail.Cancel;

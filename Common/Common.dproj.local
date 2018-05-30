@@ -3,6 +3,7 @@
 	<Transactions>
     <Transaction>2017/09/15 16:17:29.000.516,C:\Projects\iFinance\Common\Ledger.pas=</Transaction>
     <Transaction>2018/04/04 22:22:59.000.021,=FireDAC.dcp</Transaction>
+    <Transaction>2018/05/29 10:19:12.000.505,C:\Projects\iFinance\Common\User.pas=</Transaction>
   </Transactions>
 	<ProjectSortOrder AutoSort="0" SortType="0">
     <File Path="..\..\iFinance"/>
@@ -34,7 +35,6 @@
     <File Path="InfoBox.dfm"/>
     <File Path="NewIntf.pas"/>
     <File Path="SaveIntf.pas"/>
-    <File Path="User.pas"/>
     <File Path="WarningBox.pas"/>
     <File Path="WarningBox.dfm"/>
     <File Path="adortl.dcp"/>

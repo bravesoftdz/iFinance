@@ -251,6 +251,7 @@ var
   LLedger, debitLedger: TLedger;
   days: integer;
   py, pm, pd, vy, vm, vd: word;
+  scheduleDate: TDateTime;
 begin
   additional := 0;    // payment after schedule date
   computed := 0;      // payment before schedule date
@@ -267,14 +268,18 @@ begin
   for LLedger in FLedger do
   begin
     if (LLedger.EventObject = TRttiEnumerationType.GetName<TEventObjects>(TEventObjects.ITR))
-       and (LLedger.CaseType = TRttiEnumerationType.GetName<TCaseTypes>(TCaseTypes.ITS))then
+       and (LLedger.CaseType = TRttiEnumerationType.GetName<TCaseTypes>(TCaseTypes.ITS)) then
     begin
       if tmp = 0 then tmp := LLedger.Amortisation;
 
       DecodeDate(LLedger.ValueDate,vy,vm,vd);
 
-      // amortisation
-      if (vm = pm) and (vy = py) then amort := LLedger.Amortisation;
+      // amortisation and schedule date
+      if (vm = pm) and (vy = py) then
+      begin
+        amort := LLedger.Amortisation;
+        scheduleDate := LLedger.ValueDate;
+      end;
     end;
   end;  // end for loop
 
@@ -307,24 +312,25 @@ begin
             computed := (FBalance * FInterestInDecimal * ifn.HalfMonth) / ifn.DaysInAMonth
           else computed := FBalance * FInterestInDecimal;
         end
-        else} computed := (FBalance * FInterestInDecimal * days) / ifn.DaysInAMonth;
+        else}
+
+        // computed := (FBalance * FInterestInDecimal * days) / ifn.DaysInAMonth;
+        computed := (FBalance * FInterestInDecimal) / ifn.DaysInAMonth;
 
         // round off to 2 decimal places
-        computed := RoundTo(computed,-2);
+        computed := RoundTo(computed,-2) * days;
 
         debitLedger.Debit := computed;
       end
       else // after schedule
       begin
         // additional interest
-        days := DaysBetween(NextPayment,paymentDate);
+        days := DaysBetween(scheduleDate,paymentDate);
 
         // if payment date is more than a month from scheduled payment date
         // divide the days with the days in a month and use the remainder
         // if days > ifn.DaysInAMonth then days := days mod ifn.DaysInAMonth;
-        days := days mod ifn.DaysInAMonth;
 
-        // additional := (FBalance * FInterestInDecimal * days) / ifn.DaysInAMonth;
         additional := (FBalance * FInterestInDecimal) / ifn.DaysInAMonth;
 
         // round off to 2 decimal places before multiplying to number of days
@@ -368,6 +374,7 @@ end;
 
 function TLoan.GetInterestDueOnPaymentDate: currency;
 begin
+  Result := 0;
   if (IsDiminishing) and (FDiminishingType = dtFixed) then
   begin
     if (pmt.Date <> NextPayment) and (pmt.Date <> FLastTransactionDate) then
@@ -390,7 +397,8 @@ end;
 
 function TLoan.GetInterestTotalDue: currency;
 begin
-  Result := FInterestDeficit + InterestDueOnPaymentDate;
+  if HasInterestAdditional then Result := FInterestDeficit + FInterestAdditional
+  else Result := FInterestDeficit + InterestDueOnPaymentDate;
 end;
 
 function TLoan.GetIsDiminishing: boolean;

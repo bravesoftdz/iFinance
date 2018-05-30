@@ -1,17 +1,17 @@
 inherited frmPaymentDetail: TfrmPaymentDetail
   Caption = 'frmPaymentDetail'
   ClientHeight = 305
-  ClientWidth = 742
+  ClientWidth = 775
   OnCreate = FormCreate
-  ExplicitWidth = 742
+  ExplicitWidth = 775
   ExplicitHeight = 305
   PixelsPerInch = 96
   TextHeight = 14
   inherited pnlTitle: TRzPanel
-    Width = 742
+    Width = 775
     ExplicitWidth = 742
     inherited imgClose: TImage
-      Left = 721
+      Left = 754
       ExplicitLeft = 318
     end
     inherited lblCaption: TRzLabel
@@ -21,7 +21,7 @@ inherited frmPaymentDetail: TfrmPaymentDetail
     end
   end
   inherited pnlMain: TRzPanel
-    Width = 742
+    Width = 775
     Height = 284
     ExplicitWidth = 742
     ExplicitHeight = 284
@@ -43,12 +43,12 @@ inherited frmPaymentDetail: TfrmPaymentDetail
       ExplicitTop = 287
     end
     inherited pnlDetail: TRzPanel
-      Width = 725
+      Width = 758
       Height = 235
       ExplicitWidth = 725
       ExplicitHeight = 235
       inherited pcDetail: TRzPageControl
-        Width = 723
+        Width = 756
         Height = 233
         ExplicitWidth = 723
         ExplicitHeight = 233
@@ -677,13 +677,13 @@ inherited frmPaymentDetail: TfrmPaymentDetail
       end
     end
     inherited pnlCancel: TRzPanel
-      Left = 683
+      Left = 716
       Top = 252
       ExplicitLeft = 683
       ExplicitTop = 252
     end
     inherited pnlSave: TRzPanel
-      Left = 627
+      Left = 660
       Top = 252
       ExplicitLeft = 627
       ExplicitTop = 252
