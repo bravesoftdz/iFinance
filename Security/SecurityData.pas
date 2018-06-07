@@ -12,11 +12,11 @@ type
   TdmSecurity = class(TDataModule)
     dscUser: TDataSource;
     dscRole: TDataSource;
-    fdtRight: TFDTable;
-    dscRight: TDataSource;
     dstUsers: TADODataSet;
     dstRoles: TADODataSet;
     dstRoleRights: TADODataSet;
+    dstRights: TADODataSet;
+    dstUserRoles: TADODataSet;
     procedure fdtUserBeforePost(DataSet: TDataSet);
   private
     { Private declarations }

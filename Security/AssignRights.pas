@@ -6,7 +6,7 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, BasePopupDetail, RzButton, RzTabs,
   Vcl.StdCtrls, RzLabel, Vcl.Imaging.pngimage, Vcl.ExtCtrls, RzPanel, RzLstBox,
-  RzChkLst, Role;
+  RzChkLst, Role, Right, RzCmboBx;
 
 type
   TfrmAssignRights = class(TfrmBasePopupDetail)
@@ -16,11 +16,11 @@ type
   private
     { Private declarations }
     Role: TRole;
-    Rights: array of TRight;
     procedure PopulateRightsList;
   protected
     procedure Save; override;
     procedure Cancel; override;
+    procedure BindToObject; override;
     function ValidEntry: boolean; override;
   public
     { Public declarations }
@@ -40,6 +40,12 @@ uses
 constructor TfrmAssignRights.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
+end;
+
+procedure TfrmAssignRights.BindToObject;
+begin
+  inherited;
+
 end;
 
 procedure TfrmAssignRights.Cancel;
@@ -74,15 +80,16 @@ begin
     try
       // open the datasource
       Parameters.ParamByName('@role_code').Value := Role.Code;
+
       Open;
 
       while not Eof do
       begin
         LRight := TRight.Create;
-        LRight.Code := FieldByName('privilege_code').AsString;
+        LRight.Code := FieldByName('privilege_code_master').AsString;
         LRight.Name := FieldByName('privilege_name').AsString;
-        LRight.AssignedOldValue := true; // FieldByName('R_ASSIGNED').AsBoolean;
-        LRight.AssignedNewValue := true; // FieldByName('R_ASSIGNED').AsBoolean;
+        LRight.AssignedOldValue := FieldByName('assigned').AsInteger = 1;
+        LRight.AssignedNewValue := FieldByName('assigned').AsInteger = 1;
 
         AddItem(LRight.Name,LRight);
         ItemChecked[Items.Count-1] := LRight.AssignedOldValue;

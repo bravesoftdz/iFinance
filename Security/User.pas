@@ -3,32 +3,9 @@ unit User;
 interface
 
 uses
-  StrUtils, SysUtils, System.Rtti, Classes;
+  StrUtils, SysUtils, System.Rtti, Classes, Right;
 
 type
-  // Note: Add a prefix for sorting purposes
-  //
-  //      A = Client
-  //      B = Loans
-  //      C = Payment
-  //      S = Administrator functions
-
-  TRights = (
-             A9ADD_CLIENT9Add_new_client,
-             A9MODIFY_CLIENT9Modify_client_details,
-             B9ADD_LOAN9Create_new_loan,
-             B9ASSESS_LOAN9Assess_pending_loan,
-             B9CANCEL_LOAN9Cancel_loan,
-             B9APPROVE_LOAN9Approve_loan,
-             B9CLOSE_LOAN9Close_loan_manually,
-             S9VIEW_USERS9View_system_users,
-             S9ADD_USER9Add_new_user_login,
-             S9MODIFY_USER9Change_user_login_credentials,
-             S9VIEW_ROLES9View_system_roles,
-             S9ADD_ROLE9Add_new_role,
-             S9MODIFY_ROLE9Modify_role_rights
-            );
-
   TSuperUser = class
   strict private
     FName: string;

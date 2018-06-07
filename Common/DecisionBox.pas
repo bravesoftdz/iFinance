@@ -25,9 +25,6 @@ type
     constructor Create(AOwner: TComponent; const confMessage: string); reintroduce; overload;
   end;
 
-var
-  frmDecisionBox: TfrmDecisionBox;
-
 implementation
 
 {$R *.dfm}

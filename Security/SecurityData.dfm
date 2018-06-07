@@ -12,27 +12,10 @@ object dmSecurity: TdmSecurity
     Left = 72
     Top = 120
   end
-  object fdtRight: TFDTable
-    FilterOptions = [foCaseInsensitive]
-    IndexFieldNames = 'RIGHT_CODE'
-    FormatOptions.AssignedValues = [fvStrsTrim, fvSortLocale, fvSortOptions]
-    FormatOptions.StrsTrim = False
-    FormatOptions.SortLocale = 0
-    FormatOptions.SortOptions = [soNoSymbols]
-    UpdateOptions.UpdateTableName = 'SYSRIGHT'
-    UpdateOptions.AutoIncFields = 'PROJECT_ID'
-    TableName = 'SYSRIGHT'
-    Left = 352
-    Top = 48
-  end
-  object dscRight: TDataSource
-    DataSet = fdtRight
-    Left = 272
-    Top = 48
-  end
   object dstUsers: TADODataSet
     Connection = dmApplication.acCore
     CursorType = ctStatic
+    Filtered = True
     CommandText = 'sec_get_users;1'
     CommandType = cmdStoredProc
     Parameters = <>
@@ -51,10 +34,76 @@ object dmSecurity: TdmSecurity
   object dstRoleRights: TADODataSet
     Connection = dmApplication.acCore
     CursorType = ctStatic
+    LockType = ltReadOnly
     CommandText = 'sec_get_privileges_by_role;1'
     CommandType = cmdStoredProc
-    Parameters = <>
+    Parameters = <
+      item
+        Name = '@RETURN_VALUE'
+        DataType = ftInteger
+        Direction = pdReturnValue
+        Precision = 10
+      end
+      item
+        Name = '@role_code'
+        Attributes = [paNullable]
+        DataType = ftString
+        Size = 25
+        Value = ''
+      end
+      item
+        Name = '@app_code'
+        Attributes = [paNullable]
+        DataType = ftSmallint
+        Precision = 5
+        Value = 1
+      end>
     Left = 264
+    Top = 120
+  end
+  object dstRights: TADODataSet
+    Connection = dmApplication.acCore
+    LockType = ltReadOnly
+    CommandText = 'sec_get_privileges;1'
+    CommandType = cmdStoredProc
+    Parameters = <
+      item
+        Name = '@RETURN_VALUE'
+        DataType = ftInteger
+        Direction = pdReturnValue
+        Precision = 10
+      end
+      item
+        Name = '@app_code'
+        Attributes = [paNullable]
+        DataType = ftSmallint
+        Precision = 5
+        Value = 1
+      end>
+    Left = 360
+    Top = 48
+  end
+  object dstUserRoles: TADODataSet
+    Connection = dmApplication.acCore
+    CursorType = ctStatic
+    LockType = ltReadOnly
+    CommandText = 'sec_get_user_roles;1'
+    CommandType = cmdStoredProc
+    Parameters = <
+      item
+        Name = '@RETURN_VALUE'
+        DataType = ftInteger
+        Direction = pdReturnValue
+        Precision = 10
+      end
+      item
+        Name = '@id_num'
+        Attributes = [paNullable]
+        DataType = ftString
+        Size = 12
+        Value = ''
+      end>
+    Left = 360
     Top = 120
   end
 end

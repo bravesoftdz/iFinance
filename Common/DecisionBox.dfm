@@ -9,6 +9,9 @@ inherited frmDecisionBox: TfrmDecisionBox
   inherited pnlTitle: TRzPanel
     Width = 357
     ExplicitWidth = 357
+    DesignSize = (
+      357
+      21)
     inherited imgClose: TImage
       Left = 336
       ExplicitLeft = 336
@@ -24,6 +27,9 @@ inherited frmDecisionBox: TfrmDecisionBox
     Height = 108
     ExplicitWidth = 357
     ExplicitHeight = 108
+    DesignSize = (
+      357
+      108)
     object lblMessage: TJvLabel
       Left = 59
       Top = 21

@@ -21,16 +21,16 @@
         <Projects Include="Loan\Loan.dproj">
             <Dependencies/>
         </Projects>
-        <Projects Include="Payment\Payment.dproj">
-            <Dependencies/>
-        </Projects>
         <Projects Include="Security\Security.dproj">
             <Dependencies/>
         </Projects>
-        <Projects Include="Tools\Tools.dproj">
+        <Projects Include="Payment\Payment.dproj">
             <Dependencies/>
         </Projects>
         <Projects Include="IFN\iFinance.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="Tools\Tools.dproj">
             <Dependencies/>
         </Projects>
     </ItemGroup>
@@ -95,15 +95,6 @@
     <Target Name="Loan:Make">
         <MSBuild Projects="Loan\Loan.dproj" Targets="Make"/>
     </Target>
-    <Target Name="Payment">
-        <MSBuild Projects="Payment\Payment.dproj"/>
-    </Target>
-    <Target Name="Payment:Clean">
-        <MSBuild Projects="Payment\Payment.dproj" Targets="Clean"/>
-    </Target>
-    <Target Name="Payment:Make">
-        <MSBuild Projects="Payment\Payment.dproj" Targets="Make"/>
-    </Target>
     <Target Name="Security">
         <MSBuild Projects="Security\Security.dproj"/>
     </Target>
@@ -113,14 +104,14 @@
     <Target Name="Security:Make">
         <MSBuild Projects="Security\Security.dproj" Targets="Make"/>
     </Target>
-    <Target Name="Tools">
-        <MSBuild Projects="Tools\Tools.dproj"/>
+    <Target Name="Payment">
+        <MSBuild Projects="Payment\Payment.dproj"/>
     </Target>
-    <Target Name="Tools:Clean">
-        <MSBuild Projects="Tools\Tools.dproj" Targets="Clean"/>
+    <Target Name="Payment:Clean">
+        <MSBuild Projects="Payment\Payment.dproj" Targets="Clean"/>
     </Target>
-    <Target Name="Tools:Make">
-        <MSBuild Projects="Tools\Tools.dproj" Targets="Make"/>
+    <Target Name="Payment:Make">
+        <MSBuild Projects="Payment\Payment.dproj" Targets="Make"/>
     </Target>
     <Target Name="iFinance">
         <MSBuild Projects="IFN\iFinance.dproj"/>
@@ -131,14 +122,23 @@
     <Target Name="iFinance:Make">
         <MSBuild Projects="IFN\iFinance.dproj" Targets="Make"/>
     </Target>
+    <Target Name="Tools">
+        <MSBuild Projects="Tools\Tools.dproj"/>
+    </Target>
+    <Target Name="Tools:Clean">
+        <MSBuild Projects="Tools\Tools.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="Tools:Make">
+        <MSBuild Projects="Tools\Tools.dproj" Targets="Make"/>
+    </Target>
     <Target Name="Build">
-        <CallTarget Targets="Accounting;Base;Client;Common;Entities;Loan;Payment;Security;Tools;iFinance"/>
+        <CallTarget Targets="Accounting;Base;Client;Common;Entities;Loan;Security;Payment;iFinance;Tools"/>
     </Target>
     <Target Name="Clean">
-        <CallTarget Targets="Accounting:Clean;Base:Clean;Client:Clean;Common:Clean;Entities:Clean;Loan:Clean;Payment:Clean;Security:Clean;Tools:Clean;iFinance:Clean"/>
+        <CallTarget Targets="Accounting:Clean;Base:Clean;Client:Clean;Common:Clean;Entities:Clean;Loan:Clean;Security:Clean;Payment:Clean;iFinance:Clean;Tools:Clean"/>
     </Target>
     <Target Name="Make">
-        <CallTarget Targets="Accounting:Make;Base:Make;Client:Make;Common:Make;Entities:Make;Loan:Make;Payment:Make;Security:Make;Tools:Make;iFinance:Make"/>
+        <CallTarget Targets="Accounting:Make;Base:Make;Client:Make;Common:Make;Entities:Make;Loan:Make;Security:Make;Payment:Make;iFinance:Make;Tools:Make"/>
     </Target>
     <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
 </Project>

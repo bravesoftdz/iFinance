@@ -110,9 +110,9 @@ inherited frmInfoBox: TfrmInfoBox
       Height = 22
       Anchors = [akLeft, akBottom]
       BorderOuter = fsNone
-      BorderColor = 6572079
+      BorderColor = 14272955
       BorderWidth = 1
-      Color = 14273211
+      Color = 15327448
       TabOrder = 0
       object btnClose: TRzShapeButton
         Left = 0

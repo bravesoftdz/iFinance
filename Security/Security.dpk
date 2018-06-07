@@ -64,6 +64,10 @@ contains
   Role in 'Role.pas',
   BasePopupDetail in '..\Base\BasePopupDetail.pas' {frmBasePopupDetail},
   AssignRights in 'AssignRights.pas' {frmAssignRights},
-  SecurityUtil in 'SecurityUtil.pas';
+  SecurityUtil in 'SecurityUtil.pas',
+  Right in 'Right.pas',
+  Rights in 'Rights.pas' {frmRights},
+  AssignRoles in 'AssignRoles.pas' {frmAssignRoles},
+  LocalUser in 'LocalUser.pas';
 
 end.

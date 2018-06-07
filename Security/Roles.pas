@@ -42,7 +42,7 @@ implementation
 {$R *.dfm}
 
 uses
-  SecurityData, IFinanceDialogs, IFinanceGlobal, User;
+  SecurityData, IFinanceDialogs, IFinanceGlobal, User, Right;
 
 { TfrmRoles }
 
@@ -55,7 +55,7 @@ end;
 
 function TfrmRoles.EditIsAllowed: boolean;
 begin
-  Result := ifn.User.HasRight(S9MODIFY_ROLE9Modify_role_rights,false);
+  Result := ifn.User.HasRight(Z9MODIFY_ROLE9Modify_role_rights,false);
 end;
 
 function TfrmRoles.EntryIsValid: boolean;
@@ -90,7 +90,7 @@ end;
 
 function TfrmRoles.NewIsAllowed: boolean;
 begin
-  Result := ifn.User.HasRight(S9ADD_ROLE9Add_new_role);
+  Result := ifn.User.HasRight(Z9ADD_ROLE9Add_new_role);
 end;
 
 procedure TfrmRoles.SaveRights;
@@ -110,11 +110,11 @@ begin
         if right.Modified then
         begin
           if right.AssignedNewValue then
-            sql := 'INSERT INTO SYSROLERIGHT VALUES (' + QuotedStr(Role.Code) +
+            sql := 'INSERT INTO SYSROLEPRIVILEGE VALUES (' + QuotedStr(Role.Code) +
                   ',' + QuotedStr(right.Code) + ');'
           else
-            sql := 'DELETE FROM SYSROLERIGHT WHERE ROLE_CODE = ' + QuotedStr(Role.Code) +
-                  ' AND RIGHT_CODE = ' + QuotedStr(right.Code) + ';';
+            sql := 'DELETE FROM SYSROLEPRIVILEGE WHERE ROLE_CODE = ' + QuotedStr(Role.Code) +
+                  ' AND PRIVILEGE_CODE = ' + QuotedStr(right.Code) + ';';
 
           // execute the sql
           dmSecurity.dstRoles.Connection.Execute(sql);
@@ -137,14 +137,11 @@ begin
 end;
 
 procedure TfrmRoles.ShowAssignedRights;
-var
-  rights: array of TRight;
 begin
   BindToObject;
   with TfrmAssignRights.Create(self.Parent,Role) do
   begin
     try
-      // WinApi.Windows.SetParent(Handle,self.Parent.Handle);
       ShowModal;
 
       if ModalResult = mrOk then SaveRights;

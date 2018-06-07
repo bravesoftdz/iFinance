@@ -12,6 +12,7 @@ inherited frmUsers: TfrmUsers
   inherited pnlList: TRzPanel
     inherited grList: TRzDBGrid
       DataSource = dmSecurity.dscUser
+      OnDblClick = grListDblClick
       Columns = <
         item
           Expanded = False
@@ -96,6 +97,7 @@ inherited frmUsers: TfrmUsers
       Font.Name = 'Tahoma'
       Font.Style = [fsUnderline]
       ParentFont = False
+      OnClick = urlRolesClick
     end
     inherited pnlAdd: TRzPanel
       ExplicitTop = 429
@@ -108,7 +110,9 @@ inherited frmUsers: TfrmUsers
       Height = 22
       DataSource = dmSecurity.dscUser
       DataField = 'USERNAME'
+      ReadOnly = True
       CharCase = ecUpperCase
+      Color = 15794175
       DisabledColor = 15794175
       FrameColor = 14272955
       FrameVisible = True

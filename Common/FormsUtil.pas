@@ -64,6 +64,9 @@ begin
       begin
         ds := (parentCtrl.Controls[i] as TRzDBGrid).DataSource.DataSet;
 
+        // remove filters
+        ds.Filter := '';
+
         ds.Close;
 
         if open then

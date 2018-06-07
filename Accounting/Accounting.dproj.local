@@ -10,9 +10,9 @@
     <Transaction>2017/04/18 12:37:26.000.632,C:\_Projects\iFinance\Accounting\Unit1.pas=C:\_Projects\iFinance\Accounting\AccountingData.pas</Transaction>
     <Transaction>2017/04/18 12:37:26.000.632,C:\_Projects\iFinance\Accounting\Unit1.dfm=C:\_Projects\iFinance\Accounting\AccountingData.dfm</Transaction>
     <Transaction>2017/04/18 12:46:40.000.834,=vclimg.dcp</Transaction>
-    <Transaction>2017/04/18 12:46:40.000.847,=vcl.dcp</Transaction>
     <Transaction>2017/04/18 12:46:40.000.859,=dbrtl.dcp</Transaction>
     <Transaction>2017/04/18 12:46:40.000.896,=Jcl.dcp</Transaction>
+    <Transaction>2017/04/18 12:46:40.000.847,=vcl.dcp</Transaction>
     <Transaction>2017/04/18 12:46:40.000.920,=JvStdCtrls.dcp</Transaction>
     <Transaction>2017/04/18 12:46:40.000.883,=RaizeComponentsVcl.dcp</Transaction>
     <Transaction>2017/04/18 12:46:40.000.908,=JvCore.dcp</Transaction>

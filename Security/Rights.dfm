@@ -1,0 +1,69 @@
+inherited frmRights: TfrmRights
+  Caption = 'frmRights'
+  ClientHeight = 449
+  ClientWidth = 684
+  OnCreate = FormCreate
+  ExplicitWidth = 700
+  ExplicitHeight = 488
+  PixelsPerInch = 96
+  TextHeight = 14
+  object lblDate: TLabel [0]
+    Left = 23
+    Top = 15
+    Width = 39
+    Height = 14
+    Caption = 'Module'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clBlack
+    Font.Height = -12
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+  end
+  inherited pnlTitle: TRzPanel
+    Top = -30
+    Align = alNone
+    Visible = False
+    ExplicitTop = -30
+  end
+  object chlRights: TRzCheckList
+    Left = 23
+    Top = 56
+    Width = 642
+    Height = 361
+    HighlightColor = 15327448
+    OnChange = chlRightsChange
+    Anchors = [akLeft, akTop, akRight, akBottom]
+    Color = 15327448
+    Columns = 3
+    DisabledColor = clBlack
+    FrameColor = 15327448
+    FrameVisible = True
+    FramingPreference = fpCustomFraming
+    ItemHeight = 17
+    ParentColor = True
+    TabOrder = 1
+  end
+  object cmbModule: TRzComboBox
+    Left = 71
+    Top = 9
+    Width = 121
+    Height = 22
+    Ctl3D = False
+    FrameColor = 14272955
+    FrameVisible = True
+    FramingPreference = fpCustomFraming
+    ParentCtl3D = False
+    TabOrder = 2
+    Text = 'Admin-related'
+    OnChange = cmbModuleChange
+    Items.Strings = (
+      'Admin-related'
+      'Client'
+      'Loan'
+      'Payment'
+      'Security'
+      'Settings')
+    ItemIndex = 0
+  end
+end

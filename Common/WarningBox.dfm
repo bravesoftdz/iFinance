@@ -69,13 +69,5 @@ inherited frmWarningBox: TfrmWarningBox
         30363A3030E4A17B480000001974455874536F6674776172650041646F626520
         496D616765526561647971C9653C0000000049454E44AE426082}
     end
-    inherited pnlNo: TRzPanel
-      BorderColor = 14272955
-      Color = 15327448
-    end
-    inherited pnlYes: TRzPanel
-      BorderColor = 14272955
-      Color = 15327448
-    end
   end
 end

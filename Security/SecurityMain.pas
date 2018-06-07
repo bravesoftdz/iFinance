@@ -8,7 +8,7 @@ uses
   Vcl.ExtCtrls, RzPanel, SaveIntf, NewIntf;
 
 type
-  TSecurityForms = (sfmChangePassword,sfmUsers,sfmRoles);
+  TSecurityForms = (sfmChangePassword,sfmUsers,sfmRoles, sfmRights);
 
   TfrmSecurityMain = class(TfrmBaseDocked, ISave, INew)
     pnlOptions: TRzPanel;
@@ -16,11 +16,13 @@ type
     urlChangePassword: TRzURLLabel;
     urlUsers: TRzURLLabel;
     urlRoles: TRzURLLabel;
+    urlRights: TRzURLLabel;
     procedure urlChangePasswordClick(Sender: TObject);
     procedure urlUsersClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure urlRolesClick(Sender: TObject);
+    procedure urlRightsClick(Sender: TObject);
   private
     { Private declarations }
     DOCKED_FORM: TSecurityForms;
@@ -38,7 +40,8 @@ implementation
 {$R *.dfm}
 
 uses
-  ChangePassword, IFinanceDialogs, Users, SecurityData, Roles, User, IFinanceGlobal;
+  ChangePassword, IFinanceDialogs, Users, SecurityData, Roles, User, IFinanceGlobal,
+  Rights;
 
 { TfrmSecurityMain }
 
@@ -84,6 +87,7 @@ begin
       sfmChangePassword: frm := TfrmChangePassword.Create(self);
       sfmUsers: frm := TfrmUsers.Create(self);
       sfmRoles: frm := TfrmRoles.Create(self);
+      sfmRights: frm := TfrmRights.Create(self);
       else
         frm := TForm.Create(self);
     end;
@@ -161,6 +165,12 @@ procedure TfrmSecurityMain.urlChangePasswordClick(Sender: TObject);
 begin
   inherited;
   DockForm(sfmChangePassword);
+end;
+
+procedure TfrmSecurityMain.urlRightsClick(Sender: TObject);
+begin
+  inherited;
+  DockForm(sfmRights);
 end;
 
 procedure TfrmSecurityMain.urlRolesClick(Sender: TObject);

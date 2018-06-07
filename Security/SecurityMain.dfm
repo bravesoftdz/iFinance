@@ -58,7 +58,7 @@ inherited frmSecurityMain: TfrmSecurityMain
     end
     object urlRoles: TRzURLLabel
       Left = 16
-      Top = 69
+      Top = 93
       Width = 69
       Height = 14
       Caption = 'System roles'
@@ -69,6 +69,20 @@ inherited frmSecurityMain: TfrmSecurityMain
       Font.Style = [fsUnderline]
       ParentFont = False
       OnClick = urlRolesClick
+    end
+    object urlRights: TRzURLLabel
+      Left = 16
+      Top = 69
+      Width = 74
+      Height = 14
+      Caption = 'System rights'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 6572079
+      Font.Height = -12
+      Font.Name = 'Tahoma'
+      Font.Style = [fsUnderline]
+      ParentFont = False
+      OnClick = urlRightsClick
     end
   end
   object pnlDock: TRzPanel

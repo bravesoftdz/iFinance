@@ -14,7 +14,7 @@ type
 procedure RefreshDataSet(const key: integer; const keyField: string; DataSet: TDataSet); overload;
 procedure RefreshDataSet(const key, keyField: string; DataSet: TDataSet); overload;
 procedure SetCreatedFields(dataSet: TDataSet);
-procedure ExecuteSQL(const sql: string);
+procedure ExecuteSQL(const sql: string; const inCoreDB: boolean = false);
 procedure ExecuteSP(const sp: string);
 procedure FixSequence;
 procedure UpdateLoanDeficit(const ADate: TDateTime);
@@ -70,9 +70,10 @@ begin
   dataSet.FieldByName('created_by').AsString := ifn.User.UserId;
 end;
 
-procedure ExecuteSQL(const sql: string);
+procedure ExecuteSQL(const sql: string; const inCoreDB: boolean = false);
 begin
-  with dmApplication.acMain do Execute(sql);
+  if inCoreDB then with dmApplication.acCore do Execute(sql)
+  else with dmApplication.acMain do Execute(sql);
 end;
 
 procedure ExecuteSP(const sp: string);

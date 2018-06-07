@@ -1,50 +1,41 @@
-inherited frmAssignRights: TfrmAssignRights
-  Caption = 'frmAssignRights'
+inherited frmAssignRoles: TfrmAssignRoles
+  Caption = 'frmAssignRoles'
   ClientHeight = 408
-  ClientWidth = 770
-  Position = poOwnerFormCenter
-  ExplicitWidth = 770
+  ClientWidth = 618
+  ExplicitWidth = 618
   ExplicitHeight = 408
   PixelsPerInch = 96
   TextHeight = 14
   inherited pnlTitle: TRzPanel
-    Width = 770
-    ExplicitWidth = 539
+    Width = 618
     inherited imgClose: TImage
-      Left = 749
-      ExplicitLeft = 668
+      Left = 597
     end
     inherited lblCaption: TRzLabel
-      Width = 73
-      Caption = 'Assign rights'
-      ExplicitWidth = 73
+      Width = 104
+      Caption = 'Assigned roles for '
+      ExplicitWidth = 104
     end
   end
   inherited pnlMain: TRzPanel
-    Width = 770
+    Width = 618
     Height = 387
-    ExplicitWidth = 539
-    ExplicitHeight = 387
     inherited pnlDetail: TRzPanel
-      Width = 753
+      Width = 601
       Height = 338
-      ExplicitWidth = 522
-      ExplicitHeight = 338
       inherited pcDetail: TRzPageControl
-        Width = 751
+        Width = 599
         Height = 336
-        ExplicitWidth = 520
-        ExplicitHeight = 336
         FixedDimension = 20
         inherited tsDetail: TRzTabSheet
-          ExplicitWidth = 520
-          ExplicitHeight = 336
-          object chlRights: TRzCheckList
+          ExplicitWidth = 514
+          ExplicitHeight = 181
+          object chlRoles: TRzCheckList
             Left = 16
             Top = 16
-            Width = 718
+            Width = 566
             Height = 304
-            OnChange = chlRightsChange
+            OnChange = chlRolesChange
             Anchors = [akLeft, akTop, akRight, akBottom]
             Color = 15327448
             Columns = 3
@@ -54,21 +45,18 @@ inherited frmAssignRights: TfrmAssignRights
             ItemHeight = 17
             ParentColor = True
             TabOrder = 0
+            ExplicitWidth = 718
           end
         end
       end
     end
     inherited pnlCancel: TRzPanel
-      Left = 711
+      Left = 559
       Top = 355
-      ExplicitLeft = 480
-      ExplicitTop = 355
     end
     inherited pnlSave: TRzPanel
-      Left = 655
+      Left = 503
       Top = 355
-      ExplicitLeft = 424
-      ExplicitTop = 355
     end
   end
 end
