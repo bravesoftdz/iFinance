@@ -29,7 +29,7 @@ inherited frmUsers: TfrmUsers
         end
         item
           Expanded = False
-          FieldName = 'USERNAME'
+          FieldName = 'username'
           Title.Alignment = taCenter
           Title.Caption = 'Username'
           Title.Font.Charset = DEFAULT_CHARSET
@@ -87,7 +87,7 @@ inherited frmUsers: TfrmUsers
     end
     object urlRoles: TRzURLLabel [2]
       Left = 13
-      Top = 133
+      Top = 181
       Width = 77
       Height = 14
       Caption = 'Assigned roles'
@@ -99,7 +99,16 @@ inherited frmUsers: TfrmUsers
       ParentFont = False
       OnClick = urlRolesClick
     end
+    object JvLabel14: TJvLabel [3]
+      Left = 13
+      Top = 121
+      Width = 59
+      Height = 14
+      Caption = 'Credit limit'
+      Transparent = True
+    end
     inherited pnlAdd: TRzPanel
+      Visible = False
       ExplicitTop = 429
     end
     object edUsername: TRzDBEdit
@@ -130,6 +139,8 @@ inherited frmUsers: TfrmUsers
       Height = 22
       DataSource = dmSecurity.dscUser
       DataField = 'password'
+      ReadOnly = True
+      Color = 15794175
       DisabledColor = 15794175
       FrameColor = 14272955
       FrameVisible = True
@@ -139,6 +150,23 @@ inherited frmUsers: TfrmUsers
       ReadOnlyColorOnFocus = True
       TabOnEnter = True
       TabOrder = 2
+    end
+    object edCreditLimit: TRzDBNumericEdit
+      Left = 13
+      Top = 141
+      Width = 140
+      Height = 22
+      DataSource = dmSecurity.dscUser
+      DataField = 'credit_limit'
+      Alignment = taLeftJustify
+      DisabledColor = clWhite
+      FrameColor = 14272955
+      FrameVisible = True
+      FramingPreference = fpCustomFraming
+      TabOnEnter = True
+      TabOrder = 3
+      DisplayFormat = '###,##0.00'
+      FlatButtons = True
     end
   end
 end

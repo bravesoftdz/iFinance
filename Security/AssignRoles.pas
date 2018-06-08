@@ -63,7 +63,7 @@ begin
   FUser := AUser;
 
   // caption
-  lblCaption.Caption := 'Assigned rights to ' + AUser.Name;
+  lblCaption.Caption := 'Assigned roles to ' + AUser.Name;
 
   PopulateRolesList;
 end;

@@ -28,8 +28,6 @@ inherited frmAssignRoles: TfrmAssignRoles
         Height = 336
         FixedDimension = 20
         inherited tsDetail: TRzTabSheet
-          ExplicitWidth = 514
-          ExplicitHeight = 181
           object chlRoles: TRzCheckList
             Left = 16
             Top = 16

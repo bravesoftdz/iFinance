@@ -6,7 +6,8 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, BaseGridDetail, Data.DB, RzButton,
   Vcl.StdCtrls, Vcl.Mask, RzEdit, Vcl.Grids, Vcl.DBGrids, RzDBGrid, RzLabel,
-  Vcl.ExtCtrls, RzPanel, RzDBEdit, Vcl.DBCtrls, RzDBCmbo, User, LocalUser;
+  Vcl.ExtCtrls, RzPanel, RzDBEdit, Vcl.DBCtrls, RzDBCmbo, User, LocalUser,
+  JvExControls, JvLabel;
 
 type
   TfrmUsers = class(TfrmBaseGridDetail)
@@ -15,6 +16,8 @@ type
     Label3: TLabel;
     edPassword: TRzDBEdit;
     urlRoles: TRzURLLabel;
+    JvLabel14: TJvLabel;
+    edCreditLimit: TRzDBNumericEdit;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure urlRolesClick(Sender: TObject);
@@ -89,7 +92,8 @@ end;
 
 function TfrmUsers.NewIsAllowed: boolean;
 begin
-  Result := ifn.User.HasRight(Z9ADD_USER9Add_new_user_login);
+  // Result := ifn.User.HasRight(Z9ADD_USER9Add_new_user_login);
+  Result := false;
 end;
 
 procedure TfrmUsers.SaveRoles;

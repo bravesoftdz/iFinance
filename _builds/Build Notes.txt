@@ -1,0 +1,49 @@
+Version 1.0.0.8
+
+- Security module (rights, roles, users, etc)
+- User credit limit for loan approval ???
+
+Version 1.0.0.7
+
+- Payment issues
+
+Version 1.0.0.6
+
+- Interest computation issues
+- Change amount on POS payments
+- Fixed client photo issue
+
+Version 1.0.0.5
+
+- Total interest due (deficit + due as of payment date)
+- Add principal deficit on payment detail
+- Running balance in ledger at the bottom
+
+Version 1.0.0.4
+
+- Amortization display on payment
+- Interest calculation issues upon payment
+- "Fixed" option for diminishing method in Loan Class
+
+Version 1.0.0.3
+
+- Promissory notes
+- Amortisation - round off
+
+Version 1.0.0.2
+
+- Amortisation - round off to the nearest peso.. example 1.25 round off to 2
+- Add advance payment option in Loan Class - option for Principal or Interest or Both
+- Advance payment (months) in Loan Class
+- Disable information source if client has referee
+
+
+Version 1.0.0.1
+
+- Advance payment option upon loan release
+- Manual closure of loan with reason
+- Loan closure reasons list
+- "where did you hear about us?" field in client main window
+- "where did you hear about us?" list
+- Loan charges list
+- Grouping of main menu

@@ -96,7 +96,7 @@ end;
 
 procedure TfrmBaseGridDetail.sbtnNewClick(Sender: TObject);
 begin
-  if NewIsAllowed then New;
+  New;
 end;
 
 procedure TfrmBaseGridDetail.Cancel;
@@ -107,13 +107,16 @@ end;
 
 procedure TfrmBaseGridDetail.New;
 begin
-  grList.DataSource.DataSet.Append;
+  if NewIsAllowed then
+  begin
+    grList.DataSource.DataSet.Append;
 
-  // disable the grid
-  grList.Enabled := false;
+    // disable the grid
+    grList.Enabled := false;
 
-  // focus the first control
-  grList.DataSource.DataSet.FieldByName(grList.Columns[0].FieldName).FocusControl;
+    // focus the first control
+    grList.DataSource.DataSet.FieldByName(grList.Columns[0].FieldName).FocusControl;
+  end;
 end;
 
 end.

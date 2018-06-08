@@ -49,7 +49,7 @@ implementation
 {$R *.dfm}
 
 uses
-  LoanData, LoansAuxData, Loan, FormsUtil, IFinanceDialogs, Assessment;
+  LoanData, LoansAuxData, Loan, FormsUtil, IFinanceDialogs, Assessment, IFinanceGlobal;
 
 procedure TfrmLoanAppvDetail.FormCreate(Sender: TObject);
 begin
@@ -109,6 +109,8 @@ begin
     error := 'Approved term exceeds the maximum term set for the selected loan class.'
   else if edAppvAmount.Value > ln.LoanClass.MaxLoan then
     error := 'Approved amount exceeds the maximum loanable amount for the selected loan class.'
+  else if edAppvAmount.Value > ifn.User.CreditLimit then
+    error := 'Approved amount exceeds YOUR approved credit limit.'
   else if edAppvAmount.Value > ln.Assessment.RecommendedAmount then
     error := ConfirmApproval;
 

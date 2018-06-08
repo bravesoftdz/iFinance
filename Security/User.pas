@@ -24,6 +24,7 @@ type
     FLastName: string;
     FFirstName: string;
     FUserId: string;
+    FCreditLimit: currency;
 
     function GetHasName: boolean;
     function GetHasPasskey: boolean;
@@ -43,6 +44,7 @@ type
     property FirstName: string write FFirstName;
     property LastName: string write FLastName;
     property Name: string read GetName;
+    property CreditLimit: currency read FCreditLimit write FCreditLimit;
 
     procedure SetRight(const right: string);
     procedure AddRight(const code: string);
@@ -62,7 +64,7 @@ implementation
 { TUser }
 
 uses
-  AppData, IFinanceDialogs;
+  DBUtil, IFinanceDialogs;
 
 procedure TUser.AddRight(const code: string);
 begin
@@ -72,20 +74,17 @@ end;
 
 function TUser.ChangePassword(ANewPasskey: AnsiString): Boolean;
 var
-  sqlStr: string;
+  sql: string;
 begin
   Result := false;
   try
-    with dmApplication.acCore do
-    begin
-      sqlStr := 'UPDATE SYSUSER SET PASSKEY = ' + QuotedStr(Trim(ANewPasskey)) +
-                ' WHERE USERNAME = ' + QuotedStr(FUserId);
+    sql := 'UPDATE SYSUSER SET PASSWORD = ' + QuotedStr(Trim(ANewPasskey)) +
+            ' WHERE ID_NUM = ' + QuotedStr(FUserId);
 
-      Execute(sqlStr);
-      Result := true;
-    end;
+    ExecuteSQL(sql,true);
+    Result := true;
   except
-
+    on E: Exception do ShowErrorBox(E.Message);
   end;
 end;
 

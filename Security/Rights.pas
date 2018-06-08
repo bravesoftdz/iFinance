@@ -106,6 +106,19 @@ begin
 end;
 
 procedure TfrmRights.PopulateRights;
+const
+  //  MODULE INDICES
+  //
+  //      A = Client
+  //      B = Loans
+  //      C = Payment
+  //      S = Administrator functions
+  //      Z = Security
+  ADMINISTRATOR = 0;
+  CLIENT        = 1;
+  LOANS         = 2;
+  PAYMENT       = 3;
+  SECURITY      = 4;
 var
   LRights: TRights;
   LRight: TRight;
@@ -116,11 +129,11 @@ begin
   chlRights.Clear;
 
   case cmbModule.ItemIndex of
-    0: module := 'S';
-    1: module := 'A';
-    2: module := 'B';
-    3: module := 'C';
-    4: module := 'Z';
+    ADMINISTRATOR: module := 'S';
+    CLIENT:        module := 'A';
+    LOANS:         module := 'B';
+    PAYMENT:       module := 'C';
+    SECURITY:      module := 'Z';
     else module := 'X';
   end;
 

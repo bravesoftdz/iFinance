@@ -88,7 +88,8 @@ begin
   Result := false;
   if PasskeyIsValid then
   begin
-    newPassKey := Encrypt(Trim(edNewPassword.Text));
+    // newPassKey := Encrypt(Trim(edNewPassword.Text));
+    newPassKey := Trim(edNewPassword.Text);
     if ifn.User.ChangePassword(newPassKey) then
     begin
       ShowConfirmationBox('Password changed successfully.');

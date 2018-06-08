@@ -297,16 +297,18 @@ begin
     Inc(i);
   end;
 
-  with dmApplication.dstUser do
+  with dmApplication.dstUser, ifn.User do
   begin
-    ifn.User.UserId := FieldByName('id_num').AsString;
-    ifn.User.FirstName := FieldByName('employee_firstname').AsString;
-    ifn.User.LastName := FieldByName('employee_lastname').AsString;
+    Passkey := edPassword.Text;
+    UserId := FieldByName('id_num').AsString;
+    FirstName := FieldByName('employee_firstname').AsString;
+    LastName := FieldByName('employee_lastname').AsString;
+    CreditLimit := FieldByName('credit_limit').AsCurrency;
 
     while not Eof do
     begin
       right := FieldbyName('privilege_code').AsString;
-      ifn.User.SetRight(right);
+      SetRight(right);
       Next;
     end;
   end;

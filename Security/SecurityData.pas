@@ -17,7 +17,18 @@ type
     dstRoleRights: TADODataSet;
     dstRights: TADODataSet;
     dstUserRoles: TADODataSet;
+    dstUsersid_num: TStringField;
+    dstUsersemployee_lastname: TStringField;
+    dstUsersemployee_firstname: TStringField;
+    dstUsersemployee_middlename: TStringField;
+    dstUsersemployee_name: TStringField;
+    dstUsersusername: TStringField;
+    dstUserspassword: TStringField;
+    dstUsersid_num_1: TStringField;
+    dstUserscredit_limit: TBCDField;
     procedure fdtUserBeforePost(DataSet: TDataSet);
+    procedure dstUserspasswordGetText(Sender: TField; var Text: string;
+      DisplayText: Boolean);
   private
     { Private declarations }
   public
@@ -36,9 +47,15 @@ implementation
 uses
   AppData, SecurityUtil;
 
+procedure TdmSecurity.dstUserspasswordGetText(Sender: TField; var Text: string;
+  DisplayText: Boolean);
+begin
+  Text := '*****';
+end;
+
 procedure TdmSecurity.fdtUserBeforePost(DataSet: TDataSet);
 begin
-  DataSet.FieldByName('PASSKEY').AsString := Encrypt(DataSet.FieldByName('PASSKEY').AsString);
+  // DataSet.FieldByName('PASSKEY').AsString := Encrypt(DataSet.FieldByName('PASSKEY').AsString);
 end;
 
 end.

@@ -53,6 +53,7 @@ inherited frmAssignRights: TfrmAssignRights
             FramingPreference = fpCustomFraming
             ItemHeight = 17
             ParentColor = True
+            Sorted = True
             TabOrder = 0
           end
         end
