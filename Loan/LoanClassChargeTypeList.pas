@@ -22,7 +22,11 @@ type
     { Public declarations }
   protected
     function EntryIsValid: boolean; override;
+    function NewIsAllowed: boolean; override;
+    function EditIsAllowed: boolean; override;
+
     procedure SearchList; override;
+    procedure BindToObject; override;
   end;
 
 implementation
@@ -33,6 +37,17 @@ uses
   LoansAuxData, IFinanceDialogs;
 
 { TfrmLoanClassChargeTypeList }
+
+procedure TfrmLoanClassChargeTypeList.BindToObject;
+begin
+  inherited;
+
+end;
+
+function TfrmLoanClassChargeTypeList.EditIsAllowed: boolean;
+begin
+  Result := true;
+end;
 
 function TfrmLoanClassChargeTypeList.EntryIsValid: boolean;
 var
@@ -57,6 +72,11 @@ procedure TfrmLoanClassChargeTypeList.FormCreate(Sender: TObject);
 begin
   dmLoansAux := TdmLoansAux.Create(self);
   inherited;
+end;
+
+function TfrmLoanClassChargeTypeList.NewIsAllowed: boolean;
+begin
+  Result := true;
 end;
 
 procedure TfrmLoanClassChargeTypeList.SearchList;

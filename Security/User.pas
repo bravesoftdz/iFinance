@@ -50,7 +50,7 @@ type
     procedure AddRight(const code: string);
     procedure ClearSuperUser;
 
-    function HasRight(const right: TRights; const showWarning: boolean = true): boolean;
+    function HasRights(const ARights: array of string; const AWarn: boolean = false): boolean;
     function ChangePassword(ANewPasskey: AnsiString): Boolean;
 
     constructor Create; overload;
@@ -134,32 +134,30 @@ begin
   inherited Create;
 end;
 
-function TUser.HasRight(const right: TRights; const showWarning: boolean = true): boolean;
+function TUser.HasRights(const ARights: array of string;
+  const AWarn: boolean = false): boolean;
 var
-  rightCode: string;
   sl: TStringList;
+  i, cnt, rightCnt: integer;
 begin
-  Result := Assigned(FSuperUser);
+  rightCnt := 0;
 
-  if not Result then
+  cnt := Length(ARights) - 1;
+
+  for i := 0 to cnt do
   begin
     sl := TStringList.Create;
-    sl.Delimiter := '9';
-    sl.DelimitedText := TRttiEnumerationType.GetName<TRights>(right);
+    sl.Delimiter := ';';
+    sl.DelimitedText := ARights[i];
 
-    // Note: Index 0 is for sorting purposes used when displaying the rights
-    //       Index 1 is the actual right code
-    //       Index 2 is the right description
-
-    rightCode := sl[1];
+    if MatchStr(sl[0],FRights) then Inc(rightCnt);
 
     sl.Free;
-
-    Result := MatchStr(rightCode,FRights);
   end;
 
-  if not Result then
-    if showWarning then ShowErrorBox('Access is denied. Please contact the system administrator.');
+  Result := rightCnt > 0;
+
+  if (not Result) and (AWarn) then ShowErrorBox('Access is denied. Please contact system administrator.');
 end;
 
 procedure TUser.SetRight(const right: string);

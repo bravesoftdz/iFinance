@@ -8,6 +8,7 @@ inherited frmConfBox: TfrmConfBox
   TextHeight = 14
   inherited pnlTitle: TRzPanel
     Width = 357
+    ExplicitWidth = 357
     inherited imgClose: TImage
       Left = 336
       ExplicitLeft = 336
@@ -26,9 +27,9 @@ inherited frmConfBox: TfrmConfBox
     object lblMessage: TJvLabel
       Left = 59
       Top = 21
-      Width = 199
+      Width = 215
       Height = 14
-      Caption = 'Record has been saved successfully.'
+      Caption = 'Changes have been saved successfully.'
       Transparent = True
     end
     object Image1: TImage

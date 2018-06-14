@@ -3,6 +3,7 @@ inherited frmLoanMain: TfrmLoanMain
   ClientHeight = 542
   ClientWidth = 1155
   OnCreate = FormCreate
+  OnShow = FormShow
   ExplicitWidth = 1171
   ExplicitHeight = 581
   PixelsPerInch = 96
@@ -33,7 +34,6 @@ inherited frmLoanMain: TfrmLoanMain
       Font.Style = [fsBold]
       ParentFont = False
       Transparent = True
-      ExplicitLeft = 790
     end
   end
   object pnlMain: TRzPanel

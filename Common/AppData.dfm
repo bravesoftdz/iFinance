@@ -73,7 +73,6 @@ object dmApplication: TdmApplication
   end
   object dstConfig: TADODataSet
     Connection = acCore
-    LockType = ltReadOnly
     CommandText = 'sysconfig'
     CommandType = cmdTableDirect
     Parameters = <>

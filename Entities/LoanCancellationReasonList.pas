@@ -20,11 +20,12 @@ type
     { Public declarations }
   protected
     function EntryIsValid: boolean; override;
-    procedure SearchList; override;
-  end;
+    function NewIsAllowed: boolean; override;
+    function EditIsAllowed: boolean; override;
 
-var
-  frmLoanCancelReasonList: TfrmLoanCancelReasonList;
+    procedure SearchList; override;
+    procedure BindToObject; override;
+  end;
 
 implementation
 
@@ -32,6 +33,17 @@ implementation
 
 uses
   AuxData, IFinanceDialogs;
+
+procedure TfrmLoanCancelReasonList.BindToObject;
+begin
+  inherited;
+
+end;
+
+function TfrmLoanCancelReasonList.EditIsAllowed: boolean;
+begin
+  Result := true;
+end;
 
 function TfrmLoanCancelReasonList.EntryIsValid: boolean;
 var
@@ -56,6 +68,11 @@ procedure TfrmLoanCancelReasonList.FormCreate(Sender: TObject);
 begin
   dmAux := TdmAux.Create(self);
   inherited;
+end;
+
+function TfrmLoanCancelReasonList.NewIsAllowed: boolean;
+begin
+  Result := true;
 end;
 
 procedure TfrmLoanCancelReasonList.SearchList;

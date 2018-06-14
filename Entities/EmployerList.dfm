@@ -14,6 +14,7 @@ inherited frmEmployerList: TfrmEmployerList
   inherited pnlList: TRzPanel
     Width = 716
     ParentCtl3D = False
+    ExplicitWidth = 716
     inherited grList: TRzDBGrid
       Width = 714
       DataSource = dmEntities.dscEmployers
@@ -64,6 +65,7 @@ inherited frmEmployerList: TfrmEmployerList
   inherited pnlSearch: TRzPanel
     Width = 1011
     ExplicitTop = 0
+    ExplicitWidth = 1011
     inherited Label1: TLabel
       Caption = 'Branch'
     end
@@ -72,6 +74,7 @@ inherited frmEmployerList: TfrmEmployerList
       Width = 670
       Enabled = False
       ExplicitTop = 49
+      ExplicitWidth = 670
     end
     object cmbBranch: TRzComboBox
       Left = 51
@@ -89,11 +92,11 @@ inherited frmEmployerList: TfrmEmployerList
       Sorted = True
       TabOrder = 1
       OnChange = cmbBranchChange
-      ExplicitWidth = 438
     end
   end
   inherited pnlDetail: TRzPanel
     Left = 728
+    ExplicitLeft = 728
     object JvLabel1: TJvLabel [0]
       Left = 13
       Top = 23

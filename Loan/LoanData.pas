@@ -155,7 +155,10 @@ begin
     ln.Status := FieldByName('status_id').AsString;
     ln.AppliedAmount := FieldByName('amt_appl').AsCurrency;
     ln.DesiredTerm := FieldByName('des_term').AsInteger;
+    ln.DateApplied := FieldByName('date_appl').AsDateTime;
     ln.Balance := FieldByName('balance').AsCurrency;
+
+    if ln.IsBackLog then ln.LastTransactionDate := FieldByName('last_trans_date').AsDateTime;
   end;
 end;
 
@@ -352,10 +355,13 @@ procedure TdmLoan.dstLoanAppvAfterPost(DataSet: TDataSet);
 begin
   with DataSet do
   begin
-    if not ln.HasLoanState(lsApproved) then
+    if not ln.IsBacklog then
     begin
-      ln.ChangeLoanStatus;
-      ln.AddLoanState(lsApproved);
+      if not ln.HasLoanState(lsApproved) then
+      begin
+        ln.ChangeLoanStatus;
+        ln.AddLoanState(lsApproved);
+      end;
     end;
 
     ln.ApprovedAmount := FieldByName('amt_appv').AsCurrency;
@@ -389,14 +395,17 @@ procedure TdmLoan.dstLoanAssAfterPost(DataSet: TDataSet);
 begin
   with DataSet do
   begin
-    if not ln.HasLoanState(lsAssessed) then
+    if not ln.IsBacklog then
     begin
-      ln.ChangeLoanStatus;
-      ln.AddLoanState(lsAssessed);
-    end;
+      if not ln.HasLoanState(lsAssessed) then
+      begin
+        ln.ChangeLoanStatus;
+        ln.AddLoanState(lsAssessed);
+      end;
 
-    ln.Assessment := TAssessment.Create(DataSet.FieldByName('rec_code').AsInteger,
-                                DataSet.FieldByName('rec_amt').AsCurrency);
+      ln.Assessment := TAssessment.Create(DataSet.FieldByName('rec_code').AsInteger,
+                                  DataSet.FieldByName('rec_amt').AsCurrency);
+    end;
   end;
 end;
 
@@ -409,8 +418,9 @@ procedure TdmLoan.dstLoanAssBeforePost(DataSet: TDataSet);
 begin
   if DataSet.State = dsInsert then
   begin
-    if ln.Assessment.Recommendation = rcReject then
-      DataSet.FieldByName('rec_amt').Value := null;
+    if not ln.IsBacklog then
+      if ln.Assessment.Recommendation = rcReject then
+        DataSet.FieldByName('rec_amt').Value := null;
 
     DataSet.FieldByName('loan_id').AsString := ln.Id;
     DataSet.FieldByName('ass_by').AsString := ifn.User.UserId;
@@ -693,38 +703,41 @@ var
   relId, relName: string;
   recipientId, recipientName, locCode: string;
 begin
-  (DataSet as TADODataSet).Properties['Unique table'].Value := 'LoanRelease';
-
-  if not DataSet.IsEmpty then ln.AddLoanState(lsActive);
-
-  ln.ClearReleaseRecipients;
-
-  total := 0;
-
-  with DataSet do
+  if not ln.IsBacklog then
   begin
-    while not Eof do
+    (DataSet as TADODataSet).Properties['Unique table'].Value := 'LoanRelease';
+
+    if not DataSet.IsEmpty then ln.AddLoanState(lsActive);
+
+    ln.ClearReleaseRecipients;
+
+    total := 0;
+
+    with DataSet do
     begin
-      amt := FieldByName('rel_amt').AsCurrency;
-      dt := FieldByName('date_rel').AsDateTime;
-      locCode := FieldByName('loc_code').AsString;
-      relId := FieldByName('rel_method').AsString;
-      relName := FieldByName('method_name').AsString;
-      recipientId := FieldByName('recipient').AsString;
-      recipientName := FieldByName('recipient_name').AsString;
+      while not Eof do
+      begin
+        amt := FieldByName('rel_amt').AsCurrency;
+        dt := FieldByName('date_rel').AsDateTime;
+        locCode := FieldByName('loc_code').AsString;
+        relId := FieldByName('rel_method').AsString;
+        relName := FieldByName('method_name').AsString;
+        recipientId := FieldByName('recipient').AsString;
+        recipientName := FieldByName('recipient_name').AsString;
 
-      ln.AddReleaseRecipient(TReleaseRecipient.Create(
-          TRecipient.Create(recipientId,recipientName),
-          TReleaseMethod.Create(relId,relName),
-          locCode,ifn.GetLocationNameByCode(locCode),
-          amt,dt));
+        ln.AddReleaseRecipient(TReleaseRecipient.Create(
+            TRecipient.Create(recipientId,recipientName),
+            TReleaseMethod.Create(relId,relName),
+            locCode,ifn.GetLocationNameByCode(locCode),
+            amt,dt));
 
-      total := total + amt;
-      Next;
+        total := total + amt;
+        Next;
+      end;
     end;
-  end;
 
-  ln.ReleaseAmount := total;
+    ln.ReleaseAmount := total;
+  end;
 end;
 
 procedure TdmLoan.dstLoanReleaseBeforeOpen(DataSet: TDataSet);

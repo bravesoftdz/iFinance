@@ -8,8 +8,10 @@ inherited frmAssignRoles: TfrmAssignRoles
   TextHeight = 14
   inherited pnlTitle: TRzPanel
     Width = 618
+    ExplicitWidth = 618
     inherited imgClose: TImage
       Left = 597
+      ExplicitLeft = 597
     end
     inherited lblCaption: TRzLabel
       Width = 104
@@ -20,12 +22,18 @@ inherited frmAssignRoles: TfrmAssignRoles
   inherited pnlMain: TRzPanel
     Width = 618
     Height = 387
+    ExplicitWidth = 618
+    ExplicitHeight = 387
     inherited pnlDetail: TRzPanel
       Width = 601
       Height = 338
+      ExplicitWidth = 601
+      ExplicitHeight = 338
       inherited pcDetail: TRzPageControl
         Width = 599
         Height = 336
+        ExplicitWidth = 599
+        ExplicitHeight = 336
         FixedDimension = 20
         inherited tsDetail: TRzTabSheet
           object chlRoles: TRzCheckList
@@ -51,10 +59,14 @@ inherited frmAssignRoles: TfrmAssignRoles
     inherited pnlCancel: TRzPanel
       Left = 559
       Top = 355
+      ExplicitLeft = 559
+      ExplicitTop = 355
     end
     inherited pnlSave: TRzPanel
       Left = 503
       Top = 355
+      ExplicitLeft = 503
+      ExplicitTop = 355
     end
   end
 end

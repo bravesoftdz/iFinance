@@ -36,7 +36,11 @@ type
     procedure New; override;
   protected
     function EntryIsValid: boolean; override;
+    function NewIsAllowed: boolean; override;
+    function EditIsAllowed: boolean; override;
+
     procedure SearchList; override;
+    procedure BindToObject; override;
   end;
 
 var
@@ -91,6 +95,12 @@ begin
   if Key in [VK_UP, VK_DOWN] then SetUnboundControls;
 end;
 
+procedure TfrmEmployerList.BindToObject;
+begin
+  inherited;
+
+end;
+
 procedure TfrmEmployerList.bteGroupButtonClick(Sender: TObject);
 begin
   inherited;
@@ -143,6 +153,11 @@ begin
   FilterList;
 end;
 
+function TfrmEmployerList.EditIsAllowed: boolean;
+begin
+  Result := true;
+end;
+
 function TfrmEmployerList.EntryIsValid: boolean;
 var
   error: string;
@@ -173,6 +188,11 @@ begin
   bteGroup.Clear;
 
   inherited New;
+end;
+
+function TfrmEmployerList.NewIsAllowed: boolean;
+begin
+  Result := true;
 end;
 
 end.

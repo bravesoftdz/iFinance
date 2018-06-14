@@ -22,7 +22,11 @@ type
     { Private declarations }
   protected
     function EntryIsValid: boolean; override;
+    function NewIsAllowed: boolean; override;
+    function EditIsAllowed: boolean; override;
+
     procedure SearchList; override;
+    procedure BindToObject; override;
   public
     { Public declarations }
   end;
@@ -38,6 +42,17 @@ procedure TfrmLoanTypeList.SearchList;
 begin
   grList.DataSource.DataSet.Locate('loan_type_name',edSearchKey.Text,
         [loPartialKey,loCaseInsensitive]);
+end;
+
+procedure TfrmLoanTypeList.BindToObject;
+begin
+  inherited;
+
+end;
+
+function TfrmLoanTypeList.EditIsAllowed: boolean;
+begin
+ Result := true;
 end;
 
 function TfrmLoanTypeList.EntryIsValid: boolean;
@@ -62,6 +77,11 @@ procedure TfrmLoanTypeList.FormCreate(Sender: TObject);
 begin
   dmLoansAux := TdmLoansAux.Create(self);
   inherited;
+end;
+
+function TfrmLoanTypeList.NewIsAllowed: boolean;
+begin
+  Result := true;
 end;
 
 end.

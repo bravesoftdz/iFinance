@@ -40,9 +40,6 @@ type
     procedure New; virtual;
   end;
 
-var
-  frmBaseGridDetail: TfrmBaseGridDetail;
-
 implementation
 
 {$R *.dfm}

@@ -22,7 +22,11 @@ type
     { Public declarations }
   protected
     function EntryIsValid: boolean; override;
+    function NewIsAllowed: boolean; override;
+    function EditIsAllowed: boolean; override;
+
     procedure SearchList; override;
+    procedure BindToObject; override;
   end;
 
 var
@@ -48,10 +52,26 @@ begin
   inherited;
 end;
 
+function TfrmAccountTypeList.NewIsAllowed: boolean;
+begin
+  Result := true;
+end;
+
 procedure TfrmAccountTypeList.SearchList;
 begin
   grList.DataSource.DataSet.Locate('acct_type_name',edSearchKey.Text,
         [loPartialKey,loCaseInsensitive]);
+end;
+
+procedure TfrmAccountTypeList.BindToObject;
+begin
+  inherited;
+
+end;
+
+function TfrmAccountTypeList.EditIsAllowed: boolean;
+begin
+  Result := true;
 end;
 
 function TfrmAccountTypeList.EntryIsValid: boolean;

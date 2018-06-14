@@ -43,10 +43,10 @@ type
     JvLabel14: TJvLabel;
     urlAmortization: TRzURLLabel;
     JvLabel15: TJvLabel;
-    lblTotalInterestDue: TJvLabel;
     JvLabel16: TJvLabel;
     lblPrincipalDeficit: TJvLabel;
     urlInterestDueOnPaymentDate: TRzURLLabel;
+    urlTotalInterestDue: TRzURLLabel;
     procedure FormCreate(Sender: TObject);
     procedure FormKeyPress(Sender: TObject; var Key: Char);
     procedure edPrincipalChange(Sender: TObject);
@@ -58,6 +58,7 @@ type
     procedure urlLedgerClick(Sender: TObject);
     procedure urlAmortizationClick(Sender: TObject);
     procedure urlInterestDueOnPaymentDateClick(Sender: TObject);
+    procedure urlTotalInterestDueClick(Sender: TObject);
   private
     { Private declarations }
     procedure SetTotalAmount;
@@ -239,6 +240,14 @@ begin
   edPrincipal.Value := pmt.Client.ActiveLoans[i].PrincipalAmortisation;
 end;
 
+procedure TfrmPaymentDetail.urlTotalInterestDueClick(Sender: TObject);
+var
+  i: integer;
+begin
+  i := pmt.Client.IndexOf(pmt.Details[pmt.DetailCount-1].Loan);
+  edInterest.Value := pmt.Client.ActiveLoans[i].InterestTotalDue;
+end;
+
 function TfrmPaymentDetail.ValidEntry: boolean;
 var
   error: string;
@@ -251,8 +260,8 @@ begin
   else if LDetail.TotalAmount <= 0 then error := 'No amount entered.'
   else if LDetail.Principal > LDetail.Loan.Balance then
     error := 'Principal amount is greater than to the loan balance.'
-  else if (not LDetail.IsFullPayment) and (LDetail.Interest > LDetail.Loan.InterestTotalDue) then
-    error := 'Interest amount is greater than the total interest due.'
+  // else if (not LDetail.IsFullPayment) and (LDetail.Interest > LDetail.Loan.InterestTotalDue) then
+  //  error := 'Interest amount is greater than the total interest due.'
   else if (not LDetail.IsFullPayment) and (LDetail.Principal > LDetail.Loan.Balance) then
     error :=  'Principal amount is equal to the loan balance. If this is a full payment posting, tick the FULL PAYMENT box instead.'
   else if (pmt.IsWithdrawal) and (LDetail.TotalAmount > pmt.Withdrawn) then
@@ -292,7 +301,7 @@ begin
   else
     urlInterestDueOnPaymentDate.Caption := FormatCurr('###,###,##0.00;-;', pmt.Client.ActiveLoans[i].InterestDueOnPaymentDate);
 
-  lblTotalInterestDue.Caption := FormatCurr('###,###,##0.00;-;-', pmt.Client.ActiveLoans[i].InterestTotalDue);
+  urlTotalInterestDue.Caption := FormatCurr('###,###,##0.00;-;-', pmt.Client.ActiveLoans[i].InterestTotalDue);
   lblLastTransaction.Caption := FormatDateTime('mm/dd/yyyy', pmt.Client.ActiveLoans[i].LastTransactionDate);
   lblDays.Caption := IntToStr(DaysBetween(pmt.Date,pmt.Client.ActiveLoans[i].LastTransactionDate));
 

@@ -55,7 +55,7 @@ end;
 
 function TfrmRoles.EditIsAllowed: boolean;
 begin
-  Result := ifn.User.HasRight(Z9MODIFY_ROLE9Modify_role_rights,false);
+  Result := ifn.User.HasRights([PRIV_SEC_ROLE_MODIFY],false);
 end;
 
 function TfrmRoles.EntryIsValid: boolean;
@@ -90,7 +90,7 @@ end;
 
 function TfrmRoles.NewIsAllowed: boolean;
 begin
-  Result := ifn.User.HasRight(Z9ADD_ROLE9Add_new_role);
+  Result := ifn.User.HasRights([PRIV_SEC_ROLE_ADD_NEW],true);
 end;
 
 procedure TfrmRoles.SaveRights;

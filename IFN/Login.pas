@@ -47,9 +47,6 @@ type
     class function LoggedIn: boolean;
   end;
 
-var
-  frmLogin: TfrmLogin;
-
 const
   LIMITGLOBAL = 6;
   TICK = 80;
@@ -218,12 +215,19 @@ begin
     ifn.AppDate := Date;
 
     // location code
-    Locate('sysconfig_code','LOCATION_CODE',[]);
-    ifn.LocationCode := FieldbyName('sysconfig_value').AsString;
+    if Locate('sysconfig_code','LOCATION_CODE',[]) then
+      ifn.LocationCode := FieldbyName('sysconfig_value').AsString;
 
     // location prefix
-    Locate('sysconfig_code','LOCATION_PREFIX',[]);
-    ifn.LocationPrefix := FieldbyName('sysconfig_value').AsString;
+    if Locate('sysconfig_code','LOCATION_PREFIX',[]) then
+      ifn.LocationPrefix := FieldbyName('sysconfig_value').AsString;
+
+    // backlog entry
+    if Locate('sysconfig_code','BACKLOG_ENTRY_ENABLED',[]) then
+      ifn.BacklogEntryEnabled := FieldByName('sysconfig_value').AsInteger = 1;
+
+    if Locate('sysconfig_code','CUT_OFF_DATE',[]) then
+      ifn.CutoffDate := FieldByName('sysconfig_value').AsDateTime;
 
     Close;
 

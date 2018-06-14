@@ -58,6 +58,10 @@ type
     FBalance: currency;
     FAdvancePayments: array of TAdvancePayment;
     FPromissoryNote: string;
+    FIsBacklog: boolean;
+    FDateApplied: TDateTime;
+    FLastTransactionDate: TDateTime;
+    FAmortisation: currency;
 
     procedure SaveComakers;
     procedure SaveAssessments;
@@ -68,6 +72,7 @@ type
     procedure SaveClosure;
     procedure SetAdvancePayment(const i: integer; const Value: TAdvancePayment);
     procedure UpdateLoan;
+    procedure SaveBacklog;
 
     function GetIsPending: boolean;
     function GetIsAssessed: boolean;
@@ -184,6 +189,9 @@ type
     property AdvancePayment[const i: integer]: TAdvancePayment read GetAdvancePayment write SetAdvancePayment;
     property AdvancePaymentCount: integer read GetAdvancePaymentCount;
     property PromissoryNote: string read FPromissoryNote write FPromissoryNote;
+    property IsBacklog: boolean read FIsBacklog write FIsBacklog;
+    property DateApplied: TDateTime read FDateApplied write FDateApplied;
+    property LastTransactionDate: TDateTime read FLastTransactionDate write FLastTransactionDate;
 
     constructor Create;
     destructor Destroy; reintroduce;
@@ -195,7 +203,7 @@ var
 implementation
 
 uses
-  LoanData, IFinanceGlobal, Posting;
+  LoanData, IFinanceGlobal, Posting, IFinanceDialogs;
 
 constructor TLoan.Create;
 begin
@@ -236,7 +244,9 @@ begin
   if (ln.Action = laCreating) or (ln.IsPending) then
     SaveComakers;
 
-  if ln.Action = laAssessing then
+  if ln.IsBacklog then
+    SaveBacklog
+  else if ln.Action = laAssessing then
     SaveAssessments
   else if ln.Action = laApproving then
     SaveApproval
@@ -640,6 +650,54 @@ begin
   end;
 end;
 
+procedure TLoan.SaveBacklog;
+var
+  loanId: string;
+begin
+  try
+    with dmLoan.dstLoan do FAmortisation := FieldByName('amort').AsCurrency;
+
+    // create assessment
+    with dmLoan.dstLoanAss do
+    begin
+      Open;
+      Append;
+      FieldByName('rec_code').AsInteger := 0;
+      FieldByName('rec_amt').AsCurrency := ln.AppliedAmount;
+      FieldByName('date_ass').AsDateTime := ln.DateApplied;
+      Post;
+    end;
+
+    // create approval
+    with dmLoan.dstLoanAppv do
+    begin
+      Open;
+      Append;
+      FieldByName('amt_appv').AsCurrency := ln.AppliedAmount;
+      FieldByName('date_appv').AsDateTime := ln.DateApplied;
+      FieldByName('terms').AsInteger := ln.DesiredTerm;
+      FieldByName('appv_method').AsString := 'S';
+      Post;
+    end;
+
+    // create relesase
+    with dmLoan.dstLoanRelease do
+    begin
+      Open;
+      Append;
+      FieldByName('recipient').AsString := ln.Client.Id;
+      FieldByName('rel_method').AsString := 'C';
+      FieldByName('rel_amt').AsCurrency := ln.AppliedAmount;
+      FieldByName('date_rel').AsDateTime := ln.DateApplied;
+      FieldByName('loc_code').AsString := ifn.LocationCode;
+
+      SaveRelease;
+    end;
+  except
+    on E: exception do ShowErrorBox(E.Message);
+  end;
+end;
+
 procedure TLoan.SaveApproval;
 begin
   with dmLoan.dstLoanAppv do
@@ -687,10 +745,14 @@ begin
   with dmLoan do
   begin
     dstLoanRelease.UpdateBatch;
-    dstLoanCharge.UpdateBatch;
+
+    if not ln.IsBacklog then
+    begin
+      dstLoanCharge.UpdateBatch;
+      dstLoanCharge.Requery;
+    end;
 
     dstLoanRelease.Requery;
-    dstLoanCharge.Requery;
 
     if not ln.HasLoanState(lsActive) then
     begin
@@ -713,7 +775,9 @@ begin
   begin
     Edit;
 
-    if ln.Action = laAssessing then
+    if ln.IsBacklog then FieldByName('status_id').AsString :=
+          TRttiEnumerationType.GetName<TLoanStatus>(TLoanStatus.R)
+    else if ln.Action = laAssessing then
       FieldByName('status_id').AsString :=
           TRttiEnumerationType.GetName<TLoanStatus>(TLoanStatus.S)
     else if ln.Action = laApproving then
@@ -854,12 +918,16 @@ function TLoan.GetAmortisation: currency;
 var
   amort: currency;
 begin
-  if FLoanClass.IsDiminishing then amort := FReleaseAmount * GetFactorWithInterest
-  else amort := ((FReleaseAmount * FLoanClass.InterestInDecimal * FApprovedTerm) + FReleaseAmount) / FApprovedTerm;
+  if IsBacklog then Result := FAmortisation
+  else
+  begin
+    if FLoanClass.IsDiminishing then amort := FReleaseAmount * GetFactorWithInterest
+    else amort := ((FReleaseAmount * FLoanClass.InterestInDecimal * FApprovedTerm) + FReleaseAmount) / FApprovedTerm;
 
-  // Note: Round off the AMORTISATION to "nearest peso" .. ex. 1.25 to 2.00
-  if amort <> Trunc(amort) then Result := amort + 1
-  else Result := amort;
+    // Note: Round off the AMORTISATION to "nearest peso" .. ex. 1.25 to 2.00
+    if amort <> Trunc(amort) then Result := amort + 1
+    else Result := amort;
+  end;
 end;
 
 procedure TLoan.AddReleaseRecipient(const rec: TReleaseRecipient; const overwrite: boolean);

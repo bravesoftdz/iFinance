@@ -20,7 +20,11 @@ type
     { Public declarations }
   protected
     function EntryIsValid: boolean; override;
+    function NewIsAllowed: boolean; override;
+    function EditIsAllowed: boolean; override;
+
     procedure SearchList; override;
+    procedure BindToObject; override;
   end;
 
 implementation
@@ -31,6 +35,17 @@ uses
   AuxData, IFinanceDialogs;
 
 { TfrmInfoSourceList }
+
+procedure TfrmInfoSourceList.BindToObject;
+begin
+  inherited;
+
+end;
+
+function TfrmInfoSourceList.EditIsAllowed: boolean;
+begin
+  Result := true;
+end;
 
 function TfrmInfoSourceList.EntryIsValid: boolean;
 var
@@ -56,6 +71,11 @@ begin
   dmAux := TdmAux.Create(self);
 
   inherited;
+end;
+
+function TfrmInfoSourceList.NewIsAllowed: boolean;
+begin
+  Result := true;
 end;
 
 procedure TfrmInfoSourceList.SearchList;

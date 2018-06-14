@@ -221,7 +221,7 @@ uses
   ClientMain, SaveIntf, ClientList, DockedFormIntf, LoanMain, LoanList, LoanIntf,
   FormsUtil, IFinanceGlobal, IFinanceDialogs, NewIntf, AppSettings,
   PaymentMain, PaymentIntf, PaymentList, AccountingData, WithdrawalList, DevParams,
-  MaintenanceDrawer, ClientIntf, DBUtil, AppUtil, SecurityMain;
+  MaintenanceDrawer, ClientIntf, DBUtil, AppUtil, SecurityMain, Right;
 
 constructor TRecentClient.Create(const id, displayId, name: string);
 begin
@@ -656,7 +656,7 @@ end;
 
 procedure TfrmMain.FormDestroy(Sender: TObject);
 begin
-   {$ifdef TESTMODE}
+  {$ifdef TESTMODE}
   SaveTestInfo;
   {$endif}
 end;
@@ -664,6 +664,12 @@ end;
 procedure TfrmMain.FormShow(Sender: TObject);
 begin
   SetCaptions;
+
+  // if ifn.RequiredConfigEmpty then
+  //begin
+  //  ShowErrorBox('Configuration has not been set properly. Please contact the system administrator.');
+  //  Application.Terminate;
+  // end;
 end;
 
 procedure TfrmMain.imgPaymentListClick(Sender: TObject);
@@ -802,7 +808,7 @@ end;
 
 procedure TfrmMain.imgSettingsClick(Sender: TObject);
 begin
-  DockForm(fmSettings);
+  if ifn.User.HasRights([PRIV_SETTINGS],true) then  DockForm(fmSettings);
 end;
 
 procedure TfrmMain.imgWithdrawalsClick(Sender: TObject);

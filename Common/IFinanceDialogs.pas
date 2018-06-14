@@ -6,7 +6,7 @@ uses InfoBox, ErrorBox, ConfBox, DecisionBox, WarningBox;
 
 procedure ShowInfoBox(const info: string);
 procedure ShowErrorBox(const error: string);
-procedure ShowConfirmationBox(const conf: string = 'Record saved successfully.');
+procedure ShowConfirmationBox(const conf: string = 'Changes have been saved successfully.');
 function ShowDecisionBox(const confMessage: string): integer;
 function ShowWarningBox(const confMessage: string): integer;
 

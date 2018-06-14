@@ -206,6 +206,10 @@
             <Form>frmLoanClassAdvancePaymentDetail</Form>
         </DCCReference>
         <DCCReference Include="LoanClassAdvance.pas"/>
+        <DCCReference Include="Backlog.pas">
+            <Form>frmBacklog</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

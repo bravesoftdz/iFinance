@@ -3,7 +3,7 @@ unit Payment;
 interface
 
 uses
-  ActiveClient, PaymentMethod, System.Classes, SysUtils, System.Rtti;
+  ActiveClient, PaymentMethod, System.Classes, SysUtils, System.Rtti, DateUtils;
 
 type
   TPaymentType = (ptPrincipal,ptInterest,ptPenalty);
@@ -312,7 +312,10 @@ begin
 
           prcDeficit := detail.Loan.PrincipalDeficit - detail.Principal;
 
-          intDeficit := detail.Loan.InterestDeficit + (detail.Loan.InterestDueOnPaymentDate - detail.Interest);
+          if FDate > detail.Loan.NextPayment then
+            intDeficit := detail.Loan.InterestDeficit + (detail.Loan.InterestAdditional - detail.Interest)
+          else
+            intDeficit := detail.Loan.InterestDeficit + (detail.Loan.InterestDueOnPaymentDate - detail.Interest);
 
           Edit;
           FieldByName('balance').AsCurrency := balance;
@@ -519,7 +522,8 @@ begin
 
           // update interest schedule
           if ((FLoan.IsDiminishing) and (FLoan.DiminishingType = dtFixed)) or (FIsFullPayment) then
-            if ((FLoan.HasInterestComputed) or (FLoan.HasInterestAdditional)) or (FIsFullPayment) then
+            if ((FLoan.HasInterestComputed) or (FLoan.HasInterestAdditional)) or (FIsFullPayment)
+              or (DayOfTheMonth(FPaymentDate) = 30)then
               UpdateInterestSchedule;
 
           // save unposted interest

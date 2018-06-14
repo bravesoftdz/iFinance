@@ -25,7 +25,11 @@ type
     { Public declarations }
   protected
     function EntryIsValid: boolean; override;
+    function NewIsAllowed: boolean; override;
+    function EditIsAllowed: boolean; override;
+
     procedure SearchList; override;
+    procedure BindToObject; override;
   end;
 
 var
@@ -38,10 +42,21 @@ implementation
 uses
   AuxData, IFinanceDialogs, FormsUtil;
 
+procedure TfrmCompetitorList.BindToObject;
+begin
+  inherited;
+
+end;
+
 procedure TfrmCompetitorList.cmbBranchChange(Sender: TObject);
 begin
   inherited;
   FilterList;
+end;
+
+function TfrmCompetitorList.EditIsAllowed: boolean;
+begin
+  Result := true;
 end;
 
 function TfrmCompetitorList.EntryIsValid: boolean;
@@ -76,6 +91,11 @@ procedure TfrmCompetitorList.FormShow(Sender: TObject);
 begin
   inherited;
   FilterList;
+end;
+
+function TfrmCompetitorList.NewIsAllowed: boolean;
+begin
+  Result := true;
 end;
 
 procedure TfrmCompetitorList.SearchList;

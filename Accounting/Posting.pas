@@ -17,6 +17,7 @@ type
       const postDate, valueDate: TDateTime; const caseType: string): string;
     function GetValueDate(const ADate1, ADate2: TDateTime): TDateTime;
     function GetFirstDayOfValueDate(const ADate: TDateTime): TDateTime;
+    function MonthsBetweenEx(const ADate1, ADate2: TDateTime): integer;
 
     procedure PostAdvancePayment(ALoan: TLoan);
 
@@ -184,12 +185,15 @@ begin
   caseType := TRttiEnumerationType.GetName<TCaseTypes>(TCaseTypes.PRC);
 
   // initialise value date depending on computation method
-  if ALoan.LoanClass.IsFixed then valueDate := IncDay(ifn.AppDate)
+  // check if this is a backlog entry.. use the last transaction day instead
+  if ALoan.IsBacklog then valueDate := IncDay(ln.LastTransactionDate)
+  else if ALoan.LoanClass.IsFixed then valueDate := IncDay(ifn.AppDate)
   else valuedate := ifn.AppDate;
 
   postDate := ifn.AppDate;
 
-  balance := ALoan.ReleaseAmount;
+  if ln.IsBacklog then balance := ALoan.Balance
+  else balance := ALoan.ReleaseAmount;
 
   dmAccounting := TdmAccounting.Create(nil);
   try
@@ -201,7 +205,9 @@ begin
         dmAccounting.dstInterest.Parameters.ParamByName('@loan_id').Value := ALoan.Id;
         dmAccounting.dstInterest.Open;
 
-        cnt := ALoan.ApprovedTerm;
+        // for backlog.. use number of months remaining
+        if ALoan.IsBacklog then cnt := ALoan.ApprovedTerm - MonthsBetween(ALoan.LastTransactionDate,ALoan.DateApplied)
+        else cnt := ALoan.ApprovedTerm;
 
         for i := 1 to cnt do
         begin
@@ -306,6 +312,29 @@ begin
   else if (day1 = 31) and (month2 <> MonthFebruary) then
     Result := EncodeDate(year2,month2,30)
   else Result := EncodeDate(year2,month2,day1);
+end;
+
+function TPosting.MonthsBetweenEx(const ADate1, ADate2: TDateTime): integer;
+var
+  y1, m1, d1, y2, m2, d2: word;
+  year: Word;
+begin
+  Result := 0;
+
+  if ADate1 > ADate2 then Exit;
+
+  DecodeDate(ADate1, y1, m1, d1);
+  DecodeDate(ADate2, y2, m2, d2);
+
+  if d1 < d2 then Inc(Result);
+
+  Inc(Result, m2 - m1);
+
+  if (y2 - y1) > 0 then Inc(Result);
+
+  Inc(Result, (y2 - y1) * 12);
+
+  Dec(Result);
 end;
 
 procedure TPosting.Post(const APayment: TPayment);

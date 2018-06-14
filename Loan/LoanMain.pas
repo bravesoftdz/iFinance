@@ -185,6 +185,7 @@ type
     procedure urlCancelClick(Sender: TObject);
     procedure urlCloseClick(Sender: TObject);
     procedure urlLedgerClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
   private
     { Private declarations }
     procedure ChangeControlState;
@@ -238,7 +239,7 @@ uses
   Comaker, ComakerSearch, DecisionBox, ComakerDetail, FinInfoDetail, MonthlyExpenseDetail,
   LoansAuxData, LoanApprovalDetail, LoanAssessmentDetail, LoanCancellationDetail,
   LoanRejectionDetail, Alert, Alerts, LoanReleaseDetail, Client, AppConstants, Assessment,
-  IFinanceDialogs, LoanLedger, LoanClosureDetail;
+  IFinanceDialogs, LoanLedger, LoanClosureDetail, Backlog;
 
 procedure TfrmLoanMain.SetActiveTab;
 var
@@ -772,6 +773,20 @@ begin
   InitForm;
 end;
 
+procedure TfrmLoanMain.FormShow(Sender: TObject);
+begin
+  inherited;
+  if (ifn.BacklogEntryEnabled) and (ln.Action = laCreating) then
+    if ShowDecisionBox('Is this a backlog entry?') = mrYes then
+    begin
+      ln.IsBacklog := true;
+      pnlTitle.GradientColorStart := $00CCCCFF;
+      pnlTitle.GradientColorStop := $00CCCCFF;
+      lblTitle.Caption := 'Loan record - This is a backlog entry.';
+      lblHeader.Caption := '-';
+    end;
+end;
+
 procedure TfrmLoanMain.imgAlertsClick(Sender: TObject);
 begin
   inherited;
@@ -934,10 +949,28 @@ begin
 
     if Result then
     begin
-      ln.Save;
-      SetLoanHeaderCaption;
-      ChangeControlState;
-      ln.Action := laNone;
+      if ln.IsBacklog then
+      begin
+        with TfrmBacklog.Create(self) do
+        begin
+          ShowModal;
+          if ModalResult = mrOk then
+          begin
+            ln.Save;
+            SetLoanHeaderCaption;
+            ChangeControlState;
+            ln.Action := laNone;
+          end
+          else Result := false;
+        end;
+      end
+      else
+      begin
+        ln.Save;
+        SetLoanHeaderCaption;
+        ChangeControlState;
+        ln.Action := laNone;
+      end;
     end;
   end;
 end;

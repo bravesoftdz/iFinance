@@ -57,7 +57,7 @@ end;
 
 function TfrmUsers.EditIsAllowed: boolean;
 begin
-  Result := ifn.User.HasRight(Z9MODIFY_USER9Change_user_login_credentials,false);
+  Result := ifn.User.HasRights([PRIV_SEC_USER_MODIFY],false);
 end;
 
 function TfrmUsers.EntryIsValid: boolean;

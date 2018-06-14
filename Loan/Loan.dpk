@@ -88,6 +88,7 @@ contains
   LoanClosureDetail in 'LoanClosureDetail.pas' {frmLoanClosureDetail},
   LoanClassChargeList in 'LoanClassChargeList.pas' {frmLoanClassChargeList},
   LoanClassAdvancePayment in 'LoanClassAdvancePayment.pas' {frmLoanClassAdvancePaymentDetail},
-  LoanClassAdvance in 'LoanClassAdvance.pas';
+  LoanClassAdvance in 'LoanClassAdvance.pas',
+  Backlog in 'Backlog.pas' {frmBacklog};
 
 end.

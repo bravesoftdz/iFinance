@@ -8,6 +8,7 @@ inherited frmErrorBox: TfrmErrorBox
   TextHeight = 14
   inherited pnlTitle: TRzPanel
     Width = 357
+    ExplicitWidth = 357
     inherited imgClose: TImage
       Left = 337
       ExplicitLeft = 337
@@ -29,7 +30,7 @@ inherited frmErrorBox: TfrmErrorBox
       Width = 270
       Height = 76
       AutoSize = False
-      Caption = 'Errors have been found. Unable to save record.'
+      Caption = 'Errors have been found. Discarding changes.'
       Transparent = True
       WordWrap = True
     end

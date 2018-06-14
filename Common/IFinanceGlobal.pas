@@ -42,10 +42,13 @@ type
     FLocations: array of TLocation;
     FDaysInAMonth: byte;
     FRules: TRules;
+    FBacklogEntryEnabled: boolean;
+    FCutoffDate: TDate;
 
     function GetLocation(const i: integer): TLocation;
     function GetLocationCount: integer;
     function GetHalfMonth: byte;
+    function GetRequiredConfigEmpty: boolean;
 
   public
     procedure AddLocation(const loc: TLocation);
@@ -69,6 +72,9 @@ type
     property DaysInAMonth: byte read FDaysInAMonth write FDaysInAMonth;
     property Rules: TRules read FRules write FRules;
     property HalfMonth: byte read GetHalfMonth;
+    property BacklogEntryEnabled: boolean read FBacklogEntryEnabled write FBacklogEntryEnabled;
+    property RequiredConfigEmpty: boolean read GetRequiredConfigEmpty;
+    property CutoffDate: TDate read FCutoffDate write FCutoffDate;
 
     constructor Create;
     destructor Destroy; override;
@@ -137,6 +143,12 @@ begin
       Result := loc.LocationName;
       Exit;
     end;
+end;
+
+function TIFinance.GetRequiredConfigEmpty: boolean;
+begin
+  Result := (FLocationCode = '')
+            or (FLocationPrefix = '');
 end;
 
 function TIFinance.GetLocationCount: integer;

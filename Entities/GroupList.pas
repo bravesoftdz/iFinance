@@ -48,7 +48,11 @@ type
     procedure SaveAttributes;
   protected
     function EntryIsValid: boolean; override;
+    function NewIsAllowed: boolean; override;
+    function EditIsAllowed: boolean; override;
+
     procedure SearchList; override;
+    procedure BindToObject; override;
   public
     { Public declarations }
     procedure New; override;
@@ -162,6 +166,11 @@ begin
   TGroup.AddAttributes;
 end;
 
+function TfrmGroupList.NewIsAllowed: boolean;
+begin
+  Result := true;
+end;
+
 procedure TfrmGroupList.UpdateTree;
 begin
   FilterList;
@@ -228,10 +237,21 @@ begin
   grList.DataSource.DataSet.Filter := filterStr;
 end;
 
+procedure TfrmGroupList.BindToObject;
+begin
+  inherited;
+
+end;
+
 procedure TfrmGroupList.cmbBranchChange(Sender: TObject);
 begin
   inherited;
   UpdateTree;
+end;
+
+function TfrmGroupList.EditIsAllowed: boolean;
+begin
+  Result := true;
 end;
 
 procedure TfrmGroupList.EnableControls(const enable: boolean);

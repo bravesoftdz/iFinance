@@ -23,9 +23,6 @@ type
     constructor Create(AOwner: TComponent; const confMessage: string); reintroduce; overload;
   end;
 
-var
-  frmConfBox: TfrmConfBox;
-
 implementation
 
 {$R *.dfm}

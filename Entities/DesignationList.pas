@@ -21,11 +21,12 @@ type
     { Public declarations }
   protected
     function EntryIsValid: boolean; override;
-    procedure SearchList; override;
-  end;
+    function NewIsAllowed: boolean; override;
+    function EditIsAllowed: boolean; override;
 
-var
-  frmDesignationList: TfrmDesignationList;
+    procedure SearchList; override;
+    procedure BindToObject; override;
+  end;
 
 implementation
 
@@ -33,6 +34,17 @@ implementation
 
 uses
   AuxData, IFinanceDialogs;
+
+procedure TfrmDesignationList.BindToObject;
+begin
+  inherited;
+
+end;
+
+function TfrmDesignationList.EditIsAllowed: boolean;
+begin
+  Result := true;
+end;
 
 function TfrmDesignationList.EntryIsValid: boolean;
 var
@@ -57,6 +69,11 @@ procedure TfrmDesignationList.FormCreate(Sender: TObject);
 begin
   dmAux := TdmAux.Create(self);
   inherited;
+end;
+
+function TfrmDesignationList.NewIsAllowed: boolean;
+begin
+  Result := true;
 end;
 
 procedure TfrmDesignationList.SearchList;

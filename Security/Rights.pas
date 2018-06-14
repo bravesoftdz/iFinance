@@ -119,8 +119,9 @@ const
   LOANS         = 2;
   PAYMENT       = 3;
   SECURITY      = 4;
+
 var
-  LRights: TRights;
+  item: string;
   LRight: TRight;
   sl: TStringList;
   module: string;
@@ -129,25 +130,25 @@ begin
   chlRights.Clear;
 
   case cmbModule.ItemIndex of
-    ADMINISTRATOR: module := 'S';
-    CLIENT:        module := 'A';
-    LOANS:         module := 'B';
-    PAYMENT:       module := 'C';
-    SECURITY:      module := 'Z';
+    ADMINISTRATOR: module := 'ADM';
+    CLIENT: module := 'CLIENT';
+    LOANS: module := 'LOAN';
+    PAYMENT: module := 'PAY';
+    SECURITY: module := 'SEC';
     else module := 'X';
   end;
 
-  for LRights := Low(TRights) to High(TRights) do
+  for item in PRIVILEGES do
   begin
     sl := TStringList.Create;
-    sl.Delimiter := '9';
-    sl.DelimitedText := TRttiEnumerationType.GetName<TRights>(LRights);
+    sl.Delimiter := ';';
+    sl.DelimitedText := item;
 
-    if sl[0] = module then
+    if sl[2] = module then
     begin
       LRight := TRight.Create;
-      LRight.Code := sl[1];
-      LRight.Name := StringReplace(sl[2],'_',' ',[rfReplaceAll]);
+      LRight.Code := sl[0];
+      LRight.Name := StringReplace(sl[1],'_',' ',[rfReplaceAll]);
 
       chlRights.AddItem(LRight.Name,LRight);
       chlRights.ItemChecked[chlRights.Items.Count-1] := MatchStr(LRight.Code,FRights);

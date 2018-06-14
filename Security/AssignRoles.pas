@@ -16,7 +16,6 @@ type
   private
     { Private declarations }
     FUser: TLocalUser;
-    FRoles: array of TRole;
     procedure PopulateRolesList;
   protected
     procedure Save; override;
