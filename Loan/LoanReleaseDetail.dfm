@@ -243,7 +243,7 @@ inherited frmLoanReleaseDetail: TfrmLoanReleaseDetail
           end
           object JvLabel37: TJvLabel
             Left = 19
-            Top = 47
+            Top = 50
             Width = 89
             Height = 14
             Caption = 'Promissory note'
@@ -311,10 +311,6 @@ inherited frmLoanReleaseDetail: TfrmLoanReleaseDetail
             object tsCharges: TRzTabSheet
               Color = 15327448
               Caption = 'Charges'
-              ExplicitLeft = 0
-              ExplicitTop = 0
-              ExplicitWidth = 0
-              ExplicitHeight = 0
               DesignSize = (
                 486
                 120)
@@ -417,7 +413,7 @@ inherited frmLoanReleaseDetail: TfrmLoanReleaseDetail
           end
           object cmbPromissoryNotes: TRzComboBox
             Left = 118
-            Top = 41
+            Top = 44
             Width = 107
             Height = 22
             Ctl3D = False

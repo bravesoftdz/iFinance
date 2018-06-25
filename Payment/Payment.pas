@@ -27,6 +27,7 @@ type
     function GetPenalty: boolean;
     function PostInterest(const interest: currency; const loanId: string;
       const ADate: TDateTime; const source, status: string): string;
+    function GetNewScheduleDate(const ACurrentDate, ANextDate: TDateTime): TDateTime;
 
     procedure SaveInterest;
     procedure UpdateInterestSchedule;
@@ -463,6 +464,32 @@ begin
   Result := FPenalty > 0;
 end;
 
+function TPaymentDetail.GetNewScheduleDate(const ACurrentDate,
+  ANextDate: TDateTime): TDateTime;
+var
+  month1, day1, year1: word;
+  month2, day2, year2: word;
+  LNextDate: TDateTime;
+begin
+  LNextDate := ANextDate;
+
+  DecodeDate(ACurrentDate,year1,month1,day1);
+  DecodeDate(LNextDate,year2,month2,day2);
+
+  // if dates are of the same month.. increment to the next month
+  if month2 = month1 then
+  begin
+    LNextDate := IncMonth(LNextDate);
+    DecodeDate(LNextDate,year2,month2,day2);
+  end;
+
+  if (month2 = MonthFebruary) and (DaysBetween(LNextDate,ACurrentDate) < ifn.DaysInAMonth)then
+    Result := IncDay(ACurrentDate,ifn.DaysInAMonth)
+  else if (day1 = 31) and (month2 <> MonthFebruary) then
+    Result := EncodeDate(year2,month2,30)
+  else Result := EncodeDate(year2,month2,day1);
+end;
+
 function TPaymentDetail.GetTotalAmount: currency;
 begin
   Result := FPrincipal + FInterest + FPenalty;
@@ -648,10 +675,10 @@ end;
 
 procedure TPaymentDetail.UpdateInterestSchedule;
 var
-  newDate, interestDate: TDateTime;
+  newScheduleDate, interestDate: TDateTime;
   m, d, y, mm, dd, yy, pm, pd, py, nm, nd, ny: word;
   pending: boolean;
-  i: integer;
+  i, monthsRemaining: integer;
   sameMonth: boolean;
   newInterest, LBalance: currency;
 begin
@@ -660,7 +687,7 @@ begin
 
   sameMonth := (ny = py) and (nm = pm); // payment is the same as the month of the scheduled interest but not on the scheduled date
 
-  if (FPaymentDate < Floan.NextPayment)and (sameMonth) then i := 0
+  if (FPaymentDate < FLoan.NextPayment) and (sameMonth) then i := 0
   else i := 1;
 
   try
@@ -671,17 +698,26 @@ begin
 
       LBalance := FLoan.Balance - FPrincipal;
 
-      while not Eof do
+      // get the remaining months to loan due date
+      // used to determine number of months to post interest
+      monthsRemaining := FLoan.ApprovedTerm - MonthsBetween(FPaymentDate,FLoan.ReleaseDate);
+
+      newScheduleDate := FPaymentDate;
+
+      {$region 'NEW SOLUTION'}
+      while i < monthsRemaining do
       begin
         pending := FieldByName('interest_status_id').AsString =
           TRttiEnumerationType.GetName<TInterestStatus>(TInterestStatus.P);
 
         if pending then
         begin
-          newDate := IncMonth(FPaymentDate,i);
+          // newDate := IncMonth(FPaymentDate,i);
+          newScheduleDate := GetNewScheduleDate(newScheduleDate,IncMonth(FPaymentDate,i));
+
           interestDate := FieldByName('interest_date').AsDateTime;
 
-          DecodeDate(newDate,y,m,d);
+          DecodeDate(newScheduleDate,y,m,d);
           DecodeDate(interestDate,yy,mm,dd);
 
           Edit;
@@ -698,7 +734,49 @@ begin
               LBalance := LBalance - (FLoan.ReleaseAmount / FLoan.ApprovedTerm);
             end;
 
-            FieldByName('interest_date').AsDateTime := newDate;
+            FieldByName('interest_date').AsDateTime := newScheduleDate;
+          end;
+
+          Post;
+
+          Inc(i);
+        end;
+
+        Inc(i);
+      end;
+      {$endregion}
+
+      {$region 'OLD SOLUTION'}
+      while not Eof do
+      begin
+        pending := FieldByName('interest_status_id').AsString =
+          TRttiEnumerationType.GetName<TInterestStatus>(TInterestStatus.P);
+
+        if pending then
+        begin
+          // newDate := IncMonth(FPaymentDate,i);
+          newScheduleDate := GetNewScheduleDate(newScheduleDate,IncMonth(FPaymentDate,i));
+
+          interestDate := FieldByName('interest_date').AsDateTime;
+
+          DecodeDate(newScheduleDate,y,m,d);
+          DecodeDate(interestDate,yy,mm,dd);
+
+          Edit;
+
+          if ((py = yy) and (pm = mm)) or (FIsFullPayment) then // change the status of the PENDING interest of month of the payment date
+            FieldByName('interest_status_id').AsString :=
+              TRttiEnumerationType.GetName<TInterestStatus>(TInterestStatus.D)
+          else if (y = yy) and (m = mm) and (d <> dd) then
+          begin
+            if HasPrincipal then
+            begin
+              newInterest := LBalance * FLoan.InterestInDecimal;
+              FieldByName('interest_amt').AsCurrency := newInterest;
+              LBalance := LBalance - (FLoan.ReleaseAmount / FLoan.ApprovedTerm);
+            end;
+
+            FieldByName('interest_date').AsDateTime := newScheduleDate;
           end;
 
           Post;
@@ -707,6 +785,7 @@ begin
 
         Next;
       end;
+      {$endregion}
     end;
   finally
 

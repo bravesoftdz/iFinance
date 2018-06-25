@@ -71,7 +71,8 @@ begin
 
     while LDate <= LNewDate do
     begin
-      LPosting.PostInterest(LDate);
+      LPosting.PostPrincipal(LDate);
+      LPosting.PostInterest2(LDate);
 
       if cbxUpdateDeficits.Checked then UpdateLoanDeficit(LDate);
 

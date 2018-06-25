@@ -518,7 +518,7 @@ end;
 
 procedure TfrmMain.tbAddClientClick(Sender: TObject);
 begin
-  DockForm(fmClientMain);
+  if ifn.User.HasRights([PRIV_CLIENT_ADD_NEW],true) then DockForm(fmClientMain);
 end;
 
 procedure TfrmMain.tbBanksClick(Sender: TObject);
@@ -548,7 +548,7 @@ end;
 
 procedure TfrmMain.tbNewLoanClick(Sender: TObject);
 begin
-  DockForm(fmLoanMain);
+  if ifn.User.HasRights([PRIV_CLIENT_MODIFY],true) then DockForm(fmLoanMain);
 end;
 
 procedure TfrmMain.urlActiveLoansClick(Sender: TObject);
@@ -780,7 +780,7 @@ end;
 
 procedure TfrmMain.imgNewPaymentClick(Sender: TObject);
 begin
-  DockForm(fmPaymentMain);
+   if ifn.User.HasRights([PRIV_PAY_ADD_NEW],true) then DockForm(fmPaymentMain);
 end;
 
 procedure TfrmMain.imgPurposeClick(Sender: TObject);

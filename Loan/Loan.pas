@@ -925,7 +925,7 @@ begin
     else amort := ((FReleaseAmount * FLoanClass.InterestInDecimal * FApprovedTerm) + FReleaseAmount) / FApprovedTerm;
 
     // Note: Round off the AMORTISATION to "nearest peso" .. ex. 1.25 to 2.00
-    if amort <> Trunc(amort) then Result := amort + 1
+    if amort <> Trunc(amort) then Result := Trunc(amort) + 1
     else Result := amort;
   end;
 end;

@@ -1,7 +1,13 @@
+Version 1.0.0.9
+
+- Fixed abstract error issues
+- Fixed interest posting issues when days fall on a 30 or 31
+- Fixed interest posting issues when days fall on a 28 or 29 on the month of Feb
+
 Version 1.0.0.8
 
 - Security module (rights, roles, users, etc)
-- User credit limit for loan approval ???
+- User credit limit for loan approval 
 
 Version 1.0.0.7
 

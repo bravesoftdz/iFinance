@@ -168,4 +168,49 @@ object dmAccounting: TdmAccounting
     Left = 56
     Top = 176
   end
+  object dstPrincipalDebit: TADODataSet
+    Connection = dmApplication.acMain
+    CursorType = ctStatic
+    LockType = ltReadOnly
+    CommandText = 'sp_acc_post_principal_debit;1'
+    CommandType = cmdStoredProc
+    Parameters = <
+      item
+        Name = '@RETURN_VALUE'
+        DataType = ftInteger
+        Direction = pdReturnValue
+        Precision = 10
+        Value = Null
+      end
+      item
+        Name = '@post_date'
+        Attributes = [paNullable]
+        DataType = ftDateTime
+        Value = 0d
+      end>
+    Left = 176
+    Top = 176
+  end
+  object dstInterestDebit: TADODataSet
+    Connection = dmApplication.acMain
+    CursorType = ctStatic
+    LockType = ltReadOnly
+    CommandText = 'sp_acc_post_interest_debit;1'
+    CommandType = cmdStoredProc
+    Parameters = <
+      item
+        Name = '@RETURN_VALUE'
+        DataType = ftInteger
+        Direction = pdReturnValue
+        Precision = 10
+      end
+      item
+        Name = '@post_date'
+        Attributes = [paNullable]
+        DataType = ftDateTime
+        Value = 0d
+      end>
+    Left = 296
+    Top = 176
+  end
 end

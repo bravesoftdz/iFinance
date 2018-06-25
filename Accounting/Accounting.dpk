@@ -45,6 +45,8 @@ requires
 contains
   Posting in 'Posting.pas',
   AccountingData in 'AccountingData.pas' {dmAccounting: TDataModule},
-  Ledger in 'Ledger.pas';
+  Ledger in 'Ledger.pas',
+  BasePopup in '..\Base\BasePopup.pas' {frmBasePopup},
+  DebitPosting in 'DebitPosting.pas' {frmDebitPosting};
 
 end.

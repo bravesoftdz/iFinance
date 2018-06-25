@@ -21,6 +21,7 @@ type
   protected
     procedure Save; override;
     procedure Cancel; override;
+    procedure BindToObject; override;
     function ValidEntry: boolean; override;
   end;
 
@@ -30,6 +31,12 @@ uses
   EntitiesData, ImmediateHead, IFinanceDialogs, EntityUtils;
 
 {$R *.dfm}
+
+procedure TfrmImmHeadDetail.BindToObject;
+begin
+  inherited;
+
+end;
 
 procedure TfrmImmHeadDetail.Cancel;
 begin

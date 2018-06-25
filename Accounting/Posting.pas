@@ -3,9 +3,58 @@ unit Posting;
 interface
 
 uses
-  Loan, Payment, SysUtils, DateUtils, System.Rtti, Math, PaymentMethod;
+  Loan, Payment, SysUtils, DateUtils, System.Rtti, Math, PaymentMethod, LoanClassification;
 
 type
+  TPrincipalDebit = class
+  strict private
+    FId: string;
+    FTerm: smallint;
+    FAmortization: currency;
+    FInterestRate: currency;
+    FReleaseAmount: currency;
+    FIsDiminishing: boolean;
+    FDiminishingType: TDiminishingType;
+    FReleaseDate: TDateTime;
+    FBalance: currency;
+  public
+    property Id: string read FId write FId;
+    property ReleaseAmount: currency read FReleaseAmount write FReleaseAmount;
+    property Term: smallint read FTerm write FTerm;
+    property InterestRate: currency read FInterestRate write FInterestRate;
+    property IsDiminishing: boolean read FIsDiminishing write FIsDiminishing;
+    property Amortization: currency read FAmortization write FAmortization;
+    property DiminishingType: TDiminishingType read FDiminishingType write FDiminishingType;
+    property ReleaseDate: TDateTime read FReleaseDate write FReleaseDate;
+    property Balance: currency read FBalance write FBalance;
+  end;
+
+  TInterestDebit = class
+  strict private
+    FIsDiminishing: boolean;
+    FId: string;
+    FInterestRate: currency;
+    FLastTransactionDate: TDateTime;
+    FBalance: currency;
+    FReleaseAmount: currency;
+    FDiminishingType: TDiminishingType;
+    FAdvancePayments: integer;
+
+    function GetNextScheduledPosting: TDateTime;
+    function GetHasAdvancePayments: boolean;
+  public
+    property Id: string read FId write FId;
+    property Balance: currency read FBalance write FBalance;
+    property IsDiminishing: boolean read FIsDiminishing write FIsDiminishing;
+    property InterestRate: currency read FInterestRate write FInterestRate;
+    property DiminishingType: TDiminishingType read FDiminishingType write FDiminishingType;
+    property ReleaseAmount: currency read FReleaseAmount write FReleaseAmount;
+    property LastTransactionDate: TDateTime read FLastTransactionDate write FLastTransactionDate;
+    property NextScheduledPosting: TDateTime read GetNextScheduledPosting;
+    property AdvancePayments: integer read FAdvancePayments write FAdvancePayments;
+    property HasAdvancePayments: boolean read GetHasAdvancePayments;
+  end;
+
   TPosting = class
   private
     // interest-related methods
@@ -15,7 +64,8 @@ type
     function PostEntry(const refPostingId: string;
       const debit, credit: currency; const eventObject, primaryKey, status: string;
       const postDate, valueDate: TDateTime; const caseType: string): string;
-    function GetValueDate(const ADate1, ADate2: TDateTime): TDateTime;
+    function GetValueDate(const ACurrentDate, ANextDate: TDateTime): TDateTime;  overload;
+    function GetValueDate(const ADate: TDateTime): TDateTime; overload;
     function GetFirstDayOfValueDate(const ADate: TDateTime): TDateTime;
     function MonthsBetweenEx(const ADate1, ADate2: TDateTime): integer;
 
@@ -25,6 +75,8 @@ type
      procedure Post(const ALoan: TLoan); overload;
      procedure Post(const APayment: TPayment); overload;
      procedure PostInterest(const ADate: TDate; const ALoanId: string = ''); overload;
+     procedure PostInterest2(const ADate: TDate);
+     procedure PostPrincipal(const ADate: TDate);
 
      constructor Create;
      destructor Destroy; override;
@@ -35,8 +87,7 @@ implementation
 { TPosting }
 
 uses
-  AccountingData, IFinanceGlobal, IFinanceDialogs, AppConstants, DBUtil, Ledger,
-  LoanClassification;
+  AccountingData, IFinanceGlobal, IFinanceDialogs, AppConstants, DBUtil, Ledger;
 
 function TPosting.PostEntry(const refPostingId: string;
       const debit, credit: currency; const eventObject, primaryKey, status: string;
@@ -168,15 +219,223 @@ begin
   end;
 end;
 
-procedure TPosting.Post(const ALoan: TLoan);
+procedure TPosting.PostInterest2(const ADate: TDate);
 var
+  refPostingId: string;
+  interest, credit: currency;
+  eventObject, primaryKey, caseType, status: string;
+  interestStatus, interestSource: string;
+  postDate, valueDate, runningDate: TDateTime;
+  LLoan: TInterestDebit;
+begin
+  // This method is different from the other interest posting method
+  // Interest is posted on an on-demand basis, when the date arrives .. usually a month from last transaction date
+  // Previous posting was based from a "schedule" determined during loan release and payment
+  // This alternate method was developed to fix the February issue
+  refPostingId := '';
+
+  credit := 0;
+  eventObject := TRttiEnumerationType.GetName<TEventObjects>(TEventObjects.ITR);
+  caseType := TRttiEnumerationType.GetName<TCaseTypes>(TCaseTypes.ITS);
+  postDate := ifn.AppDate;
+  status :=  TRttiEnumerationType.GetName<TLedgerRecordStatus>(TLedgerRecordStatus.OPN);
+
+  interestStatus := TRttiEnumerationType.GetName<TInterestStatus>(TInterestStatus.T);
+  interestSource := TRttiEnumerationType.GetName<TInterestSource>(TInterestSource.SYS);
+
+  valueDate := ADate;
+
+  LLoan := TInterestDebit.Create;
+
+  dmAccounting := TdmAccounting.Create(nil);
+  try
+    try
+      dmAccounting.dstInterest.Open;
+      dmAccounting.dstLedger.Open;
+
+      with dmAccounting.dstInterestDebit  do
+      begin
+        Parameters.ParamByName('@post_date').Value := ADate;
+
+        Open;
+
+        while not Eof do
+        begin
+          LLoan.Id := FieldByName('loan_id').AsString;
+          LLoan.InterestRate := FieldByName('int_rate').AsCurrency / 100;
+          LLoan.ReleaseAmount := FieldByName('rel_amt').AsCurrency;
+          LLoan.IsDiminishing := FieldByName('int_comp_method').AsString = 'D';
+          LLoan.DiminishingType := TDiminishingType(FieldByName('dim_type').AsInteger);
+          LLoan.Balance := FieldByName('balance').AsCurrency;
+          LLoan.LastTransactionDate := FieldByName('last_trans_date').AsDateTime;
+          LLoan.AdvancePayments := FieldByName('payments_advance').AsInteger;
+
+          if LLoan.NextScheduledPosting = ADate then
+          begin
+            if LLoan.isDiminishing then interest := LLoan.Balance * LLoan.InterestRate
+            else interest := LLoan.ReleaseAmount *  LLoan.InterestRate;
+
+            // round off to 2 decimal places
+            interest := RoundTo(interest,-2);
+
+            // for DIMINISHING SCHEDULED accounts.. use the first day of the month..
+            if (LLoan.IsDiminishing) and (LLoan.DiminishingType = dtScheduled) then
+              primaryKey := PostInterest(interest,LLoan.Id,GetFirstDayOfValueDate(valueDate),interestSource,interestStatus)
+            else primaryKey := PostInterest(interest,LLoan.Id,valueDate,interestSource,interestStatus);
+
+            PostEntry(refPostingId, interest, credit, eventObject, primaryKey, status, postDate, valueDate, caseType);
+          end;
+
+          Next;
+        end;
+
+        Close;
+      end;
+
+      dmAccounting.dstInterest.UpdateBatch;
+      dmAccounting.dstLedger.UpdateBatch;
+    except
+      on E: Exception do
+      begin
+        dmAccounting.dstInterest.CancelBatch;
+        dmAccounting.dstLedger.CancelBatch;
+        ShowErrorBox(E.Message);
+        Abort;
+      end;
+    end;
+  finally
+    dmAccounting.dstInterest.Close;
+    dmAccounting.dstLedger.Close;
+    LLoan.Free;
+    dmAccounting.Free;
+  end;
+end;
+
+procedure TPosting.PostPrincipal(const ADate: TDate);
+var
+  refPostingId: string;
+  principal, interest, balance, credit: currency;
+  eventObject, primaryKey, caseType, status: string;
+  postDate, valueDate, runningDate: TDateTime;
+  i, cnt: integer;
+  LLoan: TPrincipalDebit;
+  vy, vm, vd, yy, mm, dd: word;
+  posted: boolean;
+begin
+  refPostingId := '';
+
+  credit := 0;
+  eventObject := TRttiEnumerationType.GetName<TEventObjects>(TEventObjects.LON);
+  caseType := TRttiEnumerationType.GetName<TCaseTypes>(TCaseTypes.PRC);
+  valuedate := GetFirstDayOfValueDate(ADate);
+  postDate := ifn.AppDate;
+  status := TRttiEnumerationType.GetName<TLedgerRecordStatus>(TLedgerRecordStatus.OPN);
+
+  DecodeDate(ADate,yy,mm,dd);
+
+  LLoan := TPrincipalDebit.Create;
+
+  dmAccounting := TdmAccounting.Create(nil);
+  try
+    try
+      dmAccounting.dstLedger.Open;
+
+      with dmAccounting.dstPrincipalDebit  do
+      begin
+        Parameters.ParamByName('@post_date').Value := ADate;
+
+        Open;
+
+        LLoan.Id := FieldByName('loan_id').AsString;
+        LLoan.Term := FieldByName('terms').AsInteger;
+        LLoan.Amortization := FieldByName('amort').AsCurrency;
+        LLoan.InterestRate := FieldByName('int_rate').AsCurrency / 100;
+        LLoan.ReleaseAmount := FieldByName('rel_amt').AsCurrency;
+        LLoan.IsDiminishing := FieldByName('int_comp_method').AsString = 'D';
+        LLoan.DiminishingType := TDiminishingType(FieldByName('dim_type').AsInteger);
+        LLoan.ReleaseDate := FieldByName('date_rel').AsDateTime;
+
+        primaryKey := LLoan.Id;
+        balance := LLoan.ReleaseAmount;
+
+        while not Eof do
+        begin
+          posted := false;
+
+          cnt := LLoan.Term;
+          i := 1;
+
+          // last condition is a hack
+          while (i <= cnt) and (not posted) do
+          begin
+            runningDate := IncMonth(LLoan.ReleaseDate,i);
+
+            // interest
+            if LLoan.isDiminishing then interest := balance * LLoan.InterestRate
+            else interest := LLoan.ReleaseAmount *  LLoan.InterestRate;
+
+            // round off to 2 decimal places
+            interest := RoundTo(interest,-2);
+
+            // principal
+            // use the balance for the last amount to be posted..
+            // this ensures sum of principal is equal to the loan amount released
+            if i < cnt then principal := LLoan.Amortization - interest
+            else principal := balance;
+
+            DecodeDate(runningDate,vy,vm,vd);
+
+            // for principal entries.. use the first day of the month
+            if (mm = vm) and (yy = vy) then
+            begin
+              PostEntry(refPostingId, principal, credit, eventObject, primaryKey, status,
+                  postDate, valueDate, caseType);
+              posted := true;
+            end;
+
+            // get balance
+            balance := balance - principal;
+
+            Inc(i);
+          end;
+
+          Next;
+        end;
+
+        Close;
+      end;
+
+      dmAccounting.dstLedger.UpdateBatch;
+    except
+      on E: Exception do
+      begin
+        dmAccounting.dstLedger.CancelBatch;
+        ShowErrorBox(E.Message);
+        Abort;
+      end;
+    end;
+  finally
+    dmAccounting.dstLedger.Close;
+    LLoan.Free;
+    dmAccounting.Free;
+  end;
+end;
+
+procedure TPosting.Post(const ALoan: TLoan);
+{ var
   refPostingId: string;
   principal, interest, balance, credit: currency;
   eventObject, primaryKey, status, caseType: string;
   postDate, valueDate: TDateTime;
   i, cnt: integer;
-  interestSource: string;
+  interestSource: string; }
 begin
+  // Note: This has been discontinued as of 25 June 2018
+  // Posting of debit will be done on an "on-demand" basis
+  // That is, will happen on the 1st month for PRINCIPAL and based on last transaction date for INTEREST
+  // Currently only used by advanced payment.. check below
+
+  {
   refPostingId := '';
 
   credit := 0;
@@ -265,7 +524,7 @@ begin
     dmAccounting.dstLedger.Close;
     dmAccounting.dstInterest.Close;
     dmAccounting.Free;
-  end;
+  end;  }
 
   // post advance payment
   if ALoan.LoanClass.HasAdvancePayment then
@@ -297,17 +556,34 @@ begin
   Result := EncodeDate(year,month,1);
 end;
 
-function TPosting.GetValueDate(const ADate1, ADate2: TDateTime): TDateTime;
+function TPosting.GetValueDate(const ADate: TDateTime): TDateTime;
+begin
+  Result := ADate;
+end;
+
+function TPosting.GetValueDate(const ACurrentDate, ANextDate: TDateTime): TDateTime;
 var
   month1, day1, year1: word;
   month2, day2, year2: word;
+  LNextDate: TDateTime;
 begin
-  DecodeDate(ADate1,year1,month1,day1);
-  DecodeDate(ADate2,year2,month2,day2);
+  LNextDate := ANextDate;
 
+  DecodeDate(ACurrentDate,year1,month1,day1);
+  DecodeDate(LNextDate,year2,month2,day2);
+
+  // if dates are of the same month.. increment to the next month
+  if month2 = month1 then
+  begin
+    LNextDate := IncMonth(LNextDate);
+    DecodeDate(LNextDate,year2,month2,day2);
+  end;
+
+  if (month2 = MonthFebruary) and (DaysBetween(LNextDate,ACurrentDate) < ifn.DaysInAMonth)then
+    Result := IncDay(ACurrentDate,ifn.DaysInAMonth)
   // check for leap year
-  if (not IsLeapYear(year1)) and (month2 = MonthFebruary) and (day1 = 29) then
-    Result := ADate2
+  // if (not IsLeapYear(year1)) and (month2 = MonthFebruary) and (day1 = 29) then
+  //  Result := ANextDate
   // when day falls on a 31st.. use 30 instead
   else if (day1 = 31) and (month2 <> MonthFebruary) then
     Result := EncodeDate(year2,month2,30)
@@ -602,6 +878,37 @@ begin
     if Assigned(debitLedger) then debitLedger.Free;
     if Assigned(creditLedger) then creditLedger.Free;
   end;
+end;
+
+{ TInterestDebit }
+
+function TInterestDebit.GetHasAdvancePayments: boolean;
+begin
+  Result := FAdvancePayments > 0;
+end;
+
+function TInterestDebit.GetNextScheduledPosting: TDateTime;
+var
+  LNextSchedule: TDateTime;
+  mm, dd, yy, cm, cd, cy: word;
+begin
+  if HasAdvancePayments then
+    LNextSchedule := IncMonth(FLastTransactionDate,FAdvancepayments)
+  else
+  begin
+    LNextSchedule := IncMonth(FLastTransactionDate);
+
+    DecodeDate(FLastTransactionDate,cy,cm,cd);
+    DecodeDate(LNextSchedule,yy,mm,dd);
+
+    if DaysBetween(LNextSchedule,FLastTransactionDate) < ifn.DaysInAMonth then
+      LNextSchedule := IncDay(FLastTransactionDate,ifn.DaysInAMonth)
+    else if (cd = 31) and (mm <> MonthFebruary) then
+      LNextSchedule := EncodeDate(yy,mm,30)
+    else LNextSchedule := EncodeDate(yy,mm,cd);
+  end;
+
+  Result := LNextSchedule;
 end;
 
 end.

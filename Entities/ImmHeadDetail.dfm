@@ -1,9 +1,9 @@
 inherited frmImmHeadDetail: TfrmImmHeadDetail
   Caption = 'frmImmHeadDetail'
-  ClientHeight = 176
+  ClientHeight = 183
   ClientWidth = 370
   ExplicitWidth = 370
-  ExplicitHeight = 176
+  ExplicitHeight = 183
   PixelsPerInch = 96
   TextHeight = 14
   inherited pnlTitle: TRzPanel
@@ -21,24 +21,24 @@ inherited frmImmHeadDetail: TfrmImmHeadDetail
   end
   inherited pnlMain: TRzPanel
     Width = 370
-    Height = 155
+    Height = 162
     ExplicitWidth = 370
-    ExplicitHeight = 187
+    ExplicitHeight = 155
     inherited pnlDetail: TRzPanel
       Width = 353
-      Height = 109
+      Height = 116
       ExplicitWidth = 353
-      ExplicitHeight = 141
+      ExplicitHeight = 109
       inherited pcDetail: TRzPageControl
         Width = 351
-        Height = 107
+        Height = 114
         ExplicitWidth = 351
-        ExplicitHeight = 139
+        ExplicitHeight = 107
         FixedDimension = 20
         inherited tsDetail: TRzTabSheet
           Caption = 'Immediate head details'
           ExplicitWidth = 351
-          ExplicitHeight = 139
+          ExplicitHeight = 107
           object JvLabel1: TJvLabel
             Left = 19
             Top = 23
@@ -49,7 +49,7 @@ inherited frmImmHeadDetail: TfrmImmHeadDetail
           end
           object JvLabel2: TJvLabel
             Left = 19
-            Top = 47
+            Top = 50
             Width = 54
             Height = 14
             Caption = 'Firstname'
@@ -57,7 +57,7 @@ inherited frmImmHeadDetail: TfrmImmHeadDetail
           end
           object JvLabel3: TJvLabel
             Left = 19
-            Top = 71
+            Top = 77
             Width = 36
             Height = 14
             Caption = 'Middle'
@@ -65,13 +65,13 @@ inherited frmImmHeadDetail: TfrmImmHeadDetail
           end
           object edMiddle: TRzDBEdit
             Left = 114
-            Top = 65
+            Top = 71
             Width = 207
             Height = 22
             DataSource = dmEntities.dscIHPersonal
             DataField = 'middlename'
             CharCase = ecUpperCase
-            FrameColor = 8675134
+            FrameColor = 14272955
             FrameVisible = True
             FramingPreference = fpCustomFraming
             TabOnEnter = True
@@ -79,13 +79,13 @@ inherited frmImmHeadDetail: TfrmImmHeadDetail
           end
           object edFirstname: TRzDBEdit
             Left = 114
-            Top = 41
+            Top = 44
             Width = 207
             Height = 22
             DataSource = dmEntities.dscIHPersonal
             DataField = 'firstname'
             CharCase = ecUpperCase
-            FrameColor = 8675134
+            FrameColor = 14272955
             FrameVisible = True
             FramingPreference = fpCustomFraming
             TabOnEnter = True
@@ -99,7 +99,7 @@ inherited frmImmHeadDetail: TfrmImmHeadDetail
             DataSource = dmEntities.dscIHPersonal
             DataField = 'lastname'
             CharCase = ecUpperCase
-            FrameColor = 8675134
+            FrameColor = 14272955
             FrameVisible = True
             FramingPreference = fpCustomFraming
             TabOnEnter = True
@@ -110,15 +110,15 @@ inherited frmImmHeadDetail: TfrmImmHeadDetail
     end
     inherited pnlCancel: TRzPanel
       Left = 311
-      Top = 125
+      Top = 132
       ExplicitLeft = 311
-      ExplicitTop = 157
+      ExplicitTop = 125
     end
     inherited pnlSave: TRzPanel
       Left = 255
-      Top = 125
+      Top = 132
       ExplicitLeft = 255
-      ExplicitTop = 157
+      ExplicitTop = 125
     end
   end
 end

@@ -30,6 +30,7 @@ type
     FFullpaymentInterest: currency;
     FPaymentsAdvance: integer;
     FAmortization: currency;
+    FReleaseDate: TDateTime;
 
     function GetIsDiminishing: boolean;
     function GetIsFixed: boolean;
@@ -85,11 +86,13 @@ type
     property InterestAmortisation: currency read FInterestAmortisation;
     property PrincipalAmortisation: currency read FPrincipalAmortisation;
     property InterestDueOnPaymentDate: currency read GetInterestDueOnPaymentDate;
+    property ReleaseDate: TDateTime read FReleaseDate write FReleaseDate;
 
     procedure GetPaymentDue(const paymentDate: TDateTime);
     procedure RetrieveLedger;
     procedure ClearLedger;
     procedure AddLedger(const ALedger: TLedger);
+
   end;
 
   TActiveClient = class
@@ -166,6 +169,7 @@ begin
         loan.Payments := FieldByName('payments').AsInteger;
         loan.PaymentsAdvance := FieldByName('payments_advance').AsInteger;
         loan.Amortization := FieldByName('amort').AsCurrency;
+        loan.ReleaseDate := FieldByName('date_rel').AsDateTime;
 
         AddLoan(loan);
 
@@ -285,9 +289,11 @@ begin
 
   if amort = 0 then amort := tmp;
 
-  // payment is made before or after schedule date
+  // payment is made before or after schedule date  or when days from last transaction date is less than a month (i.e. Feb 28)
   if (IsDiminishing) and (DiminishingType = dtFixed) then
   begin
+
+
     if (paymentDate <> NextPayment) and (paymentDate <> FLastTransactionDate) then
     begin
       debitLedger := TLedger.Create;
@@ -445,10 +451,25 @@ begin
 end;
 
 function TLoan.GetNextPayment: TDateTime;
+var
+  LNextPayment: TDateTime;
+  mm, dd, yy: word;
 begin
   if (IsFirstPayment) and (HasAdvancePayment) then
-    Result := IncMonth(FLastTransactionDate,FPaymentsAdvance)
-  else Result := IncMonth(FLastTransactionDate);
+    LNextPayment := IncMonth(FLastTransactionDate,FPaymentsAdvance)
+  else
+  begin
+    LNextPayment := IncMonth(FLastTransactionDate);
+
+    DecodeDate(LNextPayment,yy,mm,dd);
+
+    // check if date is not less than a month from last transaction
+    // usually happens on the month of February
+    if DaysBetween(LNextPayment,FLastTransactionDate) <> ifn.DaysInAMonth then
+       LNextPayment := IncDay(FLastTransactionDate,ifn.DaysInAMonth);
+  end;
+
+  Result := LNextPayment;
 end;
 
 procedure TLoan.GetPaymentDue(const paymentDate: TDateTime);

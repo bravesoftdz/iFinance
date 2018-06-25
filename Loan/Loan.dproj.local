@@ -38,6 +38,8 @@
     <File Path="AccountTypeList.pas"/>
     <File Path="AccountTypeList.dfm"/>
     <File Path="Assessment.pas"/>
+    <File Path="Backlog.pas"/>
+    <File Path="Backlog.dfm"/>
     <File Path="ClientLoan.pas"/>
     <File Path="ClientSearch.pas"/>
     <File Path="ClientSearch.dfm"/>
@@ -100,8 +102,6 @@
     <File Path="ReleaseRecipient.pas"/>
     <File Path="ReleaseRecipientDetail.pas"/>
     <File Path="ReleaseRecipientDetail.dfm"/>
-    <File Path="Backlog.pas"/>
-    <File Path="Backlog.dfm"/>
     <File Path="adortl.dcp"/>
     <File Path="dbrtl.dcp"/>
     <File Path="FireDAC.dcp"/>
