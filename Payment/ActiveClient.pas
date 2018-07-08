@@ -254,7 +254,7 @@ var
   amort, additional, computed, full, tmp: currency;
   LLedger, debitLedger: TLedger;
   days: integer;
-  py, pm, pd, vy, vm, vd: word;
+  py, pm, pd, vy, vm, vd, ny, nm, nd: word;
   scheduleDate: TDateTime;
 begin
   additional := 0;    // payment after schedule date
@@ -284,17 +284,19 @@ begin
         amort := LLedger.Amortisation;
         scheduleDate := LLedger.ValueDate;
       end;
+
+      scheduleDate := LLedger.ValueDate;
     end;
   end;  // end for loop
 
   if amort = 0 then amort := tmp;
 
-  // payment is made before or after schedule date  or when days from last transaction date is less than a month (i.e. Feb 28)
+  // payment is made before or after schedule date
   if (IsDiminishing) and (DiminishingType = dtFixed) then
   begin
+    DecodeDate(NextPayment,ny,nm,nd);
 
-
-    if (paymentDate <> NextPayment) and (paymentDate <> FLastTransactionDate) then
+    if ((paymentDate <> NextPayment) and (paymentDate <> FLastTransactionDate)) then
     begin
       debitLedger := TLedger.Create;
 
@@ -320,7 +322,6 @@ begin
         end
         else}
 
-        // computed := (FBalance * FInterestInDecimal * days) / ifn.DaysInAMonth;
         computed := (FBalance * FInterestInDecimal) / ifn.DaysInAMonth;
 
         // round off to 2 decimal places
@@ -335,7 +336,6 @@ begin
 
         // if payment date is more than a month from scheduled payment date
         // divide the days with the days in a month and use the remainder
-        // if days > ifn.DaysInAMonth then days := days mod ifn.DaysInAMonth;
 
         additional := (FBalance * FInterestInDecimal) / ifn.DaysInAMonth;
 
@@ -375,7 +375,7 @@ begin
   FInterestAdditional := additional;
   FInterestComputed := computed;
   FFullPaymentInterest := full;
-  FInterestAmortisation := amort;
+  // FInterestAmortisation := amort; Removed.. this is set in the GetPrincipalDue
 end;
 
 function TLoan.GetInterestDueOnPaymentDate: currency;
@@ -386,7 +386,7 @@ begin
     if (pmt.Date <> NextPayment) and (pmt.Date <> FLastTransactionDate) then
     begin
       if HasInterestComputed then Result := FInterestComputed
-      else if HasInterestAdditional then Result := FInterestAmortisation + FInterestAdditional
+      else if HasInterestAdditional then Result :=  FInterestAdditional // FInterestAmortisation +
       else Result := FInterestAmortisation;
     end
     else if pmt.Date = NextPayment then Result := FInterestAmortisation
@@ -453,7 +453,7 @@ end;
 function TLoan.GetNextPayment: TDateTime;
 var
   LNextPayment: TDateTime;
-  mm, dd, yy: word;
+  mm, dd, yy, fm, fd, fy: word;
 begin
   if (IsFirstPayment) and (HasAdvancePayment) then
     LNextPayment := IncMonth(FLastTransactionDate,FPaymentsAdvance)
@@ -461,12 +461,14 @@ begin
   begin
     LNextPayment := IncMonth(FLastTransactionDate);
 
+    DecodeDate(FLastTransactionDate,fy,fm,fd);
     DecodeDate(LNextPayment,yy,mm,dd);
 
-    // check if date is not less than a month from last transaction
-    // usually happens on the month of February
-    if DaysBetween(LNextPayment,FLastTransactionDate) <> ifn.DaysInAMonth then
-       LNextPayment := IncDay(FLastTransactionDate,ifn.DaysInAMonth);
+    if fd <> dd then
+      if DaysBetween(LNextPayment,FLastTransactionDate) < ifn.DaysInAMonth then
+        LNextPayment := IncDay(FLastTransactionDate,ifn.DaysInAMonth);
+    // if day falls on a 31 and succeeding date is not 31.. add 1 day
+    // else if dd < fd then LNextPayment := IncDay(LNextPayment);
   end;
 
   Result := LNextPayment;
@@ -514,6 +516,9 @@ begin
   if amort = 0 then amort := tmp;
 
   FPrincipalAmortisation := amort;
+
+  // interest amortization
+  FInterestAmortisation := FAmortization - FPrincipalAmortisation;
 end;
 
 procedure TLoan.RetrieveLedger;

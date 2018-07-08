@@ -42,7 +42,7 @@ implementation
 {$R *.dfm}
 
 uses
-  SecurityData, IFinanceDialogs, IFinanceGlobal, User, Right;
+  SecurityData, IFinanceDialogs, IFinanceGlobal, User, Right, DBUtil;
 
 { TfrmRoles }
 
@@ -99,6 +99,8 @@ var
   sql: string;
   i, cnt: integer;
 begin
+  // Note: Do not turn on the "sort" property of the rights ListBox
+  //       Save function does not work property
   try
     try
       cnt := Role.RightsCount - 1;
@@ -117,7 +119,7 @@ begin
                   ' AND PRIVILEGE_CODE = ' + QuotedStr(right.Code) + ';';
 
           // execute the sql
-          dmSecurity.dstRoles.Connection.Execute(sql);
+          ExecuteSQL(sql,true);
         end;
       end; // end for
 

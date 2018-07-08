@@ -548,7 +548,7 @@ end;
 
 procedure TfrmMain.tbNewLoanClick(Sender: TObject);
 begin
-  if ifn.User.HasRights([PRIV_LOAN_ADD_NEW],true) then DockForm(fmLoanMain);
+  if ifn.User.HasRights([PRIV_CLIENT_MODIFY],true) then DockForm(fmLoanMain);
 end;
 
 procedure TfrmMain.urlActiveLoansClick(Sender: TObject);

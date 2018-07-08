@@ -9,7 +9,7 @@ inherited frmAssignRights: TfrmAssignRights
   TextHeight = 14
   inherited pnlTitle: TRzPanel
     Width = 770
-    ExplicitWidth = 539
+    ExplicitWidth = 770
     inherited imgClose: TImage
       Left = 749
       ExplicitLeft = 668
@@ -23,21 +23,21 @@ inherited frmAssignRights: TfrmAssignRights
   inherited pnlMain: TRzPanel
     Width = 770
     Height = 387
-    ExplicitWidth = 539
+    ExplicitWidth = 770
     ExplicitHeight = 387
     inherited pnlDetail: TRzPanel
       Width = 753
       Height = 338
-      ExplicitWidth = 522
+      ExplicitWidth = 753
       ExplicitHeight = 338
       inherited pcDetail: TRzPageControl
         Width = 751
         Height = 336
-        ExplicitWidth = 520
+        ExplicitWidth = 751
         ExplicitHeight = 336
         FixedDimension = 20
         inherited tsDetail: TRzTabSheet
-          ExplicitWidth = 520
+          ExplicitWidth = 751
           ExplicitHeight = 336
           object chlRights: TRzCheckList
             Left = 16
@@ -53,7 +53,6 @@ inherited frmAssignRights: TfrmAssignRights
             FramingPreference = fpCustomFraming
             ItemHeight = 17
             ParentColor = True
-            Sorted = True
             TabOrder = 0
           end
         end
@@ -62,13 +61,13 @@ inherited frmAssignRights: TfrmAssignRights
     inherited pnlCancel: TRzPanel
       Left = 711
       Top = 355
-      ExplicitLeft = 480
+      ExplicitLeft = 711
       ExplicitTop = 355
     end
     inherited pnlSave: TRzPanel
       Left = 655
       Top = 355
-      ExplicitLeft = 424
+      ExplicitLeft = 655
       ExplicitTop = 355
     end
   end
