@@ -548,13 +548,14 @@ begin
           payment := FInterest;
 
           // update interest schedule
-          if ((FLoan.IsDiminishing) and (FLoan.DiminishingType = dtFixed)) or (FIsFullPayment) then
+          {if ((FLoan.IsDiminishing) and (FLoan.DiminishingType = dtFixed)) or (FIsFullPayment) then
             if ((FLoan.HasInterestComputed) or (FLoan.HasInterestAdditional)) or (FIsFullPayment)
               or (DayOfTheMonth(FPaymentDate) = 30)then
-              UpdateInterestSchedule;
+              UpdateInterestSchedule; }
 
           // save unposted interest
-          if (FIsFullPayment) or ((FLoan.IsDiminishing) and (FLoan.DiminishingType = dtFixed) and (FLoan.NextPayment <> FPaymentDate)) then
+          if (FIsFullPayment) or
+             ((((FLoan.IsDiminishing) and (FLoan.DiminishingType = dtFixed)) or (FLoan.IsFixed)) and (FLoan.NextPayment <> FPaymentDate)) then
             SaveInterest;
         end;
 

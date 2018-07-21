@@ -97,8 +97,8 @@ type
     RzGroupBox7: TRzGroupBox;
     RzPanel2: TRzPanel;
     RzShapeButton1: TRzShapeButton;
-    tsPending: TRzTabSheet;
-    pnlPending: TRzPanel;
+    tsSummary: TRzTabSheet;
+    pnlSummary: TRzPanel;
     JvLabel1: TJvLabel;
     pnlClientRecord: TRzPanel;
     imgClientRecord: TImage;
@@ -161,6 +161,20 @@ type
     grRecipients: TRzDBGrid;
     RzPanel4: TRzPanel;
     grCharges: TRzDBGrid;
+    JvLabel47: TJvLabel;
+    JvLabel48: TJvLabel;
+    JvLabel49: TJvLabel;
+    JvLabel50: TJvLabel;
+    JvLabel51: TJvLabel;
+    JvLabel52: TJvLabel;
+    JvLabel53: TJvLabel;
+    JvLabel54: TJvLabel;
+    RzDBLabel26: TRzDBLabel;
+    RzDBLabel27: TRzDBLabel;
+    RzDBLabel28: TRzDBLabel;
+    RzDBLabel29: TRzDBLabel;
+    RzDBLabel30: TRzDBLabel;
+    urlSummary: TRzURLLabel;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure bteClientButtonClick(Sender: TObject);
@@ -186,6 +200,7 @@ type
     procedure urlCloseClick(Sender: TObject);
     procedure urlLedgerClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure urlSummaryClick(Sender: TObject);
   private
     { Private declarations }
     procedure ChangeControlState;
@@ -224,7 +239,7 @@ const
   RELEASED = 2;
   REJECTION = 3;
   CANCELLATION = 4;
-  NOINFO = 5;
+  SUMMARY = 5;
   CLOSED = 6;
 
   // finalised error message
@@ -248,7 +263,7 @@ begin
   index := 0;
 
   // this routine sets the active tab based on current loan status
-  if (ln.IsPending) or (ln.New) then index := NOINFO
+  if (ln.IsPending) or (ln.New) then index := SUMMARY
   else if ln.IsAssessed then index := ASSESSED
   else if ln.IsApproved then index := APPROVAL
   else if (ln.IsActive) or (ln.IsClosed) then index := RELEASED
@@ -1051,6 +1066,12 @@ begin
   inherited;
   if (ln.HasLoanState(lsActive)) or (ln.IsFinalised) then SetActiveTab(RELEASED)
   else ReleaseLoan;
+end;
+
+procedure TfrmLoanMain.urlSummaryClick(Sender: TObject);
+begin
+  inherited;
+  SetActiveTab(SUMMARY);
 end;
 
 procedure TfrmLoanMain.PopulateComakers;

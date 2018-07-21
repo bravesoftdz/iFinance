@@ -176,7 +176,7 @@ inherited frmPaymentDetail: TfrmPaymentDetail
           end
           object lblLoanBalance: TJvLabel
             Left = 372
-            Top = 107
+            Top = 105
             Width = 32
             Height = 14
             Caption = 'xxxxx'
@@ -535,7 +535,7 @@ inherited frmPaymentDetail: TfrmPaymentDetail
           end
           object JvLabel16: TJvLabel
             Left = 268
-            Top = 107
+            Top = 105
             Width = 86
             Height = 14
             Caption = 'Loan balance:'

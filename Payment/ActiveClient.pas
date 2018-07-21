@@ -289,10 +289,15 @@ begin
     end;
   end;  // end for loop
 
-  if amort = 0 then amort := tmp;
+  if amort = 0 then
+  begin
+    amort := (FBalance * FInterestInDecimal);
+    amort := RoundTo(amort,-2)
+  end;
 
   // payment is made before or after schedule date
-  if (IsDiminishing) and (DiminishingType = dtFixed) then
+  if ((IsDiminishing) and (DiminishingType = dtFixed))
+    or (IsFixed) then
   begin
     DecodeDate(NextPayment,ny,nm,nd);
 
@@ -375,13 +380,14 @@ begin
   FInterestAdditional := additional;
   FInterestComputed := computed;
   FFullPaymentInterest := full;
-  // FInterestAmortisation := amort; Removed.. this is set in the GetPrincipalDue
+  FInterestAmortisation := amort;
 end;
 
 function TLoan.GetInterestDueOnPaymentDate: currency;
 begin
   Result := 0;
-  if (IsDiminishing) and (FDiminishingType = dtFixed) then
+  if ((IsDiminishing) and (FDiminishingType = dtFixed))
+    or (IsFixed) then
   begin
     if (pmt.Date <> NextPayment) and (pmt.Date <> FLastTransactionDate) then
     begin
@@ -516,9 +522,6 @@ begin
   if amort = 0 then amort := tmp;
 
   FPrincipalAmortisation := amort;
-
-  // interest amortization
-  FInterestAmortisation := FAmortization - FPrincipalAmortisation;
 end;
 
 procedure TLoan.RetrieveLedger;
