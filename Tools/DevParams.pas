@@ -63,6 +63,7 @@ var
   LPosting: TPosting;
   LDate, LNewDate: TDateTime;
 begin
+  // NOTE !!! THIS METHOD IS COPIED AND PASTED IN THE LOAN CLASS DURING BACKLOG ENTRY
   ifn.AppDate := dteApplicationDate.Date;
   LPosting := TPosting.Create;
   try

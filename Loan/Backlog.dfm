@@ -9,8 +9,10 @@ inherited frmBacklog: TfrmBacklog
   TextHeight = 14
   inherited pnlTitle: TRzPanel
     Width = 300
+    ExplicitWidth = 300
     inherited imgClose: TImage
       Left = 279
+      ExplicitLeft = 279
     end
     inherited lblCaption: TRzLabel
       Width = 44
@@ -21,16 +23,22 @@ inherited frmBacklog: TfrmBacklog
   inherited pnlMain: TRzPanel
     Width = 300
     Height = 209
+    ExplicitWidth = 300
+    ExplicitHeight = 209
     inherited pnlDetail: TRzPanel
       Width = 283
       Height = 160
+      ExplicitWidth = 283
+      ExplicitHeight = 160
       inherited pcDetail: TRzPageControl
         Width = 281
         Height = 158
+        ExplicitWidth = 281
+        ExplicitHeight = 158
         FixedDimension = 20
         inherited tsDetail: TRzTabSheet
-          ExplicitWidth = 514
-          ExplicitHeight = 181
+          ExplicitWidth = 281
+          ExplicitHeight = 158
           object JvLabel5: TJvLabel
             Tag = -1
             Left = 19
@@ -91,6 +99,7 @@ inherited frmBacklog: TfrmBacklog
             FramingPreference = fpCustomFraming
             TabOnEnter = True
             TabOrder = 0
+            IntegersOnly = False
             DisplayFormat = '###,##0.00'
           end
           object dteLastTransactionDate: TRzDBDateTimeEdit
@@ -126,6 +135,7 @@ inherited frmBacklog: TfrmBacklog
             FramingPreference = fpCustomFraming
             TabOnEnter = True
             TabOrder = 2
+            IntegersOnly = False
             DisplayFormat = '###,##0.00'
           end
           object RzDBNumericEdit2: TRzDBNumericEdit
@@ -143,6 +153,7 @@ inherited frmBacklog: TfrmBacklog
             FramingPreference = fpCustomFraming
             TabOnEnter = True
             TabOrder = 3
+            IntegersOnly = False
             DisplayFormat = '###,##0.00'
           end
           object RzDBNumericEdit3: TRzDBNumericEdit
@@ -160,6 +171,7 @@ inherited frmBacklog: TfrmBacklog
             FramingPreference = fpCustomFraming
             TabOnEnter = True
             TabOrder = 4
+            IntegersOnly = False
             DisplayFormat = '###,##0.00'
           end
         end
@@ -168,10 +180,14 @@ inherited frmBacklog: TfrmBacklog
     inherited pnlCancel: TRzPanel
       Left = 241
       Top = 177
+      ExplicitLeft = 241
+      ExplicitTop = 177
     end
     inherited pnlSave: TRzPanel
       Left = 185
       Top = 177
+      ExplicitLeft = 185
+      ExplicitTop = 177
     end
   end
 end

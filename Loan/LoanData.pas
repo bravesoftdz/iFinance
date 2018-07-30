@@ -71,6 +71,7 @@ type
     dstLedgerid: TStringField;
     dstLedgerprincipal_deficit: TBCDField;
     dstLedgerinterest_deficit: TBCDField;
+    dstSchedule: TADODataSet;
     procedure dstLoanBeforeOpen(DataSet: TDataSet);
     procedure dstLoanClassBeforeOpen(DataSet: TDataSet);
     procedure dstLoanBeforePost(DataSet: TDataSet);
@@ -157,8 +158,11 @@ begin
     ln.DesiredTerm := FieldByName('des_term').AsInteger;
     ln.DateApplied := FieldByName('date_appl').AsDateTime;
     ln.Balance := FieldByName('balance').AsCurrency;
+    ln.InterestDeficit := FieldByName('int_deficit').AsCurrency;
+    ln.LastInterestPostDate := FieldByName('last_interest_post_date').AsDateTime;
 
-    if ln.IsBackLog then ln.LastTransactionDate := FieldByName('last_trans_date').AsDateTime;
+    if FieldByName('last_trans_date').IsNull then ln.LastTransactionDate := ifn.AppDate
+    else ln.LastTransactionDate := FieldByName('last_trans_date').AsDateTime;
   end;
 end;
 

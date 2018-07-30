@@ -291,7 +291,9 @@ begin
 
   if amort = 0 then
   begin
-    amort := (FBalance * FInterestInDecimal);
+    if ((IsDiminishing) and (DiminishingType = dtFixed)) then amort := (FBalance * FInterestInDecimal)
+    else amort := FReleaseAmount * FInterestInDecimal;
+
     amort := RoundTo(amort,-2)
   end;
 
@@ -392,7 +394,7 @@ begin
     if (pmt.Date <> NextPayment) and (pmt.Date <> FLastTransactionDate) then
     begin
       if HasInterestComputed then Result := FInterestComputed
-      else if HasInterestAdditional then Result :=  FInterestAdditional // FInterestAmortisation +
+      else if HasInterestAdditional then Result :=  FInterestAdditional
       else Result := FInterestAmortisation;
     end
     else if pmt.Date = NextPayment then Result := FInterestAmortisation

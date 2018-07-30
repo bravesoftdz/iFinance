@@ -5,7 +5,7 @@ interface
 uses
   SysUtils, Entity, LoanClient, AppConstants, DB, System.Rtti, ADODB, Variants,
   LoanClassification, Comaker, FinInfo, MonthlyExpense, ReleaseRecipient,
-  LoanCharge, LoanClassCharge, Assessment, Math;
+  LoanCharge, LoanClassCharge, Assessment, Math, Ledger;
 
 type
   TLoanAction = (laNone,laCreating,laAssessing,laApproving,laRejecting,laReleasing,laCancelling,laClosing);
@@ -62,6 +62,8 @@ type
     FDateApplied: TDateTime;
     FLastTransactionDate: TDateTime;
     FAmortisation: currency;
+    FInterestDeficit: currency;
+    FLastInterestPostDate: TDateTime;
 
     procedure SaveComakers;
     procedure SaveAssessments;
@@ -106,6 +108,9 @@ type
     function GetTotalAdvancePayment: currency;
     function GetAdvancePayment(const i: integer): TAdvancePayment;
     function GetAdvancePaymentCount: integer;
+    function GetDaysFromLastTransaction: integer;
+    function GetInterestDueAsOfDate: currency;
+    function GetTotalInterestDue: currency;
 
   public
     procedure Add; override;
@@ -192,6 +197,11 @@ type
     property IsBacklog: boolean read FIsBacklog write FIsBacklog;
     property DateApplied: TDateTime read FDateApplied write FDateApplied;
     property LastTransactionDate: TDateTime read FLastTransactionDate write FLastTransactionDate;
+    property DaysFromLastTransaction: integer read GetDaysFromLastTransaction;
+    property InterestDueAsOfDate: currency read GetInterestDueAsOfDate;
+    property TotalInterestDue: currency read GetTotalInterestDue;
+    property InterestDeficit: currency read FInterestDeficit write FInterestDeficit;
+    property LastInterestPostDate: TDateTime read FLastInterestPostDate write FLastInterestPostDate;
 
     constructor Create;
     destructor Destroy; reintroduce;
@@ -203,7 +213,7 @@ var
 implementation
 
 uses
-  LoanData, IFinanceGlobal, Posting, IFinanceDialogs;
+  LoanData, IFinanceGlobal, Posting, IFinanceDialogs, DateUtils;
 
 constructor TLoan.Create;
 begin
@@ -1168,6 +1178,24 @@ begin
   Result := Length(FComakers);
 end;
 
+function TLoan.GetDaysFromLastTransaction: integer;
+begin
+  Result := DaysBetween(ifn.AppDate,FLastTransactionDate);
+end;
+
+function TLoan.GetInterestDueAsOfDate: currency;
+var
+  days: integer;
+  LInterest: currency;
+begin
+  days := DaysBetween(FLastInterestPostDate,ifn.AppDate);
+
+  LInterest := (FBalance * FLoanClass.InterestInDecimal) / ifn.DaysInAMonth;
+
+  // round off to 2 decimal places before multiplying to number of days
+  Result := RoundTo(LInterest,-2) * days;
+end;
+
 function TLoan.GetFinancialInfoCount: integer;
 begin
   Result := Length(FFinancialInfo);
@@ -1398,6 +1426,11 @@ begin
   for i := 0 to cnt do total := FLoanCharges[i].Amount + total;
 
   Result := total;
+end;
+
+function TLoan.GetTotalInterestDue: currency;
+begin
+  Result := GetInterestDueAsOfDate + FInterestDeficit;
 end;
 
 function TLoan.GetTotalReleased: currency;

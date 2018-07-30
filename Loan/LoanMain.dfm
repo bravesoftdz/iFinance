@@ -2474,9 +2474,9 @@ inherited frmLoanMain: TfrmLoanMain
             object JvLabel52: TJvLabel
               Left = 19
               Top = 186
-              Width = 35
-              Height = 14
-              Caption = 'Days:'
+              Width = 182
+              Height = 42
+              Caption = 'Days from last transaction:'
               Font.Charset = DEFAULT_CHARSET
               Font.Color = clWindowText
               Font.Height = -12
@@ -2493,10 +2493,10 @@ inherited frmLoanMain: TfrmLoanMain
             end
             object JvLabel53: TJvLabel
               Left = 19
-              Top = 211
-              Width = 154
+              Top = 210
+              Width = 149
               Height = 14
-              Caption = 'Due as of payment date:'
+              Caption = 'Interest due as of date:'
               Font.Charset = DEFAULT_CHARSET
               Font.Color = clWindowText
               Font.Height = -12
@@ -2575,6 +2575,48 @@ inherited frmLoanMain: TfrmLoanMain
               AutoSize = True
               DataField = 'last_trans_date_f'
               DataSource = dmLoan.dscLoan
+            end
+            object lblDaysFromLastTransaction: TJvLabel
+              Left = 207
+              Top = 186
+              Width = 6
+              Height = 14
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -12
+              Font.Name = 'Tahoma'
+              Font.Style = []
+              ParentFont = False
+              Transparent = True
+              WordWrap = True
+            end
+            object lblInterestDueAsOfDate: TJvLabel
+              Left = 191
+              Top = 210
+              Width = 6
+              Height = 14
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -12
+              Font.Name = 'Tahoma'
+              Font.Style = []
+              ParentFont = False
+              Transparent = True
+              WordWrap = True
+            end
+            object lblTotalInterestDue: TJvLabel
+              Left = 159
+              Top = 237
+              Width = 6
+              Height = 14
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -12
+              Font.Name = 'Tahoma'
+              Font.Style = []
+              ParentFont = False
+              Transparent = True
+              WordWrap = True
             end
           end
         end

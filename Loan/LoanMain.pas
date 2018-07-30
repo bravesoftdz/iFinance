@@ -175,6 +175,9 @@ type
     RzDBLabel29: TRzDBLabel;
     RzDBLabel30: TRzDBLabel;
     urlSummary: TRzURLLabel;
+    lblDaysFromLastTransaction: TJvLabel;
+    lblInterestDueAsOfDate: TJvLabel;
+    lblTotalInterestDue: TJvLabel;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure bteClientButtonClick(Sender: TObject);
@@ -254,7 +257,7 @@ uses
   Comaker, ComakerSearch, DecisionBox, ComakerDetail, FinInfoDetail, MonthlyExpenseDetail,
   LoansAuxData, LoanApprovalDetail, LoanAssessmentDetail, LoanCancellationDetail,
   LoanRejectionDetail, Alert, Alerts, LoanReleaseDetail, Client, AppConstants, Assessment,
-  IFinanceDialogs, LoanLedger, LoanClosureDetail, Backlog;
+  IFinanceDialogs, LoanLedger, LoanClosureDetail, Backlog, Posting, DateUtils, DBUtil;
 
 procedure TfrmLoanMain.SetActiveTab;
 var
@@ -900,6 +903,10 @@ begin
 
   mmEmployer.Text := ln.Client.Employer.Name;
 
+  lblDaysFromLastTransaction.Caption := IntToStr(ln.DaysFromLastTransaction);
+  lblInterestDueAsOfDate.Caption := FormatCurr('###,###0.00',ln.InterestDueAsOfDate);
+  lblTotalInterestDue.Caption := FormatCurr('###,###0.00',ln.TotalInterestDue);
+
   PopulateComakers;
 end;
 
@@ -955,6 +962,9 @@ begin
 end;
 
 function TfrmLoanMain.Save: Boolean;
+var
+  LPosting: TPosting;
+  LDate, LNewDate: TDateTime;
 begin
   Result := false;
 
@@ -975,6 +985,25 @@ begin
             SetLoanHeaderCaption;
             ChangeControlState;
             ln.Action := laNone;
+
+            // interest and principal posting
+            LPosting := TPosting.Create;
+            try
+              LDate := IncDay(ln.LastTransactionDate);
+              LNewDate := ifn.AppDate;
+
+              while LDate <= LNewDate do
+              begin
+                LPosting.PostPrincipal(LDate);
+                LPosting.PostInterest2(LDate);
+
+                UpdateLoanDeficit(LDate);
+
+                LDate := IncDay(LDate);
+              end;
+            finally
+              LPosting.Free;
+            end;
           end
           else Result := false;
         end;
