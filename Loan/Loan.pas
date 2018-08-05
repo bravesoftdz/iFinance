@@ -111,6 +111,8 @@ type
     function GetDaysFromLastTransaction: integer;
     function GetInterestDueAsOfDate: currency;
     function GetTotalInterestDue: currency;
+    function GetLastTransactionDate: TDateTime;
+    function GetNextPayment: TDateTime;
 
   public
     procedure Add; override;
@@ -202,6 +204,7 @@ type
     property TotalInterestDue: currency read GetTotalInterestDue;
     property InterestDeficit: currency read FInterestDeficit write FInterestDeficit;
     property LastInterestPostDate: TDateTime read FLastInterestPostDate write FLastInterestPostDate;
+    property NextPaymentDate: TDateTime read GetNextPayment;
 
     constructor Create;
     destructor Destroy; reintroduce;
@@ -269,7 +272,8 @@ begin
   else if ln.Action = laReleasing then
   begin
     SaveRelease;
-    if FLoanClass.HasAdvancePayment then UpdateLoan;
+    // if FLoanClass.HasAdvancePayment then UpdateLoan;
+    UpdateLoan;
   end;
 
   ln.Action := laNone;
@@ -463,6 +467,7 @@ begin
       FieldByName('prc_deficit').AsCurrency := prcDeficit;
       FieldByName('int_deficit').AsCurrency := intDeficit;
       FieldByName('amort').AsCurrency := Amortisation;
+      FieldByName('last_trans_date').AsDateTime := GetLastTransactionDate;
 
       Post;
     end;
@@ -1187,13 +1192,35 @@ function TLoan.GetInterestDueAsOfDate: currency;
 var
   days: integer;
   LInterest: currency;
+  mm, dd, yy, fm, fd, fy: word;
 begin
-  days := DaysBetween(FLastInterestPostDate,ifn.AppDate);
+  Result := 0;
 
-  LInterest := (FBalance * FLoanClass.InterestInDecimal) / ifn.DaysInAMonth;
+  days := GetDaysFromLastTransaction;
 
-  // round off to 2 decimal places before multiplying to number of days
-  Result := RoundTo(LInterest,-2) * days;
+  if days > 0 then
+  begin
+    if ifn.AppDate = FLastInterestPostDate then
+    begin
+      LInterest := FBalance * FLoanClass.InterestInDecimal;
+      Result := RoundTo(LInterest,-2);
+    end
+    else if ifn.AppDate > FLastInterestPostDate then
+    begin
+      DecodeDate(FLastInterestPostDate,fy,fm,fd);
+      DecodeDate(ifn.AppDate,yy,mm,dd);
+
+      if fd <> dd then
+        if days < ifn.DaysInAMonth then
+          days := DaysBetween(ifn.AppDate,FLastInterestPostDate);
+
+      LInterest := (FBalance * FLoanClass.InterestInDecimal) / ifn.DaysInAMonth;
+
+      Result := RoundTo(LInterest,-2) * days;
+    end;
+
+    Result := LInterest;
+  end;
 end;
 
 function TLoan.GetFinancialInfoCount: integer;
@@ -1234,6 +1261,30 @@ end;
 function TLoan.GetNew: boolean;
 begin
   Result := FId = '';
+end;
+
+function TLoan.GetNextPayment: TDateTime;
+var
+  LNextPayment: TDateTime;
+  mm, dd, yy, fm, fd, fy: word;
+begin
+  // if (IsFirstPayment) and (HasAdvancePayment) then
+  //  LNextPayment := IncMonth(FLastTransactionDate,FPaymentsAdvance)
+  // else
+  begin
+    LNextPayment := IncMonth(FLastTransactionDate);
+
+    DecodeDate(FLastTransactionDate,fy,fm,fd);
+    DecodeDate(LNextPayment,yy,mm,dd);
+
+    if fd <> dd then
+      if DaysBetween(LNextPayment,FLastTransactionDate) < ifn.DaysInAMonth then
+        LNextPayment := IncDay(FLastTransactionDate,ifn.DaysInAMonth);
+    // if day falls on a 31 and succeeding date is not 31.. add 1 day
+    // else if dd < fd then LNextPayment := IncDay(LNextPayment);
+  end;
+
+  Result := LNextPayment;
 end;
 
 function TLoan.GetStatusName: string;
@@ -1357,6 +1408,23 @@ end;
 function TLoan.GetReleaseRecipient(const i: integer): TReleaseRecipient;
 begin
   Result := FReleaseRecipients[i];
+end;
+
+function TLoan.GetLastTransactionDate: TDateTime;
+var
+  LRecipient: TReleaseRecipient;
+  i, cnt: integer;
+begin
+  cnt := Length(FReleaseRecipients) - 1;
+
+  for i := 0 to cnt do
+  begin
+    LRecipient := FReleaseRecipients[0];
+
+    if i = 0 then Result := LRecipient.Date
+    else if LRecipient.Date < Result then
+      Result := LRecipient.Date;     
+  end;
 end;
 
 function TLoan.GetLoanCharge(const i: Integer): TLoanCharge;

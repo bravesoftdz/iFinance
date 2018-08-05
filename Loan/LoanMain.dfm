@@ -2475,7 +2475,7 @@ inherited frmLoanMain: TfrmLoanMain
               Left = 19
               Top = 186
               Width = 182
-              Height = 42
+              Height = 18
               Caption = 'Days from last transaction:'
               Font.Charset = DEFAULT_CHARSET
               Font.Color = clWindowText
@@ -2493,7 +2493,7 @@ inherited frmLoanMain: TfrmLoanMain
             end
             object JvLabel53: TJvLabel
               Left = 19
-              Top = 210
+              Top = 211
               Width = 149
               Height = 14
               Caption = 'Interest due as of date:'
@@ -2592,7 +2592,7 @@ inherited frmLoanMain: TfrmLoanMain
             end
             object lblInterestDueAsOfDate: TJvLabel
               Left = 191
-              Top = 210
+              Top = 211
               Width = 6
               Height = 14
               Font.Charset = DEFAULT_CHARSET

@@ -161,7 +161,7 @@ begin
     ln.InterestDeficit := FieldByName('int_deficit').AsCurrency;
     ln.LastInterestPostDate := FieldByName('last_interest_post_date').AsDateTime;
 
-    if FieldByName('last_trans_date').IsNull then ln.LastTransactionDate := ifn.AppDate
+    if FieldByName('last_trans_date').AsString = '' then ln.LastTransactionDate := ifn.AppDate
     else ln.LastTransactionDate := FieldByName('last_trans_date').AsDateTime;
   end;
 end;

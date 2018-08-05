@@ -904,8 +904,8 @@ begin
   mmEmployer.Text := ln.Client.Employer.Name;
 
   lblDaysFromLastTransaction.Caption := IntToStr(ln.DaysFromLastTransaction);
-  lblInterestDueAsOfDate.Caption := FormatCurr('###,###0.00',ln.InterestDueAsOfDate);
-  lblTotalInterestDue.Caption := FormatCurr('###,###0.00',ln.TotalInterestDue);
+  lblInterestDueAsOfDate.Caption := FormatCurr('###,###0.00;;-',ln.InterestDueAsOfDate);
+  lblTotalInterestDue.Caption := FormatCurr('###,###0.00;;-',ln.TotalInterestDue);
 
   PopulateComakers;
 end;
