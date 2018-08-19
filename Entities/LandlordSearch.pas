@@ -21,9 +21,6 @@ type
     procedure Cancel; override;
   end;
 
-var
-  frmLandlordSearch: TfrmLandlordSearch;
-
 implementation
 
 {$R *.dfm}

@@ -473,10 +473,12 @@ begin
     DecodeDate(LNextPayment,yy,mm,dd);
 
     if fd <> dd then
+    begin
       if DaysBetween(LNextPayment,FLastTransactionDate) < ifn.DaysInAMonth then
-        LNextPayment := IncDay(FLastTransactionDate,ifn.DaysInAMonth);
+        LNextPayment := IncDay(LNextPayment); // IncDay(FLastTransactionDate,ifn.DaysInAMonth);
     // if day falls on a 31 and succeeding date is not 31.. add 1 day
     // else if dd < fd then LNextPayment := IncDay(LNextPayment);
+    end;
   end;
 
   Result := LNextPayment;

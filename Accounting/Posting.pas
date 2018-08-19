@@ -282,20 +282,24 @@ begin
               // in this case.. previous is 31 but following day is 30
               // same day means if previous month is 16 then succeeding should be 16 as well
 
-              DecodeDate(LLoan.LastTransactionDate,ay,am,ad);
-              DecodeDate(LLoan.NextScheduledPosting,ny,nm,nd);
+              // DecodeDate(LLoan.LastTransactionDate,ay,am,ad);
+              // DecodeDate(LLoan.NextScheduledPosting,ny,nm,nd);
 
-              if ad = nd then  interest := LLoan.Balance * LLoan.InterestRate
-              else
+              interest := LLoan.Balance * LLoan.InterestRate
+
+              // if ad = nd then  interest := LLoan.Balance * LLoan.InterestRate
+              {else
               begin
                 days := DaysBetween(ADate,LLoan.LastTransactionDate);
 
                 interest := (LLoan.Balance * LLoan.InterestRate) / ifn.DaysInAMonth;
-              end;
+
+                // round off to 2 decimal places before multiplying agains DAYS
+                interest := RoundTo(interest,-2) * days;
+              end;  }
             end
             else interest := LLoan.ReleaseAmount *  LLoan.InterestRate;
 
-            // round off to 2 decimal places
             interest := RoundTo(interest,-2);
 
             // for DIMINISHING SCHEDULED accounts.. use the first day of the month..
@@ -613,7 +617,6 @@ end;
 function TPosting.MonthsBetweenEx(const ADate1, ADate2: TDateTime): integer;
 var
   y1, m1, d1, y2, m2, d2: word;
-  year: Word;
 begin
   Result := 0;
 
@@ -719,7 +722,7 @@ procedure TPosting.PostAdvancePayment(ALoan: TLoan);
 var
   id, refNo: string;
   adv: TAdvancePayment;
-  i, j, k: integer;
+  i, k: integer;
   LLedger: array of TLedger;
   debitLedger, creditLedger: TLedger;
   caseType: string;
@@ -923,7 +926,7 @@ begin
 
     if cd <> dd then
       if DaysBetween(LNextSchedule,FLastTransactionDate) < ifn.DaysInAMonth then
-        LNextSchedule := IncDay(FLastTransactionDate,ifn.DaysInAMonth);
+        LNextSchedule := IncDay(LNextSchedule); //  IncDay(FLastTransactionDate,ifn.DaysInAMonth);
     // else if (cd = 31) and (mm <> MonthFebruary) then
     //  LNextSchedule := EncodeDate(yy,mm,30)
     // else LNextSchedule := EncodeDate(yy,mm,cd);

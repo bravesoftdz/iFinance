@@ -24,6 +24,7 @@ type
   protected
     procedure Save; override;
     procedure Cancel; override;
+    procedure BindToObject; override;
     function ValidEntry: boolean; override;
   end;
 
@@ -43,6 +44,12 @@ end;
 procedure TfrmLoanCancellationDetail.Save;
 begin
   ln.Save;
+end;
+
+procedure TfrmLoanCancellationDetail.BindToObject;
+begin
+  inherited;
+
 end;
 
 procedure TfrmLoanCancellationDetail.Cancel;

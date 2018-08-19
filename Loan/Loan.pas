@@ -666,8 +666,6 @@ begin
 end;
 
 procedure TLoan.SaveBacklog;
-var
-  loanId: string;
 begin
   try
     with dmLoan.dstLoan do FAmortisation := FieldByName('amort').AsCurrency;
@@ -1211,12 +1209,12 @@ begin
       DecodeDate(ifn.AppDate,yy,mm,dd);
 
       if fd <> dd then
-        if days < ifn.DaysInAMonth then
-          days := DaysBetween(ifn.AppDate,FLastInterestPostDate);
+        // if days < ifn.DaysInAMonth then
+          days := DaysBetween(ifn.AppDate,FLastInterestPostDate); // days mod ifn.DaysInAMonth;
 
       LInterest := (FBalance * FLoanClass.InterestInDecimal) / ifn.DaysInAMonth;
 
-      Result := RoundTo(LInterest,-2) * days;
+      LInterest := RoundTo(LInterest,-2) * days;
     end;
 
     Result := LInterest;
@@ -1279,7 +1277,7 @@ begin
 
     if fd <> dd then
       if DaysBetween(LNextPayment,FLastTransactionDate) < ifn.DaysInAMonth then
-        LNextPayment := IncDay(FLastTransactionDate,ifn.DaysInAMonth);
+        LNextPayment := IncDay(LNextPayment); // IncDay(FLastTransactionDate,ifn.DaysInAMonth);
     // if day falls on a 31 and succeeding date is not 31.. add 1 day
     // else if dd < fd then LNextPayment := IncDay(LNextPayment);
   end;

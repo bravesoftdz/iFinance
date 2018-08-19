@@ -20,7 +20,10 @@ type
     { Public declarations }
   protected
     function EntryIsValid: boolean; override;
+    function NewIsAllowed: boolean; override;
+    function EditIsAllowed: boolean; override;
     procedure SearchList; override;
+    procedure BindToObject; override;
   end;
 
 implementation
@@ -29,6 +32,17 @@ implementation
 
 uses
   AuxData, IFinanceDialogs;
+
+procedure TfrmPurposeList.BindToObject;
+begin
+  inherited;
+
+end;
+
+function TfrmPurposeList.EditIsAllowed: boolean;
+begin
+  Result := true;
+end;
 
 function TfrmPurposeList.EntryIsValid: boolean;
 var
@@ -53,6 +67,11 @@ begin
   dmAux := TdmAux.Create(self);
 
   inherited;
+end;
+
+function TfrmPurposeList.NewIsAllowed: boolean;
+begin
+  Result := true;
 end;
 
 procedure TfrmPurposeList.SearchList;
