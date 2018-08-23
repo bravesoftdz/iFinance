@@ -24,47 +24,41 @@ inherited frmLoanCancellationDetail: TfrmLoanCancellationDetail
     Width = 347
     Height = 190
     ExplicitWidth = 347
-    ExplicitHeight = 175
+    ExplicitHeight = 190
     inherited pnlDetail: TRzPanel
       Width = 331
       Height = 143
       ExplicitWidth = 331
-      ExplicitHeight = 128
+      ExplicitHeight = 143
       inherited pcDetail: TRzPageControl
         Width = 329
         Height = 141
         ExplicitWidth = 329
-        ExplicitHeight = 126
+        ExplicitHeight = 141
         FixedDimension = 20
         inherited tsDetail: TRzTabSheet
           ExplicitWidth = 329
-          ExplicitHeight = 126
-          object JvLabel17: TJvLabel
-            Tag = -1
+          ExplicitHeight = 141
+          object Label1: TLabel
             Left = 19
             Top = 23
-            Width = 82
+            Width = 80
             Height = 14
             Caption = 'Date cancelled'
-            Transparent = True
           end
-          object JvLabel18: TJvLabel
-            Tag = -1
+          object Label2: TLabel
             Left = 19
             Top = 51
-            Width = 41
+            Width = 39
             Height = 14
             Caption = 'Reason'
-            Transparent = True
           end
-          object JvLabel24: TJvLabel
-            Tag = -1
+          object Label3: TLabel
             Left = 19
             Top = 78
-            Width = 47
+            Width = 45
             Height = 14
             Caption = 'Remarks'
-            Transparent = True
           end
           object dbluReason: TRzDBLookupComboBox
             Left = 113
@@ -122,13 +116,13 @@ inherited frmLoanCancellationDetail: TfrmLoanCancellationDetail
       Left = 289
       Top = 160
       ExplicitLeft = 289
-      ExplicitTop = 145
+      ExplicitTop = 160
     end
     inherited pnlSave: TRzPanel
       Left = 233
       Top = 160
       ExplicitLeft = 233
-      ExplicitTop = 145
+      ExplicitTop = 160
     end
   end
 end

@@ -24,47 +24,41 @@ inherited frmLoanRejectionDetail: TfrmLoanRejectionDetail
     Width = 347
     Height = 192
     ExplicitWidth = 347
-    ExplicitHeight = 179
+    ExplicitHeight = 192
     inherited pnlDetail: TRzPanel
       Width = 331
       Height = 144
       ExplicitWidth = 331
-      ExplicitHeight = 131
+      ExplicitHeight = 144
       inherited pcDetail: TRzPageControl
         Width = 329
         Height = 142
         ExplicitWidth = 329
-        ExplicitHeight = 129
+        ExplicitHeight = 142
         FixedDimension = 20
         inherited tsDetail: TRzTabSheet
           ExplicitWidth = 329
-          ExplicitHeight = 129
-          object JvLabel17: TJvLabel
-            Tag = -1
+          ExplicitHeight = 142
+          object Label1: TLabel
             Left = 19
             Top = 23
-            Width = 78
+            Width = 76
             Height = 14
             Caption = 'Date rejected'
-            Transparent = True
           end
-          object JvLabel18: TJvLabel
-            Tag = -1
+          object Label2: TLabel
             Left = 19
             Top = 51
-            Width = 41
+            Width = 39
             Height = 14
             Caption = 'Reason'
-            Transparent = True
           end
-          object JvLabel24: TJvLabel
-            Tag = -1
+          object Label3: TLabel
             Left = 19
             Top = 78
-            Width = 47
+            Width = 45
             Height = 14
             Caption = 'Remarks'
-            Transparent = True
           end
           object dteDateRejected: TRzDBDateTimeEdit
             Left = 113
@@ -123,13 +117,13 @@ inherited frmLoanRejectionDetail: TfrmLoanRejectionDetail
       Left = 289
       Top = 161
       ExplicitLeft = 289
-      ExplicitTop = 148
+      ExplicitTop = 161
     end
     inherited pnlSave: TRzPanel
       Left = 233
       Top = 161
       ExplicitLeft = 233
-      ExplicitTop = 148
+      ExplicitTop = 161
     end
   end
 end

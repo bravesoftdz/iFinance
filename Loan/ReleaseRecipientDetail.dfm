@@ -24,63 +24,55 @@ inherited frmReleaseRecipientDetail: TfrmReleaseRecipientDetail
     Width = 330
     Height = 224
     ExplicitWidth = 330
-    ExplicitHeight = 200
+    ExplicitHeight = 224
     inherited pnlDetail: TRzPanel
       Width = 314
       Height = 176
       ExplicitWidth = 314
-      ExplicitHeight = 152
+      ExplicitHeight = 176
       inherited pcDetail: TRzPageControl
         Width = 312
         Height = 174
         ExplicitWidth = 312
-        ExplicitHeight = 150
+        ExplicitHeight = 174
         FixedDimension = 20
         inherited tsDetail: TRzTabSheet
           ExplicitWidth = 312
-          ExplicitHeight = 150
-          object JvLabel1: TJvLabel
-            Left = 19
-            Top = 104
-            Width = 44
-            Height = 14
-            Caption = 'Method'
-            Transparent = True
-          end
-          object JvLabel2: TJvLabel
-            Left = 19
-            Top = 131
-            Width = 46
-            Height = 14
-            Caption = 'Amount'
-            Transparent = True
-          end
-          object c: TJvLabel
-            Tag = -1
-            Left = 19
-            Top = 50
-            Width = 52
-            Height = 14
-            Caption = 'Recipient'
-            Transparent = True
-          end
-          object JvLabel17: TJvLabel
-            Tag = -1
+          ExplicitHeight = 174
+          object Label1: TLabel
             Left = 19
             Top = 23
-            Width = 77
+            Width = 75
             Height = 14
             Caption = 'Date released'
-            Transparent = True
           end
-          object JvLabel9: TJvLabel
-            Tag = -1
+          object Label2: TLabel
+            Left = 19
+            Top = 50
+            Width = 50
+            Height = 14
+            Caption = 'Recipient'
+          end
+          object Label3: TLabel
             Left = 19
             Top = 77
-            Width = 39
+            Width = 37
             Height = 14
             Caption = 'Branch'
-            Transparent = True
+          end
+          object Label4: TLabel
+            Left = 19
+            Top = 104
+            Width = 42
+            Height = 14
+            Caption = 'Method'
+          end
+          object Label5: TLabel
+            Left = 19
+            Top = 131
+            Width = 44
+            Height = 14
+            Caption = 'Amount'
           end
           object edAmount: TRzDBNumericEdit
             Left = 107
@@ -189,13 +181,13 @@ inherited frmReleaseRecipientDetail: TfrmReleaseRecipientDetail
       Left = 272
       Top = 193
       ExplicitLeft = 272
-      ExplicitTop = 169
+      ExplicitTop = 193
     end
     inherited pnlSave: TRzPanel
       Left = 216
       Top = 193
       ExplicitLeft = 216
-      ExplicitTop = 169
+      ExplicitTop = 193
     end
   end
 end

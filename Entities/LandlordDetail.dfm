@@ -39,47 +39,43 @@ inherited frmLandlordDetail: TfrmLandlordDetail
           Caption = 'Landlord details'
           ExplicitWidth = 351
           ExplicitHeight = 139
-          object JvLabel1: TJvLabel
+          object Label1: TLabel
             Left = 19
             Top = 23
-            Width = 54
+            Width = 52
             Height = 14
             Caption = 'Lastname'
-            Transparent = True
           end
-          object JvLabel2: TJvLabel
+          object Label2: TLabel
             Left = 19
-            Top = 47
-            Width = 54
+            Top = 50
+            Width = 52
             Height = 14
             Caption = 'Firstname'
-            Transparent = True
           end
-          object JvLabel3: TJvLabel
+          object Label3: TLabel
             Left = 19
-            Top = 71
-            Width = 36
+            Top = 77
+            Width = 34
             Height = 14
             Caption = 'Middle'
-            Transparent = True
           end
-          object JvLabel22: TJvLabel
+          object Label4: TLabel
             Left = 19
-            Top = 95
-            Width = 65
+            Top = 103
+            Width = 82
             Height = 14
-            Caption = 'Cell/tel. no.'
-            Transparent = True
+            Caption = 'Mobile/Tel. no.'
           end
           object edMiddle: TRzDBEdit
             Left = 114
-            Top = 65
+            Top = 71
             Width = 207
             Height = 22
             DataSource = dmEntities.dscLlPersonal
             DataField = 'middlename'
             CharCase = ecUpperCase
-            FrameColor = 8675134
+            FrameColor = 14272955
             FrameVisible = True
             FramingPreference = fpCustomFraming
             TabOnEnter = True
@@ -87,13 +83,13 @@ inherited frmLandlordDetail: TfrmLandlordDetail
           end
           object edFirstname: TRzDBEdit
             Left = 114
-            Top = 41
+            Top = 44
             Width = 207
             Height = 22
             DataSource = dmEntities.dscLlPersonal
             DataField = 'firstname'
             CharCase = ecUpperCase
-            FrameColor = 8675134
+            FrameColor = 14272955
             FrameVisible = True
             FramingPreference = fpCustomFraming
             TabOnEnter = True
@@ -107,7 +103,7 @@ inherited frmLandlordDetail: TfrmLandlordDetail
             DataSource = dmEntities.dscLlPersonal
             DataField = 'lastname'
             CharCase = ecUpperCase
-            FrameColor = 8675134
+            FrameColor = 14272955
             FrameVisible = True
             FramingPreference = fpCustomFraming
             TabOnEnter = True
@@ -115,13 +111,13 @@ inherited frmLandlordDetail: TfrmLandlordDetail
           end
           object RzDBEdit11: TRzDBEdit
             Left = 114
-            Top = 89
-            Width = 102
+            Top = 98
+            Width = 100
             Height = 22
             DataSource = dmEntities.dscLlContact
             DataField = 'mobile_no'
             Ctl3D = True
-            FrameColor = 8675134
+            FrameColor = 14272955
             FrameVisible = True
             FramingPreference = fpCustomFraming
             ParentCtl3D = False
@@ -129,14 +125,14 @@ inherited frmLandlordDetail: TfrmLandlordDetail
             TabOrder = 3
           end
           object RzDBEdit10: TRzDBEdit
-            Left = 219
-            Top = 89
-            Width = 102
+            Left = 221
+            Top = 98
+            Width = 100
             Height = 22
             DataSource = dmEntities.dscLlContact
             DataField = 'home_phone'
             Ctl3D = True
-            FrameColor = 8675134
+            FrameColor = 14272955
             FrameVisible = True
             FramingPreference = fpCustomFraming
             ParentCtl3D = False

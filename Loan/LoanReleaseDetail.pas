@@ -5,8 +5,8 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, BasePopupDetail, Data.DB, Vcl.Grids,
-  Vcl.DBGrids, RzDBGrid, RzDBEdit, Vcl.StdCtrls, Vcl.Mask, RzEdit, JvExControls,
-  JvLabel, RzButton, RzTabs, RzLabel, Vcl.Imaging.pngimage, Vcl.ExtCtrls,
+  Vcl.DBGrids, RzDBGrid, RzDBEdit, Vcl.StdCtrls, Vcl.Mask, RzEdit, RzButton,
+  RzTabs, RzLabel, Vcl.Imaging.pngimage, Vcl.ExtCtrls,
   RzPanel, RzGrids, ReleaseRecipient, LoanCharge, RzRadChk, Math, Vcl.DBCtrls,
   RzDBCmbo, RzCmboBx;
 
@@ -22,22 +22,22 @@ type
     btnAdd: TRzShapeButton;
     grReleaseRecipient: TRzStringGrid;
     grCharges: TRzStringGrid;
-    JvLabel1: TJvLabel;
     urlApprovedAmount: TRzURLLabel;
-    JvLabel14: TJvLabel;
     edReleasedAmount: TRzNumericEdit;
-    JvLabel2: TJvLabel;
-    lblCharges: TJvLabel;
-    JvLabel4: TJvLabel;
-    lblNetProceeds: TJvLabel;
-    JvLabel3: TJvLabel;
-    lblAppliedAmount: TJvLabel;
-    lblAdvancePayment: TJvLabel;
-    JvLabel5: TJvLabel;
-    lblAdvancePaymentMonths: TJvLabel;
     edAdvancePaymentMonths: TRzNumericEdit;
-    JvLabel37: TJvLabel;
     cmbPromissoryNotes: TRzComboBox;
+    Label1: TLabel;
+    Label2: TLabel;
+    Label3: TLabel;
+    Label4: TLabel;
+    Label5: TLabel;
+    Label6: TLabel;
+    lblNetProceeds: TLabel;
+    lblAppliedAmount: TLabel;
+    lblCharges: TLabel;
+    lblAdvancePayment: TLabel;
+    lblAdvancePaymentMonths: TLabel;
+    Label7: TLabel;
     procedure FormShow(Sender: TObject);
     procedure grReleaseRecipientDblClick(Sender: TObject);
     procedure btnAddClick(Sender: TObject);

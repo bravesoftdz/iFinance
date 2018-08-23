@@ -5,27 +5,27 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, BasePopupDetail, Vcl.StdCtrls,
-  Vcl.DBCtrls, RzDBEdit, RzDBCmbo, Vcl.Mask, RzEdit, JvExControls, JvLabel,
-  RzButton, RzTabs, RzLabel, Vcl.Imaging.pngimage, Vcl.ExtCtrls, RzPanel;
+  Vcl.DBCtrls, RzDBEdit, RzDBCmbo, Vcl.Mask, RzEdit, RzButton, RzTabs, RzLabel,
+  Vcl.Imaging.pngimage, Vcl.ExtCtrls, RzPanel;
 
 type
   TfrmLoanAppvDetail = class(TfrmBasePopupDetail)
-    JvLabel8: TJvLabel;
-    JvLabel14: TJvLabel;
-    JvLabel10: TJvLabel;
     edAppvTerm: TRzDBNumericEdit;
     edAppvAmount: TRzDBNumericEdit;
     dteDateApproved: TRzDBDateTimeEdit;
-    JvLabel24: TJvLabel;
-    JvLabel16: TJvLabel;
     dbluAppvMethod: TRzDBLookupComboBox;
     mmRemarks: TRzDBMemo;
-    JvLabel1: TJvLabel;
     urlRecommendedAmount: TRzURLLabel;
-    JvLabel2: TJvLabel;
     urlDesiredTerm: TRzURLLabel;
-    JvLabel3: TJvLabel;
-    lblAppliedAmount: TJvLabel;
+    Label1: TLabel;
+    Label2: TLabel;
+    Label3: TLabel;
+    Label4: TLabel;
+    Label5: TLabel;
+    Label6: TLabel;
+    Label7: TLabel;
+    Label8: TLabel;
+    lblAppliedAmount: TLabel;
     procedure FormCreate(Sender: TObject);
     procedure urlRecommendedAmountClick(Sender: TObject);
     procedure urlDesiredTermClick(Sender: TObject);

@@ -24,14 +24,6 @@ inherited frmConfBox: TfrmConfBox
     Height = 108
     ExplicitWidth = 357
     ExplicitHeight = 108
-    object lblMessage: TJvLabel
-      Left = 59
-      Top = 21
-      Width = 215
-      Height = 14
-      Caption = 'Changes have been saved successfully.'
-      Transparent = True
-    end
     object Image1: TImage
       Left = 21
       Top = 16
@@ -76,6 +68,13 @@ inherited frmConfBox: TfrmConfBox
         323031312D30382D32315431343A31333A30362D30363A30308814F9B8000000
         1974455874536F6674776172650041646F626520496D616765526561647971C9
         653C0000000049454E44AE426082}
+    end
+    object lblMessage: TLabel
+      Left = 59
+      Top = 21
+      Width = 213
+      Height = 14
+      Caption = 'Changes have been saved successfully.'
     end
     object pnlClose: TRzPanel
       Left = 299

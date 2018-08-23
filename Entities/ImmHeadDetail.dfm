@@ -23,45 +23,42 @@ inherited frmImmHeadDetail: TfrmImmHeadDetail
     Width = 370
     Height = 162
     ExplicitWidth = 370
-    ExplicitHeight = 155
+    ExplicitHeight = 162
     inherited pnlDetail: TRzPanel
       Width = 353
       Height = 116
       ExplicitWidth = 353
-      ExplicitHeight = 109
+      ExplicitHeight = 116
       inherited pcDetail: TRzPageControl
         Width = 351
         Height = 114
         ExplicitWidth = 351
-        ExplicitHeight = 107
+        ExplicitHeight = 114
         FixedDimension = 20
         inherited tsDetail: TRzTabSheet
           Caption = 'Immediate head details'
           ExplicitWidth = 351
-          ExplicitHeight = 107
-          object JvLabel1: TJvLabel
-            Left = 19
+          ExplicitHeight = 114
+          object Label1: TLabel
+            Left = 20
             Top = 23
-            Width = 54
+            Width = 52
             Height = 14
             Caption = 'Lastname'
-            Transparent = True
           end
-          object JvLabel2: TJvLabel
-            Left = 19
+          object Label2: TLabel
+            Left = 20
             Top = 50
-            Width = 54
+            Width = 52
             Height = 14
             Caption = 'Firstname'
-            Transparent = True
           end
-          object JvLabel3: TJvLabel
-            Left = 19
+          object Label3: TLabel
+            Left = 20
             Top = 77
-            Width = 36
+            Width = 34
             Height = 14
             Caption = 'Middle'
-            Transparent = True
           end
           object edMiddle: TRzDBEdit
             Left = 114
@@ -112,13 +109,13 @@ inherited frmImmHeadDetail: TfrmImmHeadDetail
       Left = 311
       Top = 132
       ExplicitLeft = 311
-      ExplicitTop = 125
+      ExplicitTop = 132
     end
     inherited pnlSave: TRzPanel
       Left = 255
       Top = 132
       ExplicitLeft = 255
-      ExplicitTop = 125
+      ExplicitTop = 132
     end
   end
 end

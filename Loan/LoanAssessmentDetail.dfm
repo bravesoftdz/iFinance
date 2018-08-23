@@ -25,59 +25,21 @@ inherited frmLoanAssessmentDetail: TfrmLoanAssessmentDetail
     Width = 699
     Height = 372
     ExplicitWidth = 699
-    ExplicitHeight = 360
+    ExplicitHeight = 372
     inherited pnlDetail: TRzPanel
       Width = 682
       Height = 322
       ExplicitWidth = 682
-      ExplicitHeight = 310
+      ExplicitHeight = 322
       inherited pcDetail: TRzPageControl
         Width = 680
         Height = 320
         ExplicitWidth = 680
-        ExplicitHeight = 308
+        ExplicitHeight = 320
         FixedDimension = 20
         inherited tsDetail: TRzTabSheet
           ExplicitWidth = 680
-          ExplicitHeight = 308
-          object JvLabel4: TJvLabel
-            Tag = -1
-            Left = 19
-            Top = 23
-            Width = 79
-            Height = 14
-            Caption = 'Date assessed'
-            Transparent = True
-          end
-          object JvLabel11: TJvLabel
-            Tag = -1
-            Left = 19
-            Top = 77
-            Width = 72
-            Height = 14
-            Caption = 'Rec. amount'
-            Transparent = True
-          end
-          object JvLabel1: TJvLabel
-            Tag = -1
-            Left = 241
-            Top = 50
-            Width = 100
-            Height = 14
-            Caption = 'Applied amount'
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -12
-            Font.Name = 'Tahoma'
-            Font.Style = [fsBold]
-            ParentFont = False
-            Transparent = True
-            HotTrackFont.Charset = DEFAULT_CHARSET
-            HotTrackFont.Color = clWindowText
-            HotTrackFont.Height = -12
-            HotTrackFont.Name = 'Tahoma'
-            HotTrackFont.Style = []
-          end
+          ExplicitHeight = 320
           object urlAppliedAmount: TRzURLLabel
             Tag = 1
             Left = 241
@@ -94,68 +56,81 @@ inherited frmLoanAssessmentDetail: TfrmLoanAssessmentDetail
             ParentFont = False
             OnClick = urlAppliedAmountClick
           end
-          object JvLabel2: TJvLabel
-            Tag = -1
-            Left = 366
+          object Label1: TLabel
+            Left = 20
             Top = 23
-            Width = 47
+            Width = 77
             Height = 14
-            Caption = 'Capacity'
-            Transparent = True
+            Caption = 'Date assessed'
           end
-          object JvLabel3: TJvLabel
-            Tag = -1
-            Left = 366
-            Top = 71
-            Width = 54
-            Height = 14
-            Caption = 'Character'
-            Transparent = True
-          end
-          object JvLabel5: TJvLabel
-            Tag = -1
-            Left = 366
-            Top = 119
-            Width = 37
-            Height = 14
-            Caption = 'Capital'
-            Transparent = True
-          end
-          object JvLabel6: TJvLabel
-            Tag = -1
-            Left = 366
-            Top = 167
-            Width = 58
-            Height = 14
-            Caption = 'Conditions'
-            Transparent = True
-          end
-          object JvLabel7: TJvLabel
-            Tag = -1
-            Left = 366
-            Top = 215
-            Width = 50
-            Height = 14
-            Caption = 'Collateral'
-            Transparent = True
-          end
-          object JvLabel8: TJvLabel
-            Tag = -1
-            Left = 366
-            Top = 263
-            Width = 49
-            Height = 14
-            Caption = 'Comaker'
-            Transparent = True
-          end
-          object JvLabel9: TJvLabel
-            Tag = -1
-            Left = 19
+          object Label2: TLabel
+            Left = 20
             Top = 50
-            Width = 97
+            Width = 95
             Height = 14
             Caption = 'Recommendation'
-            Transparent = True
+          end
+          object Label3: TLabel
+            Left = 19
+            Top = 77
+            Width = 70
+            Height = 14
+            Caption = 'Rec. amount'
+          end
+          object Label4: TLabel
+            Left = 241
+            Top = 50
+            Width = 98
+            Height = 14
+            Caption = 'Applied amount'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -12
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold]
+            ParentFont = False
+          end
+          object Label5: TLabel
+            Left = 366
+            Top = 23
+            Width = 45
+            Height = 14
+            Caption = 'Capacity'
+          end
+          object Label6: TLabel
+            Left = 366
+            Top = 71
+            Width = 52
+            Height = 14
+            Caption = 'Character'
+          end
+          object Label7: TLabel
+            Left = 366
+            Top = 119
+            Width = 35
+            Height = 14
+            Caption = 'Capital'
+          end
+          object Label8: TLabel
+            Left = 366
+            Top = 167
+            Width = 56
+            Height = 14
+            Caption = 'Conditions'
+          end
+          object Label9: TLabel
+            Left = 366
+            Top = 215
+            Width = 48
+            Height = 14
+            Caption = 'Collateral'
+          end
+          object Label10: TLabel
+            Left = 366
+            Top = 263
+            Width = 47
+            Height = 14
+            Caption = 'Comaker'
           end
           object dteDateAssessed: TRzDBDateTimeEdit
             Tag = 3
@@ -219,7 +194,6 @@ inherited frmLoanAssessmentDetail: TfrmLoanAssessmentDetail
             object tsFinInfo: TRzTabSheet
               Color = 15327448
               Caption = 'Financial info'
-              ExplicitHeight = 138
               DesignSize = (
                 323
                 132)
@@ -246,7 +220,6 @@ inherited frmLoanAssessmentDetail: TfrmLoanAssessmentDetail
                 FrameVisible = True
                 FramingPreference = fpCustomFraming
                 FixedLineColor = 14273211
-                ExplicitHeight = 127
                 ColWidths = (
                   60
                   60
@@ -258,7 +231,6 @@ inherited frmLoanAssessmentDetail: TfrmLoanAssessmentDetail
             object tsMonExp: TRzTabSheet
               Color = 15327448
               Caption = 'Monthly expenses'
-              ExplicitHeight = 138
               DesignSize = (
                 323
                 132)
@@ -287,7 +259,6 @@ inherited frmLoanAssessmentDetail: TfrmLoanAssessmentDetail
                 FrameVisible = True
                 FramingPreference = fpCustomFraming
                 FixedLineColor = 14273211
-                ExplicitHeight = 127
                 ColWidths = (
                   60
                   60)
@@ -448,13 +419,13 @@ inherited frmLoanAssessmentDetail: TfrmLoanAssessmentDetail
       Left = 640
       Top = 339
       ExplicitLeft = 640
-      ExplicitTop = 327
+      ExplicitTop = 339
     end
     inherited pnlSave: TRzPanel
       Left = 584
       Top = 339
       ExplicitLeft = 584
-      ExplicitTop = 327
+      ExplicitTop = 339
     end
   end
 end

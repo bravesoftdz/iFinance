@@ -7,37 +7,33 @@ inherited frmAppSettings: TfrmAppSettings
   ExplicitHeight = 506
   PixelsPerInch = 96
   TextHeight = 14
-  object JvLabel1: TJvLabel [0]
+  object Label1: TLabel [0]
     Left = 41
     Top = 82
-    Width = 70
+    Width = 68
     Height = 14
     Caption = 'Branch code'
-    Transparent = True
   end
-  object JvLabel2: TJvLabel [1]
+  object Label2: TLabel [1]
     Left = 41
     Top = 109
-    Width = 73
+    Width = 71
     Height = 14
     Caption = 'Branch prefix'
-    Transparent = True
   end
-  object JvLabel3: TJvLabel [2]
-    Left = 41
-    Top = 299
-    Width = 117
-    Height = 14
-    Caption = 'Maximum no. of days'
-    Transparent = True
-  end
-  object JvLabel4: TJvLabel [3]
+  object Label3: TLabel [2]
     Left = 41
     Top = 203
-    Width = 65
+    Width = 63
     Height = 14
     Caption = 'Cutoff date'
-    Transparent = True
+  end
+  object Label4: TLabel [3]
+    Left = 41
+    Top = 299
+    Width = 115
+    Height = 14
+    Caption = 'Maximum no. of days'
   end
   inherited pnlTitle: TRzPanel
     Width = 803

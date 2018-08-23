@@ -1,10 +1,10 @@
 inherited frmLoanClosureDetail: TfrmLoanClosureDetail
   Caption = 'TfrmBasePopupDetail1'
-  ClientHeight = 196
+  ClientHeight = 205
   ClientWidth = 347
   OnCreate = FormCreate
   ExplicitWidth = 347
-  ExplicitHeight = 196
+  ExplicitHeight = 205
   PixelsPerInch = 96
   TextHeight = 14
   inherited pnlTitle: TRzPanel
@@ -22,49 +22,43 @@ inherited frmLoanClosureDetail: TfrmLoanClosureDetail
   end
   inherited pnlMain: TRzPanel
     Width = 347
-    Height = 175
+    Height = 184
     ExplicitWidth = 347
     ExplicitHeight = 175
     inherited pnlDetail: TRzPanel
       Width = 330
-      Height = 126
+      Height = 135
       ExplicitWidth = 330
       ExplicitHeight = 126
       inherited pcDetail: TRzPageControl
         Width = 328
-        Height = 124
+        Height = 133
         ExplicitWidth = 328
         ExplicitHeight = 124
         FixedDimension = 20
         inherited tsDetail: TRzTabSheet
           ExplicitWidth = 328
           ExplicitHeight = 124
-          object JvLabel17: TJvLabel
-            Tag = -1
+          object Label1: TLabel
             Left = 19
             Top = 23
-            Width = 66
+            Width = 64
             Height = 14
             Caption = 'Date closed'
-            Transparent = True
           end
-          object JvLabel18: TJvLabel
-            Tag = -1
+          object Label2: TLabel
             Left = 19
-            Top = 48
-            Width = 41
+            Top = 51
+            Width = 39
             Height = 14
             Caption = 'Reason'
-            Transparent = True
           end
-          object JvLabel24: TJvLabel
-            Tag = -1
+          object Label3: TLabel
             Left = 19
-            Top = 72
-            Width = 47
+            Top = 78
+            Width = 45
             Height = 14
             Caption = 'Remarks'
-            Transparent = True
           end
           object dteDateClosed: TRzDBDateTimeEdit
             Left = 113
@@ -74,7 +68,7 @@ inherited frmLoanClosureDetail: TfrmLoanClosureDetail
             DataSource = dmLoan.dscLoanClose
             DataField = 'date_closed'
             DisabledColor = clWhite
-            FrameColor = 8675134
+            FrameColor = 14272955
             FrameVisible = True
             FramingPreference = fpCustomFraming
             TabOnEnter = True
@@ -85,7 +79,7 @@ inherited frmLoanClosureDetail: TfrmLoanClosureDetail
           end
           object dbluReason: TRzDBLookupComboBox
             Left = 113
-            Top = 41
+            Top = 44
             Width = 193
             Height = 22
             DataField = 'reason_id'
@@ -96,7 +90,7 @@ inherited frmLoanClosureDetail: TfrmLoanClosureDetail
             TabOrder = 1
             FlatButtons = True
             DisabledColor = clWhite
-            FrameColor = 8675134
+            FrameColor = 14272955
             FrameHotColor = clBlack
             FrameVisible = True
             FramingPreference = fpCustomFraming
@@ -104,13 +98,13 @@ inherited frmLoanClosureDetail: TfrmLoanClosureDetail
           end
           object mmRemarks: TRzDBMemo
             Left = 113
-            Top = 65
+            Top = 71
             Width = 193
             Height = 45
             DataField = 'remarks'
             DataSource = dmLoan.dscLoanClose
             TabOrder = 2
-            FrameColor = 8675134
+            FrameColor = 14272955
             FrameVisible = True
             FramingPreference = fpCustomFraming
             TabOnEnter = True
@@ -120,13 +114,13 @@ inherited frmLoanClosureDetail: TfrmLoanClosureDetail
     end
     inherited pnlCancel: TRzPanel
       Left = 288
-      Top = 143
+      Top = 152
       ExplicitLeft = 288
       ExplicitTop = 143
     end
     inherited pnlSave: TRzPanel
       Left = 232
-      Top = 143
+      Top = 152
       ExplicitLeft = 232
       ExplicitTop = 143
     end

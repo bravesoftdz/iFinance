@@ -4,8 +4,7 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, DecisionBox, RzButton, JvExControls,
-  JvLabel, Vcl.StdCtrls, RzLabel, Vcl.Imaging.pngimage, Vcl.ExtCtrls, RzPanel;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, DecisionBox, RzButton, Vcl.StdCtrls, RzLabel, Vcl.Imaging.pngimage, Vcl.ExtCtrls, RzPanel;
 
 type
   TfrmWarningBox = class(TfrmDecisionBox)

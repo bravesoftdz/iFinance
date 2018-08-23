@@ -6,16 +6,16 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, BasePopupDetail, RzButton, RzTabs,
   Vcl.StdCtrls, RzLabel, Vcl.Imaging.pngimage, Vcl.ExtCtrls, RzPanel,
-  Vcl.DBCtrls, RzDBEdit, RzDBCmbo, Vcl.Mask, RzEdit, JvExControls, JvLabel;
+  Vcl.DBCtrls, RzDBEdit, RzDBCmbo, Vcl.Mask, RzEdit;
 
 type
   TfrmLoanClosureDetail = class(TfrmBasePopupDetail)
-    JvLabel17: TJvLabel;
     dteDateClosed: TRzDBDateTimeEdit;
-    JvLabel18: TJvLabel;
     dbluReason: TRzDBLookupComboBox;
     mmRemarks: TRzDBMemo;
-    JvLabel24: TJvLabel;
+    Label1: TLabel;
+    Label2: TLabel;
+    Label3: TLabel;
     procedure FormCreate(Sender: TObject);
   private
     { Private declarations }

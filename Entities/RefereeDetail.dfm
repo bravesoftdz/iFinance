@@ -23,52 +23,48 @@ inherited frmRefereeDetail: TfrmRefereeDetail
     Width = 370
     Height = 195
     ExplicitWidth = 370
-    ExplicitHeight = 187
+    ExplicitHeight = 195
     inherited pnlDetail: TRzPanel
       Width = 353
       Height = 146
       ExplicitWidth = 353
-      ExplicitHeight = 138
+      ExplicitHeight = 146
       inherited pcDetail: TRzPageControl
         Width = 351
         Height = 144
         ExplicitWidth = 351
-        ExplicitHeight = 136
+        ExplicitHeight = 144
         FixedDimension = 20
         inherited tsDetail: TRzTabSheet
           ExplicitWidth = 351
-          ExplicitHeight = 136
-          object JvLabel1: TJvLabel
+          ExplicitHeight = 144
+          object Label1: TLabel
             Left = 19
             Top = 23
-            Width = 54
+            Width = 52
             Height = 14
             Caption = 'Lastname'
-            Transparent = True
           end
-          object JvLabel2: TJvLabel
+          object Label2: TLabel
             Left = 19
             Top = 50
-            Width = 54
+            Width = 52
             Height = 14
             Caption = 'Firstname'
-            Transparent = True
           end
-          object JvLabel3: TJvLabel
+          object Label3: TLabel
             Left = 19
             Top = 77
-            Width = 36
+            Width = 34
             Height = 14
             Caption = 'Middle'
-            Transparent = True
           end
-          object JvLabel22: TJvLabel
+          object Label4: TLabel
             Left = 19
-            Top = 104
-            Width = 65
+            Top = 103
+            Width = 82
             Height = 14
-            Caption = 'Cell/tel. no.'
-            Transparent = True
+            Caption = 'Mobile/Tel. no.'
           end
           object RzDBEdit11: TRzDBEdit
             Left = 114
@@ -149,13 +145,13 @@ inherited frmRefereeDetail: TfrmRefereeDetail
       Left = 311
       Top = 163
       ExplicitLeft = 311
-      ExplicitTop = 155
+      ExplicitTop = 163
     end
     inherited pnlSave: TRzPanel
       Left = 255
       Top = 163
       ExplicitLeft = 255
-      ExplicitTop = 155
+      ExplicitTop = 163
     end
   end
 end

@@ -4,6 +4,7 @@ inherited frmClientMain: TfrmClientMain
   ClientWidth = 1136
   OnCreate = FormCreate
   OnShow = FormShow
+  ExplicitLeft = -90
   ExplicitWidth = 1152
   ExplicitHeight = 619
   PixelsPerInch = 96
@@ -40,14 +41,14 @@ inherited frmClientMain: TfrmClientMain
     Width = 961
     Height = 552
     Hint = ''
-    ActivePage = tsClientInfo
+    ActivePage = tsIdentityInfo
     Align = alClient
     BoldCurrentTab = True
     UseColoredTabs = True
     FlatColor = 6572079
     ShowFullFrame = False
     ShowShadow = False
-    TabIndex = 0
+    TabIndex = 2
     TabOrder = 1
     TabOrientation = toBottom
     TabStop = False
@@ -56,96 +57,6 @@ inherited frmClientMain: TfrmClientMain
     object tsClientInfo: TRzTabSheet
       Color = 15327448
       Caption = 'Client information'
-      ExplicitWidth = 0
-      ExplicitHeight = 0
-      object JvLabel1: TJvLabel
-        Left = 34
-        Top = 49
-        Width = 54
-        Height = 14
-        Caption = 'Lastname'
-        Transparent = True
-      end
-      object JvLabel2: TJvLabel
-        Left = 34
-        Top = 76
-        Width = 54
-        Height = 14
-        Caption = 'Firstname'
-        Transparent = True
-      end
-      object JvLabel3: TJvLabel
-        Left = 34
-        Top = 103
-        Width = 66
-        Height = 14
-        Caption = 'Middlename'
-        Transparent = True
-      end
-      object JvLabel7: TJvLabel
-        Left = 34
-        Top = 167
-        Width = 52
-        Height = 14
-        Caption = 'Birthdate'
-        Transparent = True
-      end
-      object JvLabel12: TJvLabel
-        Left = 34
-        Top = 194
-        Width = 58
-        Height = 14
-        Caption = 'Civil status'
-        Transparent = True
-      end
-      object JvLabel13: TJvLabel
-        Left = 222
-        Top = 167
-        Width = 24
-        Height = 14
-        Caption = 'Age'
-        Transparent = True
-      end
-      object JvLabel8: TJvLabel
-        Left = 222
-        Top = 192
-        Width = 22
-        Height = 14
-        Caption = 'Sex'
-        Transparent = True
-      end
-      object JvLabel35: TJvLabel
-        Left = 34
-        Top = 221
-        Width = 66
-        Height = 14
-        Caption = 'Referred by'
-        Transparent = True
-      end
-      object JvLabel4: TJvLabel
-        Left = 359
-        Top = 49
-        Width = 37
-        Height = 14
-        Caption = 'Street'
-        Transparent = True
-      end
-      object JvLabel5: TJvLabel
-        Left = 359
-        Top = 76
-        Width = 51
-        Height = 14
-        Caption = 'Barangay'
-        Transparent = True
-      end
-      object JvLabel6: TJvLabel
-        Left = 359
-        Top = 103
-        Width = 70
-        Height = 14
-        Caption = 'City or town'
-        Transparent = True
-      end
       object urlCopyAddress: TRzURLLabel
         Left = 359
         Top = 220
@@ -160,189 +71,243 @@ inherited frmClientMain: TfrmClientMain
         ParentFont = False
         OnClick = urlCopyAddressClick
       end
-      object JvLabel14: TJvLabel
-        Left = 359
-        Top = 130
-        Width = 62
-        Height = 14
-        Caption = 'Res. status'
-        Transparent = True
-      end
-      object JvLabel15: TJvLabel
-        Left = 359
-        Top = 157
-        Width = 48
-        Height = 14
-        Caption = 'Landlord'
-        Transparent = True
-      end
-      object JvLabel16: TJvLabel
-        Left = 359
-        Top = 185
-        Width = 45
-        Height = 14
-        Caption = 'Contact'
-        Transparent = True
-      end
-      object JvLabel9: TJvLabel
-        Left = 359
-        Top = 285
-        Width = 37
-        Height = 14
-        Caption = 'Street'
-        Transparent = True
-      end
-      object JvLabel10: TJvLabel
-        Left = 359
-        Top = 312
-        Width = 51
-        Height = 14
-        Caption = 'Barangay'
-        Transparent = True
-      end
-      object JvLabel11: TJvLabel
-        Left = 359
-        Top = 339
-        Width = 70
-        Height = 14
-        Caption = 'City or town'
-        Transparent = True
-      end
-      object JvLabel17: TJvLabel
-        Left = 359
-        Top = 366
-        Width = 62
-        Height = 14
-        Caption = 'Res. status'
-        Transparent = True
-      end
-      object JvLabel18: TJvLabel
-        Left = 359
-        Top = 393
-        Width = 48
-        Height = 14
-        Caption = 'Landlord'
-        Transparent = True
-      end
-      object JvLabel19: TJvLabel
-        Left = 359
-        Top = 421
-        Width = 45
-        Height = 14
-        Caption = 'Contact'
-        Transparent = True
-      end
-      object JvLabel20: TJvLabel
+      object Label1: TLabel
         Left = 34
-        Top = 285
-        Width = 29
-        Height = 14
-        Caption = 'Email'
-        Transparent = True
-      end
-      object JvLabel21: TJvLabel
-        Left = 34
-        Top = 312
-        Width = 54
-        Height = 14
-        Caption = 'Facebook'
-        Transparent = True
-      end
-      object JvLabel22: TJvLabel
-        Left = 34
-        Top = 339
-        Width = 36
-        Height = 14
-        Caption = 'Mobile'
-        Transparent = True
-      end
-      object JvLabel23: TJvLabel
-        Left = 663
         Top = 49
         Width = 52
         Height = 14
-        Caption = 'Employer'
-        Transparent = True
+        Caption = 'Lastname'
       end
-      object JvLabel24: TJvLabel
-        Left = 663
+      object Label2: TLabel
+        Left = 34
         Top = 76
-        Width = 45
+        Width = 52
         Height = 14
-        Caption = 'Address'
-        Transparent = True
+        Caption = 'Firstname'
       end
-      object JvLabel25: TJvLabel
-        Left = 663
-        Top = 130
-        Width = 67
+      object Label3: TLabel
+        Left = 34
+        Top = 103
+        Width = 34
         Height = 14
-        Caption = 'Emp. status'
-        Transparent = True
+        Caption = 'Middle'
       end
-      object JvLabel26: TJvLabel
-        Left = 663
-        Top = 157
-        Width = 65
+      object Label4: TLabel
+        Left = 34
+        Top = 167
+        Width = 50
         Height = 14
-        Caption = 'Designation'
-        Transparent = True
+        Caption = 'Birthdate'
       end
-      object JvLabel27: TJvLabel
-        Left = 663
-        Top = 185
-        Width = 61
+      object Label5: TLabel
+        Left = 34
+        Top = 192
+        Width = 56
         Height = 14
-        Caption = 'Imm. head'
-        Transparent = True
+        Caption = 'Civil status'
       end
-      object JvLabel28: TJvLabel
-        Left = 663
-        Top = 213
-        Width = 86
+      object Label6: TLabel
+        Left = 34
+        Top = 215
+        Width = 64
         Height = 14
-        Caption = 'Years in service'
-        Transparent = True
+        Caption = 'Referred by'
       end
-      object JvLabel29: TJvLabel
-        Left = 663
-        Top = 240
-        Width = 74
+      object Label7: TLabel
+        Left = 219
+        Top = 167
+        Width = 22
         Height = 14
-        Caption = 'Gross income'
-        Transparent = True
+        Caption = 'Age'
       end
-      object JvLabel30: TJvLabel
-        Left = 663
-        Top = 267
-        Width = 45
+      object Label8: TLabel
+        Left = 219
+        Top = 192
+        Width = 20
         Height = 14
-        Caption = 'Net pay'
-        Transparent = True
+        Caption = 'Sex'
       end
-      object JvLabel31: TJvLabel
-        Left = 663
-        Top = 293
-        Width = 77
+      object Label9: TLabel
+        Left = 34
+        Top = 285
+        Width = 27
         Height = 14
-        Caption = 'Other income'
-        Transparent = True
+        Caption = 'Email'
       end
-      object JvLabel32: TJvLabel
-        Left = 663
-        Top = 422
-        Width = 105
+      object Label10: TLabel
+        Left = 34
+        Top = 312
+        Width = 52
         Height = 14
-        Caption = 'Information source'
-        Transparent = True
+        Caption = 'Facebook'
       end
-      object JvLabel38: TJvLabel
+      object Label11: TLabel
+        Left = 34
+        Top = 339
+        Width = 34
+        Height = 14
+        Caption = 'Mobile'
+      end
+      object Label12: TLabel
         Left = 34
         Top = 366
-        Width = 61
+        Width = 59
         Height = 14
         Caption = 'Telephone'
-        Transparent = True
+      end
+      object Label13: TLabel
+        Left = 359
+        Top = 49
+        Width = 35
+        Height = 14
+        Caption = 'Street'
+      end
+      object Label14: TLabel
+        Left = 359
+        Top = 76
+        Width = 49
+        Height = 14
+        Caption = 'Barangay'
+      end
+      object Label15: TLabel
+        Left = 359
+        Top = 103
+        Width = 68
+        Height = 14
+        Caption = 'City or town'
+      end
+      object Label16: TLabel
+        Left = 359
+        Top = 130
+        Width = 60
+        Height = 14
+        Caption = 'Res. status'
+      end
+      object Label17: TLabel
+        Left = 359
+        Top = 157
+        Width = 46
+        Height = 14
+        Caption = 'Landlord'
+      end
+      object Label18: TLabel
+        Left = 359
+        Top = 185
+        Width = 43
+        Height = 14
+        Caption = 'Contact'
+      end
+      object Label19: TLabel
+        Left = 359
+        Top = 285
+        Width = 35
+        Height = 14
+        Caption = 'Street'
+      end
+      object Label20: TLabel
+        Left = 359
+        Top = 312
+        Width = 49
+        Height = 14
+        Caption = 'Barangay'
+      end
+      object Label21: TLabel
+        Left = 359
+        Top = 339
+        Width = 68
+        Height = 14
+        Caption = 'City or town'
+      end
+      object Label22: TLabel
+        Left = 359
+        Top = 366
+        Width = 60
+        Height = 14
+        Caption = 'Res. status'
+      end
+      object Label23: TLabel
+        Left = 359
+        Top = 393
+        Width = 46
+        Height = 14
+        Caption = 'Landlord'
+      end
+      object Label24: TLabel
+        Left = 359
+        Top = 421
+        Width = 43
+        Height = 14
+        Caption = 'Contact'
+      end
+      object Label25: TLabel
+        Left = 663
+        Top = 49
+        Width = 50
+        Height = 14
+        Caption = 'Employer'
+      end
+      object Label26: TLabel
+        Left = 663
+        Top = 76
+        Width = 43
+        Height = 14
+        Caption = 'Address'
+      end
+      object Label27: TLabel
+        Left = 663
+        Top = 130
+        Width = 65
+        Height = 14
+        Caption = 'Emp. status'
+      end
+      object Label28: TLabel
+        Left = 663
+        Top = 157
+        Width = 63
+        Height = 14
+        Caption = 'Designation'
+      end
+      object Label29: TLabel
+        Left = 663
+        Top = 185
+        Width = 59
+        Height = 14
+        Caption = 'Imm. head'
+      end
+      object Label30: TLabel
+        Left = 663
+        Top = 213
+        Width = 84
+        Height = 14
+        Caption = 'Years in service'
+      end
+      object Label31: TLabel
+        Left = 663
+        Top = 240
+        Width = 52
+        Height = 14
+        Caption = 'Gross pay'
+      end
+      object Label32: TLabel
+        Left = 663
+        Top = 267
+        Width = 43
+        Height = 14
+        Caption = 'Net pay'
+      end
+      object Label33: TLabel
+        Left = 663
+        Top = 294
+        Width = 75
+        Height = 14
+        Caption = 'Other income'
+      end
+      object Label34: TLabel
+        Left = 663
+        Top = 421
+        Width = 103
+        Height = 14
+        Caption = 'Information source'
       end
       object edLastname: TRzDBEdit
         Left = 113
@@ -1172,8 +1137,6 @@ inherited frmClientMain: TfrmClientMain
     object tsReferences: TRzTabSheet
       Color = 15327448
       Caption = 'Family and references'
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       DesignSize = (
         961
         529)
@@ -1281,38 +1244,6 @@ inherited frmClientMain: TfrmClientMain
         DesignSize = (
           276
           517)
-        object JvLabel40: TJvLabel
-          Left = 13
-          Top = 23
-          Width = 54
-          Height = 14
-          Caption = 'Lastname'
-          Transparent = True
-        end
-        object JvLabel41: TJvLabel
-          Left = 13
-          Top = 50
-          Width = 54
-          Height = 14
-          Caption = 'Firstname'
-          Transparent = True
-        end
-        object JvLabel42: TJvLabel
-          Left = 13
-          Top = 77
-          Width = 36
-          Height = 14
-          Caption = 'Middle'
-          Transparent = True
-        end
-        object JvLabel39: TJvLabel
-          Left = 13
-          Top = 104
-          Width = 45
-          Height = 14
-          Caption = 'Relation'
-          Transparent = True
-        end
         object urlCopyClientAddress: TRzURLLabel
           Tag = 1
           Left = 95
@@ -1329,45 +1260,68 @@ inherited frmClientMain: TfrmClientMain
           OnClick = urlCopyClientAddressClick
           FlatColor = 8675134
         end
-        object JvLabel45: TJvLabel
+        object Label35: TLabel
+          Left = 13
+          Top = 23
+          Width = 52
+          Height = 14
+          Caption = 'Lastname'
+        end
+        object Label36: TLabel
+          Left = 13
+          Top = 50
+          Width = 52
+          Height = 14
+          Caption = 'Firstname'
+        end
+        object Label37: TLabel
+          Left = 13
+          Top = 77
+          Width = 34
+          Height = 14
+          Caption = 'Middle'
+        end
+        object Label38: TLabel
+          Left = 13
+          Top = 104
+          Width = 43
+          Height = 14
+          Caption = 'Relation'
+        end
+        object Label39: TLabel
           Left = 13
           Top = 175
-          Width = 70
+          Width = 68
           Height = 14
           Caption = 'City or town'
-          Transparent = True
         end
-        object JvLabel44: TJvLabel
+        object Label40: TLabel
           Left = 13
           Top = 202
-          Width = 51
+          Width = 49
           Height = 14
           Caption = 'Barangay'
-          Transparent = True
         end
-        object JvLabel43: TJvLabel
+        object Label41: TLabel
           Left = 13
           Top = 229
-          Width = 37
+          Width = 35
           Height = 14
           Caption = 'Street'
-          Transparent = True
         end
-        object JvLabel47: TJvLabel
+        object Label42: TLabel
           Left = 13
-          Top = 310
-          Width = 36
-          Height = 14
-          Caption = 'Mobile'
-          Transparent = True
-        end
-        object JvLabel46: TJvLabel
-          Left = 13
-          Top = 283
-          Width = 61
+          Top = 282
+          Width = 59
           Height = 14
           Caption = 'Telephone'
-          Transparent = True
+        end
+        object Label43: TLabel
+          Left = 13
+          Top = 310
+          Width = 34
+          Height = 14
+          Caption = 'Mobile'
         end
         object pnlAddFamRef: TRzPanel
           Left = 8
@@ -1619,8 +1573,6 @@ inherited frmClientMain: TfrmClientMain
     object tsIdentityInfo: TRzTabSheet
       Color = 15327448
       Caption = 'Identity information'
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       DesignSize = (
         961
         529)
@@ -1723,49 +1675,26 @@ inherited frmClientMain: TfrmClientMain
         DesignSize = (
           276
           517)
-        object JvLabel49: TJvLabel
+        object Label44: TLabel
           Left = 13
           Top = 23
-          Width = 30
+          Width = 28
           Height = 14
           Caption = 'Type'
-          Transparent = True
         end
-        object JvLabel50: TJvLabel
+        object Label45: TLabel
           Left = 13
           Top = 50
-          Width = 60
+          Width = 58
           Height = 14
-          Caption = 'ID number'
-          Transparent = True
+          Caption = 'Id Number'
         end
-        object JvLabel51: TJvLabel
+        object Label46: TLabel
           Left = 13
           Top = 77
-          Width = 34
+          Width = 32
           Height = 14
           Caption = 'Expiry'
-          Transparent = True
-        end
-        object JvLabel52: TJvLabel
-          Left = 80
-          Top = 99
-          Width = 123
-          Height = 14
-          Caption = 'ID type has no expiry.'
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = 6572079
-          Font.Height = -12
-          Font.Name = 'Tahoma'
-          Font.Style = []
-          ParentFont = False
-          Transparent = True
-          Visible = False
-          HotTrackFont.Charset = DEFAULT_CHARSET
-          HotTrackFont.Color = clWindowText
-          HotTrackFont.Height = -12
-          HotTrackFont.Name = 'Tahoma'
-          HotTrackFont.Style = []
         end
         object pnlIdentDoc: TRzPanel
           Left = 8
@@ -1881,8 +1810,6 @@ inherited frmClientMain: TfrmClientMain
     object tsLoansHistory: TRzTabSheet
       Color = 15327448
       Caption = 'Loans history'
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       DesignSize = (
         961
         529)
@@ -2026,8 +1953,6 @@ inherited frmClientMain: TfrmClientMain
     object tsGroups: TRzTabSheet
       Color = 15327448
       Caption = 'Groups'
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       DesignSize = (
         961
         529)
@@ -2125,8 +2050,6 @@ inherited frmClientMain: TfrmClientMain
     object tsBankAcctInfo: TRzTabSheet
       Color = 15327448
       Caption = 'Bank account info'
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       DesignSize = (
         961
         529)
@@ -2238,37 +2161,33 @@ inherited frmClientMain: TfrmClientMain
         DesignSize = (
           276
           516)
-        object JvLabel37: TJvLabel
+        object Label47: TLabel
           Left = 13
           Top = 23
-          Width = 28
+          Width = 26
           Height = 14
           Caption = 'Bank'
-          Transparent = True
         end
-        object JvLabel48: TJvLabel
+        object Label48: TLabel
           Left = 13
           Top = 103
-          Width = 94
+          Width = 68
           Height = 14
-          Caption = 'Account number'
-          Transparent = True
+          Caption = 'Account no.'
         end
-        object JvLabel34: TJvLabel
-          Left = 13
-          Top = 157
-          Width = 63
-          Height = 14
-          Caption = 'Expiry date'
-          Transparent = True
-        end
-        object JvLabel33: TJvLabel
+        object Label49: TLabel
           Left = 13
           Top = 130
-          Width = 72
+          Width = 46
           Height = 14
-          Caption = 'Card number'
-          Transparent = True
+          Caption = 'Card no.'
+        end
+        object Label50: TLabel
+          Left = 13
+          Top = 157
+          Width = 61
+          Height = 14
+          Caption = 'Expiry date'
         end
         object RzPanel5: TRzPanel
           Left = 8
@@ -2410,8 +2329,6 @@ inherited frmClientMain: TfrmClientMain
     object tsPromissoryNotes: TRzTabSheet
       Color = 15327448
       Caption = 'Promissory notes'
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       DesignSize = (
         961
         529)
@@ -2499,13 +2416,12 @@ inherited frmClientMain: TfrmClientMain
         DesignSize = (
           276
           516)
-        object JvLabel36: TJvLabel
+        object Label51: TLabel
           Left = 13
           Top = 23
-          Width = 39
+          Width = 37
           Height = 14
           Caption = 'PN no.'
-          Transparent = True
         end
         object RzPanel3: TRzPanel
           Left = 8

@@ -5,9 +5,9 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Menus, Vcl.ExtCtrls, RzPanel,
-  JvPageList, JvNavigationPane, JvExControls, RzButton, System.ImageList,
+  RzButton, System.ImageList,
   Vcl.ImgList, Vcl.ComCtrls, Vcl.ToolWin, AppConstants, Vcl.StdCtrls, RzLabel,
-  JvImageList, RzStatus, StatusIntf, DockIntf, RzLstBox, Client, Vcl.AppEvnts,
+  RzStatus, StatusIntf, DockIntf, RzLstBox, Client, Vcl.AppEvnts,
   ClientListIntf, Generics.Collections, LoanListIntf, Loan, LoanClient, RzTabs,
   Vcl.Imaging.pngimage, System.Actions, Vcl.ActnList, Vcl.Buttons, RzCmboBx;
 
@@ -46,24 +46,6 @@ type
     lblCaption: TRzLabel;
     pnlMain: TRzPanel;
     pnlNavBar: TRzPanel;
-    npMain: TJvNavigationPane;
-    nppClient: TJvNavPanelPage;
-    lblRecentlyAdded: TRzURLLabel;
-    lblActiveClients: TRzURLLabel;
-    lblAllClients: TRzURLLabel;
-    RzLabel1: TRzLabel;
-    lbxRecent: TRzListBox;
-    nppLoans: TJvNavPanelPage;
-    urlCancelled: TRzURLLabel;
-    urlPendingLoans: TRzURLLabel;
-    urlApprovedLoans: TRzURLLabel;
-    urlActiveLoans: TRzURLLabel;
-    urlDenied: TRzURLLabel;
-    urlAssessedLoans: TRzURLLabel;
-    lbxRecentLoans: TRzListBox;
-    nppExpense: TJvNavPanelPage;
-    nppInventory: TJvNavPanelPage;
-    nppReports: TJvNavPanelPage;
     pnlDockMain: TRzPanel;
     mmMain: TMainMenu;
     File1: TMenuItem;
@@ -88,12 +70,6 @@ type
     Payment1: TMenuItem;
     Selectclient2: TMenuItem;
     acAddActiveLoan: TAction;
-    urlPayments: TRzURLLabel;
-    RzGroupBox3: TRzGroupBox;
-    RzGroupBox1: TRzGroupBox;
-    RzGroupBox2: TRzGroupBox;
-    urlWithdrawals: TRzURLLabel;
-    urlClosed: TRzURLLabel;
     imgMinimize: TImage;
     pcMenu: TRzPageControl;
     tsHome: TRzTabSheet;
@@ -133,7 +109,6 @@ type
     imgSecurity: TImage;
     procedure tbAddClientClick(Sender: TObject);
     procedure lblRecentlyAddedClick(Sender: TObject);
-    procedure lbxRecentDblClick(Sender: TObject);
     procedure tbEmployerClick(Sender: TObject);
     procedure tbBanksClick(Sender: TObject);
     procedure tbDesignationListClick(Sender: TObject);
@@ -146,7 +121,6 @@ type
     procedure urlPendingLoansClick(Sender: TObject);
     procedure urlActiveLoansClick(Sender: TObject);
     procedure urlApprovedLoansClick(Sender: TObject);
-    procedure lbxRecentLoansDblClick(Sender: TObject);
     procedure urlDeniedClick(Sender: TObject);
     procedure npMainChange(Sender: TObject);
     procedure tbCompetitorClick(Sender: TObject);
@@ -408,100 +382,6 @@ begin
   OpenClientList(cftRecent);
 end;
 
-procedure TfrmMain.lbxRecentDblClick(Sender: TObject);
-var
-  obj: TObject;
-  intf: IClient;
-  index: integer;
-begin
-  index := lbxRecent.IndexOf(lbxRecent.SelectedItem);
-
-  if index > -1 then
-  begin
-    obj := lbxRecent.Items.Objects[index];
-    if obj is TRecentClient then
-    begin
-      if Assigned(cln) then
-      begin
-        AddRecentClient(cln);
-
-        cln.Destroy;
-
-        cln := TClient.Create;
-
-        cln.Id := TRecentClient(obj).Id;
-        cln.DisplayId := TRecentClient(obj).DisplayId;
-        cln.Name := TRecentClient(obj).Name;
-        cln.Retrieve(true);
-
-        if Supports(pnlDockMain.Controls[0] as TForm,IClient,intf) then
-        begin
-          intf.SetClientName;
-          intf.SetUnboundControls;
-          intf.LoadPhoto;
-          intf.SetLandLordControlsPres;
-          intf.SetLandLordControlsProv;
-        end;
-      end
-      else
-      begin
-        cln := TClient.Create;
-        cln.Id := TRecentClient(obj).Id;
-        cln.DisplayId := TRecentClient(obj).DisplayId;
-        DockForm(fmClientMain);
-      end;
-    end;
-  end;
-end;
-
-procedure TfrmMain.lbxRecentLoansDblClick(Sender: TObject);
-var
-  obj: TObject;
-  intf: ILoan;
-  index: integer;
-begin
-  index := lbxRecentLoans.ItemIndex;
-
-  if index > -1 then
-  begin
-    obj := lbxRecentLoans.Items.Objects[index];
-    if obj is TRecentLoan then
-    begin
-      if Assigned(ln) then
-      begin
-        AddRecentLoan(ln);
-
-        ln.Destroy;
-
-        ln := TLoan.Create;
-
-        ln.Id := TRecentLoan(obj).Id;
-        ln.Client := TRecentLoan(obj).Client;
-        ln.Status := TRecentLoan(obj).Status;
-        ln.Action := laNone;
-        ln.Retrieve(true);
-
-        if Supports(pnlDockMain.Controls[0] as TForm,ILoan,intf) then
-        begin
-          intf.SetLoanHeaderCaption;
-          intf.RefreshDropDownSources;
-          intf.SetUnboundControls;
-          intf.InitForm;
-        end;
-      end
-      else
-      begin
-        ln := TLoan.Create;
-        ln.Id := TRecentLoan(obj).Id;
-        ln.Client := TRecentLoan(obj).Client;
-        ln.Status := TRecentLoan(obj).Status;
-        ln.Action := laNone;
-        DockForm(fmLoanMain);
-      end;
-    end;
-  end;
-end;
-
 procedure TfrmMain.npMainChange(Sender: TObject);
 const
   CLIENTS = 0;
@@ -650,8 +530,6 @@ begin
 
   RecentClients := TObjectList<TRecentClient>.Create;
   RecentLoans := TObjectList<TRecentLoan>.Create;
-
-  npMain.ActivePage := nppClient;
 end;
 
 procedure TfrmMain.FormDestroy(Sender: TObject);
@@ -859,31 +737,8 @@ begin
 end;
 
 procedure TfrmMain.AddRecentClient(ct: TClient);
-var
-  rc: TRecentClient;
 begin
-  if ct.HasId then
-  begin
-    for rc in RecentClients do
-    begin
-      if rc.Id = ct.Id then
-        Exit;
-    end;
 
-    rc := TRecentClient.Create(ct.Id, ct.DisplayId, ct.Name);
-
-    if (RecentClients.Count >= MAX_RECENT_ITEMS)
-        and (lbxRecent.IndexOf(lbxRecent.SelectedItem) > 0) then
-    begin
-      // remove topmost item
-      RecentClients.Remove(RecentClients.Items[0]);
-      lbxRecent.Delete(0);
-    end;
-
-    RecentClients.Add(rc);
-    // lbxRecent.Items.AddObject(rc.Name,rc);
-    cmbRecentItems.Items.AddObject(rc.Name,TObject(rc));
-  end;
 end;
 
 procedure TfrmMain.AddRecentLoan(lln: TLoan);
@@ -907,7 +762,6 @@ begin
     begin
       // remove topmost item
       RecentLoans.Remove(RecentLoans.Items[0]);
-      lbxRecentLoans.Delete(0);
     end;
 
     RecentLoans.Add(ll);

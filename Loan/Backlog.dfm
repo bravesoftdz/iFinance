@@ -39,50 +39,40 @@ inherited frmBacklog: TfrmBacklog
         inherited tsDetail: TRzTabSheet
           ExplicitWidth = 281
           ExplicitHeight = 158
-          object JvLabel5: TJvLabel
-            Tag = -1
+          object Label1: TLabel
             Left = 19
             Top = 20
-            Width = 73
+            Width = 71
             Height = 14
             Caption = 'Loan balance'
-            Transparent = True
           end
-          object JvLabel7: TJvLabel
-            Tag = -1
+          object Label2: TLabel
             Left = 19
             Top = 47
-            Width = 117
+            Width = 115
             Height = 14
             Caption = 'Last transaction date'
-            Transparent = True
           end
-          object JvLabel1: TJvLabel
-            Tag = -1
+          object Label3: TLabel
             Left = 19
-            Top = 73
-            Width = 70
+            Top = 72
+            Width = 68
             Height = 14
             Caption = 'Amortization'
-            Transparent = True
           end
-          object JvLabel2: TJvLabel
-            Tag = -1
+          object Label4: TLabel
             Left = 19
             Top = 99
-            Width = 83
+            Width = 81
             Height = 14
             Caption = 'Interest deficit'
-            Transparent = True
           end
-          object JvLabel3: TJvLabel
-            Tag = -1
+          object Label5: TLabel
             Left = 19
             Top = 125
-            Width = 82
+            Width = 80
             Height = 14
             Caption = 'Principal deficit'
-            Transparent = True
           end
           object edAppAmount: TRzDBNumericEdit
             Tag = 1

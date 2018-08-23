@@ -47,10 +47,9 @@ requires
   JvCore,
   JvStdCtrls,
   JvPageComps,
-  bdertl,
   frce,
-  LockBoxDR,
-  adortl;
+  adortl,
+  LockBoxDR;
 
 contains
   SecurityData in 'SecurityData.pas' {dmSecurity: TDataModule},

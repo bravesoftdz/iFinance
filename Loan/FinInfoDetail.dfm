@@ -25,45 +25,42 @@ inherited frmFinInfoDetail: TfrmFinInfoDetail
     Width = 298
     Height = 166
     ExplicitWidth = 298
-    ExplicitHeight = 162
+    ExplicitHeight = 166
     inherited pnlDetail: TRzPanel
       Width = 281
       Height = 117
       ExplicitWidth = 281
-      ExplicitHeight = 113
+      ExplicitHeight = 117
       inherited pcDetail: TRzPageControl
         Width = 279
         Height = 115
         Anchors = [akLeft, akTop]
         ExplicitWidth = 279
-        ExplicitHeight = 111
+        ExplicitHeight = 115
         FixedDimension = 20
         inherited tsDetail: TRzTabSheet
           ExplicitWidth = 279
-          ExplicitHeight = 111
-          object JvLabel1: TJvLabel
+          ExplicitHeight = 115
+          object Label1: TLabel
             Left = 19
             Top = 23
-            Width = 52
+            Width = 50
             Height = 14
             Caption = 'Company'
-            Transparent = True
           end
-          object JvLabel2: TJvLabel
+          object Label2: TLabel
             Left = 19
             Top = 50
-            Width = 45
-            Height = 14
-            Caption = 'Monthly'
-            Transparent = True
-          end
-          object JvLabel3: TJvLabel
-            Left = 19
-            Top = 77
             Width = 43
             Height = 14
+            Caption = 'Monthly'
+          end
+          object Label3: TLabel
+            Left = 20
+            Top = 77
+            Width = 41
+            Height = 14
             Caption = 'Balance'
-            Transparent = True
           end
           object dbluCompany: TRzDBLookupComboBox
             Tag = 1
@@ -127,13 +124,13 @@ inherited frmFinInfoDetail: TfrmFinInfoDetail
       Left = 239
       Top = 134
       ExplicitLeft = 239
-      ExplicitTop = 130
+      ExplicitTop = 134
     end
     inherited pnlSave: TRzPanel
       Left = 183
       Top = 134
       ExplicitLeft = 183
-      ExplicitTop = 130
+      ExplicitTop = 134
     end
   end
 end

@@ -42,86 +42,6 @@ inherited frmComakerDetail: TfrmComakerDetail
           Caption = 'Comaker details'
           ExplicitWidth = 676
           ExplicitHeight = 360
-          object JvLabel1: TJvLabel
-            Left = 35
-            Top = 42
-            Width = 54
-            Height = 14
-            Caption = 'Lastname'
-            Transparent = True
-          end
-          object JvLabel2: TJvLabel
-            Left = 35
-            Top = 69
-            Width = 54
-            Height = 14
-            Caption = 'Firstname'
-            Transparent = True
-          end
-          object JvLabel3: TJvLabel
-            Left = 35
-            Top = 96
-            Width = 36
-            Height = 14
-            Caption = 'Middle'
-            Transparent = True
-          end
-          object JvLabel7: TJvLabel
-            Left = 35
-            Top = 156
-            Width = 52
-            Height = 14
-            Caption = 'Birthdate'
-            Transparent = True
-          end
-          object JvLabel12: TJvLabel
-            Left = 35
-            Top = 183
-            Width = 58
-            Height = 14
-            Caption = 'Civil status'
-            Transparent = True
-          end
-          object JvLabel8: TJvLabel
-            Left = 223
-            Top = 183
-            Width = 22
-            Height = 14
-            Caption = 'Sex'
-            Transparent = True
-          end
-          object JvLabel22: TJvLabel
-            Left = 359
-            Top = 42
-            Width = 68
-            Height = 14
-            Caption = 'Cell/Tel. no.'
-            Transparent = True
-          end
-          object JvLabel4: TJvLabel
-            Left = 359
-            Top = 107
-            Width = 37
-            Height = 14
-            Caption = 'Street'
-            Transparent = True
-          end
-          object JvLabel5: TJvLabel
-            Left = 359
-            Top = 134
-            Width = 51
-            Height = 14
-            Caption = 'Barangay'
-            Transparent = True
-          end
-          object JvLabel6: TJvLabel
-            Left = 359
-            Top = 161
-            Width = 70
-            Height = 14
-            Caption = 'City or town'
-            Transparent = True
-          end
           object urlCopyAddress: TRzURLLabel
             Left = 359
             Top = 188
@@ -136,53 +56,117 @@ inherited frmComakerDetail: TfrmComakerDetail
             ParentFont = False
             OnClick = urlCopyAddressClick
           end
-          object JvLabel9: TJvLabel
-            Left = 359
-            Top = 241
-            Width = 37
-            Height = 14
-            Caption = 'Street'
-            Transparent = True
-          end
-          object JvLabel10: TJvLabel
-            Left = 359
-            Top = 268
-            Width = 51
-            Height = 14
-            Caption = 'Barangay'
-            Transparent = True
-          end
-          object JvLabel11: TJvLabel
-            Left = 359
-            Top = 295
-            Width = 70
-            Height = 14
-            Caption = 'City or town'
-            Transparent = True
-          end
-          object JvLabel23: TJvLabel
-            Left = 39
-            Top = 241
+          object Label1: TLabel
+            Left = 35
+            Top = 42
             Width = 52
             Height = 14
-            Caption = 'Employer'
-            Transparent = True
+            Caption = 'Lastname'
           end
-          object JvLabel24: TJvLabel
+          object Label2: TLabel
+            Left = 35
+            Top = 69
+            Width = 52
+            Height = 14
+            Caption = 'Firstname'
+          end
+          object Label3: TLabel
+            Left = 35
+            Top = 96
+            Width = 34
+            Height = 14
+            Caption = 'Middle'
+          end
+          object Label4: TLabel
+            Left = 35
+            Top = 156
+            Width = 50
+            Height = 14
+            Caption = 'Birthdate'
+          end
+          object Label5: TLabel
+            Left = 35
+            Top = 183
+            Width = 56
+            Height = 14
+            Caption = 'Civil status'
+          end
+          object Label6: TLabel
+            Left = 223
+            Top = 183
+            Width = 20
+            Height = 14
+            Caption = 'Sex'
+          end
+          object Label7: TLabel
+            Left = 39
+            Top = 241
+            Width = 50
+            Height = 14
+            Caption = 'Employer'
+          end
+          object Label8: TLabel
             Left = 39
             Top = 268
-            Width = 45
+            Width = 43
             Height = 14
             Caption = 'Address'
-            Transparent = True
           end
-          object JvLabel28: TJvLabel
+          object Label9: TLabel
             Left = 39
             Top = 322
-            Width = 73
+            Width = 71
             Height = 14
             Caption = 'Service years'
-            Transparent = True
+          end
+          object Label10: TLabel
+            Left = 359
+            Top = 42
+            Width = 82
+            Height = 14
+            Caption = 'Mobile/Tel. no.'
+          end
+          object Label11: TLabel
+            Left = 359
+            Top = 107
+            Width = 35
+            Height = 14
+            Caption = 'Street'
+          end
+          object Label12: TLabel
+            Left = 359
+            Top = 134
+            Width = 49
+            Height = 14
+            Caption = 'Barangay'
+          end
+          object Label13: TLabel
+            Left = 359
+            Top = 161
+            Width = 68
+            Height = 14
+            Caption = 'City or town'
+          end
+          object Label14: TLabel
+            Left = 359
+            Top = 241
+            Width = 35
+            Height = 14
+            Caption = 'Street'
+          end
+          object Label15: TLabel
+            Left = 359
+            Top = 268
+            Width = 49
+            Height = 14
+            Caption = 'Barangay'
+          end
+          object Label16: TLabel
+            Left = 359
+            Top = 295
+            Width = 68
+            Height = 14
+            Caption = 'City or town'
           end
           object edMiddlename: TRzDBEdit
             Left = 114

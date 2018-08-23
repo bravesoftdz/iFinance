@@ -6,16 +6,16 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, BasePopupDetail, RzButton, RzTabs,
   Vcl.StdCtrls, RzLabel, Vcl.Imaging.pngimage, Vcl.ExtCtrls, RzPanel, Vcl.Mask,
-  RzEdit, RzDBEdit, JvExControls, JvLabel;
+  RzEdit, RzDBEdit;
 
 type
   TfrmImmHeadDetail = class(TfrmBasePopupDetail)
-    JvLabel1: TJvLabel;
-    JvLabel2: TJvLabel;
-    JvLabel3: TJvLabel;
     edMiddle: TRzDBEdit;
     edFirstname: TRzDBEdit;
     edLastname: TRzDBEdit;
+    Label1: TLabel;
+    Label2: TLabel;
+    Label3: TLabel;
   private
     { Private declarations }
   protected

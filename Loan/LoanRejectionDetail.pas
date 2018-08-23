@@ -5,17 +5,17 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, BasePopupDetail, Vcl.StdCtrls, Vcl.Mask,
-  RzEdit, RzDBEdit, Vcl.DBCtrls, RzDBCmbo, JvExControls, JvLabel, RzButton,
-  RzTabs, RzLabel, Vcl.Imaging.pngimage, Vcl.ExtCtrls, RzPanel;
+  RzEdit, RzDBEdit, Vcl.DBCtrls, RzDBCmbo, RzButton, RzTabs, RzLabel,
+  Vcl.Imaging.pngimage, Vcl.ExtCtrls, RzPanel;
 
 type
   TfrmLoanRejectionDetail = class(TfrmBasePopupDetail)
-    JvLabel17: TJvLabel;
     dteDateRejected: TRzDBDateTimeEdit;
     dbluReason: TRzDBLookupComboBox;
-    JvLabel18: TJvLabel;
-    JvLabel24: TJvLabel;
     mmRemarks: TRzDBMemo;
+    Label1: TLabel;
+    Label2: TLabel;
+    Label3: TLabel;
     procedure FormCreate(Sender: TObject);
   private
     { Private declarations }
@@ -27,9 +27,6 @@ type
     procedure BindToObject; override;
     function ValidEntry: boolean; override;
   end;
-
-var
-  frmLoanRejectionDetail: TfrmLoanRejectionDetail;
 
 implementation
 

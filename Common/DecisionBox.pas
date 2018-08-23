@@ -4,17 +4,16 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, BasePopup, RzButton, JvExControls,
-  JvLabel, Vcl.StdCtrls, RzLabel, Vcl.Imaging.pngimage, Vcl.ExtCtrls, RzPanel;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, BasePopup, RzButton, Vcl.StdCtrls, RzLabel, Vcl.Imaging.pngimage, Vcl.ExtCtrls, RzPanel;
 
 type
   TfrmDecisionBox = class(TfrmBasePopup)
-    lblMessage: TJvLabel;
     Image1: TImage;
     pnlNo: TRzPanel;
     btnNo: TRzShapeButton;
     pnlYes: TRzPanel;
     btnYes: TRzShapeButton;
+    lblMessage: TLabel;
     procedure btnNoClick(Sender: TObject);
     procedure btnYesClick(Sender: TObject);
   private

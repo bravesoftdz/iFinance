@@ -5,17 +5,17 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, BasePopupDetail, Vcl.StdCtrls, Vcl.Mask,
-  RzEdit, RzDBEdit, Vcl.DBCtrls, RzDBCmbo, JvExControls, JvLabel, RzButton,
+  RzEdit, RzDBEdit, Vcl.DBCtrls, RzDBCmbo, RzButton,
   RzTabs, RzLabel, Vcl.Imaging.pngimage, Vcl.ExtCtrls, RzPanel, DB;
 
 type
   TfrmFinInfoDetail = class(TfrmBasePopupDetail)
-    JvLabel1: TJvLabel;
-    JvLabel2: TJvLabel;
     dbluCompany: TRzDBLookupComboBox;
     edMonthly: TRzDBNumericEdit;
-    JvLabel3: TJvLabel;
     edBalance: TRzDBNumericEdit;
+    Label1: TLabel;
+    Label2: TLabel;
+    Label3: TLabel;
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
   private

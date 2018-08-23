@@ -8,184 +8,38 @@ inherited frmPaymentMain: TfrmPaymentMain
   ExplicitHeight = 421
   PixelsPerInch = 96
   TextHeight = 14
-  object c: TJvLabel [0]
-    Tag = -1
-    Left = 310
+  object Label1: TLabel [0]
+    Left = 23
     Top = 59
-    Width = 32
-    Height = 14
-    Caption = 'Client'
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -12
-    Font.Name = 'Tahoma'
-    Font.Style = []
-    ParentFont = False
-    Transparent = True
-  end
-  object JvLabel7: TJvLabel [1]
-    Left = 22
-    Top = 59
-    Width = 28
+    Width = 26
     Height = 14
     Caption = 'Date'
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -12
-    Font.Name = 'Tahoma'
-    Font.Style = []
-    ParentFont = False
-    Transparent = True
   end
-  object JvLabel1: TJvLabel [2]
-    Left = 22
+  object Label2: TLabel [1]
+    Left = 23
     Top = 89
-    Width = 65
+    Width = 63
     Height = 14
     Caption = 'Receipt no.'
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -12
-    Font.Name = 'Tahoma'
-    Font.Style = []
-    ParentFont = False
-    Transparent = True
   end
-  object lblTotalAmount: TJvLabel [3]
-    Tag = -1
-    Left = 876
-    Top = 280
-    Width = 6
+  object Label3: TLabel [2]
+    Left = 310
+    Top = 59
+    Width = 30
     Height = 14
-    Alignment = taRightJustify
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clBlack
-    Font.Height = -12
-    Font.Name = 'Tahoma'
-    Font.Style = [fsBold]
-    Anchors = [akRight, akBottom]
-    ParentFont = False
-    Transparent = True
-    HotTrackFont.Charset = DEFAULT_CHARSET
-    HotTrackFont.Color = clWindowText
-    HotTrackFont.Height = -12
-    HotTrackFont.Name = 'Tahoma'
-    HotTrackFont.Style = []
+    Caption = 'Client'
   end
-  object JvLabel2: TJvLabel [4]
-    Left = 23
-    Top = 360
-    Width = 91
-    Height = 14
-    Caption = 'Reference no.:'
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -12
-    Font.Name = 'Tahoma'
-    Font.Style = [fsBold]
-    Anchors = [akLeft, akBottom]
-    ParentFont = False
-    Transparent = True
-    Visible = False
-    HotTrackFont.Charset = DEFAULT_CHARSET
-    HotTrackFont.Color = clWindowText
-    HotTrackFont.Height = -12
-    HotTrackFont.Name = 'Tahoma'
-    HotTrackFont.Style = []
-    ExplicitTop = 372
-  end
-  object lblReferenceNo: TJvLabel [5]
-    Left = 119
-    Top = 360
-    Width = 6
-    Height = 14
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -12
-    Font.Name = 'Tahoma'
-    Font.Style = []
-    Anchors = [akLeft, akBottom]
-    ParentFont = False
-    Transparent = True
-    Visible = False
-    ExplicitTop = 372
-  end
-  object JvLabel4: TJvLabel [6]
-    Left = 264
-    Top = 360
-    Width = 49
-    Height = 14
-    Caption = 'Posted:'
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -12
-    Font.Name = 'Tahoma'
-    Font.Style = [fsBold]
-    Anchors = [akLeft, akBottom]
-    ParentFont = False
-    Transparent = True
-    Visible = False
-    HotTrackFont.Charset = DEFAULT_CHARSET
-    HotTrackFont.Color = clWindowText
-    HotTrackFont.Height = -12
-    HotTrackFont.Name = 'Tahoma'
-    HotTrackFont.Style = []
-    ExplicitTop = 372
-  end
-  object lblPosted: TJvLabel [7]
-    Left = 322
-    Top = 360
-    Width = 6
-    Height = 14
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -12
-    Font.Name = 'Tahoma'
-    Font.Style = []
-    Anchors = [akLeft, akBottom]
-    ParentFont = False
-    Transparent = True
-    Visible = False
-    ExplicitTop = 372
-  end
-  object JvLabel3: TJvLabel [8]
+  object Label4: TLabel [3]
     Left = 310
     Top = 89
-    Width = 44
+    Width = 42
     Height = 14
     Caption = 'Method'
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -12
-    Font.Name = 'Tahoma'
-    Font.Style = []
-    ParentFont = False
-    Transparent = True
   end
-  object lblWithdrawn: TJvLabel [9]
-    Tag = -1
-    Left = 435
-    Top = 281
-    Width = 6
-    Height = 14
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clBlack
-    Font.Height = -12
-    Font.Name = 'Tahoma'
-    Font.Style = [fsBold]
-    Anchors = [akRight, akBottom]
-    ParentFont = False
-    Transparent = True
-    HotTrackFont.Charset = DEFAULT_CHARSET
-    HotTrackFont.Color = clWindowText
-    HotTrackFont.Height = -12
-    HotTrackFont.Name = 'Tahoma'
-    HotTrackFont.Style = []
-  end
-  object lblAdvancePayment: TJvLabel [10]
-    Left = 549
+  object lblAdvancePayment: TLabel [4]
+    Left = 550
     Top = 91
-    Width = 157
+    Width = 155
     Height = 14
     Caption = 'This is an advance payment.'
     Font.Charset = DEFAULT_CHARSET
@@ -194,34 +48,85 @@ inherited frmPaymentMain: TfrmPaymentMain
     Font.Name = 'Tahoma'
     Font.Style = []
     ParentFont = False
-    Transparent = True
     Visible = False
-    HotTrackFont.Charset = DEFAULT_CHARSET
-    HotTrackFont.Color = clWindowText
-    HotTrackFont.Height = -12
-    HotTrackFont.Name = 'Tahoma'
-    HotTrackFont.Style = []
   end
-  object lblChange: TJvLabel [11]
-    Tag = -1
-    Left = 435
-    Top = 312
-    Width = 6
+  object Label5: TLabel [5]
+    Left = 23
+    Top = 360
+    Width = 89
     Height = 14
+    Caption = 'Reference no.:'
     Font.Charset = DEFAULT_CHARSET
-    Font.Color = clBlack
+    Font.Color = clWindowText
     Font.Height = -12
     Font.Name = 'Tahoma'
     Font.Style = [fsBold]
-    Anchors = [akRight, akBottom]
     ParentFont = False
-    Transparent = True
-    Visible = False
-    HotTrackFont.Charset = DEFAULT_CHARSET
-    HotTrackFont.Color = clWindowText
-    HotTrackFont.Height = -12
-    HotTrackFont.Name = 'Tahoma'
-    HotTrackFont.Style = []
+  end
+  object Label6: TLabel [6]
+    Left = 265
+    Top = 360
+    Width = 47
+    Height = 14
+    Caption = 'Posted:'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -12
+    Font.Name = 'Tahoma'
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object lblReferenceNo: TLabel [7]
+    Left = 126
+    Top = 360
+    Width = 4
+    Height = 14
+  end
+  object lblPosted: TLabel [8]
+    Left = 326
+    Top = 360
+    Width = 4
+    Height = 14
+  end
+  object lblWithdrawn: TLabel [9]
+    Left = 435
+    Top = 280
+    Width = 4
+    Height = 14
+    Anchors = [akRight, akBottom]
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -12
+    Font.Name = 'Tahoma'
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object lblTotalAmount: TLabel [10]
+    Left = 877
+    Top = 280
+    Width = 4
+    Height = 14
+    Alignment = taRightJustify
+    Anchors = [akRight, akBottom]
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -12
+    Font.Name = 'Tahoma'
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object lblChange: TLabel [11]
+    Left = 435
+    Top = 312
+    Width = 4
+    Height = 14
+    Anchors = [akRight, akBottom]
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -12
+    Font.Name = 'Tahoma'
+    Font.Style = [fsBold]
+    ParentFont = False
   end
   inherited pnlTitle: TRzPanel
     Width = 906

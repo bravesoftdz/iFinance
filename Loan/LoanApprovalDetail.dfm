@@ -39,71 +39,6 @@ inherited frmLoanAppvDetail: TfrmLoanAppvDetail
         inherited tsDetail: TRzTabSheet
           ExplicitWidth = 424
           ExplicitHeight = 214
-          object JvLabel8: TJvLabel
-            Tag = -1
-            Left = 19
-            Top = 23
-            Width = 83
-            Height = 14
-            Caption = 'Date approved'
-            Transparent = True
-          end
-          object JvLabel14: TJvLabel
-            Tag = -1
-            Left = 19
-            Top = 50
-            Width = 101
-            Height = 14
-            Caption = 'Approved amount'
-            Transparent = True
-          end
-          object JvLabel10: TJvLabel
-            Tag = -1
-            Left = 19
-            Top = 77
-            Width = 85
-            Height = 14
-            Caption = 'Approved term'
-            Transparent = True
-          end
-          object JvLabel24: TJvLabel
-            Tag = -1
-            Left = 19
-            Top = 131
-            Width = 47
-            Height = 14
-            Caption = 'Remarks'
-            Transparent = True
-          end
-          object JvLabel16: TJvLabel
-            Tag = -1
-            Left = 19
-            Top = 104
-            Width = 96
-            Height = 14
-            Caption = 'Approval method'
-            Transparent = True
-          end
-          object JvLabel1: TJvLabel
-            Tag = -1
-            Left = 217
-            Top = 50
-            Width = 84
-            Height = 14
-            Caption = 'Rec. amount:'
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -12
-            Font.Name = 'Tahoma'
-            Font.Style = [fsBold]
-            ParentFont = False
-            Transparent = True
-            HotTrackFont.Charset = DEFAULT_CHARSET
-            HotTrackFont.Color = clWindowText
-            HotTrackFont.Height = -12
-            HotTrackFont.Name = 'Tahoma'
-            HotTrackFont.Style = []
-          end
           object urlRecommendedAmount: TRzURLLabel
             Tag = 1
             Left = 311
@@ -118,26 +53,6 @@ inherited frmLoanAppvDetail: TfrmLoanAppvDetail
             Font.Style = [fsUnderline]
             ParentFont = False
             OnClick = urlRecommendedAmountClick
-          end
-          object JvLabel2: TJvLabel
-            Tag = -1
-            Left = 217
-            Top = 77
-            Width = 84
-            Height = 14
-            Caption = 'Desired term:'
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -12
-            Font.Name = 'Tahoma'
-            Font.Style = [fsBold]
-            ParentFont = False
-            Transparent = True
-            HotTrackFont.Charset = DEFAULT_CHARSET
-            HotTrackFont.Color = clWindowText
-            HotTrackFont.Height = -12
-            HotTrackFont.Name = 'Tahoma'
-            HotTrackFont.Style = []
           end
           object urlDesiredTerm: TRzURLLabel
             Tag = 1
@@ -154,11 +69,45 @@ inherited frmLoanAppvDetail: TfrmLoanAppvDetail
             ParentFont = False
             OnClick = urlDesiredTermClick
           end
-          object JvLabel3: TJvLabel
-            Tag = -1
+          object Label1: TLabel
+            Left = 19
+            Top = 23
+            Width = 81
+            Height = 14
+            Caption = 'Date approved'
+          end
+          object Label2: TLabel
+            Left = 19
+            Top = 50
+            Width = 99
+            Height = 14
+            Caption = 'Approved amount'
+          end
+          object Label3: TLabel
+            Left = 19
+            Top = 77
+            Width = 83
+            Height = 14
+            Caption = 'Approved term'
+          end
+          object Label4: TLabel
+            Left = 19
+            Top = 104
+            Width = 94
+            Height = 14
+            Caption = 'Approval method'
+          end
+          object Label5: TLabel
+            Left = 19
+            Top = 131
+            Width = 45
+            Height = 14
+            Caption = 'Remarks'
+          end
+          object Label6: TLabel
             Left = 217
             Top = 23
-            Width = 104
+            Width = 102
             Height = 14
             Caption = 'Applied amount:'
             Font.Charset = DEFAULT_CHARSET
@@ -167,21 +116,39 @@ inherited frmLoanAppvDetail: TfrmLoanAppvDetail
             Font.Name = 'Tahoma'
             Font.Style = [fsBold]
             ParentFont = False
-            Transparent = True
-            HotTrackFont.Charset = DEFAULT_CHARSET
-            HotTrackFont.Color = clWindowText
-            HotTrackFont.Height = -12
-            HotTrackFont.Name = 'Tahoma'
-            HotTrackFont.Style = []
           end
-          object lblAppliedAmount: TJvLabel
-            Tag = -1
+          object Label7: TLabel
+            Left = 217
+            Top = 50
+            Width = 82
+            Height = 14
+            Caption = 'Rec. amount:'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -12
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold]
+            ParentFont = False
+          end
+          object Label8: TLabel
+            Left = 217
+            Top = 77
+            Width = 82
+            Height = 14
+            Caption = 'Desired term:'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -12
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold]
+            ParentFont = False
+          end
+          object lblAppliedAmount: TLabel
             Left = 335
             Top = 23
-            Width = 27
+            Width = 25
             Height = 14
             Caption = '0.00'
-            Transparent = True
           end
           object edAppvTerm: TRzDBNumericEdit
             Tag = 5

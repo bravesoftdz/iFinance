@@ -62,26 +62,6 @@ inherited frmLoanReleaseDetail: TfrmLoanReleaseDetail
             OnClick = urlReleaseToClientClick
             ExplicitTop = 241
           end
-          object JvLabel1: TJvLabel
-            Tag = -1
-            Left = 248
-            Top = 47
-            Width = 118
-            Height = 14
-            Caption = 'Approved amount:'
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -12
-            Font.Name = 'Tahoma'
-            Font.Style = [fsBold]
-            ParentFont = False
-            Transparent = True
-            HotTrackFont.Charset = DEFAULT_CHARSET
-            HotTrackFont.Color = clWindowText
-            HotTrackFont.Height = -12
-            HotTrackFont.Name = 'Tahoma'
-            HotTrackFont.Style = []
-          end
           object urlApprovedAmount: TRzURLLabel
             Tag = 1
             Left = 382
@@ -97,78 +77,24 @@ inherited frmLoanReleaseDetail: TfrmLoanReleaseDetail
             ParentFont = False
             OnClick = urlApprovedAmountClick
           end
-          object JvLabel14: TJvLabel
-            Tag = -1
+          object Label1: TLabel
             Left = 19
             Top = 23
-            Width = 89
+            Width = 87
             Height = 14
             Caption = 'Release amount'
-            Transparent = True
           end
-          object JvLabel2: TJvLabel
-            Tag = -1
-            Left = 248
-            Top = 71
-            Width = 55
+          object Label2: TLabel
+            Left = 20
+            Top = 50
+            Width = 87
             Height = 14
-            Caption = 'Charges:'
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -12
-            Font.Name = 'Tahoma'
-            Font.Style = [fsBold]
-            ParentFont = False
-            Transparent = True
-            HotTrackFont.Charset = DEFAULT_CHARSET
-            HotTrackFont.Color = clWindowText
-            HotTrackFont.Height = -12
-            HotTrackFont.Name = 'Tahoma'
-            HotTrackFont.Style = []
+            Caption = 'Promissory note'
           end
-          object lblCharges: TJvLabel
-            Tag = -1
-            Left = 382
-            Top = 71
-            Width = 27
-            Height = 14
-            Caption = '0.00'
-            Transparent = True
-          end
-          object JvLabel4: TJvLabel
-            Tag = -1
-            Left = 22
-            Top = 96
-            Width = 86
-            Height = 14
-            Caption = 'Net proceeds:'
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -12
-            Font.Name = 'Tahoma'
-            Font.Style = [fsBold]
-            ParentFont = False
-            Transparent = True
-            HotTrackFont.Charset = DEFAULT_CHARSET
-            HotTrackFont.Color = clWindowText
-            HotTrackFont.Height = -12
-            HotTrackFont.Name = 'Tahoma'
-            HotTrackFont.Style = []
-          end
-          object lblNetProceeds: TJvLabel
-            Tag = -1
-            Left = 132
-            Top = 96
-            Width = 27
-            Height = 14
-            Caption = '0.00'
-            Transparent = True
-          end
-          object JvLabel3: TJvLabel
-            Tag = -1
+          object Label3: TLabel
             Left = 248
             Top = 23
-            Width = 104
+            Width = 102
             Height = 14
             Caption = 'Applied amount:'
             Font.Charset = DEFAULT_CHARSET
@@ -177,36 +103,37 @@ inherited frmLoanReleaseDetail: TfrmLoanReleaseDetail
             Font.Name = 'Tahoma'
             Font.Style = [fsBold]
             ParentFont = False
-            Transparent = True
-            HotTrackFont.Charset = DEFAULT_CHARSET
-            HotTrackFont.Color = clWindowText
-            HotTrackFont.Height = -12
-            HotTrackFont.Name = 'Tahoma'
-            HotTrackFont.Style = []
           end
-          object lblAppliedAmount: TJvLabel
-            Tag = -1
-            Left = 382
-            Top = 23
-            Width = 27
+          object Label4: TLabel
+            Left = 248
+            Top = 47
+            Width = 116
             Height = 14
-            Caption = '0.00'
-            Transparent = True
+            Caption = 'Approved amount:'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -12
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold]
+            ParentFont = False
           end
-          object lblAdvancePayment: TJvLabel
-            Tag = -1
-            Left = 420
-            Top = 96
-            Width = 27
+          object Label5: TLabel
+            Left = 248
+            Top = 71
+            Width = 53
             Height = 14
-            Caption = '0.00'
-            Transparent = True
+            Caption = 'Charges:'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -12
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold]
+            ParentFont = False
           end
-          object JvLabel5: TJvLabel
-            Tag = -1
+          object Label6: TLabel
             Left = 248
             Top = 96
-            Width = 116
+            Width = 114
             Height = 14
             Caption = 'Advance payment:'
             Font.Charset = DEFAULT_CHARSET
@@ -215,39 +142,53 @@ inherited frmLoanReleaseDetail: TfrmLoanReleaseDetail
             Font.Name = 'Tahoma'
             Font.Style = [fsBold]
             ParentFont = False
-            Transparent = True
-            HotTrackFont.Charset = DEFAULT_CHARSET
-            HotTrackFont.Color = clWindowText
-            HotTrackFont.Height = -12
-            HotTrackFont.Name = 'Tahoma'
-            HotTrackFont.Style = []
           end
-          object lblAdvancePaymentMonths: TJvLabel
-            Tag = -1
+          object lblNetProceeds: TLabel
+            Left = 132
+            Top = 96
+            Width = 25
+            Height = 14
+            Caption = '0.00'
+          end
+          object lblAppliedAmount: TLabel
+            Left = 382
+            Top = 23
+            Width = 25
+            Height = 13
+            Caption = '0.00'
+          end
+          object lblCharges: TLabel
+            Left = 382
+            Top = 71
+            Width = 25
+            Height = 14
+            Caption = '0.00'
+          end
+          object lblAdvancePayment: TLabel
+            Left = 420
+            Top = 96
+            Width = 25
+            Height = 14
+            Caption = '0.00'
+          end
+          object lblAdvancePaymentMonths: TLabel
             Left = 248
             Top = 120
-            Width = 6
+            Width = 4
             Height = 14
+          end
+          object Label7: TLabel
+            Left = 19
+            Top = 96
+            Width = 84
+            Height = 14
+            Caption = 'Net proceeds:'
             Font.Charset = DEFAULT_CHARSET
-            Font.Color = clMaroon
+            Font.Color = clWindowText
             Font.Height = -12
             Font.Name = 'Tahoma'
-            Font.Style = []
+            Font.Style = [fsBold]
             ParentFont = False
-            Transparent = True
-            HotTrackFont.Charset = DEFAULT_CHARSET
-            HotTrackFont.Color = clWindowText
-            HotTrackFont.Height = -12
-            HotTrackFont.Name = 'Tahoma'
-            HotTrackFont.Style = []
-          end
-          object JvLabel37: TJvLabel
-            Left = 19
-            Top = 50
-            Width = 89
-            Height = 14
-            Caption = 'Promissory note'
-            Transparent = True
           end
           object pcAssessment: TRzPageControl
             Tag = 3

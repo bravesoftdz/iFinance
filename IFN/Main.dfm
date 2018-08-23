@@ -4,7 +4,7 @@ object frmMain: TfrmMain
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsNone
   Caption = 'i-Finance - Integrated Financial Management Information System'
-  ClientHeight = 628
+  ClientHeight = 608
   ClientWidth = 1190
   Color = 14273211
   Font.Charset = DEFAULT_CHARSET
@@ -125,7 +125,7 @@ object frmMain: TfrmMain
     Left = 0
     Top = 21
     Width = 1190
-    Height = 607
+    Height = 587
     Align = alClient
     BorderOuter = fsNone
     BorderSides = [sdLeft, sdRight, sdBottom]
@@ -135,10 +135,10 @@ object frmMain: TfrmMain
     TabOrder = 1
     DesignSize = (
       1190
-      607)
+      587)
     object lblDate: TLabel
       Left = 361
-      Top = 579
+      Top = 559
       Width = 144
       Height = 14
       Alignment = taRightJustify
@@ -150,10 +150,11 @@ object frmMain: TfrmMain
       Font.Name = 'Tahoma'
       Font.Style = []
       ParentFont = False
+      ExplicitTop = 579
     end
     object lblVersion: TLabel
       Left = 1085
-      Top = 579
+      Top = 559
       Width = 84
       Height = 14
       Alignment = taRightJustify
@@ -165,10 +166,11 @@ object frmMain: TfrmMain
       Font.Name = 'Tahoma'
       Font.Style = []
       ParentFont = False
+      ExplicitTop = 579
     end
     object lblLocation: TLabel
       Left = 667
-      Top = 579
+      Top = 559
       Width = 118
       Height = 14
       Alignment = taRightJustify
@@ -180,10 +182,11 @@ object frmMain: TfrmMain
       Font.Name = 'Tahoma'
       Font.Style = []
       ParentFont = False
+      ExplicitTop = 579
     end
     object lblWelcome: TRzLabel
       Left = 18
-      Top = 579
+      Top = 559
       Width = 133
       Height = 14
       Anchors = [akLeft, akBottom]
@@ -195,6 +198,7 @@ object frmMain: TfrmMain
       Font.Style = [fsBold]
       ParentFont = False
       Transparent = True
+      ExplicitTop = 579
     end
     object pcMenu: TRzPageControl
       Tag = 3
@@ -1384,10 +1388,18 @@ object frmMain: TfrmMain
         Color = 15327448
         TabVisible = False
         Caption = 'Administration'
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
       end
       object tsTools: TRzTabSheet
         Color = 15327448
         Caption = 'Tools'
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
         object pnlChangeDate: TRzPanel
           Left = 5
           Top = 5
@@ -1580,7 +1592,7 @@ object frmMain: TfrmMain
       Left = 20
       Top = 98
       Width = 193
-      Height = 470
+      Height = 450
       Anchors = [akLeft, akTop, akBottom]
       BorderOuter = fsNone
       BorderColor = 6572079
@@ -1594,444 +1606,12 @@ object frmMain: TfrmMain
       ParentFont = False
       TabOrder = 0
       Visible = False
-      object npMain: TJvNavigationPane
-        Left = 1
-        Top = 1
-        Width = 191
-        Height = 468
-        ActivePage = nppLoans
-        Align = alClient
-        BorderWidth = 0
-        Background.Stretch = False
-        Background.Proportional = False
-        Background.Center = False
-        Background.Tile = False
-        Background.Transparent = False
-        Colors.ButtonColorFrom = 8675134
-        Colors.ButtonColorTo = 8675134
-        Colors.ButtonHotColorFrom = 4235263
-        Colors.ButtonHotColorTo = 5220351
-        Colors.ButtonSelectedColorFrom = 4235263
-        Colors.ButtonSelectedColorTo = 5220351
-        Colors.ButtonSeparatorColor = clBlack
-        Colors.SplitterColorFrom = 5849128
-        Colors.SplitterColorTo = 8677194
-        Colors.HeaderColorFrom = 6572079
-        Colors.HeaderColorTo = 6572079
-        Colors.FrameColor = clBlack
-        Colors.ToolPanelColorFrom = clBlack
-        Colors.ToolPanelColorTo = clBlack
-        Colors.ToolPanelHeaderColorFrom = 6572079
-        Colors.ToolPanelHeaderColorTo = 6572079
-        MaximizedCount = 5
-        NavPanelFont.Charset = ANSI_CHARSET
-        NavPanelFont.Color = clBlack
-        NavPanelFont.Height = -11
-        NavPanelFont.Name = 'Tahoma'
-        NavPanelFont.Style = [fsBold]
-        NavPanelHotTrackFont.Charset = ANSI_CHARSET
-        NavPanelHotTrackFont.Color = clBlack
-        NavPanelHotTrackFont.Height = -11
-        NavPanelHotTrackFont.Name = 'Tahoma'
-        NavPanelHotTrackFont.Style = [fsBold]
-        NavPanelHotTrackFontOptions = [hoPreserveColor, hoPreserveStyle]
-        OnChange = npMainChange
-        object nppClient: TJvNavPanelPage
-          Left = 0
-          Top = 0
-          Width = 191
-          Height = 293
-          Hint = ''
-          Background.Stretch = False
-          Background.Proportional = False
-          Background.Center = False
-          Background.Tile = False
-          Background.Transparent = False
-          Color = 14273211
-          Caption = 'Clients'
-          object lblRecentlyAdded: TRzURLLabel
-            Left = 15
-            Top = 15
-            Width = 109
-            Height = 14
-            Caption = 'Newly-added clients'
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = 6572079
-            Font.Height = -12
-            Font.Name = 'Tahoma'
-            Font.Style = [fsUnderline]
-            ParentFont = False
-            OnClick = lblRecentlyAddedClick
-          end
-          object lblActiveClients: TRzURLLabel
-            Left = 15
-            Top = 34
-            Width = 72
-            Height = 14
-            Caption = 'Active clients'
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = 6572079
-            Font.Height = -12
-            Font.Name = 'Tahoma'
-            Font.Style = [fsUnderline]
-            ParentFont = False
-            OnClick = lblActiveClientsClick
-          end
-          object lblAllClients: TRzURLLabel
-            Left = 15
-            Top = 53
-            Width = 50
-            Height = 14
-            Caption = 'All clients'
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = 6572079
-            Font.Height = -12
-            Font.Name = 'Tahoma'
-            Font.Style = [fsUnderline]
-            ParentFont = False
-            OnClick = lblAllClientsClick
-          end
-          object RzLabel1: TRzLabel
-            Left = 15
-            Top = 87
-            Width = 43
-            Height = 14
-            Caption = 'Recent'
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -12
-            Font.Name = 'Tahoma'
-            Font.Style = [fsBold]
-            ParentFont = False
-          end
-          object lbxRecent: TRzListBox
-            Left = 15
-            Top = 107
-            Width = 146
-            Height = 230
-            BorderStyle = bsNone
-            Color = 14273211
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clBlack
-            Font.Height = -12
-            Font.Name = 'Tahoma'
-            Font.Style = []
-            ItemHeight = 14
-            ParentFont = False
-            TabOrder = 0
-            OnDblClick = lbxRecentDblClick
-          end
-        end
-        object nppLoans: TJvNavPanelPage
-          Left = 0
-          Top = 0
-          Width = 191
-          Height = 293
-          Hint = ''
-          Background.Stretch = False
-          Background.Proportional = False
-          Background.Center = False
-          Background.Tile = False
-          Background.Transparent = False
-          Color = 14273211
-          Caption = 'Loans and Payments'
-          DesignSize = (
-            191
-            293)
-          object urlCancelled: TRzURLLabel
-            Left = 15
-            Top = 114
-            Width = 51
-            Height = 14
-            Caption = 'Cancelled'
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = 6572079
-            Font.Height = -12
-            Font.Name = 'Tahoma'
-            Font.Style = []
-            ParentFont = False
-            OnClick = urlCancelledClick
-            FlyByColor = clBlack
-            FlyByEnabled = True
-          end
-          object urlPendingLoans: TRzURLLabel
-            Left = 15
-            Top = 39
-            Width = 44
-            Height = 14
-            Caption = 'Pending'
-            Color = 14273211
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = 6572079
-            Font.Height = -12
-            Font.Name = 'Tahoma'
-            Font.Style = []
-            ParentColor = False
-            ParentFont = False
-            OnClick = urlPendingLoansClick
-            FlyByColor = clBlack
-            FlyByEnabled = True
-          end
-          object urlApprovedLoans: TRzURLLabel
-            Left = 15
-            Top = 76
-            Width = 53
-            Height = 14
-            Caption = 'Approved'
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = 6572079
-            Font.Height = -12
-            Font.Name = 'Tahoma'
-            Font.Style = []
-            ParentFont = False
-            OnClick = urlApprovedLoansClick
-            FlyByColor = clBlack
-            FlyByEnabled = True
-          end
-          object urlActiveLoans: TRzURLLabel
-            Left = 15
-            Top = 95
-            Width = 34
-            Height = 14
-            Caption = 'Active'
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = 6572079
-            Font.Height = -12
-            Font.Name = 'Tahoma'
-            Font.Style = []
-            ParentFont = False
-            OnClick = urlActiveLoansClick
-            FlyByColor = clBlack
-            FlyByEnabled = True
-          end
-          object urlDenied: TRzURLLabel
-            Left = 15
-            Top = 133
-            Width = 49
-            Height = 14
-            Caption = 'Rejected'
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = 6572079
-            Font.Height = -12
-            Font.Name = 'Tahoma'
-            Font.Style = []
-            ParentFont = False
-            OnClick = urlDeniedClick
-            FlyByColor = clBlack
-            FlyByEnabled = True
-          end
-          object urlAssessedLoans: TRzURLLabel
-            Left = 15
-            Top = 58
-            Width = 49
-            Height = 14
-            Caption = 'Assessed'
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = 6572079
-            Font.Height = -12
-            Font.Name = 'Tahoma'
-            Font.Style = []
-            ParentFont = False
-            OnClick = urlAssessedLoansClick
-            FlyByColor = clBlack
-            FlyByEnabled = True
-          end
-          object urlPayments: TRzURLLabel
-            Left = 15
-            Top = 205
-            Width = 53
-            Height = 14
-            Caption = 'Payments'
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = 6572079
-            Font.Height = -12
-            Font.Name = 'Tahoma'
-            Font.Style = []
-            ParentFont = False
-            OnClick = urlPaymentsClick
-            FlyByColor = clBlack
-            FlyByEnabled = True
-          end
-          object urlWithdrawals: TRzURLLabel
-            Left = 15
-            Top = 224
-            Width = 66
-            Height = 14
-            Caption = 'Withdrawals'
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = 6572079
-            Font.Height = -12
-            Font.Name = 'Tahoma'
-            Font.Style = []
-            ParentFont = False
-            OnClick = urlWithdrawalsClick
-            FlyByColor = clBlack
-            FlyByEnabled = True
-          end
-          object urlClosed: TRzURLLabel
-            Left = 15
-            Top = 152
-            Width = 35
-            Height = 14
-            Caption = 'Closed'
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = 6572079
-            Font.Height = -12
-            Font.Name = 'Tahoma'
-            Font.Style = []
-            ParentFont = False
-            OnClick = urlClosedClick
-            FlyByColor = clBlack
-            FlyByEnabled = True
-          end
-          object lbxRecentLoans: TRzListBox
-            Left = 15
-            Top = 275
-            Width = 156
-            Height = 78
-            BorderStyle = bsNone
-            Color = 14273211
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clBlack
-            Font.Height = -12
-            Font.Name = 'Tahoma'
-            Font.Style = []
-            ItemHeight = 14
-            ParentFont = False
-            TabOrder = 0
-            OnDblClick = lbxRecentLoansDblClick
-          end
-          object RzGroupBox3: TRzGroupBox
-            Tag = -1
-            Left = 15
-            Top = 15
-            Width = 156
-            Height = 22
-            Anchors = [akLeft, akTop, akRight]
-            BorderColor = 6572079
-            BorderSides = []
-            BorderWidth = 1
-            Caption = 'Loans'
-            CaptionFont.Charset = DEFAULT_CHARSET
-            CaptionFont.Color = 6572079
-            CaptionFont.Height = -12
-            CaptionFont.Name = 'Tahoma'
-            CaptionFont.Style = [fsBold]
-            Color = 14273211
-            FlatColor = 6572079
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = 6572079
-            Font.Height = -12
-            Font.Name = 'Tahoma'
-            Font.Style = []
-            GradientColorStyle = gcsCustom
-            GroupStyle = gsUnderline
-            ParentFont = False
-            TabOrder = 1
-          end
-          object RzGroupBox1: TRzGroupBox
-            Tag = -1
-            Left = 15
-            Top = 181
-            Width = 156
-            Height = 22
-            Anchors = [akLeft, akTop, akRight]
-            BorderColor = 6572079
-            BorderSides = []
-            BorderWidth = 1
-            Caption = 'Payments'
-            CaptionFont.Charset = DEFAULT_CHARSET
-            CaptionFont.Color = 6572079
-            CaptionFont.Height = -12
-            CaptionFont.Name = 'Tahoma'
-            CaptionFont.Style = [fsBold]
-            Color = 14273211
-            FlatColor = 6572079
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = 6572079
-            Font.Height = -12
-            Font.Name = 'Tahoma'
-            Font.Style = []
-            GradientColorStyle = gcsCustom
-            GroupStyle = gsUnderline
-            ParentFont = False
-            TabOrder = 2
-          end
-          object RzGroupBox2: TRzGroupBox
-            Tag = -1
-            Left = 15
-            Top = 252
-            Width = 156
-            Height = 22
-            Anchors = [akLeft, akTop, akRight]
-            BorderColor = 6572079
-            BorderSides = []
-            BorderWidth = 1
-            Caption = 'Recent loans'
-            CaptionFont.Charset = DEFAULT_CHARSET
-            CaptionFont.Color = 6572079
-            CaptionFont.Height = -12
-            CaptionFont.Name = 'Tahoma'
-            CaptionFont.Style = [fsBold]
-            Color = 14273211
-            FlatColor = 6572079
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = 6572079
-            Font.Height = -12
-            Font.Name = 'Tahoma'
-            Font.Style = []
-            GradientColorStyle = gcsCustom
-            GroupStyle = gsUnderline
-            ParentFont = False
-            TabOrder = 3
-          end
-        end
-        object nppExpense: TJvNavPanelPage
-          Left = 0
-          Top = 0
-          Width = 191
-          Height = 293
-          Hint = ''
-          Background.Stretch = False
-          Background.Proportional = False
-          Background.Center = False
-          Background.Tile = False
-          Background.Transparent = False
-          Caption = 'Expense Managment'
-        end
-        object nppInventory: TJvNavPanelPage
-          Left = 0
-          Top = 0
-          Width = 191
-          Height = 293
-          Hint = ''
-          Background.Stretch = False
-          Background.Proportional = False
-          Background.Center = False
-          Background.Tile = False
-          Background.Transparent = False
-          Caption = 'Inventory'
-        end
-        object nppReports: TJvNavPanelPage
-          Left = 0
-          Top = 0
-          Width = 191
-          Height = 293
-          Hint = ''
-          Background.Stretch = False
-          Background.Proportional = False
-          Background.Center = False
-          Background.Tile = False
-          Background.Transparent = False
-          Caption = 'Reports'
-        end
-      end
     end
     object pnlDockMain: TRzPanel
       Left = 18
       Top = 98
       Width = 1151
-      Height = 470
+      Height = 450
       Anchors = [akLeft, akTop, akRight, akBottom]
       BorderOuter = fsNone
       BorderColor = 14272955

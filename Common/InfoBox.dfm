@@ -95,13 +95,12 @@ inherited frmInfoBox: TfrmInfoBox
         5874536F6674776172650041646F626520496D616765526561647971C9653C00
         00000049454E44AE426082}
     end
-    object lblMessage: TJvLabel
+    object lblMessage: TLabel
       Left = 59
       Top = 21
-      Width = 199
+      Width = 197
       Height = 14
       Caption = 'Record has been saved successfully.'
-      Transparent = True
     end
     object pnlClose: TRzPanel
       Left = 299

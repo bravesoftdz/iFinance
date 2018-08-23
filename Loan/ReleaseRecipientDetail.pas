@@ -5,22 +5,21 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, BasePopupDetail, RzEdit, RzBtnEdt,
-  Vcl.DBCtrls, RzDBCmbo, Vcl.StdCtrls, Vcl.Mask, RzDBEdit, JvExControls,
-  JvLabel, RzButton, RzTabs, RzLabel, Vcl.Imaging.pngimage, Vcl.ExtCtrls,
-  RzPanel, DB;
+  Vcl.DBCtrls, RzDBCmbo, Vcl.StdCtrls, Vcl.Mask, RzDBEdit, RzButton, RzTabs,
+  RzLabel, Vcl.Imaging.pngimage, Vcl.ExtCtrls, RzPanel, DB;
 
 type
   TfrmReleaseRecipientDetail = class(TfrmBasePopupDetail)
-    JvLabel1: TJvLabel;
-    JvLabel2: TJvLabel;
     edAmount: TRzDBNumericEdit;
     dbluMethod: TRzDBLookupComboBox;
-    c: TJvLabel;
     bteRecipient: TRzButtonEdit;
-    JvLabel17: TJvLabel;
     dteDateReleased: TRzDBDateTimeEdit;
-    JvLabel9: TJvLabel;
     dbluBranch: TRzDBLookupComboBox;
+    Label1: TLabel;
+    Label2: TLabel;
+    Label3: TLabel;
+    Label4: TLabel;
+    Label5: TLabel;
     procedure FormCreate(Sender: TObject);
     procedure bteRecipientButtonClick(Sender: TObject);
   private

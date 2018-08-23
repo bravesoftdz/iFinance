@@ -4,25 +4,25 @@ interface
 
 uses
   System.SysUtils, System.Classes, BaseDocked, Vcl.Controls, Vcl.StdCtrls,
-  RzLabel, Vcl.ExtCtrls, RzPanel, JvExControls, JvGroupHeader, Vcl.Mask, RzEdit,
-  RzDBEdit, JvLabel, RzButton, RzRadChk, System.UITypes, StrUtils, SaveIntf,
+  RzLabel, Vcl.ExtCtrls, RzPanel, Vcl.Mask, RzEdit,
+  RzDBEdit, RzButton, RzRadChk, System.UITypes, StrUtils, SaveIntf,
   Vcl.ComCtrls, RzDTP;
 
 type
   TfrmAppSettings = class(TfrmBaseDocked,ISave)
     RzGroupBox1: TRzGroupBox;
-    JvLabel1: TJvLabel;
     edBranchCode: TRzEdit;
-    JvLabel2: TJvLabel;
     edBranchPrefix: TRzEdit;
     RzGroupBox2: TRzGroupBox;
-    JvLabel3: TJvLabel;
     RzEdit2: TRzEdit;
     cbxNew: TRzCheckBox;
     cbxEnableBacklog: TRzCheckBox;
-    JvLabel4: TJvLabel;
     RzGroupBox3: TRzGroupBox;
     dteCutoff: TRzDateTimeEdit;
+    Label1: TLabel;
+    Label2: TLabel;
+    Label3: TLabel;
+    Label4: TLabel;
     procedure FormCreate(Sender: TObject);
   private
     { Private declarations }

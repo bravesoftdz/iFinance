@@ -6,44 +6,28 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, BasePopupDetail, RzButton, RzTabs,
   Vcl.StdCtrls, RzLabel, Vcl.Imaging.pngimage, Vcl.ExtCtrls, RzPanel,
-  Vcl.DBCtrls, RzDBCmbo, RzDBEdit, Vcl.Mask, RzEdit, JvLabel, JvExControls,
-  JvGroupHeader, RzBtnEdt, Data.DB, Vcl.Grids, Vcl.DBGrids, RzDBGrid;
+  Vcl.DBCtrls, RzDBCmbo, RzDBEdit, Vcl.Mask, RzEdit, RzBtnEdt, Data.DB, Vcl.Grids,
+  Vcl.DBGrids, RzDBGrid;
 
 type
   TfrmComakerDetail = class(TfrmBasePopupDetail)
-    JvLabel1: TJvLabel;
-    JvLabel2: TJvLabel;
-    JvLabel3: TJvLabel;
     edMiddlename: TRzDBEdit;
     edFirstname: TRzDBEdit;
     edLastname: TRzDBEdit;
-    JvLabel7: TJvLabel;
     dteBirthdate: TRzDBDateTimeEdit;
-    JvLabel12: TJvLabel;
     RzDBLookupComboBox1: TRzDBLookupComboBox;
-    JvLabel8: TJvLabel;
     RzDBLookupComboBox2: TRzDBLookupComboBox;
-    JvLabel22: TJvLabel;
     RzDBEdit11: TRzDBEdit;
     RzDBEdit10: TRzDBEdit;
-    JvLabel4: TJvLabel;
-    JvLabel5: TJvLabel;
     RzDBEdit4: TRzDBEdit;
     RzDBEdit5: TRzDBEdit;
-    JvLabel6: TJvLabel;
     RzDBLookupComboBox3: TRzDBLookupComboBox;
     urlCopyAddress: TRzURLLabel;
-    JvLabel9: TJvLabel;
-    JvLabel10: TJvLabel;
-    JvLabel11: TJvLabel;
     RzDBLookupComboBox4: TRzDBLookupComboBox;
     RzDBEdit7: TRzDBEdit;
     RzDBEdit6: TRzDBEdit;
-    JvLabel23: TJvLabel;
     bteEmployer: TRzButtonEdit;
-    JvLabel24: TJvLabel;
     mmEmployerAddress: TRzMemo;
-    JvLabel28: TJvLabel;
     RzDBEdit12: TRzDBEdit;
     RzGroupBox2: TRzGroupBox;
     RzGroupBox1: TRzGroupBox;
@@ -54,6 +38,22 @@ type
     RzGroupBox7: TRzGroupBox;
     RzGroupBox8: TRzGroupBox;
     RzGroupBox9: TRzGroupBox;
+    Label1: TLabel;
+    Label2: TLabel;
+    Label3: TLabel;
+    Label4: TLabel;
+    Label5: TLabel;
+    Label6: TLabel;
+    Label7: TLabel;
+    Label8: TLabel;
+    Label9: TLabel;
+    Label10: TLabel;
+    Label11: TLabel;
+    Label12: TLabel;
+    Label13: TLabel;
+    Label14: TLabel;
+    Label15: TLabel;
+    Label16: TLabel;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure bteEmployerButtonClick(Sender: TObject);

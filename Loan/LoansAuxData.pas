@@ -4,7 +4,7 @@ interface
 
 uses
   System.SysUtils, System.Classes, Data.DB, Data.Win.ADODB, System.ImageList,
-  Vcl.Controls, Vcl.ImgList, JvImageList;
+  Vcl.Controls, Vcl.ImgList;
 
 type
   TdmLoansAux = class(TDataModule)

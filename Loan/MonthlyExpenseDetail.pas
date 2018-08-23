@@ -6,14 +6,14 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, BasePopupDetail, RzButton, RzTabs,
   Vcl.StdCtrls, RzLabel, Vcl.Imaging.pngimage, Vcl.ExtCtrls, RzPanel, Vcl.Mask,
-  RzEdit, RzDBEdit, Vcl.DBCtrls, RzDBCmbo, JvExControls, JvLabel, DB;
+  RzEdit, RzDBEdit, Vcl.DBCtrls, RzDBCmbo, DB;
 
 type
   TfrmMonthlyExpDetail = class(TfrmBasePopupDetail)
-    JvLabel1: TJvLabel;
-    JvLabel2: TJvLabel;
     dbluType: TRzDBLookupComboBox;
     edMonthly: TRzDBNumericEdit;
+    Label1: TLabel;
+    Label2: TLabel;
     procedure FormShow(Sender: TObject);
     procedure FormCreate(Sender: TObject);
   private

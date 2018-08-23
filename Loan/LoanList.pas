@@ -7,8 +7,7 @@ uses
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, BaseDocked, Vcl.StdCtrls, RzLabel,
   Vcl.ExtCtrls, RzPanel, Data.DB, Vcl.Mask, RzEdit, Vcl.Grids, Vcl.DBGrids,
   RzDBGrid, LoanListIntf, DockedFormIntf, AppConstants, ADODB, System.Rtti,
-  Vcl.DBCtrls, RzDBCmbo, RzButton, RzRadChk, RzDBChk, RzDBEdit, JvExControls,
-  JvLabel, RzCmboBx;
+  Vcl.DBCtrls, RzDBCmbo, RzButton, RzRadChk, RzDBChk, RzDBEdit, RzCmboBx;
 
 type
   TfrmLoanList = class(TfrmBaseDocked, ILoanListFilter, IDockedForm)

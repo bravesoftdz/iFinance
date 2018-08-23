@@ -4,36 +4,36 @@ interface
 
 uses
   System.SysUtils, System.Classes, BaseDocked, Vcl.Controls, Vcl.StdCtrls,
-  RzLabel, Vcl.ExtCtrls, RzPanel, Vcl.Mask, RzEdit, RzBtnEdt, JvExControls,
-  JvLabel, Vcl.Grids, RzGrids, RzDBEdit, SaveIntf, System.UITypes, PaymentIntf,
+  RzLabel, Vcl.ExtCtrls, RzPanel, Vcl.Mask, RzEdit, RzBtnEdt, Vcl.Grids,
+  RzGrids, RzDBEdit, SaveIntf, System.UITypes, PaymentIntf,
   Vcl.Imaging.pngimage, Payment, StrUtils, Vcl.Graphics, System.Types, RzCmboBx,
   Data.DB, Vcl.DBGrids, RzDBGrid;
 
 type
   TfrmPaymentMain = class(TfrmBaseDocked, ISave, IPayment)
-    c: TJvLabel;
     pnlDetail: TRzPanel;
     grDetailStringGrid: TRzStringGrid;
-    JvLabel7: TJvLabel;
-    JvLabel1: TJvLabel;
-    lblTotalAmount: TJvLabel;
     pnlAddPayment: TRzPanel;
     imgAddPayment: TImage;
     edClient: TRzEdit;
     pnlDeletePayment: TRzPanel;
     imgDeletePayment: TImage;
-    JvLabel2: TJvLabel;
-    lblReferenceNo: TJvLabel;
-    JvLabel4: TJvLabel;
-    lblPosted: TJvLabel;
     dtePaymentDate: TRzDBDateTimeEdit;
     edReceipt: TRzDBEdit;
     cmbPaymentMethod: TRzComboBox;
-    JvLabel3: TJvLabel;
-    lblWithdrawn: TJvLabel;
-    lblAdvancePayment: TJvLabel;
     grDetail: TRzDBGrid;
-    lblChange: TJvLabel;
+    Label1: TLabel;
+    Label2: TLabel;
+    Label3: TLabel;
+    Label4: TLabel;
+    lblAdvancePayment: TLabel;
+    Label5: TLabel;
+    Label6: TLabel;
+    lblReferenceNo: TLabel;
+    lblPosted: TLabel;
+    lblWithdrawn: TLabel;
+    lblTotalAmount: TLabel;
+    lblChange: TLabel;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure imgAddPaymentClick(Sender: TObject);

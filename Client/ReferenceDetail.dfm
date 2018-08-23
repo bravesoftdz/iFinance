@@ -1,9 +1,9 @@
 inherited frmReferenceDetail: TfrmReferenceDetail
   Caption = 'frmReferenceDetail'
-  ClientHeight = 202
+  ClientHeight = 208
   ClientWidth = 360
   ExplicitWidth = 360
-  ExplicitHeight = 202
+  ExplicitHeight = 208
   PixelsPerInch = 96
   TextHeight = 14
   inherited pnlTitle: TRzPanel
@@ -21,17 +21,17 @@ inherited frmReferenceDetail: TfrmReferenceDetail
   end
   inherited pnlMain: TRzPanel
     Width = 360
-    Height = 181
+    Height = 187
     ExplicitWidth = 360
     ExplicitHeight = 181
     inherited pnlDetail: TRzPanel
       Width = 345
-      Height = 133
+      Height = 139
       ExplicitWidth = 345
       ExplicitHeight = 133
       inherited pcDetail: TRzPageControl
         Width = 343
-        Height = 131
+        Height = 137
         ExplicitWidth = 343
         ExplicitHeight = 131
         FixedDimension = 20
@@ -39,47 +39,43 @@ inherited frmReferenceDetail: TfrmReferenceDetail
           Caption = 'Reference details'
           ExplicitWidth = 343
           ExplicitHeight = 131
-          object JvLabel1: TJvLabel
+          object Label1: TLabel
             Left = 19
             Top = 23
-            Width = 54
+            Width = 52
             Height = 14
             Caption = 'Lastname'
-            Transparent = True
           end
-          object JvLabel2: TJvLabel
+          object Label2: TLabel
             Left = 19
-            Top = 47
-            Width = 54
+            Top = 50
+            Width = 52
             Height = 14
             Caption = 'Firstname'
-            Transparent = True
           end
-          object JvLabel3: TJvLabel
+          object Label3: TLabel
             Left = 19
-            Top = 71
-            Width = 36
+            Top = 77
+            Width = 34
             Height = 14
             Caption = 'Middle'
-            Transparent = True
           end
-          object JvLabel22: TJvLabel
+          object Label4: TLabel
             Left = 19
-            Top = 95
-            Width = 81
+            Top = 103
+            Width = 82
             Height = 14
-            Caption = 'Mobile/tel. no.'
-            Transparent = True
+            Caption = 'Mobile/Tel. no.'
           end
           object RzDBEdit11: TRzDBEdit
             Left = 114
-            Top = 89
-            Width = 102
+            Top = 98
+            Width = 100
             Height = 22
             DataSource = dmRef.dscRefContactInfo
             DataField = 'mobile_no'
             Ctl3D = True
-            FrameColor = 8675134
+            FrameColor = 14272955
             FrameVisible = True
             FramingPreference = fpCustomFraming
             ParentCtl3D = False
@@ -87,14 +83,14 @@ inherited frmReferenceDetail: TfrmReferenceDetail
             TabOrder = 3
           end
           object RzDBEdit10: TRzDBEdit
-            Left = 219
-            Top = 89
-            Width = 102
+            Left = 221
+            Top = 98
+            Width = 100
             Height = 22
             DataSource = dmRef.dscRefContactInfo
             DataField = 'home_phone'
             Ctl3D = True
-            FrameColor = 8675134
+            FrameColor = 14272955
             FrameVisible = True
             FramingPreference = fpCustomFraming
             ParentCtl3D = False
@@ -103,13 +99,13 @@ inherited frmReferenceDetail: TfrmReferenceDetail
           end
           object edMiddleName: TRzDBEdit
             Left = 114
-            Top = 65
+            Top = 71
             Width = 207
             Height = 22
             DataSource = dmRef.dscRefPersonalInfo
             DataField = 'middlename'
             CharCase = ecUpperCase
-            FrameColor = 8675134
+            FrameColor = 14272955
             FrameVisible = True
             FramingPreference = fpCustomFraming
             TabOnEnter = True
@@ -117,13 +113,13 @@ inherited frmReferenceDetail: TfrmReferenceDetail
           end
           object edFirstname: TRzDBEdit
             Left = 114
-            Top = 41
+            Top = 44
             Width = 207
             Height = 22
             DataSource = dmRef.dscRefPersonalInfo
             DataField = 'firstname'
             CharCase = ecUpperCase
-            FrameColor = 8675134
+            FrameColor = 14272955
             FrameVisible = True
             FramingPreference = fpCustomFraming
             TabOnEnter = True
@@ -137,7 +133,7 @@ inherited frmReferenceDetail: TfrmReferenceDetail
             DataSource = dmRef.dscRefPersonalInfo
             DataField = 'lastname'
             CharCase = ecUpperCase
-            FrameColor = 8675134
+            FrameColor = 14272955
             FrameVisible = True
             FramingPreference = fpCustomFraming
             TabOnEnter = True
@@ -148,13 +144,13 @@ inherited frmReferenceDetail: TfrmReferenceDetail
     end
     inherited pnlCancel: TRzPanel
       Left = 303
-      Top = 150
+      Top = 156
       ExplicitLeft = 303
       ExplicitTop = 150
     end
     inherited pnlSave: TRzPanel
       Left = 247
-      Top = 150
+      Top = 156
       ExplicitLeft = 247
       ExplicitTop = 150
     end

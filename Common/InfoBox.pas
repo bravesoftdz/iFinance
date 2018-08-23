@@ -4,15 +4,14 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, BasePopup, JvExControls, JvLabel,
-  RzButton, Vcl.StdCtrls, RzLabel, Vcl.Imaging.pngimage, Vcl.ExtCtrls, RzPanel;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, BasePopup, RzButton, Vcl.StdCtrls, RzLabel, Vcl.Imaging.pngimage, Vcl.ExtCtrls, RzPanel;
 
 type
   TfrmInfoBox = class(TfrmBasePopup)
     pnlClose: TRzPanel;
     btnClose: TRzShapeButton;
     Image1: TImage;
-    lblMessage: TJvLabel;
+    lblMessage: TLabel;
     procedure btnCloseClick(Sender: TObject);
     procedure FormKeyPress(Sender: TObject; var Key: Char);
   private
@@ -22,9 +21,6 @@ type
     constructor Create(AOwner: TComponent); overload; override;
     constructor Create(AOwner: TComponent; const infoMessage: string); reintroduce; overload;
   end;
-
-var
-  frmInfoBox: TfrmInfoBox;
 
 implementation
 

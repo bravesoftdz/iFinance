@@ -5,41 +5,41 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, BasePopupDetail, Data.DB, Vcl.Grids,
-  Vcl.DBGrids, RzDBGrid, RzDBEdit, Vcl.StdCtrls, Vcl.Mask, RzEdit, JvExControls,
-  JvLabel, RzButton, RzTabs, RzLabel, Vcl.Imaging.pngimage, Vcl.ExtCtrls,
+  Vcl.DBGrids, RzDBGrid, RzDBEdit, Vcl.StdCtrls, Vcl.Mask, RzEdit, RzButton,
+  RzTabs, RzLabel, Vcl.Imaging.pngimage, Vcl.ExtCtrls,
   RzPanel, RzGrids, FinInfo, MonthlyExpense, Vcl.DBCtrls, RzDBCmbo;
 
 type
   TfrmLoanAssessmentDetail = class(TfrmBasePopupDetail)
-    JvLabel4: TJvLabel;
     dteDateAssessed: TRzDBDateTimeEdit;
-    JvLabel11: TJvLabel;
     edRecAmount: TRzDBNumericEdit;
     pcAssessment: TRzPageControl;
     tsFinInfo: TRzTabSheet;
     tsMonExp: TRzTabSheet;
     grFinInfo: TRzStringGrid;
     grMonExp: TRzStringGrid;
-    JvLabel1: TJvLabel;
     urlAppliedAmount: TRzURLLabel;
     mmRemarks: TRzDBMemo;
-    JvLabel2: TJvLabel;
     pnlAdd: TRzPanel;
     btnAdd: TRzShapeButton;
     pnlRemoveComaker: TRzPanel;
     btnRemove: TRzShapeButton;
-    JvLabel3: TJvLabel;
     RzDBMemo1: TRzDBMemo;
-    JvLabel5: TJvLabel;
     RzDBMemo2: TRzDBMemo;
-    JvLabel6: TJvLabel;
     RzDBMemo3: TRzDBMemo;
-    JvLabel7: TJvLabel;
     RzDBMemo4: TRzDBMemo;
-    JvLabel8: TJvLabel;
     RzDBMemo5: TRzDBMemo;
-    JvLabel9: TJvLabel;
     dbluRecommendation: TRzDBLookupComboBox;
+    Label1: TLabel;
+    Label2: TLabel;
+    Label3: TLabel;
+    Label4: TLabel;
+    Label5: TLabel;
+    Label6: TLabel;
+    Label7: TLabel;
+    Label8: TLabel;
+    Label9: TLabel;
+    Label10: TLabel;
     procedure FormShow(Sender: TObject);
     procedure grFinInfoDblClick(Sender: TObject);
     procedure grMonExpDblClick(Sender: TObject);

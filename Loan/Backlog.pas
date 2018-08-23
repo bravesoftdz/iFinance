@@ -6,20 +6,20 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, BasePopupDetail, RzButton, RzTabs,
   Vcl.StdCtrls, RzLabel, Vcl.Imaging.pngimage, Vcl.ExtCtrls, RzPanel, Vcl.Mask,
-  RzEdit, RzDBEdit, JvExControls, JvLabel;
+  RzEdit, RzDBEdit;
 
 type
   TfrmBacklog = class(TfrmBasePopupDetail)
-    JvLabel5: TJvLabel;
     edAppAmount: TRzDBNumericEdit;
-    JvLabel7: TJvLabel;
     dteLastTransactionDate: TRzDBDateTimeEdit;
-    JvLabel1: TJvLabel;
     RzDBNumericEdit1: TRzDBNumericEdit;
     RzDBNumericEdit2: TRzDBNumericEdit;
-    JvLabel2: TJvLabel;
-    JvLabel3: TJvLabel;
     RzDBNumericEdit3: TRzDBNumericEdit;
+    Label1: TLabel;
+    Label2: TLabel;
+    Label3: TLabel;
+    Label4: TLabel;
+    Label5: TLabel;
     procedure FormCreate(Sender: TObject);
   private
     { Private declarations }

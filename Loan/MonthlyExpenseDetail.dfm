@@ -40,21 +40,19 @@ inherited frmMonthlyExpDetail: TfrmMonthlyExpDetail
         inherited tsDetail: TRzTabSheet
           ExplicitWidth = 279
           ExplicitHeight = 83
-          object JvLabel1: TJvLabel
+          object Label1: TLabel
             Left = 19
             Top = 23
-            Width = 48
+            Width = 46
             Height = 14
             Caption = 'Expense'
-            Transparent = True
           end
-          object JvLabel2: TJvLabel
+          object Label2: TLabel
             Left = 19
             Top = 50
-            Width = 45
+            Width = 43
             Height = 14
             Caption = 'Monthly'
-            Transparent = True
           end
           object dbluType: TRzDBLookupComboBox
             Tag = 1

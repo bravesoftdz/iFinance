@@ -31,9 +31,6 @@ Coordinates=813,564,124,36
 [dmLoansAux.dstClassCharges]
 Coordinates=596,300,191,58
 
-[JvLabel2]
-Coordinates=911,436,66,36
-
 [dmLoan.dstMonExp]
 Coordinates=793,232,128,58
 
@@ -82,9 +79,6 @@ Coordinates=345,314,160,36
 [dmLoan.dscClients]
 Coordinates=0,160,124,36
 
-[c]
-Coordinates=590,436,40,36
-
 [dmLoansAux.dscCompetitors]
 Coordinates=710,1,182,36
 
@@ -121,9 +115,6 @@ Coordinates=191,368,121,58
 [dteDateReleased]
 Coordinates=466,436,114,36
 
-[JvLabel17]
-Coordinates=383,436,73,36
-
 [dmLoan.dscLoanAss]
 Coordinates=1172,1,134,36
 
@@ -150,9 +141,6 @@ Coordinates=797,300,131,58
 
 [dmLoan.dstStatuses]
 Coordinates=651,232,132,58
-
-[JvLabel1]
-Coordinates=307,436,66,36
 
 [dmLoansAux.dstReleaseMethod]
 Coordinates=177,10,200,102
@@ -188,4 +176,7 @@ Coordinates=327,300,139,58
 ModelLayerNames=
 ActiveLayerNames=
 EditingLayerName=
+
+[]
+Coordinates=911,436,66,36
 

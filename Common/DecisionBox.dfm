@@ -30,16 +30,6 @@ inherited frmDecisionBox: TfrmDecisionBox
     DesignSize = (
       357
       108)
-    object lblMessage: TJvLabel
-      Left = 59
-      Top = 21
-      Width = 273
-      Height = 46
-      AutoSize = False
-      Caption = 'Are you sure you want to proceed?'
-      Transparent = True
-      WordWrap = True
-    end
     object Image1: TImage
       Left = 21
       Top = 16
@@ -131,6 +121,15 @@ inherited frmDecisionBox: TfrmDecisionBox
         653A6D6F6469667900323031312D30382D32315431343A31323A32322D30363A
         3030D1BCB1E80000001974455874536F6674776172650041646F626520496D61
         6765526561647971C9653C0000000049454E44AE426082}
+    end
+    object lblMessage: TLabel
+      Left = 59
+      Top = 21
+      Width = 273
+      Height = 46
+      AutoSize = False
+      Caption = 'Are you sure you want to proceed?'
+      WordWrap = True
     end
     object pnlNo: TRzPanel
       Left = 299
