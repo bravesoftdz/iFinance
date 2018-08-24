@@ -58,29 +58,26 @@ inherited frmLoanTypeList: TfrmLoanTypeList
     ExplicitTop = 0
   end
   inherited pnlDetail: TRzPanel
-    object JvLabel1: TJvLabel [0]
-      Left = 13
-      Top = 50
-      Width = 48
-      Height = 14
-      Caption = 'Account'
-      Transparent = True
-    end
-    object JvLabel2: TJvLabel [1]
-      Left = 13
-      Top = 77
-      Width = 32
-      Height = 14
-      Caption = 'Desc.'
-      Transparent = True
-    end
-    object JvLabel3: TJvLabel [2]
+    object Label2: TLabel [0]
       Left = 13
       Top = 23
-      Width = 33
+      Width = 31
       Height = 14
       Caption = 'Name'
-      Transparent = True
+    end
+    object Label3: TLabel [1]
+      Left = 13
+      Top = 50
+      Width = 46
+      Height = 14
+      Caption = 'Account'
+    end
+    object Label4: TLabel [2]
+      Left = 13
+      Top = 77
+      Width = 30
+      Height = 14
+      Caption = 'Desc.'
     end
     inherited pnlAdd: TRzPanel
       TabOrder = 3

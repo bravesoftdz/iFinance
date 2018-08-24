@@ -5,21 +5,21 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, BaseDocked, Vcl.StdCtrls, RzLabel,
-  Vcl.ExtCtrls, RzPanel, Data.DB, RzCmboBx, JvExControls, JvLabel, Vcl.Grids,
-  Vcl.DBGrids, RzDBGrid, ADODB, DockIntf, Vcl.Mask, RzEdit, RzButton;
+  Vcl.ExtCtrls, RzPanel, Data.DB, RzCmboBx, Vcl.Grids, Vcl.DBGrids, RzDBGrid,
+  ADODB, DockIntf, Vcl.Mask, RzEdit, RzButton;
 
 type
   TfrmPaymentList = class(TfrmBaseDocked)
     pnlList: TRzPanel;
     grList: TRzDBGrid;
     pnlDetail: TRzPanel;
-    JvLabel1: TJvLabel;
     cmbBranch: TRzComboBox;
     dteFrom: TRzDateTimeEdit;
-    JvLabel2: TJvLabel;
     dteUntil: TRzDateTimeEdit;
     pnlGo: TRzPanel;
     btnGo: TRzShapeButton;
+    Label1: TLabel;
+    Label2: TLabel;
     procedure FormCreate(Sender: TObject);
     procedure grListDblClick(Sender: TObject);
     procedure btnGoClick(Sender: TObject);

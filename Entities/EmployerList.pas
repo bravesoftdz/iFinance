@@ -5,20 +5,20 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, BaseGridDetail, Data.DB,
-  System.ImageList, Vcl.ImgList, JvImageList, RzButton, Vcl.StdCtrls, Vcl.Mask,
+  System.ImageList, Vcl.ImgList, RzButton, Vcl.StdCtrls, Vcl.Mask,
   RzEdit, RzTabs, Vcl.Grids, Vcl.DBGrids, RzDBGrid, RzLabel, Vcl.ExtCtrls,
-  RzPanel, RzRadChk, RzDBChk, RzDBEdit, Vcl.DBCtrls, RzDBCmbo, JvExControls,
-  JvLabel, Vcl.Imaging.pngimage, RzCmboBx, RzBtnEdt,  RzDBBnEd;
+  RzPanel, RzRadChk, RzDBChk, RzDBEdit, Vcl.DBCtrls, RzDBCmbo, Vcl.Imaging.pngimage,
+  RzCmboBx, RzBtnEdt,  RzDBBnEd;
 
 type
   TfrmEmployerList = class(TfrmBaseGridDetail)
-    JvLabel1: TJvLabel;
-    JvLabel2: TJvLabel;
     edEmployerName: TRzDBEdit;
-    JvLabel3: TJvLabel;
     RzDBMemo1: TRzDBMemo;
     cmbBranch: TRzComboBox;
     bteGroup: TRzButtonEdit;
+    Label2: TLabel;
+    Label3: TLabel;
+    Label4: TLabel;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure cmbBranchChange(Sender: TObject);

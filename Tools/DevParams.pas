@@ -6,15 +6,15 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, BasePopupDetail, RzButton, RzTabs,
   Vcl.StdCtrls, RzLabel, Vcl.Imaging.pngimage, Vcl.ExtCtrls, RzPanel,
-  JvExControls, JvLabel, Vcl.Mask, RzEdit, DateUtils, RzRadChk;
+  Vcl.Mask, RzEdit, DateUtils, RzRadChk;
 
 type
   TfrmDevParams = class(TfrmBasePopupDetail)
-    JvLabel7: TJvLabel;
     dteApplicationDate: TRzDateTimeEdit;
-    JvLabel1: TJvLabel;
     urlNextMonth: TRzURLLabel;
     cbxUpdateDeficits: TRzCheckBox;
+    Label1: TLabel;
+    Label2: TLabel;
     procedure FormCreate(Sender: TObject);
     procedure urlNextMonthClick(Sender: TObject);
   private

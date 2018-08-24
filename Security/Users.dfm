@@ -11,7 +11,6 @@ inherited frmUsers: TfrmUsers
   end
   inherited pnlList: TRzPanel
     inherited grList: TRzDBGrid
-      DataSource = dmSecurity.dscUser
       OnDblClick = grListDblClick
       Columns = <
         item
@@ -99,13 +98,18 @@ inherited frmUsers: TfrmUsers
       ParentFont = False
       OnClick = urlRolesClick
     end
-    object JvLabel14: TJvLabel [3]
+    object Label4: TLabel [3]
       Left = 13
       Top = 121
-      Width = 59
+      Width = 57
       Height = 14
       Caption = 'Credit limit'
-      Transparent = True
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -12
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
     end
     inherited pnlAdd: TRzPanel
       Visible = False

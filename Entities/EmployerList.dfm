@@ -97,29 +97,26 @@ inherited frmEmployerList: TfrmEmployerList
   inherited pnlDetail: TRzPanel
     Left = 728
     ExplicitLeft = 728
-    object JvLabel1: TJvLabel [0]
+    object Label2: TLabel [0]
       Left = 13
       Top = 23
-      Width = 33
+      Width = 31
       Height = 14
       Caption = 'Name'
-      Transparent = True
     end
-    object JvLabel2: TJvLabel [1]
-      Left = 13
-      Top = 108
-      Width = 35
-      Height = 14
-      Caption = 'Group'
-      Transparent = True
-    end
-    object JvLabel3: TJvLabel [2]
+    object Label3: TLabel [1]
       Left = 13
       Top = 50
-      Width = 45
+      Width = 43
       Height = 14
       Caption = 'Address'
-      Transparent = True
+    end
+    object Label4: TLabel [2]
+      Left = 13
+      Top = 108
+      Width = 33
+      Height = 14
+      Caption = 'Group'
     end
     inherited pnlAdd: TRzPanel
       TabOrder = 3

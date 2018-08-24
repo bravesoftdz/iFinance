@@ -6,7 +6,7 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, BaseDocked, Vcl.StdCtrls, RzLabel,
   Vcl.ExtCtrls, RzPanel, Data.DB, RzButton, Vcl.Mask, RzEdit, RzCmboBx,
-  JvExControls, JvLabel, Vcl.Grids, Vcl.DBGrids, RzDBGrid, RzRadChk, NewIntf;
+  Vcl.Grids, Vcl.DBGrids, RzDBGrid, RzRadChk, NewIntf;
 
 type
   TfrmWithdrawalList = class(TfrmBaseDocked, INew)

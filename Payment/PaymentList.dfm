@@ -154,21 +154,19 @@ inherited frmPaymentList: TfrmPaymentList
     DesignSize = (
       276
       438)
-    object JvLabel1: TJvLabel
-      Left = 13
-      Top = 71
-      Width = 39
-      Height = 14
-      Caption = 'Branch'
-      Transparent = True
-    end
-    object JvLabel2: TJvLabel
+    object Label1: TLabel
       Left = 13
       Top = 23
-      Width = 63
+      Width = 61
       Height = 14
       Caption = 'Date range'
-      Transparent = True
+    end
+    object Label2: TLabel
+      Left = 13
+      Top = 71
+      Width = 37
+      Height = 14
+      Caption = 'Branch'
     end
     object cmbBranch: TRzComboBox
       Left = 13

@@ -6,14 +6,14 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, BaseGridDetail, Data.DB, RzButton,
   Vcl.StdCtrls, Vcl.Mask, RzEdit, Vcl.Grids, Vcl.DBGrids, RzDBGrid, RzLabel,
-  Vcl.ExtCtrls, RzPanel, RzDBEdit, JvExControls, JvLabel;
+  Vcl.ExtCtrls, RzPanel, RzDBEdit;
 
 type
   TfrmLoanClassChargeTypeList = class(TfrmBaseGridDetail)
-    JvLabel3: TJvLabel;
     edType: TRzDBEdit;
-    JvLabel1: TJvLabel;
     edName: TRzDBEdit;
+    Label2: TLabel;
+    Label3: TLabel;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
   private

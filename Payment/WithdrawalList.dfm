@@ -9,7 +9,7 @@ inherited frmWithdrawalList: TfrmWithdrawalList
   TextHeight = 14
   inherited pnlTitle: TRzPanel
     Width = 929
-    ExplicitWidth = 786
+    ExplicitWidth = 929
     inherited lblTitle: TRzLabel
       Width = 92
       Caption = 'Withdrawal list'
@@ -27,7 +27,6 @@ inherited frmWithdrawalList: TfrmWithdrawalList
     BorderWidth = 1
     Color = 14273211
     TabOrder = 1
-    ExplicitWidth = 491
     object grList: TRzDBGrid
       Left = 1
       Top = 1
@@ -124,7 +123,6 @@ inherited frmWithdrawalList: TfrmWithdrawalList
     BorderWidth = 1
     ParentColor = True
     TabOrder = 2
-    ExplicitLeft = 503
     DesignSize = (
       276
       438)

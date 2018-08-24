@@ -7,29 +7,28 @@ uses
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, BaseGridDetail, Data.DB,
   System.ImageList, Vcl.ImgList, Vcl.StdCtrls, Vcl.Mask, RzEdit,
   RzButton, RzTabs, Vcl.Grids, Vcl.DBGrids, RzDBGrid, RzLabel, Vcl.ExtCtrls,
-  RzPanel, RzRadChk, RzDBChk, Vcl.DBCtrls, RzDBCmbo, JvExControls, JvLabel,
-  RzDBEdit, Vcl.Imaging.pngimage, Vcl.ComCtrls, RzTreeVw, Group, Vcl.Menus,
-  RzCmboBx;
+  RzPanel, RzRadChk, RzDBChk, Vcl.DBCtrls, RzDBCmbo, RzDBEdit, Vcl.Imaging.pngimage,
+  Vcl.ComCtrls, RzTreeVw, Group, Vcl.Menus, RzCmboBx;
 
 type
   TfrmGroupList = class(TfrmBaseGridDetail)
-    JvLabel1: TJvLabel;
     edGroupName: TRzDBEdit;
     cbxPublic: TRzDBCheckBox;
     cbxActive: TRzDBCheckBox;
-    JvLabel12: TJvLabel;
     dbluParentGroup: TRzDBLookupComboBox;
     tvGroup: TRzTreeView;
     cmbBranch: TRzComboBox;
-    JvLabel14: TJvLabel;
     edMaxTotal: TRzDBNumericEdit;
     RzGroupBox1: TRzGroupBox;
-    JvLabel2: TJvLabel;
     dbluLoanType: TRzDBLookupComboBox;
-    JvLabel5: TJvLabel;
     edConcurrent: TRzDBEdit;
-    JvLabel4: TJvLabel;
     edIdentityDocs: TRzDBEdit;
+    Label2: TLabel;
+    Label3: TLabel;
+    Label4: TLabel;
+    Label5: TLabel;
+    Label6: TLabel;
+    Label7: TLabel;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure tvGroupChange(Sender: TObject; Node: TTreeNode);

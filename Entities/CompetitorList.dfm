@@ -1,5 +1,7 @@
 inherited frmCompetitorList: TfrmCompetitorList
   Caption = 'frmCompetitorList'
+  ExplicitWidth = 320
+  ExplicitHeight = 240
   PixelsPerInch = 96
   TextHeight = 14
   inherited pnlTitle: TRzPanel
@@ -59,13 +61,12 @@ inherited frmCompetitorList: TfrmCompetitorList
     end
   end
   inherited pnlDetail: TRzPanel
-    object JvLabel1: TJvLabel [0]
+    object Label2: TLabel [0]
       Left = 13
       Top = 23
-      Width = 33
+      Width = 31
       Height = 14
       Caption = 'Name'
-      Transparent = True
     end
     inherited pnlAdd: TRzPanel
       ExplicitTop = 429

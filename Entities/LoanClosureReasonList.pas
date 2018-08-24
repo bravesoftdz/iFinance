@@ -6,14 +6,14 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, BaseGridDetail, Data.DB, RzButton,
   Vcl.StdCtrls, Vcl.Mask, RzEdit, Vcl.Grids, Vcl.DBGrids, RzDBGrid, RzLabel,
-  Vcl.ExtCtrls, RzPanel, RzDBEdit, JvExControls, JvLabel, RzRadChk, RzDBChk;
+  Vcl.ExtCtrls, RzPanel, RzDBEdit, RzRadChk, RzDBChk;
 
 type
   TfrmLoanCloseReasonList = class(TfrmBaseGridDetail)
-    JvLabel1: TJvLabel;
     edReason: TRzDBEdit;
     cbSystem: TRzDBCheckBox;
     cbAutoPosting: TRzDBCheckBox;
+    Label2: TLabel;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private

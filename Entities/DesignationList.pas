@@ -5,14 +5,14 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, BaseGridDetail, Data.DB,
-  System.ImageList, Vcl.ImgList, JvImageList, RzButton, Vcl.StdCtrls, Vcl.Mask,
+  System.ImageList, Vcl.ImgList, RzButton, Vcl.StdCtrls, Vcl.Mask,
   RzEdit, RzTabs, Vcl.Grids, Vcl.DBGrids, RzDBGrid, RzLabel, Vcl.ExtCtrls,
-  RzPanel, RzDBEdit, JvExControls, JvLabel;
+  RzPanel, RzDBEdit;
 
 type
   TfrmDesignationList = class(TfrmBaseGridDetail)
     edDesignation: TRzDBEdit;
-    JvLabel1: TJvLabel;
+    Label2: TLabel;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private

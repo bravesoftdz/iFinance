@@ -6,20 +6,20 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, BasePopupDetail, RzButton, RzTabs,
   Vcl.StdCtrls, RzLabel, Vcl.Imaging.pngimage, Vcl.ExtCtrls, RzPanel, RzDBEdit,
-  RzEdit, JvExControls, JvLabel, Vcl.Mask, RzBtnEdt, Vcl.DBCtrls, RzDBCmbo;
+  RzEdit, Vcl.Mask, RzBtnEdt, Vcl.DBCtrls, RzDBCmbo;
 
 type
   TfrmWithdrawalDetail = class(TfrmBasePopupDetail)
     dteWithdrawalDate: TRzDBDateTimeEdit;
-    JvLabel7: TJvLabel;
-    c: TJvLabel;
-    JvLabel1: TJvLabel;
-    JvLabel5: TJvLabel;
     edWithdrawn: TRzDBNumericEdit;
-    JvLabel2: TJvLabel;
     edCardNo: TRzEdit;
     bteClient: TRzButtonEdit;
     dbluAccount: TRzDBLookupComboBox;
+    Label1: TLabel;
+    Label2: TLabel;
+    Label3: TLabel;
+    Label4: TLabel;
+    Label5: TLabel;
     procedure bteClientButtonClick(Sender: TObject);
   private
     { Private declarations }

@@ -45,21 +45,19 @@ inherited frmLoanClassChargeTypeList: TfrmLoanClassChargeTypeList
     ExplicitTop = 0
   end
   inherited pnlDetail: TRzPanel
-    object JvLabel3: TJvLabel [0]
+    object Label2: TLabel [0]
       Left = 13
       Top = 23
-      Width = 30
+      Width = 28
       Height = 14
       Caption = 'Type'
-      Transparent = True
     end
-    object JvLabel1: TJvLabel [1]
+    object Label3: TLabel [1]
       Left = 13
       Top = 50
-      Width = 33
+      Width = 31
       Height = 14
       Caption = 'Name'
-      Transparent = True
     end
     inherited pnlAdd: TRzPanel
       ExplicitTop = 429

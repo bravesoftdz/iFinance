@@ -6,26 +6,25 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, BasePopupDetail, RzButton, RzTabs,
   Vcl.StdCtrls, RzLabel, Vcl.Imaging.pngimage, Vcl.ExtCtrls, RzPanel, Vcl.Mask,
-  RzEdit, RzDBEdit, JvExControls, JvLabel, Vcl.DBCtrls, RzDBCmbo, DB, RzRadGrp,
-  RzDBRGrp, RzRadChk, RzDBChk;
+  RzEdit, RzDBEdit, Vcl.DBCtrls, RzDBCmbo, DB, RzRadGrp, RzDBRGrp, RzRadChk, RzDBChk;
 
 type
   TfrmLoanClassChargeDetail = class(TfrmBasePopupDetail)
-    JvLabel1: TJvLabel;
-    JvLabel2: TJvLabel;
     rbgValueType: TRzDBRadioGroup;
     dbluType: TRzDBLookupComboBox;
     edValue: TRzDBNumericEdit;
-    JvLabel3: TJvLabel;
     edRatio: TRzDBNumericEdit;
     edMaximum: TRzDBNumericEdit;
-    JvLabel4: TJvLabel;
     RzGroupBox2: TRzGroupBox;
     chbForNew: TRzDBCheckBox;
     chbForRenewal: TRzDBCheckBox;
     chbForRestructure: TRzDBCheckBox;
     chbForReloan: TRzDBCheckBox;
     rbgMaxValueType: TRzDBRadioGroup;
+    Label1: TLabel;
+    Label2: TLabel;
+    Label3: TLabel;
+    Label4: TLabel;
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure rbgValueTypeChange(Sender: TObject);

@@ -6,16 +6,16 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, BaseGridDetail, Data.DB, RzButton,
   Vcl.StdCtrls, Vcl.Mask, RzEdit, Vcl.Grids, Vcl.DBGrids, RzDBGrid, RzLabel,
-  Vcl.ExtCtrls, RzPanel, Vcl.DBCtrls, RzDBEdit, JvExControls, JvLabel, RzDBCmbo;
+  Vcl.ExtCtrls, RzPanel, Vcl.DBCtrls, RzDBEdit, RzDBCmbo;
 
 type
   TfrmLoanTypeList = class(TfrmBaseGridDetail)
-    JvLabel1: TJvLabel;
     edTypeName: TRzDBEdit;
-    JvLabel2: TJvLabel;
     RzDBMemo1: TRzDBMemo;
-    JvLabel3: TJvLabel;
     dbluAccountType: TRzDBLookupComboBox;
+    Label2: TLabel;
+    Label3: TLabel;
+    Label4: TLabel;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private

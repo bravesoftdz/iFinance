@@ -6,47 +6,46 @@ uses
   Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, BasePopupDetail, RzButton, RzTabs,
   Vcl.StdCtrls, RzLabel, Vcl.Imaging.pngimage, Vcl.ExtCtrls, RzPanel,
-  JvExControls, JvLabel, Vcl.Mask, RzEdit, Vcl.DBCtrls, RzDBCmbo, RzCmboBx,
+  Vcl.Mask, RzEdit, Vcl.DBCtrls, RzDBCmbo, RzCmboBx,
   Data.DB, Vcl.Grids, Vcl.DBGrids, RzDBGrid, RzRadChk, DateUtils, Math;
 
 type
   TfrmPaymentDetail = class(TfrmBasePopupDetail)
-    JvLabel1: TJvLabel;
-    JvLabel2: TJvLabel;
-    JvLabel3: TJvLabel;
-    JvLabel4: TJvLabel;
-    lblLoanId: TJvLabel;
-    lblType: TJvLabel;
-    lblAccount: TJvLabel;
-    lblLoanBalance: TJvLabel;
     edPrincipal: TRzNumericEdit;
-    JvLabel5: TJvLabel;
-    JvLabel6: TJvLabel;
     edInterest: TRzNumericEdit;
-    lblTotal: TJvLabel;
-    JvLabel8: TJvLabel;
     edPenalty: TRzNumericEdit;
-    JvLabel9: TJvLabel;
-    JvLabel10: TJvLabel;
     urlPrincipalAmortization: TRzURLLabel;
     urlInterestAmortization: TRzURLLabel;
-    JvLabel11: TJvLabel;
-    JvLabel12: TJvLabel;
-    lblInterestDeficit: TJvLabel;
     cbxFullPayment: TRzCheckBox;
-    JvLabel7: TJvLabel;
-    lblLastTransaction: TJvLabel;
     urlLedger: TRzURLLabel;
-    JvLabel13: TJvLabel;
-    lblDays: TJvLabel;
-    lblRemainingAmount: TJvLabel;
-    JvLabel14: TJvLabel;
     urlAmortization: TRzURLLabel;
-    JvLabel15: TJvLabel;
-    JvLabel16: TJvLabel;
-    lblPrincipalDeficit: TJvLabel;
     urlInterestDueOnPaymentDate: TRzURLLabel;
     urlTotalInterestDue: TRzURLLabel;
+    Label1: TLabel;
+    Label2: TLabel;
+    Label3: TLabel;
+    Label4: TLabel;
+    Label5: TLabel;
+    Label6: TLabel;
+    Label7: TLabel;
+    Label8: TLabel;
+    Label9: TLabel;
+    Label10: TLabel;
+    Label11: TLabel;
+    Label12: TLabel;
+    Label13: TLabel;
+    Label14: TLabel;
+    Label15: TLabel;
+    lblLoanId: TLabel;
+    lblType: TLabel;
+    lblLoanBalance: TLabel;
+    lblInterestDeficit: TLabel;
+    lblPrincipalDeficit: TLabel;
+    lblRemainingAmount: TLabel;
+    lblAccount: TLabel;
+    lblLastTransaction: TLabel;
+    lblDays: TLabel;
+    lblTotal: TLabel;
     procedure FormCreate(Sender: TObject);
     procedure FormKeyPress(Sender: TObject; var Key: Char);
     procedure edPrincipalChange(Sender: TObject);

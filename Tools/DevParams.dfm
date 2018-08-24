@@ -39,39 +39,6 @@ inherited frmDevParams: TfrmDevParams
         inherited tsDetail: TRzTabSheet
           ExplicitWidth = 355
           ExplicitHeight = 144
-          object JvLabel7: TJvLabel
-            Tag = -1
-            Left = 19
-            Top = 23
-            Width = 90
-            Height = 14
-            Caption = 'Application date'
-            Transparent = True
-          end
-          object JvLabel1: TJvLabel
-            Tag = -1
-            Left = 19
-            Top = 95
-            Width = 347
-            Height = 32
-            AutoSize = False
-            Caption = 
-              'Note: This form is for TESTING purposes only and will be disable' +
-              'd on rollout.'
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clRed
-            Font.Height = -12
-            Font.Name = 'Tahoma'
-            Font.Style = []
-            ParentFont = False
-            Transparent = True
-            WordWrap = True
-            HotTrackFont.Charset = DEFAULT_CHARSET
-            HotTrackFont.Color = clWindowText
-            HotTrackFont.Height = -12
-            HotTrackFont.Name = 'Tahoma'
-            HotTrackFont.Style = []
-          end
           object urlNextMonth: TRzURLLabel
             Tag = 1
             Left = 263
@@ -86,6 +53,30 @@ inherited frmDevParams: TfrmDevParams
             Font.Style = [fsUnderline]
             ParentFont = False
             OnClick = urlNextMonthClick
+          end
+          object Label1: TLabel
+            Left = 19
+            Top = 23
+            Width = 88
+            Height = 14
+            Caption = 'Application date'
+          end
+          object Label2: TLabel
+            Left = 19
+            Top = 95
+            Width = 347
+            Height = 26
+            AutoSize = False
+            Caption = 
+              'Note: This form is for TESTING purposes only and will be disable' +
+              'd on rollout.'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clRed
+            Font.Height = -12
+            Font.Name = 'Tahoma'
+            Font.Style = []
+            ParentFont = False
+            WordWrap = True
           end
           object dteApplicationDate: TRzDateTimeEdit
             Left = 127

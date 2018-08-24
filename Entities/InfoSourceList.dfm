@@ -32,13 +32,12 @@ inherited frmInfoSourceList: TfrmInfoSourceList
     ExplicitTop = 0
   end
   inherited pnlDetail: TRzPanel
-    object JvLabel1: TJvLabel [0]
+    object Label2: TLabel [0]
       Left = 13
       Top = 23
-      Width = 40
+      Width = 38
       Height = 14
       Caption = 'Source'
-      Transparent = True
     end
     inherited pnlAdd: TRzPanel
       ExplicitTop = 429

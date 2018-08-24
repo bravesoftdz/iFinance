@@ -32,13 +32,12 @@ inherited frmLoanCloseReasonList: TfrmLoanCloseReasonList
     ExplicitTop = 0
   end
   inherited pnlDetail: TRzPanel
-    object JvLabel1: TJvLabel [0]
+    object Label2: TLabel [0]
       Left = 13
       Top = 23
-      Width = 41
+      Width = 39
       Height = 14
       Caption = 'Reason'
-      Transparent = True
     end
     inherited pnlAdd: TRzPanel
       ExplicitTop = 429

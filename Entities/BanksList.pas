@@ -6,14 +6,12 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, BaseDocked, Data.DB, RzTabs, Vcl.Grids,
   Vcl.DBGrids, RzDBGrid, Vcl.StdCtrls, RzLabel, Vcl.ExtCtrls, RzPanel, RzButton,
-  Vcl.DBCtrls, RzDBEdit, Vcl.Mask, RzEdit, JvExControls, JvLabel, SaveIntf, NewIntf,
+  Vcl.DBCtrls, RzDBEdit, Vcl.Mask, RzEdit, SaveIntf, NewIntf,
   RzCmboBx;
 
 type
   TfrmBanksList = class(TfrmBaseDocked, ISave, INew)
-    JvLabel1: TJvLabel;
     mmBranch: TRzDBMemo;
-    JvLabel3: TJvLabel;
     pnlDetail: TRzPanel;
     pnlAdd: TRzPanel;
     sbtnNew: TRzShapeButton;
@@ -22,6 +20,8 @@ type
     Label1: TLabel;
     cmbBanks: TRzComboBox;
     edBankName: TRzEdit;
+    Label2: TLabel;
+    Label3: TLabel;
     procedure FormShow(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure sbtnNewClick(Sender: TObject);

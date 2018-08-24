@@ -84,53 +84,47 @@ inherited frmGroupList: TfrmGroupList
     Height = 461
     ExplicitTop = 7
     ExplicitHeight = 461
-    object JvLabel1: TJvLabel [0]
+    object Label2: TLabel [0]
       Left = 13
       Top = 23
-      Width = 33
+      Width = 31
       Height = 14
       Caption = 'Name'
-      Transparent = True
     end
-    object JvLabel12: TJvLabel [1]
+    object Label3: TLabel [1]
       Left = 13
       Top = 50
-      Width = 38
+      Width = 36
       Height = 14
       Caption = 'Parent'
-      Transparent = True
     end
-    object JvLabel14: TJvLabel [2]
+    object Label4: TLabel [2]
       Left = 13
       Top = 134
-      Width = 81
+      Width = 79
       Height = 14
       Caption = 'Maximum total'
-      Transparent = True
     end
-    object JvLabel2: TJvLabel [3]
+    object Label5: TLabel [3]
       Left = 13
       Top = 161
-      Width = 57
+      Width = 55
       Height = 14
       Caption = 'Loan type'
-      Transparent = True
     end
-    object JvLabel5: TJvLabel [4]
+    object Label6: TLabel [4]
       Left = 13
       Top = 188
-      Width = 63
+      Width = 61
       Height = 14
       Caption = 'Concurrent'
-      Transparent = True
     end
-    object JvLabel4: TJvLabel [5]
+    object Label7: TLabel [5]
       Left = 13
       Top = 215
-      Width = 71
+      Width = 69
       Height = 14
       Caption = 'ID'#39's required'
-      Transparent = True
     end
     inherited pnlAdd: TRzPanel
       Top = 431

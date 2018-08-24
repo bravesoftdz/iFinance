@@ -25,9 +25,6 @@ Coordinates=246,10,140,51
 [dmEntities.dscParGroup]
 Coordinates=357,78,135,33
 
-[JvLabel1]
-Coordinates=187,418,58,33
-
 [pnlAdd]
 Coordinates=177,146,49,51
 
@@ -54,9 +51,6 @@ Coordinates=220,282,139,51
 
 [pnlSearch]
 Coordinates=456,214,64,51
-
-[JvLabel3]
-Coordinates=10,418,58,33
 
 [dmEntities.dscIHPersonal]
 Coordinates=549,1,141,33
@@ -97,9 +91,6 @@ Coordinates=405,146,137,51
 [cmbBranch]
 Coordinates=478,350,71,33
 
-[JvLabel2]
-Coordinates=402,350,58,33
-
 [dmEntities.dstEntities]
 Coordinates=389,282,122,51
 
@@ -131,7 +122,7 @@ Coordinates=959,309,124,33
 Coordinates=160,1,140,33
 
 []
-Coordinates=340,420,60,51
+Coordinates=10,418,58,33
 ExplicitSubNodes=Text
 Visible=True
 

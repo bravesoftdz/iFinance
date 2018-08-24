@@ -39,14 +39,12 @@ inherited frmLoanClassAdvancePaymentDetail: TfrmLoanClassAdvancePaymentDetail
         inherited tsDetail: TRzTabSheet
           ExplicitWidth = 269
           ExplicitHeight = 178
-          object JvLabel14: TJvLabel
-            Tag = -1
+          object Label1: TLabel
             Left = 19
             Top = 111
-            Width = 105
+            Width = 103
             Height = 14
             Caption = 'Number of months'
-            Transparent = True
           end
           object edNumberOfMonths: TRzNumericEdit
             Left = 138

@@ -6,37 +6,26 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, BaseDocked, Data.DB, RzButton, RzRadChk,
   RzDBChk, Vcl.DBCtrls, RzDBCmbo, Vcl.StdCtrls, Vcl.Mask, RzEdit, RzDBEdit,
-  JvExControls, JvLabel, RzTabs, Vcl.Grids, Vcl.DBGrids, RzDBGrid, RzLabel,
-  Vcl.ExtCtrls, RzPanel, SaveIntf, RzLstBox, RzChkLst, NewIntf, RzCmboBx,
-  RzGrids, RzBtnEdt, RzRadGrp, RzDBRGrp;
+  RzTabs, Vcl.Grids, Vcl.DBGrids, RzDBGrid, RzLabel, Vcl.ExtCtrls, RzPanel, SaveIntf,
+  RzLstBox, RzChkLst, NewIntf, RzCmboBx, RzGrids, RzBtnEdt, RzRadGrp, RzDBRGrp;
 
 type
   TfrmLoanClassificationList = class(TfrmBaseDocked,ISave,INew)
     pnlList: TRzPanel;
     grList: TRzDBGrid;
-    JvLabel1: TJvLabel;
     edClassName: TRzDBEdit;
-    JvLabel3: TJvLabel;
-    JvLabel4: TJvLabel;
     edTerm: TRzDBEdit;
-    JvLabel5: TJvLabel;
     edComakersMin: TRzDBEdit;
-    JvLabel6: TJvLabel;
-    JvLabel7: TJvLabel;
     dbluCompMethod: TRzDBLookupComboBox;
     edInterest: TRzDBNumericEdit;
     edMaxLoan: TRzDBNumericEdit;
-    JvLabel9: TJvLabel;
     dbluBranch: TRzDBLookupComboBox;
-    JvLabel10: TJvLabel;
     dteFrom: TRzDBDateTimeEdit;
     dteUntil: TRzDBDateTimeEdit;
-    JvLabel12: TJvLabel;
     dbluPayFreq: TRzDBLookupComboBox;
     pnlDetail: TRzPanel;
     pnlAdd: TRzPanel;
     sbtnNew: TRzShapeButton;
-    JvLabel14: TJvLabel;
     RzDBEdit2: TRzDBEdit;
     Label1: TLabel;
     cmbBranch: TRzComboBox;
@@ -45,16 +34,25 @@ type
     sbtnActivate: TRzShapeButton;
     RzPanel3: TRzPanel;
     RzShapeButton1: TRzShapeButton;
-    JvLabel11: TJvLabel;
-    JvLabel13: TJvLabel;
     edComakersMax: TRzDBEdit;
-    JvLabel2: TJvLabel;
-    JvLabel8: TJvLabel;
     urlClassCharges: TRzURLLabel;
     urlAdvancePayment: TRzURLLabel;
     rbgDiminishingType: TRzDBRadioGroup;
-    JvLabel15: TJvLabel;
     edMaxAdvancePayment: TRzDBNumericEdit;
+    Label2: TLabel;
+    Label3: TLabel;
+    Label4: TLabel;
+    Label5: TLabel;
+    Label6: TLabel;
+    Label7: TLabel;
+    Label8: TLabel;
+    Label9: TLabel;
+    Label10: TLabel;
+    Label11: TLabel;
+    Label12: TLabel;
+    Label13: TLabel;
+    Label14: TLabel;
+    Label15: TLabel;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure urlRefreshListClick(Sender: TObject);

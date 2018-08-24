@@ -40,21 +40,19 @@ inherited frmBanksList: TfrmBanksList
     DesignSize = (
       276
       483)
-    object JvLabel1: TJvLabel
+    object Label2: TLabel
       Left = 13
       Top = 23
-      Width = 62
+      Width = 60
       Height = 14
       Caption = 'Bank name'
-      Transparent = True
     end
-    object JvLabel3: TJvLabel
+    object Label3: TLabel
       Left = 13
       Top = 50
-      Width = 39
+      Width = 37
       Height = 14
       Caption = 'Branch'
-      Transparent = True
     end
     object pnlAdd: TRzPanel
       Left = 8

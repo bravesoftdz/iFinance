@@ -5,15 +5,15 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, BaseGridDetail, Data.DB,
-  System.ImageList, Vcl.ImgList, JvImageList, Vcl.StdCtrls, Vcl.Mask, RzEdit,
+  System.ImageList, Vcl.ImgList, Vcl.StdCtrls, Vcl.Mask, RzEdit,
   RzButton, RzTabs, Vcl.Grids, Vcl.DBGrids, RzDBGrid, RzLabel, Vcl.ExtCtrls,
-  RzPanel, RzDBEdit, JvExControls, JvLabel, RzCmboBx;
+  RzPanel, RzDBEdit, RzCmboBx;
 
 type
   TfrmCompetitorList = class(TfrmBaseGridDetail)
-    JvLabel1: TJvLabel;
     edCompName: TRzDBEdit;
     cmbBranch: TRzComboBox;
+    Label2: TLabel;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure cmbBranchChange(Sender: TObject);

@@ -6,16 +6,15 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, BasePopupDetail, RzButton, RzTabs,
   Vcl.StdCtrls, RzLabel, Vcl.Imaging.pngimage, Vcl.ExtCtrls, RzPanel, RzRadChk,
-  Vcl.Mask, RzEdit, RzRadGrp, RzDBRGrp, DB, LoanClassAdvance, JvExControls,
-  JvLabel, RzDBChk;
+  Vcl.Mask, RzEdit, RzRadGrp, RzDBRGrp, DB, LoanClassAdvance, RzDBChk;
 
 type
   TfrmLoanClassAdvancePaymentDetail = class(TfrmBasePopupDetail)
     edNumberOfMonths: TRzNumericEdit;
     RzGroupBox2: TRzGroupBox;
     rbgMethod: TRzDBRadioGroup;
-    JvLabel14: TJvLabel;
     cbxIncludePrincipal: TRzDBCheckBox;
+    Label1: TLabel;
     procedure rbgMethodChange(Sender: TObject);
     procedure FormCreate(Sender: TObject);
   private
