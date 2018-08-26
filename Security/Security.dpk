@@ -43,10 +43,6 @@ requires
   bindcomp,
   bindcompvcl,
   RaizeComponentsVclDb,
-  Jcl,
-  JvCore,
-  JvStdCtrls,
-  JvPageComps,
   frce,
   adortl,
   LockBoxDR;

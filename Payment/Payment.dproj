@@ -113,9 +113,6 @@
         <DCCReference Include="dbrtl.dcp"/>
         <DCCReference Include="adortl.dcp"/>
         <DCCReference Include="RaizeComponentsVcl.dcp"/>
-        <DCCReference Include="Jcl.dcp"/>
-        <DCCReference Include="JvCore.dcp"/>
-        <DCCReference Include="JvStdCtrls.dcp"/>
         <DCCReference Include="vcldb.dcp"/>
         <DCCReference Include="RaizeComponentsVclDb.dcp"/>
         <DCCReference Include="FireDAC.dcp"/>

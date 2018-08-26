@@ -95,9 +95,6 @@
         <DCCReference Include="dbrtl.dcp"/>
         <DCCReference Include="vcldb.dcp"/>
         <DCCReference Include="RaizeComponentsVclDb.dcp"/>
-        <DCCReference Include="Jcl.dcp"/>
-        <DCCReference Include="JvCore.dcp"/>
-        <DCCReference Include="JvStdCtrls.dcp"/>
         <DCCReference Include="adortl.dcp"/>
         <DCCReference Include="BaseForm.pas">
             <Form>frmBase</Form>

@@ -35,9 +35,6 @@ requires
   dbrtl,
   adortl,
   RaizeComponentsVcl,
-  Jcl,
-  JvCore,
-  JvStdCtrls,
   FireDAC,
   FireDACCommonDriver,
   FireDACCommon;

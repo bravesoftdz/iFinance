@@ -96,10 +96,6 @@
         <DCCReference Include="adortl.dcp"/>
         <DCCReference Include="RaizeComponentsVcl.dcp"/>
         <DCCReference Include="RaizeComponentsVclDb.dcp"/>
-        <DCCReference Include="Jcl.dcp"/>
-        <DCCReference Include="JvCore.dcp"/>
-        <DCCReference Include="JvStdCtrls.dcp"/>
-        <DCCReference Include="JvControls.dcp"/>
         <DCCReference Include="DSPack_DXE4.dcp"/>
         <DCCReference Include="ClientMain.pas">
             <Form>frmClientMain</Form>

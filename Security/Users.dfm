@@ -11,6 +11,7 @@ inherited frmUsers: TfrmUsers
   end
   inherited pnlList: TRzPanel
     inherited grList: TRzDBGrid
+      DataSource = dmSecurity.dscUser
       OnDblClick = grListDblClick
       Columns = <
         item

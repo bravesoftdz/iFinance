@@ -74,7 +74,7 @@ inherited frmLoanClassChargeTypeList: TfrmLoanClassChargeTypeList
       FrameVisible = True
       FramingPreference = fpCustomFraming
       TabOnEnter = True
-      TabOrder = 2
+      TabOrder = 1
     end
     object edName: TRzDBEdit
       Left = 56
@@ -87,7 +87,7 @@ inherited frmLoanClassChargeTypeList: TfrmLoanClassChargeTypeList
       FrameVisible = True
       FramingPreference = fpCustomFraming
       TabOnEnter = True
-      TabOrder = 1
+      TabOrder = 2
     end
   end
 end

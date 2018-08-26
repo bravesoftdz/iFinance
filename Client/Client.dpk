@@ -37,10 +37,6 @@ requires
   adortl,
   RaizeComponentsVcl,
   RaizeComponentsVclDb,
-  Jcl,
-  JvCore,
-  JvStdCtrls,
-  JvControls,
   DSPack_DXE4;
 
 contains

@@ -838,7 +838,6 @@ end;
 
 function TLoan.GetTotalAdvancePayment: currency;
 var
-  refPostingId: string;
   principal, interest, balance, total: currency;
   i, cnt: integer;
   adv: TAdvancePayment;

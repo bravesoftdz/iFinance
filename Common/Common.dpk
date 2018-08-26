@@ -35,10 +35,6 @@ requires
   adortl,
   vclimg,
   vcldb,
-  Jcl,
-  JvCore,
-  JvStdCtrls,
-  JvDB,
   RaizeComponentsVcl,
   RaizeComponentsVclDb,
   FireDAC;

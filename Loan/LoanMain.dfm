@@ -4,7 +4,6 @@ inherited frmLoanMain: TfrmLoanMain
   ClientWidth = 1155
   OnCreate = FormCreate
   OnShow = FormShow
-  ExplicitLeft = -109
   ExplicitWidth = 1171
   ExplicitHeight = 581
   PixelsPerInch = 96
@@ -83,6 +82,7 @@ inherited frmLoanMain: TfrmLoanMain
         DataSource = dmLoan.dscLoanClass
       end
       object Label1: TLabel
+        Tag = -1
         Left = 19
         Top = 45
         Width = 30
@@ -90,6 +90,7 @@ inherited frmLoanMain: TfrmLoanMain
         Caption = 'Client'
       end
       object Label2: TLabel
+        Tag = -1
         Left = 19
         Top = 72
         Width = 43
@@ -97,6 +98,7 @@ inherited frmLoanMain: TfrmLoanMain
         Caption = 'Address'
       end
       object Label3: TLabel
+        Tag = -1
         Left = 19
         Top = 109
         Width = 50
@@ -104,6 +106,7 @@ inherited frmLoanMain: TfrmLoanMain
         Caption = 'Employer'
       end
       object Label4: TLabel
+        Tag = -1
         Left = 19
         Top = 146
         Width = 43
@@ -111,6 +114,7 @@ inherited frmLoanMain: TfrmLoanMain
         Caption = 'Net pay'
       end
       object Label5: TLabel
+        Tag = -1
         Left = 19
         Top = 209
         Width = 54
@@ -118,6 +122,7 @@ inherited frmLoanMain: TfrmLoanMain
         Caption = 'Loan class'
       end
       object Label6: TLabel
+        Tag = -1
         Left = 19
         Top = 236
         Width = 68
@@ -125,6 +130,7 @@ inherited frmLoanMain: TfrmLoanMain
         Caption = 'Date applied'
       end
       object Label7: TLabel
+        Tag = -1
         Left = 19
         Top = 263
         Width = 86
@@ -132,6 +138,7 @@ inherited frmLoanMain: TfrmLoanMain
         Caption = 'Amount applied'
       end
       object Label8: TLabel
+        Tag = -1
         Left = 19
         Top = 290
         Width = 70
@@ -139,6 +146,7 @@ inherited frmLoanMain: TfrmLoanMain
         Caption = 'Desired term'
       end
       object Label9: TLabel
+        Tag = -1
         Left = 19
         Top = 317
         Width = 44
@@ -1977,58 +1985,106 @@ inherited frmLoanMain: TfrmLoanMain
             object Label14: TLabel
               Left = 19
               Top = 61
-              Width = 72
+              Width = 84
               Height = 14
               Caption = 'Amortization:'
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -12
+              Font.Name = 'Tahoma'
+              Font.Style = [fsBold]
+              ParentFont = False
             end
             object Label15: TLabel
               Left = 19
               Top = 85
-              Width = 75
+              Width = 84
               Height = 14
               Caption = 'Loan balance:'
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -12
+              Font.Name = 'Tahoma'
+              Font.Style = [fsBold]
+              ParentFont = False
             end
             object Label16: TLabel
               Left = 19
               Top = 109
-              Width = 85
+              Width = 96
               Height = 14
               Caption = 'Interest deficit:'
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -12
+              Font.Name = 'Tahoma'
+              Font.Style = [fsBold]
+              ParentFont = False
             end
             object Label17: TLabel
               Left = 19
               Top = 135
-              Width = 84
+              Width = 97
               Height = 14
               Caption = 'Principal deficit:'
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -12
+              Font.Name = 'Tahoma'
+              Font.Style = [fsBold]
+              ParentFont = False
             end
             object Label18: TLabel
               Left = 19
               Top = 161
-              Width = 90
+              Width = 104
               Height = 14
               Caption = 'Last transaction:'
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -12
+              Font.Name = 'Tahoma'
+              Font.Style = [fsBold]
+              ParentFont = False
             end
             object Label19: TLabel
               Left = 19
               Top = 186
-              Width = 144
+              Width = 166
               Height = 14
               Caption = 'Days from last transaction:'
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -12
+              Font.Name = 'Tahoma'
+              Font.Style = [fsBold]
+              ParentFont = False
             end
             object Label20: TLabel
               Left = 19
               Top = 210
-              Width = 107
+              Width = 120
               Height = 14
               Caption = 'Interest as of date:'
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -12
+              Font.Name = 'Tahoma'
+              Font.Style = [fsBold]
+              ParentFont = False
             end
             object Label21: TLabel
               Left = 19
               Top = 237
-              Width = 103
+              Width = 114
               Height = 14
               Caption = 'Total interest due:'
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -12
+              Font.Name = 'Tahoma'
+              Font.Style = [fsBold]
+              ParentFont = False
             end
             object lblDaysFromLastTransaction: TLabel
               Left = 187

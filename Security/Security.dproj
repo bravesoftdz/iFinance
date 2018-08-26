@@ -130,10 +130,6 @@
         <DCCReference Include="bindcomp.dcp"/>
         <DCCReference Include="bindcompvcl.dcp"/>
         <DCCReference Include="RaizeComponentsVclDb.dcp"/>
-        <DCCReference Include="Jcl.dcp"/>
-        <DCCReference Include="JvCore.dcp"/>
-        <DCCReference Include="JvStdCtrls.dcp"/>
-        <DCCReference Include="JvPageComps.dcp"/>
         <DCCReference Include="frce.dcp"/>
         <DCCReference Include="adortl.dcp"/>
         <DCCReference Include="LockBoxDR.dcp"/>

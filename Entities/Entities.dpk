@@ -35,12 +35,8 @@ requires
   dbrtl,
   vcldb,
   adortl,
-  Jcl,
-  JvCore,
-  JvStdCtrls,
   RaizeComponentsVcl,
   RaizeComponentsVclDb,
-  JvDB,
   FireDAC;
 
 contains
